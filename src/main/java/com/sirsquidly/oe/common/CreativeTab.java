@@ -14,15 +14,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	public class CreativeTab extends CreativeTabs
 	{
 		public CreativeTab(String label) 
-		{
-			super(label);
-		}
+		{ super(label); }
 
 		@Override
 		public ItemStack getTabIconItem() 
-		{
-			return new ItemStack(OEItems.GLOW_INK);
-		}
+		{ return new ItemStack(OEItems.GLOW_INK); }
 		
 		@Override
 		@SideOnly(Side.CLIENT)
@@ -47,6 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEBlocks.COCONUT);
 	        add(list, OEItems.COCONUT_OPEN);
 	        add(list, OEItems.SCUTE);
+	        add(list, OEBlocks.SEA_TURTLE_EGG);
 	        add(list, OEBlocks.BLUE_CORAL_BLOCK);
 	        add(list, OEBlocks.PINK_CORAL_BLOCK);
 	        add(list, OEBlocks.PURPLE_CORAL_BLOCK);
@@ -82,17 +79,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 		
 		public void add(NonNullList<ItemStack> list, Item item)
-		{
-			list.add(new ItemStack(item));
-		}
+		{ list.add(new ItemStack(item)); }
 		
 		public void add(NonNullList<ItemStack> list, Block block)
-		{
-			list.add(new ItemStack(block));
-		}
+		{ list.add(new ItemStack(block)); }
 		
 		public void add(NonNullList<ItemStack> list, ItemStack stack)
-		{
-			list.add(stack);
-		}
+		{ list.add(stack); }
 }
