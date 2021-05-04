@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "stringless=false": { "model": "oe:dried_kelp_block" },
+        "stringless=true": { "model": "oe:dried_kelp_open_block" }
+    }
+}

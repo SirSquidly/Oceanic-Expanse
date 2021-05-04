@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "oe:blocks/coral/purple_coral_block_dead"
+    }
+}

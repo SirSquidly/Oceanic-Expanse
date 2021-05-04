@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=up": { "model": "oe:guardian_spike" },
+        "facing=down": { "model": "oe:guardian_spike", "x": 180 },
+        "facing=east": { "model": "oe:guardian_spike", "y": 90, "x": 90 },
+        "facing=south": { "model": "oe:guardian_spike", "y": 180, "x": 90 },
+        "facing=west": { "model": "oe:guardian_spike", "y": 270, "x": 90 },
+        "facing=north": { "model": "oe:guardian_spike", "y": 0, "x": 90 }
+    }
+}

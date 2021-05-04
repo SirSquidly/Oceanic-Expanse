@@ -1,0 +1,98 @@
+itemGroup.oceanictab=Oceanic Expanse
+
+death.attack.coconut=%1$s was clonked on the head by a coconut
+
+item.trident.name=Trident
+item.glow_ink_sac.name=Glow Ink Sac
+item.chlorine.name=Chlorine
+item.dried_kelp.name=Dried Kelp
+item.calamari_uncooked.name=Raw Squid
+item.calamari_cooked.name=Roasted Calamari
+item.coconut_open.name=Cracked Coconut
+item.crab_raw.name=Raw Crab
+item.crab_cooked.name=Cooked Crab
+
+item.spawn_bucket.name=Bucket of 
+item.cod_bucket.name=Bucket of Cod
+
+tile.blue_coral_block.name=Tube Coral Block
+tile.blue_coral.name=Tube Coral
+tile.blue_coral_fan.name=Tube Coral Fan
+tile.blue_coral_block_dead.name=Dead Tube Coral Block
+tile.blue_coral_dead.name=Dead Tube Coral
+tile.blue_coral_fan_dead.name=Dead Tube Coral Fan
+
+tile.pink_coral_block.name=Brain Coral Block
+tile.pink_coral.name=Brain Coral
+tile.pink_coral_fan.name=Brain Coral Fan
+tile.pink_coral_block_dead.name=Dead Brain Coral Block
+tile.pink_coral_dead.name=Dead Brain Coral
+tile.pink_coral_fan_dead.name=Dead Brain Coral Fan
+
+tile.purple_coral_block.name=Bubble Coral Block
+tile.purple_coral.name=Bubble Coral
+tile.purple_coral_fan.name=Bubble Coral Fan
+tile.purple_coral_block_dead.name=Dead Bubble Coral Block
+tile.purple_coral_dead.name=Dead Bubble Coral
+tile.purple_coral_fan_dead.name=Dead Bubble Coral Fan
+
+tile.red_coral_block.name=Fire Coral Block
+tile.red_coral.name=Fire Coral
+tile.red_coral_fan.name=Fire Coral Fan
+tile.red_coral_block_dead.name=Dead Fire Coral Block
+tile.red_coral_dead.name=Dead Fire Coral
+tile.red_coral_fan_dead.name=Dead Fire Coral Fan
+
+tile.yellow_coral_block.name=Horn Coral Block
+tile.yellow_coral.name=Horn Coral
+tile.yellow_coral_fan.name=Horn Coral Fan
+tile.yellow_coral_block_dead.name=Dead Horn Coral Block
+tile.yellow_coral_dead.name=Dead Horn Coral
+tile.yellow_coral_fan_dead.name=Dead Horn Coral Fan
+
+tile.sea_pickle.name=Sea Pickle
+tile.seagrass.name=Seagrass
+tile.tall_seagrass.name=Tall Seagrass
+tile.kelp.name=Kelp
+tile.kelp_mid.name=Kelp Stem
+tile.dried_kelp_block.name=Dried Kelp Block
+tile.guardian_spike.name=Guardian Spike
+tile.turtle_egg.name=Turtle Egg
+tile.coconut.name=Coconut
+tile.coconut_leaves.name=Coconut Leaves
+tile.coconut_leaves_flowering.name=Flowering Coconut Leaves
+tile.coconut_sapling.name=Coconut Sapling
+
+entity.cod.name=Cod
+entity.salmon.name=Salmon
+entity.pufferfish.name=Pufferfish
+entity.turtle.name=Turtle
+entity.glow_squid.name=Glow Squid
+entity.crab.name=Crab
+entity.drowned.name=Drowned
+entity.pickled.name=Pickled
+
+enchantment.is_watermob=Impaling
+enchantment.is_wet=Waterjet
+
+description.chlorine.name=Removes Sea Grass in a 8x8 cube
+
+oe.config.title=Oceanic Expance Config
+
+oe.config.guSpiFallMultiplier=Guardian Spike fall damage multiplier
+
+oe.config.amountOnTrample=Amount of Turtle Eggs broken on trample
+oe.config.particlesOnFall=Turtle Egg particles when fallen on
+oe.config.puffOnTrample=Turtle Egg puff when trampled
+oe.config.zombiesTrample=Zombies trample Turtle Eggs
+
+oe.config.coconutHitSound=Coconut sound effect
+oe.config.coconutFallBreak=Coconut break height
+oe.config.coconutFallDamage=Coconut fall damage
+oe.config.coconutFallMaxDamage=Coconut max fall damage
+
+subtitle.drowned_ambient=Drowned gurgles
+subtitle.drowned_hurt=Drowned hurts
+subtitle.drowned_death=Drowned dies
+
+subtitle.coconut_hit=Coconut clonk

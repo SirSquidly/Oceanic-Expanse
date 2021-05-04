@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "amount=1":  { "model": "oe:sea_pickle_1" },
+        "amount=2":  { "model": "oe:sea_pickle_2" },
+        "amount=3":  { "model": "oe:sea_pickle_3" },
+        "amount=4":  { "model": "oe:sea_pickle_4" }
+    }
+}

@@ -1,0 +1,50 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "oe:blocks/sea_pickle",
+		"particle": "oe:blocks/sea_pickle"
+	},
+	"elements": [
+		{
+			"name": "pickle1",
+			"from": [6, 0, 6],
+			"to": [10, 6, 10],
+			"faces": {
+				"north": {"uv": [4, 7, 8, 13], "texture": "#0"},
+				"east": {"uv": [0, 7, 4, 13], "texture": "#0"},
+				"south": {"uv": [12, 7, 16, 13], "texture": "#0"},
+				"west": {"uv": [8, 7, 12, 13], "texture": "#0"},
+				"up": {"uv": [4, 3, 8, 7], "texture": "#0"},
+				"down": {"uv": [8, 3, 12, 7], "texture": "#0"}
+			}
+		},
+		{
+			"name": "pic1intest1",
+			"from": [6, 6, 8],
+			"to": [10, 11, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [0, 1, 4, 6], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 5], "texture": "#0"},
+				"south": {"uv": [0, 1, 4, 6], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 5], "texture": "#0"},
+				"up": {"uv": [0, 0, 4, 0], "texture": "#0"},
+				"down": {"uv": [0, 0, 4, 0], "texture": "#0"}
+			}
+		},
+		{
+			"name": "pic1intest2",
+			"from": [6, 6, 8],
+			"to": [10, 11, 8],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [0, 1, 4, 6], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 5], "texture": "#0"},
+				"south": {"uv": [0, 1, 4, 6], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 5], "texture": "#0"},
+				"up": {"uv": [0, 0, 4, 0], "texture": "#0"},
+				"down": {"uv": [0, 0, 4, 0], "texture": "#0"}
+			}
+		}
+	]
+}

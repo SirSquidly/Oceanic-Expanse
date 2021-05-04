@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=lower": { "model": "oe:tall_seagrass_bottom" },
+        "half=upper": { "model": "oe:tall_seagrass_top" }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "parent": "oe:item/trident_model",
+    "overrides": [
+        {
+            "predicate": {
+                "model": 1
+            },
+            "model": "oe:item/trident_inv"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "amount=1,in_water=false":  { "model": "oe:sea_pickle_1" },
+        "amount=2,in_water=false":  { "model": "oe:sea_pickle_2" },
+        "amount=3,in_water=false":  { "model": "oe:sea_pickle_3" },
+        "amount=4,in_water=false":  { "model": "oe:sea_pickle_4" },
+        "amount=1,in_water=true":  { "model": "oe:sea_pickle_wet1" },
+        "amount=2,in_water=true":  { "model": "oe:sea_pickle_wet2" },
+        "amount=3,in_water=true":  { "model": "oe:sea_pickle_wet3" },
+        "amount=4,in_water=true":  { "model": "oe:sea_pickle_wet4" }
+    }
+}

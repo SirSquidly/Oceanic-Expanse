@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "age=0,hanging=false":  { "model": "oe:coconut_0" },
+        "age=1,hanging=false":  { "model": "oe:coconut_1" },
+        "age=2,hanging=false":  { "model": "oe:coconut_2" },
+        "age=0,hanging=true":  { "model": "oe:coconut_0h" },
+        "age=1,hanging=true":  { "model": "oe:coconut_1h" },
+        "age=2,hanging=true":  { "model": "oe:coconut_2h" }
+    }
+}

@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "normal": { "model": "oe:coral/blue_coral_block_dead" }
+    }
+}

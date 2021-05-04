@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=up":    { "model": "oe:coral/purple_coral_fan_dead"},
+        "facing=down":  { "model": "oe:coral/purple_coral_fan_dead", "x": 180 },
+        "facing=east":  { "model": "oe:coral/purple_coral_fan_wall_dead", "y": 90 },
+        "facing=west":  { "model": "oe:coral/purple_coral_fan_wall_dead", "y": 270 },
+        "facing=south": { "model": "oe:coral/purple_coral_fan_wall_dead", "y": 180 },
+        "facing=north": { "model": "oe:coral/purple_coral_fan_wall_dead"}
+    }
+}

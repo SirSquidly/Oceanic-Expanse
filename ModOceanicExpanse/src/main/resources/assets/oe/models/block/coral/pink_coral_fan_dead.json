@@ -1,0 +1,6 @@
+{
+    "parent": "oe:block/coral_fan",
+    "textures": {
+        "fan": "oe:blocks/coral/pink_coral_fan_dead"
+    }
+}

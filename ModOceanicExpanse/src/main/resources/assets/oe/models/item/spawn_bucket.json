@@ -1,0 +1,36 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "oe:items/bucket/bucket_unknown"
+    },
+    "overrides": [
+        {
+            "predicate": { "check_entity": 0.01 },
+            "model": "oe:item/bucket/bucket_cod"
+        },
+        {
+            "predicate": { "check_entity": 0.02 },
+            "model": "oe:item/bucket/bucket_salmon"
+        },
+        {
+            "predicate": { "check_entity": 0.03 },
+            "model": "oe:item/bucket/bucket_pufferfish"
+        },
+        {
+            "predicate": { "check_entity": 0.11 },
+            "model": "oe:item/bucket/bucket_glowsquid"
+        },
+        {
+            "predicate": { "check_entity": 0.12 },
+            "model": "oe:item/bucket/bucket_squid"
+        },
+        {
+            "predicate": { "check_entity": 0.13 },
+            "model": "oe:item/bucket/bucket_drowned"
+        },
+        {
+            "predicate": { "check_entity": 0.14 },
+            "model": "oe:item/bucket/bucket_pickled"
+        }
+    ]
+}

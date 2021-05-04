@@ -1,0 +1,20 @@
+{
+    "variants": {
+        "age=0": { "model": "oe:kelp_top" },
+        "age=1": { "model": "oe:kelp_top" },
+        "age=2": { "model": "oe:kelp_top" },
+        "age=3": { "model": "oe:kelp_top" },
+        "age=4": { "model": "oe:kelp_top" },
+        "age=5": { "model": "oe:kelp_top" },
+        "age=6": { "model": "oe:kelp_top" },
+        "age=7": { "model": "oe:kelp_top" },
+        "age=8": { "model": "oe:kelp_top" },
+        "age=9": { "model": "oe:kelp_top" },
+        "age=10": { "model": "oe:kelp_top" },
+        "age=11": { "model": "oe:kelp_top" },
+        "age=12": { "model": "oe:kelp_top" },
+        "age=13": { "model": "oe:kelp_top" },
+        "age=14": { "model": "oe:kelp_top" },
+        "age=15": { "model": "oe:kelp_top" }
+    }
+}

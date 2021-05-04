@@ -1,0 +1,27 @@
+{
+	"snow_globe_shake": {
+    	"category": "block",
+    	"subtitle": "block.snow_globe_shake.interact",
+    	"sounds": [ "oe:block/snow_globe_shake_1", "oe:block/snow_globe_shake_2", "oe:block/snow_globe_shake_3"]
+     },
+	"drowned_ambient": {
+    	"category": "hostile",
+    	"subtitle": "subtitle.drowned_ambient",
+    	"sounds": [ "oe:entity/drowned/drowned_ambient_1", "oe:entity/drowned/drowned_ambient_2", "oe:entity/drowned/drowned_ambient_3" ]
+     },
+     "drowned_hurt": {
+    	"category": "hostile",
+    	"subtitle": "subtitle.drowned_hurt",
+    	"sounds": [ "oe:entity/drowned/drowned_hurt_1", "oe:entity/drowned/drowned_hurt_2" ]
+     },
+     "drowned_death": {
+    	"category": "hostile",
+    	"subtitle": "subtitle.drowned_death",
+    	"sounds": [ "oe:entity/drowned/drowned_death_1", "oe:entity/drowned/drowned_death_2" ]
+     },
+     "coconut_hit": {
+    	"category": "block",
+    	"subtitle": "subtitle.coconut_hit",
+    	"sounds": [ "oe:block/coconut_hit"]
+     }
+}   

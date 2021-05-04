@@ -1,0 +1,6 @@
+{
+    "parent": "oe:block/coral_wall_fan",
+    "textures": {
+        "fan": "oe:blocks/coral/blue_coral_fan"
+    }
+}

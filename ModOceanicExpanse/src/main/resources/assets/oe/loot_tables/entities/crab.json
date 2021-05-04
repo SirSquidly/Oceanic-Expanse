@@ -1,0 +1,9 @@
+{
+    "pools": [
+        {
+            "name":  "crab_drop",
+            "rolls": 1,
+            "entries": [ ]
+        }
+    ]
+}

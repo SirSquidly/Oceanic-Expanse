@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "oe:blocks/coral/purple_coral_dead"
+    }
+}

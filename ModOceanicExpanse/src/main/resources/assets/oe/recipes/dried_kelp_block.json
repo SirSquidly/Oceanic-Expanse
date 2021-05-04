@@ -1,0 +1,16 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "oe:dried_kelp"
+    }	
+  },
+  "result": {
+    "item": "oe:dried_kelp_block"
+  }
+}
