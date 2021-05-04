@@ -46,6 +46,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEBlocks.COCONUT_LEAVES_FLOWERING);
 	        add(list, OEBlocks.COCONUT);
 	        add(list, OEItems.COCONUT_OPEN);
+	        add(list, OEItems.SCUTE);
 	        add(list, OEBlocks.BLUE_CORAL_BLOCK);
 	        add(list, OEBlocks.PINK_CORAL_BLOCK);
 	        add(list, OEBlocks.PURPLE_CORAL_BLOCK);
