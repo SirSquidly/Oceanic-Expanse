@@ -11,6 +11,7 @@ import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.Reference;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntityZombie;
@@ -73,8 +74,13 @@ public class Main {
 		World world = event.getWorld();
 		BlockPos pos = event.getPos();
 
-	if(world.getBlockState(pos.up()).getBlock() == Blocks.WATER && world.getBlockState(pos.up(2)).getBlock() == Blocks.WATER && state.isFullCube())
-	{ growSeaGrass(event); }
+		if(world.getBlockState(pos.up()).getMaterial() == Material.WATER && world.getBlockState(pos.up(2)).getMaterial() == Material.WATER && state.isFullCube())
+		{
+			if (!world.isRemote)
+            { world.playEvent(2005, pos, 0); }
+			
+			growSeaGrass(event);
+		}
 	}
 	
 	public static void growSeaGrass(BonemealEvent event)
@@ -92,31 +98,20 @@ public class Main {
             {
                 if (j >= i / 16)
                 {
-                    if (world.getBlockState(blockpos1.down()).isNormalCube() && world.getBlockState(blockpos1.up()).getBlock() == Blocks.WATER)
+                    if (world.getBlockState(blockpos1.down()).isNormalCube() && world.getBlockState(blockpos1.up()).getBlock() == Blocks.WATER && !world.isRemote)
                     {
-                    	if (world.getBlockState(blockpos1).getBlock() == Blocks.WATER)
-                    	{
-                    		world.setBlockState(blockpos1, OEBlocks.SEAGRASS.getDefaultState());
-                        }
-                    	if (world.getBlockState(blockpos1).getBlock() == OEBlocks.SEAGRASS)
-                    	{
-                    		if (rand.nextInt(10) == 0)
-                    		{
-                    			if (OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(world, blockpos1))
-                    	        {
-                    	        	((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(world, blockpos1, 2);
-                    	        }	
-                    		}
-                        }
+                    	if (OEBlocks.SEAGRASS.canPlaceBlockAt(world, blockpos1))
+                    	{ world.setBlockState(blockpos1, OEBlocks.SEAGRASS.getDefaultState()); }
+                    	
+                    	if (world.getBlockState(blockpos1).getBlock() == OEBlocks.SEAGRASS && rand.nextInt(10) == 0)
+                    	{ ((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(world, blockpos1, 2); }
                     }
                 	break;
                 }
                 blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
 
                 if (!(world.getBlockState(blockpos1.down()).isNormalCube()) || world.getBlockState(blockpos1).isNormalCube())
-                {
-                    break;
-                }
+                { break; }
                 
                 ++j;
             }
