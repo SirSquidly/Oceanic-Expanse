@@ -2,7 +2,6 @@ package com.sirsquidly.oe.util.handlers;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
-import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.Reference;
 
@@ -14,7 +13,6 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @EventBusSubscriber
@@ -47,11 +45,4 @@ public class RegistryHandler {
             ConfigManager.sync(Reference.MOD_ID, Config.Type.INSTANCE);
         }
     }
-	
-	public static void preInitRegisteries(FMLPreInitializationEvent event)
-	{
-		OEEntities.registerEntities();
-		RenderHandler.registerEntityRenders();
-	}
-	
 }

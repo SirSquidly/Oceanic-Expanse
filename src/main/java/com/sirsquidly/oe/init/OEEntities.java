@@ -5,9 +5,14 @@ import com.sirsquidly.oe.entity.*;
 import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving.SpawnPlacementType;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class OEEntities {
@@ -28,11 +33,21 @@ public class OEEntities {
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);
 	}
 
-	public static void registerEntitySpawn()
+	public static void registerEntitySpawns()
 	{
-		EntityRegistry.addSpawn(EntityGlowSquid.class, 100, 2, 6, EnumCreatureType.CREATURE, Biomes.DEEP_OCEAN);
-		//EntityRegistry.addSpawn(EntityPufferfish.class, 100, 1, 3, EnumCreatureType.CREATURE, BiomeDictionary.Type.END);
-		EntityRegistry.addSpawn(EntityPufferfish.class, 100, 1, 3, EnumCreatureType.CREATURE, Biomes.DEEP_OCEAN);
+		EntityRegistry.addSpawn(EntityGlowSquid.class, 5, 2, 4, EnumCreatureType.WATER_CREATURE, Biomes.DEEP_OCEAN);
+		EntityRegistry.addSpawn(EntityPufferfish.class, 5, 1, 5, EnumCreatureType.WATER_CREATURE, Biomes.DEEP_OCEAN);
+		
+		EntityRegistry.addSpawn(EntityCod.class, 100, 3, 7, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
+		EntityRegistry.addSpawn(EntitySalmon.class, 25, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.RIVER).toArray(new Biome[0]));
+		
+		EntityRegistry.addSpawn(EntityTurtle.class, 5, 2, 6, EnumCreatureType.CREATURE, Biomes.BEACH);
+		EntityRegistry.addSpawn(EntityCrab.class, 10, 1, 4, EnumCreatureType.CREATURE, Biomes.BEACH);
+		
+		EntitySpawnPlacementRegistry.setPlacementType(EntityGlowSquid.class, SpawnPlacementType.IN_WATER);
+		EntitySpawnPlacementRegistry.setPlacementType(EntityCod.class, SpawnPlacementType.IN_WATER);
+		EntitySpawnPlacementRegistry.setPlacementType(EntitySalmon.class, SpawnPlacementType.IN_WATER);
+		EntitySpawnPlacementRegistry.setPlacementType(EntityPufferfish.class, SpawnPlacementType.IN_WATER);
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2)

@@ -1,6 +1,5 @@
 package com.sirsquidly.oe.entity.model;
 
-import com.sirsquidly.oe.entity.EntityCrab;
 import com.sirsquidly.oe.entity.EntityTurtle;
 
 import net.minecraft.client.model.ModelBase;

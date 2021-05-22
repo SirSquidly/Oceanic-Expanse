@@ -25,6 +25,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -44,6 +45,8 @@ import net.minecraft.world.World;
 
 public class EntityCrab extends EntityAnimal
 {
+	protected Block spawnableBlock = Blocks.SAND;
+	
 	/** 0 = Normal, 1 = Digging, 2 = Eating */
 	private static final DataParameter<Integer> ANIM_STATE = EntityDataManager.createKey(EntityCrab.class, DataSerializers.VARINT);
 	private static final Set<Item>TRADE_ITEMS = Sets.newHashSet(Items.FISH);
@@ -130,6 +133,16 @@ public class EntityCrab extends EntityAnimal
         	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
         }
         return super.processInteract(player, hand);
+    }
+	
+	@Override
+	public boolean getCanSpawnHere()
+    {
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int k = MathHelper.floor(this.posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7;
     }
 	
 	@Override

@@ -51,6 +51,13 @@ public class AbstractFish extends EntityAnimal
 	
 	public boolean canBeLeashedTo(EntityPlayer player)
     { return false; }
+		
+	@Override
+	public boolean getCanSpawnHere()
+    { return true; }
+	
+	public boolean isNotColliding()
+    { return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
 	
 	public boolean isBreedingItem(ItemStack stack)
     { return BREEDING_ITEMS.contains(stack.getItem()); }

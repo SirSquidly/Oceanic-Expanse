@@ -60,6 +60,12 @@ public class EntityGlowSquid extends EntitySquid
     return minBrightness; 
     }
 	
+	@Override
+	public boolean getCanSpawnHere()
+    {
+        return this.posY < (double)this.world.getSeaLevel() && super.getCanSpawnHere();
+    }
+
 	static class AISpeedAway extends EntityAIBase
     {
 			protected double speedMult;
@@ -112,21 +118,16 @@ public class EntityGlowSquid extends EntitySquid
 
         public void updateTask()
         {
-        	float speedDefault = (float) this.glowSquid.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue();
-        	float speed = this.glowSquid.getAIMoveSpeed();
         	int i = this.glowSquid.getIdleTime();
         	
-        	if (speed == 0) { glowSquid.setAIMoveSpeed(speedDefault); }
-        		
-        		
-            if (i > 100 && speed == speedDefault)
+            if (i > 100)
             { this.glowSquid.setMovementVector(0.0F, 0.0F, 0.0F); }
             else if (this.glowSquid.getRNG().nextInt(50) == 0 || !this.glowSquid.inWater || !this.glowSquid.hasMovementVector())
             {
                 float f = this.glowSquid.getRNG().nextFloat() * ((float)Math.PI * 2F);
-                float f1 = MathHelper.cos(f) * speed;
-                float f2 = -0.1F + this.glowSquid.getRNG().nextFloat() * speed;
-                float f3 = MathHelper.sin(f) * speed;
+                float f1 = MathHelper.cos(f) * 0.2F;
+                float f2 = -0.1F + this.glowSquid.getRNG().nextFloat() * 0.2F;
+                float f3 = MathHelper.sin(f) * 0.2F;
                 this.glowSquid.setMovementVector(f1, f2, f3);
             }
         }

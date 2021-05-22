@@ -9,7 +9,6 @@ import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.RegistryHandler;
 import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.block.state.IBlockState;
@@ -54,7 +53,7 @@ public class Main {
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event)
 	{
-		RegistryHandler.preInitRegisteries(event);
+		proxy.preInitRegisteries(event);
 	}
 	
 	@EventHandler

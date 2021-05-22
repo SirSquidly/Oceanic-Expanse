@@ -13,6 +13,7 @@ import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityCreature;
@@ -30,9 +31,9 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -47,12 +48,15 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityTurtle extends AbstractFish
 {
+	protected Block spawnableBlock = Blocks.SAND;
+
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Item.getItemFromBlock(OEBlocks.SEAGRASS));
 	private static final UUID SWIMMING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
 	private static final AttributeModifier SWIM_SPEED_BOOST = (new AttributeModifier(SWIMMING_SPEED_BOOST_ID, "Swimming speed boost", 0.15000000596046448D, 0)).setSaved(false);
@@ -91,8 +95,8 @@ public class EntityTurtle extends AbstractFish
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-		livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setHomePos(new BlockPos(this));
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
         return livingdata;
     }
     
@@ -141,9 +145,18 @@ public class EntityTurtle extends AbstractFish
 	public EntityTurtle createChild(EntityAgeable ageable)
     { 
 		EntityTurtle entityturtle = new EntityTurtle(this.world);
-		entityturtle.setHomePos(new BlockPos(entityturtle));
+		//entityturtle.setHomePos(new BlockPos(entityturtle));
 		
         return entityturtle;
+    }
+	
+	public boolean getCanSpawnHere()
+    {
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int k = MathHelper.floor(this.posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        return this.posY > 59.0D && this.posY < 68.0D && this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7 && super.getCanSpawnHere();
     }
 	
 	@Override
