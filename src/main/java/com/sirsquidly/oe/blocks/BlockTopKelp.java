@@ -59,9 +59,9 @@ public class BlockTopKelp extends BlockBush implements IGrowable
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || 
-        		worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || 
-        				worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP && worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER;   
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || 
+        		worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || 
+        				worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER;   
     }
 
 	@Override
@@ -132,7 +132,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable
     {
     	int i = ((Integer)state.getValue(AGE)).intValue();
     	
-        if (this.canPlaceBlockAt(worldIn, pos.up()) && worldIn.getBlockState(pos.up(2)).getBlock() == Blocks.WATER)
+        if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER)
         {
         	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)), 2);
     		worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState(), 2);

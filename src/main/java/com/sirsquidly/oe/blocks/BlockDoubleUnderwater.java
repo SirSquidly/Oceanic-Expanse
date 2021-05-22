@@ -53,7 +53,7 @@ public class BlockDoubleUnderwater extends BlockBush
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && worldIn.getBlockState(pos.up(2)).getBlock() == Blocks.WATER;
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER && worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER;
     }
 	
 	@Override
