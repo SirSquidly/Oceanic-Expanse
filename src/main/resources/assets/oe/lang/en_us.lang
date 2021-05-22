@@ -75,7 +75,7 @@ entity.pickled.name=Pickled
 enchantment.is_watermob=Impaling
 enchantment.is_wet=Waterjet
 
-description.chlorine.name=Removes Sea Grass in a 8x8 cube
+description.chlorine.name=Removes Sea Grass in a 5x5x5 cube
 
 oe.config.title=Oceanic Expance Config
 
