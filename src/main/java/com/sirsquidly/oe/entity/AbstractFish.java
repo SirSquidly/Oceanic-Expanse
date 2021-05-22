@@ -85,7 +85,7 @@ public class AbstractFish extends EntityAnimal
             if (f > 0.0F) 
             {
                 setAir(150);
-                motionY -= 0.0003D;
+                motionY -= 0.001D;
             }  
             else if (onGround && this.isFlopping()) 
             {

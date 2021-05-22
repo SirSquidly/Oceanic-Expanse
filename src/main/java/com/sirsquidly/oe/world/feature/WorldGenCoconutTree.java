@@ -1,4 +1,4 @@
-package com.sirsquidly.oe.world.gen;
+package com.sirsquidly.oe.world.feature;
 
 import java.util.Random;
 

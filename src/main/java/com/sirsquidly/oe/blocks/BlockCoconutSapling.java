@@ -3,7 +3,7 @@
 import java.util.Random;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.world.gen.WorldGenCoconutTree;
+import com.sirsquidly.oe.world.feature.WorldGenCoconutTree;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
