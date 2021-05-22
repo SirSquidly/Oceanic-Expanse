@@ -86,10 +86,10 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable
      * Bonemeal Growing
      */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-    { return true; }
+    { return worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER; }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    { return true; }
+    { return worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER; }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {
