@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
 import com.sirsquidly.oe.common.CreativeTab;
+import com.sirsquidly.oe.entity.ai.EntityAISquidFlop;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.proxy.CommonProxy;
@@ -15,6 +16,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -127,6 +129,13 @@ public class Main {
 			EntityZombie zombie  = (EntityZombie)event.getEntity();			
 
 			zombie.tasks.addTask(3, new EntityAIStompTurtleEgg(zombie, 1.0D));
+		}
+		
+		if(event.getEntity() instanceof EntitySquid)
+		{
+			EntitySquid squid  = (EntitySquid)event.getEntity();			
+
+			squid.tasks.addTask(1, new EntityAISquidFlop(squid, 80));
 		}
 	}
 }
