@@ -126,7 +126,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable
     { return ((Integer)state.getValue(AGE)).intValue() != 15; }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    { return true; }
+    { return ((Integer)state.getValue(AGE)).intValue() != 15; }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {
