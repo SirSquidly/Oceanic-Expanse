@@ -31,33 +31,29 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
 	}
 
 	@Override
-	public boolean generate(World worldIn, Random rand, BlockPos position)
+	public boolean generate(World worldIn, Random rand, BlockPos pos)
     {
         int i = rand.nextInt(plusRanHeight) + minHeight;
 
         boolean flag = true;
 
-        if (position.getY() >= 1 && position.getY() + i + 1 <= 256)
+        if (pos.getY() >= 1 && pos.getY() + i + 1 <= 256)
         {
-            for (int j = position.getY(); j <= position.getY() + 1 + i; ++j)
+            for (int j = pos.getY(); j <= pos.getY() + 1 + i; ++j)
             {
                 int k = 1;
 
-                if (j == position.getY())
-                {
-                    k = 0;
-                }
+                if (j == pos.getY())
+                { k = 0; }
 
-                if (j >= position.getY() + 1 + i - 2)
-                {
-                    k = 2;
-                }
+                if (j >= pos.getY() + 1 + i - 2)
+                { k = 2; }
 
                 BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-                for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l)
+                for (int l = pos.getX() - k; l <= pos.getX() + k && flag; ++l)
                 {
-                    for (int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1)
+                    for (int i1 = pos.getZ() - k; i1 <= pos.getZ() + k && flag; ++i1)
                     {
                         if (j >= 0 && j < worldIn.getHeight())
                         {
@@ -80,25 +76,25 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
             }
             else
             {
-                BlockPos down = position.down();
+                BlockPos down = pos.down();
                 IBlockState state = worldIn.getBlockState(down);
                 boolean isSoil = state.getBlock().canSustainPlant(state, worldIn, down, EnumFacing.UP, (IPlantable)OEBlocks.COCONUT_SAPLING);
 
                 
-                if (isSoil && position.getY() < worldIn.getHeight() - i - 1)
+                if (isSoil && pos.getY() < worldIn.getHeight() - i - 1)
                 {
-                    state.getBlock().onPlantGrow(state, worldIn, down, position);
+                    state.getBlock().onPlantGrow(state, worldIn, down, pos);
                 	
                     EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
                     int k2 = i/2 - rand.nextInt(2);
                     int l2 = 2 - rand.nextInt(3);
-                    int i3 = position.getX();
-                    int j1 = position.getZ();
+                    int i3 = pos.getX();
+                    int j1 = pos.getZ();
                     int k1 = 0;
 
                     for (int l1 = 0; l1 < i; ++l1)
                     {
-                        int i2 = position.getY() + l1;
+                        int i2 = pos.getY() + l1;
 
                         if (l1 >= k2 && l2 > 0)
                         {
@@ -153,18 +149,14 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
     }
 	
 	private void placeLogAt(World worldIn, BlockPos pos)
-    {
-        this.setBlockAndNotifyAdequately(worldIn, pos, LOG);
-    }
+    { this.setBlockAndNotifyAdequately(worldIn, pos, LOG); }
 	
 	private void placeLeafAt(World worldIn, BlockPos pos)
     {
         IBlockState state = worldIn.getBlockState(pos);
 
         if (state.getBlock().isAir(state, worldIn, pos) || state.getBlock().isLeaves(state, worldIn, pos))
-        {
-            this.setBlockAndNotifyAdequately(worldIn, pos, LEAF);
-        }
+        { this.setBlockAndNotifyAdequately(worldIn, pos, LEAF); }
     }
 	
 	private void placeFloweringLeafAt(World worldIn, BlockPos pos)
@@ -172,9 +164,7 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
         IBlockState state = worldIn.getBlockState(pos);
 
         if (state.getBlock().isAir(state, worldIn, pos) || state.getBlock().isLeaves(state, worldIn, pos))
-        {
-            this.setBlockAndNotifyAdequately(worldIn, pos, LEAF_FLOWERING);
-        }
+        { this.setBlockAndNotifyAdequately(worldIn, pos, LEAF_FLOWERING); }
     }
 	
 	@Override
