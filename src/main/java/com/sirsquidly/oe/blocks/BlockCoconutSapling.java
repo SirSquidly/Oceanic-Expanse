@@ -6,9 +6,9 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.world.feature.WorldGenCoconutTree;
 
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -54,6 +54,16 @@ public class BlockCoconutSapling extends BlockBush implements IGrowable
 	@Override
 	public IBlockState getStateFromMeta(int meta) 
 	{ return this.getDefaultState().withProperty(STAGE, Integer.valueOf((meta & 8) >> 3)); }
+	
+	@Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    {
+        return worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand;
+    }
+	
+	@Override
+	protected boolean canSustainBush(IBlockState state) 
+	{ return state.getBlock() instanceof BlockSand; }
 	
 	@Override
 	public int getMetaFromState(IBlockState state)
@@ -128,9 +138,4 @@ public class BlockCoconutSapling extends BlockBush implements IGrowable
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) 
 	{ return (double)worldIn.rand.nextFloat() < 0.45D; }
-	
-	@Override
-	protected boolean canSustainBush(IBlockState state) 
-	{ return state.getMaterial() == Material.SAND; }
-
 }
