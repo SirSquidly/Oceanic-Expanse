@@ -5,6 +5,7 @@ import java.util.Random;
 import com.sirsquidly.oe.blocks.BlockTopKelp;
 import com.sirsquidly.oe.init.OEBlocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -16,11 +17,15 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class WorldGenKelp implements IWorldGenerator
 {
-	private int patchAmount;
-	private Biome[] biomes;
+	public int attemptsPerChunk;
+	public int chancePerAttempt;
+	public int patchAmount;
+	public Biome[] biomes;
 
-	public WorldGenKelp(int amount, Biome... biomes)
+	public WorldGenKelp(int perChunk, int perAttempt, int amount, Biome... biomes)
 	{
+		this.attemptsPerChunk = perChunk; 
+		this.chancePerAttempt = perAttempt; 
 		this.patchAmount = amount;
 		this.biomes = biomes;
 	}
@@ -28,12 +33,11 @@ public class WorldGenKelp implements IWorldGenerator
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) 
 	{
-		int seaLevel = Math.max(world.getSeaLevel() - 1, 1);
-        BlockPos pos = new BlockPos(rand.nextInt(16) + chunkX * 16 + 8, seaLevel, rand.nextInt(16) + chunkZ * 16 + 8);
-        
-        Biome biome = world.getBiomeForCoordsBody(pos);
+		int x = chunkX * 16 + 8;
+		int z = chunkZ * 16 + 8;
+		Biome biome = world.getBiomeForCoordsBody(new BlockPos(x, 0, z));
         boolean isValidBiome = false;
-
+        
 		for(int i = 0; i < biomes.length; i++)
 		{
 			if(biome == biomes[i])
@@ -43,33 +47,45 @@ public class WorldGenKelp implements IWorldGenerator
 			}
 		}
 		
-		if (rand.nextInt(1) == 0 && (isValidBiome)) 
+		if (isValidBiome)
 		{
-			spawnKelp(world, rand, pos);
-        }
+			for(int i = 0; i < attemptsPerChunk; i++)
+			{
+				int xPos = x + rand.nextInt(4) - rand.nextInt(4);
+				int zPos = z + rand.nextInt(4) - rand.nextInt(4);
+				int yPos = Math.max(world.getSeaLevel() - 1, 1);;
+				
+				if(rand.nextInt(chancePerAttempt) == 0)
+				{
+					BlockPos pos = new BlockPos(xPos, yPos, zPos);
+					
+					for ( IBlockState state = world.getBlockState(pos); (state.getBlock().isReplaceable(world, pos) && pos.getY() > 0); state = world.getBlockState(pos) )
+			        { pos = pos.down(); }
+					
+					if(OEBlocks.KELP_TOP.canPlaceBlockAt(world, pos.up()))
+					{
+						spawnKelp(world, rand, pos);
+					}
+				}
+			}
+		}
 	}
 	
     public boolean spawnKelp(World worldIn, Random rand, BlockPos pos)
     {
-        for ( IBlockState iblockstate = worldIn.getBlockState(pos); 
-        		(iblockstate.getBlock() == Blocks.WATER || 
-        				iblockstate.getBlock().isLeaves(iblockstate, worldIn, pos)) && 
-        				pos.getY() > 0; iblockstate = worldIn.getBlockState(pos)
-        		)
-        { pos = pos.down(); }
-
         for (int i = 0; i < patchAmount; ++i)
         {	
-        	int rX = rand.nextInt(8) - rand.nextInt(8);
-        	int rZ = rand.nextInt(8) - rand.nextInt(8);
+        	int rX = rand.nextInt(6) - rand.nextInt(6);
+        	int rZ = rand.nextInt(6) - rand.nextInt(6);
         	
             BlockPos blockpos = pos.add(rX, rand.nextInt(4) - rand.nextInt(4), rZ);
+            Block blockHere = worldIn.getBlockState(blockpos).getBlock();
+            Block blockDown = worldIn.getBlockState(blockpos.down()).getBlock();
             
-            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.WATER && OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, blockpos))
+            if (blockHere == Blocks.WATER && OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, blockpos) && blockDown != OEBlocks.KELP_TOP && blockDown != OEBlocks.KELP)
             {
             	worldIn.setBlockState(blockpos, OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(10))));
             	growKelpStalk(worldIn, rand, blockpos);
-            	
             }
         }
         return true;
