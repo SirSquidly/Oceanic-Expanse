@@ -25,6 +25,7 @@ public class RenderCrab extends RenderLiving<EntityCrab>
 
 	protected void preRenderCallback(EntityCrab entity, float f) {
 		float size = 0.9375F;
+		float crabRotation = 90.0F;
 		
 		if (entity.getGrowingAge() < 0)
         {
@@ -33,6 +34,7 @@ public class RenderCrab extends RenderLiving<EntityCrab>
         }
         else { this.shadowSize = 0.5F; }
         
+		GlStateManager.rotate(crabRotation, 0.0F, 1.0F, 0.0F);
 		GlStateManager.scale(size, size, size);
 	}
 
@@ -40,6 +42,7 @@ public class RenderCrab extends RenderLiving<EntityCrab>
 	public void doRender(EntityCrab entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         ((ModelCrab)this.mainModel).holdingItem = !entity.getHeldItemMainhand().isEmpty();
+		
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 	
