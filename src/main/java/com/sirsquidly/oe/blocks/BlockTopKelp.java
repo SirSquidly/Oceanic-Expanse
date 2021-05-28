@@ -24,6 +24,11 @@ import net.minecraft.world.World;
 
 public class BlockTopKelp extends BlockBush implements IGrowable
 {
+	/** The maximum allowed height to grow to. Capped at 15 for Metadata reasons.*/
+	public static int maxHeight = Math.max(Math.min(15, 15), 0);
+	/** The random age given when placed. Capped to Kelp's maxHeight variable.*/
+	public static int randomAge = Math.max(Math.min(14, maxHeight), 0);
+	
 	protected static final AxisAlignedBB KELP_TOP_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.5625D, 0.875D);
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
 	
@@ -33,13 +38,13 @@ public class BlockTopKelp extends BlockBush implements IGrowable
 		this.setTickRandomly(true);
 		this.setCreativeTab(Main.OCEANEXPTAB);
 
-		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(randomAge + 1)));
 	}
 
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
 		Random rand = worldIn.rand;
-        return this.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(10)));
+        return this.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(randomAge + 1)));
     }
 	
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -123,10 +128,10 @@ public class BlockTopKelp extends BlockBush implements IGrowable
     
     /** Bonemeal Growing **/
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-    { return ((Integer)state.getValue(AGE)).intValue() != 15; }
+    { return ((Integer)state.getValue(AGE)).intValue() != maxHeight; }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    { return ((Integer)state.getValue(AGE)).intValue() != 15; }
+    { return ((Integer)state.getValue(AGE)).intValue() != maxHeight; }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {
