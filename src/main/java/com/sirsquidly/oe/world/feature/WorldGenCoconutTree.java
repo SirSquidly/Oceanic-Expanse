@@ -22,8 +22,12 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
 	public static final IBlockState LEAF = OEBlocks.COCONUT_LEAVES.getDefaultState();
 	public static final IBlockState LEAF_FLOWERING = OEBlocks.COCONUT_LEAVES_FLOWERING.getDefaultState();
 	
-	private final int minHeight = 5;
-	private final int plusRanHeight = 3;
+	/** The minimum height of the trunk*/
+	public int minHeight = 5;
+	/** A random number between this and zero get added to the minimum height*/
+	public int plusRanHeight = 2;
+	/** The max amount of block the trunk can bend out, like Acacia tree*/
+	public int plusRanBend = 2;
 	
 	public WorldGenCoconutTree() 
 	{
@@ -33,7 +37,7 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
 	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos pos)
     {
-        int i = rand.nextInt(plusRanHeight) + minHeight;
+        int i = rand.nextInt(plusRanHeight + 1) + minHeight;
 
         boolean flag = true;
 
@@ -87,7 +91,7 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
                 	
                     EnumFacing enumfacing = EnumFacing.Plane.HORIZONTAL.random(rand);
                     int k2 = i/2 - rand.nextInt(2);
-                    int l2 = 2 - rand.nextInt(3);
+                    int l2 = (plusRanBend) - rand.nextInt(plusRanBend + 1);
                     int i3 = pos.getX();
                     int j1 = pos.getZ();
                     int k1 = 0;

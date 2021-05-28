@@ -13,8 +13,11 @@ import net.minecraft.world.gen.IChunkGenerator;
 
 public class WorldGenKelpForest extends WorldGenKelp
 {
+	/** Number of kelp patches to generate, times by 10.*/
 	private int branchAmount;
+	/** Chance /1 to retry a failed placement.*/
 	private int branchRetryChance = 2;
+	/** Spread in positive and negative directions from origin to try and place at.*/
 	private int branchSpread = 40;
 
 	public WorldGenKelpForest(int perChunk, int perAttempt, int branches, int amount, Biome... biomes)
@@ -46,7 +49,7 @@ public class WorldGenKelpForest extends WorldGenKelp
 			{
 				int xPos = x + rand.nextInt(4) - rand.nextInt(4);
 				int zPos = z + rand.nextInt(4) - rand.nextInt(4);
-				int yPos = Math.max(world.getSeaLevel() - 1, 1);;
+				int yPos = Math.max(world.getSeaLevel() - 1, 1);
 				
 				if(rand.nextInt(chancePerAttempt) == 0)
 				{
@@ -56,9 +59,7 @@ public class WorldGenKelpForest extends WorldGenKelp
 			        { pos = pos.down(); }
 					
 					if(OEBlocks.KELP_TOP.canPlaceBlockAt(world, pos.up()))
-					{
-						spawnKelpForest(world, rand, pos);
-					}
+					{ spawnKelpForest(world, rand, pos); }
 				}
 			}
 		}
@@ -71,6 +72,7 @@ public class WorldGenKelpForest extends WorldGenKelp
         	int rX = pos.getX() + rand.nextInt(branchSpread) - rand.nextInt(branchSpread);
         	int rZ = pos.getZ() + rand.nextInt(branchSpread) - rand.nextInt(branchSpread);
         	
+        	/* Rather than using branchSpread or any pre-set Y variable, this does math to find the highest Y level underwater. */
         	BlockPos blockpos = new BlockPos(rX, worldIn.getSeaLevel(), rZ);
             
             for ( IBlockState state = worldIn.getBlockState(blockpos); (state.getBlock().isReplaceable(worldIn, blockpos) && blockpos.getY() > 0); state = worldIn.getBlockState(blockpos) )
@@ -78,6 +80,7 @@ public class WorldGenKelpForest extends WorldGenKelp
             
             if (OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, blockpos))
             { spawnKelp(worldIn, rand, blockpos); }
+            
             else { if (rand.nextInt(branchRetryChance) == 0) { --i; } }
         }
         return true;

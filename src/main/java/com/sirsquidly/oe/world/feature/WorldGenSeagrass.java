@@ -5,9 +5,7 @@ import java.util.Random;
 import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.multiplayer.ChunkProviderClient;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,10 +17,16 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class WorldGenSeagrass implements IWorldGenerator
 {
 	private int patchAmount;
+	/** Float chance (0.0 - 1.0) for generating double Seagrass. Higher is more likely.*/
 	private double tallChance;
 	private int attemptsPerChunk;
 	private int chancePerAttempt;
+	/** Flips the generator to run from the world bottom up, always failing if the placed Seagrass has sky access. For underground / beneath structure generation.*/
 	private boolean bottomUp;
+	/** Spread in positive and negative directions from origin to try and place at*/
+	private int placeSpreadXZ = 8;
+	/** See placeSpreadXZ. The same, but on the Y axis.*/
+	private int placeSpreadY = 4;
 	private Biome[] biomes;
 
 	public WorldGenSeagrass(int perChunk, int perAttempt, int amount, double tall, boolean rising, Biome... biomes)
@@ -67,7 +71,7 @@ public class WorldGenSeagrass implements IWorldGenerator
 					
 					if (bottomUp) 
 					{ 
-						for ( IBlockState state = world.getBlockState(pos); !world.canBlockSeeSky(pos) && pos.getY() < world.getHeight(); state = world.getBlockState(pos) )
+						for ( @SuppressWarnings("unused") IBlockState state = world.getBlockState(pos); !world.canBlockSeeSky(pos) && pos.getY() < world.getHeight(); state = world.getBlockState(pos) )
 						{ 
 							pos = pos.up();
 							
@@ -92,10 +96,10 @@ public class WorldGenSeagrass implements IWorldGenerator
     {
         for (int i = 0; i < patchAmount; ++i)
         {	
-        	int rX = rand.nextInt(8) - rand.nextInt(8);
-        	int rZ = rand.nextInt(8) - rand.nextInt(8);
+        	int rX = rand.nextInt(placeSpreadXZ) - rand.nextInt(placeSpreadXZ);
+        	int rZ = rand.nextInt(placeSpreadXZ) - rand.nextInt(placeSpreadXZ);
         	
-            BlockPos blockpos = position.add(rX, rand.nextInt(4) - rand.nextInt(4), rZ);
+            BlockPos blockpos = position.add(rX, rand.nextInt(placeSpreadY) - rand.nextInt(placeSpreadY), rZ);
             
             if (worldIn.getBlockState(blockpos).getBlock() == Blocks.WATER && OEBlocks.SEAGRASS.canPlaceBlockAt(worldIn, blockpos))
             {

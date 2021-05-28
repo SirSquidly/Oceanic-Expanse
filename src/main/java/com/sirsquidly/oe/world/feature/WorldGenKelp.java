@@ -20,6 +20,10 @@ public class WorldGenKelp implements IWorldGenerator
 	public int attemptsPerChunk;
 	public int chancePerAttempt;
 	public int patchAmount;
+	/** Spread in positive and negative directions from origin to try and place at.*/
+	private int placeSpreadXZ = 6;
+	/** See placeSpreadXZ. The same, but on the Y axis.*/
+	private int placeSpreadY = 4;
 	public Biome[] biomes;
 
 	public WorldGenKelp(int perChunk, int perAttempt, int amount, Biome... biomes)
@@ -63,9 +67,7 @@ public class WorldGenKelp implements IWorldGenerator
 			        { pos = pos.down(); }
 					
 					if(OEBlocks.KELP_TOP.canPlaceBlockAt(world, pos.up()))
-					{
-						spawnKelp(world, rand, pos);
-					}
+					{ spawnKelp(world, rand, pos); }
 				}
 			}
 		}
@@ -75,10 +77,10 @@ public class WorldGenKelp implements IWorldGenerator
     {
         for (int i = 0; i < patchAmount; ++i)
         {	
-        	int rX = rand.nextInt(6) - rand.nextInt(6);
-        	int rZ = rand.nextInt(6) - rand.nextInt(6);
+        	int rX = rand.nextInt(placeSpreadXZ) - rand.nextInt(placeSpreadXZ);
+        	int rZ = rand.nextInt(placeSpreadXZ) - rand.nextInt(placeSpreadXZ);
         	
-            BlockPos blockpos = pos.add(rX, rand.nextInt(4) - rand.nextInt(4), rZ);
+            BlockPos blockpos = pos.add(rX, rand.nextInt(placeSpreadY) - rand.nextInt(placeSpreadY), rZ);
             Block blockHere = worldIn.getBlockState(blockpos).getBlock();
             Block blockDown = worldIn.getBlockState(blockpos.down()).getBlock();
             
@@ -91,14 +93,14 @@ public class WorldGenKelp implements IWorldGenerator
         return true;
     }
     
-    
+    /** Grows a piece of kelp to it's max height.*/
     public boolean growKelpStalk(World worldIn, Random rand, BlockPos pos)
     {
     	IBlockState state = worldIn.getBlockState(pos);
         
         if (worldIn.getBlockState(pos).getBlock() == OEBlocks.KELP_TOP)
         {
-        	for (int i = ((Integer)state.getValue(BlockTopKelp.AGE)).intValue(); i < 16; ++i)
+        	for (int i = ((Integer)state.getValue(BlockTopKelp.AGE)).intValue(); i != BlockTopKelp.maxHeight; ++i)
             {	
             	if(OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, pos.up()))
             	{ 
