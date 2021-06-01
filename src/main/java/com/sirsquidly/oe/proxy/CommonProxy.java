@@ -50,7 +50,7 @@ public class CommonProxy
     	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(2, 2, 48, 0.4, false, Biomes.RIVER), 0);
     	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(6, 2, 48, 0.3, false, Biomes.OCEAN), 0);
     	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(6, 2, 64, 0.8, false, Biomes.DEEP_OCEAN), 0);
-    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(10, 2, 48, 0.3, false, OEBiomes.TIDE_POOL), 0);
+    	//GameRegistry.registerWorldGenerator(new WorldGenSeagrass(10, 2, 48, 0.3, false, OEBiomes.TIDE_POOL), 0);
     	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(2, 2, 48, 0.6, false, BiomeDictionary.getBiomes(Type.SWAMP).toArray(new Biome[0])), 0);
 	}
 }
