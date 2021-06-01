@@ -1,0 +1,9 @@
+{
+    "variants": 
+    {
+        "half=lower,sandy=false": { "model": "oe:sea_oats_bottom" },
+        "half=upper,sandy=false": { "model": "oe:sea_oats_top" },
+        "half=lower,sandy=true": { "model": "oe:sea_oats_bottom" },
+        "half=upper,sandy=true": { "model": "oe:sea_oats_top_sandy" }
+    }
+}
