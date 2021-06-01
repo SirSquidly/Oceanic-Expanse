@@ -86,7 +86,7 @@ public class WorldGenKelp implements IWorldGenerator
             
             if (blockHere == Blocks.WATER && OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, blockpos) && blockDown != OEBlocks.KELP_TOP && blockDown != OEBlocks.KELP)
             {
-            	worldIn.setBlockState(blockpos, OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(10))));
+            	worldIn.setBlockState(blockpos, OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(10))), (16 | 2));
             	growKelpStalk(worldIn, rand, blockpos);
             }
         }
@@ -104,8 +104,8 @@ public class WorldGenKelp implements IWorldGenerator
             {	
             	if(OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, pos.up()))
             	{ 
-            		worldIn.setBlockState(pos.up(), OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(i)), 2);
-            		worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState(), 2);
+            		worldIn.setBlockState(pos.up(), OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(i)), (16 | 2));
+            		worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState(), (16 | 2));
             		
             		pos = pos.up();
             		state = worldIn.getBlockState(pos);

@@ -104,9 +104,9 @@ public class WorldGenSeagrass implements IWorldGenerator
             if (worldIn.getBlockState(blockpos).getBlock() == Blocks.WATER && OEBlocks.SEAGRASS.canPlaceBlockAt(worldIn, blockpos))
             {
             	if (rand.nextDouble() < tallChance && OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, blockpos))
-            	{ ((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(worldIn, blockpos, 2); }
+            	{ ((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(worldIn, blockpos, (16 | 2)); }
             	else
-            	{ worldIn.setBlockState(blockpos, OEBlocks.SEAGRASS.getDefaultState()); }
+            	{ worldIn.setBlockState(blockpos, OEBlocks.SEAGRASS.getDefaultState(), (16 | 2)); }
             }
         }
         return true;
