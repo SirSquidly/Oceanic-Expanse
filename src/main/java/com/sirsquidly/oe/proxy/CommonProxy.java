@@ -1,6 +1,5 @@
 package com.sirsquidly.oe.proxy;
 
-import com.sirsquidly.oe.init.OEBiomes;
 import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.util.handlers.RenderHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
@@ -21,7 +20,6 @@ public class CommonProxy
 	{
 		OEEntities.registerEntities();
 		RenderHandler.registerEntityRenders();
-		OEBiomes.registerBiomes();
 		registerWorldGen();
 	}
 	
