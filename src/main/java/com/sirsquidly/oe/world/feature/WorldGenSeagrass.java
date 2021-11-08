@@ -3,8 +3,10 @@ package com.sirsquidly.oe.world.feature;
 import java.util.Random;
 
 import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
+import com.sirsquidly.oe.blocks.BlockSeaPickle;
 import com.sirsquidly.oe.init.OEBlocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -16,6 +18,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class WorldGenSeagrass implements IWorldGenerator
 {
+	private final Block block;
 	private int patchAmount;
 	/** Float chance (0.0 - 1.0) for generating double Seagrass. Higher is more likely.*/
 	private double tallChance;
@@ -29,8 +32,9 @@ public class WorldGenSeagrass implements IWorldGenerator
 	private int placeSpreadY = 4;
 	private Biome[] biomes;
 
-	public WorldGenSeagrass(int perChunk, int perAttempt, int amount, double tall, boolean rising, Biome... biomes)
+	public WorldGenSeagrass(Block blockIn, int perChunk, int perAttempt, int amount, double tall, boolean rising, Biome... biomes)
 	{
+		this.block = blockIn;
 		this.attemptsPerChunk = perChunk; 
 		this.chancePerAttempt = perAttempt; 
 		this.patchAmount = amount;
@@ -75,7 +79,9 @@ public class WorldGenSeagrass implements IWorldGenerator
 						{ 
 							pos = pos.up();
 							
-							if(OEBlocks.SEAGRASS.canPlaceBlockAt(world, pos.down()))
+							if (this.block == OEBlocks.SEA_PICKLE && world.getBlockState(pos).getBlock() != Blocks.SAND)
+							{ return; }
+							if(this.block.canPlaceBlockAt(world, pos.down()))
 							{ spawnSeagrass(world, rand, pos); break;}
 						}
 					}
@@ -84,7 +90,10 @@ public class WorldGenSeagrass implements IWorldGenerator
 						for ( IBlockState state = world.getBlockState(pos); (state.getBlock().isReplaceable(world, pos) && pos.getY() > 0); state = world.getBlockState(pos) )
 			        	{ pos = pos.down(); }
 					
-						if(OEBlocks.SEAGRASS.canPlaceBlockAt(world, pos.up()))
+						if (this.block == OEBlocks.SEA_PICKLE && world.getBlockState(pos).getBlock() != Blocks.SAND)
+						{ return; }
+						
+						if(this.block.canPlaceBlockAt(world, pos.up()))
 						{ spawnSeagrass(world, rand, pos); }
 					}
 				}
@@ -101,12 +110,14 @@ public class WorldGenSeagrass implements IWorldGenerator
         	
             BlockPos blockpos = position.add(rX, rand.nextInt(placeSpreadY) - rand.nextInt(placeSpreadY), rZ);
             
-            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.WATER && OEBlocks.SEAGRASS.canPlaceBlockAt(worldIn, blockpos))
+            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.WATER && this.block.canPlaceBlockAt(worldIn, blockpos))
             {
-            	if (rand.nextDouble() < tallChance && OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, blockpos))
+            	if (this.block == OEBlocks.SEAGRASS && rand.nextDouble() < tallChance && OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, blockpos))
             	{ ((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(worldIn, blockpos, 16 | 2); }
+            	else if (this.block == OEBlocks.SEA_PICKLE)
+            	{ worldIn.setBlockState(blockpos, this.block.getDefaultState().withProperty(BlockSeaPickle.AMOUNT, rand.nextInt(4) + 1), 2); }
             	else
-            	{ worldIn.setBlockState(blockpos, OEBlocks.SEAGRASS.getDefaultState(), 16 | 2); }
+            	{ worldIn.setBlockState(blockpos, this.block.getDefaultState(), 16 | 2); }
             }
         }
         return true;

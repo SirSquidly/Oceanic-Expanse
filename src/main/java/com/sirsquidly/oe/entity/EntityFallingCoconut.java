@@ -31,9 +31,9 @@ public class EntityFallingCoconut extends EntityFallingBlock
 {
     private final IBlockState fallTile = OEBlocks.COCONUT.getDefaultState();
 	private boolean dontSetBlock;
-    private int fallHurtMax = ConfigHandler.coconutFallMaxDamage;
-    private float fallHurtAmount = (float) ConfigHandler.coconutFallDamage;
-    private float breakFrom = (float) ConfigHandler.coconutFallBreak;
+    private int fallHurtMax = ConfigHandler.block.coconut.coconutFallMaxDamage;
+    private float fallHurtAmount = (float) ConfigHandler.block.coconut.coconutFallDamage;
+    private float breakFrom = (float) ConfigHandler.block.coconut.coconutFallBreak;
     
 	public EntityFallingCoconut(World worldIn)
     {
@@ -181,7 +181,7 @@ public class EntityFallingCoconut extends EntityFallingBlock
             {
                 e.attackEntityFrom(DamageSource.FALLING_BLOCK, (float)Math.min(MathHelper.floor((float)i * this.fallHurtAmount), this.fallHurtMax));
                 
-                if (ConfigHandler.coconutHitSound && e instanceof EntityLivingBase && !(e instanceof EntityArmorStand))
+                if (ConfigHandler.block.coconut.coconutHitSound && e instanceof EntityLivingBase && !(e instanceof EntityArmorStand))
                 { this.playSound(SoundHandler.COCONUT_HIT, 1.0F, 1.0F); }
             }
         }

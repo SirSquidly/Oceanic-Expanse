@@ -31,6 +31,7 @@ public class OEEntities {
 		registerEntity("pickled", EntityPickled.class, ++id, 80, 8223277, 14221270);
 		
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);
+		registerEntity("trident", EntityTrident.class, ++id, 80);
 	}
 
 	public static void registerEntitySpawns()

@@ -42,7 +42,6 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		this.maxStackSize = 1;
-		this.setCreativeTab(null);
 		
 		this.addPropertyOverride(new ResourceLocation("check_entity"), new IItemPropertyGetter()
 		{

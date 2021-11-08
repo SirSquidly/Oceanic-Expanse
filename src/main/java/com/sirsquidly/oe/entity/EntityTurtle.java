@@ -92,11 +92,12 @@ public class EntityTurtle extends AbstractFish
 	public boolean canBeLeashedTo(EntityPlayer player)
     { return false; }
 	
-	@Nullable
+	@Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        this.setHomePos(new BlockPos(this));
+		this.setHomePos(new BlockPos(this));
         livingdata = super.onInitialSpawn(difficulty, livingdata);
+        super.onInitialSpawn(difficulty, livingdata);
         return livingdata;
     }
     
@@ -172,13 +173,18 @@ public class EntityTurtle extends AbstractFish
 	public boolean isFlopping() { return false; }
 	
 	@Override
-	public void onEntityUpdate() 
-	{
-        super.onEntityUpdate();
-
-        IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-        
-        if (!world.isRemote) {
+	public void onUpdate()
+    {
+		super.onUpdate();
+		
+		IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+		if (this.getHomePos() == BlockPos.ORIGIN && this.getPosition() != BlockPos.ORIGIN)
+        {
+        	this.setHomePos(new BlockPos(this));
+        }
+		
+		if (!world.isRemote) 
+        {
             if (isServerWorld() && isInWater()) 
             { 
             	navigator = waterNavigator; 
@@ -193,7 +199,6 @@ public class EntityTurtle extends AbstractFish
             }
         }
     }
-	
 	
 	public void setHomePos(BlockPos pos)
     { this.dataManager.set(HOME_BLOCK_POS, pos); }

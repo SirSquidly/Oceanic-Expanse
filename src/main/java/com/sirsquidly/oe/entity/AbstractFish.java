@@ -31,7 +31,8 @@ public class AbstractFish extends EntityAnimal
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet();
 	protected EntityAIWander wander;
 	
-	public AbstractFish(World worldIn) {
+	public AbstractFish(World worldIn)
+	{
 		super(worldIn);
 		this.moveHelper = new AbstractFish.FishMoveHelper(this);
 	}

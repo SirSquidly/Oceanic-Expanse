@@ -18,5 +18,7 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityGlowSquid.class, RenderGlowSquid::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCrab.class, RenderCrab::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPickled.class, RenderPickled	::new);	
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityTrident.class, RenderTrident	::new);	
 	}
 }

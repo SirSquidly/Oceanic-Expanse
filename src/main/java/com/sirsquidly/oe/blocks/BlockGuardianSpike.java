@@ -35,7 +35,7 @@ public class BlockGuardianSpike extends BlockEndRod
     // Multiplies Fall Damage by 1.5x
     public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
     {
-    	float muli = (float) ConfigHandler.guSpiFallMultiplier;
+    	float muli = (float) ConfigHandler.block.guSpiFallMultiplier;
         entityIn.fall(fallDistance, muli);
     }
 

@@ -1,8 +1,15 @@
 package com.sirsquidly.oe.entity.model;
 
+import com.sirsquidly.oe.entity.EntityDrowned;
+import com.sirsquidly.oe.init.OEItems;
+
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.item.Item;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -57,5 +64,27 @@ public class ModelDrowned extends ModelZombie
         }
 
         GlStateManager.popMatrix();
+    }
+	
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+    {
+		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+		
+		EntityDrowned drowned = (EntityDrowned) entityIn;
+		boolean flag = entityIn instanceof EntityZombie && ((EntityZombie)entityIn).isArmsRaised();
+		
+		Item mainItem = drowned.getHeldItem(EnumHand.MAIN_HAND).getItem();
+		
+		if (mainItem == OEItems.TRIDENT_ORIG && flag)
+		{
+			if (drowned.getPrimaryHand() == EnumHandSide.RIGHT)
+            {
+        		this.bipedRightArm.rotateAngleX = -4.0F;
+            }
+            if (drowned.getPrimaryHand() == EnumHandSide.LEFT)
+            {
+            	this.bipedLeftArm.rotateAngleX = 4.0F;
+            }
+		}
     }
 }

@@ -1,8 +1,10 @@
 package com.sirsquidly.oe.proxy;
 
+import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.util.handlers.RenderHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
+import com.sirsquidly.oe.world.*;
 import com.sirsquidly.oe.world.feature.*;
 
 import net.minecraft.init.Biomes;
@@ -21,6 +23,8 @@ public class CommonProxy
 		OEEntities.registerEntities();
 		RenderHandler.registerEntityRenders();
 		registerWorldGen();
+		GameRegistry.registerWorldGenerator(new GeneratorWarmOcean(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
+		GameRegistry.registerWorldGenerator(new GeneratorFrozenOcean(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
 	}
 	
 	public void initRegistries(FMLInitializationEvent event)
@@ -43,11 +47,14 @@ public class CommonProxy
     	
     	GameRegistry.registerWorldGenerator(new WorldGenKelpForest(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
 
-    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(2, 6, 32, 0.4, true, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
     	
-    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(2, 2, 48, 0.4, false, Biomes.RIVER), 0);
-    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(6, 2, 48, 0.3, false, Biomes.OCEAN), 0);
-    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(6, 2, 64, 0.8, false, Biomes.DEEP_OCEAN), 0);
-    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(2, 2, 48, 0.6, false, BiomeDictionary.getBiomes(Type.SWAMP).toArray(new Biome[0])), 0);
+    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEA_PICKLE, 1, 4, 16, 0.4, false, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
+    	
+    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEAGRASS, 2, 6, 32, 0.4, true, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
+    	
+    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEAGRASS, 2, 2, 48, 0.4, false, Biomes.RIVER), 0);
+    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEAGRASS, 6, 2, 48, 0.3, false, Biomes.OCEAN), 0);
+    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEAGRASS, 6, 2, 64, 0.8, false, Biomes.DEEP_OCEAN), 0);
+    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEAGRASS, 2, 2, 48, 0.6, false, BiomeDictionary.getBiomes(Type.SWAMP).toArray(new Biome[0])), 0);
 	}
 }

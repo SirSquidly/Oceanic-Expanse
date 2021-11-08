@@ -1,17 +1,28 @@
 package com.sirsquidly.oe.entity;
 
+import javax.annotation.Nullable;
+
+import com.sirsquidly.oe.entity.ai.EntityAITridentThrowing;
+import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.IRangedAttackMob;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIZombieAttack;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -22,14 +33,18 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityDrowned extends EntityZombie 
+public class EntityDrowned extends EntityZombie implements IRangedAttackMob 
 {
 	private static final DataParameter<Boolean> IS_SWIMMING = EntityDataManager.<Boolean>createKey(EntityDrowned.class, DataSerializers.BOOLEAN);
-	   
+	
 	public EntityDrowned(World worldIn) {
 		super(worldIn);
 		this.setPathPriority(PathNodeType.WALKABLE, 1.0F);
@@ -46,6 +61,7 @@ public class EntityDrowned extends EntityZombie
 	protected void initEntityAI()
     {
 		this.tasks.addTask(1, new EntityDrowned.DrownedAISwimToTarget(this));
+		this.tasks.addTask(2, new EntityAITridentThrowing<EntityDrowned>(this, 1.0D, 20, 20.0F));
 		this.tasks.addTask(3, new EntityAIZombieAttack(this, 1.0D, false));
         this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -81,19 +97,84 @@ public class EntityDrowned extends EntityZombie
     public void setSwimming(boolean swimming)
     { this.dataManager.set(IS_SWIMMING, Boolean.valueOf(swimming)); }
     
-    /**protected void updateAITasks()
+    @Override
+    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
     {
-        if (this.world.isDaytime())
+        if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() && this.world.isDaytime())
+        {}
+        else
         {
-            float f = this.getBrightness();
+        	super.setAttackTarget(entitylivingbaseIn);
+        }
+    }
+    
+    @Override
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+    {
+    	this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
-            if (f > 0.5F)
-            	if (!(this.getAttackTarget().isWet()))
-            		{ this.setAttackTarget((EntityLivingBase)null); }
+        if (this.rand.nextFloat() < 0.05F)
+        { this.setLeftHanded(true); }
+        else
+        { this.setLeftHanded(false); }
+
+        float f = difficulty.getClampedAdditionalDifficulty();
+
+        if (livingdata == null)
+        { livingdata = new EntityDrowned.GroupData(this.world.rand.nextFloat() < net.minecraftforge.common.ForgeModContainer.zombieBabyChance); }
+
+        if (livingdata instanceof EntityDrowned.GroupData)
+        {
+        	EntityDrowned.GroupData entityzombie$groupdata = (EntityDrowned.GroupData)livingdata;
+
+            if (entityzombie$groupdata.isChild)
+            {
+                this.setChild(true);
+            }
         }
 
-        super.updateAITasks();
-    }**/
+        this.setNaturalEquipment(difficulty);
+        this.setBreakDoorsAItask(this.rand.nextFloat() < f * 0.1F);
+        this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
+        
+        return livingdata;
+    }
+    
+    protected void setNaturalEquipment(DifficultyInstance difficulty)
+    {
+    	super.setEquipmentBasedOnDifficulty(difficulty);
+    	
+        if (this.rand.nextFloat() <= 0.0625F)
+        {
+            this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.TRIDENT_ORIG));
+        }
+        else if (this.rand.nextFloat() <=  0.02F)
+        {
+            this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
+        }
+        else
+        {
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
+        }
+        
+        if (this.rand.nextFloat() <= 0.03F)
+        {
+            this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.NAUTILUS_SHELL));
+        }
+    }
+    
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
+    {
+        EntityTrident entitytrident = new EntityTrident(this.world, this);
+        double d0 = target.posX - this.posX;
+        double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entitytrident.posY;
+        double d2 = target.posZ - this.posZ;
+        double d3 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
+        entitytrident.shoot(d0, d1 + d3 * 0.10000000298023224D, d2, 0.8F * 3.0F, 1.0F);
+        entitytrident.setItem(this.getHeldItemMainhand());
+        this.playSound(SoundHandler.ENTITY_DROWNED_THROW, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+        this.world.spawnEntity(entitytrident);
+    }
     
     //Lots of AI Below
     
@@ -113,12 +194,12 @@ public class EntityDrowned extends EntityZombie
     		this.drownedTarget = this.drowned.getAttackTarget();
     		BlockPos blockpos = new BlockPos(this.drowned.posX, this.drowned.posY, this.drowned.posZ);
 
-            if (this.drownedTarget != null && this.drownedTarget.posY > this.drowned.posY && this.drowned.inWater)
+            if (this.drownedTarget != null && !this.drownedTarget.isDead && this.drownedTarget.posY > this.drowned.posY && this.drowned.inWater)
             { 
-            	if (!(this.drownedTarget.isInWater()) && !(this.drowned.world.isDaytime()))
+            	if ((!this.drowned.world.isDaytime() || this.drowned.world.isRaining()) && (this.drowned.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER || this.drowned.world.getBlockState(blockpos.down()).getMaterial() != Material.WATER))
     			{ return true;  }
             	
-            	else if (this.drowned.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER || this.drowned.world.getBlockState(blockpos.down()).getMaterial() != Material.WATER && !(this.drowned.world.isDaytime()))
+            	if (this.drowned.world.getBlockState(blockpos.up(2)).getMaterial() == Material.WATER && this.drownedTarget.isInWater())
             	{ return true;  }
             }
             return false;
@@ -181,5 +262,21 @@ public class EntityDrowned extends EntityZombie
     		}
     		return false;
     	}
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setSwingingArms(boolean swingingArms)
+    {
+        ;
+    }
+    
+    class GroupData implements IEntityLivingData
+    {
+        public boolean isChild;
+
+        private GroupData(boolean p_i47328_2_)
+        {
+            this.isChild = p_i47328_2_;
+        }
     }
 }

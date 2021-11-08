@@ -19,6 +19,9 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class WorldGenKelpForest implements IWorldGenerator
 {
+    private double[] frozenOceanNoiseGen = new double[256];
+    private NoiseGeneratorOctaves frozenOceanNoiseGenOctaves;
+	
     private double[] kelpNoiseGen = new double[256];
     private NoiseGeneratorOctaves kelpForestNoiseGen;
     public Biome[] biomes;
@@ -28,6 +31,8 @@ public class WorldGenKelpForest implements IWorldGenerator
 	{
     	this.biomes = biomes;
     	this.kelpForestNoiseGen = new NoiseGeneratorOctaves(new Random(1244), 4);
+    	
+    	this.frozenOceanNoiseGenOctaves = new NoiseGeneratorOctaves(new Random(5120), 4);
     }
     
 	@Override
@@ -50,6 +55,7 @@ public class WorldGenKelpForest implements IWorldGenerator
 	}
 
     private void spawnKelpForest(World world, Random rand, int chunkX, int chunkZ) {
+    	this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
     	this.kelpNoiseGen = kelpForestNoiseGen.generateNoiseOctaves(this.kelpNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.2D, 1.0, 0.2D);
     	
         for (int x = 0; x < 16; x++) {
@@ -57,7 +63,7 @@ public class WorldGenKelpForest implements IWorldGenerator
             {   
                 BlockPos pos = getSeaFloor(world, chunkX * 16 + 8 + x, chunkZ * 16 + 8 + z);
                 
-                if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > 0.1) 
+                if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > 0.1 && !(this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6)) 
                 { 
                 	Block blockHere = world.getBlockState(pos.up()).getBlock();
                 	Block blockDown = world.getBlockState(pos).getBlock();

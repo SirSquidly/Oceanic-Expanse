@@ -47,7 +47,7 @@ public class RenderPickled extends RenderLiving<EntityPickled>
 	protected ResourceLocation getEntityTexture(EntityPickled entity) {
 		String s = TextFormatting.getTextWithoutFormattingCodes(entity.getName());
 
-        if (s != null && "Rick".equals(s))
+        if (s != null && ("Rick".equals(s) || "Pickle Rick".equals(s) || "Pickled Rick".equals(s)))
         {
             return PICKLED_SECRET_TEXTURE1;
         }

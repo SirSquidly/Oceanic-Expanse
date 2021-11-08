@@ -2,16 +2,10 @@ package com.sirsquidly.oe;
 
 import java.io.File;
 import com.sirsquidly.oe.common.CreativeTab;
-import com.sirsquidly.oe.entity.ai.EntityAISquidFlop;
-import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.proxy.CommonProxy;
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntitySquid;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -19,7 +13,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 @Mod(modid = Main.MOD_ID, name = Main.NAME, version = Main.VERSION)
@@ -57,22 +50,4 @@ public class Main {
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{}
-	
-	@SubscribeEvent
-	public static void spawnEvent(EntityJoinWorldEvent event)
-	{
-		if(ConfigHandler.zombiesTrample && event.getEntity() instanceof EntityZombie)
-		{
-			EntityZombie zombie  = (EntityZombie)event.getEntity();			
-
-			zombie.tasks.addTask(3, new EntityAIStompTurtleEgg(zombie, 1.0D));
-		}
-		
-		if(event.getEntity() instanceof EntitySquid)
-		{
-			EntitySquid squid  = (EntitySquid)event.getEntity();			
-
-			squid.tasks.addTask(1, new EntityAISquidFlop(squid, 80));
-		}
-	}
 }

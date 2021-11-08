@@ -41,7 +41,7 @@ public class OEBlocks
 	BLUE_CORAL_FAN_DEAD, PINK_CORAL_FAN, PINK_CORAL_FAN_DEAD, PURPLE_CORAL_FAN, PURPLE_CORAL_FAN_DEAD, RED_CORAL_FAN,
 	RED_CORAL_FAN_DEAD, YELLOW_CORAL_FAN, YELLOW_CORAL_FAN_DEAD, BLUE_CORAL, BLUE_CORAL_DEAD, PINK_CORAL,
 	PINK_CORAL_DEAD, PURPLE_CORAL, PURPLE_CORAL_DEAD, RED_CORAL, RED_CORAL_DEAD, YELLOW_CORAL, YELLOW_CORAL_DEAD,
-	SEA_TURTLE_EGG;
+	SEA_TURTLE_EGG, BLUE_ICE, SHELL_SAND, WRACK, SEA_OATS;
 	private static List<Block> blockList = new ArrayList<Block>();
 	static List<Item> itemBlockList = new ArrayList<>();
 
@@ -59,7 +59,12 @@ public class OEBlocks
 		COCONUT_LEAVES_FLOWERING = registerBlock(new BlockCoconutLeavesFlowering(), "coconut_leaves_flowering");
 		COCONUT_SAPLING = registerBlock(new BlockCoconutSapling(), "coconut_sapling");
 		
+		BLUE_ICE = registerBlock(new BlockBlueIce(), "blue_ice");
 		SEA_TURTLE_EGG = registerBlock(new BlockTurtleEgg(), "turtle_egg");
+		SEA_OATS = registerBlock(new BlockDoubleSeaOats(), "sea_oats");
+		
+		SHELL_SAND = registerBlock(new BlockShellSand(), "shell_sand");
+		WRACK = registerBlock(new BlockWrack(), "wrack");
 		
 		BLUE_CORAL_BLOCK = registerBlock(new BlockCoralFull(MapColor.BLUE), "blue_coral_block");
 		BLUE_CORAL_BLOCK_DEAD = registerBlock(new BlockCoralFull(MapColor.GRAY), "blue_coral_block_dead");
@@ -117,6 +122,10 @@ public class OEBlocks
 		registerItemBlock(r, COCONUT_LEAVES_FLOWERING);
 		registerItemBlock(r, COCONUT_SAPLING);
 		registerItemBlock(r, SEA_TURTLE_EGG);
+		registerItemBlock(r, SHELL_SAND);
+		registerItemBlock(r, WRACK);
+		registerItemBlock(r, SEA_OATS);
+		registerItemBlock(r, BLUE_ICE);
 		registerItemBlock(r, BLUE_CORAL_BLOCK);
 		registerItemBlock(r, BLUE_CORAL_BLOCK_DEAD);
 		registerItemBlock(r, PINK_CORAL_BLOCK);

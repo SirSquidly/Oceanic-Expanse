@@ -13,8 +13,11 @@ public class OEItems
 	
 	public static final Item TRIDENT_ORIG = new ItemTrident("trident");
 	
-	public static final Item SCUTE = new ItemBase("scute");
+	public static final Item SCUTE = new ItemBase("turtle_scute");
 	
+	public static final Item SHELLS = new ItemBase("shells");
+	public static final Item NAUTILUS_SHELL = new ItemBase("nautilus_shell");
+	public static final Item CONCH = new ItemConch("conch");
 	public static final Item GLOW_INK = new ItemBase("glow_ink_sac");
 	public static final Item CHLORINE = new ItemChlorine("chlorine");
 

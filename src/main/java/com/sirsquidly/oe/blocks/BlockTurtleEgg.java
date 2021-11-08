@@ -2,6 +2,7 @@ package com.sirsquidly.oe.blocks;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -34,6 +35,7 @@ public class BlockTurtleEgg extends Block
 	public BlockTurtleEgg() 
 	{
 		super(Material.GOURD);
+		this.setCreativeTab(Main.OCEANEXPTAB);
 		
 		this.setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, Integer.valueOf(1)));
@@ -41,7 +43,7 @@ public class BlockTurtleEgg extends Block
 	
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
     {
-		int partiCheck = ConfigHandler.particlesOnFall;
+		int partiCheck = ConfigHandler.block.turtleEgg.particlesOnFall;
 			
 		if (worldIn instanceof WorldServer && (partiCheck == 2 && entityIn instanceof EntityLivingBase || partiCheck !=0 && entityIn instanceof EntityZombie))
         {
@@ -60,8 +62,8 @@ public class BlockTurtleEgg extends Block
 	{
 		int j = world.getBlockState(pos).getValue(AMOUNT);
 		
-		int AIbreak = ConfigHandler.amountOnTrample;
-		int partiCheck = ConfigHandler.puffOnTrample;
+		int AIbreak = ConfigHandler.block.turtleEgg.amountOnTrample;
+		int partiCheck = ConfigHandler.block.turtleEgg.puffOnTrample;
 		
 		if (world instanceof WorldServer && (partiCheck == 2 || partiCheck !=0 && wasAI))
         {

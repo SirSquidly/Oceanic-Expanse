@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.entity.model.ModelDrowned;
 import com.sirsquidly.oe.entity.render.layer.LayerDrowned;
+import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.model.ModelZombie;
@@ -12,6 +13,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
+import net.minecraft.client.renderer.entity.layers.LayerCustomHead;
+import net.minecraft.client.renderer.entity.layers.LayerElytra;
+import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,7 +30,24 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 	public RenderDrowned(RenderManager manager)
     {
 		super(manager, new ModelDrowned(), 0.5F);
-		this.addLayer(new LayerDrowned(this));
+        this.addLayer(new LayerCustomHead(new ModelDrowned().bipedHead));
+        this.addLayer(new LayerElytra(this));
+        this.addLayer(new LayerHeldItem(this)
+        {
+			public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+			{
+				GlStateManager.pushMatrix();
+
+				if (entitylivingbaseIn.getHeldItemMainhand().getItem() == OEItems.TRIDENT_ORIG && ((EntityZombie)entitylivingbaseIn).isArmsRaised())
+	            {
+	            	GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+	            	GlStateManager.translate(0.0F, 0.5F, -0.8F);
+	            }
+				super.doRenderLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+				GlStateManager.popMatrix();
+			}
+        });
+        this.addLayer(new LayerDrowned(this));
         LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this)
         {
             protected void initArmor()
@@ -35,6 +58,7 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
         };
         this.addLayer(layerbipedarmor);
     }
+
 	
 	public ModelZombie getMainModel()
     {

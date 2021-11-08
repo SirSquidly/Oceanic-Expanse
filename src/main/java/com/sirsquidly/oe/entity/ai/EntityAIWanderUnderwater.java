@@ -2,9 +2,11 @@ package com.sirsquidly.oe.entity.ai;
 
 import com.sirsquidly.oe.entity.EntityTurtle;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class EntityAIWanderUnderwater extends EntityAIWander
@@ -17,7 +19,12 @@ public class EntityAIWanderUnderwater extends EntityAIWander
 	@Override
 	public boolean shouldExecute()
     {
-        if (!this.entity.isInWater())
+		BlockPos entityPos = new BlockPos(this.entity.posX, this.entity.posY, this.entity.posZ);
+		
+		if (this.entity.isInWater() && this.entity.world.getBlockState(entityPos.down()).getMaterial() != Material.WATER && this.entity.world.getBlockState(entityPos.up()).getMaterial() != Material.AIR)
+        { this.makeUpdate(); }
+		
+		if (!this.entity.isInWater())
         { return false; }
 
         if (this.entity instanceof EntityTurtle && ((EntityTurtle) this.entity).isGoingHome())
