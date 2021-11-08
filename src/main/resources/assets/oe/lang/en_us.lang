@@ -3,12 +3,16 @@ itemGroup.oceanictab=Oceanic Expanse
 death.attack.coconut=%1$s was clonked on the head by a coconut
 
 item.trident.name=Trident
+item.dried_kelp.name=Dried Kelp
+item.nautilus_shell.name=Nautilus Shell
 item.glow_ink_sac.name=Glow Ink Sac
 item.chlorine.name=Chlorine
-item.dried_kelp.name=Dried Kelp
 item.calamari_uncooked.name=Raw Squid
 item.calamari_cooked.name=Roasted Calamari
 item.coconut_open.name=Cracked Coconut
+item.shells.name=Loose Shells
+item.conch.name=Conch
+item.turtle_scute.name=Scute
 item.crab_raw.name=Raw Crab
 item.crab_cooked.name=Cooked Crab
 
@@ -56,6 +60,7 @@ tile.tall_seagrass.name=Tall Seagrass
 tile.kelp.name=Kelp
 tile.kelp_mid.name=Kelp Stem
 tile.dried_kelp_block.name=Dried Kelp Block
+tile.blue_ice.name=Blue Ice
 tile.guardian_spike.name=Guardian Spike
 tile.sea_oats.name=Sea Oats
 tile.shell_sand.name=Shelly Sand
@@ -77,25 +82,50 @@ entity.pickled.name=Pickled
 
 enchantment.is_watermob=Impaling
 enchantment.is_wet=Waterjet
+enchantment.loyalty=Loyalty
+enchantment.channeling=Channeling
+enchantment.riptide=Riptide
 
 description.chlorine.name=Removes Sea Grass in a 5x5x5 cube
 
-oe.config.title=Oceanic Expance Config
+oe.config.title=Oceanic Expanse Config
 
-oe.config.guSpiFallMultiplier=Guardian Spike fall damage multiplier
+oe.config.worldGen=World Gen Config
 
-oe.config.amountOnTrample=Amount of Turtle Eggs broken on trample
-oe.config.particlesOnFall=Turtle Egg particles when fallen on
-oe.config.puffOnTrample=Turtle Egg puff when trampled
-oe.config.zombiesTrample=Zombies trample Turtle Eggs
+oe.config.block=Block Config
+oe.config.block.driedKelpShears=Can cut Dried Kelp string
+oe.config.block.guardianSpikeFallMultiplier=Guardian Spike fall damage multiplier
+oe.config.block.turtleEggs=Turtle Egg Config
+oe.config.block.amountOnTrample=Amount of Turtle Eggs broken on trample
+oe.config.block.particlesOnFall=Turtle Egg particles when fallen on
+oe.config.block.puffOnTrample=Turtle Egg puff when trampled
+oe.config.block.zombiesTrample=Zombies trample Turtle Eggs
+oe.config.block.coconut=Coconut Config
+oe.config.block.coconutHitSound=Coconut sound effect
+oe.config.block.coconutFallBreak=Coconut break height
+oe.config.block.coconutFallDamage=Coconut fall damage
+oe.config.block.coconutFallMaxDamage=Coconut max fall damage
 
-oe.config.coconutHitSound=Coconut sound effect
-oe.config.coconutFallBreak=Coconut break height
-oe.config.coconutFallDamage=Coconut fall damage
-oe.config.coconutFallMaxDamage=Coconut max fall damage
+
+
+oe.config.item=Item Config
+oe.config.entity=Entity Config
+
+
+oe.config.trident=Trident Config
+oe.config.tridentImpalingMobs=Impaling Affected Mobs
+oe.config.tridentChannelingInvert=Invert Channeling Whitelist
+oe.config.tridentChannelingBlocks=Channeling Block Whitelist
 
 subtitle.drowned_ambient=Drowned gurgles
 subtitle.drowned_hurt=Drowned hurts
 subtitle.drowned_death=Drowned dies
+subtitle.drowned_throw=Drowned throws Trident
 
 subtitle.coconut_hit=Coconut clonk
+
+subtitle.conch_blow_1=Conch blows
+
+subtitle.trident_throw=Trident clangs
+subtitle.trident_hit=Trident vibrates
+subtitle.trident_hit_entity=Trident stabs

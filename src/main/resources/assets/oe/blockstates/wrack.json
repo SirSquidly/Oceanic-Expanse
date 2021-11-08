@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "normal": [
+            { "model": "oe:wrack" },
+            { "model": "oe:wrack", "y": 90 },
+            { "model": "oe:wrack", "y": 180 },
+            { "model": "oe:wrack", "y": 270 }
+        ]
+    }
+}

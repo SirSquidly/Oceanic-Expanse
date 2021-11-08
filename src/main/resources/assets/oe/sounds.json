@@ -23,5 +23,30 @@
     	"category": "block",
     	"subtitle": "subtitle.coconut_hit",
     	"sounds": [ "oe:block/coconut_hit"]
+     },
+     "conch_blow_1": {
+    	"category": "player",
+    	"subtitle": "subtitle.conch_blow_1",
+    	"sounds": [ "oe:item/conch_blow_1"]
+     },
+     "drowned_throw": {
+    	"category": "hostile",
+    	"subtitle": "subtitle.drowned_throw",
+    	"sounds": [ "oe:entity/trident/trident_throw" ]
+     },
+     "trident_throw": {
+    	"category": "player",
+    	"subtitle": "subtitle.trident_throw",
+    	"sounds": [ "oe:entity/trident/trident_throw"]
+     },
+     "trident_hit": {
+    	"category": "player",
+    	"subtitle": "subtitle.trident_hit",
+    	"sounds": [ "oe:entity/trident/trident_hit"]
+     },
+     "trident_hit_entity": {
+    	"category": "player",
+    	"subtitle": "subtitle.trident_hit_entity",
+    	"sounds": [ "oe:entity/trident/trident_hit_entity"]
      }
 }   
