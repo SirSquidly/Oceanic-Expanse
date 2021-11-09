@@ -119,7 +119,22 @@ public class ConfigHandler
 		
 		public static class configTrident
 		{
-			@Config.LangKey("oe.config.tridentImpalingMobs")
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableWaterJet")
+		    @Config.Comment("Adds the Water Jet enchantment, which functions like Bedrock Edition's Impaling (Bonus damage to wet mobs). (0 = Disabled, 1 = Enabled, 2 = Disable, and make Impaling use this behavior instead.)")
+		    public int enableWaterJet = 1;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.impalingDamage")
+		    @Config.Comment("Increases Impaling damage by this per level")
+		    public float impalingDamage = 2.5F;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.waterJetDamage")
+		    @Config.Comment("Increases Water Jet damage by this per level")
+		    public float waterJetDamage = 1.0F;
+			
+			@Config.LangKey("oe.config.item.tridentImpalingMobs")
 		    @Config.Comment("Mobs affected by the Impaling enchantment")
 		    public String[] aquaticMobs = {
 				 	"minecraft:squid",
@@ -136,12 +151,12 @@ public class ConfigHandler
 		    };
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.tridentChannelingInvert")
+		    @Config.LangKey("oe.config.item.tridentChannelingInvert")
 		    @Config.Comment("Inverts the Channeling Whitelist into a Blacklist")
 		    public boolean invertLightning = false;
 			
 			@RequiresMcRestart
-			@Config.LangKey("oe.config.tridentChannelingBlocks")
+			@Config.LangKey("oe.config.item.tridentChannelingBlocks")
 		    @Config.Comment("Blocks that Channeling Tridents strike Lighting on when hit")
 		    public String[] lightningRodWhitelist = {
 		            "minecraft:iron_bars"

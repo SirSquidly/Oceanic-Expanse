@@ -109,13 +109,18 @@ oe.config.block.coconutFallMaxDamage=Coconut max fall damage
 
 
 oe.config.item=Item Config
+oe.config.trident=Trident Config
+oe.config.item.enableWaterJet=Enable Water Jet
+oe.config.item.impalingDamage=Impaling Damage
+oe.config.item.waterJetDamage=Water Jet Damage
+oe.config.item.tridentImpalingMobs=Impaling Affected Mobs
+oe.config.item.tridentChannelingInvert=Invert Channeling Whitelist
+oe.config.item.tridentChannelingBlocks=Channeling Block Whitelist
+
 oe.config.entity=Entity Config
 
 
-oe.config.trident=Trident Config
-oe.config.tridentImpalingMobs=Impaling Affected Mobs
-oe.config.tridentChannelingInvert=Invert Channeling Whitelist
-oe.config.tridentChannelingBlocks=Channeling Block Whitelist
+
 
 subtitle.drowned_ambient=Drowned gurgles
 subtitle.drowned_hurt=Drowned hurts

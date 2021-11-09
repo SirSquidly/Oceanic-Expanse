@@ -27,6 +27,10 @@ public class RegistryHandler {
 	@SubscribeEvent
 	public static void onEnchantRegister(RegistryEvent.Register<Enchantment> event)
 	{
+		event.getRegistry().registerAll(OEEnchants.IMPALING);
+		if (ConfigHandler.item.trident.enableWaterJet == 1)
+		{ event.getRegistry().registerAll(OEEnchants.WATER_JET); }
+		
 		event.getRegistry().registerAll(OEEnchants.ENCHANTMENTS.toArray(new Enchantment[0]));
 	}
 	

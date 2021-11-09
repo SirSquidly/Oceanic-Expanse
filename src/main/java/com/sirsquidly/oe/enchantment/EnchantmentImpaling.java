@@ -32,7 +32,7 @@ public class EnchantmentImpaling extends Enchantment
         super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
         this.damageType = damageTypeIn;
         this.setRegistryName(Reference.MOD_ID, getName());
-		OEEnchants.ENCHANTMENTS.add(this);
+		//OEEnchants.ENCHANTMENTS.add(this);
     }
 		
     public int getMinEnchantability(int enchantmentLevel)
@@ -70,13 +70,16 @@ public class EnchantmentImpaling extends Enchantment
 			int jet_level = EnchantmentHelper.getEnchantmentLevel(OEEnchants.WATER_JET, user.getHeldItemMainhand());
 			//ResourceLocation name = EntityList.getKey(event.getEntityLiving());
 			
-			if (imp_level > 0 && ArrayUtils.contains(ConfigHandler.item.trident.aquaticMobs, EntityList.getKey(target).toString())) 
+			if (imp_level > 0) 
 			{
-				event.setAmount(event.getAmount() + (imp_level * 2.5F));
+				if (ConfigHandler.item.trident.enableWaterJet == 2 && target.isWet() || ConfigHandler.item.trident.enableWaterJet != 2 && ArrayUtils.contains(ConfigHandler.item.trident.aquaticMobs, EntityList.getKey(target).toString()))
+				{
+					event.setAmount(event.getAmount() + (imp_level * ConfigHandler.item.trident.impalingDamage));
+				}
 			}
 			if (jet_level > 0 && target.isWet()) 
 			{
-				event.setAmount(event.getAmount() + (jet_level * 1.0F));
+				event.setAmount(event.getAmount() + (jet_level * ConfigHandler.item.trident.waterJetDamage));
 			}
 		}
 	}

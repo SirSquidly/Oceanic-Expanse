@@ -35,11 +35,11 @@ public class EnchantmentRiptide extends Enchantment
     {
         return 3;
     }
-
+    
     public boolean canApplyTogether(Enchantment ench)
     {
-        return !(ench instanceof EnchantmentRiptide);
-    }	
+        return (ench instanceof EnchantmentLoyalty || ench instanceof EnchantmentChanneling) ? false : super.canApplyTogether(ench);
+    }
     
     @Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack)

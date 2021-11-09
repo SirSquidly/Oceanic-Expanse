@@ -39,8 +39,8 @@ public class EnchantmentChanneling extends Enchantment
 
     public boolean canApplyTogether(Enchantment ench)
     {
-        return !(ench instanceof EnchantmentChanneling);
-    }	
+        return ench instanceof EnchantmentRiptide ? false : super.canApplyTogether(ench);
+    }
     
     @Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack)

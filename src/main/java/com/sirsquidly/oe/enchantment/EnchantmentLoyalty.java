@@ -5,6 +5,7 @@ import com.sirsquidly.oe.items.ItemTrident;
 import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentMending;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -35,11 +36,11 @@ public class EnchantmentLoyalty extends Enchantment
     {
         return 3;
     }
-
+    
     public boolean canApplyTogether(Enchantment ench)
     {
-        return !(ench instanceof EnchantmentLoyalty);
-    }	
+        return ench instanceof EnchantmentRiptide ? false : super.canApplyTogether(ench);
+    }
     
     @Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack)
