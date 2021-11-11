@@ -94,7 +94,12 @@ oe.config.worldGen=World Gen Config
 
 oe.config.block=Block Config
 oe.config.block.driedKelpShears=Can cut Dried Kelp string
+oe.config.block.guardianSpike=Guardian Spike Config
 oe.config.block.guardianSpikeFallMultiplier=Guardian Spike fall damage multiplier
+oe.config.block.guardianSpikeDropChance=Guardian Spike drop chance
+oe.config.block.guardianSpikeLooting=Guardian drop looting bonus
+oe.config.block.guardianSpikeElderDropChance=Elder Guardian Spike drop chance
+oe.config.block.guardianSpikeElderLooting=Elder Guardian drop looting bonus
 oe.config.block.turtleEggs=Turtle Egg Config
 oe.config.block.amountOnTrample=Amount of Turtle Eggs broken on trample
 oe.config.block.particlesOnFall=Turtle Egg particles when fallen on
@@ -116,6 +121,8 @@ oe.config.item.waterJetDamage=Water Jet Damage
 oe.config.item.tridentImpalingMobs=Impaling Affected Mobs
 oe.config.item.tridentChannelingInvert=Invert Channeling Whitelist
 oe.config.item.tridentChannelingBlocks=Channeling Block Whitelist
+oe.config.item.loyaltyVoidReturn=Loyalty returns from Void
+oe.config.item.tridentChannelingInvert=Loyalty return y-level
 
 oe.config.entity=Entity Config
 

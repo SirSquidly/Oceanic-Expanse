@@ -34,7 +34,6 @@ public class ConfigHandler
 	    public boolean driedKelpShears = true;
 		
 		@Config.LangKey("oe.config.block.turtleEggs")
-		@Config.Comment("All options related to Turtle Eggs")
 	    public configTurtleEgg turtleEgg = new configTurtleEgg();
 		
 		public static class configTurtleEgg
@@ -63,14 +62,43 @@ public class ConfigHandler
 		    public boolean zombiesTrample = true;
 	    }
 		
-		@RequiresMcRestart
-	    @Config.LangKey("oe.config.block.guardianSpikeFallMultiplier")
-	    @Config.Comment("How much a Guardian Spike multiplies Fall Damage.")
-	    @Config.RangeDouble(min = 0, max = 9999)
-	    public double guSpiFallMultiplier = 1.5;
+		@Config.LangKey("oe.config.block.guardianSpike")
+	    public configGuardianSpike guardianSpike = new configGuardianSpike();
+		
+		public static class configGuardianSpike
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.guardianSpikeFallMultiplier")
+		    @Config.Comment("How much a Guardian Spike multiplies Fall Damage.")
+		    @Config.RangeDouble(min = 0, max = 9999)
+		    public double guSpiFallMultiplier = 1.5;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.guardianSpikeDropChance")
+		    @Config.Comment("The percent chance a Guardian drops a spike.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double guardianSpikeDropChance = 1;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.guardianSpikeLooting")
+		    @Config.Comment("The percent increase per level of looting to the Guardian.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double guardianSpikeLooting = 0.5;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.guardianSpikeElderDropChance")
+		    @Config.Comment("The percent chance an Elder Guardian drops a spike.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double guardianSpikeElderDropChance = 100;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.guardianSpikeElderLooting")
+		    @Config.Comment("The percent increase per level of looting to the Elder Guardian.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double guardianSpikeElderLooting = 0;
+	    }
 		
 		@Config.LangKey("oe.config.block.coconut")
-		@Config.Comment("All options related to Coconuts")
 	    public configCoconut coconut = new configCoconut();
 		
 		public static class configCoconut
@@ -113,8 +141,8 @@ public class ConfigHandler
 		@Config.RangeInt(min = 0, max = 9999)
 	    public int conchCooldown = 60;
 		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.trident")
-		@Config.Comment("All options related to Tridents")
 	    public configTrident trident = new configTrident();
 		
 		public static class configTrident
@@ -161,6 +189,16 @@ public class ConfigHandler
 		    public String[] lightningRodWhitelist = {
 		            "minecraft:iron_bars"
 		    };
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.loyaltyVoidReturn")
+		    @Config.Comment("Loyalty Tridents return when in the void")
+		    public boolean loyaltyVoidReturn = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.loyaltyVoidReturnLevel")
+		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
+		    public int loyaltyVoidReturnLevel = -15;
 	    }
 	}
 	
