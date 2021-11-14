@@ -137,11 +137,11 @@ public class EntityTrident extends AbstractArrow
 				}
 			}
 			
-			List<Entity> list = Lists.newArrayList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
+			List<Entity> list = Lists.newArrayList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(1, 1, 1)));
 
             for (Entity e : list)
             {
-            	if (!(e instanceof EntityPlayer) && e == this.shootingEntity)
+            	if (e == this.shootingEntity && !(e instanceof EntityPlayer))
             	{
             		this.setDead();
             	}
@@ -149,26 +149,25 @@ public class EntityTrident extends AbstractArrow
 		}
     }
 	
+	@Override
 	public void onCollideWithPlayer(EntityPlayer entityIn)
     {
-		super.onCollideWithPlayer(entityIn);
-		
-        if (!this.world.isRemote && ((Boolean)this.dataManager.get(RETURNING)).booleanValue())
+        if (!this.world.isRemote)
         {
-            boolean flag = this.pickupStatus == PickupStatus.ALLOWED || this.pickupStatus == PickupStatus.CREATIVE_ONLY && entityIn.capabilities.isCreativeMode;
-
-            if (this.pickupStatus == PickupStatus.ALLOWED && !entityIn.inventory.addItemStackToInventory(this.getArrowStack()))
-            {
-                flag = false;
-            }
-            if (flag)
-            {
-                entityIn.onItemPickup(this, 1);
-                this.setDead();
-            }
+        	if (EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, this.getItem()) > 0)
+        	{
+        		if (entityIn == this.shootingEntity)
+                {
+                    super.onCollideWithPlayer(entityIn);
+                }
+        	}
+        	else
+        	{
+        		super.onCollideWithPlayer(entityIn);
+        	}
         }
     }
-
+	
 	public void checkLoyalty()
     {
 		if (EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, this.getItem()) > 0)

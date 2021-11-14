@@ -361,6 +361,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 		this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 	}
 	
+	@Override
 	public void onCollideWithPlayer(EntityPlayer entityIn)
     {
         if (!this.world.isRemote && this.inGround && this.arrowShake <= 0)
@@ -379,7 +380,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
             }
         }
     }
-	
+
 	@Override
 	protected ItemStack getArrowStack()
 	{

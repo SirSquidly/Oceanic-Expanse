@@ -157,7 +157,7 @@ public class ItemTrident extends Item
             		
             		for (EntityLivingBase entitylivingbase :entityplayer.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(entityplayer.getPosition()).grow(1, 1, 1)))
             	    {
-            	    	if (entitylivingbase != entityplayer)
+            	    	if (entitylivingbase != entityplayer && (entitylivingbase.getPassengers().isEmpty() || !(entitylivingbase.getPassengers().get(0) == entityplayer)))
                         {
             	    		if (entitylivingbase.attackEntityFrom(DamageSource.causePlayerDamage(entityplayer),(float) (new EntityTrident(worldIn, entityplayer).getDamage())))
             	    		{
