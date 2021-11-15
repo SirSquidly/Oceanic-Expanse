@@ -1,0 +1,19 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    " ss",
+    " ps",
+    "p  "
+  ],
+  "key": {
+    "s": {
+      "item": "oe:guardian_spike"
+    },
+    "p": {
+      "item": "minecraft:prismarine_shard"
+    }
+  },
+  "result": {
+    "item": "oe:trident"
+  }
+}

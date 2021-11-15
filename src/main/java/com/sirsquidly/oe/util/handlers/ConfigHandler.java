@@ -68,6 +68,11 @@ public class ConfigHandler
 		public static class configGuardianSpike
 		{
 			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableGuardianSpike")
+		    @Config.Comment("If the Guardian Spike is enabled")
+		    public boolean enableGuardianSpike = true;
+			
+			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.guardianSpikeFallMultiplier")
 		    @Config.Comment("How much a Guardian Spike multiplies Fall Damage.")
 		    @Config.RangeDouble(min = 0, max = 9999)

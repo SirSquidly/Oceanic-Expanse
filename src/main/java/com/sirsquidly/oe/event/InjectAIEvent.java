@@ -45,7 +45,7 @@ public class InjectAIEvent
 	{
 		EntityLivingBase target = event.getEntityLiving();
 		
-		if (target != null)
+		if (target != null && ConfigHandler.block.guardianSpike.enableGuardianSpike)
 		{
 			if (target instanceof EntityElderGuardian)
 			{ 

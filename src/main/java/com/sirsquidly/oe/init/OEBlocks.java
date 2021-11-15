@@ -6,6 +6,7 @@ import java.util.List;
 import com.sirsquidly.oe.blocks.*;
 import com.sirsquidly.oe.items.ItemBlockSeaPickle;
 import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -34,7 +35,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 @EventBusSubscriber(modid = Reference.MOD_ID)
 public class OEBlocks 
 {
-	public static Block GUARDIAN_SPIKE, SEA_PICKLE, SEAGRASS, TALL_SEAGRASS, KELP, KELP_TOP,
+	public static Block SEA_PICKLE, SEAGRASS, TALL_SEAGRASS, KELP, KELP_TOP,
 	DRIED_KELP_BLOCK, COCONUT, COCONUT_LEAVES, COCONUT_LEAVES_FLOWERING, COCONUT_SAPLING, BLUE_CORAL_BLOCK, 
 	BLUE_CORAL_BLOCK_DEAD, PINK_CORAL_BLOCK, PINK_CORAL_BLOCK_DEAD, PURPLE_CORAL_BLOCK, PURPLE_CORAL_BLOCK_DEAD,
 	RED_CORAL_BLOCK, RED_CORAL_BLOCK_DEAD, YELLOW_CORAL_BLOCK, YELLOW_CORAL_BLOCK_DEAD, BLUE_CORAL_FAN, 
@@ -45,8 +46,9 @@ public class OEBlocks
 	private static List<Block> blockList = new ArrayList<Block>();
 	static List<Item> itemBlockList = new ArrayList<>();
 
+	public static final Block GUARDIAN_SPIKE = registerBlock(new BlockGuardianSpike(), "guardian_spike");
+	
 	static {
-		GUARDIAN_SPIKE = registerBlock(new BlockGuardianSpike(), "guardian_spike");
 		SEA_PICKLE = registerBlock(new BlockSeaPickle(), "sea_pickle", new ItemBlockSeaPickle(SEA_PICKLE));
 		
 		SEAGRASS = registerBlock(new BlockUnderwaterGrass(), "seagrass");
@@ -103,6 +105,9 @@ public class OEBlocks
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event)
 		{
+			if (ConfigHandler.block.guardianSpike.enableGuardianSpike == true)
+			{ event.getRegistry().registerAll(GUARDIAN_SPIKE); }
+			
 			for (Block blocks : blockList) event.getRegistry().register(blocks);
 		}
 		
@@ -110,7 +115,9 @@ public class OEBlocks
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> r = event.getRegistry();
 		
-		registerItemBlock(r, GUARDIAN_SPIKE);
+		if (ConfigHandler.block.guardianSpike.enableGuardianSpike == true)
+		{ registerItemBlock(r, GUARDIAN_SPIKE); }
+		
 		registerItemBlock(r, new ItemBlockSeaPickle(SEA_PICKLE));
 		registerItemBlock(r, SEAGRASS);
 		registerItemBlock(r, TALL_SEAGRASS);

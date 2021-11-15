@@ -95,6 +95,7 @@ oe.config.worldGen=World Gen Config
 oe.config.block=Block Config
 oe.config.block.driedKelpShears=Can cut Dried Kelp string
 oe.config.block.guardianSpike=Guardian Spike Config
+oe.config.block.enableGuardianSpike=Enable Guardian Spike
 oe.config.block.guardianSpikeFallMultiplier=Guardian Spike fall damage multiplier
 oe.config.block.guardianSpikeDropChance=Guardian Spike drop chance
 oe.config.block.guardianSpikeLooting=Guardian drop looting bonus
@@ -110,8 +111,6 @@ oe.config.block.coconutHitSound=Coconut sound effect
 oe.config.block.coconutFallBreak=Coconut break height
 oe.config.block.coconutFallDamage=Coconut fall damage
 oe.config.block.coconutFallMaxDamage=Coconut max fall damage
-
-
 
 oe.config.item=Item Config
 oe.config.trident=Trident Config
