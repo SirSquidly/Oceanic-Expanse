@@ -174,6 +174,7 @@ public class EntityTrident extends AbstractArrow
         {
 			this.playSound(SoundEvents.ENTITY_ELDER_GUARDIAN_AMBIENT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 			this.dataManager.set(RETURNING, Boolean.valueOf(true));
+			this.inGround = true;
 			this.noClip = true;
 			this.setNoGravity(true);
         }
