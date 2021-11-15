@@ -186,12 +186,12 @@ public class EntityTrident extends AbstractArrow
 		{
 			if (world.isThundering() && world.canSeeSky(this.getPosition()) && !((Boolean)this.dataManager.get(DID_LIGHTNING)).booleanValue())
 			{
-				if (target != null && !target.isInLava() && !target.isInWater() && ConfigHandler.item.trident.invertLightning)
+				if (target != null && !target.isInLava() && !target.isInWater())
 				{
 					world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));
 					this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(true));
 				}
-				else if (this.inGround && (ConfigHandler.item.trident.invertLightning != true && ArrayUtils.contains(ConfigHandler.item.trident.lightningRodWhitelist, this.inTile.getRegistryName().toString()) || ConfigHandler.item.trident.invertLightning && !ArrayUtils.contains(ConfigHandler.item.trident.lightningRodWhitelist, this.inTile.getRegistryName().toString())))
+				else if (this.inGround && (!ConfigHandler.item.trident.invertLightning && ArrayUtils.contains(ConfigHandler.item.trident.lightningRodWhitelist, this.inTile.getRegistryName().toString()) || ConfigHandler.item.trident.invertLightning && !ArrayUtils.contains(ConfigHandler.item.trident.lightningRodWhitelist, this.inTile.getRegistryName().toString())))
 				{
 					world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));
 					this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(true));
