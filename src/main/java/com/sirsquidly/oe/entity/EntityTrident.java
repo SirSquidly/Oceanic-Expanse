@@ -11,6 +11,7 @@ import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -186,12 +187,15 @@ public class EntityTrident extends AbstractArrow
 		{
 			if (world.isThundering() && world.canSeeSky(this.getPosition()) && !((Boolean)this.dataManager.get(DID_LIGHTNING)).booleanValue())
 			{
-				if (target != null && !target.isInLava() && !target.isInWater())
+				if (target != null && (!ConfigHandler.enchant.channeling.waterCheck || !target.isInWater()) && (!ConfigHandler.enchant.channeling.lavaCheck || !target.isInLava()))
 				{
-					world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));
-					this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(true));
+					if (!ArrayUtils.contains(ConfigHandler.enchant.channeling.ridingBlacklist, EntityList.getKey(target.getLowestRidingEntity()).toString()) )
+					{
+						world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));
+						this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(true));
+					}
 				}
-				else if (this.inGround && (!ConfigHandler.item.trident.invertLightning && ArrayUtils.contains(ConfigHandler.item.trident.lightningRodWhitelist, this.inTile.getRegistryName().toString()) || ConfigHandler.item.trident.invertLightning && !ArrayUtils.contains(ConfigHandler.item.trident.lightningRodWhitelist, this.inTile.getRegistryName().toString())))
+				else if (this.inGround && (!ConfigHandler.enchant.channeling.invertLightning && ArrayUtils.contains(ConfigHandler.enchant.channeling.lightningRodWhitelist, this.inTile.getRegistryName().toString()) || ConfigHandler.enchant.channeling.invertLightning && !ArrayUtils.contains(ConfigHandler.enchant.channeling.lightningRodWhitelist, this.inTile.getRegistryName().toString())))
 				{
 					world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));
 					this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(true));

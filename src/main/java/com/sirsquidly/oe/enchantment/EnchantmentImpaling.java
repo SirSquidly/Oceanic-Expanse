@@ -72,14 +72,14 @@ public class EnchantmentImpaling extends Enchantment
 			
 			if (imp_level > 0) 
 			{
-				if (ConfigHandler.item.trident.enableWaterJet == 2 && target.isWet() || ConfigHandler.item.trident.enableWaterJet != 2 && ArrayUtils.contains(ConfigHandler.item.trident.aquaticMobs, EntityList.getKey(target).toString()))
+				if (ConfigHandler.enchant.impaling.enableWaterJet == 2 && target.isWet() || ConfigHandler.enchant.impaling.enableWaterJet != 2 && ArrayUtils.contains(ConfigHandler.enchant.impaling.aquaticMobs, EntityList.getKey(target).toString()))
 				{
-					event.setAmount(event.getAmount() + (imp_level * ConfigHandler.item.trident.impalingDamage));
+					event.setAmount(event.getAmount() + (imp_level * ConfigHandler.enchant.impaling.impalingDamage));
 				}
 			}
 			if (jet_level > 0 && target.isWet()) 
 			{
-				event.setAmount(event.getAmount() + (jet_level * ConfigHandler.item.trident.waterJetDamage));
+				event.setAmount(event.getAmount() + (jet_level * ConfigHandler.enchant.impaling.waterJetDamage));
 			}
 		}
 	}

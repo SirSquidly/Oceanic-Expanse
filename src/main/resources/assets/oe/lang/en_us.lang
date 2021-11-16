@@ -114,14 +114,21 @@ oe.config.block.coconutFallMaxDamage=Coconut max fall damage
 
 oe.config.item=Item Config
 oe.config.trident=Trident Config
-oe.config.item.enableWaterJet=Enable Water Jet
-oe.config.item.impalingDamage=Impaling Damage
-oe.config.item.waterJetDamage=Water Jet Damage
-oe.config.item.tridentImpalingMobs=Impaling Affected Mobs
-oe.config.item.tridentChannelingInvert=Invert Channeling Whitelist
-oe.config.item.tridentChannelingBlocks=Channeling Block Whitelist
 oe.config.item.loyaltyVoidReturn=Loyalty returns from Void
 oe.config.item.tridentChannelingInvert=Loyalty return y-level
+
+oe.config.enchant=Enchantment Config
+oe.config.enchant.impaling=Impaling Config
+oe.config.enchant.enableWaterJet=Enable Water Jet
+oe.config.enchant.impalingDamage=Impaling Damage
+oe.config.enchant.waterJetDamage=Water Jet Damage
+oe.config.enchant.impalingMobs=Impaling Affected Mobs
+oe.config.enchant.channeling=Channeling Config
+oe.config.enchant.channelingWaterCheck=Channeling Avoid Water
+oe.config.enchant.channelingLavaCheck=Channeling Avoid Lava
+oe.config.enchant.channelingInvert=Invert Channeling Whitelist
+oe.config.enchant.channelingBlocks=Channeling Block Whitelist
+oe.config.enchant.channelingRidingBlacklist=Channeling Riding Blacklist
 
 oe.config.entity=Entity Config
 

@@ -153,21 +153,45 @@ public class ConfigHandler
 		public static class configTrident
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableWaterJet")
+		    @Config.LangKey("oe.config.item.loyaltyVoidReturn")
+		    @Config.Comment("Loyalty Tridents return when in the void")
+		    public boolean loyaltyVoidReturn = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.loyaltyVoidReturnLevel")
+		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
+		    public int loyaltyVoidReturnLevel = -15;
+	    }
+	}
+	
+	@Config.LangKey("oe.config.enchant")
+	@Config.Comment("Config related to Enchantments")
+    public static configEnchantment enchant = new configEnchantment();
+	
+	public static class configEnchantment
+	{
+		@Config.LangKey("oe.config.enchant.impaling")
+		@Config.Comment("Config for Impaling and Water Jet")
+	    public configImpaling impaling = new configImpaling();
+		
+		public static class configImpaling
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.enableWaterJet")
 		    @Config.Comment("Adds the Water Jet enchantment, which functions like Bedrock Edition's Impaling (Bonus damage to wet mobs). (0 = Disabled, 1 = Enabled, 2 = Disable, and make Impaling use this behavior instead.)")
 		    public int enableWaterJet = 1;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.impalingDamage")
+		    @Config.LangKey("oe.config.enchant.impalingDamage")
 		    @Config.Comment("Increases Impaling damage by this per level")
 		    public float impalingDamage = 2.5F;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.waterJetDamage")
+		    @Config.LangKey("oe.config.enchant.waterJetDamage")
 		    @Config.Comment("Increases Water Jet damage by this per level")
 		    public float waterJetDamage = 1.0F;
 			
-			@Config.LangKey("oe.config.item.tridentImpalingMobs")
+			@Config.LangKey("oe.config.enchant.impalingMobs")
 		    @Config.Comment("Mobs affected by the Impaling enchantment")
 		    public String[] aquaticMobs = {
 				 	"minecraft:squid",
@@ -182,30 +206,46 @@ public class ConfigHandler
 				 	"oe:drowned",
 				 	"oe:pickled"
 		    };
+		}
+		
+		@Config.LangKey("oe.config.enchant.channeling")
+		@Config.Comment("Config for Channeling")
+	    public configChanneling channeling = new configChanneling();
+		
+		public static class configChanneling
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.channelingWaterCheck")
+		    @Config.Comment("Prevents Lightning if the target is in Water")
+		    public boolean waterCheck = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.tridentChannelingInvert")
+		    @Config.LangKey("oe.config.enchant.channelingLavaCheck")
+		    @Config.Comment("Prevents Lightning if the target is in Lava")
+		    public boolean lavaCheck = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.channelingInvert")
 		    @Config.Comment("Inverts the Channeling Whitelist into a Blacklist")
 		    public boolean invertLightning = false;
 			
 			@RequiresMcRestart
-			@Config.LangKey("oe.config.item.tridentChannelingBlocks")
+			@Config.LangKey("oe.config.enchant.channelingBlocks")
 		    @Config.Comment("Blocks that Channeling Tridents strike Lighting on when hit")
 		    public String[] lightningRodWhitelist = {
 		            "minecraft:iron_bars"
 		    };
 			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.loyaltyVoidReturn")
-		    @Config.Comment("Loyalty Tridents return when in the void")
-		    public boolean loyaltyVoidReturn = true;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.loyaltyVoidReturnLevel")
-		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
-		    public int loyaltyVoidReturnLevel = -15;
-	    }
+			@Config.LangKey("oe.config.enchant.channelingRidingBlacklist")
+		    @Config.Comment("Prevents Lightning if the target is riding any of these entities")
+		    public String[] ridingBlacklist = {
+				 	"minecraft:boat",
+		            "minecraft:minecart"
+		    };
+		}
 	}
+	
+	
 	
 	@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
     public static class ConfigSyncHandler
