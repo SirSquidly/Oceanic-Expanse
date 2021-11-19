@@ -70,10 +70,17 @@ public class EntityAIStompTurtleEgg extends EntityAIMoveToBlock
             if (block == OEBlocks.SEA_TURTLE_EGG)
             { 
             	++this.jumpCounter;
-            	if (this.creature.onGround) { this.creature.motionY = 0.2D; }
+            	if (this.creature.onGround)
+            	{ 
+            		this.creature.motionY = 0.2D; 
+            		this.creature.velocityChanged = true;
+            	}
             }
             if (this.jumpCounter > 60)
-            { this.jumpCounter = 0; ((BlockTurtleEgg) OEBlocks.SEA_TURTLE_EGG).onBroken(world, blockpos, true);}
+            { 
+            	this.jumpCounter = 0; 
+            	((BlockTurtleEgg) OEBlocks.SEA_TURTLE_EGG).onBroken(world, blockpos, true);
+            }
             
             this.runDelay = 10;
         }
@@ -92,7 +99,9 @@ public class EntityAIStompTurtleEgg extends EntityAIMoveToBlock
             IBlockState iblockstate = worldIn.getBlockState(pos);
 
             if (iblockstate.getMaterial() == Material.AIR && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR)
-            { return true; }
+            {
+            	return true; 
+            }
         }
         return false;
     }

@@ -35,7 +35,9 @@ public class EntityAISquidFlop extends EntityAIBase
     	--this.flopTimer;
     	
     	if (entity.getAir() <= 0)
-    	{ --this.flopTimer; }
+    	{ 
+    		--this.flopTimer;
+    	}
     	
     	if (this.flopTimer <= 0)
         {
@@ -44,7 +46,8 @@ public class EntityAISquidFlop extends EntityAIBase
     		this.entity.motionZ += (double) rand.nextFloat() * 2.0F - 1.0F;
     		this.entity.rotationYaw = rand.nextFloat() * 360.0F;
     		this.entity.playSound(SoundEvents.ENTITY_GUARDIAN_FLOP, 0.6F, 1.0F);
-            
+    		this.entity.velocityChanged = true;
+    		
     		this.flopTimer = this.flopDelay;
         }
     }
