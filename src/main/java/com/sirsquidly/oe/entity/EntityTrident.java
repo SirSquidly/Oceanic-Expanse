@@ -33,7 +33,7 @@ public class EntityTrident extends AbstractArrow
 	{
 		super(worldIn);
 		this.pickupStatus = PickupStatus.DISALLOWED;
-		this.damage = 8.0F;
+		this.damage = ConfigHandler.item.trident.tridentThrowDamage;
 		this.alwaysBounce = true;
 		this.bounceStrength = -0.01D;
 		this.waterSpeed = 0.99F;

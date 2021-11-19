@@ -7,6 +7,7 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -37,8 +38,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTrident extends Item
 {
-	private final float attackDamage;
-	
 	public ItemTrident(String name) {
 		super();
 		setUnlocalizedName(name);
@@ -46,8 +45,7 @@ public class ItemTrident extends Item
 		this.setCreativeTab(Main.OCEANEXPTAB);
 		setFull3D();
 		this.maxStackSize = 1;
-		this.setMaxDamage(249);
-		this.attackDamage = 8.0F;
+		this.setMaxDamage(ConfigHandler.item.trident.tridentDurability - 1);
 		
 		// Weird implimentation, re-re-observe examples
 		this.addPropertyOverride(new ResourceLocation("model"), new IItemPropertyGetter()
@@ -153,6 +151,7 @@ public class ItemTrident extends Item
             			entityplayer.motionX = moveVec.x;
             			entityplayer.motionY = moveVec.y/1.8;
             			entityplayer.motionZ = moveVec.z;
+            			entityplayer.velocityChanged = true;
         			}
             		
             		for (EntityLivingBase entitylivingbase :entityplayer.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(entityplayer.getPosition()).grow(1, 1, 1)))
@@ -193,8 +192,8 @@ public class ItemTrident extends Item
 
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)ConfigHandler.item.trident.tridentDamage - 1, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", ConfigHandler.item.trident.tridentSpeed - 4.0D, 0));
         }
 
         return multimap;

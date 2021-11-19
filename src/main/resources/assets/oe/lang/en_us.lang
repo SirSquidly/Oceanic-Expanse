@@ -114,6 +114,10 @@ oe.config.block.coconutFallMaxDamage=Coconut max fall damage
 
 oe.config.item=Item Config
 oe.config.trident=Trident Config
+oe.config.item.tridentDamage=Trident Damage
+oe.config.item.tridentThrowDamage=Thrown Trident Damage
+oe.config.item.tridentAttackSpeed=Trident Attack Speed
+oe.config.item.tridentDurability=Trident Durability
 oe.config.item.loyaltyVoidReturn=Loyalty returns from Void
 oe.config.item.tridentChannelingInvert=Loyalty return y-level
 

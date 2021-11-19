@@ -152,6 +152,23 @@ public class ConfigHandler
 		
 		public static class configTrident
 		{
+		    @Config.LangKey("oe.config.item.tridentDamage")
+		    @Config.Comment("The Attack Damage of the Trident")
+		    public int tridentDamage = 9;
+			
+		    @Config.LangKey("oe.config.item.tridentThrowDamage")
+		    @Config.Comment("The Attack Damage of the Thrown Trident")
+		    public int tridentThrowDamage = 8;
+			
+		    @Config.LangKey("oe.config.item.tridentAttackSpeed")
+		    @Config.Comment("The Attack Speed of the Trident")
+		    public double tridentSpeed = 1.1;
+			
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.item.tridentDurability")
+		    @Config.Comment("The Trident's Durability (note, displays as this -1 in-game, as 0 counts as a point)")
+		    public int tridentDurability = 250;
+		    
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.item.loyaltyVoidReturn")
 		    @Config.Comment("Loyalty Tridents return when in the void")
