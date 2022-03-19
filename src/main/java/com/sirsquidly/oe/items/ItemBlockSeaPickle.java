@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.items;
 
 import com.sirsquidly.oe.blocks.BlockSeaPickle;
+import com.sirsquidly.oe.blocks.BlockTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.advancements.CriteriaTriggers;
@@ -21,7 +22,8 @@ import net.minecraft.world.World;
 
 public class ItemBlockSeaPickle extends ItemBlock {
 	
-	public ItemBlockSeaPickle(Block block) {
+	public ItemBlockSeaPickle(Block block)
+	{
         super(block);
         this.setMaxDamage(0);
     }
@@ -88,9 +90,25 @@ public class ItemBlockSeaPickle extends ItemBlock {
         return damage;
     }
 
+    public boolean getBlock(World world, BlockPos pos, Block block)
+    {
+    	IBlockState state = world.getBlockState(pos);
+    	
+    	if (block == OEBlocks.SEA_PICKLE)
+    	{
+    		return (Integer)state.getValue(BlockSeaPickle.AMOUNT) == 4;
+    	}
+    	else if (block == OEBlocks.SEA_TURTLE_EGG)
+    	{
+    		return (Integer)state.getValue(BlockTurtleEgg.AMOUNT) == 4;
+    	}
+    	else
+    	{ return false; }
+    }
+
     public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack)
     {
         IBlockState state = world.getBlockState(pos);
-        return (state.getBlock() != OEBlocks.SEA_PICKLE || ((Integer)state.getValue(BlockSeaPickle.AMOUNT)) == 4) ? super.canPlaceBlockOnSide(world, pos, side, player, stack) : true;
+        return (state.getBlock() != this.block || getBlock(world, pos, this.block)) ? super.canPlaceBlockOnSide(world, pos, side, player, stack) : true;
     }
 }

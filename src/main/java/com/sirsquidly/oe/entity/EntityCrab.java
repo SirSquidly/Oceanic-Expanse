@@ -99,7 +99,7 @@ public class EntityCrab extends EntityAnimal
 		
 		if (this.getAnimationState() == 1)
         {
-        	if (this.world.isRemote)
+        	if (this.world.isRemote && iblockstate.getBlock() != Blocks.AIR)
             {
         		for (int i = 0; i < 2; ++i)
                 { this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX, this.posY, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Block.getStateId(iblockstate)); }	

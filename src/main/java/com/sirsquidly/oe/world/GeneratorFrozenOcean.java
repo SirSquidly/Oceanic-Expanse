@@ -2,6 +2,8 @@ package com.sirsquidly.oe.world;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
+
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -75,7 +77,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
                 	
                 	floatingIceCleaner(world, posSurface);
                 	
-                	if (isValidBiome && this.iceSheetNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.225 > 0.3) 
+                	if (ConfigHandler.worldGen.frozenOcean.enableIceSheet && this.iceSheetNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.225 > ConfigHandler.worldGen.frozenOcean.iceSheetSpread) 
                     { 
                     	if (world.getBlockState(posSurface).getBlock() == Blocks.WATER)
                         { world.setBlockState(posSurface, Blocks.ICE.getDefaultState(), 16 | 2); }

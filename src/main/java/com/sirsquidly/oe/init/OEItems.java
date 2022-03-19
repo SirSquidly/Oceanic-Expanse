@@ -3,13 +3,22 @@ package com.sirsquidly.oe.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraftforge.common.util.EnumHelper;
 
 import com.sirsquidly.oe.items.*;
+import com.sirsquidly.oe.util.Reference;
 
 public class OEItems 
 {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
+	
+	public static final ArmorMaterial TURTLE_ARMOR = EnumHelper.addArmorMaterial("turtle_armor", Reference.MOD_ID + ":turtle_armor", 25, new int[]{2, 6, 5, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+	
+	public static final Item TURTLE_HELMET = new ItemTurtleArmor("turtle_helmet", TURTLE_ARMOR, 0, EntityEquipmentSlot.HEAD);
 	
 	public static final Item TRIDENT_ORIG = new ItemTrident("trident");
 	

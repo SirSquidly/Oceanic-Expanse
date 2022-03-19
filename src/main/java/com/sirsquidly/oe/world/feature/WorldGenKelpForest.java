@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.sirsquidly.oe.blocks.BlockTopKelp;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,7 +26,7 @@ public class WorldGenKelpForest implements IWorldGenerator
     private double[] kelpNoiseGen = new double[256];
     private NoiseGeneratorOctaves kelpForestNoiseGen;
     public Biome[] biomes;
-    private double placeChance = 0.2;
+    //private double placeChance = 0.2;
     
     public WorldGenKelpForest(Biome... biomes)
 	{
@@ -50,25 +51,25 @@ public class WorldGenKelpForest implements IWorldGenerator
 			}
 		}
 		
-		if (isValidBiome)
+		if (isValidBiome && ConfigHandler.worldGen.kelpForest.enableKelpForest)
 		{ spawnKelpForest(world, random, chunkX, chunkZ); }
 	}
 
     private void spawnKelpForest(World world, Random rand, int chunkX, int chunkZ) {
     	this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
-    	this.kelpNoiseGen = kelpForestNoiseGen.generateNoiseOctaves(this.kelpNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.2D, 1.0, 0.2D);
+    	this.kelpNoiseGen = kelpForestNoiseGen.generateNoiseOctaves(this.kelpNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, ConfigHandler.worldGen.kelpForest.kelpConnective, 1.0, ConfigHandler.worldGen.kelpForest.kelpConnective);
     	
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++)
             {   
                 BlockPos pos = getSeaFloor(world, chunkX * 16 + 8 + x, chunkZ * 16 + 8 + z);
                 
-                if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > 0.1 && !(this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6)) 
+                if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > ConfigHandler.worldGen.kelpForest.kelpSpread && !(this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6)) 
                 { 
                 	Block blockHere = world.getBlockState(pos.up()).getBlock();
                 	Block blockDown = world.getBlockState(pos).getBlock();
 
-                	if (rand.nextDouble() < placeChance && blockHere == Blocks.WATER && OEBlocks.KELP_TOP.canPlaceBlockAt(world, pos.up()) && blockDown != OEBlocks.KELP_TOP && blockDown != OEBlocks.KELP)
+                	if (rand.nextDouble() < ConfigHandler.worldGen.kelpForest.kelpDensity && blockHere == Blocks.WATER && OEBlocks.KELP_TOP.canPlaceBlockAt(world, pos.up()) && blockDown != OEBlocks.KELP_TOP && blockDown != OEBlocks.KELP)
                     {
                     	world.setBlockState(pos.up(), OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(BlockTopKelp.randomAge + 1))), 16 | 2);
                     	growKelpStalk(world, rand, pos.up());

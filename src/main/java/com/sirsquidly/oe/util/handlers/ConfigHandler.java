@@ -20,6 +20,57 @@ public class ConfigHandler
 	
 	public static class configWorldGen
 	{
+		
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.kelpForest")
+	    public configKelpForest kelpForest = new configKelpForest();
+		
+		public static class configKelpForest
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableKelpForest")
+		    @Config.Comment("If Kelp Forests should be enabled")
+		    public boolean enableKelpForest = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.kelpConnective")
+		    @Config.Comment("The noise scale on the Kelp Forest. Smaller numbers make more interconnected noodles, while larger numbers make seperate clusters.")
+		    public double kelpConnective = 0.2;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.kelpSpread")
+		    @Config.Comment("Adjusts the cutoff for the noise. Smaller numbers make the Kelp Forest more spread.")
+		    public double kelpSpread = 0.1;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.kelpDensity")
+		    @Config.Comment("The chance for Kelp to be placed in the forest")
+		    public double kelpDensity = 0.2;
+		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen")
+	    public configFrozenOcean frozenOcean = new configFrozenOcean();
+		
+		public static class configFrozenOcean
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableIceBerg")
+		    @Config.Comment("If the string on Dried Kelp can be removed using Shears")
+		    public boolean enableIceBergs = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableIceBerg")
+		    @Config.Comment("If the string on Dried Kelp can be removed using Shears")
+		    public boolean enableIceSheet = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.kelpSpread")
+		    @Config.Comment("Adjusts the cutoff for the noise. Smaller numbers make the Kelp Forest more spread.")
+		    public double iceSheetSpread = 0.3;
+		}
+			
 	}
 	
 	@Config.LangKey("oe.config.block")
@@ -198,12 +249,10 @@ public class ConfigHandler
 		    @Config.Comment("Adds the Water Jet enchantment, which functions like Bedrock Edition's Impaling (Bonus damage to wet mobs). (0 = Disabled, 1 = Enabled, 2 = Disable, and make Impaling use this behavior instead.)")
 		    public int enableWaterJet = 1;
 			
-			@RequiresMcRestart
 		    @Config.LangKey("oe.config.enchant.impalingDamage")
 		    @Config.Comment("Increases Impaling damage by this per level")
 		    public float impalingDamage = 2.5F;
 			
-			@RequiresMcRestart
 		    @Config.LangKey("oe.config.enchant.waterJetDamage")
 		    @Config.Comment("Increases Water Jet damage by this per level")
 		    public float waterJetDamage = 1.0F;
@@ -231,22 +280,18 @@ public class ConfigHandler
 		
 		public static class configChanneling
 		{
-			@RequiresMcRestart
 		    @Config.LangKey("oe.config.enchant.channelingWaterCheck")
 		    @Config.Comment("Prevents Lightning if the target is in Water")
 		    public boolean waterCheck = true;
 			
-			@RequiresMcRestart
 		    @Config.LangKey("oe.config.enchant.channelingLavaCheck")
 		    @Config.Comment("Prevents Lightning if the target is in Lava")
 		    public boolean lavaCheck = true;
 			
-			@RequiresMcRestart
 		    @Config.LangKey("oe.config.enchant.channelingInvert")
 		    @Config.Comment("Inverts the Channeling Whitelist into a Blacklist")
 		    public boolean invertLightning = false;
 			
-			@RequiresMcRestart
 			@Config.LangKey("oe.config.enchant.channelingBlocks")
 		    @Config.Comment("Blocks that Channeling Tridents strike Lighting on when hit")
 		    public String[] lightningRodWhitelist = {

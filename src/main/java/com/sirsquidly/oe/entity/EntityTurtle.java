@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Sets;
+import com.sirsquidly.oe.blocks.BlockTurtleEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
@@ -15,6 +16,7 @@ import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.IEntityLivingData;
@@ -23,6 +25,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -35,6 +38,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,6 +50,7 @@ import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -63,6 +68,7 @@ public class EntityTurtle extends AbstractFish
 	protected static final DataParameter<BlockPos> HOME_BLOCK_POS = EntityDataManager.<BlockPos>createKey(EntityTurtle.class, DataSerializers.BLOCK_POS);
 	private static final DataParameter<Boolean> CARRYING_EGG = EntityDataManager.<Boolean>createKey(EntityTurtle.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> GOIN_HOME = EntityDataManager.<Boolean>createKey(EntityTurtle.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> DIGGING = EntityDataManager.<Boolean>createKey(EntityTurtle.class, DataSerializers.BOOLEAN);
 	private final PathNavigateSwimmer waterNavigator;
 	private final PathNavigateGround groundNavigator;
 		    
@@ -86,6 +92,7 @@ public class EntityTurtle extends AbstractFish
 		this.dataManager.register(HOME_BLOCK_POS, BlockPos.ORIGIN);
 		this.dataManager.register(CARRYING_EGG, Boolean.valueOf(false));
 		this.dataManager.register(GOIN_HOME, Boolean.valueOf(false));
+		this.dataManager.register(DIGGING, Boolean.valueOf(false));
 	}
 	
 	@Override
@@ -112,6 +119,7 @@ public class EntityTurtle extends AbstractFish
 	protected void initEntityAI()
     {	
         this.tasks.addTask(1, new EntityTurtle.TurtleAIMate(this, 1.0D));
+        this.tasks.addTask(2, new EntityTurtle.TurtleAILayEgg(this, 1.0D));
         this.tasks.addTask(2, new EntityTurtle.TurtleAIGOHOME(this, 1.0D));
         this.tasks.addTask(3, new EntityAIPanic(this, 1.1D));
         this.tasks.addTask(3, new EntityAIFollowParent(this, 1.1D));
@@ -146,8 +154,6 @@ public class EntityTurtle extends AbstractFish
 	public EntityTurtle createChild(EntityAgeable ageable)
     { 
 		EntityTurtle entityturtle = new EntityTurtle(this.world);
-		//entityturtle.setHomePos(new BlockPos(entityturtle));
-		
         return entityturtle;
     }
 	
@@ -171,6 +177,30 @@ public class EntityTurtle extends AbstractFish
     { return this.height * 0.5F; }
 	
 	public boolean isFlopping() { return false; }
+	
+	public void onLivingUpdate()
+    {
+		BlockPos blockpos = new BlockPos(this.posX, this.posY-1, this.posZ);
+		IBlockState iblockstate = this.world.getBlockState(blockpos);
+		
+		if (this.isDigging())
+		{
+			if (this.world.isRemote && iblockstate.getBlock() != Blocks.AIR)
+            {
+        		for (int i = 0; i < 16; ++i)
+                { 
+        			double d0 = this.posX + (this.rand.nextDouble() * 1.5 - 0.7);
+        			double d1 = this.posY + (this.rand.nextDouble() - 0.5);
+                    double d2 = this.posZ + (this.rand.nextDouble() * 1.5 - 0.7);
+        			this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1, d2, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Block.getStateId(iblockstate));
+        		}	
+            }
+        	if (this.rand.nextInt(2) == 0) 
+			{ this.playSound(SoundEvents.BLOCK_SAND_BREAK, 1.0F, 1.0F); }
+		}
+		
+		super.onLivingUpdate();
+    }
 	
 	@Override
 	public void onUpdate()
@@ -217,6 +247,13 @@ public class EntityTurtle extends AbstractFish
 
     public void setCarryingEgg(boolean bool)
     { this.dataManager.set(CARRYING_EGG, Boolean.valueOf(bool)); }
+    
+    public boolean isDigging()
+    { return ((Boolean)this.dataManager.get(DIGGING)).booleanValue(); }
+
+    public void setDigging(boolean bool)
+    { this.dataManager.set(DIGGING, Boolean.valueOf(bool)); }
+    
     
     public class TurtleAIMate extends EntityAIMate
 	{
@@ -428,7 +465,7 @@ public class EntityTurtle extends AbstractFish
 	    	if (this.turtle.getDistanceSqToCenter(this.turtle.getHomePos()) < 16.0D)
 	    	{ --this.giveUp; }
 	    	if (this.turtle.getDistanceSqToCenter(this.turtle.getHomePos()) < 3.0D)
-	    	{ --this.giveUp; --this.giveUp; --this.giveUp;}
+	    	{ this.giveUp = this.giveUp - 10;}
 	    	
 	    	BlockPos turtlePos = new BlockPos(this.turtle.posX, this.turtle.posY, this.turtle.posZ);
 	    	
@@ -440,7 +477,6 @@ public class EntityTurtle extends AbstractFish
             
             if (this.turtle.getNavigator().noPath() && vec3d != null)
         	{
-            	
             	if (this.turtle.getDistanceSqToCenter(this.turtle.getHomePos()) > 16.0D)
             	{
             		this.moveX = vec3d.x;
@@ -452,11 +488,112 @@ public class EntityTurtle extends AbstractFish
         	}	
 	        this.turtle.getNavigator().tryMoveToXYZ(this.moveX, this.moveY, this.moveZ, this.speed);
 	        
-	        if (this.giveUp <= 1)
-	        { this.turtle.setGoingHome(false); }
+	        if (this.giveUp < 50)
+	        { 
+	        	this.turtle.setGoingHome(false); 
+	        }
 	    }
-		
 	}
+	
+	public class TurtleAILayEgg extends EntityAIMoveToBlock
+	{
+		private boolean onSand;
+	    private final EntityTurtle turtle;
+	    private final double movementSpeed;
+		private int timeoutCounter;
+		private int layCountdown;
+
+	    public TurtleAILayEgg(EntityTurtle turtleIn, double speedIn)
+	    {
+	        super(turtleIn, speedIn, 35);
+	        this.turtle = turtleIn;
+	        this.movementSpeed = speedIn;
+	    }
+
+	    public boolean shouldExecute()
+	    {
+	    	if (this.runDelay <= 0)
+	        {
+	            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.turtle.world, this.turtle))
+	            { return false; }
+	            
+	            if (!this.turtle.isCarryingEgg())
+	            { return false; }
+	            
+	            if (this.turtle.isCarryingEgg() && this.turtle.isGoingHome())
+	            { return false; }
+	        }
+            
+	        return super.shouldExecute();
+	    }
+
+	    public void startExecuting()
+	    {
+	    	this.layCountdown = 100;
+	    	super.startExecuting();
+	    }
+	    
+	    public void resetTask()
+	    {
+	    	this.layCountdown = 0; 
+	    	super.resetTask();
+	    }
+	    
+	    public boolean shouldContinueExecuting()
+	    {
+	    	if (!this.turtle.isCarryingEgg())
+	    	{ return false; }
+	        return super.shouldContinueExecuting();
+	    }
+	    
+	    public void updateTask()
+	    {
+	        super.updateTask();
+	        this.turtle.getLookHelper().setLookPosition((double)this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)this.destinationBlock.getZ() + 0.5D, 10.0F, (float)this.turtle.getVerticalFaceSpeed());
+	        BlockPos blockpos = new BlockPos(this.turtle.posX, this.turtle.posY-1, this.turtle.posZ);
+	        
+	        if (this.turtle.getDistanceSqToCenter(this.destinationBlock) > 1.0D) //this.turtle.world.getBlockState(blockpos).getMaterial() != Material.SAND
+	        {
+	            this.onSand = false;
+	            ++this.timeoutCounter;
+
+	            if (this.timeoutCounter % 40 == 0)
+	            {
+	                this.turtle.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 0.5D), (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+	            }
+	        }
+	        else
+	        {
+	            this.onSand = true;
+	            --this.timeoutCounter;
+	        }
+	        
+	        if (this.onSand)
+	        {
+	        	if (this.layCountdown != 1)
+	        	{ --this.layCountdown; }
+	        	
+	        	if (this.layCountdown == 1 && this.turtle.world.getBlockState(blockpos.up()).getMaterial() == Material.AIR)
+	            { 
+	        		this.turtle.setDigging(false);
+	        		this.turtle.world.setBlockState(blockpos.up(), OEBlocks.SEA_TURTLE_EGG.getDefaultState().withProperty(BlockTurtleEgg.AMOUNT, Integer.valueOf(rand.nextInt(3) + 1)), 3);
+	        		this.turtle.setCarryingEgg(false);
+	            }
+	        	else
+	        	{ this.turtle.setDigging(true); }
+	        	
+	        	this.runDelay = 10;
+	        }
+	    }
+
+	    protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+	    {
+	        IBlockState iblockstate = worldIn.getBlockState(pos);
+
+	        return iblockstate.getMaterial() == Material.SAND; 
+	    }
+	}
+	
 	
 	public void writeEntityToNBT(NBTTagCompound compound)
     {
