@@ -13,6 +13,7 @@ item.coconut_open.name=Cracked Coconut
 item.shells.name=Loose Shells
 item.conch.name=Conch
 item.turtle_scute.name=Scute
+item.turtle_helmet.name=Turtle Shell
 item.crab_raw.name=Raw Crab
 item.crab_cooked.name=Cooked Crab
 
@@ -64,6 +65,7 @@ tile.blue_ice.name=Blue Ice
 tile.guardian_spike.name=Guardian Spike
 tile.sea_oats.name=Sea Oats
 tile.shell_sand.name=Shelly Sand
+tile.coquina.name=Coquina
 tile.wrack.name=Wrack
 tile.turtle_egg.name=Turtle Egg
 tile.coconut.name=Coconut
@@ -87,10 +89,18 @@ enchantment.channeling=Channeling
 enchantment.riptide=Riptide
 
 description.chlorine.name=Removes Sea Grass in a 5x5x5 cube
+description.turtle_helmet.name=Gives 10 seconds Water Breathing outside of water.
 
 oe.config.title=Oceanic Expanse Config
 
 oe.config.worldGen=World Gen Config
+
+oe.config.worldGen=World Gen Config
+oe.config.worldGen.kelpForest=Kelp Forest Config
+oe.config.worldGen.enableKelpForest=Enable Kelp Forest
+oe.config.worldGen.kelpConnective=Kelp Forest Connectiveness
+oe.config.worldGen.kelpSpread=Kelp Forest Spread
+oe.config.worldGen.kelpDensity=Kelp Density
 
 oe.config.block=Block Config
 oe.config.block.driedKelpShears=Can cut Dried Kelp string

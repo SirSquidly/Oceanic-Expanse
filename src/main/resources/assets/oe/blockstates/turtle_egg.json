@@ -1,8 +1,88 @@
 {
     "variants": {
-        "amount=1":  { "model": "oe:sea_pickle_1" },
-        "amount=2":  { "model": "oe:sea_pickle_2" },
-        "amount=3":  { "model": "oe:sea_pickle_3" },
-        "amount=4":  { "model": "oe:sea_pickle_4" }
+        "amount=1,crack=0":  
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_1" },
+        	{ "model": "oe:turtle_egg/turtle_egg_1", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_1", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_1", "y": 270 }
+        ],
+        "amount=2,crack=0":
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_2" },
+        	{ "model": "oe:turtle_egg/turtle_egg_2", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_2", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_2", "y": 270 }
+        ],
+        "amount=3,crack=0":
+		[
+        	{ "model": "oe:turtle_egg/turtle_egg_3" },
+        	{ "model": "oe:turtle_egg/turtle_egg_3", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_3", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_3", "y": 270 }
+        ],
+        "amount=4,crack=0":
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_4" },
+        	{ "model": "oe:turtle_egg/turtle_egg_4", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_4", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_4", "y": 270 }
+        ],
+        "amount=1,crack=1":  
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_1_1" },
+        	{ "model": "oe:turtle_egg/turtle_egg_1_1", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_1_1", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_1_1", "y": 270 }
+        ],
+        "amount=2,crack=1":
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_2_1" },
+        	{ "model": "oe:turtle_egg/turtle_egg_2_1", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_2_1", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_2_1", "y": 270 }
+        ],
+        "amount=3,crack=1":
+		[
+        	{ "model": "oe:turtle_egg/turtle_egg_3_1" },
+        	{ "model": "oe:turtle_egg/turtle_egg_3_1", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_3_1", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_3_1", "y": 270 }
+        ],
+        "amount=4,crack=1":
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_4_1" },
+        	{ "model": "oe:turtle_egg/turtle_egg_4_1", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_4_1", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_4_1", "y": 270 }
+        ],
+        "amount=1,crack=2":  
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_1_2" },
+        	{ "model": "oe:turtle_egg/turtle_egg_1_2", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_1_2", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_1_2", "y": 270 }
+        ],
+        "amount=2,crack=2":
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_2_2" },
+        	{ "model": "oe:turtle_egg/turtle_egg_2_2", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_2_2", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_2_2", "y": 270 }
+        ],
+        "amount=3,crack=2":
+		[
+        	{ "model": "oe:turtle_egg/turtle_egg_3_2" },
+        	{ "model": "oe:turtle_egg/turtle_egg_3_2", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_3_2", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_3_2", "y": 270 }
+        ],
+        "amount=4,crack=2":
+        [
+        	{ "model": "oe:turtle_egg/turtle_egg_4_2" },
+        	{ "model": "oe:turtle_egg/turtle_egg_4_2", "y": 90 },
+        	{ "model": "oe:turtle_egg/turtle_egg_4_2", "y": 180 },
+        	{ "model": "oe:turtle_egg/turtle_egg_4_2", "y": 270 }
+        ]
     }
 }
