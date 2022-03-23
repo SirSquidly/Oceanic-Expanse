@@ -10,11 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * ModelCrab - Sir Squidly
  * Created using Tabula 7.1.0
  */
+@SideOnly(Side.CLIENT)
 public class ModelCrab extends ModelBase {
 	public boolean holdingItem;
 	public ModelRenderer body1;

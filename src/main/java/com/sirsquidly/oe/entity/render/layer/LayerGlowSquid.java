@@ -8,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -34,7 +36,24 @@ public class LayerGlowSquid<T extends EntityGlowSquid> implements LayerRenderer<
         int j = i % 65536;
         int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        
+        if (entitylivingbaseIn.hasCustomName() && "jeb_".equals(entitylivingbaseIn.getCustomNameTag()))
+        {
+            int m = entitylivingbaseIn.ticksExisted / 25 + entitylivingbaseIn.getEntityId();
+            int n = EnumDyeColor.values().length;
+            int o = m % n;
+            int p = (m + 1) % n;
+            float f = ((float)(entitylivingbaseIn.ticksExisted % 25) + partialTicks) / 25.0F;
+            float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(o));
+            float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(p));
+            GlStateManager.color(afloat1[0] * (2.5F - f) + afloat2[0] * f, afloat1[1] * (1.5F - f) + afloat2[1] * f, afloat1[2] * (1.0F - f) + afloat2[2] * f);
+        }
+        else
+        {
+        	GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        }
+        
+        
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
         this.GlowSquidRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(false);

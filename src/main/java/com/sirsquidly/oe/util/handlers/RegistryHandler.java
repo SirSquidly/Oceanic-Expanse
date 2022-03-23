@@ -14,6 +14,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber
 public class RegistryHandler {
@@ -34,9 +36,12 @@ public class RegistryHandler {
 		event.getRegistry().registerAll(OEEnchants.ENCHANTMENTS.toArray(new Enchantment[0]));
 	}
 	
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent event)
 	{
+		RenderHandler.registerEntityRenders();
+
 		for(Item item : OEItems.ITEMS)
 		{
 			Main.proxy.registerItemRenderer(item, 0, "inventory");

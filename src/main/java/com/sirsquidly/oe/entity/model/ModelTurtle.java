@@ -6,11 +6,14 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * ModelTurtle - Sir Squidly
  * Created using Tabula 7.1.0
  */
+@SideOnly(Side.CLIENT)
 public class ModelTurtle extends ModelBase {
     public ModelRenderer shell1;
     public ModelRenderer body1;

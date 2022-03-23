@@ -2,7 +2,6 @@ package com.sirsquidly.oe.proxy;
 
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
-import com.sirsquidly.oe.util.handlers.RenderHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 import com.sirsquidly.oe.world.*;
 import com.sirsquidly.oe.world.feature.*;
@@ -15,13 +14,14 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CommonProxy
 {
 	public void preInitRegisteries(FMLPreInitializationEvent event)
 	{
 		OEEntities.registerEntities();
-		RenderHandler.registerEntityRenders();
 		registerWorldGen();
 		GameRegistry.registerWorldGenerator(new GeneratorWarmOcean(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
 		GameRegistry.registerWorldGenerator(new GeneratorFrozenOcean(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
@@ -33,7 +33,9 @@ public class CommonProxy
 		SoundHandler.registerSounds();
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void registerItemRenderer(Item item, int meta, String id){}
+	@SideOnly(Side.CLIENT)
     public void registerItemVariantModel(Item item, String name, int metadata) {}
     
     public static void registerWorldGen()

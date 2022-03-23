@@ -7,11 +7,14 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * ModelPufferfish - Sir Squidly
  * Created using Tabula 7.1.0
  */
+@SideOnly(Side.CLIENT)
 public class ModelPufferfish extends ModelBase {
     public ModelRenderer s3body1;
     public ModelRenderer s2body1;

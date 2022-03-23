@@ -4,7 +4,10 @@ import com.sirsquidly.oe.entity.*;
 import com.sirsquidly.oe.entity.render.*;
 
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class RenderHandler 
 {
 	public static void registerEntityRenders()

@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * ModelPickled - Sir Squidly
  * Created using Tabula 7.1.0
  */
+@SideOnly(Side.CLIENT)
 public class ModelPickled extends ModelBiped {
 	public ModelRenderer bipedRightArm;
     public ModelRenderer bipedRightLeg;
