@@ -5,7 +5,6 @@ import com.sirsquidly.oe.items.ItemTrident;
 import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentMending;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
