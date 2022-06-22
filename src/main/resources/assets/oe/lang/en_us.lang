@@ -162,6 +162,9 @@ oe.config.enchant.channelingBlocks=Channeling Block Whitelist
 oe.config.enchant.channelingRidingBlacklist=Channeling Riding Blacklist
 
 oe.config.entity=Entity Config
+oe.config.entity.salmon=Salmon Config
+oe.config.entity.salmonSizeVarience=Salmon random sizes
+oe.config.entity.salmonFeedingGrowth=Salmon GROW
 oe.config.entity.glowSquid=Glow Squid Config
 oe.config.entity.glowSquidBodyBright=Glow Squid Brightness
 oe.config.entity.glowSquidLayer=Enable Glow Squid 2ed Layer

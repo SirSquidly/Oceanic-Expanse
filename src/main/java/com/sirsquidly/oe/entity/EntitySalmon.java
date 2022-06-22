@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.entity.EntityAgeable;
@@ -95,17 +96,23 @@ public class EntitySalmon extends AbstractFish
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-		int i = this.rand.nextInt(3);
-		int j = this.rand.nextInt(99);
+		if (ConfigHandler.entity.salmon.salmonSizeVarience)
+		{
+			int i = this.rand.nextInt(3);
+			int j = this.rand.nextInt(99);
 
-        if (j <= 50)
-        { i = 2;}
-        if (j > 50 && j <= 65)
-        { i = 3;}
-        if (j > 65 && j <= 99)
-        { i = 1;}
-        
-        this.setSalmonSize(i, false);
+	        if (j <= 50)
+	        { i = 2;}
+	        if (j > 50 && j <= 65)
+	        { i = 3;}
+	        if (j > 65 && j <= 99)
+	        { i = 1;}
+	        
+	        this.setSalmonSize(i, false);
+		}
+		else
+		{ this.setSalmonSize(2, false); }
+		
         return super.onInitialSpawn(difficulty, livingdata);
     }
 	
@@ -162,7 +169,7 @@ public class EntitySalmon extends AbstractFish
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (BREEDING_ITEMS.contains(itemstack.getItem()) &&  !(this.isChild()))
+        if (ConfigHandler.entity.salmon.salmonFeedingGrowth && BREEDING_ITEMS.contains(itemstack.getItem()) &&  !(this.isChild()))
         {
         	this.setSalmonSize(getSalmonSize() + 1, false);
 

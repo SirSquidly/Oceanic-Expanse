@@ -268,6 +268,24 @@ public class ConfigHandler
 	public static class configEntity
 	{
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.salmon")
+	    public configSalmon salmon = new configSalmon();
+		
+		public static class configSalmon
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.salmonSizeVarience")
+		    @Config.Comment("If Salmon can spawn in a variety of sizes.")
+		    public boolean salmonSizeVarience = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.salmonSizeVarience")
+		    @Config.Comment("When using breeding items on Salmon, they grow in size. This is a joke feature.")
+		    public boolean salmonFeedingGrowth = false;
+		}
+		   
+		    
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.glowSquid")
 	    public configGlowSquid glowSquid = new configGlowSquid();
 		
