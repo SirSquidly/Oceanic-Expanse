@@ -1,11 +1,13 @@
 package com.sirsquidly.oe.entity;
 
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +18,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGlowSquid extends EntitySquid
 {
-	private int minBrightness = 3932220;
+	public float brightCooldown = 0.0F;
+	public float currBrightness = 1.0F;
+	public int minBrightness = 983055 * ConfigHandler.entity.glowSquid.glowSquidBodyBright;
 	
 	public EntityGlowSquid(World worldIn) {
 		super(worldIn);
@@ -52,20 +56,41 @@ public class EntityGlowSquid extends EntitySquid
     	{
         blockpos$mutableblockpos.setY(MathHelper.floor(this.posY + (double)this.getEyeHeight()));
         
-        if (this.world.getCombinedLight(blockpos$mutableblockpos, 0) > minBrightness)
+        if (this.world.getCombinedLight(blockpos$mutableblockpos, 0) > (int)(this.minBrightness * this.currBrightness))
         { return this.world.getCombinedLight(blockpos$mutableblockpos, 0); }
         
-        else { return minBrightness;  }
+        else { return (int)(this.minBrightness * this.currBrightness);  }
     	}
-    return minBrightness; 
+    return 0; 
     }
+	
+	public boolean attackEntityFrom(DamageSource source, float amount)
+    {
+		this.brightCooldown = 1.0F;
+		this.currBrightness = 0.0F;
+		return super.attackEntityFrom(source, amount);
+    }
+	
+	public void onUpdate()
+    {
+		if (this.brightCooldown > 0.0)
+        {
+        	this.brightCooldown -= 0.02;
+        }
+        else if (this.currBrightness < 1.0)
+        {
+        	this.currBrightness += 0.1F;
+        }
+		super.onUpdate();
+    }
+	
 	
 	@Override
 	public boolean getCanSpawnHere()
     {
-        return this.posY < (double)this.world.getSeaLevel() && super.getCanSpawnHere();
+        return this.posY < 30.0 && super.getCanSpawnHere();
     }
-
+        
 	static class AISpeedAway extends EntityAIBase
     {
 			protected double speedMult;

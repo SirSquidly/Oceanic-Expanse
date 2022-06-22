@@ -1,0 +1,7 @@
+{
+    "variants":
+    {
+        "half=bottom": { "model": "oe:half_palm_slab" },
+        "half=top": { "model": "oe:upper_palm_slab" }
+    }
+}

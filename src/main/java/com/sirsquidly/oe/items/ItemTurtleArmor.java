@@ -19,9 +19,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTurtleArmor extends ItemArmorBase
 {
-	public ItemTurtleArmor(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) 
+	public ItemTurtleArmor(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) 
 	{
-		super(name, materialIn, renderIndexIn, equipmentSlotIn);
+		super(materialIn, renderIndexIn, equipmentSlotIn);
 	}
 	
 	@Override

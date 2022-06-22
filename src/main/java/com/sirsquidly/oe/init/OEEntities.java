@@ -3,6 +3,7 @@ package com.sirsquidly.oe.init;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.*;
 import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
@@ -27,7 +28,9 @@ public class OEEntities {
 		registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
 		registerEntity("turtle", EntityTurtle.class, ++id, 64, 15453241, 4365242);
 		registerEntity("crab", EntityCrab.class, ++id, 64, 12860482, 15453241);
-		registerEntity("drowned", EntityDrowned.class, ++id, 80, 5609880, 12434265);
+		
+		if (ConfigHandler.entity.drowned.enableDrowned) registerEntity("drowned", EntityDrowned.class, ++id, 80, 5609880, 12434265);
+		
 		registerEntity("pickled", EntityPickled.class, ++id, 80, 8223277, 14221270);
 		
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);
@@ -49,6 +52,12 @@ public class OEEntities {
 		EntitySpawnPlacementRegistry.setPlacementType(EntityCod.class, SpawnPlacementType.IN_WATER);
 		EntitySpawnPlacementRegistry.setPlacementType(EntitySalmon.class, SpawnPlacementType.IN_WATER);
 		EntitySpawnPlacementRegistry.setPlacementType(EntityPufferfish.class, SpawnPlacementType.IN_WATER);
+		
+		
+		if (ConfigHandler.entity.drowned.enableDrowned)
+		{
+			//Put Drowned stuff here Later
+		}
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2)

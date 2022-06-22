@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.BlockBush;
@@ -34,7 +33,6 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable
 	public BlockUnderwaterGrass() {
 		super(Material.WATER);
 		this.setSoundType(SoundType.PLANT);
-		this.setCreativeTab(Main.OCEANEXPTAB);
 
 		setDefaultState(blockState.getBaseState());
 	}

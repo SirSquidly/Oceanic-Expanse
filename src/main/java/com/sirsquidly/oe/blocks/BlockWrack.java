@@ -1,7 +1,5 @@
 package com.sirsquidly.oe.blocks;
 
-import com.sirsquidly.oe.Main;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -22,8 +20,6 @@ public class BlockWrack extends Block
 	    {
 	        super(Material.PLANTS);
 	        this.setSoundType(SoundType.PLANT);
-	        
-	        this.setCreativeTab(Main.OCEANEXPTAB);
 	    }
 	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)

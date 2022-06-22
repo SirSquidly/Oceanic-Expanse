@@ -4,6 +4,9 @@ import java.util.Random;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.world.feature.WorldGenCoconutTree;
+import com.sirsquidly.oe.world.feature.coral.WorldGenCoralBranch;
+import com.sirsquidly.oe.world.feature.coral.WorldGenCoralBulb;
+import com.sirsquidly.oe.world.feature.coral.WorldGenCoralStalk;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockSand;
@@ -23,12 +26,12 @@ import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
-public class BlockCoconutSapling extends BlockBush implements IGrowable
+public class BlockPalmSapling extends BlockBush implements IGrowable
 {
 	public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
     protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.12D, 0.0D, 0.1D, 0.9D, 0.8D, 0.9D);
     
-	public BlockCoconutSapling()
+	public BlockPalmSapling()
 	{
 		setSoundType(SoundType.PLANT);
 		setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
@@ -137,5 +140,5 @@ public class BlockCoconutSapling extends BlockBush implements IGrowable
 	
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) 
-	{ return (double)worldIn.rand.nextFloat() < 0.45D; }
+	{ return (double)worldIn.rand.nextFloat() < 1.45D; }
 }

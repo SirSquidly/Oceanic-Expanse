@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_bottom_rh",
+    "textures": {
+        "bottom": "oe:blocks/palm_door_bottom",
+        "top": "oe:blocks/palm_door_bottom"
+    }
+}

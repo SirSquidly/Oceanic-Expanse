@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -22,7 +23,7 @@ public class WorldGenShoreRock implements IWorldGenerator
 	/** Spread in positive and negative directions from origin to try and place at.*/
 	public int groupAmount;
 	/** Spread in positive and negative directions from origin to try and place at. Only used when groupAmount is over 1.*/
-	public int placeSpreadXZ = 10;
+	public int placeSpreadXZ = 8;
 	/** If the rock placement shouldn't avoid the biome topBlock (sand on beaches, ect.).*/
 	private boolean acceptTop;
 	public Biome[] biomes;
@@ -41,10 +42,9 @@ public class WorldGenShoreRock implements IWorldGenerator
     @Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) 
 	{
-    	int x = chunkX * 16 + 8;
-		int z = chunkZ * 16 + 8;
-		Biome biome = world.getBiomeForCoordsBody(new BlockPos(x, 0, z));
-        boolean isValidBiome = false;
+    	boolean isValidBiome = false;
+		ChunkPos chunkPos = world.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+        Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
         
 		for(int i = 0; i < biomes.length; i++)
 		{
@@ -59,15 +59,16 @@ public class WorldGenShoreRock implements IWorldGenerator
 		{
 			for(int i = 0; i < attemptsPerChunk; i++)
 			{
-				int xPos = x + rand.nextInt(4) - rand.nextInt(4);
-				int zPos = z + rand.nextInt(4) - rand.nextInt(4);
+				int xPos = 8;
+				int zPos = 8;
 				int yPos = Math.max(world.getSeaLevel() - 1, 1);;
 				
 				if(rand.nextInt(chancePerAttempt) == 0)
 				{
-					BlockPos pos = new BlockPos(xPos, yPos, zPos);
+					BlockPos pos = chunkPos.getBlock(0, 0, 0).add(xPos, yPos, zPos);
 					
-					BlockPos posSeaFloor = new BlockPos(xPos, yPos, zPos);
+					int posSeaFloor = yPos;
+					//BlockPos posSeaFloor = chunkPos.getBlock(0, 0, 0).add(xPos, yPos, zPos);
 					
 					for (int a = 0; a <= groupAmount; ++a)
 			        {	
@@ -77,16 +78,15 @@ public class WorldGenShoreRock implements IWorldGenerator
 				        	int rZ = pos.getZ() + rand.nextInt(placeSpreadXZ) - rand.nextInt(placeSpreadXZ);
 				        	
 				        	pos = new BlockPos(rX, yPos, rZ);
-				        	posSeaFloor = new BlockPos(rX, yPos, rZ);
 				        	biome = world.getBiomeForCoordsBody(pos);
 						}
 						
 			        	if (world.getBlockState(pos).getBlock() != biome.topBlock || acceptTop)
 						{ 
-			        		for ( IBlockState state = world.getBlockState(posSeaFloor); state.getBlock() != biome.fillerBlock && posSeaFloor.getY() > 0 ; state = world.getBlockState(posSeaFloor) )
-				        	{ posSeaFloor = posSeaFloor.down(); }
+			        		for ( IBlockState state = world.getBlockState(pos.down(posSeaFloor)); state.getBlock() != biome.fillerBlock && posSeaFloor > 0 ; state = world.getBlockState(pos.down(posSeaFloor)) )
+				        	{ posSeaFloor -= 1; }
 			        		
-			        		spawnShoreRock(world, rand, pos, posSeaFloor.getY() - 3); 
+			        		spawnShoreRock(world, rand, pos, posSeaFloor - 3); 
 						}
 			        }
 				}
@@ -134,12 +134,12 @@ public class WorldGenShoreRock implements IWorldGenerator
                         	 if (rand.nextInt(Math.max(10+k/2,2)) == 0)
                         	 { 
                         		 if (position.add(i1, -k, j1).getY() > worldIn.getSeaLevel() + 1 && worldIn.getBlockState(position.add(i1, -k + 1, j1)).getMaterial() == Material.AIR && rand.nextInt(2) == 0)
-                            	 { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.COBBLESTONE)); }
-                        		 else { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.COBBLESTONE.getDefaultState()); }
+                            	 { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.STONE_SLAB.getDefaultState().withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.COBBLESTONE), 2); }
+                        		 else { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.COBBLESTONE.getDefaultState(), 2); }
                         	 }
                         	 else if (rand.nextInt(Math.max(10+k/2,2)) == 0)
-                        	 { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.MOSSY_COBBLESTONE.getDefaultState()); }
-                        	 else { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.STONE.getDefaultState());  }
+                        	 { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.MOSSY_COBBLESTONE.getDefaultState(), 2); }
+                        	 else { worldIn.setBlockState(position.add(i1, -k, j1), Blocks.STONE.getDefaultState(), 2);  }
                         	 
                          }
                      }

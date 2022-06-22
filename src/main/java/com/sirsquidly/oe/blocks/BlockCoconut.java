@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityFallingCoconut;
 import com.sirsquidly.oe.init.OEItems;
 
@@ -54,7 +53,6 @@ public class BlockCoconut extends Block implements IGrowable
     	
         setHardness(0.5f);
 		setResistance(2.5f);
-		this.setCreativeTab(Main.OCEANEXPTAB);
     }
     
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)

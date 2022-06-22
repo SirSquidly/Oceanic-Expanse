@@ -1,12 +1,17 @@
 package com.sirsquidly.oe.proxy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 import com.sirsquidly.oe.world.*;
 import com.sirsquidly.oe.world.feature.*;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -19,12 +24,23 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CommonProxy
 {
+	public static final List<Biome> allOceans = new ArrayList<Biome>();
+	
 	public void preInitRegisteries(FMLPreInitializationEvent event)
 	{
+		allOceans.addAll(BiomeDictionary.getBiomes(Type.OCEAN));
+		allOceans.addAll(BiomeDictionary.getBiomes(Type.BEACH));
+		
 		OEEntities.registerEntities();
+		GameRegistry.registerWorldGenerator(new GeneratorWarmOcean(allOceans.toArray(new Biome[0])), 0);
+		GameRegistry.registerWorldGenerator(new GeneratorFrozenOcean(allOceans.toArray(new Biome[0])), 0);
 		registerWorldGen();
-		GameRegistry.registerWorldGenerator(new GeneratorWarmOcean(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
-		GameRegistry.registerWorldGenerator(new GeneratorFrozenOcean(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
+		
+		if (ConfigHandler.vanillaTweak.waterTweak)
+		{
+			Blocks.WATER.setLightOpacity(1);
+			Blocks.FLOWING_WATER.setLightOpacity(1);
+		}
 	}
 	
 	public void initRegistries(FMLInitializationEvent event)
@@ -40,8 +56,8 @@ public class CommonProxy
     
     public static void registerWorldGen()
 	{
-    	GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 30, 3, false, Biomes.BEACH), 0);
-    	GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 15, 6, true, Biomes.STONE_BEACH), 0);
+    	//GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 5, 3, false, Biomes.BEACH), 0);
+    	//GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 15, 6, true, Biomes.STONE_BEACH), 0);
     	GameRegistry.registerWorldGenerator(new WorldGenTidePools(2, 30, Biomes.BEACH), 0);
     	
     	GameRegistry.registerWorldGenerator(new GeneratorCoconutTree(3, 8, Biomes.BEACH), 0);
@@ -49,9 +65,6 @@ public class CommonProxy
     	
     	GameRegistry.registerWorldGenerator(new WorldGenKelpForest(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
 
-    	
-    	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEA_PICKLE, 1, 4, 16, 0.4, false, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
-    	
     	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEAGRASS, 2, 6, 32, 0.4, true, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
     	
     	GameRegistry.registerWorldGenerator(new WorldGenSeagrass(OEBlocks.SEAGRASS, 2, 2, 48, 0.4, false, Biomes.RIVER), 0);

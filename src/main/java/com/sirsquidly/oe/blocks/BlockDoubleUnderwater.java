@@ -39,7 +39,6 @@ public class BlockDoubleUnderwater extends BlockBush
 	public BlockDoubleUnderwater() {
 		super(Material.WATER);
 		this.setSoundType(SoundType.PLANT);
-		this.setCreativeTab(Main.OCEANEXPTAB);
 
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleUnderwater.EnumBlockHalf.LOWER));
 	}

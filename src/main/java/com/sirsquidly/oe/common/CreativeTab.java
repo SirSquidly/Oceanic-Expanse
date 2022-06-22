@@ -2,6 +2,7 @@ package com.sirsquidly.oe.common;
 
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	    public void displayAllRelevantItems(NonNullList<ItemStack> list)
 	    {	
 	        
-			add(list, OEItems.TRIDENT_ORIG);
+			if (ConfigHandler.item.trident.enableTrident) add(list, OEItems.TRIDENT_ORIG);
 			
 	        add(list, OEItems.GLOW_INK);
 	        add(list, OEItems.SQUID_UNCOOKED);
@@ -81,7 +82,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEBlocks.PURPLE_CORAL_FAN_DEAD);
 	        add(list, OEBlocks.RED_CORAL_FAN_DEAD);
 	        add(list, OEBlocks.YELLOW_CORAL_FAN_DEAD);
-	        add(list, OEBlocks.GUARDIAN_SPIKE);
+	        if (ConfigHandler.block.guardianSpike.enableGuardianSpike) add(list, OEBlocks.GUARDIAN_SPIKE);
 	    }
 
 		

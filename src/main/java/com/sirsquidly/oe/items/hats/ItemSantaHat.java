@@ -12,9 +12,9 @@ import com.sirsquidly.oe.models.ModelSantaHat;
 
 public class ItemSantaHat extends ItemArmorBase{
 	
-	public ItemSantaHat(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) 
+	public ItemSantaHat(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) 
 	{
-		super(name, materialIn, renderIndexIn, equipmentSlotIn);
+		super(materialIn, renderIndexIn, equipmentSlotIn);
 	}
 	
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default)

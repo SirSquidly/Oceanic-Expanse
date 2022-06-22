@@ -6,7 +6,6 @@ import com.google.common.collect.Multimap;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
-import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
@@ -38,10 +37,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTrident extends Item
 {
-	public ItemTrident(String name) {
+	public ItemTrident() {
 		super();
-		setUnlocalizedName(name);
-		setRegistryName(name);
 		this.setCreativeTab(Main.OCEANEXPTAB);
 		setFull3D();
 		this.maxStackSize = 1;
@@ -63,8 +60,6 @@ public class ItemTrident extends Item
 				return worldIn == null ? 1.0F : 0.0F;
 			}
 		});
-
-		OEItems.ITEMS.add(this);
 	}
 
 	public EnumAction getItemUseAction(ItemStack stack)

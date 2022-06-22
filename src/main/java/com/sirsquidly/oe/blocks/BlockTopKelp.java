@@ -15,8 +15,15 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -110,6 +117,23 @@ public class BlockTopKelp extends BlockBush implements IGrowable
     protected BlockStateContainer createBlockState()
     {
         return new BlockStateContainer(this, BlockLiquid.LEVEL, AGE);
+    }
+    
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+		ItemStack itemstack = playerIn.getHeldItem(hand);
+		Item item = itemstack.getItem();
+		
+		if ((Integer)state.getValue(AGE).intValue() != maxHeight)
+        {
+			if (item == Items.SHEARS)
+	        {
+				worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(maxHeight)), 2);
+				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
+	            return true;
+	        }
+        }
+		return false;
     }
     
     /** Natural Growing **/

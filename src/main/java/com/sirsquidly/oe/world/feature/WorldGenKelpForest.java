@@ -11,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -22,6 +23,9 @@ public class WorldGenKelpForest implements IWorldGenerator
 {
     private double[] frozenOceanNoiseGen = new double[256];
     private NoiseGeneratorOctaves frozenOceanNoiseGenOctaves;
+    
+    private double[] sandNoiseGen = new double[256];
+    private NoiseGeneratorOctaves warmOceanNoiseGenOctaves;
 	
     private double[] kelpNoiseGen = new double[256];
     private NoiseGeneratorOctaves kelpForestNoiseGen;
@@ -33,13 +37,17 @@ public class WorldGenKelpForest implements IWorldGenerator
     	this.biomes = biomes;
     	this.kelpForestNoiseGen = new NoiseGeneratorOctaves(new Random(1244), 4);
     	
+    	this.warmOceanNoiseGenOctaves = new NoiseGeneratorOctaves(new Random(2560), 4);
     	this.frozenOceanNoiseGenOctaves = new NoiseGeneratorOctaves(new Random(5120), 4);
     }
     
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{ 
-		Biome biome = world.getBiomeForCoordsBody(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
+		//Biome biome = world.getBiomeForCoordsBody(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
+		ChunkPos chunkPos = world.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+        Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
+        
         boolean isValidBiome = false;
         
 		for(int i = 0; i < biomes.length; i++)
@@ -55,8 +63,10 @@ public class WorldGenKelpForest implements IWorldGenerator
 		{ spawnKelpForest(world, random, chunkX, chunkZ); }
 	}
 
-    private void spawnKelpForest(World world, Random rand, int chunkX, int chunkZ) {
+    private void spawnKelpForest(World world, Random rand, int chunkX, int chunkZ)
+    {
     	this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
+    	this.sandNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.sandNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
     	this.kelpNoiseGen = kelpForestNoiseGen.generateNoiseOctaves(this.kelpNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, ConfigHandler.worldGen.kelpForest.kelpConnective, 1.0, ConfigHandler.worldGen.kelpForest.kelpConnective);
     	
         for (int x = 0; x < 16; x++) {
@@ -64,7 +74,7 @@ public class WorldGenKelpForest implements IWorldGenerator
             {   
                 BlockPos pos = getSeaFloor(world, chunkX * 16 + 8 + x, chunkZ * 16 + 8 + z);
                 
-                if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > ConfigHandler.worldGen.kelpForest.kelpSpread && !(this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6)) 
+                if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > ConfigHandler.worldGen.kelpForest.kelpSpread && !(this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6) && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.95)) 
                 { 
                 	Block blockHere = world.getBlockState(pos.up()).getBlock();
                 	Block blockDown = world.getBlockState(pos).getBlock();

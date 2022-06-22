@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.BlockLeaves;
@@ -12,6 +11,7 @@ import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -30,14 +30,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockCoconutLeaves extends BlockLeaves
 {
-
 	public BlockCoconutLeaves() 
 	{
 		super();
 		setLightOpacity(2);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(false)).withProperty(DECAYABLE, Boolean.valueOf(true)));
-		this.setCreativeTab(Main.OCEANEXPTAB);
 	}
+	
+	@Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+        return this.getDefaultState().withProperty(CHECK_DECAY, Boolean.valueOf(false)).withProperty(DECAYABLE, Boolean.valueOf(false));
+    }
 	
 	protected ItemStack getSilkTouchDrop(IBlockState state)
     { return new ItemStack(Item.getItemFromBlock(this), 1, 0); }

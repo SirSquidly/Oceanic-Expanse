@@ -30,8 +30,8 @@ public class ItemChlorine extends ItemBase
 	private int effectArea = 5;
 	private int effectMath = effectArea / 2;
 	
-	public ItemChlorine(String name) 
-	{ super(name); }
+	public ItemChlorine() 
+	{ super(); }
 
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {

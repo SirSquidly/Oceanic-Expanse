@@ -2,7 +2,6 @@ package com.sirsquidly.oe.blocks;
 
 import java.util.Random;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.IGrowable;
@@ -20,8 +19,6 @@ public class BlockCoconutLeavesFlowering extends BlockCoconutLeaves implements I
 		this.setTickRandomly(true);
 		
 		setLightOpacity(2);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(false)).withProperty(DECAYABLE, Boolean.valueOf(true)));
-		this.setCreativeTab(Main.OCEANEXPTAB);
 	}
 	
 	protected ItemStack getSilkTouchDrop(IBlockState state)

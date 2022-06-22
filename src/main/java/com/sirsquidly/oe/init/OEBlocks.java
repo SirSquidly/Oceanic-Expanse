@@ -3,14 +3,22 @@ package com.sirsquidly.oe.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.blocks.*;
 import com.sirsquidly.oe.items.ItemBlockSeaPickle;
+import com.sirsquidly.oe.items.ItemBlockSlab;
 import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -20,6 +28,7 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemDoor;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -35,150 +44,134 @@ import net.minecraftforge.registries.IForgeRegistry;
 @EventBusSubscriber(modid = Reference.MOD_ID)
 public class OEBlocks 
 {
-	public static Block SEA_PICKLE, SEAGRASS, TALL_SEAGRASS, KELP, KELP_TOP,
-	DRIED_KELP_BLOCK, COCONUT, COCONUT_LEAVES, COCONUT_LEAVES_FLOWERING, COCONUT_SAPLING, BLUE_CORAL_BLOCK, 
-	BLUE_CORAL_BLOCK_DEAD, PINK_CORAL_BLOCK, PINK_CORAL_BLOCK_DEAD, PURPLE_CORAL_BLOCK, PURPLE_CORAL_BLOCK_DEAD,
-	RED_CORAL_BLOCK, RED_CORAL_BLOCK_DEAD, YELLOW_CORAL_BLOCK, YELLOW_CORAL_BLOCK_DEAD, BLUE_CORAL_FAN, 
-	BLUE_CORAL_FAN_DEAD, PINK_CORAL_FAN, PINK_CORAL_FAN_DEAD, PURPLE_CORAL_FAN, PURPLE_CORAL_FAN_DEAD, RED_CORAL_FAN,
-	RED_CORAL_FAN_DEAD, YELLOW_CORAL_FAN, YELLOW_CORAL_FAN_DEAD, BLUE_CORAL, BLUE_CORAL_DEAD, PINK_CORAL,
-	PINK_CORAL_DEAD, PURPLE_CORAL, PURPLE_CORAL_DEAD, RED_CORAL, RED_CORAL_DEAD, YELLOW_CORAL, YELLOW_CORAL_DEAD,
-	SEA_TURTLE_EGG, BLUE_ICE, SHELL_SAND, WRACK, SEA_OATS, COQUINA;
-	private static List<Block> blockList = new ArrayList<Block>();
-	static List<Item> itemBlockList = new ArrayList<>();
+		/** Contains every block ran through the 'blockReadyForRegister' function. So they all SHOULD be registered. */
+		private static List<Block> blockList = new ArrayList<Block>();
+		/** Records any blocks that have a unique itemBlock assigned, as the rest are automatically slapped with the default itemBlock.*/
+		private static List<Block> itemBlockBlacklist = new ArrayList<Block>();
+		/** Used for items settup here, and need to have models registered as such. */
+		private static List<Item> blockDirectItemList = new ArrayList<Item>();
 
-	public static final Block GUARDIAN_SPIKE = registerBlock(new BlockGuardianSpike(), "guardian_spike");
+		public static Block GUARDIAN_SPIKE = new BlockGuardianSpike();
 	
-	static {
-		SEA_PICKLE = registerBlock(new BlockSeaPickle(), "sea_pickle", new ItemBlockSeaPickle(SEA_PICKLE));
+		public static Block SEA_PICKLE = blockReadyForRegister(new BlockSeaPickle(), "sea_pickle");
 		
-		SEAGRASS = registerBlock(new BlockUnderwaterGrass(), "seagrass");
-		TALL_SEAGRASS = registerBlock(new BlockDoubleUnderwater(), "tall_seagrass");
-		KELP = registerBlock(new BlockKelp(), "kelp_mid");
-		KELP_TOP = registerBlock(new BlockTopKelp(), "kelp");
-		DRIED_KELP_BLOCK = registerBlock(new BlockDriedKelp(), "dried_kelp_block");
-		COCONUT = registerBlock(new BlockCoconut(), "coconut");
-		COCONUT_LEAVES = registerBlock(new BlockCoconutLeaves(), "coconut_leaves");
-		COCONUT_LEAVES_FLOWERING = registerBlock(new BlockCoconutLeavesFlowering(), "coconut_leaves_flowering");
-		COCONUT_SAPLING = registerBlock(new BlockCoconutSapling(), "coconut_sapling");
+		public static Block SEAGRASS = blockReadyForRegister(new BlockUnderwaterGrass(), "seagrass");
+		public static Block TALL_SEAGRASS = blockReadyForRegister(new BlockDoubleUnderwater(), "tall_seagrass");
+		public static Block KELP = blockReadyForRegister(new BlockKelp(), "kelp_mid", false);
+		public static Block KELP_TOP = blockReadyForRegister(new BlockTopKelp(), "kelp");
+		public static Block DRIED_KELP_BLOCK = blockReadyForRegister(new BlockDriedKelp(), "dried_kelp_block");
+		public static Block COCONUT = blockReadyForRegister(new BlockCoconut(), "coconut");
+		public static Block PALM_LOG = blockReadyForRegister(new BlockPalmLog(), "palm_log");
+		public static Block PALM_WOOD = blockReadyForRegister(new BlockPalmLog(), "palm_wood");
+		public static Block PALM_PLANKS = blockReadyForRegister(new BlockPalmPlanks(), "palm_planks");
+		public static Block PALM_SLAB = blockReadyForRegister(new BlockPalmSlab(), "palm_slab");
+		public static Block PALM_SLAB_D = blockReadyForRegister(new BlockPalmSlabDouble(), "palm_slab_double", false);
+		public static Block PALM_STAIRS = blockReadyForRegister(new BlockPalmStairs(), "palm_stairs");
+		public static Block PALM_FENCE = blockReadyForRegister(new BlockFence(Material.WOOD, MapColor.BROWN_STAINED_HARDENED_CLAY), "palm_fence");
+		public static Block PALM_FENCE_GATE = blockReadyForRegister(new BlockFenceGate(BlockPlanks.EnumType.SPRUCE), "palm_fence_gate");
+		public static Block PALM_DOOR = blockReadyForRegister(new BlockPalmDoor(), "palm_door");
+		public static Block COCONUT_LEAVES = blockReadyForRegister(new BlockCoconutLeaves(), "coconut_leaves");
+		public static Block COCONUT_LEAVES_FLOWERING = blockReadyForRegister(new BlockCoconutLeavesFlowering(), "coconut_leaves_flowering");
+		public static Block COCONUT_SAPLING = blockReadyForRegister(new BlockPalmSapling(), "palm_sapling");
 		
-		BLUE_ICE = registerBlock(new BlockBlueIce(), "blue_ice");
-		SEA_TURTLE_EGG = registerBlock(new BlockTurtleEgg(), "turtle_egg");
-		SEA_OATS = registerBlock(new BlockDoubleSeaOats(), "sea_oats");
+		public static Block BLUE_ICE = blockReadyForRegister(new BlockBlueIce(), "blue_ice");
+		public static Block SEA_TURTLE_EGG = blockReadyForRegister(new BlockTurtleEgg(), "turtle_egg");
+		public static Block SEA_OATS = blockReadyForRegister(new BlockDoubleSeaOats(), "sea_oats");
 		
-		SHELL_SAND = registerBlock(new BlockShellSand(), "shell_sand");
-		COQUINA = registerBlock(new BlockShellSand(), "coquina");
-		WRACK = registerBlock(new BlockWrack(), "wrack");
+		public static Block SHELL_SAND = blockReadyForRegister(new BlockShellSand(), "shell_sand");
+		public static Block COQUINA = blockReadyForRegister(new BlockShellSand(), "coquina");
+		public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
 		
-		BLUE_CORAL_BLOCK = registerBlock(new BlockCoralFull(MapColor.BLUE), "blue_coral_block");
-		BLUE_CORAL_BLOCK_DEAD = registerBlock(new BlockCoralFull(MapColor.GRAY), "blue_coral_block_dead");
-		PINK_CORAL_BLOCK = registerBlock(new BlockCoralFull(MapColor.PINK), "pink_coral_block");
-		PINK_CORAL_BLOCK_DEAD = registerBlock(new BlockCoralFull(MapColor.GRAY), "pink_coral_block_dead");
-		PURPLE_CORAL_BLOCK = registerBlock(new BlockCoralFull(MapColor.PURPLE), "purple_coral_block");
-		PURPLE_CORAL_BLOCK_DEAD = registerBlock(new BlockCoralFull(MapColor.GRAY), "purple_coral_block_dead");
-		RED_CORAL_BLOCK = registerBlock(new BlockCoralFull(MapColor.RED), "red_coral_block");
-		RED_CORAL_BLOCK_DEAD = registerBlock(new BlockCoralFull(MapColor.GRAY), "red_coral_block_dead");
-		YELLOW_CORAL_BLOCK = registerBlock(new BlockCoralFull(MapColor.YELLOW), "yellow_coral_block");
-		YELLOW_CORAL_BLOCK_DEAD = registerBlock(new BlockCoralFull(MapColor.GRAY), "yellow_coral_block_dead");
+		public static Block BLUE_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.BLUE), "blue_coral_block");
+		public static Block BLUE_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "blue_coral_block_dead");
+		public static Block PINK_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.PINK), "pink_coral_block");
+		public static Block PINK_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "pink_coral_block_dead");
+		public static Block PURPLE_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.PURPLE), "purple_coral_block");
+		public static Block PURPLE_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "purple_coral_block_dead");
+		public static Block RED_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.RED), "red_coral_block");
+		public static Block RED_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "red_coral_block_dead");
+		public static Block YELLOW_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.YELLOW), "yellow_coral_block");
+		public static Block YELLOW_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "yellow_coral_block_dead");
 
-		BLUE_CORAL_FAN = registerBlock(new BlockCoralFan(MapColor.BLUE), "blue_coral_fan");
-		BLUE_CORAL_FAN_DEAD = registerBlock(new BlockCoralFan(MapColor.GRAY), "blue_coral_fan_dead");
-		PINK_CORAL_FAN = registerBlock(new BlockCoralFan(MapColor.PINK), "pink_coral_fan");
-		PINK_CORAL_FAN_DEAD = registerBlock(new BlockCoralFan(MapColor.GRAY), "pink_coral_fan_dead");
-		PURPLE_CORAL_FAN = registerBlock(new BlockCoralFan(MapColor.PURPLE), "purple_coral_fan");
-		PURPLE_CORAL_FAN_DEAD = registerBlock(new BlockCoralFan(MapColor.GRAY), "purple_coral_fan_dead");
-		RED_CORAL_FAN = registerBlock(new BlockCoralFan(MapColor.RED), "red_coral_fan");
-		RED_CORAL_FAN_DEAD = registerBlock(new BlockCoralFan(MapColor.GRAY), "red_coral_fan_dead");
-		YELLOW_CORAL_FAN = registerBlock(new BlockCoralFan(MapColor.YELLOW), "yellow_coral_fan");
-		YELLOW_CORAL_FAN_DEAD = registerBlock(new BlockCoralFan(MapColor.GRAY), "yellow_coral_fan_dead");
+		public static Block BLUE_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.BLUE), "blue_coral_fan");
+		public static Block BLUE_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "blue_coral_fan_dead");
+		public static Block PINK_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.PINK), "pink_coral_fan");
+		public static Block PINK_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "pink_coral_fan_dead");
+		public static Block PURPLE_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.PURPLE), "purple_coral_fan");
+		public static Block PURPLE_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "purple_coral_fan_dead");
+		public static Block RED_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.RED), "red_coral_fan");
+		public static Block RED_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "red_coral_fan_dead");
+		public static Block YELLOW_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.YELLOW), "yellow_coral_fan");
+		public static Block YELLOW_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "yellow_coral_fan_dead");
 		
-		BLUE_CORAL = registerBlock(new BlockCoral(MapColor.BLUE), "blue_coral");
-		BLUE_CORAL_DEAD = registerBlock(new BlockCoral(MapColor.GRAY), "blue_coral_dead");
-		PINK_CORAL = registerBlock(new BlockCoral(MapColor.BLUE), "pink_coral");
-		PINK_CORAL_DEAD = registerBlock(new BlockCoral(MapColor.GRAY), "pink_coral_dead");
-		PURPLE_CORAL = registerBlock(new BlockCoral(MapColor.BLUE), "purple_coral");
-		PURPLE_CORAL_DEAD = registerBlock(new BlockCoral(MapColor.GRAY), "purple_coral_dead");
-		RED_CORAL = registerBlock(new BlockCoral(MapColor.BLUE), "red_coral");
-		RED_CORAL_DEAD = registerBlock(new BlockCoral(MapColor.GRAY), "red_coral_dead");
-		YELLOW_CORAL = registerBlock(new BlockCoral(MapColor.BLUE), "yellow_coral");
-		YELLOW_CORAL_DEAD = registerBlock(new BlockCoral(MapColor.GRAY), "yellow_coral_dead");
-		};
-
+		public static Block BLUE_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "blue_coral");
+		public static Block BLUE_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "blue_coral_dead");
+		public static Block PINK_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "pink_coral");
+		public static Block PINK_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "pink_coral_dead");
+		public static Block PURPLE_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "purple_coral");
+		public static Block PURPLE_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "purple_coral_dead");
+		public static Block RED_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "red_coral");
+		public static Block RED_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "red_coral_dead");
+		public static Block YELLOW_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "yellow_coral");
+		public static Block YELLOW_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "yellow_coral_dead");
+		
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event)
 		{
-			if (ConfigHandler.block.guardianSpike.enableGuardianSpike == true)
-			{ event.getRegistry().registerAll(GUARDIAN_SPIKE); }
+			if (ConfigHandler.block.guardianSpike.enableGuardianSpike) blockReadyForRegister(GUARDIAN_SPIKE, "guardian_spike");
 			
 			for (Block blocks : blockList) event.getRegistry().register(blocks);
 		}
 		
 	@SubscribeEvent
-	public static void registerItems(RegistryEvent.Register<Item> event) {
+	public static void registerItems(RegistryEvent.Register<Item> event) 
+	{
 		IForgeRegistry<Item> r = event.getRegistry();
 		
-		if (ConfigHandler.block.guardianSpike.enableGuardianSpike == true)
-		{ registerItemBlock(r, GUARDIAN_SPIKE); }
+		if (ConfigHandler.block.guardianSpike.enableGuardianSpike) registerItemBlock(r, GUARDIAN_SPIKE); itemBlockBlacklist.add(GUARDIAN_SPIKE);;
 		
-		registerItemBlock(r, new ItemBlockSeaPickle(SEA_PICKLE));
-		registerItemBlock(r, SEAGRASS);
-		registerItemBlock(r, TALL_SEAGRASS);
-		registerItemBlock(r, KELP);
-		registerItemBlock(r, KELP_TOP);
-		registerItemBlock(r, DRIED_KELP_BLOCK);
-		registerItemBlock(r, COCONUT);
-		registerItemBlock(r, COCONUT_LEAVES);
-		registerItemBlock(r, COCONUT_LEAVES_FLOWERING);
-		registerItemBlock(r, COCONUT_SAPLING);
-		registerItemBlock(r, new ItemBlockSeaPickle(SEA_TURTLE_EGG));
-		registerItemBlock(r, SHELL_SAND);
-		registerItemBlock(r, COQUINA);
-		registerItemBlock(r, WRACK);
-		registerItemBlock(r, SEA_OATS);
-		registerItemBlock(r, BLUE_ICE);
-		registerItemBlock(r, BLUE_CORAL_BLOCK);
-		registerItemBlock(r, BLUE_CORAL_BLOCK_DEAD);
-		registerItemBlock(r, PINK_CORAL_BLOCK);
-		registerItemBlock(r, PINK_CORAL_BLOCK_DEAD);
-		registerItemBlock(r, PURPLE_CORAL_BLOCK);
-		registerItemBlock(r, PURPLE_CORAL_BLOCK_DEAD);
-		registerItemBlock(r, RED_CORAL_BLOCK);
-		registerItemBlock(r, RED_CORAL_BLOCK_DEAD);
-		registerItemBlock(r, YELLOW_CORAL_BLOCK);
-		registerItemBlock(r, YELLOW_CORAL_BLOCK_DEAD);
-		registerItemBlock(r, BLUE_CORAL_FAN);
-		registerItemBlock(r, BLUE_CORAL_FAN_DEAD);
-		registerItemBlock(r, PINK_CORAL_FAN);
-		registerItemBlock(r, PINK_CORAL_FAN_DEAD);
-		registerItemBlock(r, PURPLE_CORAL_FAN);
-		registerItemBlock(r, PURPLE_CORAL_FAN_DEAD);
-		registerItemBlock(r, RED_CORAL_FAN);
-		registerItemBlock(r, RED_CORAL_FAN_DEAD);
-		registerItemBlock(r, YELLOW_CORAL_FAN);
-		registerItemBlock(r, YELLOW_CORAL_FAN_DEAD);
-		registerItemBlock(r, BLUE_CORAL);
-		registerItemBlock(r, BLUE_CORAL_DEAD);
-		registerItemBlock(r, PINK_CORAL);
-		registerItemBlock(r, PINK_CORAL_DEAD);
-		registerItemBlock(r, PURPLE_CORAL);
-		registerItemBlock(r, PURPLE_CORAL_DEAD);
-		registerItemBlock(r, RED_CORAL);
-		registerItemBlock(r, RED_CORAL_DEAD);
-		registerItemBlock(r, YELLOW_CORAL);
-		registerItemBlock(r, YELLOW_CORAL_DEAD);
+		registerItemBlock(r, new ItemBlockSeaPickle(SEA_PICKLE)); itemBlockBlacklist.add(SEA_PICKLE);
+		registerItemBlock(r, new ItemBlockSeaPickle(SEA_TURTLE_EGG)); itemBlockBlacklist.add(SEA_TURTLE_EGG);
+		registerItemBlock(r, new ItemBlockSlab(PALM_SLAB, (BlockSlab)PALM_SLAB, (BlockSlab)PALM_SLAB_D)); itemBlockBlacklist.add(PALM_SLAB);
+		
+		registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
+		
+		
+		/** As stated on itemBlockBlacklist, this registers anything NOT from the blacklist with a generic itemBlock.*/
+		for (Block blocks : blockList) if (!(itemBlockBlacklist.contains(blocks))) { registerItemBlock(r, blocks);}
 	}
-	
-	public static Block registerBlock(Block block, String name) 
-	{ return registerBlock(block, name, new ItemBlock(block)); }
 
-	public static Block registerBlock(Block block, String name, ItemBlock item) {
+	/** If blocks don't specify the 'addToTab' boolean, assume true.*/
+	public static Block blockReadyForRegister(Block block, String name)
+	{ return blockReadyForRegister(block, name, true);}
+	
+	/** Slaps the names to Blocks, and adds them to the blockList to be registered in 'registerBlocks'.*/
+	public static Block blockReadyForRegister(Block block, String name, Boolean addToTab)
+	{
 		block.setUnlocalizedName(name);
 		block.setRegistryName(name);
 		
+		if (addToTab) block.setCreativeTab(Main.OCEANEXPTAB);
+		else block.setCreativeTab(null);
+			
 		blockList.add(block);
 
 		return block;
 	}
 	
+	public static ItemDoor registerDoorItem(IForgeRegistry<Item> r, ItemDoor itemDoor, Block block)
+	{ 
+		itemDoor.setUnlocalizedName(block.getUnlocalizedName());
+		itemDoor.setRegistryName(block.getRegistryName());
+		itemDoor.setCreativeTab(Main.OCEANEXPTAB);
+		
+		r.register(itemDoor);
+		if (block == PALM_DOOR) ((BlockPalmDoor) block).setItem(itemDoor);
+		
+		blockDirectItemList.add(itemDoor);
+		
+		return itemDoor;
+	}
 	
 	public static ItemBlock registerItemBlock(IForgeRegistry<Item> registry, Block block) 
 	{ return registerItemBlock(registry, new ItemBlock(block)); }
@@ -197,24 +190,24 @@ public class OEBlocks
 	@SubscribeEvent
 	public static void onModelRegister(ModelRegistryEvent event)
 	{
+		for(Item i : blockDirectItemList)
+		{
+			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(i.getRegistryName(), "inventory"));
+		}
+		
 		for(Block b : blockList)
 		{
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), 0, new ModelResourceLocation(b.getRegistryName(), "inventory"));
 			
 			/** So many blocks are submergable, might as well set this for all **/
 			ModelLoader.setCustomStateMapper(b, new StateMap.Builder().ignore(BlockLiquid.LEVEL).ignore(BlockCoralFan.IN_WATER).build());
+			ModelLoader.setCustomStateMapper(OEBlocks.PALM_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
+			ModelLoader.setCustomStateMapper(OEBlocks.PALM_FENCE_GATE, new StateMap.Builder().ignore(BlockFenceGate.POWERED).build());
+			ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
 			
-			/** Sea Pickles actually use the IN_WATER **/
+			/** Sea Pickles actually use the IN_WATER check to change model, or RE-include it**/
 			ModelLoader.setCustomStateMapper(OEBlocks.SEA_PICKLE, new StateMap.Builder().ignore(BlockLiquid.LEVEL).build());
 		}
-		/**
-		//Very hacky, setup a better method later
-		Main.proxy.registerItemVariantModel(Item.getItemFromBlock(OEBlocks.BLUE_CORAL_BLOCK), OEBlocks.BLUE_CORAL_BLOCK.getRegistryName() + "_dead", 1);
-		Main.proxy.registerItemVariantModel(Item.getItemFromBlock(OEBlocks.PINK_CORAL_BLOCK), OEBlocks.PINK_CORAL_BLOCK.getRegistryName() + "_dead", 1);
-		Main.proxy.registerItemVariantModel(Item.getItemFromBlock(OEBlocks.PURPLE_CORAL_BLOCK), OEBlocks.PURPLE_CORAL_BLOCK.getRegistryName() + "_dead", 1);
-		Main.proxy.registerItemVariantModel(Item.getItemFromBlock(OEBlocks.RED_CORAL_BLOCK), OEBlocks.RED_CORAL_BLOCK.getRegistryName() + "_dead", 1);
-		Main.proxy.registerItemVariantModel(Item.getItemFromBlock(OEBlocks.YELLOW_CORAL_BLOCK), OEBlocks.YELLOW_CORAL_BLOCK.getRegistryName() + "_dead", 1);
-		**/
 	}
 	
 	

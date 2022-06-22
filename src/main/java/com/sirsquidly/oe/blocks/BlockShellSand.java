@@ -1,7 +1,5 @@
 package com.sirsquidly.oe.blocks;
 
-import com.sirsquidly.oe.Main;
-
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,8 +13,6 @@ public class BlockShellSand extends BlockFalling
     {
         super(Material.SAND);
         this.setSoundType(SoundType.SAND);
-        
-        this.setCreativeTab(Main.OCEANEXPTAB);
     }
 	
 	@SideOnly(Side.CLIENT)

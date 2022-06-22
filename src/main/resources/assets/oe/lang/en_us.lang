@@ -69,9 +69,20 @@ tile.coquina.name=Coquina
 tile.wrack.name=Wrack
 tile.turtle_egg.name=Turtle Egg
 tile.coconut.name=Coconut
+tile.palm_log.name=Palm Log
+tile.palm_wood.name=Palm Wood
+tile.palm_planks.name=Palm Planks
+tile.palm_stairs.name=Palm Stairs
+tile.palm_fence.name=Palm Fence
+tile.palm_fence_gate.name=Palm Fence Gate
+tile.palm_slab_double.name=Palm Slab
+item.tile.palm_door.name=Palm Door
+tile.palm_boat.name=Palm Boat
+tile.palm_pressure_plate.name=Palm Pressure Plate
+tile.palm_trapdoor.name=Palm Trap Door
 tile.coconut_leaves.name=Coconut Leaves
 tile.coconut_leaves_flowering.name=Flowering Coconut Leaves
-tile.coconut_sapling.name=Coconut Sapling
+tile.palm_sapling.name=Palm Sapling
 
 entity.cod.name=Cod
 entity.salmon.name=Salmon
@@ -102,6 +113,11 @@ oe.config.worldGen.kelpConnective=Kelp Forest Connectiveness
 oe.config.worldGen.kelpSpread=Kelp Forest Spread
 oe.config.worldGen.kelpDensity=Kelp Density
 
+oe.config.worldGen.frozenOcean=Frozen Ocean Config
+oe.config.worldGen.enableIceBerg=Enable IceBergs
+oe.config.worldGen.enableIceSheet=Enable Ice Sheet
+oe.config.worldGen.iceSheetSpread=Ice Sheet Spread
+
 oe.config.block=Block Config
 oe.config.block.driedKelpShears=Can cut Dried Kelp string
 oe.config.block.guardianSpike=Guardian Spike Config
@@ -124,6 +140,7 @@ oe.config.block.coconutFallMaxDamage=Coconut max fall damage
 
 oe.config.item=Item Config
 oe.config.trident=Trident Config
+oe.config.item.enableTrident=Enable Trident
 oe.config.item.tridentDamage=Trident Damage
 oe.config.item.tridentThrowDamage=Thrown Trident Damage
 oe.config.item.tridentAttackSpeed=Trident Attack Speed
@@ -145,8 +162,23 @@ oe.config.enchant.channelingBlocks=Channeling Block Whitelist
 oe.config.enchant.channelingRidingBlacklist=Channeling Riding Blacklist
 
 oe.config.entity=Entity Config
+oe.config.entity.glowSquid=Glow Squid Config
+oe.config.entity.glowSquidBodyBright=Glow Squid Brightness
+oe.config.entity.glowSquidLayer=Enable Glow Squid 2ed Layer
+oe.config.entity.glowSquidLayerBright=Glow Squid Layer Brightness
+oe.config.entity.drowned=Drowned Config
+oe.config.entity.enableDrowned=Enable Drowned
+oe.config.entity.drownedArmorSpawning=Enable Natural Armor spawning
+oe.config.entity.drownedTridentSpawnChance=Trident spawn chance
+oe.config.entity.drownedRodSpawnChance=Fishing Rod spawn chance
+oe.config.entity.drownedNautilusSpawnChance=Nautilus Shell spawn chance
+oe.config.entity.drownedTridentMeleeRange=Trident Drowned melee range
+oe.config.entity.drownedGlowLayer=Enable Drowned 2ed Layer
 
-
+oe.config.vanillaTweak=Vanilla Tweaks Config
+oe.config.vanillaTweak.waterLighting=Less Water Light Blocking
+oe.config.vanillaTweak.squidFlop=Enable Squid Flopping
+oe.config.vanillaTweak.squidPush=Enable Squid Pushing
 
 
 subtitle.drowned_ambient=Drowned gurgles

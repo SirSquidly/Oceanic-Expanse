@@ -11,13 +11,10 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -88,33 +85,4 @@ public class EntityCod extends AbstractFish
     {
         return BREEDING_ITEMS.contains(stack.getItem());
     }
-	
-	// Bucketing the Cod
-		@Override
-		public boolean processInteract(EntityPlayer player, EnumHand hand)
-		    {
-		        ItemStack itemstack = player.getHeldItem(hand);
-
-		        if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild())
-		        {
-		            player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
-		            itemstack.shrink(1);
-		            this.setDead();
-
-		            if (itemstack.isEmpty())
-		            {
-		                player.setHeldItem(hand, new ItemStack(Items.MILK_BUCKET));
-		            }
-		            else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.MILK_BUCKET)))
-		            {
-		                player.dropItem(new ItemStack(Items.MILK_BUCKET), false);
-		            }
-
-		            return true;
-		        }
-		        else
-		        {
-		            return super.processInteract(player, hand);
-		        }
-		    }
 }

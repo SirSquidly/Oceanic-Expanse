@@ -7,6 +7,7 @@ import com.sirsquidly.oe.init.OEBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -26,7 +27,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
-public class BlockKelp extends BlockBush
+public class BlockKelp extends BlockBush implements IGrowable
 {
 	protected static final AxisAlignedBB KELP_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
 	
@@ -134,4 +135,52 @@ public class BlockKelp extends BlockBush
     {
         return new BlockStateContainer(this, BlockLiquid.LEVEL);
     }
+
+	@Override
+	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
+	{ 
+		BlockPos next = pos.up();
+		while (worldIn.getBlockState(next).getBlock() == this)
+		{
+			next = next.up();
+		}
+		
+		if(worldIn.getBlockState(next).getBlock() == OEBlocks.KELP_TOP)
+    	{ 
+			if (worldIn.getBlockState(next).getValue(BlockTopKelp.AGE).intValue() != BlockTopKelp.maxHeight && OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, next.up()))
+			{
+				return true;
+			}
+			else { return false ; }
+    	}
+		else { return false; }
+	}
+
+	@Override
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
+	{
+		return this.canGrow(worldIn, pos, state, enableStats);
+	}
+
+	@Override
+	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+	{
+		BlockPos next = pos.up();
+		
+		while (worldIn.getBlockState(next).getBlock() == this)
+		{
+			next = next.up();
+		}
+		
+		if(worldIn.getBlockState(next).getBlock() == OEBlocks.KELP_TOP)
+    	{ 
+			int i = ((Integer)worldIn.getBlockState(next).getValue(BlockTopKelp.AGE)).intValue();
+			
+    		if(OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, next.up()) && i != BlockTopKelp.maxHeight)
+        	{ 
+    			worldIn.setBlockState(next.up(), OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(i + 1)), 16 | 2);
+    			worldIn.setBlockState(next, OEBlocks.KELP.getDefaultState(), 16 | 2);
+        	}
+    	}
+	}
 }

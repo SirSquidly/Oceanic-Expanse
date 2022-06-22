@@ -32,7 +32,7 @@ public class InjectAIEvent
 
 			zombie.tasks.addTask(3, new EntityAIStompTurtleEgg(zombie, 1.0D));
 		}		
-		if(event.getEntity() instanceof EntitySquid)
+		if(ConfigHandler.vanillaTweak.squidFlop && event.getEntity() instanceof EntitySquid)
 		{
 			EntitySquid squid  = (EntitySquid)event.getEntity();			
 

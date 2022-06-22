@@ -18,9 +18,9 @@ public class ItemConch extends ItemBase
 {
 	private int defaultCooldown = ConfigHandler.item.conchCooldown;
 	 
-	public ItemConch(String name)
+	public ItemConch()
 	{
-		super(name);
+		super();
 	}
 	
 	public EnumAction getItemUseAction(ItemStack stack)

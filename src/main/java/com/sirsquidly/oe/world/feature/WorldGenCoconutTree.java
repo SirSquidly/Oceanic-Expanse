@@ -1,10 +1,15 @@
 package com.sirsquidly.oe.world.feature;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
@@ -19,8 +24,8 @@ import net.minecraftforge.common.IPlantable;
 public class WorldGenCoconutTree extends WorldGenAbstractTree
 {
 	public static final IBlockState LOG = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE);
-	public static final IBlockState LEAF = OEBlocks.COCONUT_LEAVES.getDefaultState();
-	public static final IBlockState LEAF_FLOWERING = OEBlocks.COCONUT_LEAVES_FLOWERING.getDefaultState();
+	public static final IBlockState LEAF = OEBlocks.COCONUT_LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+	public static final IBlockState LEAF_FLOWERING = OEBlocks.COCONUT_LEAVES_FLOWERING.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
 	
 	/** The minimum height of the trunk*/
 	public int minHeight = 5;
@@ -98,6 +103,10 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
 
                     for (int l1 = 0; l1 < i; ++l1)
                     {
+                    	List<EnumFacing> list = Lists.newArrayList(EnumFacing.Plane.HORIZONTAL);
+                        Collections.shuffle(list, rand);
+                        
+                        int stump = rand.nextInt(4);
                         int i2 = pos.getY() + l1;
 
                         if (l1 >= k2 && l2 > 0)
@@ -106,37 +115,31 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
                             j1 += enumfacing.getFrontOffsetZ();
                             --l2;
                         }
-
+                        
                         BlockPos blockpos = new BlockPos(i3, i2, j1);
+                        
                         state = worldIn.getBlockState(blockpos);
 
                         if (state.getBlock().isAir(state, worldIn, blockpos) || state.getBlock().isLeaves(state, worldIn, blockpos))
                         {
                             this.placeLogAt(worldIn, blockpos);
+                            
+                            //** Used for generating an area around the 'stump' of the tree.*/
+                            if (l1 == 0)
+                            {
+                            	for (EnumFacing facing : list.subList(0, stump))
+                                {
+                            		this.placeStumpAt(worldIn, blockpos.offset(facing));
+                                }
+                            }
+                            
                             k1 = i2;
                         }
                     }
                     
                     BlockPos blockpos2 = new BlockPos(i3, k1, j1);
                     
-                    this.placeLeafAt(worldIn, blockpos2);
-            		this.placeLeafAt(worldIn, blockpos2.up());
-                	this.placeFloweringLeafAt(worldIn, blockpos2.north());
-                	this.placeLeafAt(worldIn, blockpos2.north(2));
-                	this.placeLeafAt(worldIn, blockpos2.north(3).down());
-                	this.placeFloweringLeafAt(worldIn, blockpos2.south());
-                	this.placeLeafAt(worldIn, blockpos2.south(2));
-                	this.placeLeafAt(worldIn, blockpos2.south(3).down());
-                	this.placeFloweringLeafAt(worldIn, blockpos2.east());
-                	this.placeLeafAt(worldIn, blockpos2.east(2));
-                	this.placeLeafAt(worldIn, blockpos2.east(3).down());
-                	this.placeFloweringLeafAt(worldIn, blockpos2.west());
-                	this.placeLeafAt(worldIn, blockpos2.west(2));
-                	this.placeLeafAt(worldIn, blockpos2.west(3).down());
-                	this.placeLeafAt(worldIn, blockpos2.north().west().down());
-                	this.placeLeafAt(worldIn, blockpos2.north().east().down());
-                	this.placeLeafAt(worldIn, blockpos2.south().west().down());
-                	this.placeLeafAt(worldIn, blockpos2.south().east().down());
+                    this.placeCrownLeaves(worldIn, blockpos2.up());
                 	
                     return true;
                 }
@@ -152,8 +155,46 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
         }
     }
 	
+	/** Used for placing the 'stump' around the base of the tree, basocally just runs checks and pushes along to placeLogAt.*/
+	private void placeStumpAt(World worldIn, BlockPos pos)
+    { 
+		if (!worldIn.getBlockState(pos.down()).isFullBlock())
+		{
+			if (worldIn.getBlockState(pos.down(2)).isFullBlock())
+			{
+				placeLogAt(worldIn, pos.down());
+				placeLogAt(worldIn, pos);
+			}
+		}
+		else placeLogAt(worldIn, pos);
+	}
+	
 	private void placeLogAt(World worldIn, BlockPos pos)
-    { this.setBlockAndNotifyAdequately(worldIn, pos, LOG); }
+    { 
+		this.setBlockAndNotifyAdequately(worldIn, pos, OEBlocks.PALM_LOG.getDefaultState().withProperty(BlockOldLog.LOG_AXIS, BlockLog.EnumAxis.Y)); 
+		
+		//this.setBlockAndNotifyAdequately(worldIn, pos, Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE)); 
+	}
+	
+	private void placeCrownLeaves(World worldIn, BlockPos pos)
+    {
+		//this.placeLeafAt(worldIn, pos);
+		this.placeLeafAt(worldIn, pos);
+		
+		for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL)
+        {
+			this.placeFloweringLeafAt(worldIn, pos.offset(facing));
+			this.placeLeafAt(worldIn, pos.offset(facing, 2));
+			this.placeLeafAt(worldIn, pos.offset(facing, 2).down());
+			this.placeLeafAt(worldIn, pos.offset(facing, 3).down());
+			this.placeLeafAt(worldIn, pos.offset(facing, 3).down(2));
+			
+			this.placeLeafAt(worldIn, pos.offset(facing).offset(facing.rotateY()));
+			this.placeLeafAt(worldIn, pos.offset(facing).offset(facing.rotateY()).down());
+			this.placeLeafAt(worldIn, pos.offset(facing, 2).offset(facing.rotateY(), 2).down());
+			this.placeLeafAt(worldIn, pos.offset(facing, 2).offset(facing.rotateY(), 2).down(2));
+        }
+    }
 	
 	private void placeLeafAt(World worldIn, BlockPos pos)
     {

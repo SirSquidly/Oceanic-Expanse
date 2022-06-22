@@ -2,7 +2,6 @@ package com.sirsquidly.oe.blocks;
 
 import java.util.Random;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -29,7 +28,6 @@ public class BlockGuardianSpike extends BlockEndRod
     {
         super();
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
-        this.setCreativeTab(Main.OCEANEXPTAB);
     }
 
     // Multiplies Fall Damage by 1.5x

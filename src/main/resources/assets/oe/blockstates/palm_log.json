@@ -1,0 +1,9 @@
+{
+    "variants":
+    {
+        "axis=y": { "model": "oe:palm_log" },
+        "axis=z": { "model": "oe:palm_log", "x": 90 },
+        "axis=x": { "model": "oe:palm_log", "x": 90, "y": 90 },
+        "axis=none": { "model": "oe:palm_wood" }
+    }
+}

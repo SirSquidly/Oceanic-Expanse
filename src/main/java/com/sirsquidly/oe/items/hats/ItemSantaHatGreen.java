@@ -6,10 +6,10 @@ import net.minecraft.item.ItemStack;
 
 public class ItemSantaHatGreen extends ItemSantaHat{
 	
-	public ItemSantaHatGreen(String name, ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) 
+	public ItemSantaHatGreen(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) 
 	{
 		
-		super(name, materialIn, renderIndexIn, equipmentSlotIn);
+		super(materialIn, renderIndexIn, equipmentSlotIn);
 	}
 	
 	@Override

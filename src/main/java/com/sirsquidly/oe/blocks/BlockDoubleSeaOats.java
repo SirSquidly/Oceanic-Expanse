@@ -33,8 +33,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.sirsquidly.oe.Main;
-
 public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.minecraftforge.common.IShearable
 {
 	protected static final AxisAlignedBB TALL_SEAGRASS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
@@ -44,7 +42,6 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 	public BlockDoubleSeaOats() {
 		super(Material.GRASS);
 		this.setSoundType(SoundType.PLANT);
-		this.setCreativeTab(Main.OCEANEXPTAB);
 		this.setTickRandomly(true);
 
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.LOWER).withProperty(SANDY, false));

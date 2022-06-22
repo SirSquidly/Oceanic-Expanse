@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityTurtle;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -44,7 +43,6 @@ public class BlockTurtleEgg extends Block
 	public BlockTurtleEgg() 
 	{
 		super(Material.GOURD);
-		this.setCreativeTab(Main.OCEANEXPTAB);
 		
 		this.setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, Integer.valueOf(1)).withProperty(CRACK, Integer.valueOf(0)));

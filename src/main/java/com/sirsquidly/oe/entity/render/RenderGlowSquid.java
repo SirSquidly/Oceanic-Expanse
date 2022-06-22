@@ -3,6 +3,7 @@ package com.sirsquidly.oe.entity.render;
 import com.sirsquidly.oe.entity.EntityGlowSquid;
 import com.sirsquidly.oe.entity.render.layer.LayerGlowSquid;
 import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.model.ModelSquid;
 import net.minecraft.client.renderer.GlStateManager;
@@ -16,18 +17,23 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderGlowSquid extends RenderLiving<EntityGlowSquid>
 {
 	public static final ResourceLocation GLOWSQUID_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/glow_squid.png");
-	
+    
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public RenderGlowSquid(RenderManager manager)
     {
         super(manager, new ModelSquid(), 0.7F);
-        this.addLayer(new LayerGlowSquid(this));
+        
+        if (ConfigHandler.entity.glowSquid.glowSquidLayer)
+        {
+        	this.addLayer(new LayerGlowSquid(this));
+        }
     }
 
-	protected ResourceLocation getEntityTexture(EntityGlowSquid entity) {
+	protected ResourceLocation getEntityTexture(EntityGlowSquid entity) 
+	{
 		return GLOWSQUID_TEXTURE;
 	}
-
+	
     protected void applyRotations(EntityGlowSquid entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
     {
         float f = entityLiving.prevSquidPitch + (entityLiving.squidPitch - entityLiving.prevSquidPitch) * partialTicks;

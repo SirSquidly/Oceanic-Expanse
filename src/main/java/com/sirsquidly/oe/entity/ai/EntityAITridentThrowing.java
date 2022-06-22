@@ -22,13 +22,14 @@ public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
     private final int maxRangedAttackTime;
     private final float attackRadius;
     private final float maxAttackDistance;
+    private final float minAttackDistance;
 
-    public EntityAITridentThrowing(IRangedAttackMob attacker, double movespeed, int maxAttackTime, float maxAttackDistanceIn)
+    public EntityAITridentThrowing(IRangedAttackMob attacker, double movespeed, int maxAttackTime, float maxAttackDistanceIn, float minAttackDistanceIn)
     {
-        this(attacker, movespeed, maxAttackTime, maxAttackTime, maxAttackDistanceIn);
+        this(attacker, movespeed, maxAttackTime, maxAttackTime, maxAttackDistanceIn, minAttackDistanceIn);
     }
 
-    public EntityAITridentThrowing(IRangedAttackMob attacker, double movespeed, int p_i1650_4_, int maxAttackTime, float maxAttackDistanceIn)
+    public EntityAITridentThrowing(IRangedAttackMob attacker, double movespeed, int p_i1650_4_, int maxAttackTime, float maxAttackDistanceIn, float minAttackDistanceIn)
     {
         this.rangedAttackTime = -1;
 
@@ -45,6 +46,7 @@ public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
             this.maxRangedAttackTime = maxAttackTime;
             this.attackRadius = maxAttackDistanceIn;
             this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
+            this.minAttackDistance = minAttackDistanceIn * minAttackDistanceIn;
             this.setMutexBits(3);
         }
     }
@@ -60,7 +62,7 @@ public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
     public boolean shouldExecute()
     {
         EntityLivingBase entitylivingbase = this.entityHost.getAttackTarget();
-
+        
         if (entitylivingbase == null || entitylivingbase.isDead)
         {
             return false;
@@ -68,7 +70,16 @@ public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
         else
         {
             this.attackTarget = entitylivingbase;
-            return tridentInMainhand();
+            double d0 = this.entityHost.getDistanceSq(this.attackTarget.posX, this.attackTarget.getEntityBoundingBox().minY, this.attackTarget.posZ);
+            
+            if (d0 <= (double)this.minAttackDistance)
+            {
+            	return false;
+            }
+            else
+            {
+            	return tridentInMainhand();
+            }
         }
     }
 

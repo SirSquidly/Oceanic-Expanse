@@ -50,24 +50,24 @@ public class ConfigHandler
 		}
 		
 		@RequiresMcRestart
-		@Config.LangKey("oe.config.worldGen")
+		@Config.LangKey("oe.config.worldGen.frozenOcean")
 	    public configFrozenOcean frozenOcean = new configFrozenOcean();
 		
 		public static class configFrozenOcean
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.worldGen.enableIceBerg")
-		    @Config.Comment("If the string on Dried Kelp can be removed using Shears")
-		    public boolean enableIceBergs = true;
+		    @Config.Comment("If Icebergs should be enabled")
+		    public boolean enableIcebergs = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.worldGen.enableIceBerg")
-		    @Config.Comment("If the string on Dried Kelp can be removed using Shears")
+		    @Config.LangKey("oe.config.worldGen.enableIceSheet")
+		    @Config.Comment("If Ice Sheets should be enabled")
 		    public boolean enableIceSheet = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.worldGen.kelpSpread")
-		    @Config.Comment("Adjusts the cutoff for the noise. Smaller numbers make the Kelp Forest more spread.")
+		    @Config.LangKey("oe.config.worldGen.iceSheetSpread")
+		    @Config.Comment("Adjusts the cutoff for the noise. Smaller numbers make the Ice Sheets more spread.")
 		    public double iceSheetSpread = 0.3;
 		}
 			
@@ -198,11 +198,40 @@ public class ConfigHandler
 	    public int conchCooldown = 60;
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.spawnBucket")
+	    public configSpawnBucket spawnBucket = new configSpawnBucket();
+		
+		public static class configSpawnBucket
+		{
+			@Config.LangKey("oe.config.item.spawnBucketMobs")
+		    @Config.Comment("Mobs that can be bucketed")
+		    public String[] bucketableMobs = 
+		{
+				 	"minecraft:squid",
+		            "minecraft:guardian",
+				 	"minecraft:elder_guardian",
+				 	"oe:cod",
+				 	"oe:salmon",
+				 	"oe:pufferfish",
+				 	"oe:turtle",
+				 	"oe:glow_squid",
+				 	"oe:crab",
+				 	"oe:drowned",
+				 	"oe:pickled"
+		    };
+	    }
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.trident")
 	    public configTrident trident = new configTrident();
 		
 		public static class configTrident
 		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableTrident")
+		    @Config.Comment("If Tridents are enabled")
+		    public boolean enableTrident = true;
+			
 		    @Config.LangKey("oe.config.item.tridentDamage")
 		    @Config.Comment("The Attack Damage of the Trident")
 		    public int tridentDamage = 9;
@@ -231,6 +260,80 @@ public class ConfigHandler
 		    public int loyaltyVoidReturnLevel = -15;
 	    }
 	}
+	
+	@Config.LangKey("oe.config.entity")
+	@Config.Comment("Config related to Entities")
+    public static configEntity entity = new configEntity();
+	
+	public static class configEntity
+	{
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.glowSquid")
+	    public configGlowSquid glowSquid = new configGlowSquid();
+		
+		public static class configGlowSquid
+		{
+		    @Config.LangKey("oe.config.entity.glowSquidBodyBright")
+		    @Config.Comment("Minimum brightness of Glow Squids. 15 is Full Bright")
+		    public int glowSquidBodyBright = 4;
+			
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.glowSquidLayer")
+		    @Config.Comment("If Glow Squids should have a 2ed layer for brightness")
+		    public boolean glowSquidLayer = true;
+		    
+		    @Config.LangKey("oe.config.entity.glowSquidLayerBright")
+		    @Config.Comment("Brightness of a Glow Squids' second layer. 15 is Full Bright")
+		    public int glowSquidLayerBright = 11;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.drowned")
+	    public configDrowned drowned = new configDrowned();
+		
+		public static class configDrowned
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableDrowned")
+		    @Config.Comment("If Drowned should be enabled")
+		    public boolean enableDrowned = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.drownedArmorSpawning")
+		    @Config.Comment("If Drowned can spawn wearing Armor the same way normal Zombies do.")
+		    public boolean drownedArmorSpawning = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.drownedTridentSpawnChance")
+		    @Config.Comment("The percent chance a Drowned spawns holding a Trident.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double drownedTridentSpawnChance = 6.25;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.drownedRodSpawnChance")
+		    @Config.Comment("The percent chance a Drowned spawns holding a Fishing Rod. Note this will always run after the Trident check, so this will never replace a Trident spawn.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double drownedRodSpawnChance = 3.75;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.drownedNautilusSpawnChance")
+		    @Config.Comment("The percent chance a Drowned spawns holding a Nautilus Shell in its offhand.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double drownedNautilusSpawnChance = 3;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.drownedTridentMeleeRange")
+		    @Config.Comment("The distance (in blocks) in which a Trident Drowned will use melee rather than ranged attacks.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double drownedTridentMeleeRange = 3;
+			
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.drownedGlowLayer")
+		    @Config.Comment("If Drowned should have a 2ed layer for brightness")
+		    public boolean drownedGlowLayer = true;
+	    }
+	}
+	
 	
 	@Config.LangKey("oe.config.enchant")
 	@Config.Comment("Config related to Enchantments")
@@ -307,7 +410,24 @@ public class ConfigHandler
 		}
 	}
 	
+	@Config.LangKey("oe.config.vanillaTweak")
+	@Config.Comment("Config for any direct tweaks or changes to Vanilla content")
+    public static configvanillaTweak vanillaTweak = new configvanillaTweak();
 	
+	public static class configvanillaTweak
+	{
+		@Config.LangKey("oe.config.vanillaTweak.waterLighting")
+	    @Config.Comment("Alters how much light Water and Flowing Water block to 1, instead of 3. Automatically disabled as not only do I predict some MASSIVE incompatabilities, but this will require every water block to be updated. Every single one. ")
+	    public boolean waterTweak = false;
+		
+		@Config.LangKey("oe.config.vanillaTweak.squidFlop")
+	    @Config.Comment("Allows Squids to flop about on land like fish do.")
+	    public boolean squidFlop = true;
+		
+		@Config.LangKey("oe.config.vanillaTweak.squidPush")
+	    @Config.Comment("Allows the Player to shift right-click a Squid to push it a bit. Done as a workaround for players who want to help squids, but can't due to their buggy movement.")
+	    public boolean squidPush = true;
+	}
 	
 	@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
     public static class ConfigSyncHandler

@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.entity.ai.EntityAITridentThrowing;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
@@ -61,7 +62,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	protected void initEntityAI()
     {
 		this.tasks.addTask(1, new EntityDrowned.DrownedAISwimToTarget(this));
-		this.tasks.addTask(2, new EntityAITridentThrowing<EntityDrowned>(this, 1.0D, 20, 20.0F));
+		this.tasks.addTask(2, new EntityAITridentThrowing<EntityDrowned>(this, 1.0D, 20, 20.0F, (float)ConfigHandler.entity.drowned.drownedTridentMeleeRange));
 		this.tasks.addTask(3, new EntityAIZombieAttack(this, 1.0D, false));
         this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -142,13 +143,16 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     
     protected void setNaturalEquipment(DifficultyInstance difficulty)
     {
-    	super.setEquipmentBasedOnDifficulty(difficulty);
+    	if (ConfigHandler.entity.drowned.drownedArmorSpawning)
+		{
+    		super.setEquipmentBasedOnDifficulty(difficulty);
+		}
     	
-        if (this.rand.nextFloat() <= 0.0625F)
+        if (this.rand.nextFloat() <= (float)ConfigHandler.entity.drowned.drownedTridentSpawnChance * 0.01F && ConfigHandler.item.trident.enableTrident)
         {
             this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.TRIDENT_ORIG));
         }
-        else if (this.rand.nextFloat() <=  0.02F)
+        else if (this.rand.nextFloat() <=  (float)ConfigHandler.entity.drowned.drownedRodSpawnChance * 0.01F)
         {
             this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
         }
@@ -157,7 +161,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
         }
         
-        if (this.rand.nextFloat() <= 0.03F)
+        if (this.rand.nextFloat() <= (float)ConfigHandler.entity.drowned.drownedNautilusSpawnChance * 0.01F)
         {
             this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.NAUTILUS_SHELL));
         }

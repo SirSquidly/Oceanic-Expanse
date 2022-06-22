@@ -4,8 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.Main;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockFence;
@@ -40,7 +38,6 @@ public class BlockSeaPickle extends BlockBush implements IGrowable
 		this.setSoundType(SoundType.SLIME);
 		this.setHardness(0.1F);
 		this.setResistance(10.0F);
-		this.setCreativeTab(Main.OCEANEXPTAB);
 	}
 	
 	@Override

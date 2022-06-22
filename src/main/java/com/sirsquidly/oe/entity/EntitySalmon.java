@@ -16,7 +16,6 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -93,10 +92,6 @@ public class EntitySalmon extends AbstractFish
 	public boolean isBreedingItem(ItemStack stack)
     { return BREEDING_ITEMS.contains(stack.getItem()); }
 
-    /**
-     * Returns the size of the slime.
-     */
-	
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
@@ -163,32 +158,16 @@ public class EntitySalmon extends AbstractFish
         this.setSalmonSize(i, false);
     }
 	
-	//** BUCKETING **//
-	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
-	    ItemStack itemstack = player.getHeldItem(hand);
+    {
+        ItemStack itemstack = player.getHeldItem(hand);
 
-	    if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild())
-	    {
-	        player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
-	        itemstack.shrink(1);
-	        this.setDead();
+        if (BREEDING_ITEMS.contains(itemstack.getItem()) &&  !(this.isChild()))
+        {
+        	this.setSalmonSize(getSalmonSize() + 1, false);
 
-	        if (itemstack.isEmpty())
-	        {
-	           player.setHeldItem(hand, new ItemStack(Items.MILK_BUCKET));
-	        }
-	        else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.MILK_BUCKET)))
-	        {
-	            player.dropItem(new ItemStack(Items.MILK_BUCKET), false);
-	        }
-
-	        return true;
-	    }
-	    else
-	    {
-	        return super.processInteract(player, hand);
-	    }
-	}
+        	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
+        }
+        return super.processInteract(player, hand);
+    }
 }

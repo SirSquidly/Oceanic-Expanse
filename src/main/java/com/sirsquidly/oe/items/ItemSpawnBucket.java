@@ -3,7 +3,6 @@ package com.sirsquidly.oe.items;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.init.OEItems;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.material.Material;
@@ -19,6 +18,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -37,12 +37,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings("deprecation")
 public class ItemSpawnBucket extends ItemMonsterPlacer
 {
-	public ItemSpawnBucket(String name) {
+	public ItemSpawnBucket()
+	{
 		super();
-		setUnlocalizedName(name);
-		setRegistryName(name);
 		this.maxStackSize = 1;
-		
 		this.addPropertyOverride(new ResourceLocation("check_entity"), new IItemPropertyGetter()
 		{
 			@SideOnly(Side.CLIENT)
@@ -79,13 +77,11 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 		});
 		
 		this.setCreativeTab(Main.OCEANEXPTAB);
-		OEItems.ITEMS.add(this);
 	}
-	
+
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     { return EnumActionResult.PASS; }
-	
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
@@ -116,19 +112,23 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
                 {
                     return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
                 }
-                else if (this.tryPlaceWater(playerIn, worldIn, blockpos1))
+                else if (!playerIn.isSneaking() && this.tryPlaceWater(playerIn, worldIn, blockpos1) || playerIn.isSneaking())
                 {	
                     if (playerIn instanceof EntityPlayerMP)
                     { CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)playerIn, blockpos1, itemstack); }
                     
                     if (!worldIn.isRemote)
                     {
-                    	Entity entity = spawnCreature(worldIn, getNamedIdFrom(itemstack), (double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D);
-                        
-                        if (entity instanceof EntityLivingBase && itemstack.hasDisplayName())
-                        { entity.setCustomNameTag(itemstack.getDisplayName()); }
-                        
-                        applyItemEntityDataToEntity(worldIn, playerIn, itemstack, entity);	
+                    	NBTTagCompound entityTag = (NBTTagCompound) itemstack.getTagCompound().getTag("EntityTag");
+                    	
+                    	Entity entity = EntityList.createEntityFromNBT(entityTag, worldIn);
+                    	if(itemstack.hasDisplayName())
+                    	{
+                    		entity.setCustomNameTag(itemstack.getDisplayName());
+                    	}
+                    	
+            			entity.setPosition((double)blockpos1.getX() + 0.5, (double)blockpos1.getY(), (double)blockpos1.getZ() + 0.5);
+            			worldIn.spawnEntity(entity);
                     }
                     
                     playerIn.addStat(StatList.getObjectUseStats(this));
@@ -141,7 +141,7 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
             }
         }
     }
-	
+
 	public boolean tryPlaceWater(@Nullable EntityPlayer player, World worldIn, BlockPos posIn)
     {
 		IBlockState iblockstate = worldIn.getBlockState(posIn);
@@ -180,4 +180,31 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
         	return true;
         }
     }
+
+	public static void recordEntityNBT(ItemStack stack, EntityPlayer player, Entity entity)
+	{
+		if (!player.world.isRemote) 
+		{
+			NBTTagCompound tags = stack.getTagCompound();
+
+			if (tags == null) 
+			{
+				tags = new NBTTagCompound();
+				stack.setTagCompound(tags);
+			}
+			if (!tags.hasKey("EntityTag")) 
+			{
+				NBTTagCompound entityTag = new NBTTagCompound();
+				entity.writeToNBTOptional(entityTag);
+				entityTag.removeTag("Pos");
+				entityTag.removeTag("Motion");
+				entityTag.removeTag("Fire");
+				entityTag.removeTag("UUIDMost");
+				entityTag.removeTag("UUIDLeast");
+				entity.setDead();
+
+				tags.setTag("EntityTag", entityTag);
+			}
+		}
+	}
 }
