@@ -84,6 +84,17 @@ public class ConfigHandler
 	    @Config.Comment("If the string on Dried Kelp can be removed using Shears")
 	    public boolean driedKelpShears = true;
 		
+		@Config.LangKey("oe.config.block.palmBlocks")
+	    public configPalmBlocks palmBlocks = new configPalmBlocks();
+		
+		public static class configPalmBlocks
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enablePalmWoods")
+		    @Config.Comment("If Palm Woods are enabled. Note this doesn't disable Palm Trees, they will generate using Jungle Wood.")
+		    public boolean enablePalmWoods = true;
+	    }
+		
 		@Config.LangKey("oe.config.block.turtleEggs")
 	    public configTurtleEgg turtleEgg = new configTurtleEgg();
 		
@@ -192,13 +203,13 @@ public class ConfigHandler
 	{
 		
 		@RequiresMcRestart
-	    @Config.LangKey("oe.config.coconutFallMaxDamage")
+	    @Config.LangKey("oe.config.item.conchCooldown")
 	    @Config.Comment("The cooldown between uses of the Conch")
 		@Config.RangeInt(min = 0, max = 9999)
 	    public int conchCooldown = 60;
 		
 		@RequiresMcRestart
-		@Config.LangKey("oe.config.spawnBucket")
+		@Config.LangKey("oe.config.item.spawnBucket")
 	    public configSpawnBucket spawnBucket = new configSpawnBucket();
 		
 		public static class configSpawnBucket
@@ -279,7 +290,7 @@ public class ConfigHandler
 		    public boolean salmonSizeVarience = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.salmonSizeVarience")
+		    @Config.LangKey("oe.config.entity.salmonFeedingGrowth")
 		    @Config.Comment("When using breeding items on Salmon, they grow in size. This is a joke feature.")
 		    public boolean salmonFeedingGrowth = false;
 		}

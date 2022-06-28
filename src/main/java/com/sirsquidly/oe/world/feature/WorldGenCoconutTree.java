@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
@@ -23,7 +24,6 @@ import net.minecraftforge.common.IPlantable;
 
 public class WorldGenCoconutTree extends WorldGenAbstractTree
 {
-	public static final IBlockState LOG = Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE);
 	public static final IBlockState LEAF = OEBlocks.COCONUT_LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
 	public static final IBlockState LEAF_FLOWERING = OEBlocks.COCONUT_LEAVES_FLOWERING.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
 	
@@ -171,9 +171,10 @@ public class WorldGenCoconutTree extends WorldGenAbstractTree
 	
 	private void placeLogAt(World worldIn, BlockPos pos)
     { 
-		this.setBlockAndNotifyAdequately(worldIn, pos, OEBlocks.PALM_LOG.getDefaultState().withProperty(BlockOldLog.LOG_AXIS, BlockLog.EnumAxis.Y)); 
-		
-		//this.setBlockAndNotifyAdequately(worldIn, pos, Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE)); 
+		if (ConfigHandler.block.palmBlocks.enablePalmWoods)
+		{ this.setBlockAndNotifyAdequately(worldIn, pos, OEBlocks.PALM_LOG.getDefaultState().withProperty(BlockOldLog.LOG_AXIS, BlockLog.EnumAxis.Y)); }
+		else
+		{ this.setBlockAndNotifyAdequately(worldIn, pos, Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE)); }
 	}
 	
 	private void placeCrownLeaves(World worldIn, BlockPos pos)

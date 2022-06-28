@@ -16,6 +16,7 @@ public class BlockPalmSlab extends BlockSlab
         this.setSoundType(SoundType.WOOD);
         setHardness(2.0F);
 		setResistance(5.0F);
+		setLightOpacity(255);
     }
 	
 	@Override
@@ -56,7 +57,7 @@ public class BlockPalmSlab extends BlockSlab
 	{
 		return false;
 	}
-
+	 
 	@Override
 	public IProperty<?> getVariantProperty()
 	{

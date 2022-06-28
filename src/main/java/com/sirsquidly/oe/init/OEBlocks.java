@@ -61,15 +61,15 @@ public class OEBlocks
 		public static Block KELP_TOP = blockReadyForRegister(new BlockTopKelp(), "kelp");
 		public static Block DRIED_KELP_BLOCK = blockReadyForRegister(new BlockDriedKelp(), "dried_kelp_block");
 		public static Block COCONUT = blockReadyForRegister(new BlockCoconut(), "coconut");
-		public static Block PALM_LOG = blockReadyForRegister(new BlockPalmLog(), "palm_log");
-		public static Block PALM_WOOD = blockReadyForRegister(new BlockPalmLog(), "palm_wood");
-		public static Block PALM_PLANKS = blockReadyForRegister(new BlockPalmPlanks(), "palm_planks");
-		public static Block PALM_SLAB = blockReadyForRegister(new BlockPalmSlab(), "palm_slab");
-		public static Block PALM_SLAB_D = blockReadyForRegister(new BlockPalmSlabDouble(), "palm_slab_double", false);
-		public static Block PALM_STAIRS = blockReadyForRegister(new BlockPalmStairs(), "palm_stairs");
-		public static Block PALM_FENCE = blockReadyForRegister(new BlockFence(Material.WOOD, MapColor.BROWN_STAINED_HARDENED_CLAY), "palm_fence");
-		public static Block PALM_FENCE_GATE = blockReadyForRegister(new BlockFenceGate(BlockPlanks.EnumType.SPRUCE), "palm_fence_gate");
-		public static Block PALM_DOOR = blockReadyForRegister(new BlockPalmDoor(), "palm_door");
+		public static Block PALM_LOG = new BlockPalmLog();
+		public static Block PALM_WOOD = new BlockPalmLog();
+		public static Block PALM_PLANKS = new BlockPalmPlanks();
+		public static Block PALM_SLAB = new BlockPalmSlab();
+		public static Block PALM_SLAB_D = new BlockPalmSlabDouble(PALM_SLAB);
+		public static Block PALM_STAIRS = new BlockPalmStairs();
+		public static Block PALM_FENCE = new BlockFence(Material.WOOD, MapColor.BROWN_STAINED_HARDENED_CLAY);
+		public static Block PALM_FENCE_GATE = new BlockFenceGate(BlockPlanks.EnumType.SPRUCE);
+		public static Block PALM_DOOR = new BlockPalmDoor();
 		public static Block COCONUT_LEAVES = blockReadyForRegister(new BlockCoconutLeaves(), "coconut_leaves");
 		public static Block COCONUT_LEAVES_FLOWERING = blockReadyForRegister(new BlockCoconutLeavesFlowering(), "coconut_leaves_flowering");
 		public static Block COCONUT_SAPLING = blockReadyForRegister(new BlockPalmSapling(), "palm_sapling");
@@ -77,6 +77,8 @@ public class OEBlocks
 		public static Block BLUE_ICE = blockReadyForRegister(new BlockBlueIce(), "blue_ice");
 		public static Block SEA_TURTLE_EGG = blockReadyForRegister(new BlockTurtleEgg(), "turtle_egg");
 		public static Block SEA_OATS = blockReadyForRegister(new BlockDoubleSeaOats(), "sea_oats");
+		public static Block TUBE_SPONGE = blockReadyForRegister(new BlockTubeSponge(), "tube_sponge");
+		public static Block DULSE = blockReadyForRegister(new BlockDulse(), "dulse");
 		
 		public static Block SHELL_SAND = blockReadyForRegister(new BlockShellSand(), "shell_sand");
 		public static Block COQUINA = blockReadyForRegister(new BlockShellSand(), "coquina");
@@ -120,6 +122,16 @@ public class OEBlocks
 		{
 			if (ConfigHandler.block.guardianSpike.enableGuardianSpike) blockReadyForRegister(GUARDIAN_SPIKE, "guardian_spike");
 			
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_LOG, "palm_log");
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_WOOD, "palm_wood");
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_PLANKS, "palm_planks");
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_SLAB, "palm_slab");
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_SLAB_D, "palm_slab_double", false);
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_STAIRS, "palm_stairs");
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_FENCE, "palm_fence"); PALM_FENCE.setHardness(2.0F).setResistance(5.0F);
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_FENCE_GATE, "palm_fence_gate"); PALM_FENCE_GATE.setHardness(2.0F).setResistance(5.0F);
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_DOOR, "palm_door");
+			
 			for (Block blocks : blockList) event.getRegistry().register(blocks);
 		}
 		
@@ -132,9 +144,9 @@ public class OEBlocks
 		
 		registerItemBlock(r, new ItemBlockSeaPickle(SEA_PICKLE)); itemBlockBlacklist.add(SEA_PICKLE);
 		registerItemBlock(r, new ItemBlockSeaPickle(SEA_TURTLE_EGG)); itemBlockBlacklist.add(SEA_TURTLE_EGG);
-		registerItemBlock(r, new ItemBlockSlab(PALM_SLAB, (BlockSlab)PALM_SLAB, (BlockSlab)PALM_SLAB_D)); itemBlockBlacklist.add(PALM_SLAB);
 		
-		registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
+		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerItemBlock(r, new ItemBlockSlab(PALM_SLAB, (BlockSlab)PALM_SLAB, (BlockSlab)PALM_SLAB_D)); itemBlockBlacklist.add(PALM_SLAB);
+		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
 		
 		
 		/** As stated on itemBlockBlacklist, this registers anything NOT from the blacklist with a generic itemBlock.*/
@@ -150,6 +162,8 @@ public class OEBlocks
 	{
 		block.setUnlocalizedName(name);
 		block.setRegistryName(name);
+		
+		if (block == PALM_SLAB || block == PALM_SLAB_D) block.setHardness(2.0F).setResistance(5.0F);
 		
 		if (addToTab) block.setCreativeTab(Main.OCEANEXPTAB);
 		else block.setCreativeTab(null);
@@ -200,7 +214,8 @@ public class OEBlocks
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), 0, new ModelResourceLocation(b.getRegistryName(), "inventory"));
 			
 			/** So many blocks are submergable, might as well set this for all **/
-			ModelLoader.setCustomStateMapper(b, new StateMap.Builder().ignore(BlockLiquid.LEVEL).ignore(BlockCoralFan.IN_WATER).build());
+			ModelLoader.setCustomStateMapper(b, new StateMap.Builder().ignore(BlockLiquid.LEVEL).ignore(BlockCoralFan.IN_WATER).ignore(BlockTubeSponge.SHEARED).build());
+			
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_FENCE_GATE, new StateMap.Builder().ignore(BlockFenceGate.POWERED).build());
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());

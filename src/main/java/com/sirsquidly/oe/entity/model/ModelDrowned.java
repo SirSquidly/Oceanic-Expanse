@@ -10,6 +10,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -30,7 +31,7 @@ public class ModelDrowned extends ModelZombie
     {
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
         GlStateManager.pushMatrix();
-
+        
         if (this.isChild)
         {
             GlStateManager.scale(0.75F, 0.75F, 0.75F);
@@ -62,7 +63,7 @@ public class ModelDrowned extends ModelZombie
             this.bipedLeftLeg.render(scale);
             this.bipedHeadwear.render(scale);
         }
-
+        
         GlStateManager.popMatrix();
     }
 	
@@ -86,5 +87,19 @@ public class ModelDrowned extends ModelZombie
             	this.bipedLeftArm.rotateAngleX = 4.0F;
             }
 		}
+		
+		if (drowned.isInWater())
+        {
+			float swayX = MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+			
+			this.bipedBody.rotateAngleX = 0.15F;
+			this.bipedRightLeg.rotateAngleX += 0.15F + swayX;
+			this.bipedLeftLeg.rotateAngleX += 0.15F - swayX;
+			
+			this.bipedRightLeg.rotationPointZ += 1.8F;
+	        this.bipedLeftLeg.rotationPointZ += 1.8F;
+	        this.bipedRightLeg.rotationPointY -= 0.15F;
+	        this.bipedLeftLeg.rotationPointY -= 0.15F;
+        }
     }
 }

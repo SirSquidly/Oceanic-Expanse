@@ -20,6 +20,8 @@ public class BlockPalmDoor extends BlockDoor
 	{
 		super(Material.WOOD);
 		setSoundType(SoundType.WOOD);
+		setHardness(2.0F);
+		setResistance(5.0F);
 	}
 	
 	public void setItem(Item item) {

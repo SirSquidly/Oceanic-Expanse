@@ -1,11 +1,12 @@
 package com.sirsquidly.oe.entity.render;
 
+
+
 import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.entity.model.ModelDrowned;
 import com.sirsquidly.oe.entity.render.layer.LayerDrowned;
-import com.sirsquidly.oe.entity.render.layer.LayerGlowSquid;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -25,6 +26,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -125,10 +127,21 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 	protected void preRenderCallback(EntityDrowned entity, float f) 
 	{
 		float size = 0.9375F;
+		float bobbing = MathHelper.cos(entity.ticksExisted * 0.09F) * 0.05F + 0.05F;
 		
-		if (entity.isSwimming())
+		if (entity.isInWater())
+		{
+			GL11.glRotatef(-bobbing*20, 1F, 0F, 0F);
+			GL11.glTranslatef(0F, bobbing/2 - 0.1F, 0F);
+		}
+		
+		if (entity.isInWater())
         {
-			GL11.glRotatef(0F, 0F, 45F, 1F);
+			GlStateManager.pushMatrix();
+			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.popMatrix();
+			
+			//GL11.glRotatef(0F, 0F, 45F, 1F);
         }
 		GlStateManager.scale(size, size, size);
 	}
