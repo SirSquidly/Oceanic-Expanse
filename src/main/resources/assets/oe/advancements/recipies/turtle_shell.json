@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "oe:turtle_shell"
+    ]
+  },
+  "criteria": {
+    "has_turtle_scute": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "oe:turtle_scute"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_turtle_scute"
+    ]
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "oe:dried_dulse_from_block",
+      "oe:dried_dulse_block"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "oe:dried_dulse_block"
+      }
+    },
+    "has_min_9_dried_dulse": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "oe:dried_dulse",
+            "count": {
+              "min": 9
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_min_9_dried_dulse"
+    ]
+  ]
+}

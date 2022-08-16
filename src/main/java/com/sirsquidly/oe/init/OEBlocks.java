@@ -76,61 +76,113 @@ public class OEBlocks
 		
 		public static Block BLUE_ICE = blockReadyForRegister(new BlockBlueIce(), "blue_ice");
 		public static Block SEA_TURTLE_EGG = blockReadyForRegister(new BlockTurtleEgg(), "turtle_egg");
+		public static Block CONDUIT = blockReadyForRegister(new BlockConduit(), "conduit");
 		public static Block SEA_OATS = blockReadyForRegister(new BlockDoubleSeaOats(), "sea_oats");
 		public static Block TUBE_SPONGE = blockReadyForRegister(new BlockTubeSponge(), "tube_sponge");
+		public static Block SEASTAR = blockReadyForRegister(new BlockSeaStar(), "seastar");
 		public static Block DULSE = blockReadyForRegister(new BlockDulse(), "dulse");
+		public static Block DRIED_DULSE_BLOCK = blockReadyForRegister(new BlockDriedKelp(), "dried_dulse_block");
+		public static Block UNDERWATER_TORCH = new BlockUnderwaterTorch();
 		
 		public static Block SHELL_SAND = blockReadyForRegister(new BlockShellSand(), "shell_sand");
 		public static Block COQUINA = blockReadyForRegister(new BlockShellSand(), "coquina");
 		public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
 		
-		public static Block BLUE_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.BLUE), "blue_coral_block");
-		public static Block BLUE_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "blue_coral_block_dead");
-		public static Block PINK_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.PINK), "pink_coral_block");
-		public static Block PINK_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "pink_coral_block_dead");
-		public static Block PURPLE_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.PURPLE), "purple_coral_block");
-		public static Block PURPLE_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "purple_coral_block_dead");
-		public static Block RED_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.RED), "red_coral_block");
-		public static Block RED_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "red_coral_block_dead");
-		public static Block YELLOW_CORAL_BLOCK = blockReadyForRegister(new BlockCoralFull(MapColor.YELLOW), "yellow_coral_block");
-		public static Block YELLOW_CORAL_BLOCK_DEAD = blockReadyForRegister(new BlockCoralFull(MapColor.GRAY), "yellow_coral_block_dead");
+		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE);
+		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK);
+		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE);
+		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED);
+		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW);
+		public static Block BLUE_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
+		public static Block PINK_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
+		public static Block PURPLE_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
+		public static Block RED_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
+		public static Block YELLOW_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
 
-		public static Block BLUE_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.BLUE), "blue_coral_fan");
-		public static Block BLUE_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "blue_coral_fan_dead");
-		public static Block PINK_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.PINK), "pink_coral_fan");
-		public static Block PINK_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "pink_coral_fan_dead");
-		public static Block PURPLE_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.PURPLE), "purple_coral_fan");
-		public static Block PURPLE_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "purple_coral_fan_dead");
-		public static Block RED_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.RED), "red_coral_fan");
-		public static Block RED_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "red_coral_fan_dead");
-		public static Block YELLOW_CORAL_FAN = blockReadyForRegister(new BlockCoralFan(MapColor.YELLOW), "yellow_coral_fan");
-		public static Block YELLOW_CORAL_FAN_DEAD = blockReadyForRegister(new BlockCoralFan(MapColor.GRAY), "yellow_coral_fan_dead");
+		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE);
+		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK);
+		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE);
+		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED);
+		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW);
+		public static Block BLUE_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
+		public static Block PINK_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
+		public static Block PURPLE_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
+		public static Block RED_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
+		public static Block YELLOW_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
 		
-		public static Block BLUE_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "blue_coral");
-		public static Block BLUE_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "blue_coral_dead");
-		public static Block PINK_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "pink_coral");
-		public static Block PINK_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "pink_coral_dead");
-		public static Block PURPLE_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "purple_coral");
-		public static Block PURPLE_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "purple_coral_dead");
-		public static Block RED_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "red_coral");
-		public static Block RED_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "red_coral_dead");
-		public static Block YELLOW_CORAL = blockReadyForRegister(new BlockCoral(MapColor.BLUE), "yellow_coral");
-		public static Block YELLOW_CORAL_DEAD = blockReadyForRegister(new BlockCoral(MapColor.GRAY), "yellow_coral_dead");
+		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE);
+		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK);
+		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE);
+		public static Block RED_CORAL = new BlockCoral(MapColor.RED);
+		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW);
+		public static Block BLUE_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
+		public static Block PINK_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
+		public static Block PURPLE_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
+		public static Block RED_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
+		public static Block YELLOW_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
 		
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event)
 		{
 			if (ConfigHandler.block.guardianSpike.enableGuardianSpike) blockReadyForRegister(GUARDIAN_SPIKE, "guardian_spike");
 			
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_LOG, "palm_log");
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_WOOD, "palm_wood");
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_PLANKS, "palm_planks");
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_SLAB, "palm_slab");
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_SLAB_D, "palm_slab_double", false);
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_STAIRS, "palm_stairs");
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_FENCE, "palm_fence"); PALM_FENCE.setHardness(2.0F).setResistance(5.0F);
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_FENCE_GATE, "palm_fence_gate"); PALM_FENCE_GATE.setHardness(2.0F).setResistance(5.0F);
-			if (ConfigHandler.block.palmBlocks.enablePalmWoods) blockReadyForRegister(PALM_DOOR, "palm_door");
+			if (ConfigHandler.block.coralBlocks.enableCoralBlock)
+			{
+				blockReadyForRegister(BLUE_CORAL_BLOCK, "blue_coral_block");
+				blockReadyForRegister(PINK_CORAL_BLOCK, "pink_coral_block");
+				blockReadyForRegister(PURPLE_CORAL_BLOCK, "purple_coral_block");
+				blockReadyForRegister(RED_CORAL_BLOCK, "red_coral_block");
+				blockReadyForRegister(YELLOW_CORAL_BLOCK, "yellow_coral_block");
+				
+				blockReadyForRegister(BLUE_CORAL_BLOCK_DEAD, "blue_coral_block_dead");
+				blockReadyForRegister(PINK_CORAL_BLOCK_DEAD, "pink_coral_block_dead");
+				blockReadyForRegister(PURPLE_CORAL_BLOCK_DEAD, "purple_coral_block_dead");
+				blockReadyForRegister(RED_CORAL_BLOCK_DEAD, "red_coral_block_dead");
+				blockReadyForRegister(YELLOW_CORAL_BLOCK_DEAD, "yellow_coral_block_dead");
+			}
+			if (ConfigHandler.block.coralBlocks.enableCoralFan)
+			{
+				blockReadyForRegister(BLUE_CORAL_FAN, "blue_coral_fan");
+				blockReadyForRegister(PINK_CORAL_FAN, "pink_coral_fan");
+				blockReadyForRegister(PURPLE_CORAL_FAN, "purple_coral_fan");
+				blockReadyForRegister(RED_CORAL_FAN, "red_coral_fan");
+				blockReadyForRegister(YELLOW_CORAL_FAN, "yellow_coral_fan");
+				
+				blockReadyForRegister(BLUE_CORAL_FAN_DEAD, "blue_coral_fan_dead");
+				blockReadyForRegister(PINK_CORAL_FAN_DEAD, "pink_coral_fan_dead");
+				blockReadyForRegister(PURPLE_CORAL_FAN_DEAD, "purple_coral_fan_dead");
+				blockReadyForRegister(RED_CORAL_FAN_DEAD, "red_coral_fan_dead");
+				blockReadyForRegister(YELLOW_CORAL_FAN_DEAD, "yellow_coral_fan_dead");
+			}
+			if (ConfigHandler.block.coralBlocks.enableCoral)
+			{
+				blockReadyForRegister(BLUE_CORAL, "blue_coral");
+				blockReadyForRegister(PINK_CORAL, "pink_coral");
+				blockReadyForRegister(PURPLE_CORAL, "purple_coral");
+				blockReadyForRegister(RED_CORAL, "red_coral");
+				blockReadyForRegister(YELLOW_CORAL, "yellow_coral");
+				
+				blockReadyForRegister(BLUE_CORAL_DEAD, "blue_coral_dead");
+				blockReadyForRegister(PINK_CORAL_DEAD, "pink_coral_dead");
+				blockReadyForRegister(PURPLE_CORAL_DEAD, "purple_coral_dead");
+				blockReadyForRegister(RED_CORAL_DEAD, "red_coral_dead");
+				blockReadyForRegister(YELLOW_CORAL_DEAD, "yellow_coral_dead");
+			}
+			
+			
+			if (ConfigHandler.block.palmBlocks.enablePalmWoods)
+			{
+				blockReadyForRegister(PALM_LOG, "palm_log");
+				blockReadyForRegister(PALM_WOOD, "palm_wood");
+				blockReadyForRegister(PALM_PLANKS, "palm_planks");
+				blockReadyForRegister(PALM_SLAB, "palm_slab");
+				blockReadyForRegister(PALM_SLAB_D, "palm_slab_double", false);
+				blockReadyForRegister(PALM_STAIRS, "palm_stairs");
+				blockReadyForRegister(PALM_FENCE, "palm_fence"); PALM_FENCE.setHardness(2.0F).setResistance(5.0F);
+				blockReadyForRegister(PALM_FENCE_GATE, "palm_fence_gate"); PALM_FENCE_GATE.setHardness(2.0F).setResistance(5.0F);
+				blockReadyForRegister(PALM_DOOR, "palm_door");
+			} 
+			if (ConfigHandler.block.waterTorch.enableWaterTorch) blockReadyForRegister(UNDERWATER_TORCH, "underwater_torch");
 			
 			for (Block blocks : blockList) event.getRegistry().register(blocks);
 		}

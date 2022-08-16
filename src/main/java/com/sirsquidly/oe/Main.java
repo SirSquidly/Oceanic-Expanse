@@ -1,6 +1,7 @@
 package com.sirsquidly.oe;
 
 import java.io.File;
+
 import com.sirsquidly.oe.common.CreativeTab;
 import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.Reference;
@@ -48,6 +49,5 @@ public class Main {
 	}
 	
 	@EventHandler
-	public void PostInit(FMLPostInitializationEvent event)
-	{}
+	public void PostInit(FMLPostInitializationEvent event) {}
 }

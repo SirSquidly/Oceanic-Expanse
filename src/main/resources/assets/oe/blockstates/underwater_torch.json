@@ -1,0 +1,10 @@
+{
+    "variants":
+    {
+        "facing=up": { "model": "oe:underwater_torch" },
+        "facing=east": { "model": "oe:underwater_torch_wall" },
+        "facing=south": { "model": "oe:underwater_torch_wall", "y": 90 },
+        "facing=west": { "model": "oe:underwater_torch_wall", "y": 180 },
+        "facing=north": { "model": "oe:underwater_torch_wall", "y": 270 }
+    }
+}

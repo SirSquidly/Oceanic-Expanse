@@ -1,9 +1,12 @@
 package com.sirsquidly.oe.blocks;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.Block;
@@ -85,6 +88,19 @@ public class BlockCoralFan extends Block
     }
 
 
+    public void placeAt(World worldIn, BlockPos pos, Random rand, Block block)
+    {
+    	List<EnumFacing> list = Lists.newArrayList(EnumFacing.values());
+        Collections.shuffle(list, rand);
+        
+		for (EnumFacing enumfacing : list)
+        {
+			BlockPos checkPos = pos.offset(enumfacing);
+			if (worldIn.getBlockState(checkPos).isSideSolid(worldIn, checkPos, enumfacing))
+            {  worldIn.setBlockState(pos, block.getDefaultState().withProperty(FACING, enumfacing.getOpposite()).withProperty(IN_WATER, true), 16 | 2); }
+        }
+    }
+    
 	/** 
      * Basic Block stuff
      * **/
@@ -246,9 +262,7 @@ public class BlockCoralFan extends Block
     { return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING))); }
 
     protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {BlockLiquid.LEVEL, FACING, IN_WATER});
-    }
+    { return new BlockStateContainer(this, new IProperty[] {BlockLiquid.LEVEL, FACING, IN_WATER}); }
     
     /**
      * Handles the Coral Death and Submerging

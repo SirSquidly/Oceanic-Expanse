@@ -1,0 +1,7 @@
+{
+	"parent": "block/torch",
+    "textures":
+    {
+        "torch": "oe:blocks/underwater_torch"
+    }
+}

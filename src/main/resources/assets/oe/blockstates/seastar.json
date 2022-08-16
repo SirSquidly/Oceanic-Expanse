@@ -1,0 +1,12 @@
+{
+    "variants":
+    {
+        "normal":
+        [
+        	{ "model": "oe:seastar" },
+       		{ "model": "oe:seastar", "y": 90 },
+            { "model": "oe:seastar", "y": 180 },
+            { "model": "oe:seastar", "y": 270 }
+        ]
+    }
+}

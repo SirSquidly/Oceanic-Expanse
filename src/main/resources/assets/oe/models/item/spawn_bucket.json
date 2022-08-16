@@ -5,31 +5,31 @@
     },
     "overrides": [
         {
-            "predicate": { "check_entity": 0.01 },
+            "predicate": { "oe:cod": 1.00 },
             "model": "oe:item/bucket/bucket_cod"
         },
         {
-            "predicate": { "check_entity": 0.02 },
+            "predicate": { "oe:salmon": 1.00 },
             "model": "oe:item/bucket/bucket_salmon"
         },
         {
-            "predicate": { "check_entity": 0.03 },
+            "predicate": { "oe:pufferfish": 1.00 },
             "model": "oe:item/bucket/bucket_pufferfish"
         },
         {
-            "predicate": { "check_entity": 0.11 },
+            "predicate": { "oe:glow_squid": 1.00 },
             "model": "oe:item/bucket/bucket_glowsquid"
         },
         {
-            "predicate": { "check_entity": 0.12 },
+            "predicate": { "minecraft:squid": 1.00 },
             "model": "oe:item/bucket/bucket_squid"
         },
         {
-            "predicate": { "check_entity": 0.13 },
+            "predicate": { "oe:drowned": 1.00 },
             "model": "oe:item/bucket/bucket_drowned"
         },
         {
-            "predicate": { "check_entity": 0.14 },
+            "predicate": { "oe:pickled": 1.00 },
             "model": "oe:item/bucket/bucket_pickled"
         }
     ]

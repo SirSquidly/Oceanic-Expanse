@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "age=0":  { "model": "oe:dulse_stage1" },
+        "age=1":  { "model": "oe:dulse_stage2" },
+        "age=2":  { "model": "oe:dulse_stage3" },
+        "age=3":  { "model": "oe:dulse_stage4" };
+        "age=4":  { "model": "oe:dulse_stage5" }
+    }
+}

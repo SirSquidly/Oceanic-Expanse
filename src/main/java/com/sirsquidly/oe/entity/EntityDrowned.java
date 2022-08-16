@@ -92,6 +92,9 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityIronGolem.class, true));
     }
 	
+	public boolean isNotColliding()
+    { return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
+	
 	protected SoundEvent getAmbientSound()
     { return SoundHandler.ENTITY_DROWNED_AMBIENT; }
 	
@@ -130,7 +133,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             if (isServerWorld() && (isInWater() && this.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER)) navigator = waterNavigator; 
             else navigator = groundNavigator;
             
-            if (isInWater()) stepHeight = 1.0F;
+            if (isInWater() || ConfigHandler.entity.drowned.enableDrownedStepup) stepHeight = 1.0F;
             else stepHeight = 0.6F;
             
             //** The material check is to make sure they don't act odd when the player is bobbing on the surface of water. */
@@ -176,7 +179,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
         }
 
         this.setNaturalEquipment(difficulty);
-        this.setBreakDoorsAItask(this.rand.nextFloat() < f * 0.1F);
+        //this.setBreakDoorsAItask(this.rand.nextFloat() < f * 0.1F);
         this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
         
         return livingdata;

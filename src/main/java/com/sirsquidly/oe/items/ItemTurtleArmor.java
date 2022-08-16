@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -29,7 +31,7 @@ public class ItemTurtleArmor extends ItemArmorBase
 	{
 		if (!player.isInWater())
 		{
-			player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 200, 0, false, false));
+			player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, ConfigHandler.item.turtleShell.turtleShellEffectLength * 20, 0, false, false));
 		}
 	}
 	
@@ -41,7 +43,8 @@ public class ItemTurtleArmor extends ItemArmorBase
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.BLUE + I18n.format("description.turtle_helmet.name"));
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	{
+		if (ConfigHandler.item.turtleShell.enableTurtleShellDesc) tooltip.add(TextFormatting.BLUE + I18n.format("description.turtle_helmet.name"));
 	}
 }

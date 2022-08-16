@@ -1,0 +1,59 @@
+{
+	"textures": {
+		"particle": "#dulse"
+	},
+	"elements": [
+		{
+			"name": "fn1",
+			"from": [0, 0, 3],
+			"to": [16, 16, 3],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"east": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"west": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"up": {"uv": [0, 0, 0, 16], "rotation": 270, "texture": "#dulse"},
+				"down": {"uv": [0, 0, 0, 16], "rotation": 90, "texture": "#dulse"}
+			}
+		},
+		{
+			"name": "fs1",
+			"from": [0, 0, 13],
+			"to": [16, 16, 13],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"east": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"west": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"up": {"uv": [0, 0, 0, 16], "rotation": 270, "texture": "#dulse"},
+				"down": {"uv": [0, 0, 0, 16], "rotation": 90, "texture": "#dulse"}
+			}
+		},
+		{
+			"name": "fe1",
+			"from": [3, 0, 0],
+			"to": [3, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"south": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#dulse"}
+			}
+		},
+		{
+			"name": "fw1",
+			"from": [13, 0, 0],
+			"to": [13, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"south": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#dulse"},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#dulse"},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#dulse"}
+			}
+		}
+	]
+}

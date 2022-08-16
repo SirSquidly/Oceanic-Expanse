@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "oe:conduit"
+    ]
+  },
+  "criteria": {
+    "has_heart_of_the_sea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "oe:heart_of_the_sea"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_heart_of_the_sea"
+    ]
+  ]
+}

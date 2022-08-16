@@ -6,9 +6,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.BlockWall;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -17,6 +15,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -25,15 +24,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockSeaPickle extends BlockBush implements IGrowable
+public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 {
 	public static final PropertyInteger AMOUNT = PropertyInteger.create("amount", 1, 4);
 	public static final PropertyBool IN_WATER = PropertyBool.create("in_water");
 	protected static final AxisAlignedBB[] PICKLE_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.375D, 0.625D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.4375D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.875D, 0.375D, 0.8125D), new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.4375D, 0.875D)};
 	
 	public BlockSeaPickle() {
-		super(Material.GOURD);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, Integer.valueOf(1)).withProperty(IN_WATER, false));
+		super(Material.WATER);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, Integer.valueOf(1)).withProperty(IN_WATER, Boolean.valueOf(true)));
 		
 		this.setSoundType(SoundType.SLIME);
 		this.setHardness(0.1F);
@@ -44,8 +43,8 @@ public class BlockSeaPickle extends BlockBush implements IGrowable
 	@Deprecated
 	public Material getMaterial(IBlockState state)
 	{
-		if(state.getValue(IN_WATER)) {
-			return Material.WATER;
+		if(!state.getValue(IN_WATER)) {
+			return Material.GOURD;
 		}
 		return super.getMaterial(state);
 	}
@@ -76,15 +75,12 @@ public class BlockSeaPickle extends BlockBush implements IGrowable
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
 		return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || 
-        		worldIn.getBlockState(pos.down()).getBlock() instanceof BlockFence || 
-        		worldIn.getBlockState(pos.down()).getBlock() instanceof BlockWall;   
+        		worldIn.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos);
     }
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || 
-        		worldIn.getBlockState(pos.down()).getBlock() instanceof BlockFence || 
-        		worldIn.getBlockState(pos.down()).getBlock() instanceof BlockWall) return true;
+		if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos)) return true;
         return false;
     }
 
@@ -103,9 +99,17 @@ public class BlockSeaPickle extends BlockBush implements IGrowable
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
     }
 
+	@Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+    	if (!checkWater(worldIn, pos)) return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(false));
+    	return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(true));
+    }
+    
+	
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        this.checkWater(worldIn, pos, state);
+    	checkAndDropBlock(worldIn, pos, state);
         super.onBlockAdded(worldIn, pos, state);
     }
     

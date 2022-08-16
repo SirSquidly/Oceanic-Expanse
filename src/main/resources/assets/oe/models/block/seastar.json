@@ -1,0 +1,19 @@
+{
+	"textures":
+    {
+        "faces": "oe:blocks/seastar",
+        "particle": "oe:blocks/seastar"
+    },
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 0.5, 16],
+			"color": 4,
+			"faces": 
+			{
+				"up": {"uv": [0, 0, 16, 16], "texture": "#faces"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#faces"}
+			}
+		}
+	]
+}

@@ -28,10 +28,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 
-public class BlockDoubleUnderwater extends BlockBush
+public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 {
 	protected static final AxisAlignedBB TALL_SEAGRASS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
 	public static final PropertyEnum<BlockDoubleUnderwater.EnumBlockHalf> HALF = PropertyEnum.<BlockDoubleUnderwater.EnumBlockHalf>create("half", BlockDoubleUnderwater.EnumBlockHalf.class);
@@ -52,7 +51,7 @@ public class BlockDoubleUnderwater extends BlockBush
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER;
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkWater(worldIn, pos) && checkWater(worldIn, pos.up());
     }
 	
 	@Override
@@ -61,7 +60,7 @@ public class BlockDoubleUnderwater extends BlockBush
         if (state.getBlock() != this) return super.canBlockStay(worldIn, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
         if (state.getValue(HALF) == BlockDoubleUnderwater.EnumBlockHalf.UPPER)
         {
-        	if (worldIn.getBlockState(pos.up()).getMaterial() != Material.WATER) return false;
+        	if (!checkWater(worldIn, pos)) return false;
             return worldIn.getBlockState(pos.down()).getBlock() == this;
         }
         else

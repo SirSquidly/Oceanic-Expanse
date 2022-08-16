@@ -3,6 +3,7 @@ package com.sirsquidly.oe.world.feature;
 import java.util.Random;
 
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -43,7 +44,7 @@ public class GeneratorCoconutTree implements IWorldGenerator
 			}
 		}
 
-		if(isValidBiome)
+		if(isValidBiome && ConfigHandler.worldGen.palmTree.enablePalmTrees)
 		{
 			for(int i = 0; i < attemptsPerChunk; i++)
 			{

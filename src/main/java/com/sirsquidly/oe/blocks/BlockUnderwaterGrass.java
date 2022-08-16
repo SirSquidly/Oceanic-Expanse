@@ -26,7 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockUnderwaterGrass extends BlockBush implements IGrowable
+public class BlockUnderwaterGrass extends BlockBush implements IGrowable, IChecksWater
 {
 	protected static final AxisAlignedBB SEAGRASS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.75D, 0.875D);
 	
@@ -45,13 +45,13 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER;
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkWater(worldIn, pos);
     }
 	
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (worldIn.getBlockState(pos.up()).getMaterial() != Material.WATER) return false;
+		if (!checkWater(worldIn, pos)) return false;
         if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
         return false;
     }

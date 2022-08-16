@@ -1,0 +1,8 @@
+{
+    "variants":
+    {
+        "age=0": { "model": "oe:tube_sponge_stage1" },
+        "age=1": { "model": "oe:tube_sponge_stage2" },
+        "age=2": { "model": "oe:tube_sponge_stage3" }
+    }
+}

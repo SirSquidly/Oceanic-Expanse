@@ -2,11 +2,15 @@ package com.sirsquidly.oe.items;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,57 +29,36 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SuppressWarnings("deprecation")
 public class ItemSpawnBucket extends ItemMonsterPlacer
 {
 	public ItemSpawnBucket()
 	{
 		super();
 		this.maxStackSize = 1;
-		this.addPropertyOverride(new ResourceLocation("check_entity"), new IItemPropertyGetter()
-		{
-			@SideOnly(Side.CLIENT)
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-			{
-				String s1 = EntityList.getTranslationName(getNamedIdFrom(stack));
-				
-		        if (s1 != null)
-		        {
-		        	s1 = I18n.translateToLocal("entity." + s1 + ".name");
-		        	
-		        	switch(s1) 
-		        	{
-		        		case "Cod": 
-		        		{ return 0.01F; }
-		        		case "Salmon": 
-		        		{ return 0.02F; }
-		        		case "Pufferfish": 
-		        		{ return 0.03F; }
-		        		case "Glow Squid": 
-		        		{ return 0.11F; }
-		        		case "Squid": 
-		        		{ return 0.12F; }
-		        		case "Drowned": 
-		        		{ return 0.13F; }
-		        		case "Pickled": 
-		        		{ return 0.14F; }
-		        		case "NULL": 
-		        		{return 0.0F;}
-		        	}
-		        }
-				return 0.0F;
-			}
-		});
 		
+		for (EntityList.EntityEggInfo entitylist$entityegginfo : EntityList.ENTITY_EGGS.values())
+		{
+			String thisEntity = entitylist$entityegginfo.spawnedID.toString();
+			
+			this.addPropertyOverride(new ResourceLocation(thisEntity), new IItemPropertyGetter()
+			{
+				@SideOnly(Side.CLIENT)
+				public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+				{ 
+					if (ItemMonsterPlacer.getNamedIdFrom(stack).toString().contains(thisEntity)) return 1.0F;
+					else return 0.0F;
+				}
+			});
+		}
 		this.setCreativeTab(Main.OCEANEXPTAB);
 	}
 
@@ -83,6 +66,24 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     { return EnumActionResult.PASS; }
 
+	/** Overrides getSubItem so every possible bucketed mob doesn't flood the Search Creative Tab*/
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
+    {
+        if (this.isInCreativeTab(tab))
+        {
+            for (EntityList.EntityEggInfo entitylist$entityegginfo : EntityList.ENTITY_EGGS.values())
+            {
+            	if (ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, entitylist$entityegginfo.spawnedID.toString()) || ConfigHandler.item.spawnBucket.enableAllBucketsCreative)
+				{
+            		ItemStack itemstack = new ItemStack(this, 1);
+                    applyEntityIdToItemStack(itemstack, entitylist$entityegginfo.spawnedID);
+                    items.add(itemstack);
+				}
+            }
+        }
+    }
+	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {

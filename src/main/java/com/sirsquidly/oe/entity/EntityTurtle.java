@@ -11,6 +11,7 @@ import com.google.common.collect.Sets;
 import com.sirsquidly.oe.blocks.BlockTurtleEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.advancements.CriteriaTriggers;
@@ -155,6 +156,13 @@ public class EntityTurtle extends AbstractFish
     { 
 		EntityTurtle entityturtle = new EntityTurtle(this.world);
         return entityturtle;
+    }
+	
+	/* This drops the Scute when reaching max age. Wow, how easy! **/
+	protected void onGrowingAdult()
+    {
+		ItemStack itemstack = new ItemStack(OEItems.SCUTE, 1);
+		this.entityDropItem(itemstack, 0.0F);
     }
 	
 	public boolean getCanSpawnHere()

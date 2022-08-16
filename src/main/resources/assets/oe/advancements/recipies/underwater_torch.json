@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "oe:underwater_torch"
+    ]
+  },
+  "criteria": {
+    "has_glow_ink": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "oe:glow_ink_sac"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glow_ink"
+    ]
+  ]
+}

@@ -2,6 +2,7 @@ package com.sirsquidly.oe.blocks;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -68,16 +69,17 @@ public class BlockDriedKelp extends Block
 	
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack)
     {
+		player.addStat(StatList.getBlockStats(this));
+		player.addExhaustion(0.005F);
+		
         if (((Boolean)state.getValue(OPEN)).booleanValue())
         {
-            player.addStat(StatList.getBlockStats(this));
-            spawnAsEntity(worldIn, pos, new ItemStack(OEItems.DRIED_KELP, 9, 0));
+            if (this == OEBlocks.DRIED_KELP_BLOCK) spawnAsEntity(worldIn, pos, new ItemStack(OEItems.DRIED_KELP, 9, 0));
+            else if (this == OEBlocks.DRIED_DULSE_BLOCK) spawnAsEntity(worldIn, pos, new ItemStack(OEItems.DRIED_DULSE, 9, 0));
+            else spawnAsEntity(worldIn, pos, new ItemStack(this, 1, 0));
         }
         else
-        {
-        	player.addStat(StatList.getBlockStats(this));
-            spawnAsEntity(worldIn, pos, new ItemStack(this, 1, 0));
-        }
+        { spawnAsEntity(worldIn, pos, new ItemStack(this, 1, 0)); }
     }
 	
 	public IBlockState getStateFromMeta(int meta)

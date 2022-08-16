@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -81,9 +82,19 @@ public class EntityGlowSquid extends EntitySquid
         {
         	this.currBrightness += 0.1F;
         }
+		
+		
+		if (this.world.isRemote)
+        {
+			for (int i = 0; i < 1; ++i)
+            {
+				Main.proxy.spawnParticle(1, this.posX + (this.rand.nextDouble() - this.rand.nextDouble()) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - this.rand.nextDouble()) * (double)this.width, 0.0D, 0.0D, 0.0D);
+            }
+			
+        }
+		
 		super.onUpdate();
     }
-	
 	
 	@Override
 	public boolean getCanSpawnHere()

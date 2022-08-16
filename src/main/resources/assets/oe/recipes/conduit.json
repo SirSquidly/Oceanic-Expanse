@@ -1,0 +1,19 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "nnn",
+    "nhn",
+    "nnn"
+  ],
+  "key": {
+    "n": {
+      "item": "oe:nautilus_shell"
+    },
+    "h": {
+      "item": "oe:heart_of_the_sea"
+    }
+  },
+  "result": {
+    "item": "oe:conduit"
+  }
+}

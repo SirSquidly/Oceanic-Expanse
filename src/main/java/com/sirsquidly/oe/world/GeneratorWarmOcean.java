@@ -4,7 +4,8 @@ import java.util.Random;
 
 import com.sirsquidly.oe.blocks.BlockCoralFull;
 import com.sirsquidly.oe.init.OEBlocks;
-import com.sirsquidly.oe.world.feature.WorldGenSeagrass;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.world.feature.WorldGenOceanPatch;
 import com.sirsquidly.oe.world.feature.coral.*;
 
 import net.minecraft.block.BlockPrismarine;
@@ -61,40 +62,58 @@ public class GeneratorWarmOcean implements IWorldGenerator
         			}
         		}
                 
-                if (isValidBiome && this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6) 
+                if (isValidBiome && this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6 && ConfigHandler.worldGen.warmOcean.enableWarmOcean) 
                 { 
                 	if (world.getBlockState(pos).getBlock() == Blocks.GRAVEL) world.setBlockState(pos, Blocks.SAND.getDefaultState(), 16 | 2);
                 	
-                	//** Doesn't use new coordinates like the coral because it doesn't seem to be causing any issues as is..*/
-                	new WorldGenSeagrass(OEBlocks.SEA_PICKLE, 1, 6, 4, 0.4, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                	/** Doesn't use new coordinates like the coral because it doesn't seem to be causing any issues as is..*/
+                	if (x == 0 && z == 0)
+                	{
+                		new WorldGenOceanPatch(OEBlocks.SEA_PICKLE, ConfigHandler.worldGen.warmOcean.seaPickleTriesPerChunk, ConfigHandler.worldGen.warmOcean.seaPickleChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                	}
                 }
                 
-                //** This chunk does all the work for Coral Reefs. */
-                if (isValidBiome && this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.96) 
+                /** This chunk does all the work for Coral Reefs. */
+                if (isValidBiome && this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.96 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralReef && ConfigHandler.worldGen.warmOcean.enableWarmOcean) 
                 { 
-                	if(rand.nextInt(30) == 0)
-    				{
-                		//** We make some new coordinates (coralPos) for generating Coral to avoid cascading world gen. Mostly the same code as my other world gen.*/
-                		int xPos = rand.nextInt(16) + 8;
-        				int zPos = rand.nextInt(16) + 8;
-        				BlockPos coralPos = chunkPos.getBlock(0, 0, 0).add(xPos, 0, zPos);
-        				coralPos = getSeaFloor(world, coralPos.getX(), coralPos.getZ()).up();
-        				
-    					int k = rand.nextInt(11);
-    					
-    					if (k >= 8)
-    					{
-    						new WorldGenCoralBulb(0).generate(world, rand, coralPos);
-    					}
-    					else if (k >= 4)
-    					{
-    						new WorldGenCoralBranch(0).generate(world, rand, coralPos);
-    					}
-    					else
-    					{
-    						new WorldGenCoralStalk(0).generate(world, rand, coralPos);
-    					}    					
-    				}
+                	if (x == 0 && z == 0)
+                	{
+                		for (int l = 0; l < 8; l++)
+        				{
+                    		/** We make some new coordinates (coralPos) for generating Coral to avoid cascading world gen. Mostly the same code as my other world gen.*/
+                    		int xPos = rand.nextInt(16) + 8;
+            				int zPos = rand.nextInt(16) + 8;
+            				BlockPos coralPos = chunkPos.getBlock(0, 0, 0).add(xPos, 0, zPos);
+            				coralPos = getSeaFloor(world, coralPos.getX(), coralPos.getZ()).up();
+            				
+        					int k = rand.nextInt(11);
+        					
+        					if (k >= 8 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralBulb)
+        					{
+        						new WorldGenCoralBulb(0).generate(world, rand, coralPos);
+        					}
+        					else if (k >= 4 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralBranch)
+        					{
+        						new WorldGenCoralBranch(0).generate(world, rand, coralPos);
+        					}
+        					else if (ConfigHandler.worldGen.warmOcean.coralReef.enableCoralStalk)
+        					{
+        						new WorldGenCoralStalk(0).generate(world, rand, coralPos);
+        					}    					
+        				}
+                		
+                		new WorldGenOceanPatch(OEBlocks.BLUE_CORAL_FAN, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.PINK_CORAL_FAN, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL_FAN, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.RED_CORAL_FAN, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL_FAN, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		
+                		new WorldGenOceanPatch(OEBlocks.BLUE_CORAL, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.PINK_CORAL, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.RED_CORAL, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL, 2, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                	}
                 }
             }
         }

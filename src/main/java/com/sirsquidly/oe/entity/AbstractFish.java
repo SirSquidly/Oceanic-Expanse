@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -7,6 +8,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -55,7 +57,10 @@ public class AbstractFish extends EntityAnimal
 		
 	@Override
 	public boolean getCanSpawnHere()
-    { return true; }
+    { 
+		List<Entity> checkAbove = this.world.getEntitiesWithinAABB(AbstractFish.class, getEntityBoundingBox().grow(16, 16, 16));
+		return checkAbove.size() < 10; 
+    }
 	
 	public boolean isNotColliding()
     { return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }

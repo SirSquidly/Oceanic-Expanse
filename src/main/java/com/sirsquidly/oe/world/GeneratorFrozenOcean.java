@@ -2,18 +2,26 @@ package com.sirsquidly.oe.world;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
+import com.sirsquidly.oe.blocks.BlockSeaPickle;
+import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.world.feature.WorldGenOceanPatch;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPrismarine;
+import net.minecraft.block.BlockStone;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
+import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class GeneratorFrozenOcean implements IWorldGenerator
@@ -42,10 +50,10 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{ 
-		spawnFrozenOcean(world, random, chunkX, chunkZ);
+		spawnFrozenOcean(world, random, chunkX, chunkZ, chunkGenerator, chunkProvider);
 	}
 
-    private void spawnFrozenOcean(World world, Random rand, int chunkX, int chunkZ) {
+    private void spawnFrozenOcean(World world, Random rand, int chunkX, int chunkZ, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
     	this.sandNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.sandNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
     	this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
     	this.iceSheetNoiseGen = iceSheetNoiseGenOctaves.generateNoiseOctaves(this.iceSheetNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.225D, 1.0, 0.225D);
@@ -68,12 +76,23 @@ public class GeneratorFrozenOcean implements IWorldGenerator
         			}
         		}
                 
-                if (isValidBiome && this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6 && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6)) 
+                if (isValidBiome && ConfigHandler.worldGen.frozenOcean.enableFrozenOcean && this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6 && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6)) 
                 { 
                 	if (world.getBlockState(pos).getBlock() == Blocks.SAND)
                     { world.setBlockState(pos, Blocks.GRAVEL.getDefaultState(), 16 | 2); }
                 	
-                	spawnIceBerg(world, rand, pos, chunkX, chunkZ, x, z);
+                	/** Doesn't use new coordinates because it doesn't seem to be causing any issues as is.*/
+                	if (x == 0 && z == 0)
+                	{
+                		spawnRockDecor(world, rand, pos, chunkX, chunkZ, x, z);
+                		
+                		new WorldGenOceanPatch(OEBlocks.SEASTAR, 6, 4, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE, 1, 3, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                    	new WorldGenOceanPatch(OEBlocks.DULSE, 2, 3, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                	}
+
+                	
+                	if (ConfigHandler.worldGen.frozenOcean.enableIcebergs) spawnIceBerg(world, rand, pos, chunkX, chunkZ, x, z);
                 	
                 	floatingIceCleaner(world, posSurface);
                 	
@@ -167,6 +186,35 @@ public class GeneratorFrozenOcean implements IWorldGenerator
         		else
         		{ world.setBlockState(pos, Blocks.AIR.getDefaultState(), 16 | 2); }
         	}
+        }
+    }
+    
+    /** Generates small random bits of Granite in the sea floor, and chunks of Andesite up. */
+    private void spawnRockDecor(World worldIn, Random rand, BlockPos pos, int chunkX, int chunkZ, int x, int z)
+    {
+    	int xPos = rand.nextInt(16) + 8;
+		int zPos = rand.nextInt(16) + 8;
+		ChunkPos chunkPos = worldIn.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+		BlockPos floorPos = chunkPos.getBlock(0, 0, 0).add(xPos, 0, zPos);
+		floorPos = getSeaFloor(worldIn, floorPos.getX(), floorPos.getZ()).up();
+		
+		int rX = rand.nextInt(8) - rand.nextInt(8);
+    	int rZ = rand.nextInt(8) - rand.nextInt(8);
+    	
+        BlockPos randBlockPos = floorPos.add(rX, 0, rZ);
+        
+        
+        if (rand.nextInt(6) == 0 && worldIn.getBlockState(randBlockPos.down()).isFullBlock())
+        {
+        	worldIn.setBlockState(randBlockPos.down(), Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
+        	worldIn.setBlockState(randBlockPos.down().north(), Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
+        	worldIn.setBlockState(randBlockPos.down().north().west(), Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
+        	worldIn.setBlockState(randBlockPos.down().west(), Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
+        	
+        	if (rand.nextInt(2) == 0) worldIn.setBlockState(randBlockPos, Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
+        	if (rand.nextInt(2) == 0) worldIn.setBlockState(randBlockPos.north(), Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
+        	if (rand.nextInt(2) == 0) worldIn.setBlockState(randBlockPos.north().west(), Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
+        	if (rand.nextInt(2) == 0) worldIn.setBlockState(randBlockPos.west(), Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE), 16 | 2);
         }
     }
     

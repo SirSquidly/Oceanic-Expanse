@@ -35,4 +35,7 @@ public class BlockPalmDoor extends BlockDoor
 	public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
 		return new ItemStack(this.item);
 	}
+	
+	public ItemStack getItemStack() 
+	{ return new ItemStack(this.item); }
 }

@@ -20,8 +20,6 @@ public class ConfigHandler
 	
 	public static class configWorldGen
 	{
-		
-		
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.worldGen.kelpForest")
 	    public configKelpForest kelpForest = new configKelpForest();
@@ -56,6 +54,11 @@ public class ConfigHandler
 		public static class configFrozenOcean
 		{
 			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableFrozenOcean")
+		    @Config.Comment("If Frozen Oceans should be enabled")
+		    public boolean enableFrozenOcean = true;
+			
+			@RequiresMcRestart
 		    @Config.LangKey("oe.config.worldGen.enableIceBerg")
 		    @Config.Comment("If Icebergs should be enabled")
 		    public boolean enableIcebergs = true;
@@ -70,7 +73,131 @@ public class ConfigHandler
 		    @Config.Comment("Adjusts the cutoff for the noise. Smaller numbers make the Ice Sheets more spread.")
 		    public double iceSheetSpread = 0.3;
 		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.warmOcean")
+	    public configWarmOcean warmOcean = new configWarmOcean();
+		
+		public static class configWarmOcean
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.coralReef")
+		    public configCoralReef coralReef = new configCoralReef();
 			
+			public static class configCoralReef
+			{
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.enableCoralReef")
+			    @Config.Comment("If Coral Reefs should be enabled. Requires Warm Oceans.")
+			    public boolean enableCoralReef = true;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.enableCoralStalk")
+			    @Config.Comment("Enable Coral Stalks. The tree ones.")
+			    public boolean enableCoralStalk= true;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.enableCoralBranch")
+			    @Config.Comment("Enable Coral Branch/Claws. The sideways ones.")
+			    public boolean enableCoralBranch= true;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.enableCoralBulb")
+			    @Config.Comment("Enable Coral Bulbs/Mushrooms. The round ones.")
+			    public boolean enableCoralBulb= true;
+			}
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableWarmOcean")
+		    @Config.Comment("If Warm Oceans should be enabled")
+		    public boolean enableWarmOcean = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.seaPickleTriesPerChunk")
+		    @Config.Comment("The Sea Pickles' tries per chunk to generate.")
+		    public int seaPickleTriesPerChunk = 1;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.seaPickleChancePerChunk")
+		    @Config.Comment("The Sea Pickles' chance to generate, per try. 1 / this number")
+		    public int seaPickleChancePerChunk = 6;
+		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.palmTree")
+	    public configPalmTree palmTree = new configPalmTree();
+		
+		public static class configPalmTree
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enablePalmTrees")
+		    @Config.Comment("If Palm Trees should be enabled")
+		    public boolean enablePalmTrees = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.palmTreeTriesPerChunk")
+		    @Config.Comment("The Palm Trees' tries per chunk to generate.")
+		    public int palmTreeTriesPerChunk = 3;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.palmTreeChancePerChunk")
+		    @Config.Comment("The Palm Trees' chance to generate, per try. 1 / this number")
+		    public int palmTreeChancePerChunk = 8;
+		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.shellPatch")
+	    public configShellPatch shellPatch = new configShellPatch();
+		
+		public static class configShellPatch
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableShellPatch")
+		    @Config.Comment("If Shell Patches should Generate")
+		    public boolean enableShellPatch = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.shellPatchTriesPerChunk")
+		    @Config.Comment("The Shell Patches' tries per chunk to generate.")
+		    public int shellPatchTriesPerChunk = 2;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.shellPatchChancePerChunk")
+		    @Config.Comment("The Shell Patches' chance to generate, per try. 1 / this number")
+		    public int shellPatchChancePerChunk = 6;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.shellPatchOverSeaLevel")
+		    @Config.Comment("Blocks above Sea Level that Shell Patches can be placed.")
+		    public int shellPatchAboveSeaLevel = 2;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.shellPatchSeaStarChance")
+		    @Config.Comment("Chance for a Sea Star to be placed atop a generated Shelly Sand.")
+		    public int shellPatchSeaStarChance = 20;
+		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.shipwreck")
+	    public configShipwreck shipwreck = new configShipwreck();
+		
+		public static class configShipwreck
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableShipwrecks")
+		    @Config.Comment("If Shipwrecks should be enabled")
+		    public boolean enableShipwrecks = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableShipwreckDrowned")
+		    @Config.Comment("Makes Drowned spawn in groups in Shipwrecks when generated. There's 1 group per chest, making more complete shipwrecks more challenging.")
+		    public boolean enableShipwreckDrowned = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.shipwreckChancePerChunk")
+		    @Config.Comment("The Shipwreck's chance to generate, per try. 1 / this number")
+		    public int shipwreckChancePerChunk = 300;
+		}
 	}
 	
 	@Config.LangKey("oe.config.block")
@@ -165,6 +292,62 @@ public class ConfigHandler
 		    public double guardianSpikeElderLooting = 0;
 	    }
 		
+		@Config.LangKey("oe.config.block.conduit")
+	    public configConduit conduit = new configConduit();
+		
+		public static class configConduit
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.conduit")
+		    @Config.Comment("Enables the Conduit. Wait, why would you disable this?! It took me forever to make!")
+		    public boolean enableConduit = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableConduitPulse")
+		    @Config.Comment("Enables the pulsing animation for the Conduit Eye/Heart.")
+		    public boolean enableConduitPulse = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.waterTorchLight")
+		    @Config.Comment("How much Light the Conduit emits")
+		    @Config.RangeDouble(min = 0, max = 16)
+		    public double conduitLight = 14;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.conduitParticles")
+		    @Config.Comment("The particles used by the Conduit when active or Attacking. (0 = None, 1 = Bedrock Runes, 2 = Java Eyes/Nautilus, 3 = Both, 4 = Yellow Bolt)")
+		    @Config.RangeInt(min = 0, max = 18)
+		    public double conduitParticles = 3;
+			
+			@Config.LangKey("oe.config.block.conduitFrameBlocks")
+		    @Config.Comment("Blocks accepted by the Conduit as Frame Blocks.")
+		    public String[] conduitFrameBlocks = {
+		            "minecraft:prismarine",
+					"minecraft:sea_lantern"
+		    };
+	    }
+		
+		@Config.LangKey("oe.config.block.palmBlocks")
+	    public configCoralBlocks coralBlocks = new configCoralBlocks();
+		
+		public static class configCoralBlocks
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCoralBlock")
+		    @Config.Comment("If Palm Woods are enabled. Note this doesn't disable Palm Trees, they will generate using Jungle Wood.")
+		    public boolean enableCoralBlock = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCoralFan")
+		    @Config.Comment("If Palm Woods are enabled. Note this doesn't disable Palm Trees, they will generate using Jungle Wood.")
+		    public boolean enableCoralFan = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCoral")
+		    @Config.Comment("If Palm Woods are enabled. Note this doesn't disable Palm Trees, they will generate using Jungle Wood.")
+		    public boolean enableCoral = true;
+	    }
+		
 		@Config.LangKey("oe.config.block.coconut")
 	    public configCoconut coconut = new configCoconut();
 		
@@ -193,6 +376,29 @@ public class ConfigHandler
 			@Config.RangeInt(min = 0, max = 9999)
 		    public int coconutFallMaxDamage = 19;
 	    }
+		
+		@Config.LangKey("oe.config.block.waterTorch")
+	    public configUnderwaterTorch waterTorch = new configUnderwaterTorch();
+		
+		public static class configUnderwaterTorch
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableWaterTorch")
+		    @Config.Comment("If coconuts go Clonk when hitting an entity")
+		    public boolean enableWaterTorch = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.waterTorchLight")
+		    @Config.Comment("How much Light the Underwater Torch gives off")
+		    @Config.RangeDouble(min = 0, max = 16)
+		    public double waterTorchLight = 14;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.waterTorchParticles")
+		    @Config.Comment("The particles of the Underwater Torch. (0 = None, 1 = Glow Squid Glow, 2 = Firework Sparks, 3 = Both)")
+		    @Config.RangeDouble(min = 0, max = 3)
+		    public double waterTorchParticles = 1;
+	    }
 	}
 	
 	@Config.LangKey("oe.config.item")
@@ -202,11 +408,36 @@ public class ConfigHandler
 	public static class configItem
 	{
 		
+		
+		
 		@RequiresMcRestart
-	    @Config.LangKey("oe.config.item.conchCooldown")
-	    @Config.Comment("The cooldown between uses of the Conch")
-		@Config.RangeInt(min = 0, max = 9999)
-	    public int conchCooldown = 60;
+		@Config.LangKey("oe.config.item.conch")
+	    public configConch conch = new configConch();
+		
+		public static class configConch
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.conchCooldown")
+		    @Config.Comment("The default cooldown between uses of the Conch. Can be altered per-conch using the 'Cooldown' NBT tag.")
+			@Config.RangeInt(min = 0, max = 9999)
+		    public int conchCooldown = 60;
+		
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.conchSoundDistance")
+		    @Config.Comment("The attenuation distance of the Conch, how far away it's heard from.")
+			@Config.RangeInt(min = 0, max = 9999)
+		    public int conchSoundDistance = 256;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.conchDisplayHorn")
+		    @Config.Comment("Adds description text to the Conch to tell which Horn sound is attached to it. Only for the default horn sounds.")
+		    public boolean conchDisplayHorn = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.conchDisplayRawSound")
+		    @Config.Comment("Adds the attached sound's registry name to the Conch's description. Overridden by 'conchDisplayHorn' if the sound is a horn sound.")
+		    public boolean conchDisplayRawSound = true;
+		}
 		
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.item.spawnBucket")
@@ -215,9 +446,9 @@ public class ConfigHandler
 		public static class configSpawnBucket
 		{
 			@Config.LangKey("oe.config.item.spawnBucketMobs")
-		    @Config.Comment("Mobs that can be bucketed")
+		    @Config.Comment("Mobs that can be bucketed. These will also appear in Creative Tabs.")
 		    public String[] bucketableMobs = 
-		{
+			{
 				 	"minecraft:squid",
 		            "minecraft:guardian",
 				 	"minecraft:elder_guardian",
@@ -230,6 +461,11 @@ public class ConfigHandler
 				 	"oe:drowned",
 				 	"oe:pickled"
 		    };
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableAllBucketsCreative")
+		    @Config.Comment("Makes every possible spawn bucket appear in the creative search tab. Warning, this is equal to every spawn egg, and most won't have proper textures!")
+		    public boolean enableAllBucketsCreative = false;
 	    }
 		
 		@RequiresMcRestart
@@ -269,6 +505,29 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.item.loyaltyVoidReturnLevel")
 		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
 		    public int loyaltyVoidReturnLevel = -15;
+	    }
+		
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.turtleShell")
+	    public configTurtleShell turtleShell = new configTurtleShell();
+		
+		public static class configTurtleShell
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableTurtleShell")
+		    @Config.Comment("If Turtle Shells are enabled")
+		    public boolean enableTurtleShell= true;
+			
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.item.turtleShellEffectLength")
+		    @Config.Comment("How long (in seconds) Water Breathing is given.")
+		    public int turtleShellEffectLength = 10;
+		    
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableTurtleShellDesc")
+		    @Config.Comment("Turtle Shell has a description.")
+		    public boolean enableTurtleShellDesc = true;
 	    }
 	}
 	
@@ -326,6 +585,15 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.enableDrowned")
 		    @Config.Comment("If Drowned should be enabled")
 		    public boolean enableDrowned = true;
+			
+		    @Config.LangKey("oe.config.entity.enableDrownedSwimAnims")
+		    @Config.Comment("Enables unique animations for Drowned in water, inspired by MC Dungeons.")
+		    public boolean enableDrownedSwimAnims = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableDrownedStepup")
+		    @Config.Comment("If Drowned keep a full block step-up outside of water.")
+		    public boolean enableDrownedStepup = false;
 			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.drownedArmorSpawning")
@@ -445,6 +713,30 @@ public class ConfigHandler
 	
 	public static class configvanillaTweak
 	{
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.vanillaTweak.waterBonemeal")
+	    public configWaterBonemeal waterBonemeal = new configWaterBonemeal();
+		
+		public static class configWaterBonemeal
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.enableWaterBonemeal")
+		    @Config.Comment("Enables Underwater Bonemealing.")
+		    public boolean enableWaterBonemeal = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.waterBonemealCoralChance")
+		    @Config.Comment("The Coral chance to be placed if it passes the waterBonemealCoralGen check. Else, places Seagrass. 1 / this number.")
+		    @Config.RangeInt(min = 0, max = 9999)
+		    public int waterBonemealCoralChance = 5;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.waterBonemealCoralGen")
+		    @Config.Comment("Makes Coral generate when using underwater bonemeal near Coral Blocks. (0 = Disable, 1 = Generate only on top, 2 = Generate around any side)")
+		    @Config.RangeInt(min = 0, max = 2)
+		    public int waterBonemealCoralGen = 2;
+	    }
+		
 		@Config.LangKey("oe.config.vanillaTweak.waterLighting")
 	    @Config.Comment("Alters how much light Water and Flowing Water block to 1, instead of 3. Automatically disabled as not only do I predict some MASSIVE incompatabilities, but this will require every water block to be updated. Every single one. ")
 	    public boolean waterTweak = false;

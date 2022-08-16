@@ -1,0 +1,7 @@
+{
+    "parent": "oe:block/dulse",
+    "textures":
+    {
+        "dulse": "oe:blocks/dulse_stage3"
+    }
+}

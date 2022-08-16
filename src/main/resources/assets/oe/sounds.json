@@ -1,50 +1,72 @@
 {
-	"snow_globe_shake": {
-    	"category": "block",
-    	"subtitle": "block.snow_globe_shake.interact",
-    	"sounds": [ "oe:block/snow_globe_shake_1", "oe:block/snow_globe_shake_2", "oe:block/snow_globe_shake_3"]
-     },
-	"drowned_ambient": {
+	"entity.drowned.drowned_ambient": 
+	{
     	"category": "hostile",
     	"subtitle": "subtitle.drowned_ambient",
     	"sounds": [ "oe:entity/drowned/drowned_ambient_1", "oe:entity/drowned/drowned_ambient_2", "oe:entity/drowned/drowned_ambient_3" ]
      },
-     "drowned_hurt": {
+     "entity.drowned.drowned_hurt": 
+     {
     	"category": "hostile",
     	"subtitle": "subtitle.drowned_hurt",
     	"sounds": [ "oe:entity/drowned/drowned_hurt_1", "oe:entity/drowned/drowned_hurt_2" ]
      },
-     "drowned_death": {
+     "entity.drowned.drowned_death": 
+     {
     	"category": "hostile",
     	"subtitle": "subtitle.drowned_death",
     	"sounds": [ "oe:entity/drowned/drowned_death_1", "oe:entity/drowned/drowned_death_2" ]
      },
-     "coconut_hit": {
+     "block.coconut.coconut_hit": 
+     {
     	"category": "block",
     	"subtitle": "subtitle.coconut_hit",
     	"sounds": [ "oe:block/coconut_hit"]
      },
-     "conch_blow_1": {
+     "item.conch.conch_blow1": 
+     {
     	"category": "player",
-    	"subtitle": "subtitle.conch_blow_1",
-    	"sounds": [ "oe:item/conch_blow_1"]
+    	"subtitle": "subtitle.conch_blow1",
+    	"sounds": [ "oe:item/conch_blow1"]
      },
-     "drowned_throw": {
+     "item.conch.conch_blow2": 
+     {
+    	"category": "player",
+    	"subtitle": "subtitle.conch_blow2",
+    	"sounds": [ "oe:item/conch_blow2"]
+     },
+     "item.conch.conch_blow3": 
+     {
+    	"category": "player",
+    	"subtitle": "subtitle.conch_blow3",
+    	"sounds": [ "oe:item/conch_blow3"]
+     },
+     "item.conch.conch_blow4": 
+     {
+    	"category": "player",
+    	"subtitle": "subtitle.conch_blow4",
+    	"sounds": [ "oe:item/conch_blow4"]
+     },
+     "entity.drowned.drowned_throw": 
+     {
     	"category": "hostile",
     	"subtitle": "subtitle.drowned_throw",
     	"sounds": [ "oe:entity/trident/trident_throw" ]
      },
-     "trident_throw": {
+     "item.trident.trident_throw": 
+     {
     	"category": "player",
     	"subtitle": "subtitle.trident_throw",
     	"sounds": [ "oe:entity/trident/trident_throw"]
      },
-     "trident_hit": {
+     "item.trident.trident_hit": 
+     {
     	"category": "player",
     	"subtitle": "subtitle.trident_hit",
     	"sounds": [ "oe:entity/trident/trident_hit"]
      },
-     "trident_hit_entity": {
+     "item.trident.trident_hit_entity": 
+     {
     	"category": "player",
     	"subtitle": "subtitle.trident_hit_entity",
     	"sounds": [ "oe:entity/trident/trident_hit_entity"]

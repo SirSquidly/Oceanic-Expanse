@@ -1,0 +1,15 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "sss",
+    "s s"
+  ],
+  "key": {
+    "s": {
+      "item": "oe:turtle_scute"
+    }
+  },
+  "result": {
+    "item": "oe:turtle_helmet"
+  }
+}

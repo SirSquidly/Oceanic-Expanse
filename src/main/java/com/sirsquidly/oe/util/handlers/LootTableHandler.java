@@ -18,4 +18,5 @@ public class LootTableHandler
 	public static final ResourceLocation ENTITIES_PICKLED = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/pickled"));
 	
 	public static final ResourceLocation GAMEPLAY_CRAB_DIG = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "gameplay/crab_dig"));
+	public static final ResourceLocation GAMEPLAY_SHELL_COMB = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "gameplay/shell_sand"));
 }

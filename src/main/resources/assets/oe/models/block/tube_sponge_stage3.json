@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "oe:blocks/tube_sponge_stage3"
+    }
+}
