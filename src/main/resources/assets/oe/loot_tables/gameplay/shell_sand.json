@@ -1,0 +1,50 @@
+{
+    "pools": [
+        {
+        	"name":  "crab_dig",
+            "rolls": 1,
+            "entries": [
+            	{
+                    "type": "item",
+                    "name": "minecraft:stick",
+                    "weight": 50
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:iron_nugget",
+                    "weight": 50
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:gold_nugget",
+                    "weight": 50
+                },
+                {
+                    "type": "item",
+                    "name": "oe:barnacle_shells",
+                    "weight": 50
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:glass_bottle",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "oe:turtle_scute",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "oe:conch",
+                    "weight": 10
+                },
+                {
+                    "type": "item",
+                    "name": "oe:nautilus_shell",
+                    "weight": 5
+                }
+            ]
+        }
+    ]
+}
