@@ -126,7 +126,7 @@ public class EntityTurtle extends AbstractFish
         this.tasks.addTask(3, new EntityAIFollowParent(this, 1.1D));
         this.tasks.addTask(3, new EntityTurtle.TurtleAITempt(this, 1.1D, BREEDING_ITEMS));
         this.tasks.addTask(5, new EntityTurtle.EntityAIWanderLand(this, 1.0D, 40));
-		this.tasks.addTask(5, new EntityAIWanderUnderwater(this, 1.0D, 80));
+		this.tasks.addTask(5, new EntityAIWanderUnderwater(this, 1.0D, 80, true));
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(6, new EntityAILookIdle(this));
     }

@@ -3,12 +3,16 @@ package com.sirsquidly.oe.entity;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -17,6 +21,7 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
@@ -64,7 +69,7 @@ public class EntityPufferfish extends AbstractFish
 
 	protected void initEntityAI()
     {
-		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 80));
+		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 80, true));
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 0.0D, false));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
@@ -105,39 +110,44 @@ public class EntityPufferfish extends AbstractFish
     public void onUpdate()
     {
         super.onUpdate();
-        this.setCalmCounter(this.getCalmCounter() + 1);
-        this.setPuffCooldown(this.getPuffCooldown() + 1); 
         
-        if(this.isEntityAlive())
+        if(!this.isDead && !this.world.isRemote)
         {
-        	if(this.getCalmCounter() >= 90)
+        	this.setCalmCounter(this.getCalmCounter() + 1);
+            this.setPuffCooldown(this.getPuffCooldown() + 1); 
+            
+        	if(this.getCalmCounter() >= 80)
             {
             	this.setPuffState(this.getPuffState() - 1);
                 this.setCalmCounter(0);
             }
         	
-        	List<Entity> checkNonFriends = this.world.getEntitiesWithinAABB(Entity.class, getEntityBoundingBox().grow(3, 3, 3));
-        	for (Entity e : checkNonFriends) 
+        	List<Entity> checkNonFriends = this.world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(4, 4, 4)); 	
+        	
+        	for (Entity entity : checkNonFriends)
         	{
-        	if(!(e instanceof EntitySquid) && !(e instanceof EntityGlowSquid)&& !(e instanceof EntityCod)&& !(e instanceof EntitySalmon)&& !(e instanceof EntityPufferfish))
-        		if (!(e.isInvisible()))
-        		{
+    			if (entity.isInvisible()) continue;
+    			
+    			
+    			if (entity instanceof EntityLivingBase && (entity instanceof EntityPlayer || !ArrayUtils.contains(ConfigHandler.entity.pufferfish.pufferfishFriends, EntityList.getKey((EntityLivingBase) entity).toString())) )
+	        	{
+	        		if (entity.isInvisible()) continue;
         			if(this.getPuffState() < 2)
         			{
         				if(this.getPuffCooldown() >= 20)
         				{
-        				this.setCalmCounter(0);
-        				this.setPuffCooldown(0);
-                    	this.setPuffState(this.getPuffState() + 1);
+	        				this.setCalmCounter(0);
+	        				this.setPuffCooldown(0);
+	                    	this.setPuffState(this.getPuffState() + 1);
         				}
         			}
         			else 
         			{
-        			this.setCalmCounter(0);
-        			this.setPuffCooldown(0);
+	        			this.setCalmCounter(0);
+	        			this.setPuffCooldown(0);
         			}
         		}
-        	}
+    		}
         }
     }
     
@@ -150,7 +160,7 @@ public class EntityPufferfish extends AbstractFish
         	this.applyEnchantments(this, entityIn);
         	
         	if (entityIn instanceof EntityLivingBase && this.getPuffState() == 2)
-        	{ ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, 140)); }
+        	{ ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.POISON, ConfigHandler.entity.pufferfish.pufferfishPoisonLength *  20, Math.min(ConfigHandler.entity.pufferfish.pufferfishPoisonAmplifier - 1, 0))); }
         }
         return flag;
     }

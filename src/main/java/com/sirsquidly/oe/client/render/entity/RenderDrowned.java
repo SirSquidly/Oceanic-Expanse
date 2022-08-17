@@ -52,7 +52,6 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 
                     if (this.livingEntityRenderer.getMainModel().isChild)
                     {
-                        float f = 0.5F;
                         GlStateManager.translate(0.0F, 0.75F, 0.0F);
                         GlStateManager.scale(0.5F, 0.5F, 0.5F);
                     }

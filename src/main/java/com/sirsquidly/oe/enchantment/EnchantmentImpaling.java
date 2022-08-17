@@ -6,11 +6,13 @@ import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.items.ItemTrident;
 import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
+
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -72,7 +74,7 @@ public class EnchantmentImpaling extends Enchantment
 			
 			if (imp_level > 0) 
 			{
-				if (ConfigHandler.enchant.impaling.enableWaterJet == 2 && target.isWet() || ConfigHandler.enchant.impaling.enableWaterJet != 2 && ArrayUtils.contains(ConfigHandler.enchant.impaling.aquaticMobs, EntityList.getKey(target).toString()))
+				if (ConfigHandler.enchant.impaling.enableWaterJet == 2 && target.isWet() || ConfigHandler.enchant.impaling.enableWaterJet != 2 && !(target instanceof EntityPlayer) && ArrayUtils.contains(ConfigHandler.enchant.impaling.aquaticMobs, EntityList.getKey(target).toString()))
 				{
 					event.setAmount(event.getAmount() + (imp_level * ConfigHandler.enchant.impaling.impalingDamage));
 				}

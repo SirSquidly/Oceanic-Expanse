@@ -11,9 +11,13 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityAIWanderUnderwater extends EntityAIWander
 {
-	public EntityAIWanderUnderwater(EntityCreature creatureIn, double speedIn, int chance) 
+	/** Forces the mob to wander if touching the ocean floor. */
+	boolean forceOffFloor;
+	
+	public EntityAIWanderUnderwater(EntityCreature creatureIn, double speedIn, int chance, boolean forceOffFloorIn) 
 	{
 		super(creatureIn, 1.0, chance);
+		this.forceOffFloor = forceOffFloorIn;
 	}
 	
 	@Override
@@ -21,7 +25,7 @@ public class EntityAIWanderUnderwater extends EntityAIWander
     {
 		BlockPos entityPos = new BlockPos(this.entity.posX, this.entity.posY, this.entity.posZ);
 		
-		if (this.entity.isInWater() && this.entity.world.getBlockState(entityPos.down()).getMaterial() != Material.WATER && this.entity.world.getBlockState(entityPos.up()).getMaterial() != Material.AIR)
+		if (this.forceOffFloor && this.entity.isInWater() && this.entity.world.getBlockState(entityPos.down()).getMaterial() != Material.WATER && this.entity.world.getBlockState(entityPos.up()).getMaterial() != Material.AIR)
         { this.makeUpdate(); }
 		
 		if (!this.entity.isInWater())

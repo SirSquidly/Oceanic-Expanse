@@ -29,7 +29,7 @@ public class OEEntities
 		registerEntity("glow_squid", EntityGlowSquid.class, ++id, 100, 3119001, 12976094);
 		registerEntity("cod", EntityCod.class, ++id, 64, 8564132, 11386587);
 		registerEntity("salmon", EntitySalmon.class, ++id, 64, 12860482, 5268308);
-		registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
+		if (ConfigHandler.entity.pufferfish.enablePufferfish) registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
 		registerEntity("turtle", EntityTurtle.class, ++id, 64, 12763520, 4702026);
 		registerEntity("crab", EntityCrab.class, ++id, 64, 12860482, 15453241);
 		registerEntity("clam", EntityClam.class, ++id, 64, 14327661, 15701910);
@@ -46,7 +46,7 @@ public class OEEntities
 	public static void registerEntitySpawns()
 	{
 		EntityRegistry.addSpawn(EntityGlowSquid.class, 5, 2, 4, EnumCreatureType.WATER_CREATURE, Biomes.DEEP_OCEAN);
-		EntityRegistry.addSpawn(EntityPufferfish.class, 5, 1, 5, EnumCreatureType.WATER_CREATURE, Biomes.DEEP_OCEAN);
+		if (ConfigHandler.entity.pufferfish.enablePufferfish) EntityRegistry.addSpawn(EntityPufferfish.class, 5, 1, 5, EnumCreatureType.WATER_CREATURE, Biomes.DEEP_OCEAN);
 		
 		EntityRegistry.addSpawn(EntityCod.class, 15, 3, 7, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		EntityRegistry.addSpawn(EntitySalmon.class, 15, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.RIVER).toArray(new Biome[0]));

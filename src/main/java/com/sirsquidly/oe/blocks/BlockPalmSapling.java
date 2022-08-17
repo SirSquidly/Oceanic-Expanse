@@ -4,9 +4,6 @@ import java.util.Random;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.world.feature.WorldGenCoconutTree;
-import com.sirsquidly.oe.world.feature.coral.WorldGenCoralBranch;
-import com.sirsquidly.oe.world.feature.coral.WorldGenCoralBulb;
-import com.sirsquidly.oe.world.feature.coral.WorldGenCoralStalk;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockSand;

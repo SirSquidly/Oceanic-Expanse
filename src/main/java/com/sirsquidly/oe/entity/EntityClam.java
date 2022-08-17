@@ -91,11 +91,13 @@ public class EntityClam extends EntityAnimal
 		
 		if (this.getOpenTick() == 0 && !this.isDead)
 		{
-			List<Entity> checkAbove = this.world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(0, 0.5, 0));
+			List<Entity> checkAbove = this.world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(0, 1, 0).grow(0, 0.5, 0));
 			
 			
 			for (Entity e : checkAbove) 
 	    	{
+				if (e instanceof EntityClam) continue;
+				
 				this.setShaking(true);
 				launchWarnShaking += 1;
 				

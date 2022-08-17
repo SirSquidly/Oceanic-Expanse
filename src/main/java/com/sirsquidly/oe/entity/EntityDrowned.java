@@ -3,6 +3,7 @@ package com.sirsquidly.oe.entity;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.entity.ai.EntityAITridentThrowing;
+import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
@@ -77,6 +78,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 		this.tasks.addTask(2, new EntityAITridentThrowing<EntityDrowned>(this, 1.0D, 20, 20.0F, (float)ConfigHandler.entity.drowned.drownedTridentMeleeRange));
 		this.tasks.addTask(3, new EntityAIZombieAttack(this, 1.0D, false));
         this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(4, new EntityAIWanderUnderwater(this, 1.0D, 80, false));
         this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(5, new EntityAILookIdle(this));
         this.applyEntityAI();

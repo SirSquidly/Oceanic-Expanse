@@ -554,7 +554,39 @@ public class ConfigHandler
 		    public boolean salmonFeedingGrowth = false;
 		}
 		   
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.pufferfish")
+	    public configPufferfish pufferfish = new configPufferfish();
+		
+		public static class configPufferfish
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enablePufferfish")
+		    @Config.Comment("If Pufferfish should be enabled")
+		    public boolean enablePufferfish = true;
 		    
+		    @Config.LangKey("oe.config.item.pufferfishFriends")
+		    @Config.Comment("Mobs that don't scare the Pufferfish.")
+		    public String[] pufferfishFriends = 
+			{
+				 	"minecraft:squid",
+				 	"oe:cod",
+				 	"oe:salmon",
+				 	"oe:pufferfish",
+				 	"oe:turtle",
+				 	"oe:glow_squid",
+				 	"oe:clam"
+		    };
+		    
+		    @Config.LangKey("oe.config.entity.pufferfishPoisonLength")
+		    @Config.Comment("How long the Pufferfish Poison lasts.")
+		    public int pufferfishPoisonLength = 6;
+		    
+		    @Config.LangKey("oe.config.entity.pufferfishPoisonAmplifier")
+		    @Config.Comment("The amplifier of the Pufferfish Poison.")
+		    public int pufferfishPoisonAmplifier = 1;
+		}
+		
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.glowSquid")
 	    public configGlowSquid glowSquid = new configGlowSquid();
