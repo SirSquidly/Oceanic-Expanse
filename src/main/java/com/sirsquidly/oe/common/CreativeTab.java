@@ -34,6 +34,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 			if (ConfigHandler.item.trident.enableTrident) add(list, OEItems.TRIDENT_ORIG);
 			
 	        add(list, OEItems.GLOW_INK);
+	        if (ConfigHandler.block.waterTorch.enableWaterTorch) add(list, OEBlocks.UNDERWATER_TORCH);
 	        add(list, OEItems.SQUID_UNCOOKED);
 	        add(list, OEItems.SQUID_COOKED);
 	        add(list, OEItems.CHLORINE);
@@ -60,6 +61,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        }
 	        add(list, OEBlocks.COCONUT);
 	        add(list, OEItems.COCONUT_OPEN);
+	        add(list, OEItems.HEAVY_BOOTS);
 	        add(list, OEItems.SCUTE);
 	        add(list, OEItems.TURTLE_HELMET);
 	        add(list, OEBlocks.SEA_TURTLE_EGG);
@@ -69,6 +71,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEItems.NAUTILUS_SHELL);
 	        add(list, OEItems.HEART_OF_THE_SEA);
 	        if (ConfigHandler.block.conduit.enableConduit) add(list, OEBlocks.CONDUIT);
+	        add(list, OEItems.PEARL);
+	        add(list, OEItems.CHARM);
 	        add(list, OEBlocks.BLUE_ICE);
 	        add(list, OEBlocks.DULSE);
 	        add(list, OEItems.DRIED_DULSE);

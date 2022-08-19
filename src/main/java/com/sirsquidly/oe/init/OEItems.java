@@ -7,6 +7,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -39,6 +40,7 @@ public class OEItems
 	public static Item SHELLS = new ItemBase();
 	public static Item NAUTILUS_SHELL = new ItemBase();
 	public static Item HEART_OF_THE_SEA = new ItemBase();
+	public static Item PEARL = new ItemBase();
 	public static Item CONCH = new ItemConch();
 	public static Item GLOW_INK = new ItemBase();
 	public static Item CHLORINE = new ItemChlorine();
@@ -62,6 +64,7 @@ public class OEItems
 		itemReadyForRegister(SHELLS, "barnacle_shells");
 		itemReadyForRegister(NAUTILUS_SHELL, "nautilus_shell");
 		itemReadyForRegister(HEART_OF_THE_SEA, "heart_of_the_sea");
+		itemReadyForRegister(PEARL, "pearl");
 		itemReadyForRegister(CONCH, "conch");
 		itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
@@ -73,6 +76,9 @@ public class OEItems
 		itemReadyForRegister(DRIED_DULSE, "dried_dulse");
 		itemReadyForRegister(SPAWN_BUCKET, "spawn_bucket");
 		itemReadyForRegister(HEAVY_BOOTS, "heavy_boots");
+		
+		TURTLE_ARMOR.repairMaterial = new ItemStack(OEItems.SCUTE);
+		HEAVY_ARMOR.repairMaterial = new ItemStack(OEItems.SHELLS);
 		
 		for (Item items : itemList) event.getRegistry().register(items);
 	}
