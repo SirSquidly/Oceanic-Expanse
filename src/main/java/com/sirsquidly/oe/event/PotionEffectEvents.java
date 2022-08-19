@@ -30,7 +30,7 @@ public class PotionEffectEvents
 
 					((EntityLivingBase) living).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 210, 0, true, false));
 					
-					((EntityLivingBase) living).addPotionEffect(new PotionEffect(MobEffects.HASTE, 210, 0, true, false));
+					((EntityLivingBase) living).addPotionEffect(new PotionEffect(MobEffects.HASTE, 210, living.getActivePotionEffect(OEPotions.CONDUIT_POWER).getAmplifier(), true, false));
 		    	}
 				else
 				{ removeConduitEffects(event.getEntityLiving()); }
