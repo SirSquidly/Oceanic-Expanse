@@ -4,9 +4,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "oe:dried_kelp_block"
-    }
+    "#": { "item": "oe:dried_kelp_block" }
   },
   "result": {
     "item": "oe:dried_kelp",

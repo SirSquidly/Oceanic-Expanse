@@ -6,12 +6,8 @@
     "p  "
   ],
   "key": {
-    "s": {
-      "item": "oe:guardian_spike"
-    },
-    "p": {
-      "item": "minecraft:prismarine_shard"
-    }
+    "s": { "item": "oe:guardian_spike" },
+    "p": { "item": "minecraft:prismarine_shard" }
   },
   "result": {
     "item": "oe:trident"

@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.material.Material;
@@ -27,7 +28,6 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
-import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class GeneratorShipwreck implements IWorldGenerator
@@ -161,7 +161,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 
             if (tileentity instanceof TileEntityChest)
             {
-                ((TileEntityChest)tileentity).setLootTable(LootTableList.CHESTS_IGLOO_CHEST, rand.nextLong());
+                ((TileEntityChest)tileentity).setLootTable(LootTableHandler.SHIPWRECK_MAP, rand.nextLong());
             }
         }
         if ("supply_chest".equals(entry.getValue()))
@@ -171,7 +171,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 
             if (tileentity instanceof TileEntityChest)
             {
-                ((TileEntityChest)tileentity).setLootTable(LootTableList.CHESTS_IGLOO_CHEST, rand.nextLong());
+                ((TileEntityChest)tileentity).setLootTable(LootTableHandler.SHIPWRECK_SUPPLY, rand.nextLong());
             }
         }
         if ("tresure_chest".equals(entry.getValue()))
@@ -181,7 +181,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 
             if (tileentity instanceof TileEntityChest)
             {
-                ((TileEntityChest)tileentity).setLootTable(LootTableList.CHESTS_IGLOO_CHEST, rand.nextLong());
+                ((TileEntityChest)tileentity).setLootTable(LootTableHandler.SHIPWRECK_TREASURE, rand.nextLong());
             }
         }
         

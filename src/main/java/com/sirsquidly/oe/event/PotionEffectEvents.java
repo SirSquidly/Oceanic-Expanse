@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.event;
 
 import com.sirsquidly.oe.init.OEPotions;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,6 +10,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -24,7 +26,7 @@ public class PotionEffectEvents
 		{	
 			if ( living.getActivePotionEffect(OEPotions.CONDUIT_POWER).getDuration() > 1)
 			{
-				if (living.world.getBlockState(new BlockPos(living.posX, living.posY + 0.5D, living.posZ).up()).getMaterial() == Material.WATER)
+				if (living.world.getBlockState(new BlockPos(living.posX, living.posY + living.getEyeHeight(), living.posZ)).getMaterial() == Material.WATER)
 		    	{
 					((EntityLivingBase) living).addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 210, 0, true, false));
 
@@ -39,21 +41,33 @@ public class PotionEffectEvents
 			{ removeConduitEffects(event.getEntityLiving()); }
         }
 		
-		
-		
 		if(living.isPotionActive(OEPotions.DESCENT))
 		{
-			if (living.motionY < 0.0 || living.isInWater())
+			int modDes = living.getActivePotionEffect(OEPotions.DESCENT).getAmplifier() + 1;
+			
+			if (living.isInWater())
+			{
+				if (living instanceof EntityPlayer)
 				{
-					if (living instanceof EntityPlayer)
+					EntityPlayer entityplayer = (EntityPlayer)living;
+					/* This check is so players in Creative and Spectator aren't dragged down **/
+					if (!entityplayer.capabilities.isFlying)
 					{
-						EntityPlayer entityplayer = (EntityPlayer)living;
+						living.motionY -= (ConfigHandler.effect.descent.descentWaterPull * modDes - living.motionY) * 0.1D;
 						
-						if (!entityplayer.capabilities.isFlying) living.motionY -= (0.05D * (double)(living.getActivePotionEffect(OEPotions.DESCENT).getAmplifier() + 1) - living.motionY) * 0.2D;
-					
+						/* Additional pull if Aqua Acrobatics is installed, as swimming is really fast with that mod. **/
+						if (ConfigHandler.effect.descent.descentAqAcWaterPull != 0 && Loader.isModLoaded("aquaacrobatics") && living.world.getBlockState(living.getPosition().add(0, living.getEyeHeight(), 0)).getMaterial() != Material.AIR)
+						{
+							living.motionY = living.motionY - (ConfigHandler.effect.descent.descentAqAcWaterPull * modDes);
+						}
 					}
-					else living.motionY -= (0.05D * (double)(living.getActivePotionEffect(OEPotions.DESCENT).getAmplifier() + 1) - living.motionY) * 0.2D;
 				}
+				else living.motionY -= (ConfigHandler.effect.descent.descentWaterPull * modDes - living.motionY) * 0.1D;
+			}
+			else if (living.motionY < 0.0)
+			{
+				living.motionY -= (ConfigHandler.effect.descent.descentFallPull * modDes - living.motionY) * 0.1D;
+			}
         }
 	}
 	

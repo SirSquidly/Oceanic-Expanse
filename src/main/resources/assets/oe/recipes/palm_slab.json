@@ -1,14 +1,14 @@
 {
   "type": "forge:ore_shaped",
   "pattern": [
-    "###",
-    "###",
     "###"
   ],
   "key": {
-    "#": { "item": "oe:dried_kelp" }	
+    "#": { "item": "oe:palm_planks" }	
   },
   "result": {
-    "item": "oe:dried_kelp_block"
+    "item": "oe:palm_slab",
+    "data": 0,
+    "count": 6
   }
 }

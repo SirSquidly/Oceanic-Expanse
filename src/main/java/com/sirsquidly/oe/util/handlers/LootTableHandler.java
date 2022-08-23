@@ -19,4 +19,8 @@ public class LootTableHandler
 	
 	public static final ResourceLocation GAMEPLAY_CRAB_DIG = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "gameplay/crab_dig"));
 	public static final ResourceLocation GAMEPLAY_SHELL_COMB = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "gameplay/shell_sand"));
+	
+	public static final ResourceLocation SHIPWRECK_SUPPLY = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "chests/shipwreck_supply"));
+	public static final ResourceLocation SHIPWRECK_MAP = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "chests/shipwreck_map"));
+	public static final ResourceLocation SHIPWRECK_TREASURE = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "chests/shipwreck_treasure"));
 }

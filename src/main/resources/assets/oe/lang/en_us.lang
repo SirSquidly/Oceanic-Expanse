@@ -174,7 +174,7 @@ oe.config.worldGen.shellPatchSeaStarChance=Shell Patch Sea Star chance
 oe.config.worldGen.shipwreck=Shipwreck Config
 oe.config.worldGen.enableShipwrecks=Enable Shipwrecks
 oe.config.worldGen.enableShipwreckDrowned=Enable Shipwreck Drowned Groups
-oe.config.worldGen.shipwreckChancePerChunk=Gen chance per Chunk
+oe.config.worldGen.shipwreckChancePerChunk=Shipwreck chance per Chunk
 
 oe.config.block=Block Config
 oe.config.block.driedKelpShears=Can cut Dried Kelp string

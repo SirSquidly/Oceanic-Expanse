@@ -1,0 +1,15 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "psp",
+    "psp"
+  ],
+  "key": {
+    "p": { "item": "oe:palm_planks" },
+    "s": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "oe:palm_fence",
+    "count": 3
+  }
+}

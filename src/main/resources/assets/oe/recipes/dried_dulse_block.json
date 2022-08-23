@@ -6,9 +6,7 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "oe:dried_dulse"
-    }	
+    "#": { "item": "oe:dried_dulse" }	
   },
   "result": {
     "item": "oe:dried_dulse_block"

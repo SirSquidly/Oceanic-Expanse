@@ -5,12 +5,8 @@
     "i"
   ],
   "key": {
-    "g": {
-      "item": "oe:glow_ink_sac"
-    },
-    "i": {
-      "item": "minecraft:iron_ingot"
-    }
+    "g": { "item": "oe:glow_ink_sac" },
+    "i": { "item": "minecraft:iron_ingot" }
   },
   "result": {
     "item": "oe:underwater_torch",

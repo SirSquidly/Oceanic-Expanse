@@ -5,9 +5,7 @@
     "s s"
   ],
   "key": {
-    "s": {
-      "item": "oe:turtle_scute"
-    }
+    "s": { "item": "oe:turtle_scute" }
   },
   "result": {
     "item": "oe:turtle_helmet"

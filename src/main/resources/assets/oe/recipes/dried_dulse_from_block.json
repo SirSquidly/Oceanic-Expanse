@@ -4,9 +4,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "oe:dried_dulse_block"
-    }
+    "#": { "item": "oe:dried_dulse_block" }
   },
   "result": {
     "item": "oe:dried_dulse",

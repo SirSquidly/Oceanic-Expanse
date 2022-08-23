@@ -1,0 +1,15 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "oe:palm_planks" }	
+  },
+  "result": {
+    "item": "oe:palm_stairs",
+    "count": 4
+  }
+}

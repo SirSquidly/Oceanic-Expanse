@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.init;
 
+import com.sirsquidly.oe.blocks.BlockPalmDoor;
 import com.sirsquidly.oe.util.handlers.FurnaceFuelHandler;
 
 import net.minecraft.init.Items;
@@ -10,6 +11,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 @Mod.EventBusSubscriber
 public class OERecipies 
@@ -26,5 +28,21 @@ public class OERecipies
         GameRegistry.registerFuelHandler(fuelReg);
         
 		fuelReg.addFuel(OEBlocks.DRIED_KELP_BLOCK, 4000);
+		
+		initOreDict();
+	}
+	
+	public static void initOreDict()
+	{
+		OreDictionary.registerOre("logWood", OEBlocks.PALM_LOG);
+		OreDictionary.registerOre("plankWood", OEBlocks.PALM_PLANKS);
+		OreDictionary.registerOre("slabWood", OEBlocks.PALM_SLAB);
+		OreDictionary.registerOre("stairWood", OEBlocks.PALM_STAIRS);
+		OreDictionary.registerOre("fenceWood", OEBlocks.PALM_FENCE);
+		OreDictionary.registerOre("fenceGateWood", OEBlocks.PALM_FENCE_GATE);
+		OreDictionary.registerOre("doorWood", ((BlockPalmDoor) OEBlocks.PALM_DOOR).getItemStack());
+		OreDictionary.registerOre("treeSapling", OEBlocks.COCONUT_SAPLING);
+		OreDictionary.registerOre("treeLeaves", OEBlocks.COCONUT_LEAVES);
+		OreDictionary.registerOre("treeLeaves", OEBlocks.COCONUT_LEAVES_FLOWERING);
 	}
 }

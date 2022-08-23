@@ -167,7 +167,7 @@ public class ConfigHandler
 		    public int shellPatchChancePerChunk = 6;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.worldGen.shellPatchOverSeaLevel")
+		    @Config.LangKey("oe.config.worldGen.shellPatchAboveSeaLevel")
 		    @Config.Comment("Blocks above Sea Level that Shell Patches can be placed.")
 		    public int shellPatchAboveSeaLevel = 2;
 			
@@ -738,6 +738,36 @@ public class ConfigHandler
 		    };
 		}
 	}
+	
+	@Config.LangKey("oe.config.effect")
+	@Config.Comment("Config related to Potion Effects")
+    public static configEffects effect = new configEffects();
+	
+	public static class configEffects
+	{
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.effect.descent")
+	    public configDescent descent = new configDescent();
+		
+		public static class configDescent
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.effect.descentFallPull")
+		    @Config.Comment("How much Descent pulls the player when falling. Is multiplied per amplifier, and the current falling speed.")
+		    public double descentFallPull = 0.05;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.effect.descentWaterPull")
+		    @Config.Comment("How much Descent pulls the player when in water. Is multiplied per amplifier, and the current sinking speed.")
+		    public double descentWaterPull = 0.05;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.effect.descentAqAcWaterPull")
+		    @Config.Comment("How much Descent pulls the player when in water, WITH Aqua Acrobatics installed. Uses a different formula, but will use the original if set to 0.")
+		    public double descentAqAcWaterPull = 0.07;
+	    }
+	}
+	
 	
 	@Config.LangKey("oe.config.vanillaTweak")
 	@Config.Comment("Config for any direct tweaks or changes to Vanilla content")

@@ -27,14 +27,7 @@ public class OEPotions
 	public static PotionType LONG_TURTLE_MASTER_POTION;
 	public static PotionType STRONG_TURTLE_MASTER_POTION;
 	public static final PotionType DESCENT_POTION = new PotionType("descent", new PotionEffect[] { new PotionEffect(DESCENT, 2400)} ).setRegistryName("descent");
-	//public static final PotionType LONG_EYE_IRRITATION_POTION = new PotionType("eye_irritation", new PotionEffect[] { new PotionEffect(EYE_IRRITATION_EFFECT, 4800)}).setRegistryName("long_eye_irritation");
-	
-	public static void registerPotionMixes()
-	{
-		//PotionHelper.addMix(EYE_IRRITATION_POTION, ModItems.ONION, LONG_EYE_IRRITATION_POTION);
-		//PotionHelper.addMix(PotionTypes.AWKWARD, ModItems.ONION_SLICE, EYE_IRRITATION_POTION);
-	}
-	
+
 	@SubscribeEvent
 	public static void onPotionTypeRegister(RegistryEvent.Register<PotionType> event)
 	{
@@ -57,10 +50,7 @@ public class OEPotions
 		STRONG_TURTLE_MASTER_POTION = new PotionType("turtle_master_strong",  effects.toArray(new PotionEffect[0])).setRegistryName("turtle_master_strong");;
 		event.getRegistry().register(OEPotions.STRONG_TURTLE_MASTER_POTION);
 
-		
-		PotionHelper.addMix(PotionTypes.AWKWARD, OEItems.TURTLE_HELMET, OEPotions.TURTLE_MASTER_POTION);
-		PotionHelper.addMix(OEPotions.TURTLE_MASTER_POTION, Items.REDSTONE, OEPotions.LONG_TURTLE_MASTER_POTION);
-		PotionHelper.addMix(OEPotions.TURTLE_MASTER_POTION, Items.GLOWSTONE_DUST, OEPotions.STRONG_TURTLE_MASTER_POTION);
+		registerPotionMixes();
 		
 		event.getRegistry().register(OEPotions.DESCENT_POTION);
 	}
@@ -70,5 +60,12 @@ public class OEPotions
 	{
 		event.getRegistry().register(OEPotions.CONDUIT_POWER);
 		event.getRegistry().register(OEPotions.DESCENT);
+	}
+	
+	public static void registerPotionMixes()
+	{
+		PotionHelper.addMix(PotionTypes.AWKWARD, OEItems.TURTLE_HELMET, OEPotions.TURTLE_MASTER_POTION);
+		PotionHelper.addMix(OEPotions.TURTLE_MASTER_POTION, Items.REDSTONE, OEPotions.LONG_TURTLE_MASTER_POTION);
+		PotionHelper.addMix(OEPotions.TURTLE_MASTER_POTION, Items.GLOWSTONE_DUST, OEPotions.STRONG_TURTLE_MASTER_POTION);
 	}
 }
