@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.sirsquidly.oe.blocks.BlockCoral;
 import com.sirsquidly.oe.blocks.BlockCoralFan;
+import com.sirsquidly.oe.blocks.BlockCoralFull;
 import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
 import com.sirsquidly.oe.blocks.BlockDulse;
 import com.sirsquidly.oe.blocks.BlockSeaPickle;
@@ -96,8 +97,6 @@ public class WorldGenOceanPatch implements IWorldGenerator
 						{ 
 							pos = pos.up();
 							
-							if (this.block == OEBlocks.SEA_PICKLE && world.getBlockState(pos).getBlock() != Blocks.SAND)
-							{ return; }
 							if(this.block.canPlaceBlockAt(world, pos.down()))
 							{ beginPatchPlacing(world, rand, pos); break;}
 						}
@@ -106,9 +105,6 @@ public class WorldGenOceanPatch implements IWorldGenerator
 					{ 
 						for ( IBlockState state = world.getBlockState(pos); (state.getBlock().isReplaceable(world, pos) && pos.getY() > 0); state = world.getBlockState(pos) )
 			        	{ pos = pos.down(); }
-					
-						if (this.block == OEBlocks.SEA_PICKLE && world.getBlockState(pos).getBlock() != Blocks.SAND)
-						{ return; }
 						
 						if(this.block.canPlaceBlockAt(world, pos.up()))
 						{ beginPatchPlacing(world, rand, pos); }
@@ -169,11 +165,12 @@ public class WorldGenOceanPatch implements IWorldGenerator
     	}
     	else if (this.block instanceof BlockCoralFan)
     	{
-    		if (pos.getY() < worldIn.getSeaLevel() - 10) ((BlockCoralFan) OEBlocks.BLUE_CORAL_FAN).placeAt(worldIn, pos, rand, this.block);
+    		if (pos.getY() < worldIn.getSeaLevel() - 10) ((BlockCoralFan) OEBlocks.BLUE_CORAL_FAN).placeAt(worldIn, pos, rand, this.block, true);
     	}
     	else if (this.block instanceof BlockCoral)
     	{
-    		if (pos.getY() < worldIn.getSeaLevel() - 10) worldIn.setBlockState(pos, this.block.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);;
+    		if (pos.getY() < worldIn.getSeaLevel() - 10 && worldIn.getBlockState(pos.down()).getBlock() instanceof BlockCoralFull) 
+    		{ worldIn.setBlockState(pos, this.block.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2); }
     	}
     	else
     	{ worldIn.setBlockState(pos, this.block.getDefaultState(), 16 | 2); }

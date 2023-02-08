@@ -17,6 +17,7 @@ import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -64,9 +65,9 @@ public class OEBlocks
 		public static Block PALM_LOG = new BlockPalmLog();
 		public static Block PALM_WOOD = new BlockPalmLog();
 		public static Block PALM_PLANKS = new BlockPalmPlanks();
-		public static Block PALM_SLAB = new BlockPalmSlab();
-		public static Block PALM_SLAB_D = new BlockPalmSlabDouble(PALM_SLAB);
-		public static Block PALM_STAIRS = new BlockPalmStairs();
+		public static Block PALM_SLAB = new BlockOESlab(Material.WOOD, SoundType.WOOD, 2.0F, 5.0F, 20, 5);
+		public static Block PALM_SLAB_D = new BlockOESlabDouble(PALM_SLAB, Material.WOOD, SoundType.WOOD, 2.0F, 5.0F);
+		public static Block PALM_STAIRS = new BlockOEStairs(OEBlocks.PALM_PLANKS.getDefaultState(), 20, 5);
 		public static Block PALM_FENCE = new BlockFence(Material.WOOD, MapColor.BROWN_STAINED_HARDENED_CLAY);
 		public static Block PALM_FENCE_GATE = new BlockFenceGate(BlockPlanks.EnumType.SPRUCE);
 		public static Block PALM_DOOR = new BlockPalmDoor();
@@ -214,8 +215,6 @@ public class OEBlocks
 	{
 		block.setUnlocalizedName(name);
 		block.setRegistryName(name);
-		
-		if (block == PALM_SLAB || block == PALM_SLAB_D) block.setHardness(2.0F).setResistance(5.0F);
 		
 		if (addToTab) block.setCreativeTab(Main.OCEANEXPTAB);
 		else block.setCreativeTab(null);

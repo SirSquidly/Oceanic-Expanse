@@ -35,8 +35,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 			
 	        add(list, OEItems.GLOW_INK);
 	        if (ConfigHandler.block.waterTorch.enableWaterTorch) add(list, OEBlocks.UNDERWATER_TORCH);
-	        add(list, OEItems.SQUID_UNCOOKED);
-	        add(list, OEItems.SQUID_COOKED);
 	        add(list, OEItems.CHLORINE);
 	        add(list, OEBlocks.SEAGRASS);
 	        add(list, OEBlocks.TALL_SEAGRASS);

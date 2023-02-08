@@ -5,32 +5,56 @@
     },
     "overrides": [
         {
+            "predicate": { "oe:clam": 1.00 },
+            "model": "oe:item/bucket/bucket_clam"
+        },
+        {
             "predicate": { "oe:cod": 1.00 },
             "model": "oe:item/bucket/bucket_cod"
         },
         {
-            "predicate": { "oe:salmon": 1.00 },
-            "model": "oe:item/bucket/bucket_salmon"
+            "predicate": { "oe:conduit_eye": 1.00 },
+            "model": "oe:item/bucket/bucket_conduit_eye"
         },
         {
-            "predicate": { "oe:pufferfish": 1.00 },
-            "model": "oe:item/bucket/bucket_pufferfish"
-        },
-        {
-            "predicate": { "oe:glow_squid": 1.00 },
-            "model": "oe:item/bucket/bucket_glowsquid"
-        },
-        {
-            "predicate": { "minecraft:squid": 1.00 },
-            "model": "oe:item/bucket/bucket_squid"
+            "predicate": { "oe:crab": 1.00 },
+            "model": "oe:item/bucket/bucket_crab"
         },
         {
             "predicate": { "oe:drowned": 1.00 },
             "model": "oe:item/bucket/bucket_drowned"
         },
         {
+            "predicate": { "minecraft:elder_guardian": 1.00 },
+            "model": "oe:item/bucket/bucket_elder_guardian"
+        },
+        {
+            "predicate": { "oe:glow_squid": 1.00 },
+            "model": "oe:item/bucket/bucket_glowsquid"
+        },
+        {
+            "predicate": { "minecraft:guardian": 1.00 },
+            "model": "oe:item/bucket/bucket_guardian"
+        },
+        {
             "predicate": { "oe:pickled": 1.00 },
             "model": "oe:item/bucket/bucket_pickled"
+        },
+        {
+            "predicate": { "oe:pufferfish": 1.00 },
+            "model": "oe:item/bucket/bucket_pufferfish"
+        },
+        {
+            "predicate": { "oe:salmon": 1.00 },
+            "model": "oe:item/bucket/bucket_salmon"
+        },
+        {
+            "predicate": { "minecraft:squid": 1.00 },
+            "model": "oe:item/bucket/bucket_squid"
+        },
+        {
+            "predicate": { "oe:turtle": 1.00 },
+            "model": "oe:item/bucket/bucket_turtle"
         }
     ]
 }

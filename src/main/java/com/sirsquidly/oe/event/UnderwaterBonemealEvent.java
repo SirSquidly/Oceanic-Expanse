@@ -86,19 +86,19 @@ public class UnderwaterBonemealEvent
 		switch (rand.nextInt(10))
 		{
 			case 0: 
-				((BlockCoralFan) OEBlocks.BLUE_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.BLUE_CORAL_FAN);
+				((BlockCoralFan) OEBlocks.BLUE_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.BLUE_CORAL_FAN, false);
 				break;
 			case 1:
-				((BlockCoralFan) OEBlocks.PINK_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.PINK_CORAL_FAN);
+				((BlockCoralFan) OEBlocks.PINK_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.PINK_CORAL_FAN, false);
 				break;
 			case 2:
-				((BlockCoralFan) OEBlocks.PURPLE_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.PURPLE_CORAL_FAN);
+				((BlockCoralFan) OEBlocks.PURPLE_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.PURPLE_CORAL_FAN, false);
 				break;
 			case 3:
-				((BlockCoralFan) OEBlocks.RED_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.RED_CORAL_FAN);
+				((BlockCoralFan) OEBlocks.RED_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.RED_CORAL_FAN, false);
 				break;
 			case 4:
-				((BlockCoralFan) OEBlocks.YELLOW_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.YELLOW_CORAL_FAN);
+				((BlockCoralFan) OEBlocks.YELLOW_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.YELLOW_CORAL_FAN, false);
 				break;
 			case 5: 
 				worldIn.setBlockState(pos, OEBlocks.BLUE_CORAL.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);

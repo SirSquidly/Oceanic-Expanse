@@ -30,6 +30,9 @@ public class Main {
 	
 	public static CreativeTabs OCEANEXPTAB = new CreativeTab("oceanictab");
 	
+	/** Moved to get initialized as soon as possible, due to weird mod conflicts otherwise. Commented out as I wish to experiment with it later, but it's no necessary.*/
+	//public static final EnumCreatureType WATER_MONSTER = EnumHelper.addCreatureType("WATER_MONSTER", IMob.class, 70, Material.WATER, false, false);
+	
 	@Instance 
 	public static Main instance;
 	

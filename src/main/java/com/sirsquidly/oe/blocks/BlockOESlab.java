@@ -7,16 +7,29 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
-public class BlockPalmSlab extends BlockSlab
+public class BlockOESlab extends BlockSlab
 {
-	public BlockPalmSlab()
+	private int flamability;
+	private int fireSpread;
+	
+	public BlockOESlab(Material materialIn, SoundType soundIn, float hardnessIn, float resistenceIn)
     {
-        super(Material.WOOD);
-        this.setSoundType(SoundType.WOOD);
-        setHardness(2.0F);
-		setResistance(5.0F);
+        this(materialIn, soundIn, hardnessIn, resistenceIn, 0, 0);
+    }
+	
+	public BlockOESlab(Material materialIn, SoundType soundIn, float hardnessIn, float resistenceIn, int flamabilityIn, int fireSpreadIn)
+    {
+        super(materialIn);
+        this.setSoundType(soundIn);
+        setHardness(hardnessIn);
+		setResistance(resistenceIn);
 		setLightOpacity(255);
+		this.flamability = flamabilityIn;
+		this.fireSpread = fireSpreadIn;
     }
 	
 	@Override
@@ -64,6 +77,14 @@ public class BlockPalmSlab extends BlockSlab
 		return HALF;
 	}
 
+	@Override
+	public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
+    { return this.flamability; }
+
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face)
+	{ return this.fireSpread; }
+	
 	@Override
 	public Comparable<?> getTypeForItem(ItemStack stack) 
 	{

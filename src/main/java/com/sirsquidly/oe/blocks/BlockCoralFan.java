@@ -88,7 +88,7 @@ public class BlockCoralFan extends Block
     }
 
 
-    public void placeAt(World worldIn, BlockPos pos, Random rand, Block block)
+    public void placeAt(World worldIn, BlockPos pos, Random rand, Block block, boolean onlyOnCoral)
     {
     	List<EnumFacing> list = Lists.newArrayList(EnumFacing.values());
         Collections.shuffle(list, rand);
@@ -96,9 +96,20 @@ public class BlockCoralFan extends Block
 		for (EnumFacing enumfacing : list)
         {
 			BlockPos checkPos = pos.offset(enumfacing);
-			if (worldIn.getBlockState(checkPos).isSideSolid(worldIn, checkPos, enumfacing))
+			if (worldIn.getBlockState(checkPos).isSideSolid(worldIn, checkPos, enumfacing) && ( !onlyOnCoral || checkCoralBlock(worldIn.getBlockState(checkPos))))
             {  worldIn.setBlockState(pos, block.getDefaultState().withProperty(FACING, enumfacing.getOpposite()).withProperty(IN_WATER, true), 16 | 2); }
         }
+    }
+    
+    public boolean checkCoralBlock(IBlockState state)
+    {
+        if (state.getBlock() == OEBlocks.BLUE_CORAL_BLOCK || state.getBlock() == OEBlocks.PINK_CORAL_BLOCK || state.getBlock() == OEBlocks.PURPLE_CORAL_BLOCK || state.getBlock() == OEBlocks.RED_CORAL_BLOCK || state.getBlock() == OEBlocks.YELLOW_CORAL_BLOCK)
+    	{ return true; }
+        
+        if (state.getBlock() == OEBlocks.BLUE_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.PINK_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.PURPLE_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.RED_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.YELLOW_CORAL_BLOCK_DEAD)
+    	{ return true; }
+        
+        return false;
     }
     
 	/** 

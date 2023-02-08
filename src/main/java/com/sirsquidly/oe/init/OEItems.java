@@ -69,8 +69,6 @@ public class OEItems
 		itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
 		itemReadyForRegister(CHLORINE, "chlorine");
-		itemReadyForRegister(SQUID_UNCOOKED, "calamari_uncooked");
-		itemReadyForRegister(SQUID_COOKED, "calamari_cooked");
 		itemReadyForRegister(COCONUT_OPEN, "coconut_open");
 		itemReadyForRegister(DRIED_KELP, "dried_kelp");
 		itemReadyForRegister(DRIED_DULSE, "dried_dulse");

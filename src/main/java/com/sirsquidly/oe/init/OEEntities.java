@@ -5,10 +5,8 @@ import com.sirsquidly.oe.entity.*;
 import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
@@ -16,12 +14,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class OEEntities
 {
-	public static final EnumCreatureType WATER_MONSTER = EnumHelper.addCreatureType("WATER_MONSTER", IMob.class, 70, Material.WATER, false, false);
 	public static int id;
 
 	public static void registerEntities()
