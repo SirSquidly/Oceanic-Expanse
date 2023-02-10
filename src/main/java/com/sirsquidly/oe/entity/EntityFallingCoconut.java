@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -24,6 +23,7 @@ import net.minecraft.world.World;
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.blocks.BlockCoconut;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
@@ -179,7 +179,7 @@ public class EntityFallingCoconut extends EntityFallingBlock
 
             for (Entity e : list)
             {
-                e.attackEntityFrom(DamageSource.FALLING_BLOCK, (float)Math.min(MathHelper.floor((float)i * this.fallHurtAmount), this.fallHurtMax));
+                e.attackEntityFrom(CommonProxy.COCONUT, (float)Math.min(MathHelper.floor((float)i * this.fallHurtAmount), this.fallHurtMax));
                 
                 if (ConfigHandler.block.coconut.coconutHitSound && e instanceof EntityLivingBase && !(e instanceof EntityArmorStand))
                 { this.playSound(SoundHandler.COCONUT_HIT, 1.0F, 1.0F); }

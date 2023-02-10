@@ -219,9 +219,13 @@ public class EntityPufferfish extends AbstractFish
 	
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-    	this.setCalmCounter(0);
-		this.setPuffCooldown(0);
-        this.setPuffState(2);
+    	
+    	if (ConfigHandler.entity.pufferfish.enablePufferfishInflateOnHit)
+    	{
+    		this.setCalmCounter(0);
+    		this.setPuffCooldown(0);
+            this.setPuffState(2);
+    	}
 
         if (source.getImmediateSource() instanceof EntityLivingBase)
         {

@@ -175,6 +175,27 @@ oe.config.worldGen.enableShipwreckDrowned=Enable Shipwreck Drowned Groups
 oe.config.worldGen.shipwreckChancePerChunk=Shipwreck chance per Chunk
 
 oe.config.block=Block Config
+oe.config.block.blueIce=Blue Ice Config
+oe.config.block.enableBlueIce=Enable Blue Ice
+oe.config.block.blueIceLight=Blue Ice Light
+oe.config.block.blueIceSlipperiness=Blue Ice Slipperiness
+oe.config.block.coconut=Coconut Config
+oe.config.block.coconutHitSound=Enable Coconut Clonk
+oe.config.block.coconutFallBreak=Coconut break height
+oe.config.block.coconutFallDamage=Coconut Fall Damage
+oe.config.block.coconutFallMaxDamage=Coconut Max Fall Damage
+
+oe.config.block.conduit=Conduit Config
+oe.config.block.enableConduit=Enable Conduit
+oe.config.block.enableConduitPulse=Enable Conduit Pulsing
+oe.config.block.conduitLight=Conduit Light
+oe.config.block.conduitParticles=Conduit Particles
+oe.config.block.conduitFrameBlocks=Conduit Frame Blocks
+
+oe.config.block.coralBlocks=Coral Blocks Config
+oe.config.block.enableCoralBlock=Enable Full Coral Blocks
+oe.config.block.enableCoralFan=Enable Coral Fans
+oe.config.block.enableCoral=Enable Corals
 oe.config.block.driedKelpShears=Can cut Dried Kelp string
 oe.config.block.guardianSpike=Guardian Spike Config
 oe.config.block.enableGuardianSpike=Enable Guardian Spike
@@ -183,18 +204,41 @@ oe.config.block.guardianSpikeDropChance=Guardian Spike drop chance
 oe.config.block.guardianSpikeLooting=Guardian drop looting bonus
 oe.config.block.guardianSpikeElderDropChance=Elder Guardian Spike drop chance
 oe.config.block.guardianSpikeElderLooting=Elder Guardian drop looting bonus
+oe.config.block.palmBlocks=Palm Wood Config
+oe.config.block.enablePalmWoods=Enable Palm Woods
 oe.config.block.turtleEggs=Turtle Egg Config
 oe.config.block.amountOnTrample=Amount of Turtle Eggs broken on trample
 oe.config.block.particlesOnFall=Turtle Egg particles when fallen on
 oe.config.block.puffOnTrample=Turtle Egg puff when trampled
 oe.config.block.zombiesTrample=Zombies trample Turtle Eggs
-oe.config.block.coconut=Coconut Config
-oe.config.block.coconutHitSound=Coconut sound effect
-oe.config.block.coconutFallBreak=Coconut break height
-oe.config.block.coconutFallDamage=Coconut fall damage
-oe.config.block.coconutFallMaxDamage=Coconut max fall damage
+oe.config.block.waterTorch=Underwater Torch Config
+oe.config.block.enableWaterTorch=Enable Underwater Torches
+oe.config.block.waterTorchLight=Underwater Torch Light
+oe.config.block.waterTorchParticles=Underwater Torch Particles
+
+oe.config.block.zombiesTrample=Zombies trample Turtle Eggs
+oe.config.block.waterTorch=Underwater Torch Config
+oe.config.block.enableWaterTorch=Enable Underwater Torches
+oe.config.block.waterTorchLight=Underwater Torch Light
+oe.config.block.waterTorchParticles=Underwater Torch Particles
+
+oe.config.effect=Effect Config
+oe.config.effect.descent=Descent Config
+oe.config.effect.descentFallPull=Descent Gravity/Falling Pull
+oe.config.effect.descentWaterPull=Descent Water Pull
+oe.config.effect.descentAqAcWaterPull=(Aqua Acrobatics) Descent Water Pull
+
 
 oe.config.item=Item Config
+
+oe.config.item.conch=Conch Config
+oe.config.item.conchCooldown=Conch Cooldown
+oe.config.item.conchSoundDistance=Conch Sound Distance
+oe.config.item.conchDisplayHorn=Display Conch Sound Name
+oe.config.item.conchDisplayRawSound=Display Raw Sound Name
+oe.config.item.spawnBucket=Spawn Bucket/Bucketing
+oe.config.item.spawnBucketMobs=Bucketable Mobs
+oe.config.item.enableAllBucketsCreative=ALL Buckets in Creative Search Tab
 oe.config.trident=Trident Config
 oe.config.item.enableTrident=Enable Trident
 oe.config.item.tridentDamage=Trident Damage
@@ -202,12 +246,12 @@ oe.config.item.tridentThrowDamage=Thrown Trident Damage
 oe.config.item.tridentAttackSpeed=Trident Attack Speed
 oe.config.item.tridentDurability=Trident Durability
 oe.config.item.loyaltyVoidReturn=Loyalty returns from Void
-oe.config.item.tridentChannelingInvert=Loyalty return y-level
+oe.config.item.loyaltyVoidReturnLevel=Loyalty return y-level
+oe.config.turtleShell=Turtle Shell Config
+oe.config.item.enableTurtleShell=Enable Turtle Shell
+oe.config.item.turtleShellEffectLength=Turtle Shell Effect Length
+oe.config.item.enableTurtleShellDesc=Enable Turtle Shell Description
 
-oe.config.item.conchCooldown=Conch Cooldown
-oe.config.item.spawnBucket=Spawn Bucket/Bucketing
-oe.config.item.spawnBucketMobs=Bucketable Mobs
-oe.config.item.enableAllBucketsCreative=ALL Buckets in Creative Search Tab
 
 oe.config.enchant=Enchantment Config
 oe.config.enchant.impaling=Impaling Config
@@ -223,7 +267,14 @@ oe.config.enchant.channelingBlocks=Channeling Block Whitelist
 oe.config.enchant.channelingRidingBlacklist=Channeling Riding Blacklist
 
 oe.config.entity=Entity Config
+oe.config.entity.pufferfish=Pufferfish Config
+oe.config.entity.enablePufferfish=Enable Pufferfish
+oe.config.entity.enablePufferfishInflateOnHit=Pufferfish Inflate when Hit
+oe.config.item.pufferfishFriends=Pufferfish Trusted
+oe.config.entity.pufferfishPoisonLength=Pufferfish Poison Length
+oe.config.entity.pufferfishPoisonAmplifier=Pufferfish Poison Amplifier
 oe.config.entity.salmon=Salmon Config
+oe.config.entity.enableSalmon=Enable Salmon
 oe.config.entity.salmonSizeVarience=Salmon random sizes
 oe.config.entity.salmonFeedingGrowth=Salmon GROW
 oe.config.entity.glowSquid=Glow Squid Config
@@ -238,12 +289,21 @@ oe.config.entity.drownedRodSpawnChance=Fishing Rod spawn chance
 oe.config.entity.drownedNautilusSpawnChance=Nautilus Shell spawn chance
 oe.config.entity.drownedTridentMeleeRange=Trident Drowned melee range
 oe.config.entity.drownedGlowLayer=Enable Drowned 2ed Layer
+oe.config.entity.enableDrownedStepup=Enable Drowned block stepup
+oe.config.entity.enableDrownedSwimAnims=Enable Drowned swimming animations
 
 oe.config.vanillaTweak=Vanilla Tweaks Config
 oe.config.vanillaTweak.waterLighting=Less Water Light Blocking
 oe.config.vanillaTweak.squidFlop=Enable Squid Flopping
 oe.config.vanillaTweak.squidPush=Enable Squid Pushing
+oe.config.vanillaTweak.waterBonemeal=Water Bonemealing Config
+oe.config.vanillaTweak.enableWaterBonemeal=Enable Water Bonemealing
+oe.config.vanillaTweak.waterBonemealCoralChance=Coral Place Chance
+oe.config.vanillaTweak.waterBonemealCoralGen=Bonemeal Coral Place Rules
 
+death.attack.trident=%1$s was impaled by %2$s
+death.attack.trident.item=%1$s was impaled by %2$s using %3$s
+death.attack.coconut=%1$s was clonked by a falling coconut
 
 subtitle.drowned_ambient=Drowned gurgles
 subtitle.drowned_hurt=Drowned hurts

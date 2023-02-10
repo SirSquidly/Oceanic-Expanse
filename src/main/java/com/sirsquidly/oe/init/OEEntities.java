@@ -24,7 +24,7 @@ public class OEEntities
 	{
 		registerEntity("glow_squid", EntityGlowSquid.class, ++id, 100, 3119001, 12976094);
 		registerEntity("cod", EntityCod.class, ++id, 64, 8564132, 11386587);
-		registerEntity("salmon", EntitySalmon.class, ++id, 64, 12860482, 5268308);
+		if (ConfigHandler.entity.salmon.enableSalmon) registerEntity("salmon", EntitySalmon.class, ++id, 64, 12860482, 5268308);
 		if (ConfigHandler.entity.pufferfish.enablePufferfish) registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
 		registerEntity("turtle", EntityTurtle.class, ++id, 64, 12763520, 4702026);
 		registerEntity("crab", EntityCrab.class, ++id, 64, 12860482, 15453241);

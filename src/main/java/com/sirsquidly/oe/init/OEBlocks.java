@@ -75,7 +75,7 @@ public class OEBlocks
 		public static Block COCONUT_LEAVES_FLOWERING = blockReadyForRegister(new BlockCoconutLeavesFlowering(), "coconut_leaves_flowering");
 		public static Block COCONUT_SAPLING = blockReadyForRegister(new BlockPalmSapling(), "palm_sapling");
 		
-		public static Block BLUE_ICE = blockReadyForRegister(new BlockBlueIce(), "blue_ice");
+		public static Block BLUE_ICE = new BlockBlueIce();
 		public static Block SEA_TURTLE_EGG = blockReadyForRegister(new BlockTurtleEgg(), "turtle_egg");
 		public static Block CONDUIT = blockReadyForRegister(new BlockConduit(), "conduit");
 		public static Block SEA_OATS = blockReadyForRegister(new BlockDoubleSeaOats(), "sea_oats");
@@ -125,6 +125,8 @@ public class OEBlocks
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event)
 		{
+			if (ConfigHandler.block.blueIce.enableBlueIce) blockReadyForRegister(BLUE_ICE, "blue_ice");
+			
 			if (ConfigHandler.block.guardianSpike.enableGuardianSpike) blockReadyForRegister(GUARDIAN_SPIKE, "guardian_spike");
 			
 			if (ConfigHandler.block.coralBlocks.enableCoralBlock)

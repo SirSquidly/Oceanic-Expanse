@@ -3,6 +3,9 @@ package com.sirsquidly.oe.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
+import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.tileentity.TileConduit;
@@ -13,9 +16,12 @@ import com.sirsquidly.oe.world.*;
 import com.sirsquidly.oe.world.feature.*;
 import com.sirsquidly.oe.world.structure.GeneratorShipwreck;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -29,6 +35,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CommonProxy
 {
 	public static final List<Biome> allOceans = new ArrayList<Biome>();
+	
+	public static final DamageSource COCONUT = new DamageSource("coconut");
+	
+	public static DamageSource causeTridentDamage(EntityTrident trident, @Nullable Entity indirectEntityIn)
+    {
+        return (new EntityDamageSourceIndirect("trident", trident, indirectEntityIn)).setProjectile();
+    }
+
 	
 	public void preInitRegisteries(FMLPreInitializationEvent event)
 	{

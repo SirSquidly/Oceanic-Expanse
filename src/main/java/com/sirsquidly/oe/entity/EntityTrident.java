@@ -6,21 +6,32 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.init.OEEnchants;
+import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SPacketChangeGameState;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class EntityTrident extends AbstractArrow
@@ -148,6 +159,69 @@ public class EntityTrident extends AbstractArrow
             	}
             }
 		}
+    }
+	
+	@Override
+	protected void onHit(RayTraceResult raytraceResultIn)
+    {
+        Entity entity = raytraceResultIn.entityHit;
+
+        if (this.noClip == true)
+        {
+        	return;
+        }
+        
+        if (entity != null)
+        {
+            DamageSource damagesource;
+
+            damagesource = CommonProxy.causeTridentDamage(this, this.shootingEntity == null ? this : this.shootingEntity);
+
+            if (this.isBurning() && !(entity instanceof EntityEnderman))
+            {
+                entity.setFire(5);
+            }
+            
+            if (entity.attackEntityFrom(damagesource, this.damage))
+            {
+                if (entity instanceof EntityLivingBase)
+                {
+                    EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
+
+                    this.missileHit(entitylivingbase);
+                    
+                    if (this.shootingEntity != null && entitylivingbase != this.shootingEntity && entitylivingbase instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP)
+                    {
+                        ((EntityPlayerMP)this.shootingEntity).connection.sendPacket(new SPacketChangeGameState(6, 0.0F));
+                    }
+                }
+                
+                playSoundHitEntity();
+                
+                if (this.alwaysBounce)
+                {
+                	this.motionX *= bounceStrength;
+                    this.motionY *= bounceStrength;
+                    this.motionZ *= bounceStrength;
+                    this.rotationPitch += 180.F;
+                    this.rotationYaw += 180.0F;
+                    this.prevRotationYaw += 180.0F;
+                }
+            }
+            else
+            {
+                this.motionX *= bounceStrength;
+                this.motionY *= bounceStrength;
+                this.motionZ *= bounceStrength;
+                this.rotationPitch += 180.F;
+                this.rotationYaw += 180.0F;
+                this.prevRotationYaw += 180.0F;
+            }
+        }
+        else
+        {
+        	super.onHit(raytraceResultIn);
+        }
     }
 	
 	@Override
