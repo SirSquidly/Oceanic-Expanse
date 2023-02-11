@@ -72,6 +72,58 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.worldGen.iceSheetSpread")
 		    @Config.Comment("Adjusts the cutoff for the noise. Smaller numbers make the Ice Sheets more spread.")
 		    public double iceSheetSpread = 0.3;
+			
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.frozenSeafloor")
+		    public configFrozenSeafloor frozenSeafloor = new configFrozenSeafloor();
+			
+			public static class configFrozenSeafloor
+			{
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.enableRockDecor")
+			    @Config.Comment("If Granite Chunks on the Frozen Ocean seafloor should be enabled")
+			    public boolean enableRockDecor = true;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.seastarTriesPerChunk")
+			    @Config.Comment("Seastar tries per chunk to generate.")
+			    public int seastarTriesPerChunk = 6;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.seastarChancePerChunk")
+			    @Config.Comment("Seastar chance to generate, per try. 1 / this number")
+			    public int seastarChancePerChunk = 4;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.tubeSpongeTriesPerChunk")
+			    @Config.Comment("Tube Sponge tries per chunk to generate.")
+			    public int tubeSpongeTriesPerChunk = 1;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.tubeSpongeChancePerChunk")
+			    @Config.Comment("Tube Sponge chance to generate, per try. 1 / this number")
+			    public int tubeSpongeChancePerChunk = 3;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.dusleTriesPerChunk")
+			    @Config.Comment("Dulse tries per chunk to generate.")
+			    public int dusleTriesPerChunk = 2;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.dulseChancePerChunk")
+			    @Config.Comment("Dulse chance to generate, per try. 1 / this number")
+			    public int dulseChancePerChunk = 3;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.blueIceTriesPerChunk")
+			    @Config.Comment("Blue Ice tries per chunk to generate.")
+			    public int blueIceTriesPerChunk = 8;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.worldGen.blueIceChancePerChunk")
+			    @Config.Comment("Blue Ice chance to generate, per try. 1 / this number")
+			    public int blueIceChancePerChunk = 2;
+			}
 		}
 		
 		@RequiresMcRestart

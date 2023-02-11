@@ -6,6 +6,7 @@ import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
 import com.sirsquidly.oe.blocks.BlockSeaPickle;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.world.feature.WorldGenBlueIce;
 import com.sirsquidly.oe.world.feature.WorldGenOceanPatch;
 
 import net.minecraft.block.Block;
@@ -22,7 +23,10 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GeneratorFrozenOcean implements IWorldGenerator
 {
@@ -84,11 +88,13 @@ public class GeneratorFrozenOcean implements IWorldGenerator
                 	/** Doesn't use new coordinates because it doesn't seem to be causing any issues as is.*/
                 	if (x == 0 && z == 0)
                 	{
-                		spawnRockDecor(world, rand, pos, chunkX, chunkZ, x, z);
+                		if (ConfigHandler.worldGen.frozenOcean.frozenSeafloor.enableRockDecor) spawnRockDecor(world, rand, pos, chunkX, chunkZ, x, z);
                 		
-                		new WorldGenOceanPatch(OEBlocks.SEASTAR, 6, 4, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                		new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE, 1, 3, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                    	new WorldGenOceanPatch(OEBlocks.DULSE, 2, 3, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.SEASTAR, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                    	new WorldGenOceanPatch(OEBlocks.DULSE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dusleTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dulseChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                    	
+                    	new WorldGenBlueIce(ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceChancePerChunk, 50, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);;
                 	}
 
                 	

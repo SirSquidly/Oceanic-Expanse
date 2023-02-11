@@ -150,6 +150,17 @@ oe.config.worldGen.enableFrozenOcean=Enable Frozen Oceans
 oe.config.worldGen.enableIceBerg=Enable IceBergs
 oe.config.worldGen.enableIceSheet=Enable Ice Sheet
 oe.config.worldGen.iceSheetSpread=Ice Sheet Spread
+oe.config.worldGen.frozenSeafloor=Frozen Seafloor Config
+oe.config.worldGen.enableRockDecor=Enable Granite Chunks
+oe.config.worldGen.seastarTriesPerChunk=Seastar tries per chunk
+oe.config.worldGen.seastarChancePerChunk=Seastar chance per try
+oe.config.worldGen.tubeSpongeTriesPerChunk=Tube Sponge tries per chunk
+oe.config.worldGen.tubeSpongeChancePerChunk=Tube Sponge chance per try
+oe.config.worldGen.dusleTriesPerChunk=Dulse tries per chunk
+oe.config.worldGen.dulseChancePerChunk=Dulse chance per try
+oe.config.worldGen.blueIceTriesPerChunk=Blue Ice tries per chunk
+oe.config.worldGen.blueIceChancePerChunk=Blue Ice chance per try
+
 oe.config.worldGen.warmOcean=Warm Ocean Config
 oe.config.worldGen.enableWarmOcean=Enable Warm Oceans
 oe.config.worldGen.seaPickleTriesPerChunk=Sea Pickle tries per chunk

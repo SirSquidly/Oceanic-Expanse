@@ -9,6 +9,7 @@ import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
 import com.sirsquidly.oe.blocks.BlockDulse;
 import com.sirsquidly.oe.blocks.BlockSeaPickle;
 import com.sirsquidly.oe.blocks.BlockTubeSponge;
+import com.sirsquidly.oe.blocks.IChecksWater;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.Block;
@@ -149,7 +150,7 @@ public class WorldGenOceanPatch implements IWorldGenerator
     		{
     			int dulseAge = rand.nextInt(4);
     			
-    			if (dulseAge >= 3 && OEBlocks.DULSE.canPlaceBlockAt(worldIn, pos))
+    			if (dulseAge >= 3 && ((IChecksWater) OEBlocks.DULSE).checkWater(worldIn, pos.up()))
     			{
     				((BlockDulse) OEBlocks.DULSE).placeAt(worldIn, pos, 16 | 2);
     			}
