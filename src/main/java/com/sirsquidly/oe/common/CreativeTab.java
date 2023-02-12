@@ -71,7 +71,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        if (ConfigHandler.block.conduit.enableConduit) add(list, OEBlocks.CONDUIT);
 	        add(list, OEItems.PEARL);
 	        add(list, OEItems.CHARM);
-	        add(list, OEBlocks.BLUE_ICE);
+	        if (ConfigHandler.block.blueIce.enableBlueIce) add(list, OEBlocks.BLUE_ICE);
 	        add(list, OEBlocks.DULSE);
 	        add(list, OEItems.DRIED_DULSE);
 	        add(list, OEBlocks.DRIED_DULSE_BLOCK);
