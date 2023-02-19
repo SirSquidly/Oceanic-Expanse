@@ -28,7 +28,7 @@ public class EntityAICrabDig extends EntityAIBase
     {
     	ItemStack offHand = this.crab.getHeldItemOffhand();
     	
-	    if (this.crab.getRNG().nextInt(chance) != 0 || this.crab.isChild() || !(offHand.isEmpty())) 
+	    if (this.crab.getRNG().nextInt(chance) != 0 || this.crab.isChild() || !(offHand.isEmpty()) || this.crab.isAngry()) 
 	    { return false; }
 	    
 	    else

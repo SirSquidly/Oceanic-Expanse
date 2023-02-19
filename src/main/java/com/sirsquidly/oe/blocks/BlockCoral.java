@@ -8,6 +8,7 @@ import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -30,12 +31,17 @@ public class BlockCoral extends Block
 	protected static final AxisAlignedBB CORAL_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.9375D, 0.875D);
     public static final PropertyBool IN_WATER = PropertyBool.create("in_water");
     
-	public BlockCoral(MapColor blockMapColor) {
+	public BlockCoral(MapColor blockMapColor, SoundType soundIn) {
 		super(Material.ROCK, blockMapColor);
+		this.setSoundType(soundIn);
 		this.setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(IN_WATER, false));
 	}
 
+	//** This just helps register dead coral faster */
+	public BlockCoral()
+	{ this(MapColor.GRAY, SoundType.STONE); }
+	
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {

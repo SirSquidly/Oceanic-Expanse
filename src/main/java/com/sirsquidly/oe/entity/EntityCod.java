@@ -5,6 +5,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -16,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EntityCod extends AbstractFish
@@ -43,6 +45,15 @@ public class EntityCod extends AbstractFish
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
     }
 	
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    { return SoundHandler.ENTITY_COD_HURT; }
+
+    protected SoundEvent getDeathSound()
+    { return SoundHandler.ENTITY_COD_DEATH; }
+   
+    public SoundEvent getFlopSound()
+    { return SoundHandler.ENTITY_COD_FLOP; }
+    
 	@Override
     protected ResourceLocation getLootTable()
     {

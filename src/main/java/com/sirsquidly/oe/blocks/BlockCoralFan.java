@@ -11,6 +11,7 @@ import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -44,13 +45,18 @@ public class BlockCoralFan extends Block
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	public static final PropertyBool IN_WATER = PropertyBool.create("in_water");
 	
-	public BlockCoralFan(MapColor blockMapColor) 
+	public BlockCoralFan(MapColor blockMapColor, SoundType soundIn) 
 	{
 		super(Material.ROCK, blockMapColor);
+		this.setSoundType(soundIn);
 		this.setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(IN_WATER, false));
 	}
 	
+	//** This just helps register dead coral faster */
+	public BlockCoralFan()
+	{ this(MapColor.GRAY, SoundType.STONE); }
+		
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
     { return canPlaceBlock(worldIn, pos, side); }
 

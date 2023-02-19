@@ -182,7 +182,7 @@ public class EntityFallingCoconut extends EntityFallingBlock
                 e.attackEntityFrom(CommonProxy.COCONUT, (float)Math.min(MathHelper.floor((float)i * this.fallHurtAmount), this.fallHurtMax));
                 
                 if (ConfigHandler.block.coconut.coconutHitSound && e instanceof EntityLivingBase && !(e instanceof EntityArmorStand))
-                { this.playSound(SoundHandler.COCONUT_HIT, 1.0F, 1.0F); }
+                { this.playSound(SoundHandler.BLOCK_COCONUT_HIT, 1.0F, 1.0F); }
             }
         }
         if (breakFrom != -1 && j > 0)

@@ -5,6 +5,7 @@ import java.util.Random;
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -19,14 +20,18 @@ public class BlockCoralFull extends Block
 {
 	public static final PropertyBool IS_DEAD = PropertyBool.create("is_dead");
 	
-	public BlockCoralFull(MapColor blockMapColor) 
+	public BlockCoralFull(MapColor blockMapColor, SoundType soundIn) 
 	{
 		super(Material.ROCK, blockMapColor);
+		this.setSoundType(soundIn);
 		this.setDefaultState(this.blockState.getBaseState());		
 		this.setTickRandomly(true);
 	}
 	
-    
+	//** This just helps register dead coral faster */
+	public BlockCoralFull()
+	{ this(MapColor.GRAY, SoundType.STONE); }
+	
     public int getMetaFromState(IBlockState state)
     {
     	return 0;

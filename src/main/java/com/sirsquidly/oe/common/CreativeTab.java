@@ -61,7 +61,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEItems.COCONUT_OPEN);
 	        add(list, OEItems.HEAVY_BOOTS);
 	        add(list, OEItems.SCUTE);
-	        add(list, OEItems.TURTLE_HELMET);
+	        if (ConfigHandler.item.turtleShell.enableTurtleShell) add(list, OEItems.TURTLE_HELMET);
 	        add(list, OEBlocks.SEA_TURTLE_EGG);
 	        add(list, OEBlocks.SHELL_SAND);
 	        add(list, OEItems.SHELLS);

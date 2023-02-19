@@ -9,6 +9,7 @@ import com.sirsquidly.oe.items.ItemBlockSeaPickle;
 import com.sirsquidly.oe.items.ItemBlockSlab;
 import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
@@ -89,38 +90,38 @@ public class OEBlocks
 		public static Block COQUINA = blockReadyForRegister(new BlockShellSand(), "coquina");
 		public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
 		
-		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE);
-		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK);
-		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE);
-		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED);
-		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW);
-		public static Block BLUE_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
-		public static Block PINK_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
-		public static Block PURPLE_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
-		public static Block RED_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
-		public static Block YELLOW_CORAL_BLOCK_DEAD = new BlockCoralFull(MapColor.GRAY);
+		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, SoundHandler.CORAL);
+		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, SoundHandler.CORAL);
+		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, SoundHandler.CORAL);
+		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED, SoundHandler.CORAL);
+		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW, SoundHandler.CORAL);
+		public static Block BLUE_CORAL_BLOCK_DEAD = new BlockCoralFull();
+		public static Block PINK_CORAL_BLOCK_DEAD = new BlockCoralFull();
+		public static Block PURPLE_CORAL_BLOCK_DEAD = new BlockCoralFull();
+		public static Block RED_CORAL_BLOCK_DEAD = new BlockCoralFull();
+		public static Block YELLOW_CORAL_BLOCK_DEAD = new BlockCoralFull();
 
-		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE);
-		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK);
-		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE);
-		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED);
-		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW);
-		public static Block BLUE_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
-		public static Block PINK_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
-		public static Block PURPLE_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
-		public static Block RED_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
-		public static Block YELLOW_CORAL_FAN_DEAD = new BlockCoralFan(MapColor.GRAY);
+		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE, SoundHandler.CORAL);
+		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK, SoundHandler.CORAL);
+		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE, SoundHandler.CORAL);
+		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED, SoundHandler.CORAL);
+		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW, SoundHandler.CORAL);
+		public static Block BLUE_CORAL_FAN_DEAD = new BlockCoralFan();
+		public static Block PINK_CORAL_FAN_DEAD = new BlockCoralFan();
+		public static Block PURPLE_CORAL_FAN_DEAD = new BlockCoralFan();
+		public static Block RED_CORAL_FAN_DEAD = new BlockCoralFan();
+		public static Block YELLOW_CORAL_FAN_DEAD = new BlockCoralFan();
 		
-		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE);
-		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK);
-		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE);
-		public static Block RED_CORAL = new BlockCoral(MapColor.RED);
-		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW);
-		public static Block BLUE_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
-		public static Block PINK_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
-		public static Block PURPLE_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
-		public static Block RED_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
-		public static Block YELLOW_CORAL_DEAD = new BlockCoral(MapColor.GRAY);
+		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE, SoundHandler.CORAL);
+		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK, SoundHandler.CORAL);
+		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE, SoundHandler.CORAL);
+		public static Block RED_CORAL = new BlockCoral(MapColor.RED, SoundHandler.CORAL);
+		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW, SoundHandler.CORAL);
+		public static Block BLUE_CORAL_DEAD = new BlockCoral();
+		public static Block PINK_CORAL_DEAD = new BlockCoral();
+		public static Block PURPLE_CORAL_DEAD = new BlockCoral();
+		public static Block RED_CORAL_DEAD = new BlockCoral();
+		public static Block YELLOW_CORAL_DEAD = new BlockCoral();
 		
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event)

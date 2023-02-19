@@ -316,18 +316,73 @@ death.attack.trident=%1$s was impaled by %2$s
 death.attack.trident.item=%1$s was impaled by %2$s using %3$s
 death.attack.coconut=%1$s was clonked by a falling coconut
 
-subtitle.drowned_ambient=Drowned gurgles
-subtitle.drowned_hurt=Drowned hurts
-subtitle.drowned_death=Drowned dies
-subtitle.drowned_throw=Drowned throws Trident
+subtitle.drowned.ambient=Drowned gurgles
+subtitle.drowned.hurt=Drowned hurts
+subtitle.drowned.death=Drowned dies
+subtitle.drowned.step=Drowned steps
+subtitle.drowned.throw=Drowned throws Trident
 
 subtitle.coconut_hit=Coconut clonk
+
+subtitle.conduit.activate=Conduit activates
+subtitle.conduit.ambient=Conduit pulses
+subtitle.conduit.attack=Conduit attacks
+subtitle.conduit.deactivate=Conduit deactivates
+
+subtitle.coral.break=Block broken
+subtitle.coral.hit=Block breaking
+subtitle.coral.place=Block placed
+subtitle.coral.step=Footsteps
+
+subtitle.wet_grass.break=Block broken
+subtitle.wet_grass.hit=Block breaking
+subtitle.wet_grass.place=Block placed
+subtitle.wet_grass.step=Footsteps
 
 subtitle.conch_blow1=Conch blows
 subtitle.conch_blow2=Conch blows
 subtitle.conch_blow3=Conch blows
 subtitle.conch_blow4=Conch blows
 
-subtitle.trident_throw=Trident clangs
-subtitle.trident_hit=Trident vibrates
-subtitle.trident_hit_entity=Trident stabs
+subtitle.clam.close=Clam closes
+subtitle.clam.death=Clam dies
+subtitle.clam.hurt=Clam hurts
+subtitle.clam.hurt_closed=Clam hurts
+subtitle.clam.open=Clam opens
+subtitle.clam.shake=Clam shakes
+
+subtitle.cod.death=Cod dies
+subtitle.cod.flop=Cod flops
+subtitle.cod.hurt=Cod hurts
+
+subtitle.crab.ambient=Crab chirps
+subtitle.crab.angry=Crab snips angrily
+subtitle.crab.death=Crab dies
+subtitle.crab.hurt=Crab hurts
+
+subtitle.fish.flop=Fish flops
+subtitle.pufferfish.death=Pufferfish dies
+subtitle.pufferfish.deflate=Pufferfish deflates
+subtitle.pufferfish.flop=Pufferfish flops
+subtitle.pufferfish.hurt=Pufferfish hurts
+subtitle.pufferfish.inflate=Pufferfish inflates
+subtitle.pufferfish.sting=Pufferfish stings
+subtitle.salmon.death=Salmon dies
+subtitle.salmon.flop=Salmon flops
+subtitle.salmon.hurt=Salmon hurts
+subtitle.trident.throw=Trident clangs
+subtitle.trident.impact=Trident vibrates
+subtitle.trident.hit=Trident stabs
+subtitle.trident.return=Trident returns
+subtitle.trident.riptide1=Trident zooms
+subtitle.trident.riptide2=Trident zooms
+subtitle.trident.riptide3=Trident zooms
+subtitle.trident.thunder=Trident thunder cracks
+subtitle.turtle.ambient=Turtle breathes
+subtitle.turtle.baby_death=Turtle baby dies
+subtitle.turtle.baby_hurt=Turtle baby hurts
+subtitle.turtle.baby_step=Turtle baby shambles
+subtitle.turtle.hurt=Turtle hurts
+subtitle.turtle.death=Turtle dies
+subtitle.turtle.step=Turtle shambles
+subtitle.turtle.swim=Turtle swims

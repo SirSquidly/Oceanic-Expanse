@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -16,12 +17,12 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -73,7 +74,16 @@ public class AbstractFish extends EntityAnimal
 	*/
 	public boolean isFlopping() 
 	{ return !isInWater() && world.isAirBlock(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY + 1), MathHelper.floor(posZ))) && world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY - 1), MathHelper.floor(posZ))).getBlock().isCollidable(); }
-
+	
+	protected SoundEvent getAmbientSound()
+    { return this.isInWater() ? SoundHandler.ENTITY_FISH_SWIM : null; }
+	
+	/**
+	* The sound a fish uses when Flopping
+	*/
+	public SoundEvent getFlopSound()
+    { return SoundHandler.ENTITY_FISH_FLOP; }
+	
 	@Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
@@ -101,8 +111,8 @@ public class AbstractFish extends EntityAnimal
                 rotationYaw = rand.nextFloat() * 360.0F;
                 onGround = false;
                 isAirBorne = true;
-                if (world.getTotalWorldTime() % 5 == 0)
-                    world.playSound((EntityPlayer) null, posX, posY, posZ, SoundEvents.ENTITY_GUARDIAN_FLOP, SoundCategory.HOSTILE, 1F, 1F);
+                if (world.getTotalWorldTime() % 1 == 0)
+                	world.playSound((EntityPlayer) null, posX, posY, posZ, getFlopSound(), SoundCategory.NEUTRAL, 0.3F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
             }
         }
     }

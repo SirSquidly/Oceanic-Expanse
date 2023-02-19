@@ -106,10 +106,13 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     protected SoundEvent getDeathSound()
     { return SoundHandler.ENTITY_DROWNED_DEATH; }
     
+    protected SoundEvent getStepSound()
+    { return SoundHandler.ENTITY_DROWNED_STEP; }
+    
     @Override
     protected ResourceLocation getLootTable()
     { return LootTableHandler.ENTITIES_DROWNED; }
-	
+    
 	public boolean canBreatheUnderwater()
     { return true; }
 	

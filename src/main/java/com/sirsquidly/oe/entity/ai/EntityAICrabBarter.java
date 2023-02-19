@@ -23,7 +23,7 @@ public class EntityAICrabBarter extends EntityAIBase
 
     public boolean shouldExecute()
     {
-    if (this.crab.getRNG().nextFloat() >= this.chance || this.crab.isChild())
+    if (this.crab.getRNG().nextFloat() >= this.chance || this.crab.isChild() || this.crab.isAngry())
         {
             return false;
         }

@@ -5,11 +5,11 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -32,7 +32,7 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable, ICheck
 	
 	public BlockUnderwaterGrass() {
 		super(Material.WATER);
-		this.setSoundType(SoundType.PLANT);
+		this.setSoundType(SoundHandler.WET_GRASS);
 
 		setDefaultState(blockState.getBaseState());
 	}

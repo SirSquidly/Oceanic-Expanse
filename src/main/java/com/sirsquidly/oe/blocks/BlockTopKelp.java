@@ -4,12 +4,12 @@ import java.util.Random;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -41,7 +41,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable
 	
 	public BlockTopKelp() {
 		super(Material.WATER);
-		this.setSoundType(SoundType.PLANT);
+		this.setSoundType(SoundHandler.WET_GRASS);
 		this.setTickRandomly(true);
 		this.setCreativeTab(Main.OCEANEXPTAB);
 

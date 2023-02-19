@@ -8,6 +8,7 @@ import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -26,6 +27,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -60,6 +62,15 @@ public class EntitySalmon extends AbstractFish
         this.dataManager.register(SALMON_SIZE, Integer.valueOf(1));
     }
 	
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    { return SoundHandler.ENTITY_SALMON_HURT; }
+
+    protected SoundEvent getDeathSound()
+    { return SoundHandler.ENTITY_SALMON_DEATH; }
+   
+    public SoundEvent getFlopSound()
+    { return SoundHandler.ENTITY_SALMON_FLOP; }
+    
 	@Override
     protected ResourceLocation getLootTable()
     { return LootTableHandler.ENTITIES_SALMON; }

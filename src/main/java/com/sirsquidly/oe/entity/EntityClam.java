@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.util.handlers.SoundHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMagma;
 import net.minecraft.block.material.Material;
@@ -17,10 +19,11 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -85,6 +88,14 @@ public class EntityClam extends EntityAnimal
 	public int getOpenTick()
     { return ((Byte)this.dataManager.get(OPEN_TICK)).byteValue(); }
 	
+	protected SoundEvent getDeathSound()
+    { return SoundHandler.ENTITY_CLAM_DEATH; }
+	
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    {
+        return this.getOpenTick() > 0 ? SoundHandler.ENTITY_CLAM_HURT : SoundHandler.ENTITY_CLAM_HURT_CLOSED;
+    }
+	
 	public void onUpdate()
 	{
 		super.onUpdate();
@@ -97,6 +108,8 @@ public class EntityClam extends EntityAnimal
 			for (Entity e : checkAbove) 
 	    	{
 				if (e instanceof EntityClam) continue;
+				
+				if (!this.getShaking()) this.playSound(SoundHandler.ENTITY_CLAM_SHAKE, 1.0F, 1.0F);
 				
 				this.setShaking(true);
 				launchWarnShaking += 1;
@@ -217,11 +230,11 @@ public class EntityClam extends EntityAnimal
             if (ticks == 0)
             {
             	iattributeinstance.applyModifier(CLOSED_ARMOR_BONUS);
-                this.playSound(SoundEvents.ENTITY_SHULKER_CLOSE, 1.0F, 1.0F);
+                this.playSound(SoundHandler.ENTITY_CLAM_CLOSE, 1.0F, 1.0F);
             }
             else
             {
-                this.playSound(SoundEvents.ENTITY_SHULKER_OPEN, 1.0F, 1.0F);
+                this.playSound(SoundHandler.ENTITY_CLAM_OPEN, 1.0F, 1.0F);
             }
         }
 

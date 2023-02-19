@@ -45,6 +45,7 @@ public class TileConduit extends TileEntity implements ITickable
 	{
 		if(world == null) return;
 		
+		doAmbientSounds(world, pos);
 		doAnimCounters();
 		doHunting(world, pos);
 		
@@ -54,12 +55,18 @@ public class TileConduit extends TileEntity implements ITickable
 			{
 				if(!isActive)
 				{
-					world.playSound(null, pos, SoundHandler.COCONUT_HIT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_ACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
 				}
 				isActive = true;
 			}
 			else
-			{ isActive = false; }
+			{ 
+				if(isActive)
+				{
+					world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_DEACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+				}
+				isActive = false; 
+			}
 		}
 		
 		
@@ -124,7 +131,7 @@ public class TileConduit extends TileEntity implements ITickable
 					if(world.isRemote) spawnParticles(world, this.attackTarget.getPosition()); 
 					if(world.getTotalWorldTime() % 40L == 0L)
 					{
-						world.playSound(null, this.attackTarget.getPosition(), SoundHandler.COCONUT_HIT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+						world.playSound(null, this.attackTarget.getPosition(), SoundHandler.BLOCK_CONDUIT_ATTACK, SoundCategory.BLOCKS, 1.0f, 1.0f);
 						this.attackTarget.attackEntityFrom(DamageSource.MAGIC,4);
 					}
 				}
@@ -146,7 +153,7 @@ public class TileConduit extends TileEntity implements ITickable
 		++this.bobTick;
 	
 		this.shellRotationPrev = this.shellRotation;
-		this.shellRotateSpeed += 0.05F;
+		this.shellRotateSpeed += 0.02F;
 		
 		while (this.shellRotation >= (float)Math.PI)
 	    {
@@ -188,6 +195,22 @@ public class TileConduit extends TileEntity implements ITickable
 			if (this.windTick > 80) this.windTick = 1;
 		}
 		
+	}
+	
+	/** Handles the ambient sounds of the Conduit.*/
+	public void doAmbientSounds(World worldIn, BlockPos pos)
+	{	
+		if(world.getTotalWorldTime() % 80L == 0L)
+		{
+			world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_AMBIENT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+		}
+		
+		long i = 60L + (long)this.world.rand.nextInt(40);
+		
+		if(world.getTotalWorldTime() % i == 0L)
+		{
+			world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_BEAT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)

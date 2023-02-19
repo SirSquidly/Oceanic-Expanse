@@ -7,6 +7,7 @@ import com.sirsquidly.oe.entity.ai.EntityAICrabBarter;
 import com.sirsquidly.oe.entity.ai.EntityAICrabDig;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -39,6 +40,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -49,9 +51,10 @@ public class EntityCrab extends EntityAnimal
 	
 	/** 0 = Normal, 1 = Digging, 2 = Eating */
 	private static final DataParameter<Integer> ANIM_STATE = EntityDataManager.createKey(EntityCrab.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityCrab.class, DataSerializers.BOOLEAN);
 	private static final Set<Item>TRADE_ITEMS = Sets.newHashSet(Items.FISH);
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
-	private boolean retaliated;
+	private int randomAngrySoundDelay;
 	
 	public EntityCrab(World worldIn)
 	{
@@ -63,7 +66,11 @@ public class EntityCrab extends EntityAnimal
 	}
 
 	protected void entityInit()
-    { super.entityInit(); this.dataManager.register(ANIM_STATE, 0); }
+    { 
+		super.entityInit(); 
+		this.dataManager.register(ANIM_STATE, 0); 
+		this.dataManager.register(ANGRY, Boolean.valueOf(false));
+	}
 	
 	protected void initEntityAI()
     {
@@ -86,6 +93,9 @@ public class EntityCrab extends EntityAnimal
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
     }
+	
+	public int getTalkInterval()
+    { return 280; }
 	
 	public void onLivingUpdate()
     {
@@ -119,6 +129,21 @@ public class EntityCrab extends EntityAnimal
 			{ this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1.0F, 1.0F); }
         }
 
+		if (this.isAngry())
+        {
+			if (this.randomAngrySoundDelay <= 0)
+			{
+				this.playSound(SoundHandler.ENTITY_CRAB_ANGRY, 1.0F, 1.0F);
+				this.randomAngrySoundDelay = this.rand.nextInt(40);
+			}
+			this.randomAngrySoundDelay -= 1;
+        }
+		
+		if (!this.world.isRemote && this.getAttackTarget() == null && this.isAngry())
+        {
+            this.setAngry(false);
+        }
+		
         super.onLivingUpdate();
     }
 	
@@ -145,6 +170,15 @@ public class EntityCrab extends EntityAnimal
         return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7;
     }
 	
+	protected SoundEvent getAmbientSound()
+	{ return SoundHandler.ENTITY_CRAB_AMBIENT; }
+	
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    { return SoundHandler.ENTITY_CRAB_HURT; }
+
+    protected SoundEvent getDeathSound()
+    { return SoundHandler.ENTITY_CRAB_DEATH; }
+    
 	@Override
     protected ResourceLocation getLootTable()
     { return LootTableHandler.ENTITIES_CRAB; }
@@ -198,7 +232,8 @@ public class EntityCrab extends EntityAnimal
 
         if (flag)
         {
-        	this.retaliated = true;
+        	this.setAngry(false);
+        	
             if (i > 0 && entityIn instanceof EntityLivingBase)
             {
                 ((EntityLivingBase)entityIn).knockBack(this, (float)i * 0.5F, (double)MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)));
@@ -235,8 +270,11 @@ public class EntityCrab extends EntityAnimal
         return flag;
     }
 	
-	private void setRetaliated(boolean retaliated)
-    { this.retaliated = retaliated; }
+	public boolean isAngry()
+    { return ((Boolean)this.dataManager.get(ANGRY)).booleanValue(); }
+
+    public void setAngry(boolean angry)
+    { this.dataManager.set(ANGRY, Boolean.valueOf(angry)); }
 	
 	static class AIHurtByTarget extends EntityAIHurtByTarget
     {
@@ -245,18 +283,22 @@ public class EntityCrab extends EntityAnimal
             super(crab, false);
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
+        public void startExecuting()
+        {
+        	EntityCrab entitycrab = (EntityCrab)this.taskOwner;
+        	
+        	entitycrab.setAngry(true);
+            super.startExecuting();
+        }
+        
         public boolean shouldContinueExecuting()
         {
             if (this.taskOwner instanceof EntityCrab)
             {
             	EntityCrab entitycrab = (EntityCrab)this.taskOwner;
 
-                if (entitycrab.retaliated)
+                if (!entitycrab.isAngry())
                 {
-                	entitycrab.setRetaliated(false);
                     return false;
                 }
             }
@@ -281,5 +323,14 @@ public class EntityCrab extends EntityAnimal
     {
         super.writeEntityToNBT(compound);
         compound.setInteger("AnimationState", this.getAnimationState());
+        compound.setBoolean("Angry", this.isAngry());
+    }
+	
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound)
+    {
+        super.readEntityFromNBT(compound);
+        this.setAngry(compound.getBoolean("Angry"));
+        this.setAnimationState(compound.getInteger("AnimationState"));
     }
 }

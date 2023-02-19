@@ -70,7 +70,7 @@ public class ModelCod extends ModelBase {
             if (fish.isFlopping())
             	flap = MathHelper.sin((fish.ticksExisted) * 1.2F) * 0.6F;
             body1.rotateAngleY = flap*0.2F;
-            tail1.rotateAngleY = flap*0.4F;
+            tail1.rotateAngleY = flap*0.6F;
     }
 
 }

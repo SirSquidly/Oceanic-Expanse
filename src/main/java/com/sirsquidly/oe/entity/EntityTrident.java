@@ -10,8 +10,6 @@ import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -20,8 +18,6 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -29,8 +25,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -78,12 +72,12 @@ public class EntityTrident extends AbstractArrow
 
 	public void playSoundHit()
 	{
-		this.playSound(SoundHandler.ENTITY_TRIDENT_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+		this.playSound(SoundHandler.ENTITY_TRIDENT_IMPACT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 	}
 
 	public void playSoundHitEntity()
 	{
-		this.playSound(SoundHandler.ENTITY_TRIDENT_HIT_ENTITY, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+		this.playSound(SoundHandler.ENTITY_TRIDENT_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 	}
 
 	public void missileHit(EntityLivingBase living)
@@ -247,7 +241,7 @@ public class EntityTrident extends AbstractArrow
     {
 		if (EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, this.getItem()) > 0)
         {
-			this.playSound(SoundEvents.ENTITY_ELDER_GUARDIAN_AMBIENT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+			this.playSound(SoundHandler.ENTITY_TRIDENT_RETURN, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 			this.dataManager.set(RETURNING, Boolean.valueOf(true));
 			this.inGround = true;
 			this.noClip = true;
@@ -265,12 +259,14 @@ public class EntityTrident extends AbstractArrow
 				{
 					if (!ArrayUtils.contains(ConfigHandler.enchant.channeling.ridingBlacklist, EntityList.getKey(target.getLowestRidingEntity()).toString()) )
 					{
+						this.playSound(SoundHandler.ENTITY_TRIDENT_THUNDER, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 						world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));
 						this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(true));
 					}
 				}
 				else if (this.inGround && (!ConfigHandler.enchant.channeling.invertLightning && ArrayUtils.contains(ConfigHandler.enchant.channeling.lightningRodWhitelist, this.inTile.getRegistryName().toString()) || ConfigHandler.enchant.channeling.invertLightning && !ArrayUtils.contains(ConfigHandler.enchant.channeling.lightningRodWhitelist, this.inTile.getRegistryName().toString())))
 				{
+					this.playSound(SoundHandler.ENTITY_TRIDENT_THUNDER, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 					world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));
 					this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(true));
 				}

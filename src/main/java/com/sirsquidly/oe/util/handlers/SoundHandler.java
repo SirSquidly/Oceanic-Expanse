@@ -1,53 +1,113 @@
 package com.sirsquidly.oe.util.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sirsquidly.oe.util.Reference;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class SoundHandler 
 {
-	public static SoundEvent ENTITY_DROWNED_AMBIENT;
-	public static SoundEvent ENTITY_DROWNED_HURT;
-	public static SoundEvent ENTITY_DROWNED_DEATH;
-	public static SoundEvent ENTITY_DROWNED_THROW;
-	public static SoundEvent COCONUT_HIT;
-	public static SoundEvent BLOCK_CONDUIT_ACTIVATE;
-	public static SoundEvent BLOCK_CONDUIT_BEAT;
-	public static SoundEvent BLOCK_CONDUIT_AMBIENT;
-	public static SoundEvent BLOCK_CONDUIT_ATTACK;
-	public static SoundEvent BLOCK_CONDUIT_DEACTIVATE;
-	public static SoundEvent ITEM_CONCH_BLOW1;
-	public static SoundEvent ITEM_CONCH_BLOW2;
-	public static SoundEvent ITEM_CONCH_BLOW3;
-	public static SoundEvent ITEM_CONCH_BLOW4;
-	public static SoundEvent ENTITY_TRIDENT_SHOOT;
-	public static SoundEvent ENTITY_TRIDENT_HIT;
-	public static SoundEvent ENTITY_TRIDENT_HIT_ENTITY;
+	/** Contains every block ran through the 'blockReadyForRegister' function. So they all SHOULD be registered. */
+	private static List<SoundEvent> soundList = new ArrayList<SoundEvent>();
+	
+	public static SoundEvent BLOCK_COCONUT_HIT = soundReadyForRegister("block.coconut.coconut_hit");
+	
+	public static SoundEvent BLOCK_CONDUIT_ACTIVATE = soundReadyForRegister("block.conduit.activate");
+	public static SoundEvent BLOCK_CONDUIT_BEAT = soundReadyForRegister("block.conduit.ambient");
+	public static SoundEvent BLOCK_CONDUIT_AMBIENT = soundReadyForRegister("block.conduit.ambient_short");
+	public static SoundEvent BLOCK_CONDUIT_ATTACK = soundReadyForRegister("block.conduit.attack");
+	public static SoundEvent BLOCK_CONDUIT_DEACTIVATE = soundReadyForRegister("block.conduit.deactivate");
+	
+	public static SoundEvent BLOCK_CORAL_BREAK = soundReadyForRegister("block.coral.break");
+	public static SoundEvent BLOCK_CORAL_FALL = soundReadyForRegister("block.coral.fall");
+	public static SoundEvent BLOCK_CORAL_HIT = soundReadyForRegister("block.coral.hit");
+	public static SoundEvent BLOCK_CORAL_PLACE = soundReadyForRegister("block.coral.place");
+	public static SoundEvent BLOCK_CORAL_STEP = soundReadyForRegister("block.coral.step");
+	
+	public static SoundType CORAL = new SoundType(1.0f, 1.0f, BLOCK_CORAL_BREAK, BLOCK_CORAL_STEP, BLOCK_CORAL_PLACE, BLOCK_CORAL_HIT, BLOCK_CORAL_FALL);
+	
+	public static SoundEvent BLOCK_WET_GRASS_BREAK = soundReadyForRegister("block.wet_grass.break");
+	public static SoundEvent BLOCK_WET_GRASS_FALL = soundReadyForRegister("block.wet_grass.fall");
+	public static SoundEvent BLOCK_WET_GRASS_HIT = soundReadyForRegister("block.wet_grass.hit");
+	public static SoundEvent BLOCK_WET_GRASS_PLACE = soundReadyForRegister("block.wet_grass.place");
+	public static SoundEvent BLOCK_WET_GRASS_STEP = soundReadyForRegister("block.wet_grass.step");
+	
+	public static SoundType WET_GRASS = new SoundType(1.0f, 1.0f, BLOCK_WET_GRASS_BREAK, BLOCK_WET_GRASS_STEP, BLOCK_WET_GRASS_PLACE, BLOCK_WET_GRASS_HIT, BLOCK_WET_GRASS_FALL);
+	
+	public static SoundEvent ENTITY_CLAM_CLOSE = soundReadyForRegister("entity.clam.close");
+	public static SoundEvent ENTITY_CLAM_DEATH = soundReadyForRegister("entity.clam.death");
+	public static SoundEvent ENTITY_CLAM_HURT = soundReadyForRegister("entity.clam.hurt");
+	public static SoundEvent ENTITY_CLAM_HURT_CLOSED = soundReadyForRegister("entity.clam.hurt_closed");
+	public static SoundEvent ENTITY_CLAM_SHAKE = soundReadyForRegister("entity.clam.shake");
+	public static SoundEvent ENTITY_CLAM_OPEN = soundReadyForRegister("entity.clam.open");
+	
+	public static SoundEvent ENTITY_COD_DEATH = soundReadyForRegister("entity.cod.death");
+	public static SoundEvent ENTITY_COD_FLOP = soundReadyForRegister("entity.cod.flop");
+	public static SoundEvent ENTITY_COD_HURT = soundReadyForRegister("entity.cod.hurt");
+	
+	public static SoundEvent ENTITY_CRAB_AMBIENT = soundReadyForRegister("entity.crab.ambient");
+	public static SoundEvent ENTITY_CRAB_ANGRY = soundReadyForRegister("entity.crab.angry");
+	public static SoundEvent ENTITY_CRAB_DEATH = soundReadyForRegister("entity.crab.death");
+	public static SoundEvent ENTITY_CRAB_HURT = soundReadyForRegister("entity.crab.hurt");
+	
+	public static SoundEvent ENTITY_DROWNED_AMBIENT = soundReadyForRegister("entity.drowned.ambient");
+	public static SoundEvent ENTITY_DROWNED_HURT = soundReadyForRegister("entity.drowned.hurt");
+	public static SoundEvent ENTITY_DROWNED_DEATH = soundReadyForRegister("entity.drowned.death");
+	public static SoundEvent ENTITY_DROWNED_STEP = soundReadyForRegister("entity.drowned.step");
+	public static SoundEvent ENTITY_DROWNED_THROW = soundReadyForRegister("entity.drowned.throw");
+	
+	// ** This sound is used when a fish doesn't specify a flop sound. */
+	public static SoundEvent ENTITY_FISH_FLOP = soundReadyForRegister("entity.fish.flop");
+	public static SoundEvent ENTITY_FISH_SWIM = soundReadyForRegister("entity.fish.swim");
+	public static SoundEvent ENTITY_PUFFERFISH_DEATH = soundReadyForRegister("entity.pufferfish.death");
+	public static SoundEvent ENTITY_PUFFERFISH_DEFLATE = soundReadyForRegister("entity.pufferfish.deflate");
+	public static SoundEvent ENTITY_PUFFERFISH_FLOP = soundReadyForRegister("entity.pufferfish.flop");
+	public static SoundEvent ENTITY_PUFFERFISH_HURT = soundReadyForRegister("entity.pufferfish.hurt");
+	public static SoundEvent ENTITY_PUFFERFISH_INFLATE = soundReadyForRegister("entity.pufferfish.inflate");
+	public static SoundEvent ENTITY_PUFFERFISH_STING = soundReadyForRegister("entity.pufferfish.sting");
+	
+	public static SoundEvent ENTITY_SALMON_DEATH = soundReadyForRegister("entity.salmon.death");
+	public static SoundEvent ENTITY_SALMON_FLOP = soundReadyForRegister("entity.salmon.flop");
+	public static SoundEvent ENTITY_SALMON_HURT = soundReadyForRegister("entity.salmon.hurt");
+	
+	public static SoundEvent ENTITY_TRIDENT_SHOOT = soundReadyForRegister("item.trident.throw");
+	public static SoundEvent ENTITY_TRIDENT_IMPACT = soundReadyForRegister("item.trident.impact");
+	public static SoundEvent ENTITY_TRIDENT_HIT = soundReadyForRegister("item.trident.pierce");
+	public static SoundEvent ENTITY_TRIDENT_RETURN = soundReadyForRegister("item.trident.return");
+	public static SoundEvent ENTITY_TRIDENT_RIPTIDE1 = soundReadyForRegister("item.trident.riptide1");
+	public static SoundEvent ENTITY_TRIDENT_RIPTIDE2 = soundReadyForRegister("item.trident.riptide2");
+	public static SoundEvent ENTITY_TRIDENT_RIPTIDE3 = soundReadyForRegister("item.trident.riptide3");
+	public static SoundEvent ENTITY_TRIDENT_THUNDER = soundReadyForRegister("item.trident.thunder");
+	public static SoundEvent ENTITY_TURTLE_AMBIENT = soundReadyForRegister("entity.turtle.ambient");
+	public static SoundEvent ENTITY_TURTLE_BABY_HURT = soundReadyForRegister("entity.turtle.baby_hurt");
+	public static SoundEvent ENTITY_TURTLE_HURT = soundReadyForRegister("entity.turtle.hurt");
+	public static SoundEvent ENTITY_TURTLE_BABY_DEATH = soundReadyForRegister("entity.turtle.baby_death");
+	public static SoundEvent ENTITY_TURTLE_DEATH = soundReadyForRegister("entity.turtle.death");
+	public static SoundEvent ENTITY_TURTLE_BABY_STEP = soundReadyForRegister("entity.turtle.baby_step");
+	public static SoundEvent ENTITY_TURTLE_STEP = soundReadyForRegister("entity.turtle.step");
+	public static SoundEvent ENTITY_TURTLE_SWIM = soundReadyForRegister("entity.turtle.swim");
+	public static SoundEvent ITEM_CONCH_BLOW1 = soundReadyForRegister("item.conch.conch_blow1");
+	public static SoundEvent ITEM_CONCH_BLOW2 = soundReadyForRegister("item.conch.conch_blow2");
+	public static SoundEvent ITEM_CONCH_BLOW3 = soundReadyForRegister("item.conch.conch_blow3");
+	public static SoundEvent ITEM_CONCH_BLOW4 = soundReadyForRegister("item.conch.conch_blow4");
 	
 	public static void registerSounds()
-	{
-		ENTITY_DROWNED_AMBIENT = registerSound("entity.drowned.drowned_ambient");
-		ENTITY_DROWNED_HURT = registerSound("entity.drowned.drowned_hurt");
-		ENTITY_DROWNED_DEATH = registerSound("entity.drowned.drowned_death");
-		ENTITY_DROWNED_THROW = registerSound("entity.drowned.drowned_throw");
-		COCONUT_HIT = registerSound("block.coconut.coconut_hit");
-		ITEM_CONCH_BLOW1 = registerSound("item.conch.conch_blow1");
-		ITEM_CONCH_BLOW2 = registerSound("item.conch.conch_blow2");
-		ITEM_CONCH_BLOW3 = registerSound("item.conch.conch_blow3");
-		ITEM_CONCH_BLOW4 = registerSound("item.conch.conch_blow4");
-		ENTITY_TRIDENT_SHOOT = registerSound("item.trident.trident_throw");
-		ENTITY_TRIDENT_HIT = registerSound("item.trident.trident_hit");
-		ENTITY_TRIDENT_HIT_ENTITY = registerSound("item.trident.trident_hit_entity");
+	{	
+		for (SoundEvent sounds : soundList) ForgeRegistries.SOUND_EVENTS.register(sounds);
 	}
 	
-	private static SoundEvent registerSound(String name)
+	private static SoundEvent soundReadyForRegister(String name)
 	{
 		ResourceLocation location = new ResourceLocation(Reference.MOD_ID, name);
 		SoundEvent event = new SoundEvent(location);
 		event.setRegistryName(name);
-		ForgeRegistries.SOUND_EVENTS.register(event);
-		return event;
-	}
+		soundList.add(event);
+		
+        return event;
+    }
 }

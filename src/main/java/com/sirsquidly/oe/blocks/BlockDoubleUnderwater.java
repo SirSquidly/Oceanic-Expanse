@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -29,6 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 {
@@ -37,7 +37,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 	
 	public BlockDoubleUnderwater() {
 		super(Material.WATER);
-		this.setSoundType(SoundType.PLANT);
+		this.setSoundType(SoundHandler.WET_GRASS);
 
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleUnderwater.EnumBlockHalf.LOWER));
 	}

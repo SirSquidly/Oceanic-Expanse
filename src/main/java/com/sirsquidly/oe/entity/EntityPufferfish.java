@@ -9,6 +9,7 @@ import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -33,6 +34,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EntityPufferfish extends AbstractFish
@@ -75,6 +77,15 @@ public class EntityPufferfish extends AbstractFish
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
     }
+
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    { return SoundHandler.ENTITY_PUFFERFISH_HURT; }
+
+    protected SoundEvent getDeathSound()
+    { return SoundHandler.ENTITY_PUFFERFISH_DEATH; }
+   
+    public SoundEvent getFlopSound()
+    { return SoundHandler.ENTITY_PUFFERFISH_FLOP; }
     
 	@Override
     protected ResourceLocation getLootTable()
@@ -118,6 +129,7 @@ public class EntityPufferfish extends AbstractFish
             
         	if(this.getCalmCounter() >= 80)
             {
+        		this.playSound(SoundHandler.ENTITY_PUFFERFISH_DEFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
             	this.setPuffState(this.getPuffState() - 1);
                 this.setCalmCounter(0);
             }
@@ -136,6 +148,7 @@ public class EntityPufferfish extends AbstractFish
         			{
         				if(this.getPuffCooldown() >= 20)
         				{
+        					this.playSound(SoundHandler.ENTITY_PUFFERFISH_INFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
 	        				this.setCalmCounter(0);
 	        				this.setPuffCooldown(0);
 	                    	this.setPuffState(this.getPuffState() + 1);
@@ -157,6 +170,8 @@ public class EntityPufferfish extends AbstractFish
 
         if (flag)
         {
+        	this.playSound(SoundHandler.ENTITY_PUFFERFISH_STING, 1.0F, 1.0F);
+        	
         	this.applyEnchantments(this, entityIn);
         	
         	if (entityIn instanceof EntityLivingBase && this.getPuffState() == 2)
@@ -215,6 +230,8 @@ public class EntityPufferfish extends AbstractFish
     private void setPuffCooldown(int i)
     { this.puffCooldown = i; }
     
+    
+    
  // Warning, Guardian stuff ahead    
 	
     public boolean attackEntityFrom(DamageSource source, float amount)
@@ -224,7 +241,12 @@ public class EntityPufferfish extends AbstractFish
     	{
     		this.setCalmCounter(0);
     		this.setPuffCooldown(0);
-            this.setPuffState(2);
+    		
+    		if (this.getPuffState() < 2)
+    		{
+    			this.playSound(SoundHandler.ENTITY_PUFFERFISH_INFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
+    			this.setPuffState(2);
+    		}
     	}
 
         if (source.getImmediateSource() instanceof EntityLivingBase)

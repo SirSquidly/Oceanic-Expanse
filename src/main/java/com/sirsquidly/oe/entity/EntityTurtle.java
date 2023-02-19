@@ -13,6 +13,7 @@ import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
+import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
@@ -53,6 +54,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -114,7 +116,7 @@ public class EntityTurtle extends AbstractFish
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.08D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
     }
 	
 	protected void initEntityAI()
@@ -131,6 +133,18 @@ public class EntityTurtle extends AbstractFish
 		this.tasks.addTask(6, new EntityAILookIdle(this));
     }
 	
+	protected SoundEvent getAmbientSound()
+    { return this.isInWater() ? SoundHandler.ENTITY_TURTLE_SWIM : SoundHandler.ENTITY_TURTLE_AMBIENT; }
+
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    { return this.isChild() ? SoundHandler.ENTITY_TURTLE_BABY_HURT : SoundHandler.ENTITY_TURTLE_HURT; }
+
+    protected SoundEvent getDeathSound()
+    { return this.isChild() ? SoundHandler.ENTITY_TURTLE_BABY_DEATH : SoundHandler.ENTITY_TURTLE_DEATH; }
+   
+    protected SoundEvent getStepSound()
+    { return this.isChild() ? SoundHandler.ENTITY_TURTLE_BABY_STEP : SoundHandler.ENTITY_TURTLE_STEP; }
+
 	@Override
     protected ResourceLocation getLootTable()
     { return LootTableHandler.ENTITIES_TURTLE; }

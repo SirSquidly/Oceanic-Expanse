@@ -1,9 +1,10 @@
 package com.sirsquidly.oe.blocks;
 
+import com.sirsquidly.oe.util.handlers.SoundHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +22,7 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
 	
 	public BlockSeaStar() {
 		super(Material.WATER);
-		this.setSoundType(SoundType.PLANT);
+		this.setSoundType(SoundHandler.WET_GRASS);
 		
 		this.setDefaultState(this.blockState.getBaseState().withProperty(IN_WATER, Boolean.valueOf(true)));
 	}

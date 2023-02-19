@@ -138,6 +138,7 @@ public class ItemTrident extends Item
             	else if (entityplayer.isWet())
             	{
             		stack.damageItem(1, entityplayer);
+            		playRiptideSound(worldIn, entityplayer, r);
             		
             		Vec3d moveVec = entityplayer.getLookVec().scale(0.6 + (r * 1.2));
 
@@ -149,6 +150,7 @@ public class ItemTrident extends Item
             			entityplayer.velocityChanged = true;
         			}
             		
+            		/** This looks weird. This deals damage to nearby entities when using Riptide, and also damages the Trident for each hit. */
             		for (EntityLivingBase entitylivingbase :entityplayer.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(entityplayer.getPosition()).grow(1, 1, 1)))
             	    {
             	    	if (entitylivingbase != entityplayer && (entitylivingbase.getPassengers().isEmpty() || !(entitylivingbase.getPassengers().get(0) == entityplayer)))
@@ -166,6 +168,20 @@ public class ItemTrident extends Item
                 entityplayer.addStat(StatList.getObjectUseStats(this));
             }
         }
+    
+    /** Plays the appropriate Riptide song. Shoved to a seperate method for readability. */
+    public static void playRiptideSound(World world, EntityLivingBase player, int level)
+    {
+        switch(level)
+        {
+        	case 1:
+        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundHandler.ENTITY_TRIDENT_RIPTIDE1, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        	case 2:
+        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundHandler.ENTITY_TRIDENT_RIPTIDE2, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        	case 3:
+        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundHandler.ENTITY_TRIDENT_RIPTIDE3, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        }
+    }
     
     public static float getArrowVelocity(int charge)
     {
