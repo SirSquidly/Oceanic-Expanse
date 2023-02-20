@@ -381,6 +381,16 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.block.enablePalmWoods")
 		    @Config.Comment("If Palm Woods are enabled. Note this doesn't disable Palm Trees, they will generate using Jungle Wood.")
 		    public boolean enablePalmWoods = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enablePalmStripping")
+		    @Config.Comment("Adds the ability to strip Palm woods by using an Axe on it.")
+		    public boolean enablePalmStripping = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enablePalmStrippedWoods")
+		    @Config.Comment("If Stripped Palm Woods are enabled. Note this also disables Palm wood stripping.")
+		    public boolean enablePalmStrippedWoods = true;
 	    }
 		
 		@Config.LangKey("oe.config.block.guardianSpike")

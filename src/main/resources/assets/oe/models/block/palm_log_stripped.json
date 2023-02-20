@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_column",
+    "textures": 
+    {
+        "end": "oe:blocks/coconut_log_stripped_top",
+        "side": "oe:blocks/coconut_log_stripped"
+    }
+}

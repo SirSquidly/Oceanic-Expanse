@@ -65,6 +65,8 @@ public class OEBlocks
 		public static Block COCONUT = blockReadyForRegister(new BlockCoconut(), "coconut");
 		public static Block PALM_LOG = new BlockPalmLog();
 		public static Block PALM_WOOD = new BlockPalmLog();
+		public static Block PALM_LOG_STRIPPED = new BlockPalmLog();
+		public static Block PALM_WOOD_STRIPPED = new BlockPalmLog();
 		public static Block PALM_PLANKS = new BlockPalmPlanks();
 		public static Block PALM_SLAB = new BlockOESlab(Material.WOOD, SoundType.WOOD, 2.0F, 5.0F, 20, 5);
 		public static Block PALM_SLAB_D = new BlockOESlabDouble(PALM_SLAB, Material.WOOD, SoundType.WOOD, 2.0F, 5.0F);
@@ -178,6 +180,8 @@ public class OEBlocks
 			{
 				blockReadyForRegister(PALM_LOG, "palm_log");
 				blockReadyForRegister(PALM_WOOD, "palm_wood");
+				if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) blockReadyForRegister(PALM_LOG_STRIPPED, "palm_log_stripped");
+				if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) blockReadyForRegister(PALM_WOOD_STRIPPED, "palm_wood_stripped");
 				blockReadyForRegister(PALM_PLANKS, "palm_planks");
 				blockReadyForRegister(PALM_SLAB, "palm_slab");
 				blockReadyForRegister(PALM_SLAB_D, "palm_slab_double", false);

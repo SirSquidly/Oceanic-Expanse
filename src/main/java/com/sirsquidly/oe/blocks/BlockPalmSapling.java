@@ -3,7 +3,7 @@
 import java.util.Random;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.world.feature.WorldGenCoconutTree;
+import com.sirsquidly.oe.world.feature.GeneratorCoconutTree;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockSand;
@@ -100,7 +100,7 @@ public class BlockPalmSapling extends BlockBush implements IGrowable
 		int i = 0, j = 0;
 		
 		
-		gen = new WorldGenCoconutTree();
+		gen = new GeneratorCoconutTree();
 		
 		IBlockState iblockstate = Blocks.AIR.getDefaultState();
 		if(flag)

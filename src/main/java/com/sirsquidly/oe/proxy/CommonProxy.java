@@ -84,7 +84,7 @@ public class CommonProxy
     	
     	GameRegistry.registerWorldGenerator(new WorldGenShellSand(2, 2, 25, Biomes.BEACH), 0);
     	
-    	if (ConfigHandler.worldGen.palmTree.enablePalmTrees)  GameRegistry.registerWorldGenerator(new GeneratorCoconutTree(ConfigHandler.worldGen.palmTree.palmTreeTriesPerChunk, ConfigHandler.worldGen.palmTree.palmTreeChancePerChunk, Biomes.BEACH), 0);
+    	if (ConfigHandler.worldGen.palmTree.enablePalmTrees)  GameRegistry.registerWorldGenerator(new WorldGenCoconutTree(ConfigHandler.worldGen.palmTree.palmTreeTriesPerChunk, ConfigHandler.worldGen.palmTree.palmTreeChancePerChunk, Biomes.BEACH), 0);
     	GameRegistry.registerWorldGenerator(new WorldGenSeaOats(2, 3, 25, Biomes.BEACH), 0);
     	
     	GameRegistry.registerWorldGenerator(new WorldGenKelpForest(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
