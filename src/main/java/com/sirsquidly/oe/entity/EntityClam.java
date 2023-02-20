@@ -23,6 +23,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -122,6 +123,12 @@ public class EntityClam extends EntityAnimal
 					this.doClamOpening(20);
 					this.setLaunching(true);
 					launchWarnShaking = 0;
+					
+					if (this.isInWater())
+					{
+						for (int i = 0; i < 300; ++i)
+	                    { this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + ((double)this.rand.nextFloat() - 0.5D), this.posY, this.posZ + ((double)this.rand.nextFloat() - 0.5D), ((double)this.rand.nextFloat() - 0.5D) * 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 8.0D, ((double)this.rand.nextFloat() - 0.5D) * 0.5D); }	
+					}
 					
 					if (e.isInWater())
 					{ e.setVelocity(e.motionX, 3.0F, e.motionZ); }
@@ -234,7 +241,14 @@ public class EntityClam extends EntityAnimal
             }
             else
             {
-                this.playSound(SoundHandler.ENTITY_CLAM_OPEN, 1.0F, 1.0F);
+            	if (this.isInWater())
+            	{
+            		this.playSound(SoundHandler.ENTITY_CLAM_OPEN, 1.0F, 1.0F);
+            	}
+            	else
+            	{
+            		this.playSound(SoundHandler.ENTITY_CLAM_OPEN_LAND, 1.0F, 1.0F);
+            	}
             }
         }
 

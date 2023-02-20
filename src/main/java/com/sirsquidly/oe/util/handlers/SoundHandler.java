@@ -45,6 +45,7 @@ public class SoundHandler
 	public static SoundEvent ENTITY_CLAM_HURT_CLOSED = soundReadyForRegister("entity.clam.hurt_closed");
 	public static SoundEvent ENTITY_CLAM_SHAKE = soundReadyForRegister("entity.clam.shake");
 	public static SoundEvent ENTITY_CLAM_OPEN = soundReadyForRegister("entity.clam.open");
+	public static SoundEvent ENTITY_CLAM_OPEN_LAND = soundReadyForRegister("entity.clam.open_land");
 	
 	public static SoundEvent ENTITY_COD_DEATH = soundReadyForRegister("entity.cod.death");
 	public static SoundEvent ENTITY_COD_FLOP = soundReadyForRegister("entity.cod.flop");

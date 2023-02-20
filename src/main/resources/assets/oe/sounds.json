@@ -120,7 +120,7 @@
 	 {
     	"category": "neutral",
     	"subtitle": "subtitle.clam.close",
-    	"sounds": [ "oe:entity/clam/close1", "oe:entity/clam/close2", "oe:entity/clam/close3"]
+    	"sounds": [ "oe:entity/clam/close1", "oe:entity/clam/close2"]
      },
      "entity.clam.death": 
 	 {
@@ -144,7 +144,13 @@
 	 {
     	"category": "neutral",
     	"subtitle": "subtitle.clam.open",
-    	"sounds": [ "oe:entity/clam/open1", "oe:entity/clam/open2", "oe:entity/clam/open3"]
+    	"sounds": [ "oe:entity/clam/open1", "oe:entity/clam/open2"]
+     },
+     "entity.clam.open_land": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.clam.open_land",
+    	"sounds": [ "oe:entity/clam/open_land1", "oe:entity/clam/open_land2"]
      },
      "entity.clam.shake": 
 	 {
