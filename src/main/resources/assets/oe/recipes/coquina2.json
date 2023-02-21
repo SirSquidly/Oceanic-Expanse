@@ -1,0 +1,16 @@
+{
+  "type": "forge:ore_shaped",
+  "group": "coquina",
+  "pattern": [
+    "wb",
+    "bw"
+  ],
+  "key": {
+    "b": { "item": "oe:barnacle_shells" },
+    "w": { "item": "minecraft:dye", "data":15 }
+  },
+  "result": {
+    "item": "oe:coquina",
+    "count": 4
+  }
+}

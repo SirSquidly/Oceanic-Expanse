@@ -34,15 +34,15 @@ public class OEItems
 	
 	public static Item TRIDENT_ORIG = new ItemTrident();
 	
-	public static Item SCUTE = new ItemBase();
+	public static Item SCUTE = new Item();
 	public static Item CHARM = new ItemCharm();
 	
-	public static Item SHELLS = new ItemBase();
-	public static Item NAUTILUS_SHELL = new ItemBase();
-	public static Item HEART_OF_THE_SEA = new ItemBase();
-	public static Item PEARL = new ItemBase();
+	public static Item SHELLS = new Item();
+	public static Item NAUTILUS_SHELL = new Item();
+	public static Item HEART_OF_THE_SEA = new Item();
+	public static Item PEARL = new Item();
 	public static Item CONCH = new ItemConch();
-	public static Item GLOW_INK = new ItemBase();
+	public static Item GLOW_INK = new Item();
 	public static Item CHLORINE = new ItemChlorine();
 
 	public static Item SQUID_UNCOOKED = new ItemFoodBase(0, 0, 0, false);
@@ -88,6 +88,7 @@ public class OEItems
 			item.setUnlocalizedName(name);
 			item.setRegistryName(name);
 		}
+		item.setCreativeTab(Main.OCEANEXPTAB);
 		
 		itemList.add(item);
 

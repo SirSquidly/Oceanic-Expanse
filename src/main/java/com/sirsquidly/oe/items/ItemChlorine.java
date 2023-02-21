@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 
 
+
 import com.sirsquidly.oe.init.OEBlocks;
 
 import net.minecraft.client.resources.I18n;
@@ -13,6 +14,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemChlorine extends ItemBase
+public class ItemChlorine extends Item
 {
 	private int effectArea = 5;
 	private int effectMath = effectArea / 2;

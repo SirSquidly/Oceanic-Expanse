@@ -1,0 +1,7 @@
+{
+    "variants":
+    {
+        "half=bottom": { "model": "oe:coquina_brick_slab_half" },
+        "half=top": { "model": "oe:coquina_brick_slab_upper" }
+    }
+}

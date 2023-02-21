@@ -5,6 +5,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.sirsquidly.oe.blocks.BlockPalmDoor;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.items.ItemConch;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
@@ -49,7 +50,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        if (ConfigHandler.block.palmBlocks.enablePalmWoods) 
 	        {
 	        	add(list, OEBlocks.PALM_LOG);
+	        	if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) add(list, OEBlocks.PALM_LOG_STRIPPED);
 		        add(list, OEBlocks.PALM_WOOD);
+		        if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) add(list, OEBlocks.PALM_WOOD_STRIPPED);
 		        add(list, OEBlocks.PALM_PLANKS);
 		        add(list, OEBlocks.PALM_SLAB);
 		        add(list, OEBlocks.PALM_STAIRS);
@@ -64,8 +67,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        if (ConfigHandler.item.turtleShell.enableTurtleShell) add(list, OEItems.TURTLE_HELMET);
 	        add(list, OEBlocks.SEA_TURTLE_EGG);
 	        add(list, OEBlocks.SHELL_SAND);
-	        add(list, OEItems.SHELLS);
+	        add(list, OEItems.SHELLS); 
+	        add(list, OEBlocks.COQUINA);
+	        add(list, OEBlocks.COQUINA_BRICK);
+	        add(list, OEBlocks.COQUINA_BRICK_SLAB);
+	        add(list, OEBlocks.COQUINA_BRICK_STAIRS);
+	        add(list, OEBlocks.COQUINA_BRICK_WALL);
 	        add(list, OEItems.CONCH);
+	        for (int i = 1; i <= ItemConch.existingSounds; i++)
+			{
+	        	ItemStack conch = new ItemStack(OEItems.CONCH, 1);
+	        	ItemConch.setSound(conch, i);
+	            add(list, conch);
+			}
 	        add(list, OEItems.NAUTILUS_SHELL);
 	        add(list, OEItems.HEART_OF_THE_SEA);
 	        if (ConfigHandler.block.conduit.enableConduit) add(list, OEBlocks.CONDUIT);

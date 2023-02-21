@@ -1,0 +1,14 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": { "item": "oe:coquina" }	
+  },
+  "result": {
+    "item": "oe:coquina_brick",
+    "count": 4
+  }
+}

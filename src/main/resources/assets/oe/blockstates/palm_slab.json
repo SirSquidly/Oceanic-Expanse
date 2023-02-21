@@ -1,7 +1,7 @@
 {
     "variants":
     {
-        "half=bottom": { "model": "oe:half_palm_slab" },
-        "half=top": { "model": "oe:upper_palm_slab" }
+        "half=bottom": { "model": "oe:palm_slab_half" },
+        "half=top": { "model": "oe:palm_slab_upper" }
     }
 }

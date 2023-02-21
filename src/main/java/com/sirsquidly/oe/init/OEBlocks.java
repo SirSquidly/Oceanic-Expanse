@@ -89,7 +89,12 @@ public class OEBlocks
 		public static Block UNDERWATER_TORCH = new BlockUnderwaterTorch();
 		
 		public static Block SHELL_SAND = blockReadyForRegister(new BlockShellSand(), "shell_sand");
-		public static Block COQUINA = blockReadyForRegister(new BlockShellSand(), "coquina");
+		public static Block COQUINA = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
+		public static Block COQUINA_BRICK = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
+		public static Block COQUINA_BRICK_SLAB = new BlockOESlab(Material.ROCK, SoundType.STONE, 0.5F, 15.0F);
+		public static Block COQUINA_BRICK_SLAB_D = new BlockOESlabDouble(COQUINA_BRICK_SLAB, Material.ROCK, SoundType.STONE, 0.5F, 15.0F);
+		public static Block COQUINA_BRICK_STAIRS = new BlockOEStairs(OEBlocks.COQUINA_BRICK.getDefaultState());
+		public static Block COQUINA_BRICK_WALL = new BlockOEWall(COQUINA_BRICK).setHardness(0.5F).setResistance(15.0F);
 		public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
 		
 		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, SoundHandler.CORAL);
@@ -175,6 +180,12 @@ public class OEBlocks
 				blockReadyForRegister(YELLOW_CORAL_DEAD, "yellow_coral_dead");
 			}
 			
+			blockReadyForRegister(COQUINA, "coquina");
+			blockReadyForRegister(COQUINA_BRICK, "coquina_brick");
+			blockReadyForRegister(COQUINA_BRICK_SLAB, "coquina_brick_slab");
+			blockReadyForRegister(COQUINA_BRICK_SLAB_D, "coquina_brick_slab_double", false);
+			blockReadyForRegister(COQUINA_BRICK_STAIRS, "coquina_brick_stairs");
+			blockReadyForRegister(COQUINA_BRICK_WALL, "coquina_brick_wall");
 			
 			if (ConfigHandler.block.palmBlocks.enablePalmWoods)
 			{
@@ -205,6 +216,7 @@ public class OEBlocks
 		registerItemBlock(r, new ItemBlockSeaPickle(SEA_PICKLE)); itemBlockBlacklist.add(SEA_PICKLE);
 		registerItemBlock(r, new ItemBlockSeaPickle(SEA_TURTLE_EGG)); itemBlockBlacklist.add(SEA_TURTLE_EGG);
 		
+		registerItemBlock(r, new ItemBlockSlab(COQUINA_BRICK_SLAB, (BlockSlab)COQUINA_BRICK_SLAB, (BlockSlab)COQUINA_BRICK_SLAB_D)); itemBlockBlacklist.add(COQUINA_BRICK_SLAB);
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerItemBlock(r, new ItemBlockSlab(PALM_SLAB, (BlockSlab)PALM_SLAB, (BlockSlab)PALM_SLAB_D)); itemBlockBlacklist.add(PALM_SLAB);
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
 		
@@ -275,6 +287,7 @@ public class OEBlocks
 			ModelLoader.setCustomStateMapper(b, new StateMap.Builder().ignore(BlockLiquid.LEVEL).ignore(BlockCoralFan.IN_WATER).ignore(BlockTubeSponge.SHEARED).build());
 			
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
+			ModelLoader.setCustomStateMapper(OEBlocks.COQUINA_BRICK_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_FENCE_GATE, new StateMap.Builder().ignore(BlockFenceGate.POWERED).build());
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
 			

@@ -18,6 +18,11 @@ public class BlockOEStairs extends BlockStairs
 		this.fireSpread = fireSpreadIn;
 	}
 	
+	public BlockOEStairs(IBlockState modelState)
+	{
+		this(modelState, 0, 0);
+	}
+	
 	@Override
 	public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face)
     { return this.flamability; }

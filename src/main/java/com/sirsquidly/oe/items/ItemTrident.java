@@ -3,7 +3,6 @@ package com.sirsquidly.oe.items;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -39,7 +38,6 @@ public class ItemTrident extends Item
 {
 	public ItemTrident() {
 		super();
-		this.setCreativeTab(Main.OCEANEXPTAB);
 		setFull3D();
 		this.maxStackSize = 1;
 		this.setMaxDamage(ConfigHandler.item.trident.tridentDurability - 1);

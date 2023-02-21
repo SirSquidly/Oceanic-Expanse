@@ -1,0 +1,8 @@
+{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "oe:blocks/coquina_brick",
+        "top": "oe:blocks/coquina_brick",
+        "side": "oe:blocks/coquina_brick"
+    }
+}

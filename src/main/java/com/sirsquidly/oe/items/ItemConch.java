@@ -12,6 +12,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
@@ -26,8 +27,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemConch extends ItemBase 
+public class ItemConch extends Item 
 {
+	//** This is used for the Creative Tab adding every sound */
+	public static int existingSounds = 4;
+	
 	private int defaultCooldown = ConfigHandler.item.conch.conchCooldown;
 	 
 	public ItemConch()
@@ -92,6 +96,19 @@ public class ItemConch extends ItemBase
 	 
 	    int conchNum = rand.nextInt(4) + 1;
 	    nbt.setString("Sound", "oe:item.conch.conch_blow" + conchNum);
+	    
+	    stack.setTagCompound(nbt);
+	}
+	
+	public static void setSound(ItemStack stack, int sound)
+	{
+	    NBTTagCompound nbt;
+	    if (stack.hasTagCompound())
+	    { nbt = stack.getTagCompound(); }
+	    else
+	    { nbt = new NBTTagCompound(); }
+
+	    nbt.setString("Sound", "oe:item.conch.conch_blow" + sound);
 	    
 	    stack.setTagCompound(nbt);
 	}

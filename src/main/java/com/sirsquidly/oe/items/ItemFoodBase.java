@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.items;
 
-import com.sirsquidly.oe.Main;
+
 
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,6 @@ public class ItemFoodBase extends ItemFood
 	{
 		super(amount, saturation, isWolfFood);
 		this.useDuration = useDuration;
-		this.setCreativeTab(Main.OCEANEXPTAB);
 	}
     
 	@Override
