@@ -21,6 +21,28 @@ public class ConfigHandler
 	public static class configWorldGen
 	{
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.coquinaOutcrop")
+	    public configCoquinaOutcrop coquinaOutcrop = new configCoquinaOutcrop();
+		
+		public static class configCoquinaOutcrop
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableCoquinaOutcrops")
+		    @Config.Comment("If Coquina Outcrops should be enabled")
+		    public boolean enableCoquinaOutcrops = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.coquinaOutcropTriesPerChunk")
+		    @Config.Comment("Coquina Outcrops tries per chunk to generate.")
+		    public int coquinaOutcropTriesPerChunk = 1;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.coquinaOutcropChancePerChunk")
+		    @Config.Comment("Coquina Outcrops chance to generate, per try. 1 / this number")
+		    public int coquinaOutcropChancePerChunk = 3;
+		}
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.worldGen.kelpForest")
 	    public configKelpForest kelpForest = new configKelpForest();
 		

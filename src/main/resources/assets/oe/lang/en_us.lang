@@ -146,6 +146,12 @@ description.conch_blow4.name=Buffalo
 oe.config.title=Oceanic Expanse Config
 
 oe.config.worldGen=World Gen Config
+
+oe.config.worldGen.coquinaOutcrop=Coquina Outcrop Config
+oe.config.worldGen.enableCoquinaOutcrops=Enable Coquina Outcrop
+oe.config.worldGen.coquinaOutcropTriesPerChunk=Coquina Outcrop tries per chunk
+oe.config.worldGen.coquinaOutcropChancePerChunk=Coquina Outcrop chance per try
+
 oe.config.worldGen.kelpForest=Kelp Forest Config
 oe.config.worldGen.enableKelpForest=Enable Kelp Forest
 oe.config.worldGen.kelpConnective=Kelp Forest Connectiveness

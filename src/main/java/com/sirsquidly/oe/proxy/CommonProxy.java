@@ -14,6 +14,7 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 import com.sirsquidly.oe.world.*;
 import com.sirsquidly.oe.world.feature.*;
+import com.sirsquidly.oe.world.structure.GeneratorCoquinaOutcrop;
 import com.sirsquidly.oe.world.structure.GeneratorShipwreck;
 
 import net.minecraft.entity.Entity;
@@ -77,6 +78,7 @@ public class CommonProxy
     
     public static void registerWorldGen()
 	{
+    	//configWorldGen config = ConfigHandler.worldGen;
     	
     	//GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 5, 3, false, Biomes.BEACH), 0);
     	//GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 15, 6, true, Biomes.STONE_BEACH), 0);
@@ -84,11 +86,14 @@ public class CommonProxy
     	
     	GameRegistry.registerWorldGenerator(new WorldGenShellSand(2, 2, 25, Biomes.BEACH), 0);
     	
-    	if (ConfigHandler.worldGen.palmTree.enablePalmTrees)  GameRegistry.registerWorldGenerator(new WorldGenCoconutTree(ConfigHandler.worldGen.palmTree.palmTreeTriesPerChunk, ConfigHandler.worldGen.palmTree.palmTreeChancePerChunk, Biomes.BEACH), 0);
+    	if (ConfigHandler.worldGen.palmTree.enablePalmTrees) GameRegistry.registerWorldGenerator(new WorldGenCoconutTree(ConfigHandler.worldGen.palmTree.palmTreeTriesPerChunk, ConfigHandler.worldGen.palmTree.palmTreeChancePerChunk, Biomes.BEACH), 0);
     	GameRegistry.registerWorldGenerator(new WorldGenSeaOats(2, 3, 25, Biomes.BEACH), 0);
     	
     	GameRegistry.registerWorldGenerator(new WorldGenKelpForest(BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
 
+    	if (ConfigHandler.worldGen.coquinaOutcrop.enableCoquinaOutcrops) GameRegistry.registerWorldGenerator(new GeneratorCoquinaOutcrop(ConfigHandler.worldGen.coquinaOutcrop.coquinaOutcropTriesPerChunk, ConfigHandler.worldGen.coquinaOutcrop.coquinaOutcropChancePerChunk, Biomes.BEACH), 0);
+    	
+    	
     	if (ConfigHandler.worldGen.shipwreck.enableShipwrecks) GameRegistry.registerWorldGenerator(new GeneratorShipwreck(1, ConfigHandler.worldGen.shipwreck.shipwreckChancePerChunk, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
     	
     	if (ConfigHandler.worldGen.shellPatch.enableShellPatch) GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS, ConfigHandler.worldGen.shellPatch.shellPatchChancePerChunk, ConfigHandler.worldGen.shellPatch.shellPatchTriesPerChunk, 32, 8, 4, 0.4, true, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
