@@ -918,8 +918,8 @@ public class ConfigHandler
 	    }
 		
 		@Config.LangKey("oe.config.vanillaTweak.waterLighting")
-	    @Config.Comment("Alters how much light Water and Flowing Water block to 1, instead of 3. Automatically disabled as not only do I predict some MASSIVE incompatabilities, but this will require every water block to be updated. Every single one. ")
-	    public boolean waterTweak = false;
+	    @Config.Comment("Alters how much light Water and Flowing Water block. Default water is 3. Automatically disabled as not only do I predict some MASSIVE incompatabilities, but this will require every water block to be updated. Every single one. ")
+	    public int waterTweak = 3;
 		
 		@Config.LangKey("oe.config.vanillaTweak.squidFlop")
 	    @Config.Comment("Allows Squids to flop about on land like fish do.")

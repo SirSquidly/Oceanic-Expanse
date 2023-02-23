@@ -242,7 +242,7 @@ public class OEBlocks
 
 		return block;
 	}
-	
+
 	public static ItemDoor registerDoorItem(IForgeRegistry<Item> r, ItemDoor itemDoor, Block block)
 	{ 
 		itemDoor.setUnlocalizedName(block.getUnlocalizedName());

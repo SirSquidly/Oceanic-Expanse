@@ -58,10 +58,10 @@ public class CommonProxy
 		GameRegistry.registerWorldGenerator(new GeneratorFrozenOcean(allOceans.toArray(new Biome[0])), 0);
 		registerWorldGen();
 		
-		if (ConfigHandler.vanillaTweak.waterTweak)
+		if (ConfigHandler.vanillaTweak.waterTweak != 3)
 		{
-			Blocks.WATER.setLightOpacity(1);
-			Blocks.FLOWING_WATER.setLightOpacity(1);
+			Blocks.WATER.setLightOpacity(ConfigHandler.vanillaTweak.waterTweak);
+			Blocks.FLOWING_WATER.setLightOpacity(ConfigHandler.vanillaTweak.waterTweak);
 		}
 	}
 	
