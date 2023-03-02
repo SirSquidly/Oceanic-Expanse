@@ -250,7 +250,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 			EntityLivingBase target = this.drowned.getAttackTarget();
 			this.runDelay -= 50;
 			
-	        if (!this.drowned.isWet() && target == null)
+	        if (!this.drowned.isWet() && this.drowned.world.isDaytime() && target == null)
 	        {
 	        	return super.shouldExecute();
 	        }
@@ -259,7 +259,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 		
 		public boolean shouldContinueExecuting()
 	    {
-	        return !this.drowned.isWet();
+	        return !this.drowned.isWet() && this.drowned.world.isDaytime();
 	    }
 		
 		public void updateTask()
