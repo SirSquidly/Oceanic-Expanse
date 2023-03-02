@@ -429,7 +429,7 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.block.guardianSpikeFallMultiplier")
 		    @Config.Comment("How much a Guardian Spike multiplies Fall Damage.")
 		    @Config.RangeDouble(min = 0, max = 9999)
-		    public double guSpiFallMultiplier = 1.5;
+		    public double guSpiFallMultiplier = 2.0;
 			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.guardianSpikeDropChance")
@@ -813,14 +813,15 @@ public class ConfigHandler
 				 	"minecraft:squid",
 		            "minecraft:guardian",
 				 	"minecraft:elder_guardian",
+				 	"oe:clam",
 				 	"oe:cod",
-				 	"oe:salmon",
-				 	"oe:pufferfish",
-				 	"oe:turtle",
-				 	"oe:glow_squid",
 				 	"oe:crab",
 				 	"oe:drowned",
-				 	"oe:pickled"
+				 	"oe:glow_squid",
+				 	"oe:pickled",
+				 	"oe:pufferfish",
+				 	"oe:salmon",
+				 	"oe:turtle"
 		    };
 		}
 		
