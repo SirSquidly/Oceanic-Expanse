@@ -23,6 +23,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -117,7 +118,7 @@ public class EntityClam extends EntityAnimal
 				
 				BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
 				
-				if (launchWarnShaking > 20 || this.world.getBlockState(blockpos.down()).getBlock() instanceof BlockMagma)
+				if ((launchWarnShaking > 20 || this.world.getBlockState(blockpos.down()).getBlock() instanceof BlockMagma) && !this.world.getBlockState(blockpos.up()).isSideSolid(world, blockpos.up(), EnumFacing.DOWN))
 				{
 					this.setShaking(false);
 					this.doClamOpening(20);
