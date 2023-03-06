@@ -16,36 +16,46 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public class ModelCod extends ModelBase {
-    public ModelRenderer body1;
+	public ModelRenderer body1;
     public ModelRenderer finL1;
     public ModelRenderer finR1;
     public ModelRenderer tail1;
     public ModelRenderer finT1;
+    public ModelRenderer head1;
+    public ModelRenderer shape30;
 
     public ModelCod() {
     	this.textureWidth = 32;
         this.textureHeight = 16;
-        this.tail1 = new ModelRenderer(this, 14, 2);
-        this.tail1.setRotationPoint(0.0F, 0.0F, 5.0F);
-        this.tail1.addBox(0.0F, -2.0F, 0.0F, 0, 4, 4, 0.0F);
-        this.finL1 = new ModelRenderer(this, 12, 2);
-        this.finL1.setRotationPoint(1.0F, 1.0F, -1.0F);
-        this.finL1.addBox(0.0F, 0.0F, -1.0F, 2, 0, 2, 0.0F);
-        this.setRotateAngle(finL1, 0.0F, 0.0F, 0.7853981633974483F);
-        this.finT1 = new ModelRenderer(this, 0, 6);
-        this.finT1.setRotationPoint(0.0F, -4.0F, -4.0F);
-        this.finT1.addBox(0.0F, 0.0F, 0.0F, 0, 2, 8, 0.0F);
-        this.body1 = new ModelRenderer(this, 0, 0);
-        this.body1.setRotationPoint(0.0F, 22.0F, -1.0F);
-        this.body1.addBox(-1.0F, -2.0F, -5.0F, 2, 4, 10, 0.0F);
-        this.finR1 = new ModelRenderer(this, 12, 4);
+        this.finR1 = new ModelRenderer(this, -2, 6);
         this.finR1.setRotationPoint(-1.0F, 1.0F, -1.0F);
         this.finR1.addBox(-2.0F, 0.0F, -1.0F, 2, 0, 2, 0.0F);
         this.setRotateAngle(finR1, 0.0F, 0.0F, -0.7853981633974483F);
-        this.body1.addChild(this.tail1);
-        this.body1.addChild(this.finL1);
-        this.body1.addChild(this.finT1);
+        this.finL1 = new ModelRenderer(this, -2, 4);
+        this.finL1.setRotationPoint(1.0F, 1.0F, -1.0F);
+        this.finL1.addBox(0.0F, 0.0F, -1.0F, 2, 0, 2, 0.0F);
+        this.setRotateAngle(finL1, 0.0F, 0.0F, 0.7853981633974483F);
+        this.head1 = new ModelRenderer(this, 11, 0);
+        this.head1.setRotationPoint(0.0F, 0.0F, -2.0F);
+        this.head1.addBox(-1.0F, -2.0F, -3.0F, 2, 4, 3, 0.0F);
+        this.body1 = new ModelRenderer(this, 0, 3);
+        this.body1.setRotationPoint(0.0F, 22.0F, -1.0F);
+        this.body1.addBox(-1.0F, -2.0F, -2.0F, 2, 4, 7, 0.0F);
+        this.tail1 = new ModelRenderer(this, 18, 8);
+        this.tail1.setRotationPoint(0.0F, 0.0F, 5.0F);
+        this.tail1.addBox(0.0F, -2.0F, 0.0F, 0, 4, 4, 0.0F);
+        this.finT1 = new ModelRenderer(this, 0, 6);
+        this.finT1.setRotationPoint(0.0F, -4.0F, -4.0F);
+        this.finT1.addBox(0.0F, 0.0F, 0.0F, 0, 2, 8, 0.0F);
+        this.shape30 = new ModelRenderer(this, 0, 0);
+        this.shape30.setRotationPoint(0.0F, -1.0F, -3.0F);
+        this.shape30.addBox(-1.0F, -1.0F, -1.0F, 2, 3, 1, 0.0F);
         this.body1.addChild(this.finR1);
+        this.body1.addChild(this.finL1);
+        this.body1.addChild(this.head1);
+        this.body1.addChild(this.tail1);
+        this.body1.addChild(this.finT1);
+        this.head1.addChild(this.shape30);
     }
 
     @Override
@@ -70,6 +80,7 @@ public class ModelCod extends ModelBase {
             if (fish.isFlopping())
             	flap = MathHelper.sin((fish.ticksExisted) * 1.2F) * 0.6F;
             body1.rotateAngleY = flap*0.2F;
+            head1.rotateAngleY = flap*0.1F;
             tail1.rotateAngleY = flap*0.6F;
     }
 
