@@ -19,13 +19,17 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -35,7 +39,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.minecraftforge.common.IShearable
 {
-	protected static final AxisAlignedBB TALL_SEAGRASS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
+	protected static final AxisAlignedBB LOWER_SEA_OATS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
+	protected static final AxisAlignedBB UPPER_SEA_OATS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.8125D, 0.875D);
+	protected static final AxisAlignedBB SHORT_SEA_OATS_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.6875D, 0.875D);
 	public static final PropertyEnum<BlockDoubleSeaOats.EnumBlockHalf> HALF = PropertyEnum.<BlockDoubleSeaOats.EnumBlockHalf>create("half", BlockDoubleSeaOats.EnumBlockHalf.class);
 	public static final PropertyBool SANDY = PropertyBool.create("sandy");
 	
@@ -47,20 +53,62 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.LOWER).withProperty(SANDY, false));
 	}
 	
-	public boolean checkTouching(World worldIn, BlockPos pos, boolean doNotTogether)
+	public int checkTouching(World worldIn, BlockPos pos, boolean doNotTogether)
     {
-		for (EnumFacing enumfacing : EnumFacing.values())
+		int i = 0;
+		
+		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
         {
-            if (enumfacing != EnumFacing.DOWN && enumfacing != EnumFacing.UP)
-            {
-                BlockPos blockpos = pos.offset(enumfacing);
+			BlockPos blockpos = pos.offset(enumfacing);
 
-                if (doNotTogether && worldIn.getBlockState(blockpos).getBlock() == this)
-                { return false; }
-                
-                if (worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, enumfacing))
-                { return true; }
-            }
+            if (doNotTogether && worldIn.getBlockState(blockpos).getBlock() == this)
+            { continue; }
+            
+            if (worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, enumfacing))
+            { i++; }
+        }
+		return i;
+    }
+	
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+		ItemStack itemstack = playerIn.getHeldItem(hand);
+		Item item = itemstack.getItem();
+		boolean isUpper = state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER;
+		
+		if (item == Items.SHEARS && !state.getValue(SANDY))
+        {
+			if (state.getBlock() == this)
+			{
+				worldIn.setBlockState(isUpper ? pos : pos.up(), Blocks.AIR.getDefaultState(), 3);
+				worldIn.setBlockState(isUpper ? pos.down() : pos, this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER).withProperty(SANDY, true), 3);
+				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				itemstack.damageItem(1, playerIn);
+				return true;
+			}
+        }
+		else if (item instanceof ItemSpade)
+        {
+			if ((isUpper && worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.down()).getValue(SANDY)) || (!isUpper && state.getValue(SANDY) ))
+			{ 
+				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				
+				Random rand = worldIn.rand;
+			    for (int i = 0; i < 50; ++i)
+			    {
+			    	double speedX = ((double)rand.nextFloat() - 0.5D) * 0.3D;
+			     	double speedY = ((double)rand.nextFloat() - 0.5D) * 0.3D;
+			     	double speedZ = ((double)rand.nextFloat() - 0.5D) * 0.3D;
+			     	worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX() + rand.nextDouble(), pos.getY() - (isUpper ? 1 : 0) + rand.nextDouble(), pos.getZ() + rand.nextDouble(), speedX, speedY, speedZ, Block.getStateId(worldIn.getBlockState(pos.down(isUpper ? 2 : 1))));
+			    }
+			    itemstack.damageItem(1, playerIn);
+			    ItemStack blockBelow = new ItemStack(worldIn.getBlockState(pos.down(isUpper ? 2 : 1)).getBlock(), 1, worldIn.getBlockState(pos.down(isUpper ? 2 : 1)).getBlock().getMetaFromState(worldIn.getBlockState(pos.down(isUpper ? 2 : 1))));
+			    
+				spawnAsEntity(worldIn, isUpper ? pos.down() : pos, blockBelow);
+				worldIn.setBlockState(isUpper ? pos.down() : pos, this.getDefaultState().withProperty(SANDY, false), 3);
+				return true;
+			}
+		
         }
 		return false;
     }
@@ -74,33 +122,35 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
     {
         if (!this.canBlockStay(worldIn, pos, state))
         {
-        	if (state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER && state.getValue(SANDY) && this.canPlaceBlockAt(worldIn, pos.down()))
-        	{ this.placeAt(worldIn, pos.down(), 2); }	
-
-        	else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
+        	worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
         }
     }
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
         if (state.getBlock() != this) return super.canBlockStay(worldIn, pos, state);
+        boolean upper = state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER;
         
-        if (state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER && !(state.getValue(SANDY)))
+        if (state.getValue(SANDY) && upper)
+        { return worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand; }
+        
+        if (upper)
         { return worldIn.getBlockState(pos.down()).getBlock() == this; }
-        if (state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.LOWER && !(state.getValue(SANDY)))
-        { return worldIn.getBlockState(pos.up()).getBlock() == this && this.canPlaceBlockAt(worldIn, pos);}
         else
-        { return this.canPlaceBlockAt(worldIn, pos); }
+        { return worldIn.getBlockState(pos.up()).getBlock() == this && worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand; }
     }
 	
+	// Me when I REALLY didn't want to use an if check for literally no reason
 	@Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    { return TALL_SEAGRASS_AABB; }
+    { 
+		return state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER ? state.getValue(SANDY) ? SHORT_SEA_OATS_AABB : UPPER_SEA_OATS_AABB : LOWER_SEA_OATS_AABB;
+    }
 	
 	@Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     { 
-		return worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand && (worldIn.isAirBlock(pos.up()) || worldIn.getBlockState(pos.up()).getBlock() ==  this); 
+		return worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand && worldIn.isAirBlock(pos) && (worldIn.isAirBlock(pos.up()) || worldIn.getBlockState(pos.up()).getBlock() == this); 
     }
 	
 	@Override
@@ -117,12 +167,11 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-    	IBlockState blockBelow = worldIn.getBlockState(pos.down());
+    	//IBlockState blockBelow = worldIn.getBlockState(pos.down());
 
-    	if (state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.LOWER && !(state.getValue(SANDY)) && this.checkTouching(worldIn, pos, false) && worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(5) == 0))
+    	if (state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.LOWER && !(state.getValue(SANDY)) && this.checkTouching(worldIn, pos, false) >= 1 && worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(5) == 0))
         {
-    		worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER).withProperty(SANDY, true)); 
-    		worldIn.setBlockState(pos, blockBelow);
+    		worldIn.setBlockState(pos, this.getDefaultState().withProperty(SANDY, true));
     		net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
         }
     }
@@ -186,7 +235,7 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
         double d1 = (double)pos.getY() + 0.55D - (double)(rand.nextFloat() * 0.1F);
         double d2 = (double)pos.getZ() + 0.55D - (double)(rand.nextFloat() * 0.1F);
 
-        if (rand.nextInt(this.checkTouching(worldIn, pos, false) ? 10 : 100) == 0)
+        if (rand.nextInt(this.checkTouching(worldIn, pos, false) > 0 ? 10 : 100) == 0)
         { worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1, d2, 0, 0, 0, Block.getStateId(blockDown)); }
     }
     
@@ -205,9 +254,14 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
         { return this == UPPER ? "upper" : "lower"; }
     }
 
+	public Block.EnumOffsetType getOffsetType()
+    {
+        return Block.EnumOffsetType.XZ;
+    }
+	
 	@Override
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-	{ return state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER ||  state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.LOWER && worldIn.getBlockState(pos.up()).getBlock() == this; }
+	{ return true; }
 
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
@@ -216,7 +270,7 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 	@Override
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
 	{
-		if (state.getValue(SANDY) && this.canPlaceBlockAt(worldIn, pos.down()))
+		if (state.getValue(SANDY) && worldIn.isAirBlock(pos.up()))
 		{ this.placeAt(worldIn, pos, 2); }
 		
 		else if (rand.nextInt(2) == 0)

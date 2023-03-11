@@ -21,9 +21,11 @@ public class WorldGenSeaOats implements IWorldGenerator
 	private int chancePerAttempt;
 	private Biome[] biomes;
 	/** Spread in positive and negative directions from origin to try and place at.*/
-	private int placeSpread = 4;
+	private int placeSpread = 3;
 	/** Chance /1 to retry a failed placement.*/
 	private int placeRetryChance = 2;
+	/** Chance /1 to place short sea oats when tall sea oats cannot be placed.*/
+	private int shortPlaceChance = 3;
 
 	public WorldGenSeaOats(int perChunk, int perAttempt, int amount, Biome... biomes)
 	{
@@ -80,8 +82,17 @@ public class WorldGenSeaOats implements IWorldGenerator
         	
             BlockPos blockpos = position.add(rX, rand.nextInt(placeSpread) - rand.nextInt(placeSpread), rZ);
             
-            if (worldIn.isAirBlock(blockpos) && OEBlocks.SEA_OATS.canPlaceBlockAt(worldIn, blockpos) && ((BlockDoubleSeaOats) OEBlocks.SEA_OATS).checkTouching(worldIn, blockpos, false))
-            { ((BlockDoubleSeaOats) OEBlocks.SEA_OATS).placeAt(worldIn, blockpos, (16 | 2)); }
+            if (worldIn.isAirBlock(blockpos) && OEBlocks.SEA_OATS.canPlaceBlockAt(worldIn, blockpos))
+            { 
+            	if (((BlockDoubleSeaOats) OEBlocks.SEA_OATS).checkTouching(worldIn, blockpos, false) >= 2)
+            	{ 
+            		((BlockDoubleSeaOats) OEBlocks.SEA_OATS).placeAt(worldIn, blockpos, (16 | 2));
+            	}
+            	else if (rand.nextInt(shortPlaceChance) == 0)
+            	{
+            		worldIn.setBlockState(blockpos, OEBlocks.SEA_OATS.getDefaultState().withProperty(BlockDoubleSeaOats.HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER).withProperty(BlockDoubleSeaOats.SANDY, true), 2);
+            	}
+            }
             else { if (rand.nextInt(placeRetryChance) == 0) { --i; } }
         }
         return true;

@@ -1,0 +1,6 @@
+{
+    "parent": "block/tinted_cross",
+    "textures": {
+        "cross": "oe:blocks/sea_oats_bottom_sandy"
+    }
+}

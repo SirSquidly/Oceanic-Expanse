@@ -22,7 +22,7 @@ public class ModelCod extends ModelBase {
     public ModelRenderer tail1;
     public ModelRenderer finT1;
     public ModelRenderer head1;
-    public ModelRenderer shape30;
+    public ModelRenderer nose1;
 
     public ModelCod() {
     	this.textureWidth = 32;
@@ -47,15 +47,15 @@ public class ModelCod extends ModelBase {
         this.finT1 = new ModelRenderer(this, 0, 6);
         this.finT1.setRotationPoint(0.0F, -4.0F, -4.0F);
         this.finT1.addBox(0.0F, 0.0F, 0.0F, 0, 2, 8, 0.0F);
-        this.shape30 = new ModelRenderer(this, 0, 0);
-        this.shape30.setRotationPoint(0.0F, -1.0F, -3.0F);
-        this.shape30.addBox(-1.0F, -1.0F, -1.0F, 2, 3, 1, 0.0F);
+        this.nose1 = new ModelRenderer(this, 0, 0);
+        this.nose1.setRotationPoint(0.0F, -1.0F, -3.0F);
+        this.nose1.addBox(-1.0F, -1.0F, -1.0F, 2, 3, 1, 0.0F);
         this.body1.addChild(this.finR1);
         this.body1.addChild(this.finL1);
         this.body1.addChild(this.head1);
         this.body1.addChild(this.tail1);
         this.body1.addChild(this.finT1);
-        this.head1.addChild(this.shape30);
+        this.head1.addChild(this.nose1);
     }
 
     @Override
