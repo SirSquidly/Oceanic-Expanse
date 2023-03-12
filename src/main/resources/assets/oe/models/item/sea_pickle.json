@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "oe:items/sea_pickle"
+        "layer0": "oe:items/sea_pickle_item"
     }
 }
