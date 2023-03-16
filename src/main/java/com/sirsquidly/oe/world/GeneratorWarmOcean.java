@@ -3,7 +3,6 @@ package com.sirsquidly.oe.world;
 import java.util.Random;
 
 import com.sirsquidly.oe.blocks.BlockCoralFull;
-import com.sirsquidly.oe.blocks.BlockTubeSponge;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.world.feature.WorldGenOceanPatch;
@@ -12,17 +11,14 @@ import com.sirsquidly.oe.world.feature.coral.*;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class GeneratorWarmOcean implements IWorldGenerator
 {
@@ -88,18 +84,21 @@ public class GeneratorWarmOcean implements IWorldGenerator
             				
         					int k = rand.nextInt(11);
         					
-        					if (k >= 8 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralBulb)
+        					if (coralPos.getY() <= world.getSeaLevel() - 5)
         					{
-        						new WorldGenCoralBulb(0).generate(world, rand, coralPos);
+        						if (k >= 8 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralBulb)
+            					{
+            						new WorldGenCoralBulb(0).generate(world, rand, coralPos);
+            					}
+            					else if (k >= 4 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralBranch)
+            					{
+            						new WorldGenCoralBranch(0).generate(world, rand, coralPos);
+            					}
+            					else if (ConfigHandler.worldGen.warmOcean.coralReef.enableCoralStalk)
+            					{
+            						new WorldGenCoralStalk(0).generate(world, rand, coralPos);
+            					}
         					}
-        					else if (k >= 4 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralBranch)
-        					{
-        						new WorldGenCoralBranch(0).generate(world, rand, coralPos);
-        					}
-        					else if (ConfigHandler.worldGen.warmOcean.coralReef.enableCoralStalk)
-        					{
-        						new WorldGenCoralStalk(0).generate(world, rand, coralPos);
-        					} 
         					
         					if (l == 7)
                     		{

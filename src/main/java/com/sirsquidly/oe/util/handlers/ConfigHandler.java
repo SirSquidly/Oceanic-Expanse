@@ -358,6 +358,21 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.block.enableCoral")
 		    @Config.Comment("Enabled Coral")
 		    public boolean enableCoral = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.coralBlockDryTicks")
+		    @Config.Comment("World Ticks before Coral Blocks die. If set to 0, the coral will never die.")
+		    public int coralBlockDryTicks = 100;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.coralFanDryTicks")
+		    @Config.Comment("World Ticks before Coral Fans die. If set to 0, the coral will never die.")
+		    public int coralFanDryTicks = 100;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.coralDryTicks")
+		    @Config.Comment("World Ticks before Coral dies. If set to 0, the coral will never die.")
+		    public int coralDryTicks = 100;
 	    }
 		
 		@Config.LangKey("oe.config.block.coconut")
@@ -921,6 +936,10 @@ public class ConfigHandler
 		@Config.LangKey("oe.config.vanillaTweak.waterLighting")
 	    @Config.Comment("Alters how much light Water and Flowing Water block. Default water is 3. Automatically disabled as not only do I predict some MASSIVE incompatabilities, but this will require every water block to be updated. Every single one. ")
 	    public int waterTweak = 3;
+		
+		@Config.LangKey("oe.config.vanillaTweak.waterCancelReplace")
+	    @Config.Comment("Prevents buckets from being used on blocks that use the Water Material, but don't extend BlockLiquid. This prevents Water buckets from replacing water plants/animals like Coral and Sea Pickles. Might cause some edge case issues, so it's a config option.")
+	    public boolean waterCancelReplace = true;
 		
 		@Config.LangKey("oe.config.vanillaTweak.squidFlop")
 	    @Config.Comment("Allows Squids to flop about on land like fish do.")

@@ -219,6 +219,12 @@ oe.config.block.coralBlocks=Coral Blocks Config
 oe.config.block.enableCoralBlock=Enable Full Coral Blocks
 oe.config.block.enableCoralFan=Enable Coral Fans
 oe.config.block.enableCoral=Enable Corals
+
+oe.config.block.coralBlockDryTicks=Full Coral Block dry tics
+oe.config.block.coralFanDryTicks=Coral Fan dry tics
+oe.config.block.coralDryTicks=Coral dry tics
+
+
 oe.config.block.driedKelpShears=Can cut Dried Kelp string
 oe.config.block.guardianSpike=Guardian Spike Config
 oe.config.block.enableGuardianSpike=Enable Guardian Spike
@@ -319,6 +325,7 @@ oe.config.entity.enableDrownedSwimAnims=Enable Drowned swimming animations
 
 oe.config.vanillaTweak=Vanilla Tweaks Config
 oe.config.vanillaTweak.waterLighting=Less Water Light Blocking
+oe.config.vanillaTweak.waterCancelReplace=Cancel Water Material Replacement
 oe.config.vanillaTweak.squidFlop=Enable Squid Flopping
 oe.config.vanillaTweak.squidPush=Enable Squid Pushing
 oe.config.vanillaTweak.waterBonemeal=Water Bonemealing Config

@@ -3,6 +3,7 @@ package com.sirsquidly.oe.blocks;
 import java.util.Random;
 
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -25,7 +26,7 @@ public class BlockCoralFull extends Block
 		super(Material.ROCK, blockMapColor);
 		this.setSoundType(soundIn);
 		this.setDefaultState(this.blockState.getBaseState());		
-		this.setTickRandomly(true);
+		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralBlockDryTicks == 0 ? false : true);
 	}
 	
 	//** This just helps register dead coral faster */
@@ -81,6 +82,8 @@ public class BlockCoralFull extends Block
     
     protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
     {
+    	if (ConfigHandler.block.coralBlocks.coralDryTicks == 0) return true;
+    	
         boolean flag = false;
 
         for (EnumFacing enumfacing : EnumFacing.values())
@@ -100,7 +103,7 @@ public class BlockCoralFull extends Block
     /** Should be ~6 Seconds **/
     public int tickRate(World worldIn)
     {
-        return 100;
+        return ConfigHandler.block.coralBlocks.coralBlockDryTicks;
     }
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)

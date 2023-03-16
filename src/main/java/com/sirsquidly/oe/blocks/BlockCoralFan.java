@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -49,7 +50,7 @@ public class BlockCoralFan extends Block
 	{
 		super(Material.ROCK, blockMapColor);
 		this.setSoundType(soundIn);
-		this.setTickRandomly(true);
+		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 ? false : true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(IN_WATER, false));
 	}
 	
@@ -304,6 +305,8 @@ public class BlockCoralFan extends Block
     
     protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
     {
+    	if (ConfigHandler.block.coralBlocks.coralDryTicks == 0) return true;
+    	
     	boolean flag = false;
     	boolean flag2 = false; 	
     	/** Needs water touching to stay alive, but if air is also above, breaks **/
@@ -351,7 +354,7 @@ public class BlockCoralFan extends Block
     /** Should be ~6 Seconds **/
     public int tickRate(World worldIn)
     {
-        return 100;
+        return ConfigHandler.block.coralBlocks.coralFanDryTicks;
     }
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)

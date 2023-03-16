@@ -218,6 +218,9 @@ public class EntityClam extends EntityAnimal
         int k = MathHelper.floor(this.posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
         
+        List<Entity> checkSurroundingClams = this.world.getEntitiesWithinAABB(EntityClam.class, getEntityBoundingBox().grow(64, 64, 64));
+		if ( checkSurroundingClams.size() > 3) return false;
+		
         for (int l = 0; l < 3; l++)
         {
         	if (this.world.getBlockState(blockpos.down()).getMaterial() == Material.WATER) blockpos = blockpos.add(0, -l, 0);
