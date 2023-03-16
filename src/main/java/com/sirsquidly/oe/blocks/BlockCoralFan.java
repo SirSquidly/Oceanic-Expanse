@@ -305,7 +305,7 @@ public class BlockCoralFan extends Block
     
     protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
     {
-    	if (ConfigHandler.block.coralBlocks.coralDryTicks == 0) return true;
+    	if (ConfigHandler.block.coralBlocks.coralFanDryTicks == 0) return true;
     	
     	boolean flag = false;
     	boolean flag2 = false; 	
