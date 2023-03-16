@@ -155,8 +155,6 @@ public class BlockCoral extends Block
     
     protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
     {
-    	if (ConfigHandler.block.coralBlocks.coralDryTicks == 0) return true;
-    	
     	boolean flag = false;
     	boolean flag2 = false; 	
     	/** Needs water touching to stay alive, but if air is also above, breaks **/
@@ -201,7 +199,7 @@ public class BlockCoral extends Block
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        boolean flag = this.checkWater(worldIn, pos, state);
+        boolean flag = ConfigHandler.block.coralBlocks.coralDryTicks == 0 ? true : this.checkWater(worldIn, pos, state);
         boolean w = (Boolean)state.getValue(IN_WATER);
         
         if (!flag)
