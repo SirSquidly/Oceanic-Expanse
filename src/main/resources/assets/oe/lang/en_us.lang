@@ -309,6 +309,7 @@ oe.config.entity.enableBabyGlowSquid=Enable Baby Glow Squid
 oe.config.entity.babyGlowSquidCustomModel=Enable Baby Glow Squid custom model
 oe.config.entity.drowned=Drowned Config
 oe.config.entity.enableDrowned=Enable Drowned
+oe.config.entity.enableDrownedLowerArms=Lower arms when holding in off hand
 oe.config.entity.drownedArmorSpawning=Enable Natural Armor spawning
 oe.config.entity.drownedTridentSpawnChance=Trident spawn chance
 oe.config.entity.drownedRodSpawnChance=Fishing Rod spawn chance

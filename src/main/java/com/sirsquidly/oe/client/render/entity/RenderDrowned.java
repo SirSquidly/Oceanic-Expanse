@@ -67,6 +67,8 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 			    {
 			        if (!item.isEmpty())
 			        {
+			        	boolean left = handSide == EnumHandSide.LEFT;
+			        	
 			            GlStateManager.pushMatrix();
 			            if (entity.isSneaking())
 			            {
@@ -77,16 +79,16 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 			            if (item.getItem() == OEItems.TRIDENT_ORIG && ((EntityZombie)entity).isArmsRaised())
 			            {
 			            	GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-			            	GlStateManager.translate(-0.15F, 0.0F, 0.0F);
+			            	GlStateManager.translate(left ? 0.15F : -0.15F, 0.0F, 0.0F);
 			            }
 			            else
 			            {
 			            	GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 				            GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			            }
-			            boolean flag = handSide == EnumHandSide.LEFT;
-			            GlStateManager.translate((float)(flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
-			            Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, item, camera, flag);
+			           
+			            GlStateManager.translate((float)(left ? -1 : 1) / 16.0F, 0.125F, -0.625F);
+			            Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, item, camera, left);
 			            GlStateManager.popMatrix();
 			        }
 			    }

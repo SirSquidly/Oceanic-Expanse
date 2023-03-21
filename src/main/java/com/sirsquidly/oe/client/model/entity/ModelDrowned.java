@@ -34,6 +34,10 @@ public class ModelDrowned extends ModelZombie
 		EntityDrowned drowned = (EntityDrowned) entityIn;
 		boolean flag = entityIn instanceof EntityZombie && ((EntityZombie)entityIn).isArmsRaised();
 		
+		// Used so a drowned lowering its arms will still properly use the Trident
+		boolean usingRTrident = false;
+		boolean usingLTrident = false;
+		
 		Item mainItem = drowned.getHeldItem(EnumHand.MAIN_HAND).getItem();
 		
 		if (mainItem == OEItems.TRIDENT_ORIG && flag)
@@ -41,10 +45,13 @@ public class ModelDrowned extends ModelZombie
 			if (drowned.getPrimaryHand() == EnumHandSide.RIGHT)
             {
         		this.bipedRightArm.rotateAngleX = -4.0F;
+        		usingRTrident = true;
+        		
             }
             if (drowned.getPrimaryHand() == EnumHandSide.LEFT)
             {
-            	this.bipedLeftArm.rotateAngleX = 4.0F;
+            	this.bipedLeftArm.rotateAngleX = -4.0F;
+            	usingLTrident = true;
             }
 		}
 		
@@ -60,6 +67,22 @@ public class ModelDrowned extends ModelZombie
 	        this.bipedLeftLeg.rotationPointZ += 1.8F;
 	        this.bipedRightLeg.rotationPointY -= 0.15F;
 	        this.bipedLeftLeg.rotationPointY -= 0.15F;
+        }
+		
+		if (!drowned.getHeldItem(EnumHand.OFF_HAND).isEmpty() && ConfigHandler.entity.drowned.enableDrownedLowerArms)
+        {
+			float f = 1.0F;
+			
+			if (!usingRTrident)
+			{
+				this.bipedRightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
+				this.bipedRightArm.rotateAngleZ = 0.0F;
+			}
+			if (!usingLTrident)
+			{
+				this.bipedLeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
+		        this.bipedLeftArm.rotateAngleZ = 0.0F;
+			}
         }
     }
 }

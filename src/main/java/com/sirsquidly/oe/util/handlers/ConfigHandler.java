@@ -836,6 +836,10 @@ public class ConfigHandler
 		    @Config.Comment("Enables unique animations for Drowned in water, inspired by MC Dungeons.")
 		    public boolean enableDrownedSwimAnims = true;
 			
+		    @Config.LangKey("oe.config.entity.enableDrownedLowerArms")
+		    @Config.Comment("Makes drowned lower their arms if they have an item in their off hand. This is to match Bedrock Edition.")
+		    public boolean enableDrownedLowerArms = false;
+		    
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.enableDrownedStepup")
 		    @Config.Comment("If Drowned keep a full block step-up outside of water.")
