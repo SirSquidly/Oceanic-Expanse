@@ -661,6 +661,36 @@ public class ConfigHandler
 	public static class configEntity
 	{
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.babySquid")
+	    public configBabySquid babySquid = new configBabySquid();
+		
+		public static class configBabySquid
+		{
+		    @Config.LangKey("oe.config.entity.enableBabySquid")
+		    @Config.Comment("If Baby Squids should be enabled")
+		    public boolean enableBabySquid = true;
+		    
+		    @Config.LangKey("oe.config.entity.babySquidCustomModel")
+		    @Config.Comment("If Baby Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
+		    public boolean babySquidCustomModel = true;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.babyGlowSquid")
+	    public configBabyGlowSquid babyGlowSquid = new configBabyGlowSquid();
+		
+		public static class configBabyGlowSquid
+		{
+		    @Config.LangKey("oe.config.entity.enableBabyGlowSquid")
+		    @Config.Comment("If Baby Glow Squids should be enabled")
+		    public boolean enableBabyGlowSquid = true;
+		    
+		    @Config.LangKey("oe.config.entity.babyGlowSquidCustomModel")
+		    @Config.Comment("If Baby Glow Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
+		    public boolean babyGlowSquidCustomModel = true;
+	    }
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.glowSquid")
 	    public configGlowSquid glowSquid = new configGlowSquid();
 		
@@ -746,6 +776,57 @@ public class ConfigHandler
 		
 		public static class configDrowned
 		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.drownedCaptain")
+		    public configDrownedCaptain drownedCaptain = new configDrownedCaptain();
+			
+			public static class configDrownedCaptain
+			{
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.enableDrownedCaptain")
+			    @Config.Comment("If Drowned Captains should be enabled. Captains are just altered Drowned, so this just skips the checks.")
+			    public boolean enableDrownedCaptain = true;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.drownedCaptainSetChance")
+			    @Config.Comment("The chance for a drowned to be a drowned captain. Calculated as '(this x Clamped Regional Difficulty)%'")
+				@Config.RangeDouble(min = 0, max = 100)
+			    public double drownedCaptainSetChance = 5;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.enableDrownedCaptainTexture")
+			    @Config.Comment("If Drowned Captains should use a unique texture.")
+			    public boolean enableDrownedCaptainTexture = true;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.drownedCaptainSummonCooldown")
+			    @Config.Comment("The time (in seconds) between when the Drowned Captain is allowed to spawn more drowned. Note 0 will not disable this, but make it near instant.")
+			    @Config.RangeDouble(min = 0, max = 9999)
+			    public double drownedCaptainSummonCooldown = 10;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.drownedCaptainHealthMultiplier")
+			    @Config.Comment("The multiplier on the Drowned Captain's health. This is multiplied by the base drowned health, which is 20 by default.")
+			    @Config.RangeDouble(min = 0, max = 9999)
+			    public double drownedCaptainHealthMultiplier = 2;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.drownedCaptainMaxNearbyForSummon")
+			    @Config.Comment("Stops the Drowned Captain from summoning if above this number of drowned are nearby.")
+			    public int drownedCaptainMaxNearbyForSummon = 5;
+				
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.drownedCaptainSpawnsEquipt")
+			    @Config.Comment("If drowned spawned by a captain have their normal setup. This allows them to have trident, be babies, or even be MORE CAPTAINS!")
+			    public boolean drownedCaptainSpawnsEquipt = false;
+
+				@RequiresMcRestart
+			    @Config.LangKey("oe.config.entity.drownedCaptainConchSoundDistance")
+			    @Config.Comment("The attenuation distance (how far away it's heard) of the Conch when used by the captain.")
+				@Config.RangeInt(min = 0, max = 9999)
+			    public int drownedCaptainConchSoundDistance = 256;
+			}
+			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.enableDrowned")
 		    @Config.Comment("If Drowned should be enabled")
@@ -931,6 +1012,42 @@ public class ConfigHandler
 		    @Config.Comment("Makes Coral generate when using underwater bonemeal near Coral Blocks. (0 = Disable, 1 = Generate only on top, 2 = Generate around any side)")
 		    @Config.RangeInt(min = 0, max = 2)
 		    public int waterBonemealCoralGen = 2;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.vanillaTweak.squidInking")
+	    public configSquidInking squidInking = new configSquidInking();
+		
+		public static class configSquidInking
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.enableSquidInking")
+		    @Config.Comment("Enables Squid Inking.")
+		    public boolean enableSquidInking = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.inkBlindnessLength")
+		    @Config.Comment("How long (in seconds) Blindness caused by Squid Ink is given. Set to 0 to disable ink bliness entierly.")
+		    @Config.RangeInt(min = 0, max = 9999)
+		    public int inkBlindnessLength = 5;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.squidParticleAmount")
+		    @Config.Comment("How many particles made each inking.")
+		    @Config.RangeInt(min = 0, max = 9999)
+		    public int squidParticleAmount = 60;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.babySquidParticleAmount")
+		    @Config.Comment("How many particles made each inking, IF the squid is a baby. Baby Squid particles are also smaller.")
+		    @Config.RangeInt(min = 0, max = 9999)
+		    public int babySquidParticleAmount = 4;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.inkParticleAge")
+		    @Config.Comment("The max age of Ink Particles. Use this to make ink stay around longer.")
+		    @Config.RangeInt(min = 0, max = 9999)
+		    public int inkParticleAge = 20;
 	    }
 		
 		@Config.LangKey("oe.config.vanillaTweak.waterLighting")

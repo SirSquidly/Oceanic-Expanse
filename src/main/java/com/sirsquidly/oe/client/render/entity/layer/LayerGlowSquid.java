@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerGlowSquid<T extends EntityGlowSquid> implements LayerRenderer<T>
 {
-	public static final ResourceLocation GLOWSQUID_BRIGHT_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/glow_squid_bright.png");
+	public static final ResourceLocation GLOWSQUID_BRIGHT_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/squid/glow_squid_bright.png");
 	private final RenderGlowSquid GlowSquidRenderer;
 	
 	public LayerGlowSquid(RenderGlowSquid GlowSquidRendererIn)

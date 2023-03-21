@@ -8,6 +8,7 @@ public enum ParticleTypes
 {
     CONDUIT,
     GLOW;
+    //INK;
 
     public int getId()
     {
@@ -24,6 +25,8 @@ public enum ParticleTypes
                 return new ParticleConduit.Factory();
             case 1:
                 return new ParticleGlow.Factory();
+            case 2:
+                return new ParticleInk.Factory();
         }
     }
 }

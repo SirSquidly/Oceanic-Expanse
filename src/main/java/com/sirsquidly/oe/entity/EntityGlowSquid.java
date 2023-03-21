@@ -22,11 +22,18 @@ public class EntityGlowSquid extends EntitySquid
 	public float brightCooldown = 0.0F;
 	public float currBrightness = 1.0F;
 	public int minBrightness = 983055 * ConfigHandler.entity.glowSquid.glowSquidBodyBright;
+	// The chance each tic to spawn a particle, in 1/this int. 
+	public int particleChancePerTick;
+	// How many particles to spawn each tic. Requires the chance to pass.
+	public int particlePerTick;
 	
 	public EntityGlowSquid(World worldIn) {
 		super(worldIn);
         this.setSize(0.8F, 0.8F);
         this.rand.setSeed((long)(1 + this.getEntityId()));
+        
+        this.particleChancePerTick = 1;
+        this.particlePerTick = 1;
 	}
 	
 	public static void registerFixesSquid(DataFixer fixer)
@@ -85,12 +92,14 @@ public class EntityGlowSquid extends EntitySquid
 		
 		
 		if (this.world.isRemote)
-        {
-			for (int i = 0; i < 1; ++i)
-            {
-				Main.proxy.spawnParticle(1, this.posX + (this.rand.nextDouble() - this.rand.nextDouble()) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - this.rand.nextDouble()) * (double)this.width, 0.0D, 0.0D, 0.0D);
-            }
-			
+        {	
+			if (this.rand.nextInt(particleChancePerTick) == 0)
+		    {
+				for (int i = 0; i < particlePerTick; ++i)
+	            {
+					Main.proxy.spawnParticle(1, this.posX + (this.rand.nextDouble() - this.rand.nextDouble()) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height, this.posZ + (this.rand.nextDouble() - this.rand.nextDouble()) * (double)this.width, 0.0D, 0.0D, 0.0D);
+	            }
+		    }
         }
 		
 		super.onUpdate();

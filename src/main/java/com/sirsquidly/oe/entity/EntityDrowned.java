@@ -1,7 +1,10 @@
 package com.sirsquidly.oe.entity;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.ai.EntityAITridentThrowing;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEItems;
@@ -10,6 +13,7 @@ import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -33,6 +37,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -52,11 +57,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityDrowned extends EntityZombie implements IRangedAttackMob 
 {
 	private static final DataParameter<Boolean> IS_SWIMMING = EntityDataManager.<Boolean>createKey(EntityDrowned.class, DataSerializers.BOOLEAN);
+	// IF this Drowned is a Captain. This changesthe texture, along with giving it unique equiptment on spawn and the summoning AI
+	private static final DataParameter<Boolean> IS_CAPTAIN = EntityDataManager.<Boolean>createKey(EntityDrowned.class, DataSerializers.BOOLEAN);
+	/** The time since the conch was last used */
+    private int conchUseTime;
+    
 	private final PathNavigateSwimmer waterNavigator;
 	private final PathNavigateGround groundNavigator;
 	
 	public EntityDrowned(World worldIn) {
 		super(worldIn);
+		
+		this.experienceValue = 10;
 		this.setPathPriority(PathNodeType.WALKABLE, 1.0F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
         this.rand.setSeed((long)(1 + this.getEntityId()));
@@ -69,6 +81,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     {
         super.entityInit();
         this.dataManager.register(IS_SWIMMING, Boolean.valueOf(false));
+        this.dataManager.register(IS_CAPTAIN, Boolean.valueOf(false));
     }
 	
 	protected void initEntityAI()
@@ -125,13 +138,50 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     public void setSwimming(boolean swimming)
     { this.dataManager.set(IS_SWIMMING, Boolean.valueOf(swimming)); }
     
+    public boolean isCaptain()
+    { return ((Boolean)this.dataManager.get(IS_CAPTAIN)).booleanValue(); }
+
+    public void setIsCaptain(boolean captain)
+    { this.dataManager.set(IS_CAPTAIN, Boolean.valueOf(captain)); }
+    
+    protected int getExperiencePoints(EntityPlayer player)
+    {
+        return isCaptain() ? this.experienceValue = (int)((float)this.experienceValue * 2.5F) : super.getExperiencePoints(player);
+    }
+    
     @Override
 	public void onUpdate()
     {
 		super.onUpdate();
-		
 		BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
 		EntityLivingBase attackTarget = this.getAttackTarget();
+		
+		if (this.isEntityAlive() && attackTarget != null && this.isCaptain() && this.getDistanceSq(attackTarget.getPosition()) <= 10.0F)
+        {
+            this.conchUseTime += 1;
+
+            if (this.conchUseTime >= ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSummonCooldown * 20)
+            {
+            	List<Entity> checkNearbyDrowned = this.world.getEntitiesWithinAABB(EntityDrowned.class, getEntityBoundingBox().grow(15, 15, 15));
+        		if ( checkNearbyDrowned.size() < ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainMaxNearbyForSummon)
+        		{
+        			ItemStack offHand = this.getHeldItemOffhand();
+                	
+                	if (offHand.getItem() == OEItems.CONCH)
+                	{
+                		this.playSound(SoundHandler.ITEM_CONCH_BLOW1, ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainConchSoundDistance * 0.0625F, 0.8F);   
+                		
+                		for (int i = 0; i < 4; i++)
+                        {
+                        	Main.proxy.spawnParticle(2, this.posX + (rand.nextFloat() - rand.nextFloat()), this.posY + 1.5, this.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 4, 128, 255, 192);
+                        }
+                    }
+                	
+                	summonReinforcements();
+        		}
+            	this.conchUseTime = 0;
+            }
+        }
 		
 		if (!world.isRemote) 
         {
@@ -145,6 +195,39 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             if (attackTarget != null && this.world.isDaytime() && (!attackTarget.isWet() && this.world.getBlockState(attackTarget.getPosition().down()).getMaterial() != Material.WATER))
             {
             	setAttackTarget(null);
+            }
+        }
+    }
+    
+    private void summonReinforcements()
+    {
+        if (this.world.isRemote) return;
+
+        EntityDrowned entityDrowned = new EntityDrowned(this.world);
+        
+        for (int l = 0; l < 50; ++l)
+        {
+            int i1 = (int)this.posX + MathHelper.getInt(this.rand, 3, 10) * MathHelper.getInt(this.rand, -1, 1);
+            int j1 = (int)this.posY + MathHelper.getInt(this.rand, 3, 10) * MathHelper.getInt(this.rand, -1, 1);
+            int k1 = (int)this.posZ + MathHelper.getInt(this.rand, 3, 10) * MathHelper.getInt(this.rand, -1, 1);
+
+            if (this.world.getBlockState(new BlockPos(i1, j1 - 1, k1)).getMaterial() == Material.WATER)
+            {
+            	entityDrowned.setPosition((double)i1, (double)j1, (double)k1);
+
+                if (!this.world.isAnyPlayerWithinRangeAt((double)i1, (double)j1, (double)k1, 2.0D) && this.world.checkNoEntityCollision(entityDrowned.getEntityBoundingBox(), entityDrowned) && this.world.getCollisionBoxes(entityDrowned, entityDrowned.getEntityBoundingBox()).isEmpty())
+                {
+                    this.world.spawnEntity(entityDrowned);
+                    
+                    for (int i = 0; i < 80; i++)
+                    {
+                    	Main.proxy.spawnParticle(2, entityDrowned.posX + (rand.nextFloat() - rand.nextFloat()), entityDrowned.posY + 1 + (rand.nextFloat() - rand.nextFloat()), entityDrowned.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 4, 128, 255, 192);
+                    }
+                    
+                    entityDrowned.setAttackTarget(this.getAttackTarget());
+                    if (ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSpawnsEquipt) entityDrowned.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityDrowned)), (IEntityLivingData)null);
+                    break;
+                }
             }
         }
     }
@@ -183,10 +266,18 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             }
         }
 
-        this.setNaturalEquipment(difficulty);
-        //this.setBreakDoorsAItask(this.rand.nextFloat() < f * 0.1F);
         this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
         
+        if (this.rand.nextFloat() < f * (ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSetChance * 0.01F) && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptain)
+        {
+        	this.setIsCaptain(true);	
+        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("Captain drowned bonus", ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainHealthMultiplier, 2));
+        	this.setHealth(this.getMaxHealth());
+        	this.setCanPickUpLoot(true);
+        }
+        
+        this.setNaturalEquipment(difficulty);
+        //this.setBreakDoorsAItask(this.rand.nextFloat() < f * 0.1F);
         return livingdata;
     }
     
@@ -196,6 +287,14 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 		{
     		super.setEquipmentBasedOnDifficulty(difficulty);
 		}
+    	
+    	if (isCaptain())
+    	{
+    		if (ConfigHandler.item.trident.enableTrident) this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.TRIDENT_ORIG));
+    		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.CONCH));
+    		
+    		return;
+    	}
     	
         if (this.rand.nextFloat() <= (float)ConfigHandler.entity.drowned.drownedTridentSpawnChance * 0.01F && ConfigHandler.item.trident.enableTrident)
         {
@@ -323,6 +422,20 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     @SideOnly(Side.CLIENT)
     public void setSwingingArms(boolean swingingArms)
     { }
+    
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound)
+    {
+        super.writeEntityToNBT(compound);
+        compound.setBoolean("IsCaptain", this.isCaptain());
+    }
+
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound)
+    {
+        super.readEntityFromNBT(compound);
+        this.setIsCaptain(compound.getBoolean("IsCaptain"));
+    }
     
     class GroupData implements IEntityLivingData
     {

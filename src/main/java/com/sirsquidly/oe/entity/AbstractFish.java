@@ -73,7 +73,9 @@ public class AbstractFish extends EntityAnimal
 	* Detects if the fish isn't in water. Used for flopping motion and animation.
 	*/
 	public boolean isFlopping() 
-	{ return !isInWater() && world.isAirBlock(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY + 1), MathHelper.floor(posZ))) && world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY - 1), MathHelper.floor(posZ))).getBlock().isCollidable(); }
+	{ 
+		return !isInWater() && world.isAirBlock(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY + 1), MathHelper.floor(posZ))) && world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY - 1), MathHelper.floor(posZ))).getBlock().isCollidable();
+	}
 	
 	protected SoundEvent getAmbientSound()
     { return this.isInWater() ? SoundHandler.ENTITY_FISH_SWIM : null; }
@@ -98,12 +100,7 @@ public class AbstractFish extends EntityAnimal
         }
         if (this.world.isRemote) {} 
         else {
-            if (f > 0.0F) 
-            {
-                setAir(150);
-                motionY -= 0.001D;
-            }  
-            else if (onGround && this.isFlopping()) 
+            if (onGround && !this.isInsideOfMaterial(Material.WATER)) 
             {
                 motionY += 0.4D;
                 motionX += (double) ((rand.nextFloat() * 2.0F - 1.0F) * 0.2F);
@@ -113,6 +110,11 @@ public class AbstractFish extends EntityAnimal
                 isAirBorne = true;
                 if (world.getTotalWorldTime() % 1 == 0)
                 	world.playSound((EntityPlayer) null, posX, posY, posZ, getFlopSound(), SoundCategory.NEUTRAL, 0.3F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
+            }
+            else
+            {
+            	motionY -= 0.001D;
+            	if (f > 0.0F) setAir(150);
             }
         }
     }

@@ -22,7 +22,7 @@ public class OEEntities
 
 	public static void registerEntities()
 	{
-		registerEntity("glow_squid", EntityGlowSquid.class, ++id, 100, 3119001, 12976094);
+		registerEntity("glow_squid", EntityGlowSquid.class, ++id, 100, 2243405, 8454080);
 		registerEntity("cod", EntityCod.class, ++id, 64, 8564132, 11386587);
 		if (ConfigHandler.entity.salmon.enableSalmon) registerEntity("salmon", EntitySalmon.class, ++id, 64, 12860482, 5268308);
 		if (ConfigHandler.entity.pufferfish.enablePufferfish) registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
@@ -30,7 +30,11 @@ public class OEEntities
 		registerEntity("crab", EntityCrab.class, ++id, 64, 12860482, 15453241);
 		registerEntity("clam", EntityClam.class, ++id, 64, 14327661, 15701910);
 		
+		if (ConfigHandler.entity.babySquid.enableBabySquid) registerEntity("baby_squid", EntityBabySquid.class, ++id, 100, 3696778, 10531777);
+		if (ConfigHandler.entity.babyGlowSquid.enableBabyGlowSquid) registerEntity("baby_glow_squid", EntityBabyGlowSquid.class, ++id, 100, 3696778, 10944467);
+		
 		if (ConfigHandler.entity.drowned.enableDrowned) registerEntity("drowned", EntityDrowned.class, ++id, 80, 5609880, 12434265);
+		//if (ConfigHandler.entity.drowned.enableDrowned) registerEntity("drowned_captain", EntityDrownedCaptain.class, ++id, 80, 5609880, 12434265);
 		
 		registerEntity("pickled", EntityPickled.class, ++id, 80, 8223277, 14221270);
 		

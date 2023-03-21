@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderGlowSquid extends RenderLiving<EntityGlowSquid>
 {
-	public static final ResourceLocation GLOWSQUID_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/glow_squid.png");
+	public static final ResourceLocation GLOWSQUID_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/squid/glow_squid.png");
     
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public RenderGlowSquid(RenderManager manager)

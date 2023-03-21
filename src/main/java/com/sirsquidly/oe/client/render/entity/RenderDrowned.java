@@ -31,6 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderDrowned extends RenderLiving<EntityDrowned>
 {
+	public static final ResourceLocation DROWNED_ZOMBIE_CAPTAIN_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/drowned_captain.png");
 	public static final ResourceLocation DROWNED_ZOMBIE_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/drowned.png");
 	
 	public RenderDrowned(RenderManager manager)
@@ -102,8 +103,8 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
         {
             protected void initArmor()
             {
-                this.modelLeggings = new ModelZombie(0.5F, true);
-                this.modelArmor = new ModelZombie(1.0F, true);
+                this.modelLeggings = new ModelDrowned(0.5F, true);
+                this.modelArmor = new ModelDrowned(1.0F, true);
             }
         };
         this.addLayer(layerbipedarmor);
@@ -117,7 +118,7 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 	
 	protected ResourceLocation getEntityTexture(EntityDrowned entity)
 	{
-		return DROWNED_ZOMBIE_TEXTURE;
+		return entity.isCaptain() && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptainTexture ? DROWNED_ZOMBIE_CAPTAIN_TEXTURE : DROWNED_ZOMBIE_TEXTURE;
 	}
 	
 	@Override
