@@ -74,7 +74,7 @@ public class AbstractFish extends EntityAnimal
 	*/
 	public boolean isFlopping() 
 	{ 
-		return !isInWater() && world.isAirBlock(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY + 1), MathHelper.floor(posZ))) && world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY - 1), MathHelper.floor(posZ))).getBlock().isCollidable();
+		return !this.isInsideOfMaterial(Material.WATER);
 	}
 	
 	protected SoundEvent getAmbientSound()
@@ -100,7 +100,7 @@ public class AbstractFish extends EntityAnimal
         }
         if (this.world.isRemote) {} 
         else {
-            if (onGround && !this.isInsideOfMaterial(Material.WATER)) 
+            if (onGround && isFlopping()) 
             {
                 motionY += 0.4D;
                 motionX += (double) ((rand.nextFloat() * 2.0F - 1.0F) * 0.2F);
