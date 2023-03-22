@@ -121,14 +121,6 @@ public class GeneratorFrozenOcean implements IWorldGenerator
     			if (world.getBlockState(Icepos).getMaterial() == Material.WATER || world.getBlockState(Icepos).getBlock() == Blocks.ICE || world.getBlockState(Icepos).getMaterial() == Material.AIR)
     			{ 
     				world.setBlockState(Icepos, Blocks.PACKED_ICE.getDefaultState(), 16 | 2);
-    	    	
-    				if (this.icebergSnowNoiseGen[x * 16 + z] / 8 - rand.nextDouble() * 0.04 > (pos.getY() - 60) * 2.0)
-    	    		{
-    					if (Icepos.getY() > world.getSeaLevel() + 16 && world.getBlockState(Icepos.up(4)).getMaterial() == Material.AIR)
-    	    			{ world.setBlockState(Icepos, Blocks.SNOW.getDefaultState(), 16 | 2); }
-    	    			else if (world.getBlockState(Icepos.up()).getMaterial() == Material.AIR)
-    	    			{ world.setBlockState(Icepos, Blocks.SNOW.getDefaultState(), 16 | 2); }
-    	    		}
     	    	}
         	}
     		// Mid layer, smoothens out
@@ -137,14 +129,6 @@ public class GeneratorFrozenOcean implements IWorldGenerator
     			if (world.getBlockState(Icepos).getMaterial() == Material.WATER || world.getBlockState(Icepos).getBlock() == Blocks.ICE || world.getBlockState(Icepos).getMaterial() == Material.AIR)
     			{ 
     				world.setBlockState(Icepos, Blocks.PACKED_ICE.getDefaultState(), 16 | 2);
-    	    	
-    				if (this.icebergSnowNoiseGen[x * 16 + z] / 8 - rand.nextDouble() * 0.04 > 3.0 - ((pos.getY() - 60) * 1.0))
-    	    		{
-    					if (Icepos.getY() > world.getSeaLevel() + 16 && world.getBlockState(Icepos.up(4)).getMaterial() == Material.AIR)
-    	    			{ world.setBlockState(Icepos, Blocks.SNOW.getDefaultState(), 16 | 2); }
-    	    			else if (world.getBlockState(Icepos.up()).getMaterial() == Material.AIR)
-    	    			{ world.setBlockState(Icepos, Blocks.SNOW.getDefaultState(), 16 | 2); }
-    	    		}
     	    	}
         	}
     		// Lower, sharp edges
@@ -155,17 +139,31 @@ public class GeneratorFrozenOcean implements IWorldGenerator
     				if (world.getBlockState(Icepos).getMaterial() == Material.WATER || world.getBlockState(Icepos).getBlock() == Blocks.ICE || world.getBlockState(Icepos).getMaterial() == Material.AIR)
         			{ 
         				world.setBlockState(Icepos, Blocks.PACKED_ICE.getDefaultState(), 16 | 2);
-            	    	
-        				if (this.icebergSnowNoiseGen[x * 16 + z] / 8 - rand.nextDouble() * 0.06 > 4.0 - ((pos.getY() - 30) * 0.08))
-        	    		{
-        					if (Icepos.getY() > world.getSeaLevel() + 16 && world.getBlockState(Icepos.up(4)).getMaterial() == Material.AIR)
-        	    			{ world.setBlockState(Icepos, Blocks.SNOW.getDefaultState(), 16 | 2); }
-        	    			else if (world.getBlockState(Icepos.up()).getMaterial() == Material.AIR)
-        	    			{ world.setBlockState(Icepos, Blocks.SNOW.getDefaultState(), 16 | 2); }
-        	    		}
         			}
     			}
         	}
+    		
+    		 /** This generates the snow blocks, passing good positions to 'placeSnowDown' */
+    		if (y > world.getSeaLevel() + 1 && world.getBlockState(Icepos).getBlock() == Blocks.PACKED_ICE)
+    		{
+    			if (this.icebergSnowNoiseGen[x * 16 + z] / 8 - rand.nextDouble() * 0.4 > 0.6 - ((pos.getY() - 30) * 0.009))
+        		{
+    				if (world.getBlockState(Icepos.up()).getMaterial() == Material.AIR)
+        			{ placeSnowDown(world, Icepos); }
+        		}
+    		}
+    	}
+    	
+    }
+    
+    /** Places the snow pillars in the ice */
+    private void placeSnowDown(World worldIn, BlockPos pos)
+    {
+    	int innnnn = (pos.getY() / 5) - 12;
+    	
+    	for (int i = 0; i < Math.min(Math.max(innnnn + 1, 2), 5); i++)
+    	{
+    		worldIn.setBlockState(pos.down(i), Blocks.SNOW.getDefaultState(), 16 | 2);
     	}
     }
     
@@ -175,7 +173,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
     	//pos = new BlockPos(pos.getX(), Math.min(world.getSeaLevel() - 2, 256), pos.getZ());
         for (; pos.getY() < world.getSeaLevel() + 3; pos = pos.up())
         {
-        	if (world.getBlockState(pos).getBlock() == Blocks.PACKED_ICE && (world.getBlockState(pos.up()).getBlock() != Blocks.PACKED_ICE || world.getBlockState(pos.down()).getBlock() != Blocks.PACKED_ICE))
+        	if (world.getBlockState(pos).getBlock() == Blocks.PACKED_ICE && ((world.getBlockState(pos.up()).getBlock() != Blocks.PACKED_ICE && world.getBlockState(pos.up()).getBlock() != Blocks.SNOW) || world.getBlockState(pos.down()).getBlock() != Blocks.PACKED_ICE))
     		{ 
         		if (pos.getY() <= world.getSeaLevel() - 1)
             	{ world.setBlockState(pos, Blocks.WATER.getDefaultState(), 16 | 2); }
@@ -183,6 +181,8 @@ public class GeneratorFrozenOcean implements IWorldGenerator
         		{ world.setBlockState(pos, Blocks.AIR.getDefaultState(), 16 | 2); }
         	}
         }
+        
+        
     }
     
     /** Generates small random bits of Granite in the sea floor, and chunks of Andesite up. */
