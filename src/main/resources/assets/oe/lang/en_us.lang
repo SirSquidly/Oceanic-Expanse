@@ -101,6 +101,7 @@ tile.underwater_torch.name=Underwater Torch
 entity.cod.name=Cod
 entity.salmon.name=Salmon
 entity.pufferfish.name=Pufferfish
+entity.tropical_fish.name=Tropical Fish
 entity.turtle.name=Turtle
 entity.glow_squid.name=Glow Squid
 entity.baby_glow_squid.name=Baby Glow Squid
@@ -144,6 +145,44 @@ description.conch_blow1.name=Distant
 description.conch_blow2.name=Emblem
 description.conch_blow3.name=Snail
 description.conch_blow4.name=Buffalo
+
+description.tropical_fish_a_pattern0.name=Kob
+description.tropical_fish_a_pattern1.name=Sunstreak
+description.tropical_fish_a_pattern2.name=Snooper
+description.tropical_fish_a_pattern3.name=Dasher
+description.tropical_fish_a_pattern4.name=Brinely
+description.tropical_fish_a_pattern5.name=Spotty
+description.tropical_fish_b_pattern0.name=Flopper
+description.tropical_fish_b_pattern1.name=Stripey
+description.tropical_fish_b_pattern2.name=Glitter
+description.tropical_fish_b_pattern3.name=Blockfish
+description.tropical_fish_b_pattern4.name=Betty
+description.tropical_fish_b_pattern5.name=Clayfish
+
+description.tropical_fish_color.white=White
+description.tropical_fish_color.orange=Orange
+description.tropical_fish_color.magenta=Magenta
+description.tropical_fish_color.light_blue=Light Blue
+description.tropical_fish_color.yellow=Yellow
+description.tropical_fish_color.lime=Lime
+description.tropical_fish_color.pink=Pink
+description.tropical_fish_color.gray=Gray
+description.tropical_fish_color.silver=Light Gray
+description.tropical_fish_color.cyan=Cyan
+description.tropical_fish_color.purple=Purple
+description.tropical_fish_color.blue=Blue
+description.tropical_fish_color.brown=Brown
+description.tropical_fish_color.green=Green
+description.tropical_fish_color.red=Red
+description.tropical_fish_color.black=Black
+
+description.tropical_fish_color.3=Sky
+description.tropical_fish_color.6=Rose
+description.tropical_fish_color.8=Silver
+description.tropical_fish_color.9=Teal
+description.tropical_fish_color.10=Plum
+
+
 
 oe.config.title=Oceanic Expanse Config
 
@@ -417,6 +456,10 @@ subtitle.pufferfish.sting=Pufferfish stings
 subtitle.salmon.death=Salmon dies
 subtitle.salmon.flop=Salmon flops
 subtitle.salmon.hurt=Salmon hurts
+subtitle.tropical_fish.death=Tropical Fish dies
+subtitle.tropical_fish.flop=Tropical Fish flops
+subtitle.tropical_fish.hurt=Tropical Fish hurts
+
 subtitle.trident.throw=Trident clangs
 subtitle.trident.impact=Trident vibrates
 subtitle.trident.hit=Trident stabs

@@ -1,15 +1,19 @@
 package com.sirsquidly.oe.items;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.entity.EntityTropicalFish;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -34,10 +38,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SuppressWarnings("deprecation")
 public class ItemSpawnBucket extends ItemMonsterPlacer
 {
 	public ItemSpawnBucket()
@@ -62,6 +69,17 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 		this.setCreativeTab(Main.OCEANEXPTAB);
 	}
 
+	/** Overrides the display name to show the Tropical Fish type. */
+	public String getItemStackDisplayName(ItemStack stack)
+    {
+		if (pullTropicalNameFromItem(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishSpecificNames)
+		{
+			return ("" + I18n.translateToLocal(this.getUnlocalizedName() + ".name")).trim() + " " + pullTropicalNameFromItem(stack);
+		}
+
+        return super.getItemStackDisplayName(stack);
+    }
+	
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     { return EnumActionResult.PASS; }
@@ -182,6 +200,31 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
         }
     }
 
+	/** This pulls the name of the Tropical Fish, and formats it as 'Bucket of [Tropical Fish Variant]' */
+	public String pullTropicalNameFromItem(ItemStack stack)
+    {
+		ResourceLocation entityName = ItemMonsterPlacer.getNamedIdFrom(stack);
+		
+		if (entityName != null)
+		{
+			if (ItemMonsterPlacer.getNamedIdFrom(stack).toString().equals("oe:tropical_fish"))
+			{
+				NBTTagCompound tags = stack.getTagCompound();
+				
+				if (tags.hasKey("EntityTag"))
+				{
+					tags = (NBTTagCompound) tags.getTag("EntityTag");
+					
+					if (tags.hasKey("Variant"))
+					{
+				        return EntityTropicalFish.getSpecificName(tags.getInteger("Variant"));
+					}
+				}	
+			}
+		}
+        return null;
+    }
+	
 	public static void recordEntityNBT(ItemStack stack, EntityPlayer player, Entity entity)
 	{
 		if (!player.world.isRemote) 
@@ -206,6 +249,16 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 
 				tags.setTag("EntityTag", entityTag);
 			}
+		}
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	{
+		if (pullTropicalNameFromItem(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishTooltips)
+		{
+			tooltip.add(TextFormatting.ITALIC + pullTropicalNameFromItem(stack));
 		}
 	}
 }

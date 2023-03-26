@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.client.model.entity;
 
+import com.sirsquidly.oe.entity.AbstractFish;
 import com.sirsquidly.oe.entity.EntityCod;
 
 import net.minecraft.client.model.ModelBase;
@@ -74,11 +75,11 @@ public class ModelCod extends ModelBase {
     
     @Override
     public void setLivingAnimations(EntityLivingBase entity, float swing, float speed, float partialRenderTicks) {
-    	EntityCod fish = (EntityCod) entity;
+    	AbstractFish fish = (AbstractFish) entity;
 
-            float flap = MathHelper.sin((fish.ticksExisted) * 0.6F) * 0.6F;
+            float flap = MathHelper.sin((entity.ticksExisted) * 0.6F) * 0.6F;
             if (fish.isFlopping())
-            	flap = MathHelper.sin((fish.ticksExisted) * 1.2F) * 0.6F;
+            	flap = MathHelper.sin((entity.ticksExisted) * 1.2F) * 0.6F;
             body1.rotateAngleY = flap*0.2F;
             head1.rotateAngleY = flap*0.1F;
             tail1.rotateAngleY = flap*0.6F;

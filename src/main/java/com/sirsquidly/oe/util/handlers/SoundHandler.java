@@ -84,6 +84,11 @@ public class SoundHandler
 	public static SoundEvent ENTITY_TRIDENT_RIPTIDE2 = soundReadyForRegister("item.trident.riptide2");
 	public static SoundEvent ENTITY_TRIDENT_RIPTIDE3 = soundReadyForRegister("item.trident.riptide3");
 	public static SoundEvent ENTITY_TRIDENT_THUNDER = soundReadyForRegister("item.trident.thunder");
+	
+	public static SoundEvent ENTITY_TROPICAL_FISH_DEATH = soundReadyForRegister("entity.tropical_fish.death");
+	public static SoundEvent ENTITY_TROPICAL_FISH_FLOP = soundReadyForRegister("entity.tropical_fish.flop");
+	public static SoundEvent ENTITY_TROPICAL_FISH_HURT = soundReadyForRegister("entity.tropical_fish.hurt");
+	
 	public static SoundEvent ENTITY_TURTLE_AMBIENT = soundReadyForRegister("entity.turtle.ambient");
 	public static SoundEvent ENTITY_TURTLE_BABY_HURT = soundReadyForRegister("entity.turtle.baby_hurt");
 	public static SoundEvent ENTITY_TURTLE_HURT = soundReadyForRegister("entity.turtle.hurt");

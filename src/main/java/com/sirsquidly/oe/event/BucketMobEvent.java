@@ -2,6 +2,7 @@ package com.sirsquidly.oe.event;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.sirsquidly.oe.entity.EntityTropicalFish;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -11,7 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
@@ -38,7 +39,7 @@ public class BucketMobEvent
 		
 		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.ENTITY)
         {
-			if (stack.getItem() == Items.BUCKET || stack.getItem() == Items.WATER_BUCKET) 
+			if (stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET) 
 			{
 				if (ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()))
 				{
@@ -54,7 +55,7 @@ public class BucketMobEvent
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		
-		if ((stack.getItem() == Items.BUCKET || stack.getItem() == Items.WATER_BUCKET) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase) 
+		if ((stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase) 
 		{
 			EntityLivingBase entity = (EntityLivingBase) event.getTarget();
 			

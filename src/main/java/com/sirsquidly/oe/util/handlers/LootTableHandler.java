@@ -10,6 +10,7 @@ public class LootTableHandler
 	public static final ResourceLocation ENTITIES_COD = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/cod"));
 	public static final ResourceLocation ENTITIES_SALMON = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/salmon"));
 	public static final ResourceLocation ENTITIES_PUFFERFISH = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/pufferfish"));
+	public static final ResourceLocation ENTITIES_TROPICAL_FISH = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/tropical_fish"));
 	public static final ResourceLocation ENTITIES_TURTLE = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/turtle"));
 	public static final ResourceLocation ENTITIES_GLOW_SQUID = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/glow_squid"));
 	public static final ResourceLocation ENTITIES_CRAB = LootTableList.register(new ResourceLocation(Reference.MOD_ID, "entities/crab"));

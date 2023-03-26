@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.event;
 
+import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.BlockLiquid;
@@ -32,7 +33,7 @@ public class BucketWaterEvent
 
 		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.BLOCK)
         {
-			if (stack.getItem() instanceof ItemBucket) 
+			if (stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET) 
 			{
 				boolean flag1 = event.getWorld().getBlockState(rtresult.getBlockPos()).getMaterial() == Material.WATER;
 	            BlockPos blockpos1 = flag1 ? rtresult.getBlockPos() : rtresult.getBlockPos().offset(rtresult.sideHit);

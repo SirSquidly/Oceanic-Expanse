@@ -265,6 +265,24 @@
     	"subtitle": "subtitle.salmon.hurt",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
+     "entity.tropical_fish.death": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.tropical_fish.death",
+    	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
+     },
+     "entity.tropical_fish.flop": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.tropical_fish.flop",
+    	"sounds": [ "oe:entity/fish/flop1", "oe:entity/fish/flop2", "oe:entity/fish/flop3", "oe:entity/fish/flop4"]
+     },
+     "entity.tropical_fish.hurt": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.tropical_fish.hurt",
+    	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
+     },
      "entity.turtle.ambient": 
 	 {
     	"category": "neutral",

@@ -53,6 +53,10 @@
             "model": "oe:item/bucket/bucket_squid"
         },
         {
+            "predicate": { "oe:tropical_fish": 1.00 },
+            "model": "oe:item/bucket/bucket_tropical_fish"
+        },
+        {
             "predicate": { "oe:turtle": 1.00 },
             "model": "oe:item/bucket/bucket_turtle"
         }

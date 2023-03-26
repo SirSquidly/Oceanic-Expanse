@@ -575,15 +575,28 @@ public class ConfigHandler
 				 	"minecraft:squid",
 		            "minecraft:guardian",
 				 	"minecraft:elder_guardian",
+				 	"oe:baby_squid",
+				 	"oe:baby_glow_squid",
 				 	"oe:cod",
 				 	"oe:salmon",
 				 	"oe:pufferfish",
+				 	"oe:tropical_fish",
 				 	"oe:turtle",
 				 	"oe:glow_squid",
 				 	"oe:crab",
 				 	"oe:drowned",
 				 	"oe:pickled"
 		    };
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.spawnBucketTropicalFishSpecificNames")
+		    @Config.Comment("If buckets of tropical fish add the fish's colors and type to the bucket name (ex 'Bucket of White Kob'). Note this does not override if the fish already has a custom name.")
+		    public boolean spawnBucketTropicalFishSpecificNames = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.spawnBucketTropicalFishTooltips")
+		    @Config.Comment("If buckets of tropical fish add the fish's colors and type in a tooltip.")
+		    public boolean spawnBucketTropicalFishTooltips = true;
 			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.item.enableAllBucketsCreative")
@@ -731,9 +744,12 @@ public class ConfigHandler
 		    public String[] pufferfishFriends = 
 			{
 				 	"minecraft:squid",
+				 	"oe:baby_squid",
+				 	"oe:baby_glow_squid",
 				 	"oe:cod",
 				 	"oe:salmon",
 				 	"oe:pufferfish",
+				 	"oe:tropical_fish",
 				 	"oe:turtle",
 				 	"oe:glow_squid",
 				 	"oe:clam"
@@ -768,6 +784,88 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.salmonFeedingGrowth")
 		    @Config.Comment("When using breeding items on Salmon, they grow in size. This is a joke feature.")
 		    public boolean salmonFeedingGrowth = false;
+		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.tropicalFish")
+	    public configTropicalFish tropicalFish = new configTropicalFish();
+		
+		public static class configTropicalFish
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableTropicalFish")
+		    @Config.Comment("If Tropical Fish should be enabled")
+		    public boolean enableTropicalFish = true;
+		    
+			@Config.LangKey("oe.config.entity.tropicalFishDefaultChance")
+		    @Config.Comment("The percent chance a tropical fish is from the default variants list.")
+		    public int tropicalFishDefaultChance = 90;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.tropicalFishBedrockColors")
+		    @Config.Comment("If Tropical fish colors should use bedrock names. [Light Blue -> Sky, Pink -> Rose, Light Gray -> Silver, Cyan -> Teal, Purple -> Plum]")
+		    public boolean tropicalFishBedrockColors = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableBlackTropicalFish")
+		    @Config.Comment("If Black should be included in the list of possible tropical fish colors. This is not in vanilla Minecraft, as it makes the fish eyes hard to see.")
+		    public boolean enableBlackTropicalFish = false;
+			
+		    @Config.LangKey("oe.config.entity.defaultTropicalFishVariants")
+		    @Config.Comment("The most likely list of tropical fish variants to spawn")
+		    public String[] defaultTropicalFishVariants = 
+			{
+				 	"65536",
+				 	"459008",
+				 	"917504",
+				 	"918273",
+				 	"918529",
+				 	"16778497",
+				 	"50660352",
+				 	"50726144",
+				 	"67108865",
+				 	"67110144",
+				 	"67371009",
+				 	"67699456",
+				 	"67764993",
+				 	"101253888",
+				 	"117441025",
+				 	"117441793",
+				 	"117506305",
+				 	"117899265",
+				 	"118161664",
+				 	"185008129",
+				 	"234882305",
+				 	"235340288"
+		    };
+		    
+		    @Config.LangKey("oe.config.entity.tropicalFishNameOverrides")
+		    @Config.Comment("The most likely list of tropical fish variants to spawn")
+		    public String[] tropicalFishNameOverrides = 
+			{
+				 	"65536=Clownfish",
+				 	"459008=Triggerfish",
+				 	"917504=Tomato Clownfish",
+				 	"918273=Red Snapper",
+				 	"918529=Red Chichlid",
+				 	"16778497=Ornate Butterflyfish",
+				 	"50660352=Queen Angelfish",
+				 	"50726144=Cotton Candy Betta",
+				 	"67108865=Threadfin",
+				 	"67110144=Goatfish",
+				 	"67371009=Yellow Tang",
+				 	"67699456=Yellowtail Parrotfish",
+				 	"67764993=Dottyback",
+				 	"101253888=Parrotfish",
+				 	"117441025=Moorish Idol",
+				 	"117441793=Butterflyfish",
+				 	"117506305=Anemone",
+				 	"117899265=Black Tang",
+				 	"118161664=Cichlid",
+				 	"185008129=Blue Tang",
+				 	"234882305=Emperor Red Snapper",
+				 	"235340288=Red Lipped Blenny"
+		    };
 		}
 		
 		@RequiresMcRestart
