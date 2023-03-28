@@ -8,6 +8,8 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
+import com.sirsquidly.oe.network.OEPacketHandler;
+import com.sirsquidly.oe.network.OEPacketSpawnParticles;
 import com.sirsquidly.oe.tileentity.TileConduit;
 import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -24,11 +26,13 @@ import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -69,6 +73,8 @@ public class CommonProxy
 	{
 		OEEntities.registerEntitySpawns();
 		SoundHandler.registerSounds();
+		
+		OEPacketHandler.registerMessages();
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -104,6 +110,15 @@ public class CommonProxy
     	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS, 2, 2, 48, 8, 4, 0.6, false, BiomeDictionary.getBiomes(Type.SWAMP).toArray(new Biome[0])), 0);
 	}
 
+    
+    public void spawnParticle(int particleId, World world, double posX, double posY, double posZ, double speedX, double speedY, double speedZ, int... parameters)
+	{
+		if (world.isRemote)
+    	{ spawnParticle(particleId, posX, posY, posZ, speedX, speedY, speedZ, parameters); }
+		else
+    	{ OEPacketHandler.CHANNEL.sendToAllTracking( new OEPacketSpawnParticles(particleId, posX, posY, posZ, speedX, speedY, speedZ, parameters), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 0.0D)); }
+	}
+    
 	public void spawnParticle(int particleId, double posX, double posY, double posZ, double speedX, double speedY, double speedZ, int... parameters)
 	{}
 }

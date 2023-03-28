@@ -101,37 +101,35 @@ public class ItemTrident extends Item
             float f = getArrowVelocity(i);
         	int r = EnchantmentHelper.getEnchantmentLevel(OEEnchants.RIPTIDE, stack);
         	
-        	if (f >= 0.6)
+        	if (f >= 0.6 && !worldIn.isRemote)
         	{ 
         		if (r <= 0)
             	{
-        			if (!worldIn.isRemote)
-        			{
-        				EntityTrident entitytrient = new EntityTrident(worldIn, entityplayer);
-                        entitytrient.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, 0.8F * 3.0F, 1.0F);
+    				EntityTrident entitytrient = new EntityTrident(worldIn, entityplayer);
+                    entitytrient.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, 0.8F * 3.0F, 1.0F);
 
-                        entitytrient.setIsCritical(true);
-                        stack.damageItem(1, entityplayer);
-                        entitytrient.setItem(stack);
-                        
-                        int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
+                    entitytrient.setIsCritical(true);
+                    stack.damageItem(1, entityplayer);
+                    entitytrient.setItem(stack);
+                    
+                    int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 
-                        if (j > 0)
-                        {
-                        	entitytrient.setDamage(entitytrient.getDamage() + (double)j * 0.5D + 0.5D);
-                        }
-                        
-                        if (!entityplayer.capabilities.isCreativeMode)
-                        {
-                        	stack.setCount(0);
-                        }
-                        else
-                        {
-                        	entitytrient.pickupStatus = PickupStatus.CREATIVE_ONLY;
-                        }
+                    if (j > 0)
+                    {
+                    	entitytrient.setDamage(entitytrient.getDamage() + (double)j * 0.5D + 0.5D);
+                    }
+                    
+                    if (!entityplayer.capabilities.isCreativeMode)
+                    {
+                    	stack.setCount(0);
+                    }
+                    else
+                    {
+                    	entitytrient.pickupStatus = PickupStatus.CREATIVE_ONLY;
+                    }
 
-                        worldIn.spawnEntity(entitytrient);	
-        			}
+                    worldIn.spawnEntity(entitytrient);	
+    			
             	}
             	else if (entityplayer.isWet())
             	{

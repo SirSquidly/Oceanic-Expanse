@@ -2,12 +2,10 @@ package com.sirsquidly.oe.event;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.sirsquidly.oe.entity.EntityTropicalFish;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,6 +14,7 @@ import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -28,8 +27,13 @@ public class BucketMobEvent
     {
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
+
+		Vec3d eyePosition = player.getPositionEyes(1.0F);
+        Vec3d lookVector = player.getLook(1.0F);
+        double playerReach = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
+        Vec3d traceEnd = eyePosition.addVector(lookVector.x * playerReach, lookVector.y * playerReach, lookVector.z * playerReach);
+		RayTraceResult rtresult = player.getEntityWorld().rayTraceBlocks(eyePosition, traceEnd, false);;
 		
-		RayTraceResult rtresult = Minecraft.getMinecraft().objectMouseOver;
 		Entity entity = null;
 		
 		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.ENTITY)
@@ -39,7 +43,7 @@ public class BucketMobEvent
 		
 		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.ENTITY)
         {
-			if (stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET) 
+			if (stack.getItem() instanceof ItemBucket) 
 			{
 				if (ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()))
 				{
@@ -55,7 +59,7 @@ public class BucketMobEvent
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		
-		if ((stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase) 
+		if ((stack.getItem() instanceof ItemBucket) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase) 
 		{
 			EntityLivingBase entity = (EntityLivingBase) event.getTarget();
 			

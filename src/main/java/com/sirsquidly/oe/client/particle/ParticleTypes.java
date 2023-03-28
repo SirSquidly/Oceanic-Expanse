@@ -7,8 +7,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public enum ParticleTypes
 {
     CONDUIT,
-    GLOW;
-    //INK;
+    GLOW,
+    INK;
 
     public int getId()
     {

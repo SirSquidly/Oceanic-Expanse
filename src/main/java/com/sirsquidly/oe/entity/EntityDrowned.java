@@ -173,7 +173,8 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
                 		
                 		for (int i = 0; i < 4; i++)
                         {
-                        	Main.proxy.spawnParticle(2, this.posX + (rand.nextFloat() - rand.nextFloat()), this.posY + 1.5, this.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 4, 128, 255, 192);
+                        	Main.proxy.spawnParticle(2, this.world, this.posX + (rand.nextFloat() - rand.nextFloat()), this.posY + 1.5, this.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 4, 128, 255, 192);
+                        	Main.proxy.spawnParticle(1, this.world, this.posX + (rand.nextFloat() - rand.nextFloat()), this.posY + 1.5, this.posZ + (rand.nextFloat() - rand.nextFloat()), 0.0D, 0.0D, 0.0D);
                         }
                     }
                 	
@@ -201,8 +202,6 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     
     private void summonReinforcements()
     {
-        if (this.world.isRemote) return;
-
         EntityDrowned entityDrowned = new EntityDrowned(this.world);
         
         for (int l = 0; l < 50; ++l)
@@ -221,7 +220,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
                     
                     for (int i = 0; i < 80; i++)
                     {
-                    	Main.proxy.spawnParticle(2, entityDrowned.posX + (rand.nextFloat() - rand.nextFloat()), entityDrowned.posY + 1 + (rand.nextFloat() - rand.nextFloat()), entityDrowned.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 4, 128, 255, 192);
+                    	Main.proxy.spawnParticle(2, this.world, entityDrowned.posX + (rand.nextFloat() - rand.nextFloat()), entityDrowned.posY + 1 + (rand.nextFloat() - rand.nextFloat()), entityDrowned.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 4, 128, 255, 192);
                     }
                     
                     entityDrowned.setAttackTarget(this.getAttackTarget());

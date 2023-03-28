@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,9 +26,9 @@ public class HurtSquidEvent
 	public static void HurtSquid(LivingHurtEvent event)
     {
 		Entity squid = event.getEntity();
-		if (!ConfigHandler.vanillaTweak.squidInking.enableSquidInking || squid.world.isRemote) return;
+		if (!ConfigHandler.vanillaTweak.squidInking.enableSquidInking) return;
 
-	    if (squid != null && squid instanceof EntitySquid && event.getSource().getTrueSource() instanceof EntityLivingBase)
+	    if (squid != null && squid instanceof EntitySquid && event.getSource().getTrueSource() instanceof EntityLivingBase && event.getEntityLiving().world instanceof WorldServer)
 	    {
 	    	boolean isBaby = false;
 	    	EntitySquid squiddi  = (EntitySquid)event.getEntity();	
@@ -46,7 +47,7 @@ public class HurtSquidEvent
 				double x = squid.posX + (squid.world.rand.nextDouble() / 3 - squid.world.rand.nextDouble() / 3) + (yawX * (isBaby ? 0.1D : 0.7D) * pitch1);
 				double y = squid.posY + 0.7 - (pitchRaw + 1);
 				double z = squid.posZ + (squid.world.rand.nextDouble() / 3 - squid.world.rand.nextDouble() / 3) + (yawZ * (isBaby ? 0.1D : 0.7D) * pitch1);
-				
+
 	        	double quickx = (yawX * 0.1 + (squid.world.rand.nextDouble() / 8 - squid.world.rand.nextDouble() / 8)) * pitch1;
 		        double quickz = (yawZ * 0.1 + (squid.world.rand.nextDouble() / 8 - squid.world.rand.nextDouble() / 8)) * pitch1;
 		        
@@ -54,13 +55,14 @@ public class HurtSquidEvent
 		        
 		        if (squid instanceof EntityGlowSquid)
 		        {
-		        	Main.proxy.spawnParticle(2, x, y, z, quickx, quicky, quickz, isBaby ? 3 : 5, 128, 255, 192);
+		        	Main.proxy.spawnParticle(2, squid.world, x, y, z, quickx, quicky, quickz, isBaby ? 3 : 5, 128, 255, 192);
 		        }
 		        else
 		        {
-		        	Main.proxy.spawnParticle(2, x, y, z, quickx, quicky, quickz, isBaby ? 3 : 5);
+		        	Main.proxy.spawnParticle(2, squid.world, x, y, z, quickx, quicky, quickz, isBaby ? 3 : 5);
 		        }
-
+			
+				
 		        if (ConfigHandler.vanillaTweak.squidInking.inkBlindnessLength > 0 && !isBaby)
 		        {
 		        	List<Entity> checkInkArea = squid.world.getEntitiesWithinAABBExcludingEntity(squid, squid.getEntityBoundingBox().offset(x - squid.posX, y - squid.posY, z - squid.posZ));

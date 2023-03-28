@@ -47,7 +47,7 @@ public class ItemCharm extends Item
 		{
 			for (int i = 0; i < 6; i++)
 			{
-				Main.proxy.spawnParticle(0, entityIn.posX + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, entityIn.posY + 1.0D + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.height, entityIn.posZ + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, 0, 0, 0, 6);
+				Main.proxy.spawnParticle(0, entityIn.world, entityIn.posX + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, entityIn.posY + 1.0D + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.height, entityIn.posZ + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, 0, 0, 0, 6);
 			}	
 			
 			//if (worldIn.isRemote) return;
