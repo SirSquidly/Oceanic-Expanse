@@ -24,11 +24,13 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
+import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
@@ -53,13 +55,13 @@ public class EntityTropicalFish extends AbstractFish
 	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
     }
 	
 	protected void initEntityAI()
     {	
-		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 80, true));
+		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
 		this.tasks.addTask(2, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
@@ -100,6 +102,16 @@ public class EntityTropicalFish extends AbstractFish
         {
             this.setAir(150);
         }
+    }
+	
+	@Override
+	public boolean getCanSpawnHere()
+    {
+        int x = MathHelper.floor(this.posX);
+        int y = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int z = MathHelper.floor(this.posZ);
+
+		return (checkNeighborSpawn(8, EntityTropicalFish.class) || super.checkBlockDown(x, y, z, 32, OEBlocks.BLUE_CORAL_BLOCK)) && !checkNearbyEntites(16, 20, null) && checkHeight((int)this.posY, this.world);
     }
 	
 	@Nullable
@@ -191,6 +203,9 @@ public class EntityTropicalFish extends AbstractFish
     {
         return this.height * 0.6F;
     }
+	
+	public int getMaxSpawnedInChunk()
+    { return 20; }
 	
 	public EntityTropicalFish createChild(EntityAgeable ageable)
     {

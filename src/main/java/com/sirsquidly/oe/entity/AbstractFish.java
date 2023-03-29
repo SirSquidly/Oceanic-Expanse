@@ -3,14 +3,21 @@ package com.sirsquidly.oe.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Sets;
+import com.sirsquidly.oe.blocks.BlockCoral;
+import com.sirsquidly.oe.blocks.BlockCoralFan;
+import com.sirsquidly.oe.blocks.BlockCoralFull;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -25,6 +32,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 /**
  * Common traits for all normal fish to inherit
@@ -33,6 +41,8 @@ public class AbstractFish extends EntityAnimal
 {
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet();
 	protected EntityAIWander wander;
+	/** If the fish just spawned. Used to help fish wth specific spawning coditions, like Tropical Fish. */
+	public boolean justSpawned;
 	
 	public AbstractFish(World worldIn)
 	{
@@ -59,8 +69,97 @@ public class AbstractFish extends EntityAnimal
 	@Override
 	public boolean getCanSpawnHere()
     { 
-		List<Entity> checkAbove = this.world.getEntitiesWithinAABB(AbstractFish.class, getEntityBoundingBox().grow(16, 16, 16));
-		return checkAbove.size() < 10; 
+		return !checkNearbyEntites(16, 10, null) && checkHeight((int)this.posY, this.world);
+    }
+	
+	/** Used to check nearby entities.
+	 * 
+	 *  int 'areaCheck' is the area to check, in a cube
+	 *  int 'minNear' is the minimum entities required for this to pass
+	 *  class 'checkClass' is the class of entity to check for. If left null, checks for any AbstractFish
+	 *  */
+	public boolean checkHeight(int posY, World world)
+    { 
+		return posY <= world.getSeaLevel()+1 && posY >= world.getSeaLevel()-12; 
+    }
+	
+	/** Used to check nearby entities.
+	 * 
+	 *  int 'areaCheck' is the area to check, in a cube
+	 *  int 'minNear' is the minimum entities required for this to pass
+	 *  class 'checkClass' is the class of entity to check for. If left null, checks for any AbstractFish
+	 *  */
+	@SuppressWarnings("unchecked")
+	public boolean checkNearbyEntites(int areaCheck, int minNear, @SuppressWarnings("rawtypes")@Nullable Class checkClass)
+    { 
+		List<Entity> checkAbove = this.world.getEntitiesWithinAABB(AbstractFish.class, getEntityBoundingBox().grow(areaCheck, areaCheck, areaCheck));
+		
+		if (checkClass != null)
+		{
+			checkAbove = this.world.getEntitiesWithinAABB(checkClass, getEntityBoundingBox().grow(areaCheck, areaCheck, areaCheck));
+		}
+		return checkAbove.size() > minNear; 
+    }
+	
+	/** Checks if the nearby entity can spawn here. This helps fish with particular spawn conditions.
+	 * 
+	 *  int 'areaCheck' is the area to check, in a cube.
+	 *  class 'checkClass' is the class of entity to check for.
+	 *  */
+	@SuppressWarnings("unchecked")
+	public boolean checkNeighborSpawn(int areaCheck, @SuppressWarnings("rawtypes") Class checkClass)
+    { 
+		List<Entity> checkNeighboring = this.world.getEntitiesWithinAABB(checkClass, getEntityBoundingBox().grow(areaCheck, areaCheck, areaCheck));
+		for (Entity e : checkNeighboring) 
+    	{
+			if (((AbstractFish) e).justSpawned)
+			{
+				return true;
+			}
+    	}
+		return false; 
+    }
+	
+	/** Used to check the first solid block below this position.
+	 * 
+	 *  int 'length' is how far down it will attempt to find a solid block, before giving up.
+	 *  'blockIn' is the block we are checking for.
+	 *  */
+	public boolean checkBlockDown(int x, int y, int z, int length, Block blockIn)
+    { 
+        BlockPos blockpos = new BlockPos(x, y, z);
+        
+        for (int l = 0; l <= length; l++)
+        { if (this.world.getBlockState(blockpos.down()).getMaterial() == Material.WATER) blockpos = blockpos.down(); }
+        
+        // If the given block is an instance of Coral Full, we let it pass for any coral.
+        if (blockIn instanceof BlockCoralFull)
+        { return this.world.getBlockState(blockpos.down()).getBlock() instanceof BlockCoralFull || this.world.getBlockState(blockpos.down()).getBlock() instanceof BlockCoral || this.world.getBlockState(blockpos.down()).getBlock() instanceof BlockCoralFan; 
+        }
+		return this.world.getBlockState(blockpos.down()).getBlock() == blockIn;
+    }
+	
+	/** Used to check the first solid block above this position.
+	 * 
+	 *  int 'length' is how far down it will attempt to find a solid block, before giving up.
+	 *  'blockIn' is the block we are checking for.
+	 *  */
+	public boolean checkBlockUp(int x, int y, int z, int length, Block blockIn)
+    { 
+        BlockPos blockpos = new BlockPos(x, y, z);
+        
+        for (int l = 0; l <= length; l++)
+        { if (this.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER) blockpos = blockpos.up(); }
+        
+		return this.world.getBlockState(blockpos.up()).getBlock() == blockIn;
+    }
+	
+	@Nullable
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+    {
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
+        justSpawned = true;
+        return livingdata;
     }
 	
 	public boolean isNotColliding()
@@ -90,6 +189,8 @@ public class AbstractFish extends EntityAnimal
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
+        justSpawned = false;
+        
         float f = 0.0F;
         BlockPos blockpos = new BlockPos(this);
         IBlockState iblockstate = this.world.getBlockState(blockpos);
@@ -123,6 +224,9 @@ public class AbstractFish extends EntityAnimal
 		
 	protected boolean canTriggerWalking()
     { return false; }
+	
+	public int getTalkInterval()
+    { return 120; }
 	
 	@Override
 	protected PathNavigate createNavigator(World worldIn)

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
+import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
@@ -21,7 +22,6 @@ import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -35,6 +35,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityPufferfish extends AbstractFish
@@ -63,7 +64,7 @@ public class EntityPufferfish extends AbstractFish
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
@@ -71,7 +72,7 @@ public class EntityPufferfish extends AbstractFish
 
 	protected void initEntityAI()
     {
-		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 80, true));
+		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 0.0D, false));
 		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
@@ -91,11 +92,24 @@ public class EntityPufferfish extends AbstractFish
     protected ResourceLocation getLootTable()
     { return LootTableHandler.ENTITIES_PUFFERFISH; }
 	
+	@Override
+	public boolean getCanSpawnHere()
+    {
+        int x = MathHelper.floor(this.posX);
+        int y = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int z = MathHelper.floor(this.posZ);
+
+		return (checkNeighborSpawn(8, EntityPufferfish.class) || super.checkBlockDown(x, y, z, 32, OEBlocks.BLUE_CORAL_BLOCK)) && !checkNearbyEntites(16, 20, null) && checkHeight((int)this.posY, this.world);
+    }
+	
 	protected void collideWithEntity(Entity entityIn)
     {
-        if (entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityCreeper) && !(entityIn instanceof EntityPufferfish) && !(entityIn instanceof EntitySquid) && !(entityIn instanceof EntityGlowSquid) && !(entityIn instanceof EntityCod) && !(entityIn instanceof EntitySalmon) && this.getRNG().nextInt(2) == 0)
+        if (entityIn instanceof EntityLivingBase && this.getAttackTarget() != entityIn && !(entityIn instanceof EntityCreeper) && this.getRNG().nextInt(10) == 0)
         {
-            this.setAttackTarget((EntityLivingBase)entityIn);
+        	if ((entityIn instanceof EntityPlayer || !ArrayUtils.contains(ConfigHandler.entity.pufferfish.pufferfishFriends, EntityList.getKey((EntityLivingBase) entityIn).toString())))
+        	{
+        		this.setAttackTarget((EntityLivingBase)entityIn);
+        	}
         }
         super.collideWithEntity(entityIn);
     }

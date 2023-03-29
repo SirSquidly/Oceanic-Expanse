@@ -33,13 +33,13 @@ public class EntityCod extends AbstractFish
 	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
     }
 	
 	protected void initEntityAI()
     {	
-		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 80, true));
+		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
 		this.tasks.addTask(2, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
