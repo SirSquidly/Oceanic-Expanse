@@ -572,20 +572,13 @@ public class ConfigHandler
 		    @Config.Comment("Mobs that can be bucketed. These will also appear in Creative Tabs.")
 		    public String[] bucketableMobs = 
 			{
-				 	"minecraft:squid",
-		            "minecraft:guardian",
-				 	"minecraft:elder_guardian",
 				 	"oe:baby_squid",
 				 	"oe:baby_glow_squid",
 				 	"oe:cod",
 				 	"oe:salmon",
 				 	"oe:pufferfish",
 				 	"oe:tropical_fish",
-				 	"oe:turtle",
-				 	"oe:glow_squid",
-				 	"oe:crab",
-				 	"oe:drowned",
-				 	"oe:pickled"
+				 	"oe:crab"
 		    };
 			
 			@RequiresMcRestart

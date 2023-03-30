@@ -4,6 +4,14 @@
         "layer0": "oe:items/bucket/bucket_unknown"
     },
     "overrides": [
+    	{
+            "predicate": { "oe:baby_squid": 1.00 },
+            "model": "oe:item/bucket/bucket_baby_squid"
+        },
+        {
+            "predicate": { "oe:baby_glow_squid": 1.00 },
+            "model": "oe:item/bucket/bucket_baby_glow_squid"
+        },
         {
             "predicate": { "oe:clam": 1.00 },
             "model": "oe:item/bucket/bucket_clam"
@@ -30,7 +38,7 @@
         },
         {
             "predicate": { "oe:glow_squid": 1.00 },
-            "model": "oe:item/bucket/bucket_glowsquid"
+            "model": "oe:item/bucket/bucket_glow_squid"
         },
         {
             "predicate": { "minecraft:guardian": 1.00 },
