@@ -1,5 +1,7 @@
 package com.sirsquidly.oe.event;
 
+import java.util.List;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.init.OEItems;
@@ -13,46 +15,64 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+/**
+ * Handles all the relevant code to bucketing up a mob
+ */
 @Mod.EventBusSubscriber
 public class BucketMobEvent
 {
+	/**
+	 * This tries to cancel water placement if the player is using the bucket on a bucketable mob
+	 */
 	@SubscribeEvent
 	public static void RightClickItem(PlayerInteractEvent.RightClickItem event)
     {
 		EntityPlayer player = event.getEntityPlayer();
+		
 		ItemStack stack = player.getHeldItemMainhand();
 
 		Vec3d eyePosition = player.getPositionEyes(1.0F);
         Vec3d lookVector = player.getLook(1.0F);
         double playerReach = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
         Vec3d traceEnd = eyePosition.addVector(lookVector.x * playerReach, lookVector.y * playerReach, lookVector.z * playerReach);
-		RayTraceResult rtresult = player.getEntityWorld().rayTraceBlocks(eyePosition, traceEnd, false);;
+        
+		RayTraceResult rtresult = player.getEntityWorld().rayTraceBlocks(eyePosition, traceEnd, false, true, false);;
 		
-		Entity entity = null;
+		if (rtresult == null) return;
 		
-		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.ENTITY)
+		if (rtresult.typeOfHit == RayTraceResult.Type.BLOCK)
         {
-			entity = rtresult.entityHit;
-        }
-		
-		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.ENTITY)
-        {
-			if (stack.getItem() instanceof ItemBucket) 
-			{
-				if (ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()))
-				{
-					event.setCanceled(true);
-				}
-			}
+			World world = player.getEntityWorld();
+			
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(rtresult.getBlockPos()).grow(0.01D));
+			
+			for (Entity entity1 : list)
+	        {
+	            if (!(entity1 instanceof EntityPlayer) && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity1).toString()))
+	            {
+	                AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox();
+	                RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(eyePosition, traceEnd);
+
+	                if (raytraceresult1 != null && stack.getItem() instanceof ItemBucket)
+	                {
+	                	event.setCanceled(true);
+	                }
+	            }
+	        }
         }
     }
 	
+	/**
+	 * This gets the right-clicked entity and records it to a spawn bucket
+	 */
 	@SubscribeEvent
 	public static void onRightclickEntity(PlayerInteractEvent.EntityInteract event) 
 	{
