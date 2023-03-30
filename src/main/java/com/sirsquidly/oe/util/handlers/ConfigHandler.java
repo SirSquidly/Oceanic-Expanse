@@ -686,6 +686,12 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.babySquidCustomModel")
 		    @Config.Comment("If Baby Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
 		    public boolean babySquidCustomModel = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.block.babySquidSpawnChance")
+		    @Config.Comment("The percent chance for a Baby Squid to spawn along-side an adult squid.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double babySquidSpawnChance = 14.3;
 	    }
 		
 		@RequiresMcRestart
@@ -701,6 +707,12 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.babyGlowSquidCustomModel")
 		    @Config.Comment("If Baby Glow Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
 		    public boolean babyGlowSquidCustomModel = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.block.babyGlowSquidSpawnChance")
+		    @Config.Comment("The percent chance for a Baby Glow Squid to spawn along-side an adult glow squid.")
+		    @Config.RangeDouble(min = 0, max = 100)
+		    public double babyGlowSquidSpawnChance = 14.3;
 	    }
 		
 		@RequiresMcRestart
@@ -865,6 +877,33 @@ public class ConfigHandler
 				 	"185008129=Blue Tang",
 				 	"234882305=Emperor Red Snapper",
 				 	"235340288=Red Lipped Blenny"
+		    };
+		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.turtle")
+	    public configTurtle turtle = new configTurtle();
+		
+		public static class configTurtle
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableTurtle")
+		    @Config.Comment("If Turtles should be enabled")
+		    public boolean enableTurtle = true;
+		    
+		    @Config.LangKey("oe.config.entity.defaultTropicalFishVariants")
+		    @Config.Comment("These mobs will attack baby turtles. If the mob is tamable (such as a wolf or ocelot), they will only attack if they are untamed.")
+		    public String[] babyTurtlePredators = 
+			{
+				 	"minecraft:zombie",
+				 	"minecraft:husk",
+				 	"minecraft:skeleton",
+				 	"minecraft:stray",
+				 	"minecraft:wither_skeleton",
+				 	"minecraft:wolf",
+				 	"minecraft:ocelot",
+				 	"oe:drowned",
+				 	"oe:pickled"
 		    };
 		}
 		

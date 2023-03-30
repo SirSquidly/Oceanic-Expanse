@@ -27,7 +27,7 @@ public class OEEntities
 		if (ConfigHandler.entity.salmon.enableSalmon) registerEntity("salmon", EntitySalmon.class, ++id, 64, 12860482, 5268308);
 		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) registerEntity("tropical_fish", EntityTropicalFish.class, ++id, 64, 16019232, 15724527);
 		if (ConfigHandler.entity.pufferfish.enablePufferfish) registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
-		registerEntity("turtle", EntityTurtle.class, ++id, 64, 12763520, 4702026);
+		if (ConfigHandler.entity.turtle.enableTurtle) registerEntity("turtle", EntityTurtle.class, ++id, 64, 12763520, 4702026);
 		registerEntity("crab", EntityCrab.class, ++id, 64, 12860482, 15453241);
 		registerEntity("clam", EntityClam.class, ++id, 64, 14327661, 15701910);
 		
@@ -54,7 +54,7 @@ public class OEEntities
 		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) EntityRegistry.addSpawn(EntityTropicalFish.class, 30, 8, 8, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		EntityRegistry.addSpawn(EntityClam.class, 5, 1, 1, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		
-		EntityRegistry.addSpawn(EntityTurtle.class, 5, 2, 6, EnumCreatureType.CREATURE, Biomes.BEACH);
+		if (ConfigHandler.entity.turtle.enableTurtle) EntityRegistry.addSpawn(EntityTurtle.class, 5, 2, 6, EnumCreatureType.CREATURE, Biomes.BEACH);
 		EntityRegistry.addSpawn(EntityCrab.class, 10, 1, 4, EnumCreatureType.CREATURE, Biomes.BEACH);
 		
 		EntitySpawnPlacementRegistry.setPlacementType(EntityGlowSquid.class, SpawnPlacementType.IN_WATER);

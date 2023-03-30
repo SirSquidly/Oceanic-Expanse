@@ -130,7 +130,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     { return true; }
 	
 	protected float getWaterSlowDown()
-    { return 0.98F; }
+    { return this.world.getBlockState(new BlockPos(this.posX, this.posY, this.posZ).up()).getMaterial() == Material.WATER ? 0.98F : super.getWaterSlowDown(); }
 	
 	public boolean isSwimming()
     { return ((Boolean)this.dataManager.get(IS_SWIMMING)).booleanValue(); }
