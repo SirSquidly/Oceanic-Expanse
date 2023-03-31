@@ -36,19 +36,21 @@ public class LayerTropicalFish implements LayerRenderer<EntityTropicalFish>
 			
 	        GlStateManager.color(afloat[0], afloat[1], afloat[2]);
 			
-	        
-	        //value tropicalFishModel = modelA;
-	        if (getModel == "a")
+	        /** Bonus check to only really apply the pattern if it's within the acceptable range. Otherwise, fish outside of range (only possible via commands) would display the missing texture.  */
+	        if ((entitylivingbaseIn.getTropicalFishVariant() >> 8 & 255) <= 5)
 	        {
-	        	this.modelA.setModelAttributes(this.tropicalFishRenderer.getMainModel());
-		        this.modelA.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-		        this.modelA.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-	        }
-	        else
-	        {
-	        	this.modelB.setModelAttributes(this.tropicalFishRenderer.getMainModel());
-		        this.modelB.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-		        this.modelB.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+	        	if (getModel == "a")
+		        {
+		        	this.modelA.setModelAttributes(this.tropicalFishRenderer.getMainModel());
+			        this.modelA.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+			        this.modelA.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		        }
+		        else
+		        {
+		        	this.modelB.setModelAttributes(this.tropicalFishRenderer.getMainModel());
+			        this.modelB.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+			        this.modelB.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		        }
 	        }
 		}
     }
