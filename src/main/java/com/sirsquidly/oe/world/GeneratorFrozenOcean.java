@@ -19,6 +19,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class GeneratorFrozenOcean implements IWorldGenerator
@@ -63,12 +65,16 @@ public class GeneratorFrozenOcean implements IWorldGenerator
                 
                 Biome biome = world.getBiomeForCoordsBody(pos);
                 
-                boolean isValidBiome = false;		
+                boolean isValidBiome = false;
+                boolean isBeachBiome = false;	
+                
                 for(int i = 0; i < biomes.length; i++)
         		{
         			if(biome == biomes[i])
         			{
         				isValidBiome = true;
+        				if (BiomeDictionary.hasType(biome, Type.BEACH)) isBeachBiome = true;
+        				
         				break;
         			}
         		}
@@ -78,7 +84,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
                 	if (world.getBlockState(pos).getBlock() == Blocks.SAND)
                     { world.setBlockState(pos, Blocks.GRAVEL.getDefaultState(), 16 | 2); }
                 	
-                	if (ConfigHandler.worldGen.frozenOcean.enableIcebergs) spawnIceBerg(world, rand, pos, chunkX, chunkZ, x, z);
+                	if (ConfigHandler.worldGen.frozenOcean.enableIcebergs && !isBeachBiome) spawnIceBerg(world, rand, pos, chunkX, chunkZ, x, z);
                 	
                 	floatingIceCleaner(world, posSurface);
                 	

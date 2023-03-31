@@ -3,6 +3,7 @@ package com.sirsquidly.oe.client.render.entity;
 import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.client.model.entity.ModelTropicalFishA;
+import com.sirsquidly.oe.client.model.entity.ModelTropicalFishB;
 import com.sirsquidly.oe.client.render.entity.layer.LayerTropicalFish;
 import com.sirsquidly.oe.entity.EntityTropicalFish;
 import com.sirsquidly.oe.util.Reference;
@@ -18,18 +19,23 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderTropicalFish extends RenderLiving<EntityTropicalFish>
 {
-	public static final ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_a.png");
+	public static final ResourceLocation textureA = new ResourceLocation(Reference.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_a.png");
+	public static final ResourceLocation textureB = new ResourceLocation(Reference.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_b.png");
+	public static ModelTropicalFishA modelA = new ModelTropicalFishA();
+	public static ModelTropicalFishB modelB = new ModelTropicalFishB();
 	
 	public RenderTropicalFish(RenderManager manager)
     {
-        super(manager, new ModelTropicalFishA(), 0.2F);
+        super(manager, modelA, 0.2F);
         this.addLayer(new LayerTropicalFish(this));
     }
-
+	
 	@Override
 	protected void preRenderCallback(EntityTropicalFish entity, float f) {
 		float size = 0.9375F;
-		
+
+		mainModel = (entity.getTropicalFishVariant() & 255) == 0 ? modelA : modelB;
+        
 		if (entity.getGrowingAge() < 0)
         {
 			size = (float)((double)size * 0.5D);
@@ -48,7 +54,7 @@ public class RenderTropicalFish extends RenderLiving<EntityTropicalFish>
 	
 	protected ResourceLocation getEntityTexture(EntityTropicalFish entity)
 	{
-		return TEXTURES;
+		return (entity.getTropicalFishVariant() & 255) == 0 ? textureA : textureB;
 	}
 
     protected void applyRotations(EntityTropicalFish entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)

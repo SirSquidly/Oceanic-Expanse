@@ -42,7 +42,7 @@ public class EntityTropicalFish extends AbstractFish
 	
 	public EntityTropicalFish(World worldIn) {
 		super(worldIn);
-        this.setSize(0.6F, 0.3F);
+        this.setSize(0.5F, 0.4F);
         this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
@@ -119,14 +119,8 @@ public class EntityTropicalFish extends AbstractFish
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         int i = this.getRandomTropicalFishVariant();
-        boolean isBaby = false;
 
         this.setTropicalFishVariant(i);
-
-        if (isBaby)
-        {
-            this.setGrowingAge(-24000);
-        }
 
         return livingdata;
     }
@@ -169,7 +163,7 @@ public class EntityTropicalFish extends AbstractFish
 			}
     	}
         
-    	if ((variantInt >> 1 & 255) != 0)
+    	if ((variantInt & 255) != 0)
     	{
     		patternName = I18n.format("description.tropical_fish_b_pattern" + patternNum + ".name");
     	}
@@ -209,7 +203,12 @@ public class EntityTropicalFish extends AbstractFish
 	
 	public EntityTropicalFish createChild(EntityAgeable ageable)
     {
-        return new EntityTropicalFish(this.world);
+		EntityTropicalFish fish = new EntityTropicalFish(this.world);
+		int i = this.getRandomTropicalFishVariant();
+
+        fish.setTropicalFishVariant(i);
+		
+        return fish;
     }
 	
 	public boolean isBreedingItem(ItemStack stack)

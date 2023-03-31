@@ -41,10 +41,10 @@ public class EntityAIWanderUnderwater extends EntityAIWander
 	protected Vec3d getPosition()
     {
 		Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
-
-		/** Forces it to retry if the Target is not in water **/
 		
-		for (int i = 0; i <= 10 && !(this.entity.isInWater()); i++) {
+		/** Forces it to retry if the Target is not in water **/
+		for (int i = 0; i <= 10 && vec3d != null && this.entity.world.getBlockState(new BlockPos(vec3d)).getMaterial() != Material.WATER; i++)
+		{
 			vec3d = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
 		}
 

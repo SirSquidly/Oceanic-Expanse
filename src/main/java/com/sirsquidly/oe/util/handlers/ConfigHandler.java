@@ -681,7 +681,7 @@ public class ConfigHandler
 		    public boolean babySquidCustomModel = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.block.babySquidSpawnChance")
+		    @Config.LangKey("oe.config.entity.babySquidSpawnChance")
 		    @Config.Comment("The percent chance for a Baby Squid to spawn along-side an adult squid.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double babySquidSpawnChance = 14.3;
@@ -702,7 +702,7 @@ public class ConfigHandler
 		    public boolean babyGlowSquidCustomModel = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.block.babyGlowSquidSpawnChance")
+		    @Config.LangKey("oe.config.entity.babyGlowSquidSpawnChance")
 		    @Config.Comment("The percent chance for a Baby Glow Squid to spawn along-side an adult glow squid.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double babyGlowSquidSpawnChance = 14.3;
@@ -744,7 +744,7 @@ public class ConfigHandler
 		    @Config.Comment("Pufferfish instantly inflate to full when hurt")
 		    public boolean enablePufferfishInflateOnHit = true;
 			
-		    @Config.LangKey("oe.config.item.pufferfishFriends")
+		    @Config.LangKey("oe.config.entity.pufferfishFriends")
 		    @Config.Comment("Mobs that don't scare the Pufferfish.")
 		    public String[] pufferfishFriends = 
 			{
@@ -884,7 +884,7 @@ public class ConfigHandler
 		    @Config.Comment("If Turtles should be enabled")
 		    public boolean enableTurtle = true;
 		    
-		    @Config.LangKey("oe.config.entity.defaultTropicalFishVariants")
+		    @Config.LangKey("oe.config.entity.babyTurtlePredators")
 		    @Config.Comment("These mobs will attack baby turtles. If the mob is tamable (such as a wolf or ocelot), they will only attack if they are untamed.")
 		    public String[] babyTurtlePredators = 
 			{
