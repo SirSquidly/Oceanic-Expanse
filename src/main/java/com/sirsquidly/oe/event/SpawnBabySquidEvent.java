@@ -25,8 +25,6 @@ public class SpawnBabySquidEvent
 		Entity spawn = event.getEntity();
 		
 		if (!ConfigHandler.entity.babySquid.enableBabySquid && !ConfigHandler.entity.babyGlowSquid.enableBabyGlowSquid) return;
-		/** This just stops spawn eggs on land from spawning baby squids*/
-		if (!spawn.isInWater()) return;
 		
 		if(spawn instanceof EntitySquid && !(event.getEntity() instanceof EntityBabySquid || event.getEntity() instanceof EntityBabyGlowSquid) && !spawn.world.isRemote)
 		{
