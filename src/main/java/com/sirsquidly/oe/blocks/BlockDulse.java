@@ -63,7 +63,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (!checkWater(worldIn, pos)) return false;
+		if (checkSurfaceWater(worldIn, pos, state)) return false;
         if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
         return false;
     }

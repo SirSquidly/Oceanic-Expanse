@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
@@ -70,7 +69,6 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	/** 
 	 * All Placing and Staying 
 	 * **/
-
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
@@ -80,6 +78,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
+		if (checkSurfaceWater(worldIn, pos, state)) return false;
 		if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos)) return true;
         return false;
     }
@@ -87,16 +86,6 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
     {
         return false;
-    }
-	
-	/**
-	 *  Checking for the Pickels ot update if Submerged 
-	 *  **/
-	
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-		this.checkWater(worldIn, pos, state);
-        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
     }
 
 	@Override
@@ -113,42 +102,9 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
         super.onBlockAdded(worldIn, pos, state);
     }
     
-    protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
-    {
-    	boolean flag = false;
-    	
-    	/** If water around but not above, remove **/
-		for (EnumFacing enumfacing : EnumFacing.values())
-        {
-            if (enumfacing != EnumFacing.DOWN && enumfacing != EnumFacing.UP)
-            {
-                BlockPos blockpos = pos.offset(enumfacing);
-
-                if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
-                {
-                	if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.AIR)
-            		{ flag = true; break; }
-    				if (worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN) || worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) 
-    				{ worldIn.setBlockState(pos, state.withProperty(IN_WATER, true)); flag = false; break;}
-    				else { flag = false; break; }
-                }
-            }
-        }
-		/** Seperated from the above check, as to not multiply the item **/
-		if (flag)
-		{
-			this.dropBlockAsItem(worldIn, pos, state, 0);
-			if (state.getValue(IN_WATER) && !(worldIn.provider.doesWaterVaporize())) 
-			{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
-			else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
-		}
-		return flag;
-    }
-    
     /**
 	 *  Break for water if Submerged 
 	 *  **/
-    
     @Override
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
 		if (!this.canBlockStay(worldIn, pos, state)) 

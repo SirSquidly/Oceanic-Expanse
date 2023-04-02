@@ -28,14 +28,21 @@ public interface IChecksWater
 	/** Checks if surrounding blocks are either solid or are Material.WATER. **/
 	default boolean checkWater(World worldIn, BlockPos pos)
     {
+		/** First we check above this for Water, a Solid, or skip if config. **/
     	if (ConfigHandler.block.allowAirAbove || (worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN)))
     	{
     		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {
     			BlockPos blockpos = pos.offset(enumfacing);
-            	
-            	if (worldIn.getBlockState(blockpos).getMaterial() != Material.WATER && !worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, enumfacing.getOpposite()) && worldIn.getBlockState(blockpos.up()).getMaterial() != Material.WATER && !worldIn.getBlockState(blockpos.up()).isSideSolid(worldIn, blockpos.up(), EnumFacing.DOWN))
-            	{ return false; }
+    			
+    			/** Checking each direction if a block should make this fail by either not being solid or water **/
+            	if (worldIn.getBlockState(blockpos).getMaterial() != Material.WATER && !worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, enumfacing.getOpposite()))
+            	{ 
+            		if (worldIn.getBlockState(blockpos.up()).getMaterial() != Material.WATER && !worldIn.getBlockState(blockpos.up()).isSideSolid(worldIn, blockpos.up(), EnumFacing.DOWN))
+            		{
+            			return false;
+            		}
+            	}
             }
     		return true;
     	}

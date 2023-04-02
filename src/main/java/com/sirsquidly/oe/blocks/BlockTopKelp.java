@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
@@ -29,7 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockTopKelp extends BlockBush implements IGrowable
+public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 {
 	/** The maximum allowed height to grow to. Capped at 15 for Metadata reasons.*/
 	public static int maxHeight = Math.max(Math.min(15, 15), 0);
@@ -61,7 +62,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable
     
     @Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-    	if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) || worldIn.getBlockState(pos.up()).getBlock() == OEBlocks.KELP || worldIn.getBlockState(pos.up()).getBlock() == this) 
+    	if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !ConfigHandler.block.allowAirAbove || worldIn.getBlockState(pos.up()).getBlock() == OEBlocks.KELP || worldIn.getBlockState(pos.up()).getBlock() == this) 
 		{
 			worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState());
 		}
@@ -71,9 +72,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || 
-        		worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || 
-        				worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER;   
+        return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this || worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP) && checkWater(worldIn, pos);
     }
 
 	@Override

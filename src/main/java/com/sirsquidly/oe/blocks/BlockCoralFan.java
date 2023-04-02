@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockCoralFan extends Block
+public class BlockCoralFan extends Block implements IChecksWater
 {
 	protected static final AxisAlignedBB AABB_DOWN = new AxisAlignedBB(0.125D, 1.0D, 0.125D, 0.875D, 0.75D, 0.875D);
     protected static final AxisAlignedBB AABB_UP = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.25D, 0.875D);
@@ -91,7 +91,9 @@ public class BlockCoralFan extends Block
 
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return canPlaceBlock(worldIn, pos, facing) ? this.getDefaultState().withProperty(FACING, facing).withProperty(IN_WATER, Boolean.valueOf(false)) : this.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(IN_WATER, Boolean.valueOf(false));
+    	boolean isWet = checkWater(worldIn, pos);
+    	
+        return canPlaceBlock(worldIn, pos, facing) ? this.getDefaultState().withProperty(FACING, facing).withProperty(IN_WATER, isWet) : this.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(IN_WATER, isWet);
     }
 
 
@@ -288,19 +290,15 @@ public class BlockCoralFan extends Block
 
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
+    	if (this.canBlockStay(worldIn, pos, state)) swapWaterProperty(worldIn, pos, state);
     	this.checkForDrop(worldIn, pos, state);
-        if (!this.checkWater(worldIn, pos, state))
-        {
-    		worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-        }
+        if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.checkWater(worldIn, pos, state))
-        {
-        	worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-        }
+    	swapWaterProperty(worldIn, pos, state);
+    	if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
@@ -357,7 +355,7 @@ public class BlockCoralFan extends Block
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        boolean flag = ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 ? true : this.checkWater(worldIn, pos, state);;
+        boolean flag = ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 ? true : checkWater(worldIn, pos);
         
         if (!flag)
         {

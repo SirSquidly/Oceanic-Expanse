@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockCoral extends Block
+public class BlockCoral extends Block implements IChecksWater
 {
 	protected static final AxisAlignedBB CORAL_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.9375D, 0.875D);
     public static final PropertyBool IN_WATER = PropertyBool.create("in_water");
@@ -45,21 +45,17 @@ public class BlockCoral extends Block
 	
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-		return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP);   
-    }
+    { return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP); }
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) 
-			return true;
+		if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
         return false;
     }
 
 	/** 
      * Basic Block stuff
      * **/
-    
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
     	if (state.getBlock() == OEBlocks.BLUE_CORAL)
@@ -135,49 +131,17 @@ public class BlockCoral extends Block
     /**
      * Handles the Coral Death and Submerging
      */
-
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
+    	if (this.canBlockStay(worldIn, pos, state)) swapWaterProperty(worldIn, pos, state);
     	this.checkForDrop(worldIn, pos, state);
-        if (!this.checkWater(worldIn, pos, state))
-        {
-    		worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-        }
+        if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!this.checkWater(worldIn, pos, state))
-        {
-        	worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-        }
-    }
-    
-    protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
-    {
-    	boolean flag = false;
-    	boolean flag2 = false; 	
-    	/** Needs water touching to stay alive, but if air is also above, breaks **/
-		for (EnumFacing enumfacing : EnumFacing.values())
-        {
-			BlockPos blockpos = pos.offset(enumfacing);
-			if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER && this.canBlockStay(worldIn, pos, state))
-            {
-				if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.AIR)
-        		{ flag2 = true; break; }
-				if (worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN) || worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) 
-				{ worldIn.setBlockState(pos, state.withProperty(IN_WATER, true)); flag = true; break;}
-				else { flag = true; break; }
-            }
-        }
-		/** Seperated from the above check, as to not multiply the item **/
-		if (flag2)
-		{
-			if (state.getValue(IN_WATER) && !(worldIn.provider.doesWaterVaporize())) 
-			{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
-			else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
-		}
-	 	return flag;
+    	swapWaterProperty(worldIn, pos, state);
+    	if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
@@ -199,7 +163,7 @@ public class BlockCoral extends Block
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        boolean flag = ConfigHandler.block.coralBlocks.coralDryTicks == 0 ? true : this.checkWater(worldIn, pos, state);
+        boolean flag = ConfigHandler.block.coralBlocks.coralDryTicks == 0 ? true : checkWater(worldIn, pos);
         boolean w = (Boolean)state.getValue(IN_WATER);
         
         if (!flag)
