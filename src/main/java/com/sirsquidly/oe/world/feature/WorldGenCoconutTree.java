@@ -60,7 +60,7 @@ public class WorldGenCoconutTree implements IWorldGenerator
 					for ( IBlockState state = world.getBlockState(pos); (state.getBlock().isReplaceable(world, pos) && pos.getY() > 0); state = world.getBlockState(pos) )
 			        { pos = pos.down(); }
 					
-					if(OEBlocks.COCONUT_SAPLING.canPlaceBlockAt(world, pos.up()))
+					if(OEBlocks.PALM_SAPLING.canPlaceBlockAt(world, pos.up()))
 					{
 						if(coconutTreeGen.generate(world, rand, pos.up()))
 						{

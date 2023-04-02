@@ -28,6 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
@@ -140,7 +141,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
     @Override
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack)
     {
-        if (!worldIn.isRemote && stack.getItem() == Items.SHEARS)
+        if (!worldIn.isRemote && stack.getItem() == Items.SHEARS && ConfigHandler.block.seagrass.enableSeagrass)
         {
             player.addStat(StatList.getBlockStats(this));
             spawnAsEntity(worldIn, pos, new ItemStack(OEBlocks.SEAGRASS, 2, 0));

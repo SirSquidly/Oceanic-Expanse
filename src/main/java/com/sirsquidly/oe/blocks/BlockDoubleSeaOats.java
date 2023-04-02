@@ -4,6 +4,8 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockSand;
@@ -76,7 +78,7 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 		Item item = itemstack.getItem();
 		boolean isUpper = state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER;
 		
-		if (item == Items.SHEARS && !state.getValue(SANDY))
+		if (item == Items.SHEARS && !state.getValue(SANDY) && ConfigHandler.block.seaOats.seaOatShears)
         {
 			if (state.getBlock() == this)
 			{

@@ -103,7 +103,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 		
 		((Integer)state.getValue(AGE)).intValue();
 		
-		if (!((Boolean)state.getValue(SHEARED)).booleanValue() && ConfigHandler.block.driedKelpShears)
+		if (!((Boolean)state.getValue(SHEARED)).booleanValue() && ConfigHandler.block.dulse.dulseShears)
         {
 			if (item == Items.SHEARS)
 	        {

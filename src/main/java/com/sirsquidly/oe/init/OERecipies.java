@@ -41,8 +41,8 @@ public class OERecipies
 		OreDictionary.registerOre("fenceWood", OEBlocks.PALM_FENCE);
 		OreDictionary.registerOre("fenceGateWood", OEBlocks.PALM_FENCE_GATE);
 		OreDictionary.registerOre("doorWood", ((BlockPalmDoor) OEBlocks.PALM_DOOR).getItemStack());
-		OreDictionary.registerOre("treeSapling", OEBlocks.COCONUT_SAPLING);
-		OreDictionary.registerOre("treeLeaves", OEBlocks.COCONUT_LEAVES);
-		OreDictionary.registerOre("treeLeaves", OEBlocks.COCONUT_LEAVES_FLOWERING);
+		OreDictionary.registerOre("treeSapling", OEBlocks.PALM_SAPLING);
+		OreDictionary.registerOre("treeLeaves", OEBlocks.PALM_LEAVES);
+		OreDictionary.registerOre("treeLeaves", OEBlocks.PALM_LEAVES_FLOWERING);
 	}
 }

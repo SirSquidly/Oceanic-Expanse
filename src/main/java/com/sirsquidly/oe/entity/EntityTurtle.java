@@ -12,6 +12,7 @@ import com.sirsquidly.oe.blocks.BlockTurtleEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
@@ -295,7 +296,7 @@ public class EntityTurtle extends AbstractFish
     	
     	public boolean shouldExecute()
         {
-            if (this.turtle.isCarryingEgg())
+            if (this.turtle.isCarryingEgg() && ConfigHandler.block.turtleEgg.enableTurtleEgg)
             { return false; }
             
             this.targetMate = this.getNearbyMate();
@@ -350,8 +351,20 @@ public class EntityTurtle extends AbstractFish
                     CriteriaTriggers.BRED_ANIMALS.trigger(playerMP, this.turtle, this.targetMate, null);
                 }
                 
-                this.turtle.setGoingHome(true);
-                this.turtle.setCarryingEgg(true);
+                
+                if (!ConfigHandler.block.turtleEgg.enableTurtleEgg)
+        		{
+                	EntityAgeable entityturtle = turtle.createChild(this.targetMate);
+    				entityturtle.setGrowingAge(-24000);
+    				entityturtle.setLocationAndAngles(turtle.posX, turtle.posY, turtle.posZ, 0.0F, 0.0F);
+    	            world.spawnEntity(entityturtle);
+        		}
+                else
+                {
+                	this.turtle.setGoingHome(true);
+                    this.turtle.setCarryingEgg(true);
+                }
+                
                 Random random = this.turtle.getRNG();
 
                 if (this.world.getGameRules().getBoolean("doMobLoot"))

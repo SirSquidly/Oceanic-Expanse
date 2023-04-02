@@ -85,11 +85,11 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
     	super.updateTick(worldIn, pos, state, rand);
         if (worldIn.isRemote) return;
         
-        if (canGrow(worldIn, pos, state) && worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(5) == 0))
+        if (canGrow(worldIn, pos, state) && worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, canGrow(worldIn, pos, state)))
         {
         	int i = ((Integer)state.getValue(AGE)).intValue();
         	
-        	if(i < 2 && (this.checkSponge(worldIn, pos) && rand.nextInt(5) == 0|| rand.nextInt(20) == 0))
+        	if(i < 2 && (this.checkSponge(worldIn, pos) ? rand.nextInt(10) : rand.nextInt(40)) == 0)
     		{ worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i + 1))); }
         	
     		net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
@@ -103,7 +103,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 		
 		((Integer)state.getValue(AGE)).intValue();
 		
-		if (!((Boolean)state.getValue(SHEARED)).booleanValue() && ConfigHandler.block.driedKelpShears)
+		if (!((Boolean)state.getValue(SHEARED)).booleanValue() && ConfigHandler.block.tubeSponge.tubeSpongeShears)
         {
 			if (item == Items.SHEARS)
 	        {

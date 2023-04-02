@@ -1,9 +1,10 @@
 package com.sirsquidly.oe.blocks;
 
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,10 +25,10 @@ public interface IChecksWater
 		}
 	}
 	
-	/** Checks if this block has appropriate water. **/
+	/** Checks if surrounding blocks are either solid or are Material.WATER. **/
 	default boolean checkWater(World worldIn, BlockPos pos)
     {
-    	if (worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN))
+    	if (ConfigHandler.block.allowAirAbove || (worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN)))
     	{
     		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {
@@ -40,11 +41,11 @@ public interface IChecksWater
     	}
     	return false;
     }
-	
-	/** Checks if this block happens to be on the surface. **/
+		
+	/** Checks if water is touching the side of this block. Skips the check if the block is underwater. **/
 	default boolean checkSurfaceWater(World worldIn, BlockPos pos, IBlockState state)
     {
-    	if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.AIR || state.getMaterial() != Material.WATER && worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER)
+    	if (worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && !ConfigHandler.block.allowAirAbove)
     	{
     		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {

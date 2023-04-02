@@ -27,8 +27,8 @@ import net.minecraftforge.common.IPlantable;
  */
 public class GeneratorCoconutTree extends WorldGenAbstractTree
 {
-	public static final IBlockState LEAF = OEBlocks.COCONUT_LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
-	public static final IBlockState LEAF_FLOWERING = OEBlocks.COCONUT_LEAVES_FLOWERING.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+	public static final IBlockState LEAF = OEBlocks.PALM_LEAVES.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+	public static final IBlockState LEAF_FLOWERING = OEBlocks.PALM_LEAVES_FLOWERING.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
 	
 	/** The minimum height of the trunk*/
 	public int minHeight = 5;
@@ -90,7 +90,7 @@ public class GeneratorCoconutTree extends WorldGenAbstractTree
             {
                 BlockPos down = pos.down();
                 IBlockState state = worldIn.getBlockState(down);
-                boolean isSoil = state.getBlock().canSustainPlant(state, worldIn, down, EnumFacing.UP, (IPlantable)OEBlocks.COCONUT_SAPLING);
+                boolean isSoil = state.getBlock().canSustainPlant(state, worldIn, down, EnumFacing.UP, (IPlantable)OEBlocks.PALM_SAPLING);
 
                 
                 if (isSoil && pos.getY() < worldIn.getHeight() - i - 1)

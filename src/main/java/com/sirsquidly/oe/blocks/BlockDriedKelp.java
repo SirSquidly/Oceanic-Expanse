@@ -54,8 +54,8 @@ public class BlockDriedKelp extends Block
     {
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 		Item item = itemstack.getItem();
-		
-		if (!((Boolean)state.getValue(OPEN)).booleanValue() && ConfigHandler.block.driedKelpShears)
+
+		if (!((Boolean)state.getValue(OPEN)).booleanValue() && (this == OEBlocks.DRIED_DULSE_BLOCK ? ConfigHandler.block.dulse.driedDulseShears : ConfigHandler.block.driedKelpShears))
         {
 			if (item == Items.SHEARS)
 	        {

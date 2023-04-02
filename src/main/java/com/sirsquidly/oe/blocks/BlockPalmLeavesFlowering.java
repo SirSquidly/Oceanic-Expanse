@@ -11,9 +11,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCoconutLeavesFlowering extends BlockCoconutLeaves implements IGrowable
+public class BlockPalmLeavesFlowering extends BlockPalmLeaves implements IGrowable
 {
-	public BlockCoconutLeavesFlowering() 
+	public BlockPalmLeavesFlowering() 
 	{
 		super();
 		this.setTickRandomly(true);
@@ -22,12 +22,12 @@ public class BlockCoconutLeavesFlowering extends BlockCoconutLeaves implements I
 	}
 	
 	protected ItemStack getSilkTouchDrop(IBlockState state)
-    { return new ItemStack(OEBlocks.COCONUT_LEAVES); }
+    { return new ItemStack(OEBlocks.PALM_LEAVES); }
 
     @Override
     public NonNullList<ItemStack> onSheared(ItemStack item, net.minecraft.world.IBlockAccess world, BlockPos pos, int fortune)
     {
-        return NonNullList.withSize(1, new ItemStack(OEBlocks.COCONUT_LEAVES));
+        return NonNullList.withSize(1, new ItemStack(OEBlocks.PALM_LEAVES));
     }
 
     @Override

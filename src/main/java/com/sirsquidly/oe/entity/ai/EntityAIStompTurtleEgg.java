@@ -2,6 +2,7 @@ package com.sirsquidly.oe.entity.ai;
 
 import com.sirsquidly.oe.blocks.BlockTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -30,7 +31,7 @@ public class EntityAIStompTurtleEgg extends EntityAIMoveToBlock
     {
         if (this.runDelay <= 0)
         {
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.creature.world, this.creature))
+            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.creature.world, this.creature) || !ConfigHandler.block.turtleEgg.enableTurtleEgg)
             { return false; }
         }
         return super.shouldExecute();

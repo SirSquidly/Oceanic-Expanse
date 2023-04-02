@@ -28,9 +28,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockCoconutLeaves extends BlockLeaves
+public class BlockPalmLeaves extends BlockLeaves
 {
-	public BlockCoconutLeaves() 
+	public BlockPalmLeaves() 
 	{
 		super();
 		setLightOpacity(2);
@@ -58,7 +58,7 @@ public class BlockCoconutLeaves extends BlockLeaves
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(OEBlocks.COCONUT_SAPLING);
+        return Item.getItemFromBlock(OEBlocks.PALM_SAPLING);
     }
 
     @Override

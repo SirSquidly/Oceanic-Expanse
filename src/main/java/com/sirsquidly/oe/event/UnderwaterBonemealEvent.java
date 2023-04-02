@@ -61,10 +61,10 @@ public class UnderwaterBonemealEvent
                     		placeCoral(world, blockpos1, rand);
                     		break;
                     	}
-                    	if (OEBlocks.SEAGRASS.canPlaceBlockAt(world, blockpos1))
+                    	if (OEBlocks.SEAGRASS.canPlaceBlockAt(world, blockpos1) && ConfigHandler.block.seagrass.enableSeagrass)
                     	{ world.setBlockState(blockpos1, OEBlocks.SEAGRASS.getDefaultState()); }
                     	
-                    	if (world.getBlockState(blockpos1).getBlock() == OEBlocks.SEAGRASS && rand.nextInt(10) == 0)
+                    	if ((world.getBlockState(blockpos1).getBlock() == OEBlocks.SEAGRASS || !ConfigHandler.block.seagrass.enableSeagrass) && rand.nextInt(10) == 0 && ConfigHandler.block.seagrass.enableTallSeagrass)
                     	{ ((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(world, blockpos1, 2); }
                     }
                 	break;
@@ -83,7 +83,11 @@ public class UnderwaterBonemealEvent
 	
 	public static void placeCoral(World worldIn, BlockPos pos, Random rand)
 	{
-		switch (rand.nextInt(10))
+		if (!ConfigHandler.block.coralBlocks.enableCoralFan && !ConfigHandler.block.coralBlocks.enableCoral) return;
+		
+		int randCoral = ConfigHandler.block.coralBlocks.enableCoralFan ? ConfigHandler.block.coralBlocks.enableCoral ? rand.nextInt(10) : rand.nextInt(5) : rand.nextInt(5) + 5;
+		
+		switch (randCoral)
 		{
 			case 0: 
 				((BlockCoralFan) OEBlocks.BLUE_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.BLUE_CORAL_FAN, false);

@@ -29,7 +29,7 @@ public class ItemHeavyBoots extends ItemArmorBase
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
 	{
-		player.addPotionEffect(new PotionEffect(OEPotions.DESCENT, 10 * 20, 0, false, false));
+		player.addPotionEffect(new PotionEffect(OEPotions.DESCENT, ConfigHandler.item.heavyBoots.heavyBootsEffectLength * 20, 0, false, false));
 	}
 	
 	@Override
@@ -42,6 +42,6 @@ public class ItemHeavyBoots extends ItemArmorBase
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		if (ConfigHandler.item.turtleShell.enableTurtleShellDesc) tooltip.add(TextFormatting.BLUE + I18n.format("description.heavy_boots.name"));
+		if (ConfigHandler.item.heavyBoots.heavyBootsDesc) tooltip.add(TextFormatting.BLUE + I18n.format("description.heavy_boots.name"));
 	}
 }

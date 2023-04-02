@@ -60,20 +60,20 @@ public class OEItems
 	{
 		if (ConfigHandler.item.turtleShell.enableTurtleShell) itemReadyForRegister(TURTLE_HELMET, "turtle_helmet");
 		if (ConfigHandler.item.trident.enableTrident) itemReadyForRegister(TRIDENT_ORIG, "trident");
-		itemReadyForRegister(SCUTE, "turtle_scute");
+		if (ConfigHandler.item.enableTurtleScute) itemReadyForRegister(SCUTE, "turtle_scute");
 		itemReadyForRegister(SHELLS, "barnacle_shells");
-		itemReadyForRegister(NAUTILUS_SHELL, "nautilus_shell");
+		if (ConfigHandler.item.enableNautilusShell) itemReadyForRegister(NAUTILUS_SHELL, "nautilus_shell");
 		itemReadyForRegister(HEART_OF_THE_SEA, "heart_of_the_sea");
 		itemReadyForRegister(PEARL, "pearl");
-		itemReadyForRegister(CONCH, "conch");
+		if (ConfigHandler.item.conch.enableConch) itemReadyForRegister(CONCH, "conch");
 		itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
 		itemReadyForRegister(CHLORINE, "chlorine");
-		itemReadyForRegister(COCONUT_OPEN, "coconut_open");
-		itemReadyForRegister(DRIED_KELP, "dried_kelp");
-		itemReadyForRegister(DRIED_DULSE, "dried_dulse");
+		if (ConfigHandler.block.coconut.enableCoconut) itemReadyForRegister(COCONUT_OPEN, "coconut_open");
+		if (ConfigHandler.block.enableKelp) itemReadyForRegister(DRIED_KELP, "dried_kelp");
+		if (ConfigHandler.block.dulse.enableDulse) itemReadyForRegister(DRIED_DULSE, "dried_dulse");
 		itemReadyForRegister(SPAWN_BUCKET, "spawn_bucket");
-		itemReadyForRegister(HEAVY_BOOTS, "heavy_boots");
+		if (ConfigHandler.item.heavyBoots.enableHeavyBoots) itemReadyForRegister(HEAVY_BOOTS, "heavy_boots");
 		
 		TURTLE_ARMOR.repairMaterial = new ItemStack(OEItems.SCUTE);
 		HEAVY_ARMOR.repairMaterial = new ItemStack(OEItems.SHELLS);

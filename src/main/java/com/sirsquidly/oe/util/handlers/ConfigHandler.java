@@ -280,6 +280,10 @@ public class ConfigHandler
 	
 	public static class configBlock
 	{
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.block.allowAirAbove")
+	    @Config.Comment("Allows aquatic blocks to be placed with Air directly above them. Necissary for setting up Fluidlogged API support.")
+	    public boolean allowAirAbove = false;
 		
 		@Config.LangKey("oe.config.block.blueIce")
 	    public configBlueIce blueIce = new configBlueIce();
@@ -375,11 +379,37 @@ public class ConfigHandler
 		    public int coralDryTicks = 100;
 	    }
 		
+		@Config.LangKey("oe.config.block.coquina")
+	    public configCoquina coquina = new configCoquina();
+		
+		public static class configCoquina
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCoquina")
+		    @Config.Comment("If Coquina is enabled")
+		    public boolean enableCoquina = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCoquinaBricks")
+		    @Config.Comment("If Coquina Bricks, Coquina Brick Stairs, and Coquina Brick Slabs are enabled")
+		    public boolean enableCoquinaBricks = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCoquinaBrickWalls")
+		    @Config.Comment("If Coquina Brick Walls are enabled. Requires Coquina Bricks to be enabled")
+		    public boolean enableCoquinaBrickWalls = true;
+	    }
+		
 		@Config.LangKey("oe.config.block.coconut")
 	    public configCoconut coconut = new configCoconut();
 		
 		public static class configCoconut
 		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCoconut")
+		    @Config.Comment("If Coconuts are enabled. This also enables Open Coconuts.")
+		    public boolean enableCoconut = true;
+			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.coconutHitSound")
 		    @Config.Comment("If coconuts go Clonk when hitting an entity")
@@ -404,16 +434,42 @@ public class ConfigHandler
 		    public int coconutFallMaxDamage = 19;
 	    }
 		
-		@RequiresMcRestart
-	    @Config.LangKey("oe.config.block.driedKelpShears")
-	    @Config.Comment("If the string on Dried Kelp can be removed using Shears")
-	    public boolean driedKelpShears = true;
+		@Config.LangKey("oe.config.block.dulse")
+	    public configDulse dulse = new configDulse();
 		
+		public static class configDulse
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableDulse")
+		    @Config.Comment("If Dulse is enabled. This also enables the Dried Dulse item and block.")
+		    public boolean enableDulse = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.dulseShears")
+		    @Config.Comment("If Shears can be used on Dulse to prevent it from growing. Sheared Dulse can be set back using bonemeal.")
+		    public boolean dulseShears = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.driedDulseShears")
+		    @Config.Comment("If the string on Dried Kelp can be removed using Shears.")
+		    public boolean driedDulseShears = true;
+	    }
+
 		@Config.LangKey("oe.config.block.palmBlocks")
 	    public configPalmBlocks palmBlocks = new configPalmBlocks();
 		
 		public static class configPalmBlocks
 		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enablePalmSapling")
+		    @Config.Comment("If Palm Saplings are enabled.")
+		    public boolean enablePalmSapling = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enablePalmLeaves")
+		    @Config.Comment("If Palm Leaves are enabled. Flowering Palm Leaves require this and Coconuts to both be enabled.")
+		    public boolean enablePalmLeaves = true;
+			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.enablePalmWoods")
 		    @Config.Comment("If Palm Woods are enabled. Note this doesn't disable Palm Trees, they will generate using Jungle Wood.")
@@ -471,11 +527,89 @@ public class ConfigHandler
 		    public double guardianSpikeElderLooting = 0;
 	    }
 		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.block.enableKelp")
+	    @Config.Comment("If Kelp is enabled")
+	    public boolean enableKelp = true;
+		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.block.driedKelpShears")
+	    @Config.Comment("If the string on Dried Kelp can be removed using Shears")
+	    public boolean driedKelpShears = true;
+		
+		@Config.LangKey("oe.config.block.seagrass")
+	    public configSeagrass seagrass = new configSeagrass();
+		
+		public static class configSeagrass
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableSeagrass")
+		    @Config.Comment("If Seagrass is enabled")
+		    public boolean enableSeagrass = true;
+		    
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableTallSeagrass")
+		    @Config.Comment("If Tall Seagrass is enabled")
+		    public boolean enableTallSeagrass = true;
+	    }
+		
+		@Config.LangKey("oe.config.block.seaOats")
+	    public configSeaOats seaOats = new configSeaOats();
+		
+		public static class configSeaOats
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableSeaOats")
+		    @Config.Comment("If Sea Oats are enabled")
+		    public boolean enableSeaOats = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.seaOatShears")
+		    @Config.Comment("If Sea Oats can be sheared down to their short version.")
+		    public boolean seaOatShears = true;
+	    }
+		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.block.enableSeaPickle")
+	    @Config.Comment("If Sea Pickles are enabled")
+	    public boolean enableSeaPickle = true;	
+		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.block.enableSeastar")
+	    @Config.Comment("If Seastars are enabled")
+	    public boolean enableSeastar = true;
+		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.block.enableShellySand")
+	    @Config.Comment("If Shelly Sand is enabled")
+	    public boolean enableShellySand = true;
+		
+		@Config.LangKey("oe.config.block.tubeSponge")
+	    public configTubeSponge tubeSponge = new configTubeSponge();
+		
+		public static class configTubeSponge
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableTubeSponge")
+		    @Config.Comment("If Tube Sponges are enabled")
+		    public boolean enableTubeSponge = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.tubeSpongeShears")
+		    @Config.Comment("If Shears can be used on Tube Sponge to prevent it from growing.")
+		    public boolean tubeSpongeShears = true;
+	    }
+		
 		@Config.LangKey("oe.config.block.turtleEggs")
 	    public configTurtleEgg turtleEgg = new configTurtleEgg();
 		
 		public static class configTurtleEgg
 		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableTurtleEgg")
+		    @Config.Comment("If Turtle Eggs are enabled. If disabled, breeding turtles will just create a baby directly, like normal mob breeding.")
+		    public boolean enableTurtleEgg = true;
+			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.amountOnTrample")
 		    @Config.Comment("Amount of Turtle Eggs broken each time the trampleAI succeeds.")
@@ -507,7 +641,7 @@ public class ConfigHandler
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.enableWaterTorch")
-		    @Config.Comment("If coconuts go Clonk when hitting an entity")
+		    @Config.Comment("If Underwater Torches are enabled")
 		    public boolean enableWaterTorch = true;
 			
 			@RequiresMcRestart
@@ -530,15 +664,18 @@ public class ConfigHandler
 	
 	public static class configItem
 	{
-		
-		
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.item.conch")
 	    public configConch conch = new configConch();
 		
 		public static class configConch
 		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableConch")
+		    @Config.Comment("If Conches are enabled. This WILL break Shelly Sand if disabled.")
+		    public boolean enableConch = true;
+			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.item.conchCooldown")
 		    @Config.Comment("The default cooldown between uses of the Conch. Can be altered per-conch using the 'Cooldown' NBT tag.")
@@ -561,6 +698,33 @@ public class ConfigHandler
 		    @Config.Comment("Adds the attached sound's registry name to the Conch's description. Overridden by 'conchDisplayHorn' if the sound is a horn sound.")
 		    public boolean conchDisplayRawSound = true;
 		}
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.heavyBoots")
+	    public configHeavyBoots heavyBoots = new configHeavyBoots();
+		
+		public static class configHeavyBoots
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableHeavyBoots")
+		    @Config.Comment("If Heavy Boots are enabled")
+		    public boolean enableHeavyBoots= true;
+			
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.item.heavyBootsEffectLength")
+		    @Config.Comment("How long (in seconds) Descent is given.")
+		    public int heavyBootsEffectLength = 10;
+		    
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.heavyBootsDesc")
+		    @Config.Comment("Heavy Boots have a description.")
+		    public boolean heavyBootsDesc = true;
+	    }
+		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.item.enableNautilusShell")
+	    @Config.Comment("If Nautilus Shells are enabled. This WILL break Shelly Sand if disabled.")
+	    public boolean enableNautilusShell= true;
 		
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.item.spawnBucket")
@@ -636,6 +800,10 @@ public class ConfigHandler
 		    public int loyaltyVoidReturnLevel = -15;
 	    }
 		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.item.enableTurtleScute")
+	    @Config.Comment("If Turtle Scutes are enabled. This WILL break Shelly Sand if disabled.")
+	    public boolean enableTurtleScute= true;
 		
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.turtleShell")
@@ -709,6 +877,39 @@ public class ConfigHandler
 	    }
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.clam")
+	    public configClam clam = new configClam();
+		
+		public static class configClam
+		{
+		    @Config.LangKey("oe.config.entity.enableClam")
+		    @Config.Comment("If Clams should be enabled")
+		    public boolean enableClam = true;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.cod")
+	    public configCod cod = new configCod();
+		
+		public static class configCod
+		{
+		    @Config.LangKey("oe.config.entity.enableCod")
+		    @Config.Comment("If Cod should be enabled")
+		    public boolean enableCod = true;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.crab")
+	    public configCrab crab = new configCrab();
+		
+		public static class configCrab
+		{
+		    @Config.LangKey("oe.config.entity.enableCrab")
+		    @Config.Comment("If Crabs should be enabled")
+		    public boolean enableCrab = true;
+	    }
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.glowSquid")
 	    public configGlowSquid glowSquid = new configGlowSquid();
 		
@@ -726,6 +927,17 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.glowSquidLayerBright")
 		    @Config.Comment("Brightness of a Glow Squids' second layer. 15 is Full Bright")
 		    public int glowSquidLayerBright = 11;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.pickled")
+	    public configPickled pickled = new configPickled();
+		
+		public static class configPickled
+		{
+		    @Config.LangKey("oe.config.entity.enablePickled")
+		    @Config.Comment("If Pickled should be enabled")
+		    public boolean enablePickled = true;
 	    }
 		
 		@RequiresMcRestart

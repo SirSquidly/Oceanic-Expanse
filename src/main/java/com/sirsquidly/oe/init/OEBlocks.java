@@ -55,14 +55,14 @@ public class OEBlocks
 
 		public static Block GUARDIAN_SPIKE = new BlockGuardianSpike();
 	
-		public static Block SEA_PICKLE = blockReadyForRegister(new BlockSeaPickle(), "sea_pickle");
+		public static Block SEA_PICKLE = new BlockSeaPickle();
 		
-		public static Block SEAGRASS = blockReadyForRegister(new BlockUnderwaterGrass(), "seagrass");
-		public static Block TALL_SEAGRASS = blockReadyForRegister(new BlockDoubleUnderwater(), "tall_seagrass");
-		public static Block KELP = blockReadyForRegister(new BlockKelp(), "kelp_mid", false);
-		public static Block KELP_TOP = blockReadyForRegister(new BlockTopKelp(), "kelp");
-		public static Block DRIED_KELP_BLOCK = blockReadyForRegister(new BlockDriedKelp(), "dried_kelp_block");
-		public static Block COCONUT = blockReadyForRegister(new BlockCoconut(), "coconut");
+		public static Block SEAGRASS = new BlockUnderwaterGrass();
+		public static Block TALL_SEAGRASS = new BlockDoubleUnderwater();
+		public static Block KELP = new BlockKelp();
+		public static Block KELP_TOP = new BlockTopKelp();
+		public static Block DRIED_KELP_BLOCK = new BlockDriedKelp();
+		public static Block COCONUT = new BlockCoconut();
 		public static Block PALM_LOG = new BlockPalmLog();
 		public static Block PALM_WOOD = new BlockPalmLog();
 		public static Block PALM_LOG_STRIPPED = new BlockPalmLog();
@@ -74,21 +74,21 @@ public class OEBlocks
 		public static Block PALM_FENCE = new BlockFence(Material.WOOD, MapColor.BROWN_STAINED_HARDENED_CLAY);
 		public static Block PALM_FENCE_GATE = new BlockFenceGate(BlockPlanks.EnumType.SPRUCE);
 		public static Block PALM_DOOR = new BlockPalmDoor();
-		public static Block COCONUT_LEAVES = blockReadyForRegister(new BlockCoconutLeaves(), "coconut_leaves");
-		public static Block COCONUT_LEAVES_FLOWERING = blockReadyForRegister(new BlockCoconutLeavesFlowering(), "coconut_leaves_flowering");
-		public static Block COCONUT_SAPLING = blockReadyForRegister(new BlockPalmSapling(), "palm_sapling");
+		public static Block PALM_LEAVES = new BlockPalmLeaves();
+		public static Block PALM_LEAVES_FLOWERING = new BlockPalmLeavesFlowering();
+		public static Block PALM_SAPLING = new BlockPalmSapling();
 		
 		public static Block BLUE_ICE = new BlockBlueIce();
-		public static Block SEA_TURTLE_EGG = blockReadyForRegister(new BlockTurtleEgg(), "turtle_egg");
-		public static Block CONDUIT = blockReadyForRegister(new BlockConduit(), "conduit");
-		public static Block SEA_OATS = blockReadyForRegister(new BlockDoubleSeaOats(), "sea_oats");
-		public static Block TUBE_SPONGE = blockReadyForRegister(new BlockTubeSponge(), "tube_sponge");
-		public static Block SEASTAR = blockReadyForRegister(new BlockSeaStar(), "seastar");
-		public static Block DULSE = blockReadyForRegister(new BlockDulse(), "dulse");
-		public static Block DRIED_DULSE_BLOCK = blockReadyForRegister(new BlockDriedKelp(), "dried_dulse_block");
+		public static Block SEA_TURTLE_EGG = new BlockTurtleEgg();
+		public static Block CONDUIT = new BlockConduit();
+		public static Block SEA_OATS = new BlockDoubleSeaOats();
+		public static Block TUBE_SPONGE = new BlockTubeSponge();
+		public static Block SEASTAR = new BlockSeaStar();
+		public static Block DULSE = new BlockDulse();
+		public static Block DRIED_DULSE_BLOCK = new BlockDriedKelp();
 		public static Block UNDERWATER_TORCH = new BlockUnderwaterTorch();
 		
-		public static Block SHELL_SAND = blockReadyForRegister(new BlockShellSand(), "shell_sand");
+		public static Block SHELL_SAND = new BlockShellSand();
 		public static Block COQUINA = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
 		public static Block COQUINA_BRICK = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
 		public static Block COQUINA_BRICK_SLAB = new BlockOESlab(Material.ROCK, SoundType.STONE, 0.5F, 15.0F);
@@ -135,6 +135,24 @@ public class OEBlocks
 		{
 			if (ConfigHandler.block.blueIce.enableBlueIce) blockReadyForRegister(BLUE_ICE, "blue_ice");
 			
+			if (ConfigHandler.block.coconut.enableCoconut) blockReadyForRegister(COCONUT, "coconut");
+			if (ConfigHandler.block.conduit.enableConduit) blockReadyForRegister(CONDUIT, "conduit");
+			if (ConfigHandler.block.coquina.enableCoquina) blockReadyForRegister(COQUINA, "coquina");
+			
+			if (ConfigHandler.block.coquina.enableCoquinaBricks) 
+			{
+				blockReadyForRegister(COQUINA_BRICK, "coquina_brick");
+				blockReadyForRegister(COQUINA_BRICK_SLAB, "coquina_brick_slab");
+				blockReadyForRegister(COQUINA_BRICK_SLAB_D, "coquina_brick_slab_double", false);
+				blockReadyForRegister(COQUINA_BRICK_STAIRS, "coquina_brick_stairs");
+				if (ConfigHandler.block.coquina.enableCoquinaBrickWalls) blockReadyForRegister(COQUINA_BRICK_WALL, "coquina_brick_wall");
+			}
+			if (ConfigHandler.block.dulse.enableDulse) 
+			{
+				blockReadyForRegister(DULSE, "dulse");
+				blockReadyForRegister(DRIED_DULSE_BLOCK, "dried_dulse_block");
+			}
+
 			if (ConfigHandler.block.guardianSpike.enableGuardianSpike) blockReadyForRegister(GUARDIAN_SPIKE, "guardian_spike");
 			
 			if (ConfigHandler.block.coralBlocks.enableCoralBlock)
@@ -180,13 +198,19 @@ public class OEBlocks
 				blockReadyForRegister(YELLOW_CORAL_DEAD, "yellow_coral_dead");
 			}
 			
-			blockReadyForRegister(COQUINA, "coquina");
-			blockReadyForRegister(COQUINA_BRICK, "coquina_brick");
-			blockReadyForRegister(COQUINA_BRICK_SLAB, "coquina_brick_slab");
-			blockReadyForRegister(COQUINA_BRICK_SLAB_D, "coquina_brick_slab_double", false);
-			blockReadyForRegister(COQUINA_BRICK_STAIRS, "coquina_brick_stairs");
-			blockReadyForRegister(COQUINA_BRICK_WALL, "coquina_brick_wall");
+			if (ConfigHandler.block.enableKelp)
+			{
+				blockReadyForRegister(KELP_TOP, "kelp");
+				blockReadyForRegister(KELP, "kelp_mid", false);
+				blockReadyForRegister(DRIED_KELP_BLOCK, "dried_kelp_block");
+			}
 			
+			if (ConfigHandler.block.palmBlocks.enablePalmSapling) blockReadyForRegister(PALM_SAPLING, "palm_sapling");
+			if (ConfigHandler.block.palmBlocks.enablePalmLeaves)
+			{
+				blockReadyForRegister(PALM_LEAVES, "palm_leaves");
+				if (ConfigHandler.block.coconut.enableCoconut) blockReadyForRegister(PALM_LEAVES_FLOWERING, "palm_leaves_flowering");
+			}
 			if (ConfigHandler.block.palmBlocks.enablePalmWoods)
 			{
 				blockReadyForRegister(PALM_LOG, "palm_log");
@@ -201,6 +225,15 @@ public class OEBlocks
 				blockReadyForRegister(PALM_FENCE_GATE, "palm_fence_gate"); PALM_FENCE_GATE.setHardness(2.0F).setResistance(5.0F);
 				blockReadyForRegister(PALM_DOOR, "palm_door");
 			} 
+			
+			if (ConfigHandler.block.seagrass.enableSeagrass) blockReadyForRegister(SEAGRASS, "seagrass");
+			if (ConfigHandler.block.seagrass.enableTallSeagrass) blockReadyForRegister(TALL_SEAGRASS, "tall_seagrass");
+			if (ConfigHandler.block.enableSeaPickle) blockReadyForRegister(SEA_PICKLE, "sea_pickle");
+			if (ConfigHandler.block.seaOats.enableSeaOats) blockReadyForRegister(SEA_OATS, "sea_oats");
+			if (ConfigHandler.block.enableSeastar) blockReadyForRegister(SEASTAR, "seastar");
+			if (ConfigHandler.block.enableShellySand) blockReadyForRegister(SHELL_SAND, "shell_sand");
+			if (ConfigHandler.block.tubeSponge.enableTubeSponge) blockReadyForRegister(TUBE_SPONGE, "tube_sponge");
+			if (ConfigHandler.block.turtleEgg.enableTurtleEgg) blockReadyForRegister(SEA_TURTLE_EGG, "turtle_egg");
 			if (ConfigHandler.block.waterTorch.enableWaterTorch) blockReadyForRegister(UNDERWATER_TORCH, "underwater_torch");
 			
 			for (Block blocks : blockList) event.getRegistry().register(blocks);
@@ -213,10 +246,10 @@ public class OEBlocks
 		
 		if (ConfigHandler.block.guardianSpike.enableGuardianSpike) registerItemBlock(r, GUARDIAN_SPIKE); itemBlockBlacklist.add(GUARDIAN_SPIKE);;
 		
-		registerItemBlock(r, new ItemBlockSeaPickle(SEA_PICKLE)); itemBlockBlacklist.add(SEA_PICKLE);
-		registerItemBlock(r, new ItemBlockSeaPickle(SEA_TURTLE_EGG)); itemBlockBlacklist.add(SEA_TURTLE_EGG);
+		if (ConfigHandler.block.enableSeaPickle) registerItemBlock(r, new ItemBlockSeaPickle(SEA_PICKLE)); itemBlockBlacklist.add(SEA_PICKLE);
+		if (ConfigHandler.block.turtleEgg.enableTurtleEgg) registerItemBlock(r, new ItemBlockSeaPickle(SEA_TURTLE_EGG)); itemBlockBlacklist.add(SEA_TURTLE_EGG);
 		
-		registerItemBlock(r, new ItemBlockSlab(COQUINA_BRICK_SLAB, (BlockSlab)COQUINA_BRICK_SLAB, (BlockSlab)COQUINA_BRICK_SLAB_D)); itemBlockBlacklist.add(COQUINA_BRICK_SLAB);
+		if (ConfigHandler.block.coquina.enableCoquinaBricks) registerItemBlock(r, new ItemBlockSlab(COQUINA_BRICK_SLAB, (BlockSlab)COQUINA_BRICK_SLAB, (BlockSlab)COQUINA_BRICK_SLAB_D)); itemBlockBlacklist.add(COQUINA_BRICK_SLAB);
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerItemBlock(r, new ItemBlockSlab(PALM_SLAB, (BlockSlab)PALM_SLAB, (BlockSlab)PALM_SLAB_D)); itemBlockBlacklist.add(PALM_SLAB);
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
 		
@@ -310,8 +343,12 @@ public class OEBlocks
 
 			return ColorizerGrass.getGrassColor(1.0D, 1.0D);
 		};
-		blockColors.registerBlockColorHandler(grassColourHandler, OEBlocks.COCONUT_LEAVES);
-		blockColors.registerBlockColorHandler(grassColourHandler, OEBlocks.COCONUT_LEAVES_FLOWERING);
+
+		if (ConfigHandler.block.palmBlocks.enablePalmLeaves)
+		{
+			blockColors.registerBlockColorHandler(grassColourHandler, OEBlocks.PALM_LEAVES);
+			if (ConfigHandler.block.coconut.enableCoconut) blockColors.registerBlockColorHandler(grassColourHandler, OEBlocks.PALM_LEAVES_FLOWERING);
+		}
 	} 
 	
 	@SideOnly(Side.CLIENT)
@@ -327,7 +364,11 @@ public class OEBlocks
 			final IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
 			return blockColors.colorMultiplier(state, null, null, tintIndex);
 		};
-		itemColors.registerItemColorHandler(itemBlockColourHandler, OEBlocks.COCONUT_LEAVES);
-		itemColors.registerItemColorHandler(itemBlockColourHandler, OEBlocks.COCONUT_LEAVES_FLOWERING);
+		
+		if (ConfigHandler.block.palmBlocks.enablePalmLeaves)
+		{
+			itemColors.registerItemColorHandler(itemBlockColourHandler, OEBlocks.PALM_LEAVES);
+			if (ConfigHandler.block.coconut.enableCoconut) itemColors.registerItemColorHandler(itemBlockColourHandler, OEBlocks.PALM_LEAVES_FLOWERING);
+		}
 	}
 }

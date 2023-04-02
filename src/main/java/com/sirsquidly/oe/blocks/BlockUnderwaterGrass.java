@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.BlockBush;
@@ -84,7 +85,7 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable, ICheck
      * Bonemeal Growing
      */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-    { return worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER; }
+    { return OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, pos) && ConfigHandler.block.seagrass.enableTallSeagrass; }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
     { return worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER; }

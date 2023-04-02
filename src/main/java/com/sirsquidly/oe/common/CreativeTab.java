@@ -37,16 +37,22 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEItems.GLOW_INK);
 	        if (ConfigHandler.block.waterTorch.enableWaterTorch) add(list, OEBlocks.UNDERWATER_TORCH);
 	        add(list, OEItems.CHLORINE);
-	        add(list, OEBlocks.SEAGRASS);
-	        add(list, OEBlocks.TALL_SEAGRASS);
-	        add(list, OEBlocks.SEA_PICKLE);
-	        add(list, OEBlocks.KELP_TOP);
-	        add(list, OEItems.DRIED_KELP);
-	        add(list, OEBlocks.DRIED_KELP_BLOCK);
-	        add(list, OEBlocks.SEA_OATS);
-	        add(list, OEBlocks.COCONUT_SAPLING);
-	        add(list, OEBlocks.COCONUT_LEAVES);
-	        add(list, OEBlocks.COCONUT_LEAVES_FLOWERING);
+	        if (ConfigHandler.block.seagrass.enableSeagrass) add(list, OEBlocks.SEAGRASS);
+	        if (ConfigHandler.block.seagrass.enableTallSeagrass) add(list, OEBlocks.TALL_SEAGRASS);
+	        if (ConfigHandler.block.enableSeaPickle) add(list, OEBlocks.SEA_PICKLE);
+	        if (ConfigHandler.block.enableKelp)
+	        {
+	        	add(list, OEBlocks.KELP_TOP);
+	        	add(list, OEItems.DRIED_KELP);
+	        	add(list, OEBlocks.DRIED_KELP_BLOCK);
+	        }
+	        if (ConfigHandler.block.seaOats.enableSeaOats) add(list, OEBlocks.SEA_OATS);
+	        if (ConfigHandler.block.palmBlocks.enablePalmSapling) add(list, OEBlocks.PALM_SAPLING);
+	        if (ConfigHandler.block.palmBlocks.enablePalmLeaves)
+			{
+	        	add(list, OEBlocks.PALM_LEAVES);
+				if (ConfigHandler.block.coconut.enableCoconut) add(list, OEBlocks.PALM_LEAVES_FLOWERING);
+			}
 	        if (ConfigHandler.block.palmBlocks.enablePalmWoods) 
 	        {
 	        	add(list, OEBlocks.PALM_LOG);
@@ -60,37 +66,50 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		        add(list, OEBlocks.PALM_FENCE_GATE);
 		        add(list, ((BlockPalmDoor) OEBlocks.PALM_DOOR).getItemStack());
 	        }
-	        add(list, OEBlocks.COCONUT);
-	        add(list, OEItems.COCONUT_OPEN);
-	        add(list, OEItems.HEAVY_BOOTS);
-	        add(list, OEItems.SCUTE);
+	        if (ConfigHandler.block.coconut.enableCoconut)
+	        {
+	        	add(list, OEBlocks.COCONUT);
+	        	add(list, OEItems.COCONUT_OPEN);
+	        }
+	        if (ConfigHandler.item.heavyBoots.enableHeavyBoots) add(list, OEItems.HEAVY_BOOTS);
+	        if (ConfigHandler.item.enableTurtleScute) add(list, OEItems.SCUTE);
 	        if (ConfigHandler.item.turtleShell.enableTurtleShell) add(list, OEItems.TURTLE_HELMET);
-	        add(list, OEBlocks.SEA_TURTLE_EGG);
-	        add(list, OEBlocks.SHELL_SAND);
+	        if (ConfigHandler.block.turtleEgg.enableTurtleEgg) add(list, OEBlocks.SEA_TURTLE_EGG);
+	        if (ConfigHandler.block.enableShellySand) add(list, OEBlocks.SHELL_SAND);
 	        add(list, OEItems.SHELLS); 
-	        add(list, OEBlocks.COQUINA);
-	        add(list, OEBlocks.COQUINA_BRICK);
-	        add(list, OEBlocks.COQUINA_BRICK_SLAB);
-	        add(list, OEBlocks.COQUINA_BRICK_STAIRS);
-	        add(list, OEBlocks.COQUINA_BRICK_WALL);
-	        add(list, OEItems.CONCH);
-	        for (int i = 1; i <= ItemConch.existingSounds; i++)
+	        if (ConfigHandler.block.coquina.enableCoquina) add(list, OEBlocks.COQUINA);
+	        if (ConfigHandler.block.coquina.enableCoquinaBricks) 
 			{
-	        	ItemStack conch = new ItemStack(OEItems.CONCH, 1);
-	        	ItemConch.setSound(conch, i);
-	            add(list, conch);
+	        	add(list, OEBlocks.COQUINA_BRICK);
+		        add(list, OEBlocks.COQUINA_BRICK_SLAB);
+		        add(list, OEBlocks.COQUINA_BRICK_STAIRS);
+		        if (ConfigHandler.block.coquina.enableCoquinaBrickWalls) add(list, OEBlocks.COQUINA_BRICK_WALL);
 			}
-	        add(list, OEItems.NAUTILUS_SHELL);
+	        
+	        if (ConfigHandler.item.conch.enableConch) 
+	        {
+	        	add(list, OEItems.CONCH);
+		        for (int i = 1; i <= ItemConch.existingSounds; i++)
+				{
+		        	ItemStack conch = new ItemStack(OEItems.CONCH, 1);
+		        	ItemConch.setSound(conch, i);
+		            add(list, conch);
+				}
+	        }
+	        if (ConfigHandler.item.enableNautilusShell) add(list, OEItems.NAUTILUS_SHELL);
 	        add(list, OEItems.HEART_OF_THE_SEA);
 	        if (ConfigHandler.block.conduit.enableConduit) add(list, OEBlocks.CONDUIT);
 	        add(list, OEItems.PEARL);
 	        add(list, OEItems.CHARM);
 	        if (ConfigHandler.block.blueIce.enableBlueIce) add(list, OEBlocks.BLUE_ICE);
-	        add(list, OEBlocks.DULSE);
-	        add(list, OEItems.DRIED_DULSE);
-	        add(list, OEBlocks.DRIED_DULSE_BLOCK);
-	        add(list, OEBlocks.SEASTAR);
-	        add(list, OEBlocks.TUBE_SPONGE);
+	        if (ConfigHandler.block.dulse.enableDulse)
+	        {
+	        	add(list, OEBlocks.DULSE);
+		        add(list, OEItems.DRIED_DULSE);
+		        add(list, OEBlocks.DRIED_DULSE_BLOCK);
+	        }
+	        if (ConfigHandler.block.enableSeastar) add(list, OEBlocks.SEASTAR);
+	        if (ConfigHandler.block.tubeSponge.enableTubeSponge) add(list, OEBlocks.TUBE_SPONGE);
 	        
 	        if (ConfigHandler.block.coralBlocks.enableCoralBlock) 
 	        {

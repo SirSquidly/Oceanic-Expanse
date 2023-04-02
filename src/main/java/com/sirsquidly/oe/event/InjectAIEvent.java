@@ -39,7 +39,7 @@ public class InjectAIEvent
 	{
 		Entity spawn = event.getEntity();
 		
-		if(ConfigHandler.block.turtleEgg.zombiesTrample && spawn instanceof EntityZombie)
+		if(ConfigHandler.block.turtleEgg.zombiesTrample && ConfigHandler.block.turtleEgg.enableTurtleEgg && spawn instanceof EntityZombie)
 		{
 			EntityZombie zombie  = (EntityZombie)event.getEntity();			
 

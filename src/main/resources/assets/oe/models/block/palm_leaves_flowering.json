@@ -1,6 +1,6 @@
 {
     "parent": "block/leaves",
     "textures": {
-        "all": "oe:blocks/coconut_leaves_flowering"
+        "all": "oe:blocks/palm_leaves_flowering"
     }
 }
