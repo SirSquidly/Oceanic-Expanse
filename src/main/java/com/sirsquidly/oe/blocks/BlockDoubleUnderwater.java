@@ -59,7 +59,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false) && checkPlaceWater(worldIn, pos, true);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false) && checkPlaceWater(worldIn, pos.up(), true);
     }
 	
 	@Override
