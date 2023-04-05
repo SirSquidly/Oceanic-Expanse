@@ -1,7 +1,6 @@
 package com.sirsquidly.oe.client.model.entity;
 
 import com.sirsquidly.oe.entity.AbstractFish;
-import com.sirsquidly.oe.entity.EntityCod;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -11,10 +10,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * ModelCod - Sir Squidly
- * Created using Tabula 7.1.0
- */
 @SideOnly(Side.CLIENT)
 public class ModelCod extends ModelBase {
 	public ModelRenderer body1;

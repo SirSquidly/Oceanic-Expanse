@@ -92,7 +92,6 @@ public class BlockCoralFan extends Block implements IChecksWater
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
     	boolean isWet = checkWater(worldIn, pos);
-    	
         return canPlaceBlock(worldIn, pos, facing) ? this.getDefaultState().withProperty(FACING, facing).withProperty(IN_WATER, isWet) : this.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(IN_WATER, isWet);
     }
 
@@ -147,7 +146,7 @@ public class BlockCoralFan extends Block implements IChecksWater
     @SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		if(state.getValue(IN_WATER)) {
+		if(state.getValue(IN_WATER) && !ConfigHandler.block.disableBlockWaterLogic) {
 			return Material.WATER;
 		}
 		return super.getMaterial(state);
@@ -290,42 +289,15 @@ public class BlockCoralFan extends Block implements IChecksWater
 
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-    	if (this.canBlockStay(worldIn, pos, state)) swapWaterProperty(worldIn, pos, state);
+    	if (this.canBlockStay(worldIn, pos, state) && !ConfigHandler.block.disableBlockWaterLogic) swapWaterProperty(worldIn, pos, state);
     	this.checkForDrop(worldIn, pos, state);
         if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-    	swapWaterProperty(worldIn, pos, state);
+    	if (!ConfigHandler.block.disableBlockWaterLogic) swapWaterProperty(worldIn, pos, state);
     	if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-    }
-    
-    protected boolean checkWater(World worldIn, BlockPos pos, IBlockState state)
-    {
-    	boolean flag = false;
-    	boolean flag2 = false; 	
-    	/** Needs water touching to stay alive, but if air is also above, breaks **/
-		for (EnumFacing enumfacing : EnumFacing.values())
-        {
-			BlockPos blockpos = pos.offset(enumfacing);
-			if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER && this.canBlockStay(worldIn, pos, state))
-            {
-				if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.AIR)
-        		{ flag2 = true; break; }
-				if (worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN) || worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) 
-				{ worldIn.setBlockState(pos, state.withProperty(IN_WATER, true)); flag = true; break;}
-				else { flag = true; break; }
-            }
-        }
-		/** Seperated from the above check, as to not multiply the item **/
-		if (flag2)
-		{
-			if (state.getValue(IN_WATER) && !(worldIn.provider.doesWaterVaporize())) 
-			{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
-			else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
-		}
-	 	return flag;
     }
     
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)

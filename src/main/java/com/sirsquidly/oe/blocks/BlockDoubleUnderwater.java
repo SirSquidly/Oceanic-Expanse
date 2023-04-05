@@ -43,6 +43,13 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleUnderwater.EnumBlockHalf.LOWER));
 	}
 	
+	@SuppressWarnings("deprecation")
+	public Material getMaterial(IBlockState state)
+	{
+		 if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		return super.getMaterial(state);
+	}
+	 
 	@Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
@@ -52,7 +59,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkWater(worldIn, pos) && checkWater(worldIn, pos.up());
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false) && checkPlaceWater(worldIn, pos, true);
     }
 	
 	@Override
@@ -61,7 +68,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
         if (state.getBlock() != this) return super.canBlockStay(worldIn, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
         if (state.getValue(HALF) == BlockDoubleUnderwater.EnumBlockHalf.UPPER)
         {
-        	if (!checkWater(worldIn, pos)) return false;
+        	if (!checkWater(worldIn, pos) && !ConfigHandler.block.disableBlockWaterLogic) return false;
             return worldIn.getBlockState(pos.down()).getBlock() == this;
         }
         else

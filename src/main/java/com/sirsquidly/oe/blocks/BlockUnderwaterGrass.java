@@ -38,6 +38,13 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable, ICheck
 		setDefaultState(blockState.getBaseState());
 	}
 
+	@SuppressWarnings("deprecation")
+	public Material getMaterial(IBlockState state)
+	{
+		 if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		return super.getMaterial(state);
+	}
+	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return SEAGRASS_AABB;
@@ -46,7 +53,7 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable, ICheck
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkWater(worldIn, pos);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false);
     }
 	
 	@Override

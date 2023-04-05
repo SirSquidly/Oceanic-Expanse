@@ -4,6 +4,8 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
+
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
@@ -42,8 +44,8 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	@Deprecated
 	public Material getMaterial(IBlockState state)
 	{
-		if(!state.getValue(IN_WATER)) {
-			return Material.GOURD;
+		if(!state.getValue(IN_WATER) || ConfigHandler.block.disableBlockWaterLogic) {
+			return Material.PLANTS;
 		}
 		return super.getMaterial(state);
 	}
@@ -91,8 +93,8 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-    	if (!checkWater(worldIn, pos)) return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(false));
-    	return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(true));
+		boolean isWater = ConfigHandler.block.disableBlockWaterLogic ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
+    	return this.getDefaultState().withProperty(IN_WATER, isWater);
     }
     
 	

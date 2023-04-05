@@ -43,6 +43,13 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 		setDefaultState(blockState.getBaseState().withProperty(SHEARED, false));
 	}
 
+	@SuppressWarnings("deprecation")
+	public Material getMaterial(IBlockState state)
+	{
+		if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		return super.getMaterial(state);
+	}
+	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return DULSE_AABB[((Integer)state.getValue(AGE)).intValue()];
@@ -51,13 +58,13 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkWater(worldIn, pos);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false);
     }
 	
 	/** Checks if the Double tall 4th age crop can be placed here.*/
 	public boolean canPlaceFullAge(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkWater(worldIn, pos) && checkWater(worldIn, pos.up());
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false) && checkPlaceWater(worldIn, pos.up(), true);
     }
 	
 	@Override
@@ -127,13 +134,13 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
     { 
     	if (state.getValue(AGE).intValue() > 2) return false;
-		return worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER; 
+		return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || ConfigHandler.block.disableBlockWaterLogic); 
     }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
     { 
     	if (state.getValue(AGE).intValue() > 2) return false;
-    	return worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER;
+    	return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || ConfigHandler.block.disableBlockWaterLogic);
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)

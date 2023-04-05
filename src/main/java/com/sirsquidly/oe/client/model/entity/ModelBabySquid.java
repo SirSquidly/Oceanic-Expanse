@@ -4,10 +4,6 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-/**
- * BabySquid - SirSquidly
- * Created using Tabula 7.1.0
- */
 public class ModelBabySquid extends ModelBase {
     public ModelRenderer body1;
     public ModelRenderer body2;

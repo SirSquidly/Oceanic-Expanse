@@ -13,10 +13,6 @@ import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * ModelPickled - Sir Squidly
- * Created using Tabula 7.1.0
- */
 @SideOnly(Side.CLIENT)
 public class ModelPickled extends ModelZombie {;
     public ModelRenderer rightArmIntest1;

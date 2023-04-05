@@ -10,10 +10,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * ModelPufferfish - Sir Squidly
- * Created using Tabula 7.1.0
- */
 @SideOnly(Side.CLIENT)
 public class ModelPufferfish extends ModelBase {
     public ModelRenderer s3body1;
@@ -169,9 +165,6 @@ public class ModelPufferfish extends ModelBase {
         }
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;

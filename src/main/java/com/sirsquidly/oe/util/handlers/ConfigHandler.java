@@ -9,7 +9,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Config(modid = Reference.MOD_ID)
+@Config(modid = Reference.MOD_ID, name = Reference.NAME)
 @Config.LangKey("oe.config.title")
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public class ConfigHandler 
@@ -209,6 +209,11 @@ public class ConfigHandler
 		    public boolean enablePalmTrees = true;
 			
 			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.palmTreeFullBark")
+		    @Config.Comment("If the logs of Palm Trees should be full bark. Not to be confused with the Palm Wood block, they are still logs.")
+		    public boolean palmTreeFullBark = true;
+			
+			@RequiresMcRestart
 		    @Config.LangKey("oe.config.worldGen.palmTreeTriesPerChunk")
 		    @Config.Comment("The Palm Trees' tries per chunk to generate.")
 		    public int palmTreeTriesPerChunk = 3;
@@ -281,9 +286,9 @@ public class ConfigHandler
 	public static class configBlock
 	{
 		@RequiresMcRestart
-	    @Config.LangKey("oe.config.block.allowAirAbove")
-	    @Config.Comment("Allows aquatic blocks to be placed with Air directly above them. Necissary for setting up Fluidlogged API support.")
-	    public boolean allowAirAbove = false;
+	    @Config.LangKey("oe.config.block.disableBlockWaterLogic")
+	    @Config.Comment("Disables the logic and materials aquatic blocks use in this mod. Necissary for setting up Fluidlogged API support.")
+	    public boolean disableBlockWaterLogic = false;
 		
 		@Config.LangKey("oe.config.block.blueIce")
 	    public configBlueIce blueIce = new configBlueIce();

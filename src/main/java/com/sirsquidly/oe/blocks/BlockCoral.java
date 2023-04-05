@@ -16,6 +16,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
@@ -77,7 +78,7 @@ public class BlockCoral extends Block implements IChecksWater
     @SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		if(state.getValue(IN_WATER)) {
+		if(state.getValue(IN_WATER) && !ConfigHandler.block.disableBlockWaterLogic) {
 			return Material.WATER;
 		}
 		return super.getMaterial(state);
@@ -133,14 +134,20 @@ public class BlockCoral extends Block implements IChecksWater
      */
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-    	if (this.canBlockStay(worldIn, pos, state)) swapWaterProperty(worldIn, pos, state);
+    	if (this.canBlockStay(worldIn, pos, state) && !ConfigHandler.block.disableBlockWaterLogic) swapWaterProperty(worldIn, pos, state);
     	this.checkForDrop(worldIn, pos, state);
         if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+    	return this.getDefaultState().withProperty(IN_WATER, checkPlaceWater(worldIn, pos, false));
+    }
+    
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-    	swapWaterProperty(worldIn, pos, state);
+    	if (!ConfigHandler.block.disableBlockWaterLogic) swapWaterProperty(worldIn, pos, state);
     	if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     

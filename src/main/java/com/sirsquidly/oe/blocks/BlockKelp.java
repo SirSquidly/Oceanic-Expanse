@@ -3,6 +3,7 @@ package com.sirsquidly.oe.blocks;
 import java.util.Random;
 
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
@@ -27,7 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
-public class BlockKelp extends BlockBush implements IGrowable
+public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 {
 	protected static final AxisAlignedBB KELP_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
 	
@@ -64,7 +65,7 @@ public class BlockKelp extends BlockBush implements IGrowable
     {
         boolean flag = false;
         
-        if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !(worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER))
+        if (!ConfigHandler.block.disableBlockWaterLogic && !(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !(worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER))
         {
         	OEBlocks.KELP_TOP.dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
@@ -74,19 +75,15 @@ public class BlockKelp extends BlockBush implements IGrowable
                 ((WorldServer)worldIn).spawnParticle(EnumParticleTypes.WATER_BUBBLE, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.25D, (double)pos.getZ() + 0.5D, 8, 0.25D, 0.5D, 0.25D, 0.0D);
             }
         }
-        if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER)
-		{ flag = true; }
-        if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.FLOWING_WATER)
-		{ flag = true; }
-
-        if (flag)
+        
+        if (checkPlaceWater(worldIn, pos.up(), true))
         {
         	Random rand = worldIn.rand;
         	worldIn.setBlockState(pos, OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(10))));
         }
         return flag;
     }
-    
+     
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
@@ -132,9 +129,7 @@ public class BlockKelp extends BlockBush implements IGrowable
 	{ return 0; }
 	
     protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, BlockLiquid.LEVEL);
-    }
+    { return new BlockStateContainer(this, BlockLiquid.LEVEL); }
 
 	@Override
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)

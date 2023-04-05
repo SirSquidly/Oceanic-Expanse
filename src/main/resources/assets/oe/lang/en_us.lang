@@ -225,6 +225,7 @@ oe.config.worldGen.enableCoralBranch=Enable Coral Branchs
 oe.config.worldGen.enableCoralBulb=Enable Coral Bulbs
 oe.config.worldGen.palmTree=Palm Tree Config
 oe.config.worldGen.enablePalmTrees=Enable Palm Trees
+oe.config.worldGen.palmTreeFullBark=Palm Trees use full bark logs
 oe.config.worldGen.palmTreeTriesPerChunk=Palm Trees tries per chunk
 oe.config.worldGen.palmTreeChancePerChunk=Palm Tree chance per try
 oe.config.worldGen.shellPatch=Shell Patch Config
@@ -239,7 +240,7 @@ oe.config.worldGen.enableShipwreckDrowned=Enable Shipwreck Drowned Groups
 oe.config.worldGen.shipwreckChancePerChunk=Shipwreck chance per Chunk
 
 oe.config.block=Block Config
-oe.config.block.allowAirAbove=Allow Air above water blocks
+oe.config.block.disableBlockWaterLogic=Disable block water logic
 oe.config.block.blueIce=Blue Ice Config
 oe.config.block.enableBlueIce=Enable Blue Ice
 oe.config.block.blueIceLight=Blue Ice Light

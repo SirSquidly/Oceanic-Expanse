@@ -9,10 +9,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * ModelTurtle - Sir Squidly
- * Created using Tabula 7.1.0
- */
 @SideOnly(Side.CLIENT)
 public class ModelTurtle extends ModelBase {
     public ModelRenderer shell1;
@@ -61,9 +57,6 @@ public class ModelTurtle extends ModelBase {
         this.shell1.render(f5);
     }
 
-    /**
-     * This is a helper function from Tabula to set the rotation of model parts
-     */
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;

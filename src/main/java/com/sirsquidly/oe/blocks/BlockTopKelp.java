@@ -49,6 +49,13 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(randomAge + 1)));
 	}
 
+	@SuppressWarnings("deprecation")
+	public Material getMaterial(IBlockState state)
+	{
+		if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		return super.getMaterial(state);
+	}
+	
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
 		Random rand = worldIn.rand;
@@ -62,7 +69,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
     
     @Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-    	if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !ConfigHandler.block.allowAirAbove || worldIn.getBlockState(pos.up()).getBlock() == OEBlocks.KELP || worldIn.getBlockState(pos.up()).getBlock() == this) 
+    	if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !ConfigHandler.block.disableBlockWaterLogic || worldIn.getBlockState(pos.up()).getBlock() == OEBlocks.KELP || worldIn.getBlockState(pos.up()).getBlock() == this) 
 		{
 			worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState());
 		}
@@ -72,7 +79,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this || worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP) && checkWater(worldIn, pos);
+        return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this || worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP) && checkPlaceWater(worldIn, pos, false);
     }
 
 	@Override

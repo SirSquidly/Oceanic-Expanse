@@ -46,6 +46,13 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 		setDefaultState(blockState.getBaseState().withProperty(SHEARED, false));
 	}
 
+	@SuppressWarnings("deprecation")
+	public Material getMaterial(IBlockState state)
+	{
+		if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		return super.getMaterial(state);
+	}
+	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return TUBE_SPONGE_AABB[((Integer)state.getValue(AGE)).intValue()];
@@ -54,7 +61,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkWater(worldIn, pos);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false);
     }
 	
 	@Override
@@ -122,7 +129,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
     }
 	
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state)
-    { return worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && state.getValue(AGE).intValue() < 2; }
+    { return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || ConfigHandler.block.disableBlockWaterLogic) && state.getValue(AGE).intValue() < 2; }
     
 	/**
      * Shearing stuffs.

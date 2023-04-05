@@ -37,7 +37,7 @@ public class BlockUnderwaterTorch extends BlockTorch implements IChecksWater
 	@Deprecated
 	public Material getMaterial(IBlockState state)
 	{
-		if(!state.getValue(IN_WATER)) return Material.CIRCUITS;
+		if(!state.getValue(IN_WATER) || ConfigHandler.block.disableBlockWaterLogic) return Material.CIRCUITS;
 		return Material.WATER;
 	}
 	
@@ -75,7 +75,7 @@ public class BlockUnderwaterTorch extends BlockTorch implements IChecksWater
 	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-		boolean isWet = checkWater(worldIn, pos);
+		boolean isWet = checkPlaceWater(worldIn, pos, false);
 		BlockPos blockpos = pos.offset(facing.getOpposite());
 		IBlockState iblockstate = worldIn.getBlockState(blockpos);
 		//BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);

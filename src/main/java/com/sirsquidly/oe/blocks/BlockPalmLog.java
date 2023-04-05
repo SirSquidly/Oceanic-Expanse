@@ -8,6 +8,7 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,12 +25,12 @@ import net.minecraft.world.World;
 
 public class BlockPalmLog extends BlockLog
 {
+	public static final PropertyEnum<BlockLog.EnumAxis> LOG_AXIS = PropertyEnum.<BlockLog.EnumAxis>create("axis", BlockLog.EnumAxis.class);
+
 	public BlockPalmLog()
 	{
 		super();
 		this.setHarvestLevel("axe", 0);
-		this.setDefaultState(blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y));
-		
 		this.setCreativeTab(Main.OCEANEXPTAB);
 	}
 
@@ -74,6 +75,7 @@ public class BlockPalmLog extends BlockLog
 
         switch (meta)
         {
+        	default:
             case 0:
                 iblockstate = iblockstate.withProperty(LOG_AXIS, BlockLog.EnumAxis.Y);
                 break;
@@ -83,8 +85,9 @@ public class BlockPalmLog extends BlockLog
             case 2:
                 iblockstate = iblockstate.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
                 break;
-            default:
+            case 3:
                 iblockstate = iblockstate.withProperty(LOG_AXIS, BlockLog.EnumAxis.NONE);
+                break;
         }
 
         return iblockstate;
@@ -97,6 +100,7 @@ public class BlockPalmLog extends BlockLog
 
         switch ((BlockLog.EnumAxis)state.getValue(LOG_AXIS))
         {
+        	default:
             case Y:
                 i = 0;
                 break;
@@ -106,8 +110,8 @@ public class BlockPalmLog extends BlockLog
             case Z:
                 i = 2;
                 break;
-            default:
-			i = 0;
+            case NONE:
+            	i = 3;
 				break;
         }
 

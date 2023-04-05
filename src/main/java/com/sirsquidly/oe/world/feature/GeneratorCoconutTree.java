@@ -11,6 +11,7 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
@@ -174,10 +175,11 @@ public class GeneratorCoconutTree extends WorldGenAbstractTree
 	
 	private void placeLogAt(World worldIn, BlockPos pos)
     { 
+		EnumAxis getAxis = ConfigHandler.worldGen.palmTree.palmTreeFullBark ? BlockLog.EnumAxis.NONE : BlockLog.EnumAxis.Y;
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods)
-		{ this.setBlockAndNotifyAdequately(worldIn, pos, OEBlocks.PALM_LOG.getDefaultState().withProperty(BlockOldLog.LOG_AXIS, BlockLog.EnumAxis.Y)); }
+		{ this.setBlockAndNotifyAdequately(worldIn, pos, OEBlocks.PALM_LOG.getDefaultState().withProperty(BlockLog.LOG_AXIS, getAxis)); }
 		else
-		{ this.setBlockAndNotifyAdequately(worldIn, pos, Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE)); }
+		{ this.setBlockAndNotifyAdequately(worldIn, pos, Blocks.LOG.getDefaultState().withProperty(BlockLog.LOG_AXIS, getAxis).withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE)); }
 	}
 	
 	private void placeCrownLeaves(World worldIn, BlockPos pos)

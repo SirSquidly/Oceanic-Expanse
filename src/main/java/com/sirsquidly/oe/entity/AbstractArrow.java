@@ -96,7 +96,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 
         BlockPos blockpos = new BlockPos(this.xTile, this.yTile, this.zTile);
         IBlockState iblockstate = this.world.getBlockState(blockpos);
-        Block block = iblockstate.getBlock();
+        //Block block = iblockstate.getBlock();
 
         if (iblockstate.getMaterial() != Material.AIR)
         {
@@ -174,7 +174,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
             this.posX += this.motionX;
             this.posY += this.motionY;
             this.posZ += this.motionZ;
-            float f4 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+            //float f4 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
             // What a hack.
