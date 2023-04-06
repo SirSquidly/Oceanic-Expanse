@@ -290,7 +290,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     	if (isCaptain())
     	{
     		if (ConfigHandler.item.trident.enableTrident) this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.TRIDENT_ORIG));
-    		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.CONCH));
+    		if (ConfigHandler.item.conch.enableConch) this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.CONCH));
     		
     		return;
     	}
@@ -308,7 +308,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
         }
         
-        if (this.rand.nextFloat() <= (float)ConfigHandler.entity.drowned.drownedNautilusSpawnChance * 0.01F)
+        if (this.rand.nextFloat() <= (float)ConfigHandler.entity.drowned.drownedNautilusSpawnChance * 0.01F && ConfigHandler.item.enableNautilusShell)
         {
             this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.NAUTILUS_SHELL));
             this.setDropChance(EntityEquipmentSlot.OFFHAND, 100);

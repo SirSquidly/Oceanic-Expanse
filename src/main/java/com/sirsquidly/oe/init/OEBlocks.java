@@ -95,7 +95,7 @@ public class OEBlocks
 		public static Block COQUINA_BRICK_SLAB_D = new BlockOESlabDouble(COQUINA_BRICK_SLAB, Material.ROCK, SoundType.STONE, 0.5F, 15.0F);
 		public static Block COQUINA_BRICK_STAIRS = new BlockOEStairs(OEBlocks.COQUINA_BRICK.getDefaultState());
 		public static Block COQUINA_BRICK_WALL = new BlockOEWall(COQUINA_BRICK).setHardness(0.5F).setResistance(15.0F);
-		public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
+		//public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
 		
 		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, SoundHandler.CORAL);
 		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, SoundHandler.CORAL);

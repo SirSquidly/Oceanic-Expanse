@@ -17,6 +17,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -146,6 +147,7 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
                     		entity.setCustomNameTag(itemstack.getDisplayName());
                     	}
                     	
+                    	if (entity instanceof EntityLiving) ((EntityLiving) entity).enablePersistence();
             			entity.setPosition((double)blockpos1.getX() + 0.5, (double)blockpos1.getY(), (double)blockpos1.getZ() + 0.5);
             			worldIn.spawnEntity(entity);
                     }

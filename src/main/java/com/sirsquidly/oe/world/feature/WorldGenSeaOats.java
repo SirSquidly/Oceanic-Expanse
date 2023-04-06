@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.sirsquidly.oe.blocks.BlockDoubleSeaOats;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +26,6 @@ public class WorldGenSeaOats implements IWorldGenerator
 	/** Chance /1 to retry a failed placement.*/
 	private int placeRetryChance = 2;
 	/** Chance /1 to place short sea oats when tall sea oats cannot be placed.*/
-	private int shortPlaceChance = 3;
 
 	public WorldGenSeaOats(int perChunk, int perAttempt, int amount, Biome... biomes)
 	{
@@ -84,11 +84,11 @@ public class WorldGenSeaOats implements IWorldGenerator
             
             if (worldIn.isAirBlock(blockpos) && OEBlocks.SEA_OATS.canPlaceBlockAt(worldIn, blockpos))
             { 
-            	if (((BlockDoubleSeaOats) OEBlocks.SEA_OATS).checkTouching(worldIn, blockpos, false) >= 2)
+            	if (((BlockDoubleSeaOats) OEBlocks.SEA_OATS).checkTouching(worldIn, blockpos, false) >= ConfigHandler.worldGen.seaOatsPatch.seaOatsPatchMinTallSides)
             	{ 
             		((BlockDoubleSeaOats) OEBlocks.SEA_OATS).placeAt(worldIn, blockpos, (16 | 2));
             	}
-            	else if (rand.nextInt(shortPlaceChance) == 0)
+            	else if (ConfigHandler.worldGen.seaOatsPatch.seaOatsPatchShortChance == 1 || ConfigHandler.worldGen.seaOatsPatch.seaOatsPatchShortChance != 0 && rand.nextInt(ConfigHandler.worldGen.seaOatsPatch.seaOatsPatchShortChance) == 0)
             	{
             		worldIn.setBlockState(blockpos, OEBlocks.SEA_OATS.getDefaultState().withProperty(BlockDoubleSeaOats.HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER).withProperty(BlockDoubleSeaOats.SANDY, true), 2);
             	}

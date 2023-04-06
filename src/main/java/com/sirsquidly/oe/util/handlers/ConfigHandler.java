@@ -225,6 +225,43 @@ public class ConfigHandler
 		}
 		
 		@RequiresMcRestart
+	    @Config.LangKey("oe.config.worldGen.enableSeagrassPatches")
+	    @Config.Comment("If Seagrass Patches should Generate")
+	    public boolean enableSeagrassPatches = true;
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.seaOatsPatch")
+	    public configSeaOatsPatch seaOatsPatch = new configSeaOatsPatch();
+		
+		public static class configSeaOatsPatch
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableSeaOatsPatch")
+		    @Config.Comment("If Sea Oats Patches should Generate")
+		    public boolean enableSeaOatsPatch = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.seaOatsPatchTriesPerChunk")
+		    @Config.Comment("The Sea Oats Patches' tries per chunk to generate.")
+		    public int seaOatsPatchTriesPerChunk = 2;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.seaOatsPatchChancePerChunk")
+		    @Config.Comment("The Sea Oats Patches' chance to generate, per try. 1 / this number")
+		    public int seaOatsPatchChancePerChunk = 3;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.seaOatsPatchMinTallSides")
+		    @Config.Comment("The minimum number of solid sides Tall Sea Oats require to be touching to generate.")
+		    public int seaOatsPatchMinTallSides = 2;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.seaOatsPatchChancePerChunk")
+		    @Config.Comment("The chance to instead place Short Sea Oats if the spot does not pass the minimum solid sides. 1 / this number, setting to 0 disables the Short Sea Oat generation.")
+		    public int seaOatsPatchShortChance = 3;
+		}
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.worldGen.shellPatch")
 	    public configShellPatch shellPatch = new configShellPatch();
 		
@@ -243,7 +280,7 @@ public class ConfigHandler
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.worldGen.shellPatchChancePerChunk")
 		    @Config.Comment("The Shell Patches' chance to generate, per try. 1 / this number")
-		    public int shellPatchChancePerChunk = 6;
+		    public int shellPatchChancePerChunk = 2;
 			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.worldGen.shellPatchAboveSeaLevel")

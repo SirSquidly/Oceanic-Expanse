@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.init;
 
 import com.sirsquidly.oe.blocks.BlockPalmDoor;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.FurnaceFuelHandler;
 
 import net.minecraft.init.Items;
@@ -34,15 +35,27 @@ public class OERecipies
 	
 	public static void initOreDict()
 	{
-		OreDictionary.registerOre("logWood", OEBlocks.PALM_LOG);
-		OreDictionary.registerOre("plankWood", OEBlocks.PALM_PLANKS);
-		OreDictionary.registerOre("slabWood", OEBlocks.PALM_SLAB);
-		OreDictionary.registerOre("stairWood", OEBlocks.PALM_STAIRS);
-		OreDictionary.registerOre("fenceWood", OEBlocks.PALM_FENCE);
-		OreDictionary.registerOre("fenceGateWood", OEBlocks.PALM_FENCE_GATE);
-		OreDictionary.registerOre("doorWood", ((BlockPalmDoor) OEBlocks.PALM_DOOR).getItemStack());
-		OreDictionary.registerOre("treeSapling", OEBlocks.PALM_SAPLING);
-		OreDictionary.registerOre("treeLeaves", OEBlocks.PALM_LEAVES);
-		OreDictionary.registerOre("treeLeaves", OEBlocks.PALM_LEAVES_FLOWERING);
+		if (ConfigHandler.block.palmBlocks.enablePalmWoods)
+		{
+			OreDictionary.registerOre("logWood", OEBlocks.PALM_LOG);
+			OreDictionary.registerOre("logWood", OEBlocks.PALM_WOOD);
+			if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) OreDictionary.registerOre("logWood", OEBlocks.PALM_LOG_STRIPPED);
+			if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) OreDictionary.registerOre("logWood", OEBlocks.PALM_WOOD_STRIPPED);
+			OreDictionary.registerOre("plankWood", OEBlocks.PALM_PLANKS);
+			OreDictionary.registerOre("slabWood", OEBlocks.PALM_SLAB);
+			OreDictionary.registerOre("stairWood", OEBlocks.PALM_STAIRS);
+			OreDictionary.registerOre("fenceWood", OEBlocks.PALM_FENCE);
+			OreDictionary.registerOre("fenceGateWood", OEBlocks.PALM_FENCE_GATE);
+			OreDictionary.registerOre("doorWood", ((BlockPalmDoor) OEBlocks.PALM_DOOR).getItemStack());
+		} 
+		if (ConfigHandler.block.palmBlocks.enablePalmSapling) OreDictionary.registerOre("treeSapling", OEBlocks.PALM_SAPLING);
+		
+		if (ConfigHandler.block.palmBlocks.enablePalmLeaves)
+		{
+			OreDictionary.registerOre("treeLeaves", OEBlocks.PALM_LEAVES);
+			if (ConfigHandler.block.coconut.enableCoconut) OreDictionary.registerOre("treeLeaves", OEBlocks.PALM_LEAVES_FLOWERING);
+		}
+		
+		if (ConfigHandler.item.enableNautilusShell) OreDictionary.registerOre("shellNautilus", OEItems.NAUTILUS_SHELL);
 	}
 }

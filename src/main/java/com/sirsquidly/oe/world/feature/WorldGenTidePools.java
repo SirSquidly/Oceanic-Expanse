@@ -19,6 +19,12 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
+/**
+ *  An early scrapped idea for a generator, being for Tide Pools.
+ *  
+ *  Code is mostly copied from the vanilla lake gen.
+ *  
+ *  */
 public class WorldGenTidePools  implements IWorldGenerator
 {
 	public int attemptsPerChunk;
