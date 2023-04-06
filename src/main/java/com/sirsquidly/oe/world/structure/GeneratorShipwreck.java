@@ -59,7 +59,6 @@ public class GeneratorShipwreck implements IWorldGenerator
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator generator, IChunkProvider provider)
 	{
-        boolean isValidBiome = false;
         ChunkPos chunkPos = world.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
         Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
 
@@ -67,58 +66,47 @@ public class GeneratorShipwreck implements IWorldGenerator
 		{
 			if(biome == biomes[i])
 			{
-				isValidBiome = true;
+				for(int j = 0; j < attemptsPerChunk; j++)
+				{
+					if(rand.nextInt(chancePerAttempt) == 0)
+					{
+						spawnShipwreck(world, rand, chunkX * 16 + rand.nextInt(8) + 8, chunkZ * 16 + rand.nextInt(8) + 8);
+					}
+				}
 				break;
 			}
 		}
+	}
+	
+	public void spawnShipwreck(World world, Random rand, int x, int z)
+	{
+		MinecraftServer mcServer = world.getMinecraftServer();
+		TemplateManager manager = world.getSaveHandler().getStructureTemplateManager();
+		Rotation[] arotation = Rotation.values();
+		BlockPos pos = new BlockPos(x, 1, z);
+		
+		PlacementSettings placementsettings = (new PlacementSettings()).setReplacedBlock(Blocks.STRUCTURE_VOID).setRotation(arotation[rand.nextInt(arotation.length)]);
+		Template template = manager.get(mcServer, getRandomStructure(rand.nextInt(10)));
 
-		if(isValidBiome)
-		{
-			for(int i = 0; i < attemptsPerChunk; i++)
-			{
-				int xPos = rand.nextInt(16) + 8;
-				int zPos = rand.nextInt(16) + 8;
-				int yPos = world.getHeight();
+		BlockPos size = template.getSize();
+		//** Grabs the lowest Y block from around the middle of the structure, for snapping to the floor. Just need the middle, because no need to check each corner, it's cooler for overhangs and such.*/
+		BlockPos placeCheck = pos.add(Template.transformedBlockPos(placementsettings, new BlockPos(0 + (size.getX()/2), 0, 0 + (size.getZ()/2))));
+		
+		//** Uses placeCheck to set the y to the Seafloor. */
+		pos = new BlockPos(x, getSeaFloor(world, placeCheck.getX(), placeCheck.getZ()).getY(), z);
 				
-				if(rand.nextInt(chancePerAttempt) == 0)
-				{
-					MinecraftServer mcServer = world.getMinecraftServer();
-					TemplateManager manager = world.getSaveHandler().getStructureTemplateManager();
-					Rotation[] arotation = Rotation.values();
-					
-					PlacementSettings placementsettings = (new PlacementSettings()).setReplacedBlock(Blocks.STRUCTURE_VOID).setRotation(arotation[rand.nextInt(arotation.length)]);
-					ResourceLocation location = getRandomStructure(rand.nextInt(10));
-					Template template = manager.get(mcServer, location);
-					
-					BlockPos size = template.getSize();
-					
-					//** The Front-Left corner of the structure, used for the X and Z Pos. */
-					BlockPos pos = chunkPos.getBlock(0, 0, 0).add(xPos, yPos, zPos);
+		/** This buries the ship down a bit. */
+		pos = pos.down(rand.nextInt(6));
 
-					//** Grabs the lowest Y block from around the middle of the structure, for snapping to the floor. Just need the middle, because no need to check each corner, it's cooler for overhangs and such.*/
-					BlockPos placeCheck = pos.add(Template.transformedBlockPos(placementsettings, new BlockPos(0 + (size.getX()/2), 0, 0 + (size.getZ()/2))));
-						
-					for ( IBlockState state = world.getBlockState(placeCheck); ((state.getBlock().isReplaceable(world, placeCheck) || state.getMaterial() == Material.WATER || state.getMaterial() == Material.LEAVES) && placeCheck.getY() > 0); state = world.getBlockState(placeCheck) )
-			        { placeCheck = placeCheck.down(); }	
-					pos = new BlockPos(pos.getX(), placeCheck.getY(), pos.getZ());
-					
-					/** This buries the ship down a bit. */
-					pos = pos.down(rand.nextInt(6));
-					
-					IBlockState state = world.getBlockState(pos);
-					world.notifyBlockUpdate(pos, state, state, 3);
-					template.addBlocksToWorldChunk(world, pos, placementsettings);
-					
-					
-					Map<BlockPos, String> map = template.getDataBlocks(pos, placementsettings);
-
-                    for (Entry<BlockPos, String> entry : map.entrySet())
-                    {
-                    	doDataBlockLoading(entry, pos, world, rand);
-                    }
-				}
-			}
-		}
+		
+		template.addBlocksToWorld(world, pos, placementsettings);
+	
+		
+		Map<BlockPos, String> map = template.getDataBlocks(pos, placementsettings);
+        for (Entry<BlockPos, String> entry : map.entrySet())
+        {
+        	doDataBlockLoading(entry, pos, world, rand);
+        }
 	}
 	
 	/** Picks which Shipwreck to generate. */
@@ -205,4 +193,18 @@ public class GeneratorShipwreck implements IWorldGenerator
         	}
         } 
     }	
+	
+	public static BlockPos getSeaFloor(World world, int x, int z)
+    {
+    	int yPos = Math.max(world.getSeaLevel() - 2, 1);;
+    	BlockPos pos = new BlockPos(x, yPos, z);
+    	
+        for (; pos.getY() > 0; pos = pos.down())
+        {
+        	IBlockState state = world.getBlockState(pos);
+        	if (!(state.getBlock().isReplaceable(world, pos)) && state.getMaterial() != Material.LEAVES && state.getMaterial() != Material.ICE)
+        	{ break;}
+        }
+        return pos;
+    }
 }
