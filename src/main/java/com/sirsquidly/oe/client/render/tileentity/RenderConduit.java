@@ -8,17 +8,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityConduitEye;
 import com.sirsquidly.oe.tileentity.TileConduit;
 import com.sirsquidly.oe.client.model.tileentity.*;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 public class RenderConduit extends TileEntitySpecialRenderer<TileConduit>
 {
-	private static final ResourceLocation CONDUIT_OFF = new ResourceLocation(Reference.MOD_ID + ":textures/entities/conduit/conduit_off.png");
+	private static final ResourceLocation CONDUIT_OFF = new ResourceLocation(Main.MOD_ID + ":textures/entities/conduit/conduit_off.png");
     private final ModelBase modelConduitOff = new ModelConduitOff();
-    private static final ResourceLocation CONDUIT_SHELL = new ResourceLocation(Reference.MOD_ID + ":textures/entities/conduit/conduit_shell.png");
+    private static final ResourceLocation CONDUIT_SHELL = new ResourceLocation(Main.MOD_ID + ":textures/entities/conduit/conduit_shell.png");
     private final ModelBase modelConduitShell = new ModelConduitShell();
     private final ModelBase modelConduitWind = new ModelJustABlock();
 	
@@ -37,7 +37,7 @@ public class RenderConduit extends TileEntitySpecialRenderer<TileConduit>
             if (te.windTick <= 34)
             {
             	GlStateManager.pushMatrix();
-            	this.bindTexture(new ResourceLocation(Reference.MOD_ID + ":textures/entities/conduit/wind/wind" + te.windTick + ".png"));
+            	this.bindTexture(new ResourceLocation(Main.MOD_ID + ":textures/entities/conduit/wind/wind" + te.windTick + ".png"));
             	GlStateManager.translate(0.0F, -0.5F, 0.0F);
             	
             	if(te.windTick > 0 && te.windTick <= 18)

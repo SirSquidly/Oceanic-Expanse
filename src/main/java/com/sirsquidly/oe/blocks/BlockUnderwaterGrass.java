@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
@@ -41,7 +42,7 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable, ICheck
 	@SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		 if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		 if(Main.proxy.fluidlogged_enable) { return Material.PLANTS; }
 		return super.getMaterial(state);
 	}
 	

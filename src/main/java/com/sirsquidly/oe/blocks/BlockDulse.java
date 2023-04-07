@@ -2,6 +2,7 @@ package com.sirsquidly.oe.blocks;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
@@ -46,7 +47,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	@SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		if(Main.proxy.fluidlogged_enable) { return Material.PLANTS; }
 		return super.getMaterial(state);
 	}
 	
@@ -134,13 +135,13 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
     { 
     	if (state.getValue(AGE).intValue() > 2) return false;
-		return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || ConfigHandler.block.disableBlockWaterLogic); 
+		return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || Main.proxy.fluidlogged_enable); 
     }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
     { 
     	if (state.getValue(AGE).intValue() > 2) return false;
-    	return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || ConfigHandler.block.disableBlockWaterLogic);
+    	return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || Main.proxy.fluidlogged_enable);
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)

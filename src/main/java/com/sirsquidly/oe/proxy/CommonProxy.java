@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.network.OEPacketHandler;
 import com.sirsquidly.oe.network.OEPacketSpawnParticles;
 import com.sirsquidly.oe.tileentity.TileConduit;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 import com.sirsquidly.oe.world.*;
@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -48,10 +49,12 @@ public class CommonProxy
         return (new EntityDamageSourceIndirect("trident", trident, indirectEntityIn)).setProjectile();
     }
 
+	/** This is used for checking if Fluidlogged API is installed. */
+	public boolean fluidlogged_enable = false;
 	
 	public void preInitRegisteries(FMLPreInitializationEvent event)
 	{
-		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Reference.MOD_ID, "conduit"));
+		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Main.MOD_ID, "conduit"));
 		
 		
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.OCEAN));
@@ -75,6 +78,11 @@ public class CommonProxy
 		SoundHandler.registerSounds();
 		
 		OEPacketHandler.registerMessages();
+		
+		if (Loader.isModLoaded("fluidlogged_api"))
+		{
+			fluidlogged_enable = true;
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -85,7 +93,6 @@ public class CommonProxy
     public static void registerWorldGen()
 	{
     	//configWorldGen config = ConfigHandler.worldGen;
-    	
     	//GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 5, 3, false, Biomes.BEACH), 0);
     	//GameRegistry.registerWorldGenerator(new WorldGenShoreRock(1, 15, 6, true, Biomes.STONE_BEACH), 0);
     	//GameRegistry.registerWorldGenerator(new WorldGenTidePools(2, 30, Biomes.BEACH), 0);

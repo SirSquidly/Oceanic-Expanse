@@ -1,10 +1,10 @@
 package com.sirsquidly.oe.client.render.entity.layer;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelTropicalFishA;
 import com.sirsquidly.oe.client.model.entity.ModelTropicalFishB;
 import com.sirsquidly.oe.client.render.entity.RenderTropicalFish;
 import com.sirsquidly.oe.entity.EntityTropicalFish;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -31,7 +31,7 @@ public class LayerTropicalFish implements LayerRenderer<EntityTropicalFish>
 		{
 			String getModel = (entitylivingbaseIn.getTropicalFishVariant() & 255) == 0 ? "a" : "b";
 			
-			this.tropicalFishRenderer.bindTexture(new ResourceLocation(Reference.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_" + getModel + "_p" + (entitylivingbaseIn.getTropicalFishVariant() >> 8 & 255) + ".png"));
+			this.tropicalFishRenderer.bindTexture(new ResourceLocation(Main.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_" + getModel + "_p" + (entitylivingbaseIn.getTropicalFishVariant() >> 8 & 255) + ".png"));
 			float[] afloat = EnumDyeColor.byMetadata(entitylivingbaseIn.getTropicalFishVariant() >> 24 & 255).getColorComponentValues();
 			
 	        GlStateManager.color(afloat[0], afloat[1], afloat[2]);

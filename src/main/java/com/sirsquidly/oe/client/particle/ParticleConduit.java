@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.client.particle;
 
-import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.Main;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ParticleConduit extends ParticleBase
 {
-	private static final ResourceLocation CONDUIT_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/particles/conduit.png");
+	private static final ResourceLocation CONDUIT_TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/particles/conduit.png");
 	private final double coordX;
     private final double coordY;
     private final double coordZ;

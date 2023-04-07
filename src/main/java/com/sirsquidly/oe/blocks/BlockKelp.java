@@ -2,8 +2,8 @@ package com.sirsquidly.oe.blocks;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
@@ -65,7 +65,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     {
         boolean flag = false;
         
-        if (!ConfigHandler.block.disableBlockWaterLogic && !(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !(worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER))
+        if (!Main.proxy.fluidlogged_enable && !(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !(worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER))
         {
         	OEBlocks.KELP_TOP.dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());

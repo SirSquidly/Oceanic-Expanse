@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -146,7 +147,7 @@ public class BlockCoralFan extends Block implements IChecksWater
     @SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		if(state.getValue(IN_WATER) && !ConfigHandler.block.disableBlockWaterLogic) {
+		if(state.getValue(IN_WATER) && !Main.proxy.fluidlogged_enable) {
 			return Material.WATER;
 		}
 		return super.getMaterial(state);
@@ -289,14 +290,14 @@ public class BlockCoralFan extends Block implements IChecksWater
 
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-    	if (this.canBlockStay(worldIn, pos, state) && !ConfigHandler.block.disableBlockWaterLogic) swapWaterProperty(worldIn, pos, state);
+    	if (this.canBlockStay(worldIn, pos, state) && !Main.proxy.fluidlogged_enable) swapWaterProperty(worldIn, pos, state);
     	this.checkForDrop(worldIn, pos, state);
         if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-    	if (!ConfigHandler.block.disableBlockWaterLogic) swapWaterProperty(worldIn, pos, state);
+    	if (!Main.proxy.fluidlogged_enable) swapWaterProperty(worldIn, pos, state);
     	if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     

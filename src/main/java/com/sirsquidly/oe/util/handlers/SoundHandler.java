@@ -3,7 +3,7 @@ package com.sirsquidly.oe.util.handlers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.Main;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.util.ResourceLocation;
@@ -109,7 +109,7 @@ public class SoundHandler
 	
 	private static SoundEvent soundReadyForRegister(String name)
 	{
-		ResourceLocation location = new ResourceLocation(Reference.MOD_ID, name);
+		ResourceLocation location = new ResourceLocation(Main.MOD_ID, name);
 		SoundEvent event = new SoundEvent(location);
 		event.setRegistryName(name);
 		soundList.add(event);

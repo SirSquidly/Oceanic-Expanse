@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityGlowSquid;
 import com.sirsquidly.oe.client.render.entity.layer.LayerGlowSquid;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.model.ModelSquid;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderGlowSquid extends RenderLiving<EntityGlowSquid>
 {
-	public static final ResourceLocation GLOWSQUID_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/squid/glow_squid.png");
+	public static final ResourceLocation GLOWSQUID_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/squid/glow_squid.png");
     
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public RenderGlowSquid(RenderManager manager)

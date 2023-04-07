@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.sirsquidly.oe.common.CreativeTab;
 import com.sirsquidly.oe.proxy.CommonProxy;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +22,8 @@ public class Main {
 	
 	public static final String MOD_ID = "oe";
 	public static final String NAME = "Oceanic Expanse";
-	public static final String VERSION = "1.0.0";
+	public static final String CONFIG_NAME = "oceanic_expanse";
+	public static final String VERSION = "1.0.1";
 	public static final String ACCEPTED_VERSIONS = "[1.12.2]";
 	public static final String CLIENT_PROXY_CLASS = "com.sirsquidly.oe.proxy.ClientProxy";
 	public static final String COMMON_PROXY_CLASS = "com.sirsquidly.oe.proxy.CommonProxy";
@@ -36,7 +36,7 @@ public class Main {
 	@Instance 
 	public static Main instance;
 	
-	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
+	@SidedProxy(clientSide = Main.CLIENT_PROXY_CLASS, serverSide = Main.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
 	@EventHandler

@@ -2,11 +2,11 @@ package com.sirsquidly.oe.client.render.entity;
 
 import org.lwjgl.opengl.GL11;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelPickled;
 import com.sirsquidly.oe.entity.EntityPickled;
 import com.sirsquidly.oe.client.render.entity.layer.LayerPickled;
 import com.sirsquidly.oe.init.OEItems;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelZombie;
@@ -28,9 +28,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderPickled extends RenderLiving<EntityPickled>
 {
-	public static final ResourceLocation PICKLED_ZOMBIE_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/pickled.png");
-	public static final ResourceLocation PICKLED_ZOMBIE_DRY_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/pickled_dry.png");
-	public static final ResourceLocation PICKLED_SECRET_TEXTURE1 = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/pickled_spec1.png");
+	public static final ResourceLocation PICKLED_ZOMBIE_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/pickled.png");
+	public static final ResourceLocation PICKLED_ZOMBIE_DRY_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/pickled_dry.png");
+	public static final ResourceLocation PICKLED_SECRET_TEXTURE1 = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/pickled_spec1.png");
 	
 	public RenderPickled(RenderManager manager)
     {

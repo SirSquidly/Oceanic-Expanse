@@ -2,9 +2,9 @@ package com.sirsquidly.oe.enchantment;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.items.ItemTrident;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.enchantment.Enchantment;
@@ -33,7 +33,7 @@ public class EnchantmentImpaling extends Enchantment
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
         this.damageType = damageTypeIn;
-        this.setRegistryName(Reference.MOD_ID, getName());
+        this.setRegistryName(Main.MOD_ID, getName());
 		//OEEnchants.ENCHANTMENTS.add(this);
     }
 		

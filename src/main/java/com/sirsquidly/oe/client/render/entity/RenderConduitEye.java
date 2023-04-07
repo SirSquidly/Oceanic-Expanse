@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityConduitEye;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderConduitEye extends Render<EntityConduitEye>
 {
-	private static final ResourceLocation CONDUIT_EYE_TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/conduit/conduit_eye.png");
+	private static final ResourceLocation CONDUIT_EYE_TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/conduit/conduit_eye.png");
 
     public RenderConduitEye(RenderManager renderManagerIn)
     {

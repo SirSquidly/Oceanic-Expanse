@@ -2,9 +2,9 @@ package com.sirsquidly.oe.client.render.entity;
 
 import org.lwjgl.opengl.GL11;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelCod;
 import com.sirsquidly.oe.entity.EntityCod;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderCod extends RenderLiving<EntityCod>
 {
-	public static final ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/cod.png");
+	public static final ResourceLocation TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/cod.png");
 	
 	public RenderCod(RenderManager manager)
     {

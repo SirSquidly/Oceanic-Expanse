@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.BlockBush;
@@ -49,7 +50,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	@SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		if(Main.proxy.fluidlogged_enable) { return Material.PLANTS; }
 		return super.getMaterial(state);
 	}
 	
@@ -129,7 +130,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
     }
 	
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state)
-    { return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || ConfigHandler.block.disableBlockWaterLogic) && state.getValue(AGE).intValue() < 2; }
+    { return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || Main.proxy.fluidlogged_enable) && state.getValue(AGE).intValue() < 2; }
     
 	/**
      * Shearing stuffs.

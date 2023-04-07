@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.client.render.entity.layer;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.render.entity.RenderPickled;
 import com.sirsquidly.oe.entity.EntityPickled;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerPickled implements LayerRenderer<EntityPickled>
 {
-	public static final ResourceLocation PICKLED_ZOMBIE_BRIGHT_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/pickled_bright.png");
+	public static final ResourceLocation PICKLED_ZOMBIE_BRIGHT_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/pickled_bright.png");
 	private final RenderPickled PickledRenderer;
 	
 	public LayerPickled(RenderPickled PickledRendererIn)

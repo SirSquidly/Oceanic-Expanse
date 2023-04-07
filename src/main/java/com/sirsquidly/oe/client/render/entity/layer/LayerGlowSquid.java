@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.client.render.entity.layer;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.render.entity.RenderGlowSquid;
 import com.sirsquidly.oe.entity.EntityGlowSquid;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerGlowSquid<T extends EntityGlowSquid> implements LayerRenderer<T>
 {
-	public static final ResourceLocation GLOWSQUID_BRIGHT_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/squid/glow_squid_bright.png");
+	public static final ResourceLocation GLOWSQUID_BRIGHT_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/squid/glow_squid_bright.png");
 	private final RenderGlowSquid GlowSquidRenderer;
 	
 	public LayerGlowSquid(RenderGlowSquid GlowSquidRendererIn)

@@ -2,11 +2,11 @@ package com.sirsquidly.oe.client.render.entity;
 
 import org.lwjgl.opengl.GL11;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelTropicalFishA;
 import com.sirsquidly.oe.client.model.entity.ModelTropicalFishB;
 import com.sirsquidly.oe.client.render.entity.layer.LayerTropicalFish;
 import com.sirsquidly.oe.entity.EntityTropicalFish;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -19,8 +19,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderTropicalFish extends RenderLiving<EntityTropicalFish>
 {
-	public static final ResourceLocation textureA = new ResourceLocation(Reference.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_a.png");
-	public static final ResourceLocation textureB = new ResourceLocation(Reference.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_b.png");
+	public static final ResourceLocation textureA = new ResourceLocation(Main.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_a.png");
+	public static final ResourceLocation textureB = new ResourceLocation(Main.MOD_ID + ":textures/entities/tropical_fish/tropical_fish_b.png");
 	public static ModelTropicalFishA modelA = new ModelTropicalFishA();
 	public static ModelTropicalFishB modelB = new ModelTropicalFishB();
 	

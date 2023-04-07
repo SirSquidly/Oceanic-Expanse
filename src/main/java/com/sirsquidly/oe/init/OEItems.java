@@ -18,16 +18,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.items.*;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-@EventBusSubscriber(modid = Reference.MOD_ID)
+@EventBusSubscriber(modid = Main.MOD_ID)
 public class OEItems 
 {
 	public static final List<Item> itemList = new ArrayList<Item>();
 	
-	public static final ArmorMaterial TURTLE_ARMOR = EnumHelper.addArmorMaterial("turtle_armor", Reference.MOD_ID + ":turtle_armor", 25, new int[]{2, 6, 5, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
-	public static final ArmorMaterial HEAVY_ARMOR = EnumHelper.addArmorMaterial("heavy_armor", Reference.MOD_ID + ":heavy_armor", 25, new int[]{2, 6, 5, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F);
+	public static final ArmorMaterial TURTLE_ARMOR = EnumHelper.addArmorMaterial("turtle_armor", Main.MOD_ID + ":turtle_armor", 25, new int[]{2, 6, 5, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+	public static final ArmorMaterial HEAVY_ARMOR = EnumHelper.addArmorMaterial("heavy_armor", Main.MOD_ID + ":heavy_armor", 25, new int[]{2, 6, 5, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F);
 	
 	public static Item TURTLE_HELMET = new ItemTurtleArmor(TURTLE_ARMOR, 0, EntityEquipmentSlot.HEAD);
 	public static Item HEAVY_BOOTS = new ItemHeavyBoots(HEAVY_ARMOR, 0, EntityEquipmentSlot.FEET);

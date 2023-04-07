@@ -7,7 +7,6 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.blocks.*;
 import com.sirsquidly.oe.items.ItemBlockSeaPickle;
 import com.sirsquidly.oe.items.ItemBlockSlab;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
@@ -43,7 +42,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@EventBusSubscriber(modid = Reference.MOD_ID)
+@EventBusSubscriber(modid = Main.MOD_ID)
 public class OEBlocks 
 {
 		/** Contains every block ran through the 'blockReadyForRegister' function. So they all SHOULD be registered. */

@@ -37,7 +37,7 @@ public class BlockUnderwaterTorch extends BlockTorch implements IChecksWater
 	@Deprecated
 	public Material getMaterial(IBlockState state)
 	{
-		if(!state.getValue(IN_WATER) || ConfigHandler.block.disableBlockWaterLogic) return Material.CIRCUITS;
+		if(!state.getValue(IN_WATER) || Main.proxy.fluidlogged_enable) return Material.CIRCUITS;
 		return Material.WATER;
 	}
 	

@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelPufferfish;
 import com.sirsquidly.oe.entity.EntityPufferfish;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -14,9 +14,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderPufferfish extends RenderLiving<EntityPufferfish>
 {
-	public static final ResourceLocation PUFF1_TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/pufferfish1.png");
-	public static final ResourceLocation PUFF2_TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/pufferfish2.png");
-	public static final ResourceLocation PUFF3_TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/pufferfish3.png");
+	public static final ResourceLocation PUFF1_TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/pufferfish1.png");
+	public static final ResourceLocation PUFF2_TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/pufferfish2.png");
+	public static final ResourceLocation PUFF3_TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/pufferfish3.png");
 	
 	public RenderPufferfish(RenderManager manager)
     {

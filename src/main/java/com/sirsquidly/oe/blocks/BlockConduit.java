@@ -2,8 +2,8 @@ package com.sirsquidly.oe.blocks;
 
 import javax.annotation.Nonnull;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.tileentity.TileConduit;
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -40,14 +40,14 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
 	@Deprecated
 	public Material getMaterial(IBlockState state)
 	{
-		if(state.getValue(IN_WATER) && !ConfigHandler.block.disableBlockWaterLogic) return super.getMaterial(state);
+		if(state.getValue(IN_WATER) && !Main.proxy.fluidlogged_enable) return super.getMaterial(state);
 		return Material.GROUND;
 	}
 	
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     { 
-		if (!ConfigHandler.block.disableBlockWaterLogic) swapWaterProperty(worldIn, pos, state);
+		if (!Main.proxy.fluidlogged_enable) swapWaterProperty(worldIn, pos, state);
 		
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 

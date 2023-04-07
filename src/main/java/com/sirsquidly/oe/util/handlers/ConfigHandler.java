@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.util.handlers;
 
-import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.Main;
 
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.RequiresMcRestart;
@@ -9,9 +9,9 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Config(modid = Reference.MOD_ID, name = Reference.NAME)
+@Config(modid = Main.MOD_ID, name = Main.CONFIG_NAME)
 @Config.LangKey("oe.config.title")
-@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+@Mod.EventBusSubscriber(modid = Main.MOD_ID)
 public class ConfigHandler 
 {
 	@Config.LangKey("oe.config.worldGen")
@@ -322,11 +322,6 @@ public class ConfigHandler
 	
 	public static class configBlock
 	{
-		@RequiresMcRestart
-	    @Config.LangKey("oe.config.block.disableBlockWaterLogic")
-	    @Config.Comment("Disables the logic and materials aquatic blocks use in this mod. Necissary for setting up Fluidlogged API support.")
-	    public boolean disableBlockWaterLogic = false;
-		
 		@Config.LangKey("oe.config.block.blueIce")
 	    public configBlueIce blueIce = new configBlueIce();
 		
@@ -1455,15 +1450,15 @@ public class ConfigHandler
 	    public boolean squidPush = true;
 	}
 	
-	@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
+	@Mod.EventBusSubscriber(modid = Main.MOD_ID)
     public static class ConfigSyncHandler
     {
         @SubscribeEvent
         public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
         {
-            if(event.getModID().equals(Reference.MOD_ID))
+            if(event.getModID().equals(Main.MOD_ID))
             {
-                ConfigManager.sync(Reference.MOD_ID, Config.Type.INSTANCE);
+                ConfigManager.sync(Main.MOD_ID, Config.Type.INSTANCE);
             }
         }
     }

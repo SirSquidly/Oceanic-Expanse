@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.util.handlers;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -36,8 +36,8 @@ public class RegistryHandler
 	
 	@SubscribeEvent
     public void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(Reference.MOD_ID)) {
-            ConfigManager.sync(Reference.MOD_ID, Config.Type.INSTANCE);
+        if (event.getModID().equals(Main.MOD_ID)) {
+            ConfigManager.sync(Main.MOD_ID, Config.Type.INSTANCE);
         }
     }
 }

@@ -3,7 +3,7 @@ package com.sirsquidly.oe.world.structure;
 import java.util.Random;
 import java.util.Map.Entry;
 
-import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.Main;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,10 +24,10 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class GeneratorCoquinaOutcrop implements IWorldGenerator
 {		
 	/** This the untouched Ship. */
-	ResourceLocation OUTCROP1 = new ResourceLocation(Reference.MOD_ID, "coquina_outcrop1");
-	ResourceLocation OUTCROP2 = new ResourceLocation(Reference.MOD_ID, "coquina_outcrop2");
-	ResourceLocation OUTCROP3 = new ResourceLocation(Reference.MOD_ID, "coquina_outcrop3");
-	ResourceLocation OUTCROP4 = new ResourceLocation(Reference.MOD_ID, "coquina_outcrop4");
+	ResourceLocation OUTCROP1 = new ResourceLocation(Main.MOD_ID, "coquina_outcrop1");
+	ResourceLocation OUTCROP2 = new ResourceLocation(Main.MOD_ID, "coquina_outcrop2");
+	ResourceLocation OUTCROP3 = new ResourceLocation(Main.MOD_ID, "coquina_outcrop3");
+	ResourceLocation OUTCROP4 = new ResourceLocation(Main.MOD_ID, "coquina_outcrop4");
 	
 	private Biome[] biomes;
 	private int attemptsPerChunk;

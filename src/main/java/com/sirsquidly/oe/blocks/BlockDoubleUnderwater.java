@@ -27,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
@@ -46,7 +47,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 	@SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		 if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		 if(Main.proxy.fluidlogged_enable) { return Material.PLANTS; }
 		return super.getMaterial(state);
 	}
 	 
@@ -68,7 +69,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
         if (state.getBlock() != this) return super.canBlockStay(worldIn, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
         if (state.getValue(HALF) == BlockDoubleUnderwater.EnumBlockHalf.UPPER)
         {
-        	if (!checkWater(worldIn, pos) && !ConfigHandler.block.disableBlockWaterLogic) return false;
+        	if (!checkWater(worldIn, pos) && !Main.proxy.fluidlogged_enable) return false;
             return worldIn.getBlockState(pos.down()).getBlock() == this;
         }
         else

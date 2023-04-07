@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.blocks;
 
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
@@ -32,7 +32,7 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
 	@Deprecated
 	public Material getMaterial(IBlockState state)
 	{
-		if(state.getValue(IN_WATER) && !ConfigHandler.block.disableBlockWaterLogic) return super.getMaterial(state);
+		if(state.getValue(IN_WATER) && !Main.proxy.fluidlogged_enable) return super.getMaterial(state);
 		return Material.SPONGE;
 	}
 	
@@ -64,7 +64,7 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-    	boolean isWater = ConfigHandler.block.disableBlockWaterLogic ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
+    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
     	return this.getDefaultState().withProperty(IN_WATER, isWater);
     }
     

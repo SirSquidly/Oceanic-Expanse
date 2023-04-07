@@ -2,7 +2,7 @@ package com.sirsquidly.oe.blocks;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.Main;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -36,16 +36,16 @@ public interface IChecksWater
 		if (onlyTrueWater)
 		{
 			boolean waterBlocks = worldIn.getBlockState(pos).getBlock() == Blocks.WATER || worldIn.getBlockState(pos).getBlock() == Blocks.FLOWING_WATER;
-			return waterBlocks && (ConfigHandler.block.disableBlockWaterLogic || checkWater(worldIn, pos) && !ConfigHandler.block.disableBlockWaterLogic);
+			return waterBlocks && (Main.proxy.fluidlogged_enable || checkWater(worldIn, pos) && !Main.proxy.fluidlogged_enable);
 		}
-		return ConfigHandler.block.disableBlockWaterLogic ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
+		return Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
 	}
 	
 	/** Checks if surrounding blocks are either solid or are Material.WATER. **/
 	default boolean checkWater(World worldIn, BlockPos pos)
     {
 		/** First we check above this for Water, a Solid, or skip if config. **/
-    	if ((ConfigHandler.block.disableBlockWaterLogic || worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN)))
+    	if ((Main.proxy.fluidlogged_enable || worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN)))
     	{
     		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {
@@ -68,7 +68,7 @@ public interface IChecksWater
 	/** Checks if water is touching the side of this block. Skips the check if the block is underwater. **/
 	default boolean checkSurfaceWater(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (ConfigHandler.block.disableBlockWaterLogic) return false;
+		if (Main.proxy.fluidlogged_enable) return false;
 		
     	if (worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR)
     	{

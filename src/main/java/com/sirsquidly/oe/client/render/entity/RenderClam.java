@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelClam;
 import com.sirsquidly.oe.entity.EntityClam;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderClam extends RenderLiving<EntityClam>
 {
-	public static final ResourceLocation CLAM_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/clam.png");
+	public static final ResourceLocation CLAM_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/clam.png");
     
 	public RenderClam(RenderManager manager)
     {

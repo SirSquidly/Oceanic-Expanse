@@ -2,11 +2,11 @@ package com.sirsquidly.oe.client.render.entity;
 
 import org.lwjgl.opengl.GL11;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelDrowned;
 import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.client.render.entity.layer.LayerDrowned;
 import com.sirsquidly.oe.init.OEItems;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.Minecraft;
@@ -31,8 +31,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderDrowned extends RenderLiving<EntityDrowned>
 {
-	public static final ResourceLocation DROWNED_ZOMBIE_CAPTAIN_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/drowned_captain.png");
-	public static final ResourceLocation DROWNED_ZOMBIE_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/zombie/drowned.png");
+	public static final ResourceLocation DROWNED_ZOMBIE_CAPTAIN_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_captain.png");
+	public static final ResourceLocation DROWNED_ZOMBIE_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned.png");
 	
 	public RenderDrowned(RenderManager manager)
     {

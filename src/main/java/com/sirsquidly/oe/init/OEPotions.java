@@ -14,10 +14,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.potion.PotionBase;
-import com.sirsquidly.oe.util.Reference;
 
-@EventBusSubscriber(modid = Reference.MOD_ID)
+@EventBusSubscriber(modid = Main.MOD_ID)
 public class OEPotions 
 {
 	public static final Potion CONDUIT_POWER = new PotionBase("conduit_power", false, 1950417, 0);

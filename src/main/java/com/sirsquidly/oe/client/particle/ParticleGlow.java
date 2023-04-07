@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.client.particle;
 
-import com.sirsquidly.oe.util.Reference;
+import com.sirsquidly.oe.Main;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ParticleGlow extends ParticleBase
 {
-	private static final ResourceLocation GLOW_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/particles/glow.png");
+	private static final ResourceLocation GLOW_TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/particles/glow.png");
 	
 	public ParticleGlow(TextureManager textureManager, World world, double x, double y, double z, double speedX, double ySpeed, double zSpeed)
 	{

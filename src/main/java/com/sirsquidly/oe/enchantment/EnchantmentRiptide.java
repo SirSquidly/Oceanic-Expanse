@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.enchantment;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.items.ItemTrident;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -17,7 +17,7 @@ public class EnchantmentRiptide extends Enchantment
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
         this.setName("riptide");
-        this.setRegistryName(Reference.MOD_ID, this.getName());
+        this.setRegistryName(Main.MOD_ID, this.getName());
 		OEEnchants.ENCHANTMENTS.add(this);
     }
 		

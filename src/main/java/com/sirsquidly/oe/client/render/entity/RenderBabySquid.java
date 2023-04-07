@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelBabySquid;
 import com.sirsquidly.oe.entity.EntityBabySquid;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.model.ModelSquid;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderBabySquid extends RenderLiving<EntityBabySquid>
 {
-	public static final ResourceLocation BABY_SQUID_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/entities/squid/squid_baby.png");
+	public static final ResourceLocation BABY_SQUID_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/squid/squid_baby.png");
 	public static final ResourceLocation SQUID_TEXTURE = new ResourceLocation("textures/entity/squid.png");
     
 	public RenderBabySquid(RenderManager manager)

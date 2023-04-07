@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelTurtle;
 import com.sirsquidly.oe.entity.EntityTurtle;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderTurtle extends RenderLiving<EntityTurtle>
 {
-	public static final ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/turtle.png");
+	public static final ResourceLocation TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/turtle.png");
 	
 	public RenderTurtle(RenderManager manager)
     {

@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
@@ -52,7 +51,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 	@SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
-		if(ConfigHandler.block.disableBlockWaterLogic) { return Material.PLANTS; }
+		if(Main.proxy.fluidlogged_enable) { return Material.PLANTS; }
 		return super.getMaterial(state);
 	}
 	
@@ -69,7 +68,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
     
     @Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-    	if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !ConfigHandler.block.disableBlockWaterLogic || worldIn.getBlockState(pos.up()).getBlock() == OEBlocks.KELP || worldIn.getBlockState(pos.up()).getBlock() == this) 
+    	if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !Main.proxy.fluidlogged_enable || worldIn.getBlockState(pos.up()).getBlock() == OEBlocks.KELP || worldIn.getBlockState(pos.up()).getBlock() == this) 
 		{
 			worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState());
 		}

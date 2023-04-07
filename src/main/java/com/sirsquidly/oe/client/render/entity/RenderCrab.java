@@ -1,9 +1,9 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelCrab;
 import com.sirsquidly.oe.entity.EntityCrab;
 import com.sirsquidly.oe.client.render.entity.layer.LayerCrabHeldItem;
-import com.sirsquidly.oe.util.Reference;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderCrab extends RenderLiving<EntityCrab>
 {
-	public static final ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/entities/crab.png");
+	public static final ResourceLocation TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/crab.png");
 	
 	public RenderCrab(RenderManager manager)
     { 

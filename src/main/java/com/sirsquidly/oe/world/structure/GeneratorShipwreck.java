@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Map.Entry;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityDrowned;
-import com.sirsquidly.oe.util.Reference;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -33,17 +33,17 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class GeneratorShipwreck implements IWorldGenerator
 {		
 	/** This the untouched Ship. */
-	ResourceLocation SHIP_FULL = new ResourceLocation(Reference.MOD_ID, "shipwreck_full");
-	ResourceLocation SHIP_UP1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_up1");
-	ResourceLocation SHIP_UP2 = new ResourceLocation(Reference.MOD_ID, "shipwreck_up2");
-	ResourceLocation SHIP_UPFT1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_upft1");
-	ResourceLocation SHIP_UPBK1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_upbk1");
-	ResourceLocation SHIP_SIDE1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_side1");
-	ResourceLocation SHIP_SIDEFT1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_sidebk1");
-	ResourceLocation SHIP_SIDEBK1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_sidebk1");
-	ResourceLocation SHIP_DOWN1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_downbk1");
-	ResourceLocation SHIP_DOWNFT1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_downbk1");
-	ResourceLocation SHIP_DOWNBK1 = new ResourceLocation(Reference.MOD_ID, "shipwreck_downbk1");
+	ResourceLocation SHIP_FULL = new ResourceLocation(Main.MOD_ID, "shipwreck_full");
+	ResourceLocation SHIP_UP1 = new ResourceLocation(Main.MOD_ID, "shipwreck_up1");
+	ResourceLocation SHIP_UP2 = new ResourceLocation(Main.MOD_ID, "shipwreck_up2");
+	ResourceLocation SHIP_UPFT1 = new ResourceLocation(Main.MOD_ID, "shipwreck_upft1");
+	ResourceLocation SHIP_UPBK1 = new ResourceLocation(Main.MOD_ID, "shipwreck_upbk1");
+	ResourceLocation SHIP_SIDE1 = new ResourceLocation(Main.MOD_ID, "shipwreck_side1");
+	ResourceLocation SHIP_SIDEFT1 = new ResourceLocation(Main.MOD_ID, "shipwreck_sidebk1");
+	ResourceLocation SHIP_SIDEBK1 = new ResourceLocation(Main.MOD_ID, "shipwreck_sidebk1");
+	ResourceLocation SHIP_DOWN1 = new ResourceLocation(Main.MOD_ID, "shipwreck_downbk1");
+	ResourceLocation SHIP_DOWNFT1 = new ResourceLocation(Main.MOD_ID, "shipwreck_downbk1");
+	ResourceLocation SHIP_DOWNBK1 = new ResourceLocation(Main.MOD_ID, "shipwreck_downbk1");
 	
 	private Biome[] biomes;
 	private int attemptsPerChunk;
