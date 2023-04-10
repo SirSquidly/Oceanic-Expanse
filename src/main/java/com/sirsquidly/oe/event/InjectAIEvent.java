@@ -38,6 +38,8 @@ public class InjectAIEvent
 	public static void spawnEvent(EntityJoinWorldEvent event)
 	{
 		Entity spawn = event.getEntity();
+		/** Bonus security check */
+		if (spawn == null) return;
 		
 		if(ConfigHandler.block.turtleEgg.zombiesTrample && ConfigHandler.block.turtleEgg.enableTurtleEgg && spawn instanceof EntityZombie)
 		{

@@ -131,10 +131,8 @@ public class EntityClam extends EntityAnimal
 	                    { this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + ((double)this.rand.nextFloat() - 0.5D), this.posY, this.posZ + ((double)this.rand.nextFloat() - 0.5D), ((double)this.rand.nextFloat() - 0.5D) * 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 8.0D, ((double)this.rand.nextFloat() - 0.5D) * 0.5D); }	
 					}
 					
-					if (e.isInWater())
-					{ e.setVelocity(e.motionX, 3.0F, e.motionZ); }
-					else
-					{ e.setVelocity(e.motionX, 1.0F, e.motionZ); }
+					e.motionY = e.isInWater() ? 3.0F : 1.0F;
+					e.velocityChanged = true;
 				}
 			}
 			if (checkAbove.isEmpty())
