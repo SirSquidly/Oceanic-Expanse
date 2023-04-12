@@ -16,8 +16,8 @@ public class EnchantmentRiptide extends Enchantment
     public EnchantmentRiptide(Enchantment.Rarity rarityIn)
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
-        this.setName("riptide");
-        this.setRegistryName(Main.MOD_ID, this.getName());
+        this.setName(Main.MOD_ID + "." + "riptide");
+        this.setRegistryName(Main.MOD_ID, "riptide");
 		OEEnchants.ENCHANTMENTS.add(this);
     }
 		

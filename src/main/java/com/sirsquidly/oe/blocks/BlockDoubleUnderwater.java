@@ -29,8 +29,8 @@ import net.minecraft.world.World;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 {
@@ -39,7 +39,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 	
 	public BlockDoubleUnderwater() {
 		super(Material.WATER);
-		this.setSoundType(SoundHandler.WET_GRASS);
+		this.setSoundType(OESounds.WET_GRASS);
 
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleUnderwater.EnumBlockHalf.LOWER));
 	}

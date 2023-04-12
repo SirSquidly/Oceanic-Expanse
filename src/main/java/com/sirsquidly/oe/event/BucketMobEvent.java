@@ -37,8 +37,8 @@ public class BucketMobEvent
     {
 		EntityPlayer player = event.getEntityPlayer();
 		
-		ItemStack stack = player.getHeldItemMainhand();
-
+		if (!(player.getHeldItemMainhand().getItem() instanceof ItemBucket)) return;
+		
 		Vec3d eyePosition = player.getPositionEyes(1.0F);
         Vec3d lookVector = player.getLook(1.0F);
         double playerReach = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
@@ -54,14 +54,14 @@ public class BucketMobEvent
 			
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(rtresult.getBlockPos()).grow(0.01D));
 			
-			for (Entity entity1 : list)
+			for (Entity entity : list)
 	        {
-	            if (!(entity1 instanceof EntityPlayer) && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity1).toString()))
+	            if (entity != null && !(entity instanceof EntityPlayer) && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()))
 	            {
-	                AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox();
+	                AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox();
 	                RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(eyePosition, traceEnd);
 
-	                if (raytraceresult1 != null && stack.getItem() instanceof ItemBucket)
+	                if (raytraceresult1 != null)
 	                {
 	                	event.setCanceled(true);
 	                }

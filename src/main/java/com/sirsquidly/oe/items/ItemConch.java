@@ -131,7 +131,7 @@ public class ItemConch extends Item
 			{
 				if (nbttagcompound.getString("Sound").equals("oe:item.conch.conch_blow" + i) && ConfigHandler.item.conch.conchDisplayHorn)
 				{
-					tooltip.add(TextFormatting.GRAY + I18n.format("description.conch_blow" + i + ".name"));
+					tooltip.add(TextFormatting.GRAY + I18n.format("description.oe.conch_blow" + i + ".name"));
 					didSet = true;
 				}
 			}

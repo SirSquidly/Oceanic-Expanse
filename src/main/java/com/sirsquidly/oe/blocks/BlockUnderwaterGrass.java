@@ -6,8 +6,8 @@ import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
@@ -34,7 +34,7 @@ public class BlockUnderwaterGrass extends BlockBush implements IGrowable, ICheck
 	
 	public BlockUnderwaterGrass() {
 		super(Material.WATER);
-		this.setSoundType(SoundHandler.WET_GRASS);
+		this.setSoundType(OESounds.WET_GRASS);
 
 		setDefaultState(blockState.getBaseState());
 	}

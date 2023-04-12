@@ -31,9 +31,9 @@ import net.minecraft.world.World;
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 public class EntityTropicalFish extends AbstractFish
 {
@@ -68,13 +68,13 @@ public class EntityTropicalFish extends AbstractFish
     }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    { return SoundHandler.ENTITY_TROPICAL_FISH_HURT; }
+    { return OESounds.ENTITY_TROPICAL_FISH_HURT; }
 
     protected SoundEvent getDeathSound()
-    { return SoundHandler.ENTITY_TROPICAL_FISH_DEATH; }
+    { return OESounds.ENTITY_TROPICAL_FISH_DEATH; }
    
     public SoundEvent getFlopSound()
-    { return SoundHandler.ENTITY_TROPICAL_FISH_FLOP; }
+    { return OESounds.ENTITY_TROPICAL_FISH_FLOP; }
     
 	@Override
     protected ResourceLocation getLootTable()
@@ -144,7 +144,7 @@ public class EntityTropicalFish extends AbstractFish
     {
     	String fullName;
     	int patternNum = variantInt >> 8 & 255;
-        String patternName = I18n.format("description.tropical_fish_a_pattern" + patternNum + ".name");
+        String patternName = I18n.format("description.oe.tropical_fish_a_pattern" + patternNum + ".name");
 
         /** This overrides the name generator if the name override config includes the variant. */
     	for(String line : ConfigHandler.entity.tropicalFish.tropicalFishNameOverrides)
@@ -165,20 +165,20 @@ public class EntityTropicalFish extends AbstractFish
         
     	if ((variantInt & 255) != 0)
     	{
-    		patternName = I18n.format("description.tropical_fish_b_pattern" + patternNum + ".name");
+    		patternName = I18n.format("description.oe.tropical_fish_b_pattern" + patternNum + ".name");
     	}
     	
-    	String color1 = I18n.format("description.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 16 & 255).getDyeColorName());
-    	String color2 = I18n.format("description.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 24 & 255).getDyeColorName());
+    	String color1 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 16 & 255).getDyeColorName());
+    	String color2 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 24 & 255).getDyeColorName());
     	
     	if (ConfigHandler.entity.tropicalFish.tropicalFishBedrockColors)
     	{
     		int[] bedrockSpecials = new int[]{3, 6, 8, 9, 10}; 
     		
     		if (ArrayUtils.contains(bedrockSpecials, EnumDyeColor.byMetadata(variantInt >> 16 & 255).getMetadata()))
-        	{ color1 = I18n.format("description.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 16 & 255).getMetadata()); }
+        	{ color1 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 16 & 255).getMetadata()); }
         	if (ArrayUtils.contains(bedrockSpecials, EnumDyeColor.byMetadata(variantInt >> 24 & 255).getMetadata()))
-        	{ color2 = I18n.format("description.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 24 & 255).getMetadata()); }
+        	{ color2 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 24 & 255).getMetadata()); }
     	}
     	
     	if (!color1.equals(color2))

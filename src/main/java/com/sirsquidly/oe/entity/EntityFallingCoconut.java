@@ -23,9 +23,9 @@ import net.minecraft.world.World;
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.blocks.BlockCoconut;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 public class EntityFallingCoconut extends EntityFallingBlock
 {
@@ -182,7 +182,7 @@ public class EntityFallingCoconut extends EntityFallingBlock
                 e.attackEntityFrom(CommonProxy.COCONUT, (float)Math.min(MathHelper.floor((float)i * this.fallHurtAmount), this.fallHurtMax));
                 
                 if (ConfigHandler.block.coconut.coconutHitSound && e instanceof EntityLivingBase && !(e instanceof EntityArmorStand))
-                { this.playSound(SoundHandler.BLOCK_COCONUT_HIT, 1.0F, 1.0F); }
+                { this.playSound(OESounds.BLOCK_COCONUT_HIT, 1.0F, 1.0F); }
             }
         }
         if (breakFrom != -1 && j > 0)

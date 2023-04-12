@@ -8,7 +8,6 @@ import com.sirsquidly.oe.blocks.*;
 import com.sirsquidly.oe.items.ItemBlockSeaPickle;
 import com.sirsquidly.oe.items.ItemBlockSlab;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
@@ -96,33 +95,33 @@ public class OEBlocks
 		public static Block COQUINA_BRICK_WALL = new BlockOEWall(COQUINA_BRICK).setHardness(0.5F).setResistance(15.0F);
 		//public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
 		
-		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, SoundHandler.CORAL);
-		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, SoundHandler.CORAL);
-		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, SoundHandler.CORAL);
-		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED, SoundHandler.CORAL);
-		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW, SoundHandler.CORAL);
+		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, OESounds.CORAL);
+		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, OESounds.CORAL);
+		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, OESounds.CORAL);
+		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED, OESounds.CORAL);
+		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW, OESounds.CORAL);
 		public static Block BLUE_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block PINK_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block PURPLE_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block RED_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block YELLOW_CORAL_BLOCK_DEAD = new BlockCoralFull();
 
-		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE, SoundHandler.CORAL);
-		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK, SoundHandler.CORAL);
-		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE, SoundHandler.CORAL);
-		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED, SoundHandler.CORAL);
-		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW, SoundHandler.CORAL);
+		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE, OESounds.CORAL);
+		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK, OESounds.CORAL);
+		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE, OESounds.CORAL);
+		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED, OESounds.CORAL);
+		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW, OESounds.CORAL);
 		public static Block BLUE_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block PINK_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block PURPLE_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block RED_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block YELLOW_CORAL_FAN_DEAD = new BlockCoralFan();
 		
-		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE, SoundHandler.CORAL);
-		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK, SoundHandler.CORAL);
-		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE, SoundHandler.CORAL);
-		public static Block RED_CORAL = new BlockCoral(MapColor.RED, SoundHandler.CORAL);
-		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW, SoundHandler.CORAL);
+		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE, OESounds.CORAL);
+		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK, OESounds.CORAL);
+		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE, OESounds.CORAL);
+		public static Block RED_CORAL = new BlockCoral(MapColor.RED, OESounds.CORAL);
+		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW, OESounds.CORAL);
 		public static Block BLUE_CORAL_DEAD = new BlockCoral();
 		public static Block PINK_CORAL_DEAD = new BlockCoral();
 		public static Block PURPLE_CORAL_DEAD = new BlockCoral();
@@ -264,7 +263,7 @@ public class OEBlocks
 	/** Slaps the names to Blocks, and adds them to the blockList to be registered in 'registerBlocks'.*/
 	public static Block blockReadyForRegister(Block block, String name, Boolean addToTab)
 	{
-		block.setUnlocalizedName(name);
+		block.setUnlocalizedName(Main.MOD_ID + "." + name);
 		block.setRegistryName(name);
 		
 		if (addToTab) block.setCreativeTab(Main.OCEANEXPTAB);

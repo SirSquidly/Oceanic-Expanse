@@ -2,19 +2,19 @@
 	"block.coconut.coconut_hit": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.coconut_hit",
+    	"subtitle": "subtitle.oe.coconut_hit",
     	"sounds": [ "oe:block/coconut_hit"]
     },
     "block.conduit.activate": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.conduit.activate",
+    	"subtitle": "subtitle.oe.conduit.activate",
     	"sounds": [ "oe:block/conduit/activate"]
     },
     "block.conduit.ambient": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.conduit.ambient",
+    	"subtitle": "subtitle.oe.conduit.ambient",
     	"sounds": [ "oe:block/conduit/ambient"]
     },
     "block.conduit.ambient_short": 
@@ -25,19 +25,19 @@
     "block.conduit.attack": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.conduit.attack",
+    	"subtitle": "subtitle.oe.conduit.attack",
     	"sounds": [ "oe:block/conduit/attack1", "oe:block/conduit/attack2", "oe:block/conduit/attack3"]
     },
     "block.conduit.deactivate": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.conduit.deactivate",
+    	"subtitle": "subtitle.oe.conduit.deactivate",
     	"sounds": [ "oe:block/conduit/deactivate"]
     },
     "block.coral.break": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.coral.break",
+    	"subtitle": "subtitle.oe.coral.break",
     	"sounds": [ "oe:block/coral/break1", "oe:block/coral/break2", "oe:block/coral/break3", "oe:block/coral/break4"]
     },
     "block.coral.fall": 
@@ -48,25 +48,25 @@
     "block.coral.hit": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.coral.hit",
+    	"subtitle": "subtitle.oe.coral.hit",
     	"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
     },
     "block.coral.place": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.coral.place",
+    	"subtitle": "subtitle.oe.coral.place",
     	"sounds": [ "oe:block/coral/break1", "oe:block/coral/break2", "oe:block/coral/break3", "oe:block/coral/break4"]
     },
     "block.coral.step": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.coral.step",
+    	"subtitle": "subtitle.oe.coral.step",
     	"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
     },
     "block.wet_grass.break": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.wet_grass.break",
+    	"subtitle": "subtitle.oe.wet_grass.break",
     	"sounds": [ "oe:block/wet_grass/break1", "oe:block/wet_grass/break2", "oe:block/wet_grass/break3", "oe:block/wet_grass/break4"]
     },
     "block.wet_grass.fall": 
@@ -77,7 +77,7 @@
     "block.wet_grass.hit": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.wet_grass.hit",
+    	"subtitle": "subtitle.oe.wet_grass.hit",
     	"sounds": [ "oe:block/wet_grass/step1", "oe:block/wet_grass/step2", "oe:block/wet_grass/step3", "oe:block/wet_grass/step4", "oe:block/wet_grass/step5", "oe:block/wet_grass/step6"]
     },
     "block.wet_grass.place": 
@@ -89,121 +89,121 @@
     "block.wet_grass.step": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.wet_grass.step",
+    	"subtitle": "subtitle.oe.wet_grass.step",
     	"sounds": [ "oe:block/wet_grass/step1", "oe:block/wet_grass/step2", "oe:block/wet_grass/step3", "oe:block/wet_grass/step4", "oe:block/wet_grass/step5", "oe:block/wet_grass/step6"]
     },
 	"entity.drowned.ambient": 
 	{
     	"category": "hostile",
-    	"subtitle": "subtitle.drowned.ambient",
+    	"subtitle": "subtitle.oe.drowned.ambient",
     	"sounds": [ "oe:entity/drowned/idle1", "oe:entity/drowned/idle2", "oe:entity/drowned/idle3", "oe:entity/drowned/idle4" ]
      },
      "entity.drowned.hurt": 
      {
     	"category": "hostile",
-    	"subtitle": "subtitle.drowned.hurt",
+    	"subtitle": "subtitle.oe.drowned.hurt",
     	"sounds": [ "oe:entity/drowned/hurt1", "oe:entity/drowned/hurt2", "oe:entity/drowned/hurt3" ]
      },
      "entity.drowned.death": 
      {
     	"category": "hostile",
-    	"subtitle": "subtitle.drowned.death",
+    	"subtitle": "subtitle.oe.drowned.death",
     	"sounds": [ "oe:entity/drowned/death1", "oe:entity/drowned/death2" ]
      },
      "entity.drowned.step": 
      {
     	"category": "hostile",
-    	"subtitle": "subtitle.drowned.step",
+    	"subtitle": "subtitle.oe.drowned.step",
     	"sounds": [ "oe:entity/drowned/step1", "oe:entity/drowned/step2", "oe:entity/drowned/step3", "oe:entity/drowned/step4", "oe:entity/drowned/step5" ]
      },
      "entity.clam.close": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.clam.close",
+    	"subtitle": "subtitle.oe.clam.close",
     	"sounds": [ "oe:entity/clam/close1", "oe:entity/clam/close2"]
      },
      "entity.clam.death": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.clam.death",
+    	"subtitle": "subtitle.oe.clam.death",
     	"sounds": [ "oe:entity/clam/hurt1", "oe:entity/clam/hurt2", "oe:entity/clam/hurt3"]
      },
      "entity.clam.hurt": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.clam.hurt",
+    	"subtitle": "subtitle.oe.clam.hurt",
     	"sounds": [ "oe:entity/clam/hurt1", "oe:entity/clam/hurt2", "oe:entity/clam/hurt3"]
      },
      "entity.clam.hurt_closed": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.clam.hurt_closed",
+    	"subtitle": "subtitle.oe.clam.hurt_closed",
     	"sounds": [ "oe:entity/clam/hurt_closed1", "oe:entity/clam/hurt_closed2"]
      },
      "entity.clam.open": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.clam.open",
+    	"subtitle": "subtitle.oe.clam.open",
     	"sounds": [ "oe:entity/clam/open1", "oe:entity/clam/open2"]
      },
      "entity.clam.open_land": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.clam.open_land",
+    	"subtitle": "subtitle.oe.clam.open_land",
     	"sounds": [ "oe:entity/clam/open_land1", "oe:entity/clam/open_land2"]
      },
      "entity.clam.shake": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.clam.shake",
+    	"subtitle": "subtitle.oe.clam.shake",
     	"sounds": [ "oe:entity/clam/shake1", "oe:entity/clam/shake2", "oe:entity/clam/shake3"]
      },
      "entity.cod.death": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.cod.death",
+    	"subtitle": "subtitle.oe.cod.death",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
      "entity.cod.flop": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.cod.flop",
+    	"subtitle": "subtitle.oe.cod.flop",
     	"sounds": [ "oe:entity/fish/flop1", "oe:entity/fish/flop2", "oe:entity/fish/flop3", "oe:entity/fish/flop4"]
      },
      "entity.cod.hurt": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.cod.hurt",
+    	"subtitle": "subtitle.oe.cod.hurt",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
      "entity.crab.ambient": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.crab.ambient",
+    	"subtitle": "subtitle.oe.crab.ambient",
     	"sounds": [ "oe:entity/crab/idle1", "oe:entity/crab/idle2", "oe:entity/crab/idle3"]
      },
      "entity.crab.angry": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.crab.angry",
+    	"subtitle": "subtitle.oe.crab.angry",
     	"sounds": [ "oe:entity/crab/angry1", "oe:entity/crab/angry2"]
      },
      "entity.crab.death": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.crab.death",
+    	"subtitle": "subtitle.oe.crab.death",
     	"sounds": [ "oe:entity/crab/death1", "oe:entity/crab/death2"]
      },
      "entity.crab.hurt": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.crab.hurt",
+    	"subtitle": "subtitle.oe.crab.hurt",
     	"sounds": [ "oe:entity/crab/hurt1", "oe:entity/crab/hurt2", "oe:entity/crab/hurt3"]
      },
      "entity.fish.flop": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.fish.flop",
+    	"subtitle": "subtitle.oe.fish.flop",
     	"sounds": [ "oe:entity/fish/flop1", "oe:entity/fish/flop2", "oe:entity/fish/flop3", "oe:entity/fish/flop4"]
      },
      "entity.fish.swim": 
@@ -214,199 +214,199 @@
      "entity.pufferfish.death": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.pufferfish.death",
+    	"subtitle": "subtitle.oe.pufferfish.death",
     	"sounds": [ "oe:entity/pufferfish/death1", "oe:entity/pufferfish/death2"]
      },
      "entity.pufferfish.deflate": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.pufferfish.deflate",
+    	"subtitle": "subtitle.oe.pufferfish.deflate",
     	"sounds": [ "oe:entity/pufferfish/deflate1", "oe:entity/pufferfish/deflate2"]
      },
      "entity.pufferfish.flop": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.pufferfish.flop",
+    	"subtitle": "subtitle.oe.pufferfish.flop",
     	"sounds": [ "oe:entity/pufferfish/flop1", "oe:entity/pufferfish/flop2", "oe:entity/pufferfish/flop3", "oe:entity/pufferfish/flop4"]
      },
      "entity.pufferfish.hurt": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.pufferfish.hurt",
+    	"subtitle": "subtitle.oe.pufferfish.hurt",
     	"sounds": [ "oe:entity/pufferfish/hurt1", "oe:entity/pufferfish/hurt2"]
      },
      "entity.pufferfish.inflate": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.pufferfish.inflate",
+    	"subtitle": "subtitle.oe.pufferfish.inflate",
     	"sounds": [ "oe:entity/pufferfish/inflate1", "oe:entity/pufferfish/inflate2"]
      },
      "entity.pufferfish.sting": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.pufferfish.sting",
+    	"subtitle": "subtitle.oe.pufferfish.sting",
     	"sounds": [ "oe:entity/pufferfish/sting1", "oe:entity/pufferfish/sting2"]
      },
      "entity.salmon.death": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.salmon.death",
+    	"subtitle": "subtitle.oe.salmon.death",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
      "entity.salmon.flop": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.salmon.flop",
+    	"subtitle": "subtitle.oe.salmon.flop",
     	"sounds": [ "oe:entity/fish/flop1", "oe:entity/fish/flop2", "oe:entity/fish/flop3", "oe:entity/fish/flop4"]
      },
      "entity.salmon.hurt": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.salmon.hurt",
+    	"subtitle": "subtitle.oe.salmon.hurt",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
      "entity.tropical_fish.death": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.tropical_fish.death",
+    	"subtitle": "subtitle.oe.tropical_fish.death",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
      "entity.tropical_fish.flop": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.tropical_fish.flop",
+    	"subtitle": "subtitle.oe.tropical_fish.flop",
     	"sounds": [ "oe:entity/fish/flop1", "oe:entity/fish/flop2", "oe:entity/fish/flop3", "oe:entity/fish/flop4"]
      },
      "entity.tropical_fish.hurt": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.tropical_fish.hurt",
+    	"subtitle": "subtitle.oe.tropical_fish.hurt",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
      "entity.turtle.ambient": 
 	 {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.ambient",
+    	"subtitle": "subtitle.oe.turtle.ambient",
     	"sounds": [ "oe:entity/turtle/idle1", "oe:entity/turtle/idle2", "oe:entity/turtle/idle3"]
      },
      "entity.turtle.baby_death": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.baby_death",
+    	"subtitle": "subtitle.oe.turtle.baby_death",
     	"sounds": [ "oe:entity/turtle/death1_baby", "oe:entity/turtle/death2_baby"]
      },
      "entity.turtle.baby_hurt": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.baby_hurt",
+    	"subtitle": "subtitle.oe.turtle.baby_hurt",
     	"sounds": [ "oe:entity/turtle/hurt1_baby", "oe:entity/turtle/hurt2_baby"]
      },
      "entity.turtle.baby_step": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.baby_step",
+    	"subtitle": "subtitle.oe.turtle.baby_step",
     	"sounds": [ "oe:entity/turtle/step1_baby", "oe:entity/turtle/step2_baby", "oe:entity/turtle/step3_baby", "oe:entity/turtle/step4_baby"]
      },
      "entity.turtle.hurt": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.hurt",
+    	"subtitle": "subtitle.oe.turtle.hurt",
     	"sounds": [ "oe:entity/turtle/hurt1", "oe:entity/turtle/hurt2", "oe:entity/turtle/hurt3", "oe:entity/turtle/hurt4", "oe:entity/turtle/hurt5" ]
      },
      "entity.turtle.death": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.death",
+    	"subtitle": "subtitle.oe.turtle.death",
     	"sounds": [ "oe:entity/turtle/death1", "oe:entity/turtle/death2", "oe:entity/turtle/death3" ]
      },
      "entity.turtle.step": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.step",
+    	"subtitle": "subtitle.oe.turtle.step",
     	"sounds": [ "oe:entity/turtle/step1", "oe:entity/turtle/step2", "oe:entity/turtle/step3", "oe:entity/turtle/step4", "oe:entity/turtle/step5" ]
      },
      "entity.turtle.swim": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.turtle.swim",
+    	"subtitle": "subtitle.oe.turtle.swim",
     	"sounds": [ "oe:entity/turtle/swim1", "oe:entity/turtle/swim2", "oe:entity/turtle/swim3", "oe:entity/turtle/swim4", "oe:entity/turtle/swim5" ]
      },
      "item.conch.conch_blow1": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.conch_blow1",
+    	"subtitle": "subtitle.oe.conch_blow1",
     	"sounds": [ "oe:item/conch_blow1"]
      },
      "item.conch.conch_blow2": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.conch_blow2",
+    	"subtitle": "subtitle.oe.conch_blow2",
     	"sounds": [ "oe:item/conch_blow2"]
      },
      "item.conch.conch_blow3": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.conch_blow3",
+    	"subtitle": "subtitle.oe.conch_blow3",
     	"sounds": [ "oe:item/conch_blow3"]
      },
      "item.conch.conch_blow4": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.conch_blow4",
+    	"subtitle": "subtitle.oe.conch_blow4",
     	"sounds": [ "oe:item/conch_blow4"]
      },
      "entity.drowned.throw": 
      {
     	"category": "hostile",
-    	"subtitle": "subtitle.drowned.throw",
+    	"subtitle": "subtitle.oe.drowned.throw",
     	"sounds": [ "oe:entity/trident/throw" ]
      },
      "item.trident.throw": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.trident.throw",
+    	"subtitle": "subtitle.oe.trident.throw",
     	"sounds": [ "oe:entity/trident/throw1", "oe:entity/trident/throw2"]
      },
      "item.trident.impact": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.trident.impact",
+    	"subtitle": "subtitle.oe.trident.impact",
     	"sounds": [ "oe:entity/trident/impact1","oe:entity/trident/impact2", "oe:entity/trident/impact3", "oe:entity/trident/impact4"]
      },
      "item.trident.hit": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.trident.hit",
+    	"subtitle": "subtitle.oe.trident.hit",
     	"sounds": [ "oe:entity/trident/pierce1", "oe:entity/trident/pierce2", "oe:entity/trident/pierce3"]
      },
      "item.trident.return": 
      {
     	"category": "neutral",
-    	"subtitle": "subtitle.trident.return",
+    	"subtitle": "subtitle.oe.trident.return",
     	"sounds": [ "oe:entity/trident/return1", "oe:entity/trident/return2", "oe:entity/trident/return3"]
      },
      "item.trident.riptide1": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.trident.riptide1",
+    	"subtitle": "subtitle.oe.trident.riptide1",
     	"sounds": [ "oe:entity/trident/riptide1"]
      },
      "item.trident.riptide2": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.trident.riptide2",
+    	"subtitle": "subtitle.oe.trident.riptide2",
     	"sounds": [ "oe:entity/trident/riptide2"]
      },
      "item.trident.riptide3": 
      {
     	"category": "player",
-    	"subtitle": "subtitle.trident.riptide3",
+    	"subtitle": "subtitle.oe.trident.riptide3",
     	"sounds": [ "oe:entity/trident/riptide3"]
      },
      "item.trident.thunder": 
      {
     	"category": "weather",
-    	"subtitle": "subtitle.trident.thunder",
+    	"subtitle": "subtitle.oe.trident.thunder",
     	"sounds": [ "oe:entity/trident/thunder1", "oe:entity/trident/thunder2"]
      }
 }   

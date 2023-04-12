@@ -26,7 +26,7 @@ public class OEPotions
 	public static PotionType TURTLE_MASTER_POTION;
 	public static PotionType LONG_TURTLE_MASTER_POTION;
 	public static PotionType STRONG_TURTLE_MASTER_POTION;
-	public static final PotionType DESCENT_POTION = new PotionType("descent", new PotionEffect[] { new PotionEffect(DESCENT, 2400)} ).setRegistryName("descent");
+	public static final PotionType DESCENT_POTION = new PotionType(Main.MOD_ID + "." + "descent", new PotionEffect[] { new PotionEffect(DESCENT, 2400)} ).setRegistryName("descent");
 
 	@SubscribeEvent
 	public static void onPotionTypeRegister(RegistryEvent.Register<PotionType> event)
@@ -35,19 +35,19 @@ public class OEPotions
 		
 		effects.add( new PotionEffect(MobEffects.RESISTANCE, 20 * 20, 3));
 		effects.add( new PotionEffect(MobEffects.SLOWNESS, 20 * 20, 3));
-		TURTLE_MASTER_POTION = new PotionType("turtle_master",  effects.toArray(new PotionEffect[0])).setRegistryName("turtle_master");;
+		TURTLE_MASTER_POTION = new PotionType(Main.MOD_ID + "." + "turtle_master",  effects.toArray(new PotionEffect[0])).setRegistryName("turtle_master");;
 		event.getRegistry().register(OEPotions.TURTLE_MASTER_POTION);
 		
 		effects.clear();
 		effects.add( new PotionEffect(MobEffects.RESISTANCE, 40 * 20, 3));
 		effects.add( new PotionEffect(MobEffects.SLOWNESS, 40 * 20, 3));
-		LONG_TURTLE_MASTER_POTION = new PotionType("turtle_master_long",  effects.toArray(new PotionEffect[0])).setRegistryName("turtle_master_long");;
+		LONG_TURTLE_MASTER_POTION = new PotionType(Main.MOD_ID + "." + "turtle_master_long",  effects.toArray(new PotionEffect[0])).setRegistryName("turtle_master_long");;
 		event.getRegistry().register(OEPotions.LONG_TURTLE_MASTER_POTION);
 		
 		effects.clear();
 		effects.add( new PotionEffect(MobEffects.RESISTANCE, 20 * 20, 5));
 		effects.add( new PotionEffect(MobEffects.SLOWNESS, 20 * 20, 5));
-		STRONG_TURTLE_MASTER_POTION = new PotionType("turtle_master_strong",  effects.toArray(new PotionEffect[0])).setRegistryName("turtle_master_strong");;
+		STRONG_TURTLE_MASTER_POTION = new PotionType(Main.MOD_ID + "." + "turtle_master_strong",  effects.toArray(new PotionEffect[0])).setRegistryName("turtle_master_strong");;
 		event.getRegistry().register(OEPotions.STRONG_TURTLE_MASTER_POTION);
 
 		registerPotionMixes();

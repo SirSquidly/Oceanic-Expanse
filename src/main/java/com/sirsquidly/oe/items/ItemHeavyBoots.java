@@ -42,6 +42,6 @@ public class ItemHeavyBoots extends ItemArmorBase
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		if (ConfigHandler.item.heavyBoots.heavyBootsDesc) tooltip.add(TextFormatting.BLUE + I18n.format("description.heavy_boots.name"));
+		if (ConfigHandler.item.heavyBoots.heavyBootsDesc) tooltip.add(TextFormatting.BLUE + I18n.format("description.oe.heavy_boots.name"));
 	}
 }

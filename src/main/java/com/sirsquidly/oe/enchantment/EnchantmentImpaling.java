@@ -33,7 +33,8 @@ public class EnchantmentImpaling extends Enchantment
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
         this.damageType = damageTypeIn;
-        this.setRegistryName(Main.MOD_ID, getName());
+        this.setName(getName());
+        this.setRegistryName(Main.MOD_ID, DAMAGE_NAMES[this.damageType]);
 		//OEEnchants.ENCHANTMENTS.add(this);
     }
 		
@@ -54,7 +55,7 @@ public class EnchantmentImpaling extends Enchantment
 
     public String getName()
     {
-        return "enchantment." + DAMAGE_NAMES[this.damageType];
+        return "enchantment." + Main.MOD_ID + "." + DAMAGE_NAMES[this.damageType];
     }
 
     public boolean canApplyTogether(Enchantment ench)

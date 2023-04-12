@@ -8,9 +8,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -80,13 +80,13 @@ public class EntityPufferfish extends AbstractFish
     }
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    { return SoundHandler.ENTITY_PUFFERFISH_HURT; }
+    { return OESounds.ENTITY_PUFFERFISH_HURT; }
 
     protected SoundEvent getDeathSound()
-    { return SoundHandler.ENTITY_PUFFERFISH_DEATH; }
+    { return OESounds.ENTITY_PUFFERFISH_DEATH; }
    
     public SoundEvent getFlopSound()
-    { return SoundHandler.ENTITY_PUFFERFISH_FLOP; }
+    { return OESounds.ENTITY_PUFFERFISH_FLOP; }
     
 	@Override
     protected ResourceLocation getLootTable()
@@ -143,7 +143,7 @@ public class EntityPufferfish extends AbstractFish
             
         	if(this.getCalmCounter() >= 80)
             {
-        		this.playSound(SoundHandler.ENTITY_PUFFERFISH_DEFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
+        		this.playSound(OESounds.ENTITY_PUFFERFISH_DEFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
             	this.setPuffState(this.getPuffState() - 1);
                 this.setCalmCounter(0);
             }
@@ -162,7 +162,7 @@ public class EntityPufferfish extends AbstractFish
         			{
         				if(this.getPuffCooldown() >= 20)
         				{
-        					this.playSound(SoundHandler.ENTITY_PUFFERFISH_INFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
+        					this.playSound(OESounds.ENTITY_PUFFERFISH_INFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
 	        				this.setCalmCounter(0);
 	        				this.setPuffCooldown(0);
 	                    	this.setPuffState(this.getPuffState() + 1);
@@ -184,7 +184,7 @@ public class EntityPufferfish extends AbstractFish
 
         if (flag)
         {
-        	this.playSound(SoundHandler.ENTITY_PUFFERFISH_STING, 1.0F, 1.0F);
+        	this.playSound(OESounds.ENTITY_PUFFERFISH_STING, 1.0F, 1.0F);
         	
         	this.applyEnchantments(this, entityIn);
         	
@@ -258,7 +258,7 @@ public class EntityPufferfish extends AbstractFish
     		
     		if (this.getPuffState() < 2)
     		{
-    			this.playSound(SoundHandler.ENTITY_PUFFERFISH_INFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
+    			this.playSound(OESounds.ENTITY_PUFFERFISH_INFLATE, 1.0F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
     			this.setPuffState(2);
     		}
     	}

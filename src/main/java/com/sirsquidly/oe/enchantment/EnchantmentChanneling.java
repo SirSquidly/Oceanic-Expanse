@@ -17,8 +17,8 @@ public class EnchantmentChanneling extends Enchantment
     public EnchantmentChanneling(Enchantment.Rarity rarityIn)
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
-        this.setName("channeling");
-        this.setRegistryName(Main.MOD_ID, this.getName());
+        this.setName(Main.MOD_ID + "." + "channeling");
+        this.setRegistryName(Main.MOD_ID, "channeling");
 		OEEnchants.ENCHANTMENTS.add(this);
     }
 		

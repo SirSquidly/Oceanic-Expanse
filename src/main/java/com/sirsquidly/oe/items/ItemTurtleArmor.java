@@ -45,6 +45,6 @@ public class ItemTurtleArmor extends ItemArmorBase
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		if (ConfigHandler.item.turtleShell.enableTurtleShellDesc) tooltip.add(TextFormatting.BLUE + I18n.format("description.turtle_helmet.name"));
+		if (ConfigHandler.item.turtleShell.enableTurtleShellDesc) tooltip.add(TextFormatting.BLUE + I18n.format("description.oe.turtle_helmet.name"));
 	}
 }

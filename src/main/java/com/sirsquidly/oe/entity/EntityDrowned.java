@@ -8,9 +8,9 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.ai.EntityAITridentThrowing;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -111,16 +111,16 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     { return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
 	
 	protected SoundEvent getAmbientSound()
-    { return SoundHandler.ENTITY_DROWNED_AMBIENT; }
+    { return OESounds.ENTITY_DROWNED_AMBIENT; }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    { return SoundHandler.ENTITY_DROWNED_HURT; }
+    { return OESounds.ENTITY_DROWNED_HURT; }
 
     protected SoundEvent getDeathSound()
-    { return SoundHandler.ENTITY_DROWNED_DEATH; }
+    { return OESounds.ENTITY_DROWNED_DEATH; }
     
     protected SoundEvent getStepSound()
-    { return SoundHandler.ENTITY_DROWNED_STEP; }
+    { return OESounds.ENTITY_DROWNED_STEP; }
     
     @Override
     protected ResourceLocation getLootTable()
@@ -169,7 +169,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
                 	
                 	if (offHand.getItem() == OEItems.CONCH)
                 	{
-                		this.playSound(SoundHandler.ITEM_CONCH_BLOW1, ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainConchSoundDistance * 0.0625F, 0.8F);   
+                		this.playSound(OESounds.ITEM_CONCH_BLOW1, ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainConchSoundDistance * 0.0625F, 0.8F);   
                 		
                 		for (int i = 0; i < 4; i++)
                         {
@@ -324,7 +324,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
         double d3 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
         entitytrident.shoot(d0, d1 + d3 * 0.10000000298023224D, d2, 0.8F * 3.0F, 1.0F);
         entitytrident.setItem(this.getHeldItemMainhand());
-        this.playSound(SoundHandler.ENTITY_DROWNED_THROW, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+        this.playSound(OESounds.ENTITY_DROWNED_THROW, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.spawnEntity(entitytrident);
     }
     

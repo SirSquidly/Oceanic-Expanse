@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.util.handlers.SoundHandler;
+import com.sirsquidly.oe.init.OESounds;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMagma;
@@ -91,11 +91,11 @@ public class EntityClam extends EntityAnimal
     { return ((Byte)this.dataManager.get(OPEN_TICK)).byteValue(); }
 	
 	protected SoundEvent getDeathSound()
-    { return SoundHandler.ENTITY_CLAM_DEATH; }
+    { return OESounds.ENTITY_CLAM_DEATH; }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     {
-        return this.getOpenTick() > 0 ? SoundHandler.ENTITY_CLAM_HURT : SoundHandler.ENTITY_CLAM_HURT_CLOSED;
+        return this.getOpenTick() > 0 ? OESounds.ENTITY_CLAM_HURT : OESounds.ENTITY_CLAM_HURT_CLOSED;
     }
 	
 	public void onUpdate()
@@ -111,7 +111,7 @@ public class EntityClam extends EntityAnimal
 	    	{
 				if (e instanceof EntityClam) continue;
 				
-				if (!this.getShaking()) this.playSound(SoundHandler.ENTITY_CLAM_SHAKE, 1.0F, 1.0F);
+				if (!this.getShaking()) this.playSound(OESounds.ENTITY_CLAM_SHAKE, 1.0F, 1.0F);
 				
 				this.setShaking(true);
 				launchWarnShaking += 1;
@@ -239,17 +239,17 @@ public class EntityClam extends EntityAnimal
             if (ticks == 0)
             {
             	iattributeinstance.applyModifier(CLOSED_ARMOR_BONUS);
-                this.playSound(SoundHandler.ENTITY_CLAM_CLOSE, 1.0F, 1.0F);
+                this.playSound(OESounds.ENTITY_CLAM_CLOSE, 1.0F, 1.0F);
             }
             else
             {
             	if (this.isInWater())
             	{
-            		this.playSound(SoundHandler.ENTITY_CLAM_OPEN, 1.0F, 1.0F);
+            		this.playSound(OESounds.ENTITY_CLAM_OPEN, 1.0F, 1.0F);
             	}
             	else
             	{
-            		this.playSound(SoundHandler.ENTITY_CLAM_OPEN_LAND, 1.0F, 1.0F);
+            		this.playSound(OESounds.ENTITY_CLAM_OPEN_LAND, 1.0F, 1.0F);
             	}
             }
         }

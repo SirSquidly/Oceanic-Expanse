@@ -84,7 +84,7 @@ public class OEItems
 	{
 		if (name != null)
 		{
-			item.setUnlocalizedName(name);
+			item.setUnlocalizedName(Main.MOD_ID + "." + name);
 			item.setRegistryName(name);
 		}
 		item.setCreativeTab(Main.OCEANEXPTAB);

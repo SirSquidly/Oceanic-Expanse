@@ -1,4 +1,4 @@
-package com.sirsquidly.oe.util.handlers;
+package com.sirsquidly.oe.init;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-public class SoundHandler 
+public class OESounds 
 {
 	/** Contains every block ran through the 'blockReadyForRegister' function. So they all SHOULD be registered. */
 	private static List<SoundEvent> soundList = new ArrayList<SoundEvent>();

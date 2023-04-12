@@ -16,8 +16,8 @@ public class EnchantmentLoyalty extends Enchantment
     public EnchantmentLoyalty(Enchantment.Rarity rarityIn)
     {
         super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.MAINHAND});
-        this.setName("loyalty");
-        this.setRegistryName(Main.MOD_ID, this.getName());
+        this.setName(Main.MOD_ID + "." + "loyalty");
+        this.setRegistryName(Main.MOD_ID, "loyalty");
 		OEEnchants.ENCHANTMENTS.add(this);
     }
 		

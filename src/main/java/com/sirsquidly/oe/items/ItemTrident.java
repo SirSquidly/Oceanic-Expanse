@@ -5,8 +5,8 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Multimap;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -159,7 +159,7 @@ public class ItemTrident extends Item
                     }
             	}
         		
-        		 worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundHandler.ENTITY_TRIDENT_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+        		 worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, OESounds.ENTITY_TRIDENT_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
         	}
                 entityplayer.addStat(StatList.getObjectUseStats(this));
             }
@@ -171,11 +171,11 @@ public class ItemTrident extends Item
         switch(level)
         {
         	case 1:
-        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundHandler.ENTITY_TRIDENT_RIPTIDE1, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE1, SoundCategory.PLAYERS, 1.0F, 1.0F);
         	case 2:
-        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundHandler.ENTITY_TRIDENT_RIPTIDE2, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE2, SoundCategory.PLAYERS, 1.0F, 1.0F);
         	case 3:
-        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundHandler.ENTITY_TRIDENT_RIPTIDE3, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE3, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
     }
     

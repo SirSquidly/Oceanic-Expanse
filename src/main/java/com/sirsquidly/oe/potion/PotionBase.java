@@ -15,7 +15,7 @@ public class PotionBase extends Potion
 	public PotionBase(String name, boolean isBadEffectIn, int liquidColorIn, int icon)
 	{
 		super(isBadEffectIn, liquidColorIn);
-		this.setPotionName("effect." + name);
+		this.setPotionName("effect." + Main.MOD_ID + "." + name);
 		this.setRegistryName(name);
 		this.setIconIndex(icon % 8, icon / 8);
 	}

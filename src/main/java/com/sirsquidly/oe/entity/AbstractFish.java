@@ -9,7 +9,7 @@ import com.google.common.collect.Sets;
 import com.sirsquidly.oe.blocks.BlockCoral;
 import com.sirsquidly.oe.blocks.BlockCoralFan;
 import com.sirsquidly.oe.blocks.BlockCoralFull;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
+import com.sirsquidly.oe.init.OESounds;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -177,13 +177,13 @@ public class AbstractFish extends EntityAnimal
 	}
 	
 	protected SoundEvent getAmbientSound()
-    { return this.isInWater() ? SoundHandler.ENTITY_FISH_SWIM : null; }
+    { return this.isInWater() ? OESounds.ENTITY_FISH_SWIM : null; }
 	
 	/**
 	* The sound a fish uses when Flopping
 	*/
 	public SoundEvent getFlopSound()
-    { return SoundHandler.ENTITY_FISH_FLOP; }
+    { return OESounds.ENTITY_FISH_FLOP; }
 	
 	@Override
     public void onLivingUpdate() {

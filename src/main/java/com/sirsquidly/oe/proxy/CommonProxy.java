@@ -9,11 +9,12 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.network.OEPacketHandler;
 import com.sirsquidly.oe.network.OEPacketSpawnParticles;
 import com.sirsquidly.oe.tileentity.TileConduit;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
+import com.sirsquidly.oe.util.handlers.RenderHandler;
 import com.sirsquidly.oe.world.*;
 import com.sirsquidly.oe.world.feature.*;
 import com.sirsquidly.oe.world.structure.GeneratorCoquinaOutcrop;
@@ -30,6 +31,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -42,12 +44,10 @@ public class CommonProxy
 {
 	public static final List<Biome> allOceans = new ArrayList<Biome>();
 	
-	public static final DamageSource COCONUT = new DamageSource("coconut");
+	public static final DamageSource COCONUT = new DamageSource(Main.MOD_ID + "." + "coconut");
 	
 	public static DamageSource causeTridentDamage(EntityTrident trident, @Nullable Entity indirectEntityIn)
-    {
-        return (new EntityDamageSourceIndirect("trident", trident, indirectEntityIn)).setProjectile();
-    }
+    { return (new EntityDamageSourceIndirect(Main.MOD_ID + "." + "trident", trident, indirectEntityIn)).setProjectile(); }
 
 	/** This is used for checking if Fluidlogged API is installed. */
 	public boolean fluidlogged_enable = false;
@@ -55,7 +55,6 @@ public class CommonProxy
 	public void preInitRegisteries(FMLPreInitializationEvent event)
 	{
 		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Main.MOD_ID, "conduit"));
-		
 		
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.OCEAN));
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.BEACH));
@@ -70,12 +69,15 @@ public class CommonProxy
 			Blocks.WATER.setLightOpacity(ConfigHandler.vanillaTweak.waterTweak);
 			Blocks.FLOWING_WATER.setLightOpacity(ConfigHandler.vanillaTweak.waterTweak);
 		}
+		
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+		{ RenderHandler.registerEntityRenders(); }
 	}
 	
 	public void initRegistries(FMLInitializationEvent event)
 	{
 		OEEntities.registerEntitySpawns();
-		SoundHandler.registerSounds();
+		OESounds.registerSounds();
 		
 		OEPacketHandler.registerMessages();
 		
@@ -104,7 +106,6 @@ public class CommonProxy
 
     	if (ConfigHandler.worldGen.coquinaOutcrop.enableCoquinaOutcrops) GameRegistry.registerWorldGenerator(new GeneratorCoquinaOutcrop(ConfigHandler.worldGen.coquinaOutcrop.coquinaOutcropTriesPerChunk, ConfigHandler.worldGen.coquinaOutcrop.coquinaOutcropChancePerChunk, Biomes.BEACH), 0);
     	
-    	
     	if (ConfigHandler.worldGen.shipwreck.enableShipwrecks) GameRegistry.registerWorldGenerator(new GeneratorShipwreck(1, ConfigHandler.worldGen.shipwreck.shipwreckChancePerChunk, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0])), 0);
     	
     	if (ConfigHandler.worldGen.shellPatch.enableShellPatch) GameRegistry.registerWorldGenerator(new WorldGenShellSand(ConfigHandler.worldGen.shellPatch.shellPatchChancePerChunk, ConfigHandler.worldGen.shellPatch.shellPatchTriesPerChunk, 25, Biomes.BEACH), 0);
@@ -118,7 +119,9 @@ public class CommonProxy
     	}
 	}
 
-    
+    /** 
+     *  Specialized particle method that sends particles on servers
+     * */
     public void spawnParticle(int particleId, World world, double posX, double posY, double posZ, double speedX, double speedY, double speedZ, int... parameters)
 	{
 		if (world.isRemote)

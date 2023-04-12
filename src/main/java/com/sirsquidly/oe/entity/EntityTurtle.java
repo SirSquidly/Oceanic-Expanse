@@ -12,9 +12,9 @@ import com.sirsquidly.oe.blocks.BlockTurtleEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
@@ -135,16 +135,16 @@ public class EntityTurtle extends AbstractFish
     }
 	
 	protected SoundEvent getAmbientSound()
-    { return this.isInWater() ? SoundHandler.ENTITY_TURTLE_SWIM : SoundHandler.ENTITY_TURTLE_AMBIENT; }
+    { return this.isInWater() ? OESounds.ENTITY_TURTLE_SWIM : OESounds.ENTITY_TURTLE_AMBIENT; }
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    { return this.isChild() ? SoundHandler.ENTITY_TURTLE_BABY_HURT : SoundHandler.ENTITY_TURTLE_HURT; }
+    { return this.isChild() ? OESounds.ENTITY_TURTLE_BABY_HURT : OESounds.ENTITY_TURTLE_HURT; }
 
     protected SoundEvent getDeathSound()
-    { return this.isChild() ? SoundHandler.ENTITY_TURTLE_BABY_DEATH : SoundHandler.ENTITY_TURTLE_DEATH; }
+    { return this.isChild() ? OESounds.ENTITY_TURTLE_BABY_DEATH : OESounds.ENTITY_TURTLE_DEATH; }
    
     protected SoundEvent getStepSound()
-    { return this.isChild() ? SoundHandler.ENTITY_TURTLE_BABY_STEP : SoundHandler.ENTITY_TURTLE_STEP; }
+    { return this.isChild() ? OESounds.ENTITY_TURTLE_BABY_STEP : OESounds.ENTITY_TURTLE_STEP; }
 
 	@Override
     protected ResourceLocation getLootTable()

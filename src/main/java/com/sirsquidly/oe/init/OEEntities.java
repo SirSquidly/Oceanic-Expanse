@@ -74,8 +74,8 @@ public class OEEntities
 	}
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2)
-	{ EntityRegistry.registerModEntity(new ResourceLocation(Main.MOD_ID + ':' + name), entity, name, id, Main.instance, range, 1, true, color1, color2); }
+	{ EntityRegistry.registerModEntity(new ResourceLocation(Main.MOD_ID, name), entity, Main.MOD_ID + "." + name, id, Main.instance, range, 1, true, color1, color2); }
 	
 	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range)
-	{ EntityRegistry.registerModEntity(new ResourceLocation(Main.MOD_ID + ':' + name), entity, name, id, Main.instance, range, 1, true); }
+	{ EntityRegistry.registerModEntity(new ResourceLocation(Main.MOD_ID, name), entity, Main.MOD_ID + "." + name, id, Main.instance, range, 1, true); }
 }

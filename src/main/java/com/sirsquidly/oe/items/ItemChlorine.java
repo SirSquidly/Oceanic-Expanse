@@ -87,6 +87,6 @@ public class ItemChlorine extends Item
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.BLUE + I18n.format("description.chlorine.name"));
+		tooltip.add(TextFormatting.BLUE + I18n.format("description.oe.chlorine.name"));
 	}
 }

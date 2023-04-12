@@ -6,8 +6,8 @@ import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAICrabBarter;
 import com.sirsquidly.oe.entity.ai.EntityAICrabDig;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -133,7 +133,7 @@ public class EntityCrab extends EntityAnimal
         {
 			if (this.randomAngrySoundDelay <= 0)
 			{
-				this.playSound(SoundHandler.ENTITY_CRAB_ANGRY, 1.0F, 1.0F);
+				this.playSound(OESounds.ENTITY_CRAB_ANGRY, 1.0F, 1.0F);
 				this.randomAngrySoundDelay = this.rand.nextInt(40);
 			}
 			this.randomAngrySoundDelay -= 1;
@@ -171,13 +171,13 @@ public class EntityCrab extends EntityAnimal
     }
 	
 	protected SoundEvent getAmbientSound()
-	{ return SoundHandler.ENTITY_CRAB_AMBIENT; }
+	{ return OESounds.ENTITY_CRAB_AMBIENT; }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    { return SoundHandler.ENTITY_CRAB_HURT; }
+    { return OESounds.ENTITY_CRAB_HURT; }
 
     protected SoundEvent getDeathSound()
-    { return SoundHandler.ENTITY_CRAB_DEATH; }
+    { return OESounds.ENTITY_CRAB_DEATH; }
     
 	@Override
     protected ResourceLocation getLootTable()

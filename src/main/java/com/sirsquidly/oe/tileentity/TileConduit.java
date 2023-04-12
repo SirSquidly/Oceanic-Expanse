@@ -6,8 +6,8 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEPotions;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -55,7 +55,7 @@ public class TileConduit extends TileEntity implements ITickable
 			{
 				if(!isActive)
 				{
-					world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_ACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					world.playSound(null, pos, OESounds.BLOCK_CONDUIT_ACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
 				}
 				isActive = true;
 			}
@@ -63,7 +63,7 @@ public class TileConduit extends TileEntity implements ITickable
 			{ 
 				if(isActive)
 				{
-					world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_DEACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					world.playSound(null, pos, OESounds.BLOCK_CONDUIT_DEACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
 				}
 				isActive = false; 
 			}
@@ -131,7 +131,7 @@ public class TileConduit extends TileEntity implements ITickable
 					if(world.isRemote) spawnParticles(world, this.attackTarget.getPosition()); 
 					if(world.getTotalWorldTime() % 40L == 0L)
 					{
-						world.playSound(null, this.attackTarget.getPosition(), SoundHandler.BLOCK_CONDUIT_ATTACK, SoundCategory.BLOCKS, 1.0f, 1.0f);
+						world.playSound(null, this.attackTarget.getPosition(), OESounds.BLOCK_CONDUIT_ATTACK, SoundCategory.BLOCKS, 1.0f, 1.0f);
 						this.attackTarget.attackEntityFrom(DamageSource.MAGIC,4);
 					}
 				}
@@ -202,14 +202,14 @@ public class TileConduit extends TileEntity implements ITickable
 	{	
 		if(world.getTotalWorldTime() % 80L == 0L)
 		{
-			world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_AMBIENT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+			world.playSound(null, pos, OESounds.BLOCK_CONDUIT_AMBIENT, SoundCategory.BLOCKS, 1.0f, 1.0f);
 		}
 		
 		long i = 60L + (long)this.world.rand.nextInt(40);
 		
 		if(world.getTotalWorldTime() % i == 0L)
 		{
-			world.playSound(null, pos, SoundHandler.BLOCK_CONDUIT_BEAT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+			world.playSound(null, pos, OESounds.BLOCK_CONDUIT_BEAT, SoundCategory.BLOCKS, 1.0f, 1.0f);
 		}
 	}
 	

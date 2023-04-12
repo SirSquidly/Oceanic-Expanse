@@ -3,8 +3,8 @@ package com.sirsquidly.oe.blocks;
 import java.util.Random;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.SoundHandler;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
@@ -38,7 +38,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	
 	public BlockDulse() {
 		super(Material.WATER);
-		this.setSoundType(SoundHandler.WET_GRASS);
+		this.setSoundType(OESounds.WET_GRASS);
 		this.setTickRandomly(true);
 
 		setDefaultState(blockState.getBaseState().withProperty(SHEARED, false));
