@@ -21,7 +21,6 @@ import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -57,7 +56,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityDrowned extends EntityZombie implements IRangedAttackMob 
 {
 	private static final DataParameter<Boolean> IS_SWIMMING = EntityDataManager.<Boolean>createKey(EntityDrowned.class, DataSerializers.BOOLEAN);
-	// IF this Drowned is a Captain. This changesthe texture, along with giving it unique equiptment on spawn and the summoning AI
+	// IF this Drowned is a Captain. This changes the texture, along with giving it unique equipment on spawn and the summoning AI
 	private static final DataParameter<Boolean> IS_CAPTAIN = EntityDataManager.<Boolean>createKey(EntityDrowned.class, DataSerializers.BOOLEAN);
 	/** The time since the conch was last used */
     private int conchUseTime;
@@ -100,7 +99,6 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void applyEntityAI()
     {
-        this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPigZombie.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));

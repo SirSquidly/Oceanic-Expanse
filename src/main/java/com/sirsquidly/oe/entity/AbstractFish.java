@@ -173,7 +173,7 @@ public class AbstractFish extends EntityAnimal
 	*/
 	public boolean isFlopping() 
 	{ 
-		return !this.isInsideOfMaterial(Material.WATER);
+		return !this.isInWater();
 	}
 	
 	protected SoundEvent getAmbientSound()
@@ -201,7 +201,7 @@ public class AbstractFish extends EntityAnimal
         }
         if (this.world.isRemote) {} 
         else {
-            if (onGround && isFlopping()) 
+            if (onGround && !this.isInsideOfMaterial(Material.WATER)) 
             {
                 motionY += 0.4D;
                 motionX += (double) ((rand.nextFloat() * 2.0F - 1.0F) * 0.2F);

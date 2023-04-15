@@ -5,6 +5,7 @@ import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.model.ModelZombie;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.Item;
@@ -25,6 +26,22 @@ public class ModelDrowned extends ModelZombie
     public ModelDrowned(float modelSize, boolean p_i1168_2_)
     {
         super(modelSize, p_i1168_2_);
+    }
+    
+    @Override
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    {
+        super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        GlStateManager.pushMatrix();
+
+        if (this.isChild)
+        {
+            GlStateManager.scale(0.75F, 0.75F, 0.75F);
+            GlStateManager.translate(0.0F, 16.0F * scale, 0.0F);
+            this.bipedHeadwear.render(scale);
+        }
+
+        GlStateManager.popMatrix();
     }
 	
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)

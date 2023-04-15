@@ -83,7 +83,7 @@
     "block.wet_grass.place": 
     {
     	"category": "block",
-    	"subtitle": "subtitle.wet_grass.place",
+    	"subtitle": "subtitle.oe.wet_grass.place",
     	"sounds": [ "oe:block/wet_grass/break1", "oe:block/wet_grass/break2", "oe:block/wet_grass/break3", "oe:block/wet_grass/break4"]
     },
     "block.wet_grass.step": 
