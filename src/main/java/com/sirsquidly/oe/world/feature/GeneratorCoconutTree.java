@@ -133,7 +133,8 @@ public class GeneratorCoconutTree extends WorldGenAbstractTree
                             {
                             	for (EnumFacing facing : list.subList(0, stump))
                                 {
-                            		if (state.getBlock().isAir(state, worldIn, blockpos) || state.getBlock().isLeaves(state, worldIn, blockpos)) this.placeStumpAt(worldIn, blockpos.offset(facing));
+                            		state = worldIn.getBlockState(blockpos.offset(facing));
+                            		if (state.getBlock().isAir(state, worldIn, blockpos.offset(facing)) || state.getBlock().isLeaves(state, worldIn, blockpos.offset(facing))) this.placeStumpAt(worldIn, blockpos.offset(facing));
                                 }
                             }
                             

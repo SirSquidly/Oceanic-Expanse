@@ -44,6 +44,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -87,7 +88,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     {
 		this.tasks.addTask(0, new EntityDrowned.DrownedAIGettoWater(this, 1.0D, 35));
 		this.tasks.addTask(1, new EntityDrowned.DrownedAISwimToTarget(this));
-		this.tasks.addTask(2, new EntityAITridentThrowing<EntityDrowned>(this, 1.0D, 20, 20.0F, (float)ConfigHandler.entity.drowned.drownedTridentMeleeRange));
+		this.tasks.addTask(2, new EntityAITridentThrowing<EntityDrowned>(this, 1.0D, 40, 20.0F, (float)ConfigHandler.entity.drowned.drownedTridentMeleeRange));
 		this.tasks.addTask(3, new EntityAIZombieAttack(this, 1.0D, false));
         this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(4, new EntityAIWanderUnderwater(this, 1.0D, 80, false));
@@ -193,7 +194,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             //** The material check is to make sure they don't act odd when the player is bobbing on the surface of water. */
             if (attackTarget != null && this.world.isDaytime() && (!attackTarget.isWet() && this.world.getBlockState(attackTarget.getPosition().down()).getMaterial() != Material.WATER))
             {
-            	setAttackTarget(null);
+            	if (this.getHeldItem(EnumHand.MAIN_HAND).getItem() != OEItems.TRIDENT_ORIG) setAttackTarget(null);
             }
         }
     }
@@ -232,7 +233,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     @Override
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
     {
-        if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() && this.world.isDaytime())
+        if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() && this.world.isDaytime() && this.getHeldItem(EnumHand.MAIN_HAND).getItem() != OEItems.TRIDENT_ORIG)
         {}
         else
         { super.setAttackTarget(entitylivingbaseIn); }

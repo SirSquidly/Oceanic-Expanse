@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.blocks.IChecksWater;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -256,7 +257,7 @@ public class TileConduit extends TileEntity implements ITickable
 	    			/** If the area directly around the Conduit isn't water, just return 0.  */
 					if (h1 != -2 && i1 != -2 && j1 != -2 && h1 != 2 && i1 != 2 && j1 != 2)
 					{
-						if (worldIn.getBlockState(tPos).getMaterial() != Material.WATER) return 0;
+						if (worldIn.getBlockState(tPos).getMaterial() != Material.WATER && !(worldIn.getBlockState(tPos).getBlock() instanceof IChecksWater)) return 0;
 					}
 					else if ( ArrayUtils.contains(ConfigHandler.block.conduit.conduitFrameBlocks, worldIn.getBlockState(tPos).getBlock().getRegistryName().toString()) )
 					{ i++; }

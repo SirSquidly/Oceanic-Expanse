@@ -8,6 +8,7 @@ import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 
 public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
@@ -101,11 +102,21 @@ public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
         this.rangedAttackTime = -1;
         
         if (rangedAttackEntityHost instanceof EntityZombie)
-        {
-        	((EntityZombie) this.rangedAttackEntityHost).setArmsRaised(false);
-        }
+        { ((EntityZombie) this.rangedAttackEntityHost).setArmsRaised(false); }
+        
+        this.entityHost.resetActiveHand();
     }
 
+    public void startExecuting()
+    {
+        this.rangedAttackTime = this.maxRangedAttackTime;
+        this.entityHost.setActiveHand(EnumHand.MAIN_HAND);
+        if (rangedAttackEntityHost instanceof EntityZombie)
+        { ((EntityZombie) this.rangedAttackEntityHost).setArmsRaised(true); }
+        
+        super.startExecuting();
+    }
+    
     /**
      * Keep ticking a continuous task that has already been started
      */
@@ -114,12 +125,15 @@ public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
         double d0 = this.entityHost.getDistanceSq(this.attackTarget.posX, this.attackTarget.getEntityBoundingBox().minY, this.attackTarget.posZ);
         boolean flag = this.entityHost.getEntitySenses().canSee(this.attackTarget);
 
+        this.entityHost.setActiveHand(EnumHand.MAIN_HAND);
+        
         if (flag)
         {
             ++this.seeTime;
         }
         else
         {
+        	this.entityHost.resetActiveHand();
             this.seeTime = 0;
         }
 
@@ -134,23 +148,28 @@ public class EntityAITridentThrowing<T extends EntityMob> extends EntityAIBase
 
         this.entityHost.getLookHelper().setLookPositionWithEntity(this.attackTarget, 30.0F, 30.0F);
 
-        if (--this.rangedAttackTime == 0)
+        if (this.entityHost.isHandActive())
         {
-            if (!flag)
+        	if (--this.rangedAttackTime == 0)
             {
-                return;
+                if (!flag)
+                {
+                	this.entityHost.resetActiveHand();
+                    return;
+                }
+                if (rangedAttackEntityHost instanceof EntityZombie)
+                {
+                	((EntityZombie) this.rangedAttackEntityHost).setArmsRaised(true);
+                }
+                
+                this.entityHost.resetActiveHand();
+                float f = MathHelper.sqrt(d0) / this.attackRadius;
+                float lvt_5_1_ = MathHelper.clamp(f, 0.1F, 1.0F);
+                this.rangedAttackEntityHost.attackEntityWithRangedAttack(this.attackTarget, lvt_5_1_);
+                this.rangedAttackTime = MathHelper.floor(f * (float)(this.maxRangedAttackTime - this.attackIntervalMin) + (float)this.attackIntervalMin);
             }
-            if (rangedAttackEntityHost instanceof EntityZombie)
-            {
-            	((EntityZombie) this.rangedAttackEntityHost).setArmsRaised(true);
-            }
-            
-            float f = MathHelper.sqrt(d0) / this.attackRadius;
-            float lvt_5_1_ = MathHelper.clamp(f, 0.1F, 1.0F);
-            this.rangedAttackEntityHost.attackEntityWithRangedAttack(this.attackTarget, lvt_5_1_);
-            this.rangedAttackTime = MathHelper.floor(f * (float)(this.maxRangedAttackTime - this.attackIntervalMin) + (float)this.attackIntervalMin);
         }
-        else if (this.rangedAttackTime < 0)
+        else if (--this.rangedAttackTime <= 0)
         {
             float f2 = MathHelper.sqrt(d0) / this.attackRadius;
             this.rangedAttackTime = MathHelper.floor(f2 * (float)(this.maxRangedAttackTime - this.attackIntervalMin) + (float)this.attackIntervalMin);

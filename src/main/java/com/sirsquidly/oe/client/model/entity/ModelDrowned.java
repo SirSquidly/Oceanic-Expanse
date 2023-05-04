@@ -7,6 +7,7 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumHand;
@@ -49,7 +50,7 @@ public class ModelDrowned extends ModelZombie
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		
 		EntityDrowned drowned = (EntityDrowned) entityIn;
-		boolean flag = entityIn instanceof EntityZombie && ((EntityZombie)entityIn).isArmsRaised();
+		boolean flag = entityIn instanceof EntityZombie && ((EntityLivingBase) entityIn).isHandActive();
 		
 		// Used so a drowned lowering its arms will still properly use the Trident
 		boolean usingRTrident = false;
@@ -59,15 +60,17 @@ public class ModelDrowned extends ModelZombie
 		
 		if (mainItem == OEItems.TRIDENT_ORIG && flag)
 		{
+			float hand = Math.min((float)drowned.getItemInUseMaxCount() / 35.0F, 1.0F);
+			
 			if (drowned.getPrimaryHand() == EnumHandSide.RIGHT)
             {
-        		this.bipedRightArm.rotateAngleX = -4.0F;
+        		this.bipedRightArm.rotateAngleX = -3 - hand;
         		usingRTrident = true;
         		
             }
             if (drowned.getPrimaryHand() == EnumHandSide.LEFT)
             {
-            	this.bipedLeftArm.rotateAngleX = -4.0F;
+            	this.bipedLeftArm.rotateAngleX = -3 -hand;
             	usingLTrident = true;
             }
 		}
@@ -86,7 +89,7 @@ public class ModelDrowned extends ModelZombie
 	        this.bipedLeftLeg.rotationPointY -= 0.15F;
         }
 		
-		if (!drowned.getHeldItem(EnumHand.OFF_HAND).isEmpty() && ConfigHandler.entity.drowned.enableDrownedLowerArms)
+		if (!drowned.getHeldItem(EnumHand.OFF_HAND).isEmpty() && ConfigHandler.entity.drowned.enableDrownedLowerArms && this.swingProgress <= 0.0F)
         {
 			float f = 1.0F;
 			

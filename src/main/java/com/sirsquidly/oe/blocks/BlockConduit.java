@@ -11,6 +11,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,7 +31,7 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
 	
 	public BlockConduit()
 	{
-		super(Material.WATER);
+		super(Material.ROCK);
 		this.setLightLevel(1.0F);
 		this.hasTileEntity = true;
 		this.setSoundType(SoundType.STONE);
@@ -40,8 +41,8 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
 	@Deprecated
 	public Material getMaterial(IBlockState state)
 	{
-		if(state.getValue(IN_WATER) && !Main.proxy.fluidlogged_enable) return super.getMaterial(state);
-		return Material.GROUND;
+		if(!(state.getValue(IN_WATER)) || Main.proxy.fluidlogged_enable) return super.getMaterial(state);
+		return Material.WATER;
 	}
 	
 	@Override
@@ -61,8 +62,8 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-    	if (!checkWater(worldIn, pos)) return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(false));
-    	return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(true));
+    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
+    	return this.getDefaultState().withProperty(IN_WATER, isWater);
     }
     
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
@@ -102,10 +103,8 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
     public boolean isFullCube(IBlockState state)
     { return false; }
 
-	public EnumBlockRenderType getRenderType(IBlockState state)
-    {
-        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-    }
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
+    { return BlockFaceShape.UNDEFINED; }
 	
 	public IBlockState getStateFromMeta(int meta)
     { return this.getDefaultState().withProperty(IN_WATER, (meta & 4) != 0); }
@@ -118,6 +117,11 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
 	    
 	    return i;
 	}
+	
+	public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.INVISIBLE;
+    }
 	
 	@Override
 	protected BlockStateContainer createBlockState()

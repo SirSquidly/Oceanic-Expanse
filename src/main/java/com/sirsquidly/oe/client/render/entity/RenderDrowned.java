@@ -33,11 +33,13 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 {
 	public static final ResourceLocation DROWNED_ZOMBIE_CAPTAIN_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_captain.png");
 	public static final ResourceLocation DROWNED_ZOMBIE_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned.png");
+	/** This is seperate so the same model is used for LayerCustomHead */
+	public static ModelDrowned model = new ModelDrowned();
 	
 	public RenderDrowned(RenderManager manager)
     {
-		super(manager, new ModelDrowned(), 0.5F);
-        this.addLayer(new LayerCustomHead(new ModelDrowned().bipedHead));
+		super(manager, model, 0.5F);
+        this.addLayer(new LayerCustomHead(model.bipedHead));
         this.addLayer(new LayerElytra(this));
         this.addLayer(new LayerHeldItem(this)
         {

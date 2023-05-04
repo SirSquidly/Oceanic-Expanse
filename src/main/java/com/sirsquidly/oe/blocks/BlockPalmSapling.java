@@ -96,38 +96,15 @@ public class BlockPalmSapling extends BlockBush implements IGrowable
 		{ return; }
 		
 		WorldGenerator gen = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false));
-		boolean flag = false;
 		int i = 0, j = 0;
 		
-		
 		gen = new GeneratorCoconutTree();
-		
-		IBlockState iblockstate = Blocks.AIR.getDefaultState();
-		if(flag)
-		{
-			world.setBlockState(pos.add(i, 0, j), iblockstate, 4);
-			world.setBlockState(pos.add(i + 1, 0, j), iblockstate, 4);
-			world.setBlockState(pos.add(i, 0, j + 1), iblockstate, 4);
-			world.setBlockState(pos.add(i + 1, 0, j + 1), iblockstate, 4);
-		}
-		else
-		{
-			world.setBlockState(pos, iblockstate, 4);
-		}
+
+		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
 		
 		if(!gen.generate(world, rand, pos.add(i, 0, j)))
 		{
-			if(flag)
-			{
-				world.setBlockState(pos.add(i, 0, j), iblockstate, 4);
-				world.setBlockState(pos.add(i + 1, 0, j), iblockstate, 4);
-				world.setBlockState(pos.add(i, 0, j + 1), iblockstate, 4);
-				world.setBlockState(pos.add(i + 1, 0, j + 1), iblockstate, 4);
-			}
-			else
-			{
-				world.setBlockState(pos, iblockstate, 4);
-			}
+			world.setBlockState(pos, state, 4);
 		}
 	}
 	

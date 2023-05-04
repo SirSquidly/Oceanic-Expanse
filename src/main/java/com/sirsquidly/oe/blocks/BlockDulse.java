@@ -65,7 +65,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	/** Checks if the Double tall 4th age crop can be placed here.*/
 	public boolean canPlaceFullAge(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false) && checkPlaceWater(worldIn, pos.up(), true);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && (worldIn.getBlockState(pos).getBlock() == this || checkPlaceWater(worldIn, pos, false)) && checkPlaceWater(worldIn, pos.up(), true);
     }
 	
 	@Override

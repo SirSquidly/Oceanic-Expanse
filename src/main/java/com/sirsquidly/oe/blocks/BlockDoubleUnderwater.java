@@ -43,14 +43,14 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 
 		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleUnderwater.EnumBlockHalf.LOWER));
 	}
-	
+	 
 	@SuppressWarnings("deprecation")
 	public Material getMaterial(IBlockState state)
 	{
 		 if(Main.proxy.fluidlogged_enable) { return Material.PLANTS; }
 		return super.getMaterial(state);
 	}
-	 
+	
 	@Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
@@ -60,7 +60,7 @@ public class BlockDoubleUnderwater extends BlockBush implements IChecksWater
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false) && checkPlaceWater(worldIn, pos.up(), true);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && (worldIn.getBlockState(pos).getBlock() == OEBlocks.SEAGRASS || checkPlaceWater(worldIn, pos, false)) && checkPlaceWater(worldIn, pos.up(), true);
     }
 	
 	@Override
