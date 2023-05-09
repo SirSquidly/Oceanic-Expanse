@@ -199,7 +199,7 @@ public class EntityTurtle extends AbstractFish
 	public float getEyeHeight()
     { return this.height * 0.5F; }
 	
-	public boolean isFlopping() { return false; }
+	public boolean canFlop() { return false; }
 	
 	public void onLivingUpdate()
     {

@@ -176,6 +176,14 @@ public class AbstractFish extends EntityAnimal
 		return !this.isInWater();
 	}
 	
+	/**
+	* If this fish can flop when on land.
+	*/
+	public boolean canFlop() 
+	{ 
+		return true;
+	}
+	
 	protected SoundEvent getAmbientSound()
     { return this.isInWater() ? OESounds.ENTITY_FISH_SWIM : null; }
 	
@@ -201,7 +209,7 @@ public class AbstractFish extends EntityAnimal
         }
         if (this.world.isRemote) {} 
         else {
-            if (onGround && !this.isInsideOfMaterial(Material.WATER)) 
+            if (canFlop() && onGround && !this.isInsideOfMaterial(Material.WATER)) 
             {
                 motionY += 0.4D;
                 motionX += (double) ((rand.nextFloat() * 2.0F - 1.0F) * 0.2F);
