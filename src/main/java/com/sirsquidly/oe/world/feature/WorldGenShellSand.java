@@ -64,7 +64,7 @@ public class WorldGenShellSand implements IWorldGenerator
 				{
 					BlockPos pos = chunkPos.getBlock(0, 0, 0).add(xPos, yPos, zPos);
 					
-					for ( IBlockState state = world.getBlockState(pos); state.getBlock().isReplaceable(world, pos); state = world.getBlockState(pos) )
+					for ( IBlockState state = world.getBlockState(pos); state.getBlock().isReplaceable(world, pos) && pos.getY() > 0; state = world.getBlockState(pos) )
 		        	{ pos = pos.down(); }
 				
 					if (pos.getY() > getMaxY) pos = new BlockPos(pos.getX(), getMaxY, pos.getZ());

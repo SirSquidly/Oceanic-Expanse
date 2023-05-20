@@ -64,7 +64,7 @@ public class WorldGenBlueIce implements IWorldGenerator
 				{
 					BlockPos pos = chunkPos.getBlock(0, 0, 0).add(xPos, yPos, zPos);
 					
-					for ( IBlockState state = world.getBlockState(pos); state.getBlock().isReplaceable(world, pos); state = world.getBlockState(pos) )
+					for ( IBlockState state = world.getBlockState(pos); state.getBlock().isReplaceable(world, pos) && pos.getY() > 0; state = world.getBlockState(pos) )
 		        	{ pos = pos.down(); }
 					
 					if(world.getBlockState(pos).getBlock() == Blocks.PACKED_ICE)

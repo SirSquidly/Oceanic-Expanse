@@ -359,7 +359,7 @@
      {
     	"category": "hostile",
     	"subtitle": "subtitle.oe.drowned.throw",
-    	"sounds": [ "oe:entity/trident/throw" ]
+    	"sounds": [ "oe:entity/trident/throw1", "oe:entity/trident/throw2"]
      },
      "item.trident.throw": 
      {
