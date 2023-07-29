@@ -57,5 +57,11 @@ public class OERecipies
 		}
 		
 		if (ConfigHandler.item.enableNautilusShell) OreDictionary.registerOre("shellNautilus", OEItems.NAUTILUS_SHELL);
+		
+		if (ConfigHandler.block.coconut.enableCoconut)
+		{
+			OreDictionary.registerOre("cropCoconut", OEItems.COCONUT_OPEN);
+			OreDictionary.registerOre("foodCoconutmilk", OEItems.COCONUT_OPEN);
+		}
 	}
 }

@@ -174,7 +174,7 @@ public class GeneratorShipwreck implements IWorldGenerator
         }
         
         //** Spawns 1-8 Drowned around the area of the Data Block. */
-        if ("drowned".equals(entry.getValue()) && ConfigHandler.worldGen.shipwreck.enableShipwreckDrowned)
+        if ("drowned".equals(entry.getValue()) && ConfigHandler.worldGen.shipwreck.enableShipwreckDrowned && ConfigHandler.entity.drowned.enableDrowned)
         {
         	for (int i = 0; i < rand.nextInt(8)+1; i++)
         	{

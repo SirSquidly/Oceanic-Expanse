@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ParticleConduit extends ParticleBase
 {
 	private static final ResourceLocation CONDUIT_TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/particles/conduit.png");

@@ -16,6 +16,7 @@ public class BlockBlueIce extends Block
         super(Material.PACKED_ICE);
         this.setLightLevel((float)ConfigHandler.block.blueIce.blueIceLight * 0.0625F);
         this.setSoundType(SoundType.GLASS);
+        this.setHarvestLevel("pickaxe", 0);
         this.slipperiness = Math.max((float)ConfigHandler.block.blueIce.blueIceSlipperiness, 0.6f);
     }
 	

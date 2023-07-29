@@ -65,13 +65,13 @@ public class BlockCoral extends Block implements IChecksWater
     	if (state.getBlock() == OEBlocks.PINK_CORAL)
     	{ return Item.getItemFromBlock(OEBlocks.PINK_CORAL_DEAD); }
     	if (state.getBlock() == OEBlocks.PURPLE_CORAL)
-    	{ return Item.getItemFromBlock(OEBlocks.PURPLE_CORAL_FAN_DEAD); }
+    	{ return Item.getItemFromBlock(OEBlocks.PURPLE_CORAL_DEAD); }
     	if (state.getBlock() == OEBlocks.RED_CORAL)
     	{ return Item.getItemFromBlock(OEBlocks.RED_CORAL_DEAD); }
     	if (state.getBlock() == OEBlocks.YELLOW_CORAL)
     	{ return Item.getItemFromBlock(OEBlocks.YELLOW_CORAL_DEAD); }
     	
-    	return null;
+    	return super.getItemDropped(state, rand, fortune);
     }
     
     protected boolean canSilkHarvest() { return true; }

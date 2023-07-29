@@ -67,5 +67,7 @@ public class OEPotions
 		PotionHelper.addMix(PotionTypes.AWKWARD, OEItems.TURTLE_HELMET, OEPotions.TURTLE_MASTER_POTION);
 		PotionHelper.addMix(OEPotions.TURTLE_MASTER_POTION, Items.REDSTONE, OEPotions.LONG_TURTLE_MASTER_POTION);
 		PotionHelper.addMix(OEPotions.TURTLE_MASTER_POTION, Items.GLOWSTONE_DUST, OEPotions.STRONG_TURTLE_MASTER_POTION);
+		
+		PotionHelper.addMix(PotionTypes.AWKWARD, OEItems.SHELLS, OEPotions.DESCENT_POTION);
 	}
 }

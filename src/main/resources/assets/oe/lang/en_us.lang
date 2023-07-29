@@ -109,11 +109,17 @@ entity.oe.clam.name=Clam
 entity.oe.drowned.name=Drowned
 entity.oe.pickled.name=Pickled
 
-enchantment.oe.is_watermob=Impaling
-enchantment.oe.is_wet=Waterjet
-enchantment.oe.loyalty=Loyalty
+
 enchantment.oe.channeling=Channeling
+enchantment.oe.channeling.desc=Strikes lightning when impacting a mob or lightning rod during a thunderstorm.
+enchantment.oe.is_watermob=Impaling
+enchantment.oe.is_watermob.desc=Increases the damage dealt to aquatic mobs.
+enchantment.oe.loyalty=Loyalty
+enchantment.oe.loyalty.desc=Returns to the owner upon impacting a mob or block.
 enchantment.oe.riptide=Riptide
+enchantment.oe.riptide.desc=Launches the owner in the direction they are facing, if they are wet.
+enchantment.oe.is_wet=Waterjet
+enchantment.oe.is_wet.desc=Increases the damage to wet mobs.
 
 effect.oe.conduit_power=Conduit Power
 effect.oe.descent=Descent
@@ -363,11 +369,13 @@ oe.config.item.enableTurtleShellDesc=Enable Turtle Shell Description
 
 oe.config.enchant=Enchantment Config
 oe.config.enchant.impaling=Impaling Config
+oe.config.entity.enableImpalingEnchant=Enable Impaling
 oe.config.enchant.enableWaterJet=Enable Water Jet
 oe.config.enchant.impalingDamage=Impaling Damage
 oe.config.enchant.waterJetDamage=Water Jet Damage
 oe.config.enchant.impalingMobs=Impaling Affected Mobs
 oe.config.enchant.channeling=Channeling Config
+oe.config.entity.enableChannelingEnchant=Enable Channeling
 oe.config.enchant.channelingWaterCheck=Channeling Avoid Water
 oe.config.enchant.channelingLavaCheck=Channeling Avoid Lava
 oe.config.enchant.channelingInvert=Invert Channeling Whitelist
@@ -412,6 +420,7 @@ oe.config.entity.glowSquid=Glow Squid Config
 oe.config.entity.glowSquidBodyBright=Glow Squid Brightness
 oe.config.entity.glowSquidLayer=Enable Glow Squid 2ed Layer
 oe.config.entity.glowSquidLayerBright=Glow Squid Layer Brightness
+oe.config.entity.glowSquidSpawnMaxHeight=Glow Squid Max Spawn Height
 oe.config.entity.enableDrownedStepup=Enable Drowned block stepup
 oe.config.entity.enableDrownedSwimAnims=Enable Drowned swimming animations
 oe.config.entity.pickled=Pickled Config
@@ -534,3 +543,15 @@ subtitle.oe.turtle.hurt=Turtle hurts
 subtitle.oe.turtle.death=Turtle dies
 subtitle.oe.turtle.step=Turtle shambles
 subtitle.oe.turtle.swim=Turtle swims
+
+description.effect.oe.conduit=Grants Water Breathing, Night Vision, and Haste when submerged in water.
+description.effect.oe.descent=Pulls affected entities downward.
+
+oe.jei.barnacle_shells.desc=Barnacle Shells can be used to craft Coquina, or brew Potions of Descent.\n\nCan also be used to repair Heavy Boots in an anvil.
+oe.jei.coconut.desc=Coconuts are a gravity-affected block.\n\nIf a coconut lands on a mob, it will deal damage equal to [distance fallen] - 1, capped at 19 damage.\n\nIf a coconut falls from a height greater than 5 blocks or is mined with any tool, it will drop 2 Cracked Coconuts.
+oe.jei.conduit.desc=A Conduit gives the Conduit Power effect when active, and can attack nearby underwater hostile mobs.\n\nTo activate, build a frame of Prismarine Blocks around the outside of the conduit, in a 5x5x5 area. The inner 3x3x3 area must be open water, with the conduit in the center. The conduit will animate when active. At least 12 frame blocks are required to activate.\n\nThe Conduit Power effect is given within an area equal to [frame blocks amount]/7 * 16.\n\nIf there are at lest 42 block in the frame, the conduit will begin 'hunting', dealing damage to any wet hostile mobs within 8 blocks.
+oe.jei.guardian_spike.desc=Guardian Spikes are primarily used to craft Tridents. They are either dropped by an Elder Guardian, or very rarely dropped from a normal Guardian.\n\nFalling onto a Guardian Spike multiplies fall damage by 2.
+oe.jei.palm_leaves_flowering.desc=Flowering Palm Leaves grow Coconuts on their bottom, and can be bonemealed.\n\nThey cannot be obtained in survival.
+oe.jei.sea_oats.desc=Sea Oats come in Short and Tall variants, with the Tall variant able to generate Sand.\n\nIf Tall Sea Oats have a block touching 1 side, they have a chance to become sandy on the bottom. Using a Shovel on the Tall Sea Oats will harvest a duplicate of the sand it is planted on.\n\nUsing Shears on Tall Sea Oats will cut it into Short Sea Oats, while using Bonemeal on Short Sea Oats will grow it into Tall Sea Oats.
+oe.jei.sea_pickle.desc=Sea Pickles can be placed into groups up to 4. When underwater, they emit light.\n\nUsing Bonemeal on a colony of Sea Pickles less than 4 will increase the number. If the colony is atop a Coral Block, Sea Pickles can be spread atop nearby Coral Blocks.
+oe.jei.shell_sand.desc=Shelly Sand can be either right-clicked with a shovel or mined to obtain loot. It can also be directly obtained using Silk Touch.

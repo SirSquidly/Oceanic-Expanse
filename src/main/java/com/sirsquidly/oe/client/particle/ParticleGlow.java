@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ParticleGlow extends ParticleBase
 {
 	private static final ResourceLocation GLOW_TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/particles/glow.png");

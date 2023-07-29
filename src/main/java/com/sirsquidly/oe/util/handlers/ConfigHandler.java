@@ -964,6 +964,10 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.glowSquidLayerBright")
 		    @Config.Comment("Brightness of a Glow Squids' second layer. 15 is Full Bright")
 		    public int glowSquidLayerBright = 11;
+		    
+		    @Config.LangKey("oe.config.entity.glowSquidSpawnMaxHeight")
+		    @Config.Comment("The Maximum spawn height of the Glow Squid")
+		    public int glowSquidSpawnMaxHeight = 40;
 	    }
 		
 		@RequiresMcRestart
@@ -1274,6 +1278,11 @@ public class ConfigHandler
 		public static class configImpaling
 		{
 			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableImpalingEnchant")
+		    @Config.Comment("If the Impaling Enchantment should be enabled.")
+		    public boolean enableImpalingEnchant = true;
+			
+			@RequiresMcRestart
 		    @Config.LangKey("oe.config.enchant.enableWaterJet")
 		    @Config.Comment("Adds the Water Jet enchantment, which functions like Bedrock Edition's Impaling (Bonus damage to wet mobs). (0 = Disabled, 1 = Enabled, 2 = Disable, and make Impaling use this behavior instead.)")
 		    public int enableWaterJet = 1;
@@ -1310,6 +1319,11 @@ public class ConfigHandler
 		
 		public static class configChanneling
 		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableChannelingEnchant")
+		    @Config.Comment("If the Channeling Enchantment should be enabled.")
+		    public boolean enableChannelingEnchant = true;
+			
 		    @Config.LangKey("oe.config.enchant.channelingWaterCheck")
 		    @Config.Comment("Prevents Lightning if the target is in Water")
 		    public boolean waterCheck = true;

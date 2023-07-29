@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ParticleInk extends ParticleSmokeNormal
 {
 	protected ParticleInk(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xMovementIn, double yMovementIn, double zMovementIn)

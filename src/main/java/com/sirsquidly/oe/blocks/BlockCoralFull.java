@@ -26,6 +26,9 @@ public class BlockCoralFull extends Block
 		super(Material.ROCK, blockMapColor);
 		this.setSoundType(soundIn);
 		this.setDefaultState(this.blockState.getBaseState());		
+		this.setHardness(1.5F);
+		this.setResistance(6.5F);
+		
 		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralBlockDryTicks == 0 ? false : true);
 	}
 	
@@ -45,18 +48,18 @@ public class BlockCoralFull extends Block
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-    	if (state.getBlock() == OEBlocks.BLUE_CORAL_BLOCK)
+    	if (this == OEBlocks.BLUE_CORAL_BLOCK)
     	{ return Item.getItemFromBlock(OEBlocks.BLUE_CORAL_BLOCK_DEAD); }	
-    	if (state.getBlock() == OEBlocks.PINK_CORAL_BLOCK)
+    	if (this == OEBlocks.PINK_CORAL_BLOCK)
     	{ return Item.getItemFromBlock(OEBlocks.PINK_CORAL_BLOCK_DEAD); }
-    	if (state.getBlock() == OEBlocks.PURPLE_CORAL_BLOCK)
+    	if (this == OEBlocks.PURPLE_CORAL_BLOCK)
     	{ return Item.getItemFromBlock(OEBlocks.PURPLE_CORAL_BLOCK_DEAD); }
-    	if (state.getBlock() == OEBlocks.RED_CORAL_BLOCK)
+    	if (this == OEBlocks.RED_CORAL_BLOCK)
     	{ return Item.getItemFromBlock(OEBlocks.RED_CORAL_BLOCK_DEAD); }
-    	if (state.getBlock() == OEBlocks.YELLOW_CORAL_BLOCK)
+    	if (this == OEBlocks.YELLOW_CORAL_BLOCK)
     	{ return Item.getItemFromBlock(OEBlocks.YELLOW_CORAL_BLOCK_DEAD); }
     	
-    	return null;
+    	return super.getItemDropped(state, rand, fortune);
     }
     
     protected boolean canSilkHarvest() { return true; }

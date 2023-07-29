@@ -240,6 +240,15 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     }
     
     @Override
+	public boolean getCanSpawnHere()
+    {
+    	/* Lazy fix for Drowned spawning where they shouldn't **/
+		if (this.world.provider.getDimension() != 0) return false;
+
+		return super.getCanSpawnHere();
+    }
+    
+    @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
     	this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));

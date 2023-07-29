@@ -138,7 +138,7 @@ public class BlockCoralFan extends Block implements IChecksWater
     	if (state.getBlock() == OEBlocks.YELLOW_CORAL_FAN)
     	{ return Item.getItemFromBlock(OEBlocks.YELLOW_CORAL_FAN_DEAD); }
     	
-    	return null;
+    	return super.getItemDropped(state, rand, fortune);
     }
     
     protected boolean canSilkHarvest() { return true; }

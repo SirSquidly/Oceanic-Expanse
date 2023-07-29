@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -56,7 +57,7 @@ public class BucketMobEvent
 			
 			for (Entity entity : list)
 	        {
-	            if (entity != null && !(entity instanceof EntityPlayer) && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()))
+	            if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityPlayerMP) && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()))
 	            {
 	                AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox();
 	                RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(eyePosition, traceEnd);
@@ -79,7 +80,7 @@ public class BucketMobEvent
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		
-		if ((stack.getItem() instanceof ItemBucket) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase) 
+		if ((stack.getItem() instanceof ItemBucket) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase && !(event.getTarget() instanceof EntityPlayer) && !(event.getTarget() instanceof EntityPlayerMP)) 
 		{
 			EntityLivingBase entity = (EntityLivingBase) event.getTarget();
 			

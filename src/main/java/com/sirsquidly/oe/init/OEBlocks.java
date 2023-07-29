@@ -76,8 +76,8 @@ public class OEBlocks
 		public static Block PALM_LEAVES_FLOWERING = new BlockPalmLeavesFlowering();
 		public static Block PALM_SAPLING = new BlockPalmSapling();
 		
-		public static Block BLUE_ICE = new BlockBlueIce();
-		public static Block SEA_TURTLE_EGG = new BlockTurtleEgg();
+		public static Block BLUE_ICE = new BlockBlueIce().setHardness(2.8F).setResistance(2.8F);
+		public static Block SEA_TURTLE_EGG = new BlockTurtleEgg().setHardness(0.5F).setResistance(0.5F);
 		public static Block CONDUIT = new BlockConduit();
 		public static Block SEA_OATS = new BlockDoubleSeaOats();
 		public static Block TUBE_SPONGE = new BlockTubeSponge();
@@ -86,7 +86,7 @@ public class OEBlocks
 		public static Block DRIED_DULSE_BLOCK = new BlockDriedKelp();
 		public static Block UNDERWATER_TORCH = new BlockUnderwaterTorch();
 		
-		public static Block SHELL_SAND = new BlockShellSand();
+		public static Block SHELL_SAND = new BlockShellSand().setHardness(0.5F).setResistance(0.5F);
 		public static Block COQUINA = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
 		public static Block COQUINA_BRICK = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
 		public static Block COQUINA_BRICK_SLAB = new BlockOESlab(Material.ROCK, SoundType.STONE, 0.5F, 15.0F);

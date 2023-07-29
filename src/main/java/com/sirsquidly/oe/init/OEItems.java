@@ -47,15 +47,15 @@ public class OEItems
 	public static Item SQUID_UNCOOKED = new ItemFoodBase(0, 0, 0, false);
 	public static Item SQUID_COOKED = new ItemFoodBase(0, 0, 0, false);
 	
-	public static Item COCONUT_OPEN = new ItemFoodBase(3, 4.0F, 32, false);
+	public static Item COCONUT_OPEN = new ItemFoodBase(3, 0.6F, 32, false);
 	
 	public static Item DRIED_KELP = new ItemFoodBase(1, 0.6F, 16, false);
-	public static Item DRIED_DULSE = new ItemFoodBase(3, 3.6F, 32, false);
+	public static Item DRIED_DULSE = new ItemFoodBase(3, 0.6F, 32, false);
 	
 	public static Item SPAWN_BUCKET = new ItemSpawnBucket();
 	
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Item> event)
+	public static void registerItems(RegistryEvent.Register<Item> event)
 	{
 		if (ConfigHandler.item.turtleShell.enableTurtleShell) itemReadyForRegister(TURTLE_HELMET, "turtle_helmet");
 		if (ConfigHandler.item.trident.enableTrident) itemReadyForRegister(TRIDENT_ORIG, "trident");

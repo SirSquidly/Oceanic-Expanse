@@ -96,7 +96,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 
         BlockPos blockpos = new BlockPos(this.xTile, this.yTile, this.zTile);
         IBlockState iblockstate = this.world.getBlockState(blockpos);
-        //Block block = iblockstate.getBlock();
+        Block block = iblockstate.getBlock();
 
         if (iblockstate.getMaterial() != Material.AIR)
         {
@@ -117,12 +117,15 @@ public class AbstractArrow extends EntityArrow implements IProjectile
         {
         	++this.timeInGround;
 
-            if (!this.world.collidesWithAnyBlock(this.getEntityBoundingBox().grow(0.05D)))
+        	int j = block.getMetaFromState(iblockstate);
+        	
+            if ((block != this.inTile || j != this.inData) &&!this.world.collidesWithAnyBlock(this.getEntityBoundingBox().grow(0.05D)))
             {
                 this.inGround = false;
                 this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
                 this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
                 this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
+                
             }
             else
             {

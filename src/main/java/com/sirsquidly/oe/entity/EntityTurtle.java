@@ -186,6 +186,12 @@ public class EntityTurtle extends AbstractFish
         int j = MathHelper.floor(this.getEntityBoundingBox().minY);
         int k = MathHelper.floor(this.posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
+        
+        
+        BlockPos check1 = new BlockPos(this.getEntityBoundingBox().minX, j, this.getEntityBoundingBox().minZ);
+        BlockPos check2 = new BlockPos(this.getEntityBoundingBox().maxX, j, this.getEntityBoundingBox().maxZ);
+        if (!this.world.getBlockState(check1).getBlock().isPassable(this.getEntityWorld(), check1) || !this.world.getBlockState(check2).getBlock().isPassable(this.getEntityWorld(), check2)) return false;
+        
         return this.posY > 59.0D && this.posY < 68.0D && this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7 && super.getCanSpawnHere();
     }
 	
