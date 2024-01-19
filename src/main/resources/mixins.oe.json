@@ -1,0 +1,11 @@
+{
+	"required": true,
+    "compatibilityLevel": "JAVA_8",
+    "package": "com.sirsquidly.oe.mixin",
+    "refmap": "refmap.oe.json",
+    "mixins": [],
+    "client": [ 
+    	"MixinModelBiped"
+    ],
+    "server": []
+}
