@@ -31,6 +31,8 @@ public class OESounds
 	
 	public static SoundType CORAL = new SoundType(1.0f, 1.0f, BLOCK_CORAL_BREAK, BLOCK_CORAL_STEP, BLOCK_CORAL_PLACE, BLOCK_CORAL_HIT, BLOCK_CORAL_FALL);
 	
+	public static SoundEvent BLOCK_PRISMARINE_STALKS_GROW = soundReadyForRegister("block.prismarine_stalks.grow");
+	
 	public static SoundEvent BLOCK_WET_GRASS_BREAK = soundReadyForRegister("block.wet_grass.break");
 	public static SoundEvent BLOCK_WET_GRASS_FALL = soundReadyForRegister("block.wet_grass.fall");
 	public static SoundEvent BLOCK_WET_GRASS_HIT = soundReadyForRegister("block.wet_grass.hit");

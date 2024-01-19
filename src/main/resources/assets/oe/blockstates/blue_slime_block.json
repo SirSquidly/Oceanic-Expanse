@@ -1,0 +1,22 @@
+{
+    "variants": {
+       	"normal": [
+       		{ "model": "oe:blue_slime_block" },
+            { "model": "oe:blue_slime_block", "y": 90 },
+            { "model": "oe:blue_slime_block", "y": 180 },
+            { "model": "oe:blue_slime_block", "y": 270 },
+            { "model": "oe:blue_slime_block", "x": 90 },
+            { "model": "oe:blue_slime_block", "y": 90, "x": 90 },
+            { "model": "oe:blue_slime_block", "y": 180, "x": 90 },
+            { "model": "oe:blue_slime_block", "y": 270, "x": 90 },
+            { "model": "oe:blue_slime_block", "x": 180 },
+            { "model": "oe:blue_slime_block", "y": 90, "x": 180 },
+            { "model": "oe:blue_slime_block", "y": 180, "x": 180 },
+            { "model": "oe:blue_slime_block", "y": 270, "x": 180 },
+            { "model": "oe:blue_slime_block", "x": 270 },
+            { "model": "oe:blue_slime_block", "y": 90, "x": 270 },
+            { "model": "oe:blue_slime_block", "y": 180, "x": 270 },
+            { "model": "oe:blue_slime_block", "y": 270, "x": 270 }
+         ]
+    }
+}

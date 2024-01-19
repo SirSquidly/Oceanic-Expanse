@@ -1,0 +1,8 @@
+{
+    "variants":
+    {
+        "height=0": { "model": "oe:prismarine_stalks_stage1" },
+        "height=1": { "model": "oe:prismarine_stalks_stage2" },
+        "height=2": { "model": "oe:prismarine_stalks_stage3" }
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "parent": "oe:block/prismarine_pot",
+    "textures": 
+    {
+        "2": "oe:blocks/prismarine_pot_top_sealed",
+		"3": "oe:blocks/prismarine_pot_side_sealed",
+		"particle": "oe:blocks/prismarine_pot_side_sealed"
+    }
+}

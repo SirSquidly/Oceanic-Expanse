@@ -2,10 +2,12 @@
     "parent": "oe:item/trident_model",
     "overrides": [
         {
-            "predicate": {
-                "model": 1
-            },
+            "predicate": { "model": 1 },
             "model": "oe:item/trident_inv"
+        },
+        {
+            "predicate": { "model": 2 },
+            "model": "oe:item/trident_model_reverse"
         }
     ]
 }

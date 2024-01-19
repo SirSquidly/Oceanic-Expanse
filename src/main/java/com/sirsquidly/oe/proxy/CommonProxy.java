@@ -13,7 +13,11 @@ import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.network.OEPacketHandler;
 import com.sirsquidly.oe.network.OEPacketSpawnParticles;
 import com.sirsquidly.oe.tileentity.TileConduit;
+import com.sirsquidly.oe.tileentity.TilePickledSkull;
+import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.util.handlers.GuiHandler;
 import com.sirsquidly.oe.util.handlers.RenderHandler;
 import com.sirsquidly.oe.world.*;
 import com.sirsquidly.oe.world.feature.*;
@@ -55,6 +59,8 @@ public class CommonProxy
 	public void preInitRegisteries(FMLPreInitializationEvent event)
 	{
 		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Main.MOD_ID, "conduit"));
+		GameRegistry.registerTileEntity(TilePickledSkull.class, new ResourceLocation(Main.MOD_ID, "pickled_skull"));
+		GameRegistry.registerTileEntity(TilePrismarinePot.class, new ResourceLocation(Main.MOD_ID, "prismarine_pot"));
 		
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.OCEAN));
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.BEACH));
@@ -81,10 +87,14 @@ public class CommonProxy
 		
 		OEPacketHandler.registerMessages();
 		
+		ConfigArrayHandler.breakupConfigArrays();
+		
 		if (Loader.isModLoaded("fluidlogged_api"))
 		{
 			fluidlogged_enable = true;
 		}
+		
+		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new GuiHandler());
 	}
 	
 	@SideOnly(Side.CLIENT)

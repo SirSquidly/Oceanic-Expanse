@@ -7,6 +7,7 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.blocks.*;
 import com.sirsquidly.oe.items.ItemBlockSeaPickle;
 import com.sirsquidly.oe.items.ItemBlockSlab;
+import com.sirsquidly.oe.items.ItemOESkull;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
@@ -61,6 +62,7 @@ public class OEBlocks
 		public static Block KELP_TOP = new BlockTopKelp();
 		public static Block DRIED_KELP_BLOCK = new BlockDriedKelp();
 		public static Block COCONUT = new BlockCoconut();
+		public static Block PALM_BOOKSHELF = new BlockOEBookshelf(SoundType.WOOD).setHardness(1.5F);
 		public static Block PALM_LOG = new BlockPalmLog();
 		public static Block PALM_WOOD = new BlockPalmLog();
 		public static Block PALM_LOG_STRIPPED = new BlockPalmLog();
@@ -77,6 +79,7 @@ public class OEBlocks
 		public static Block PALM_SAPLING = new BlockPalmSapling();
 		
 		public static Block BLUE_ICE = new BlockBlueIce().setHardness(2.8F).setResistance(2.8F);
+		public static Block BLUE_SLIME = new BlockBlueSlime();
 		public static Block SEA_TURTLE_EGG = new BlockTurtleEgg().setHardness(0.5F).setResistance(0.5F);
 		public static Block CONDUIT = new BlockConduit();
 		public static Block SEA_OATS = new BlockDoubleSeaOats();
@@ -85,6 +88,11 @@ public class OEBlocks
 		public static Block DULSE = new BlockDulse();
 		public static Block DRIED_DULSE_BLOCK = new BlockDriedKelp();
 		public static Block UNDERWATER_TORCH = new BlockUnderwaterTorch();
+		
+		public static Block PICKLED_HEAD = new BlockPickledHead();
+		
+		public static Block PRISMARINE_POT = new BlockPrismarinePot();
+		public static Block PRISMARINE_STALKS = new BlockPrismarineStalks();
 		
 		public static Block SHELL_SAND = new BlockShellSand().setHardness(0.5F).setResistance(0.5F);
 		public static Block COQUINA = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
@@ -222,7 +230,16 @@ public class OEBlocks
 				blockReadyForRegister(PALM_FENCE, "palm_fence"); PALM_FENCE.setHardness(2.0F).setResistance(5.0F);
 				blockReadyForRegister(PALM_FENCE_GATE, "palm_fence_gate"); PALM_FENCE_GATE.setHardness(2.0F).setResistance(5.0F);
 				blockReadyForRegister(PALM_DOOR, "palm_door");
+				
+				blockReadyForRegister(PALM_BOOKSHELF, "palm_bookshelf");
+				
 			} 
+			
+			blockReadyForRegister(PICKLED_HEAD, "pickled_head");
+			blockReadyForRegister(PRISMARINE_POT, "prismarine_pot");
+			blockReadyForRegister(PRISMARINE_STALKS, "prismarine_stalks");
+
+			blockReadyForRegister(BLUE_SLIME, "blue_slime_block");
 			
 			if (ConfigHandler.block.seagrass.enableSeagrass) blockReadyForRegister(SEAGRASS, "seagrass");
 			if (ConfigHandler.block.seagrass.enableTallSeagrass) blockReadyForRegister(TALL_SEAGRASS, "tall_seagrass");
@@ -251,6 +268,7 @@ public class OEBlocks
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerItemBlock(r, new ItemBlockSlab(PALM_SLAB, (BlockSlab)PALM_SLAB, (BlockSlab)PALM_SLAB_D)); itemBlockBlacklist.add(PALM_SLAB);
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
 		
+		registerItemBlock(r, new ItemOESkull(PICKLED_HEAD)); itemBlockBlacklist.add(PICKLED_HEAD);
 		
 		/** As stated on itemBlockBlacklist, this registers anything NOT from the blacklist with a generic itemBlock.*/
 		for (Block blocks : blockList) if (!(itemBlockBlacklist.contains(blocks))) { registerItemBlock(r, blocks);}

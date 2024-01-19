@@ -29,12 +29,15 @@ public class OEEntities
 		if (ConfigHandler.entity.turtle.enableTurtle) registerEntity("turtle", EntityTurtle.class, ++id, 64, 12763520, 4702026);
 		if (ConfigHandler.entity.crab.enableCrab) registerEntity("crab", EntityCrab.class, ++id, 64, 12860482, 15453241);
 		if (ConfigHandler.entity.clam.enableClam) registerEntity("clam", EntityClam.class, ++id, 64, 14327661, 15701910);
+		registerEntity("lobster", EntityLobster.class, ++id, 64, 14327661, 15701910);
 		
 		if (ConfigHandler.entity.babySquid.enableBabySquid) registerEntity("baby_squid", EntityBabySquid.class, ++id, 100, 3696778, 10531777);
 		if (ConfigHandler.entity.babyGlowSquid.enableBabyGlowSquid) registerEntity("baby_glow_squid", EntityBabyGlowSquid.class, ++id, 100, 3696778, 10944467);
 		
 		if (ConfigHandler.entity.drowned.enableDrowned) registerEntity("drowned", EntityDrowned.class, ++id, 80, 5609880, 12434265);
+		registerEntity("tropical_slime", EntityTropicalSlime.class, ++id, 64, 14327661, 15701910);
 		
+		registerEntity("palm_boat", EntityOEBoat.class, ++id, 100);
 		if (ConfigHandler.entity.pickled.enablePickled) registerEntity("pickled", EntityPickled.class, ++id, 80, 8223277, 14221270);
 		
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);

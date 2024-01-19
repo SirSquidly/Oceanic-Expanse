@@ -1,0 +1,7 @@
+{
+    "parent": "block/slime",
+    "textures": {
+        "particle": "oe:blocks/blue_slime",
+        "texture": "oe:blocks/blue_slime"
+    }
+}

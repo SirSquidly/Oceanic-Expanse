@@ -1,0 +1,79 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"2": "oe:blocks/prismarine_pot_top",
+		"3": "oe:blocks/prismarine_pot_side",
+		"particle": "oe:blocks/prismarine_pot_side"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [0, 4, 8, 16], "texture": "#3"},
+				"east": {"uv": [8, 4, 16, 16], "texture": "#3"},
+				"south": {"uv": [0, 4, 8, 16], "texture": "#3"},
+				"west": {"uv": [8, 4, 16, 16], "texture": "#3"},
+				"up": {"uv": [0, 0, 8, 8], "texture": "#2"},
+				"down": {"uv": [0, 0, 8, 8], "texture": "#2"}
+			}
+		},
+		{
+			"from": [5, 12, 5],
+			"to": [11, 16, 11],
+			"faces": {
+				"north": {"uv": [1, 0, 7, 4], "texture": "#3"},
+				"east": {"uv": [1, 0, 7, 4], "texture": "#3"},
+				"south": {"uv": [1, 0, 7, 4], "texture": "#3"},
+				"west": {"uv": [1, 0, 7, 4], "texture": "#3"},
+				"up": {"uv": [10, 2, 16, 8], "texture": "#2"},
+				"down": {"uv": [10, 2, 16, 8], "texture": "#2"}
+			}
+		},
+		{
+			"from": [6.001, 15.991, 6.001],
+			"to": [9.999, 17.989, 9.999],
+			"faces": {
+				"north": {"uv": [12, 14, 16, 16], "texture": "#2"},
+				"east": {"uv": [12, 14, 16, 16], "texture": "#2"},
+				"south": {"uv": [12, 14, 16, 16], "texture": "#2"},
+				"west": {"uv": [12, 14, 16, 16], "texture": "#2"},
+				"up": {"uv": [12, 10, 16, 14], "texture": "#2"},
+				"down": {"uv": [12, 10, 16, 14], "texture": "#2"}
+			}
+		}
+	],
+	"display":
+	{
+        "gui": {
+            "rotation": [ 30, 225, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 0.8, 0.8, 0.8 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 2, 0],
+            "scale":[ 0.5, 0.5, 0.5 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 0.5, 0.5, 0.5 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 45, 0 ],
+            "translation": [ 0, 1, 0],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.6, 0.6, 0.6 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 225, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.6, 0.6, 0.6 ]
+        }
+    }
+}

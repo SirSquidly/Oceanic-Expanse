@@ -72,6 +72,10 @@ public class AbstractFish extends EntityAnimal
 		return !checkNearbyEntites(16, 10, null) && checkHeight((int)this.posY, this.world);
     }
 	
+	/** Enables proper Despawning on Fish. Players don't need them to be persistent, and could use a bucket to make them so anyway. */
+	protected boolean canDespawn()
+    { return true; }
+	
 	/** Used to check nearby entities.
 	 * 
 	 *  int 'areaCheck' is the area to check, in a cube
@@ -163,7 +167,7 @@ public class AbstractFish extends EntityAnimal
     }
 	
 	public boolean isNotColliding()
-    { return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
+    { return this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
 	
 	public boolean isBreedingItem(ItemStack stack)
     { return BREEDING_ITEMS.contains(stack.getItem()); }
@@ -173,7 +177,7 @@ public class AbstractFish extends EntityAnimal
 	*/
 	public boolean isFlopping() 
 	{ 
-		return !this.isInWater();
+		return !this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world));
 	}
 	
 	/**

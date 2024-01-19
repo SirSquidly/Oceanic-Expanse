@@ -523,6 +523,17 @@ public class ConfigHandler
 		    public boolean enablePalmStrippedWoods = true;
 	    }
 		
+		@Config.LangKey("oe.config.block.pickledHead")
+	    public configPickledHead pickledHead = new configPickledHead();
+		
+		public static class configPickledHead
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enablePickledHead")
+		    @Config.Comment("If Pickled Heads are enabled.")
+		    public boolean enablePickledHead = true;
+	    }
+		
 		@Config.LangKey("oe.config.block.guardianSpike")
 	    public configGuardianSpike guardianSpike = new configGuardianSpike();
 		
@@ -971,6 +982,79 @@ public class ConfigHandler
 	    }
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.lobster")
+	    public configLobster lobster = new configLobster();
+		
+		public static class configLobster
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableLobster")
+		    @Config.Comment("If Lobster should be enabled")
+		    public boolean enableLobster = true;
+			
+			@Config.LangKey("oe.config.entity.lobsterHalfHalfChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterHalfHalfChance = 0.0002;
+			
+			@Config.LangKey("oe.config.entity.lobsterAlbinoChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterAlbinoChance = 0.0001;
+			
+			@Config.LangKey("oe.config.entity.lobsterCottonCandyChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterCottonCandyChance = 0.0001;
+			
+			@Config.LangKey("oe.config.entity.lobsterCalicoChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterCalicoChance = 0.0003;
+			
+			@Config.LangKey("oe.config.entity.lobsterOrangeChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterOrangeChance = 0.0003;
+			
+			@Config.LangKey("oe.config.entity.lobsterYellowChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterYellowChance = 0.0003;
+			
+			@Config.LangKey("oe.config.entity.lobsterRedChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterRedChance = 0.001;
+			
+			@Config.LangKey("oe.config.entity.lobsterBlueChance")
+		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
+		    public double lobsterBlueChance = 0.01;
+
+		    
+		    @Config.LangKey("oe.config.entity.lobsterVariantNames")
+		    @Config.Comment("The most likely list of tropical fish variants to spawn")
+		    public String[] lobsterVariantNames = 
+			{
+				 	"65536=Clownfish",
+				 	"459008=Triggerfish",
+				 	"917504=Tomato Clownfish",
+				 	"918273=Red Snapper",
+				 	"918529=Red Chichlid",
+				 	"16778497=Ornate Butterflyfish",
+				 	"50660352=Queen Angelfish",
+				 	"50726144=Cotton Candy Betta",
+				 	"67108865=Threadfin",
+				 	"67110144=Goatfish",
+				 	"67371009=Yellow Tang",
+				 	"67699456=Yellowtail Parrotfish",
+				 	"67764993=Dottyback",
+				 	"101253888=Parrotfish",
+				 	"117441025=Moorish Idol",
+				 	"117441793=Butterflyfish",
+				 	"117506305=Anemone",
+				 	"117899265=Black Tang",
+				 	"118161664=Cichlid",
+				 	"185008129=Blue Tang",
+				 	"234882305=Emperor Red Snapper",
+				 	"235340288=Red Lipped Blenny"
+		    };
+		}
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.pickled")
 	    public configPickled pickled = new configPickled();
 		
@@ -1377,6 +1461,10 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.effect.descentAqAcWaterPull")
 		    @Config.Comment("How much Descent pulls the player when in water, WITH Aqua Acrobatics installed. Uses a different formula, but will use the original if set to 0.")
 		    public double descentAqAcWaterPull = 0.07;
+		    
+		    @Config.LangKey("oe.config.effect.descentSlimeFix")
+		    @Config.Comment("Fixes an odd bug where slime blocks led to infinite momentum building. I made it a config option because it's funny.")
+		    public boolean descentSlimeFix = true;
 	    }
 	}
 	

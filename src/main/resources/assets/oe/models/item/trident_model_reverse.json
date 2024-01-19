@@ -1,0 +1,16 @@
+{
+    "parent": "oe:item/trident_model",
+    "display": 
+    {
+	    "thirdperson_righthand":
+	    {
+			"rotation": [180, 25, 0],
+			"translation": [0, -11, 1]
+		},
+		"thirdperson_lefthand":
+		{
+			"rotation": [180, 25, 0],
+			"translation": [0, -11, 1]
+		}
+  }
+}

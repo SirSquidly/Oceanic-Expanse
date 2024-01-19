@@ -89,6 +89,24 @@ public class ModelDrowned extends ModelZombie
 	        this.bipedLeftLeg.rotationPointY -= 0.15F;
         }
 		
+		float swimMath = drowned.getClientSwimTime(ageInTicks - (float)drowned.ticksExisted);
+		if (drowned.isInWater() && swimMath != 0)
+		{
+			this.bipedHead.rotateAngleX -= 1.25F * swimMath;
+			this.bipedHeadwear.rotateAngleX -= 1.25F * swimMath;
+			
+			this.bipedRightArm.rotateAngleY = 0.3F * swimMath;
+			this.bipedLeftArm.rotateAngleY = -0.3F * swimMath;
+			
+			this.bipedRightArm.rotateAngleZ = -0.2F * swimMath;
+			this.bipedLeftArm.rotateAngleZ = 0.2F * swimMath;
+		}
+		
+		
+		
+		
+		
+		
 		if (!drowned.getHeldItem(EnumHand.OFF_HAND).isEmpty() && ConfigHandler.entity.drowned.enableDrownedLowerArms && this.swingProgress <= 0.0F)
         {
 			float f = 1.0F;

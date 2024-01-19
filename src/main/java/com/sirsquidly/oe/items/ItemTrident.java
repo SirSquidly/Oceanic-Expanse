@@ -3,6 +3,7 @@ package com.sirsquidly.oe.items;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OESounds;
@@ -55,6 +56,10 @@ public class ItemTrident extends Item
 				{
 					return 0.0F;
 				}
+				if (entityIn != null && entityIn.getActiveItemStack().getItem() instanceof ItemTrident && entityIn.getItemInUseCount() > 0)
+				{
+					return worldIn == null ? 1.0F : 2.0F;
+				}
 				
 				return worldIn == null ? 1.0F : 0.0F;
 			}
@@ -65,19 +70,13 @@ public class ItemTrident extends Item
     { return false; }
 	
 	public EnumAction getItemUseAction(ItemStack stack)
-    {
-        return EnumAction.BOW;
-    }
+    { return Main.SPEAR; }
 
     public int getMaxItemUseDuration(ItemStack stack)
-    {
-        return 72000;
-    }
+    { return 72000; }
     
     public int getItemEnchantability()
-    {
-        return 22;
-    }
+    { return 22; }
     
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {

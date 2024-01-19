@@ -1,40 +1,59 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        maven {
+            name = "Forge"
+            url = "https://maven.minecraftforge.net"
+        }
+        maven {
+            name = "Sponge"
+            url = "https://repo.spongepowered.org/maven"
+        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'com.anatawa12.forge:ForgeGradle:2.3-1.0.8'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-
+apply plugin: 'eclipse'
+apply plugin: 'org.spongepowered.mixin'
 
 version = "1.0.7"
-group = "com.sirsquidly.oe" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "com.sirsquidly.oe"
 archivesBaseName = "OceanicExpanse"
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "1.12.2-14.23.5.2847"
     runDir = "run"
-    
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "snapshot_20171003"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    
+    def args = ["-Dmixin.debug.export=true",
+                '-Dmixin.hotSwap=true',
+                '-Dmixin.checks.interfaces=true'
+                ]
+
+    clientJvmArgs.addAll(args)
+    serverJvmArgs.addAll(args)
 }
 
 repositories
 {
+	maven {
+        name = "Curse Maven"
+        url = "https://cursemaven.com"
+    }
+    maven {
+        name = "CleanroomMC"
+        url = "https://maven.cleanroommc.com"
+    }
     maven {
         //JEI files
         name = "DVS1 Maven FS"
@@ -45,29 +64,47 @@ repositories
         name = "ModMaven"
         url = "http://modmaven.k-4u.nl"
     }
+    
+    maven {
+        name = 'Sponge'
+        url = uri('https://repo.spongepowered.org/maven')
+    }
 }
 
 
 dependencies
 {
 	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}"
+	
+	implementation "zone.rong:mixinbooter:8.4"
+	
+	//implementation "curse.maven:mixin-booter-419286:${project.mixinbooter_version}"
+    annotationProcessor "org.spongepowered:mixin:${project.mixin_version}:processor"	
 }
-
-processResources {
-    // this will ensure that this task is redone when the versions change.
+processResources
+{
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
     inputs.property "version", project.version
-    inputs.property "mc_version", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
+    inputs.property "mcversion", project.minecraft.version
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mc_version
-        expand 'version':project.version, 'mc_version':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
-    // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+mixin {
+    add sourceSets.main, "refmap.oe.json"
+}
+
+jar {
+	manifest {
+        attributes(
+                'FMLCorePlugin': 'com.sirsquidly.oe.core.OECore',
+                'FMLCorePluginContainsFMLMod': 'true',
+                'ForceLoadAsMod': 'true' // Swap to 'true' when building .jar
+        )
     }
 }

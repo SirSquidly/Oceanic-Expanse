@@ -62,6 +62,9 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	/** The time since the conch was last used */
     private int conchUseTime;
     
+    private float swimTime;
+    private float prevSwimTime;
+    
 	private final PathNavigateSwimmer waterNavigator;
 	private final PathNavigateGround groundNavigator;
 	
@@ -152,6 +155,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	public void onUpdate()
     {
 		super.onUpdate();
+		this.setupSwimTimeing();
 		BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
 		EntityLivingBase attackTarget = this.getAttackTarget();
 		
@@ -185,6 +189,13 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 		
 		if (!world.isRemote) 
         {
+			if (attackTarget != null && this.getItemInUseMaxCount() == 0 && (attackTarget.posY - 1.9 > this.posY || attackTarget.posY + 1.9 < this.posY))
+			{
+				this.setSwimming(true);
+			}
+			else this.setSwimming(false);
+			
+			
             if (isServerWorld() && (isInWater() && this.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER)) navigator = waterNavigator; 
             else navigator = groundNavigator;
             
@@ -194,9 +205,33 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             //** The material check is to make sure they don't act odd when the player is bobbing on the surface of water. */
             if (attackTarget != null && this.world.isDaytime() && (!attackTarget.isWet() && this.world.getBlockState(attackTarget.getPosition().down()).getMaterial() != Material.WATER))
             {
-            	if (this.getHeldItem(EnumHand.MAIN_HAND).getItem() != OEItems.TRIDENT_ORIG) setAttackTarget(null);
+            	setAttackTarget(null);
             }
         }
+    }
+    
+    //** Increases the swim timers when is swimming. */
+    public void setupSwimTimeing()
+    {
+    	if (!world.isRemote) return;
+    	
+    	prevSwimTime = swimTime;
+    	
+    	if (this.isInWater() && this.isSwimming())
+    	{
+    		this.swimTime = Math.min(1.0F, this.swimTime + 0.09F);
+    	}
+    	else
+    	{
+    		this.swimTime = Math.max(0.0F, this.swimTime - 0.09F);
+    	}
+    }
+    
+    //** Sets up the swim timer for proper animation usage.  */
+    @SideOnly(Side.CLIENT)
+    public float getClientSwimTime(float partialTick)
+    {
+        return this.prevSwimTime + (this.swimTime - this.prevSwimTime) * partialTick;
     }
     
     private void summonReinforcements()
@@ -233,20 +268,20 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     @Override
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
     {
-        if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() && this.world.isDaytime() && this.getHeldItem(EnumHand.MAIN_HAND).getItem() != OEItems.TRIDENT_ORIG)
+        if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() && this.world.isDaytime())
         {}
         else
         { super.setAttackTarget(entitylivingbaseIn); }
     }
     
     @Override
-	public boolean getCanSpawnHere()
+   	public boolean getCanSpawnHere()
     {
-    	/* Lazy fix for Drowned spawning where they shouldn't **/
-		if (this.world.provider.getDimension() != 0) return false;
+      /* Lazy fix for Drowned spawning where they shouldn't **/
+    	if (this.world.provider.getDimension() != 0) return false;
 
-		return super.getCanSpawnHere();
-    }
+	return super.getCanSpawnHere();
+	}
     
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
@@ -422,7 +457,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     		this.drownedTarget = this.drowned.getAttackTarget();
     				
     		if (this.drownedTarget != null && this.drownedTarget.posY > this.drowned.posY && this.drowned.isInWater()) 
-    		{ this.drowned.motionY += 0.05D; drowned.velocityChanged = true;}
+    		{ this.drowned.motionY += 0.001D; drowned.velocityChanged = true;}
         }
     }
 

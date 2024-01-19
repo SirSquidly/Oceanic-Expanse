@@ -1,0 +1,9 @@
+{
+    "variants":
+    {
+        "axis=x,sealed=false": { "model": "oe:prismarine_pot" },
+        "axis=z,sealed=false": { "model": "oe:prismarine_pot", "y": 90 },
+        "axis=x,sealed=true": { "model": "oe:prismarine_pot_sealed" },
+        "axis=z,sealed=true": { "model": "oe:prismarine_pot_sealed", "y": 90 }
+    }
+}

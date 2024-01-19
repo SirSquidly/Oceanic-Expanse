@@ -90,6 +90,12 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 			            }
 			           
 			            GlStateManager.translate((float)(left ? -1 : 1) / 16.0F, 0.125F, -0.625F);
+			            
+			            EntityDrowned drowned = (EntityDrowned) entity;
+			            float swimMath = drowned.getClientSwimTime((float)entity.ticksExisted);
+			            
+			            //if (swimMath != 0) GlStateManager.translate((float)(left ? 2.3 : -2.3) / 16.0F, -0.6F, -0.5F);
+			            
 			            Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, item, camera, left);
 			            GlStateManager.popMatrix();
 			        }
@@ -130,11 +136,18 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 	{
 		float size = 0.9375F;
 		float bobbing = MathHelper.cos(entity.ticksExisted * 0.09F) * 0.05F + 0.05F;
+		float swimAngle = entity.getClientSwimTime(f) * entity.rotationPitch;
 		
 		if (entity.isInWater() && ConfigHandler.entity.drowned.enableDrownedSwimAnims)
 		{
 			GL11.glRotatef(-bobbing*20, 1F, 0F, 0F);
 			GL11.glTranslatef(0F, bobbing/2 - 0.1F, 0F);
+		}
+		if (entity.isInWater() && entity.getClientSwimTime(f) != 0)
+		{
+			GL11.glRotatef(90.0F * entity.getClientSwimTime(f), 1F, 0F, 0F);
+			GL11.glTranslatef(0F, 1F * entity.getClientSwimTime(f), (1F + (swimAngle/30)) * entity.getClientSwimTime(f));
+			GL11.glRotatef(swimAngle * entity.getClientSwimTime(f), 1F, 0F, 0F);
 		}
 		
 		GlStateManager.scale(size, size, size);

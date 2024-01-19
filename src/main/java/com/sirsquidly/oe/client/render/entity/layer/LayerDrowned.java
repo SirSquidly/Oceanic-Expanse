@@ -36,7 +36,13 @@ public class LayerDrowned implements LayerRenderer<EntityDrowned>
         GlStateManager.enableLighting();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
+        //this.DrownedRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        
+        
+        this.DrownedRenderer.getMainModel().setModelAttributes(this.DrownedRenderer.getMainModel());
+        this.DrownedRenderer.getMainModel().setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
         this.DrownedRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        
         Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
         this.DrownedRenderer.setLightmap(entitylivingbaseIn);
         GlStateManager.depthMask(true);

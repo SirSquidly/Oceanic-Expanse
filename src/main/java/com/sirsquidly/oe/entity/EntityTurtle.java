@@ -187,12 +187,21 @@ public class EntityTurtle extends AbstractFish
         int k = MathHelper.floor(this.posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
         
-        
         BlockPos check1 = new BlockPos(this.getEntityBoundingBox().minX, j, this.getEntityBoundingBox().minZ);
         BlockPos check2 = new BlockPos(this.getEntityBoundingBox().maxX, j, this.getEntityBoundingBox().maxZ);
         if (!this.world.getBlockState(check1).getBlock().isPassable(this.getEntityWorld(), check1) || !this.world.getBlockState(check2).getBlock().isPassable(this.getEntityWorld(), check2)) return false;
         
-        return this.posY > 59.0D && this.posY < 68.0D && this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7 && super.getCanSpawnHere();
+        return this.posY > 59.0D && this.posY < 68.0D && this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7 && isNotColliding();
+    }
+	
+	/** As we inherit from the AbstractFish class, we want to re-disable this. Turtles are rare enough for players. */
+	protected boolean canDespawn()
+    { return false; }
+	
+	@Override
+	public boolean isNotColliding()
+    {
+        return !this.world.containsAnyLiquid(this.getEntityBoundingBox()) && this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this);
     }
 	
 	@Override

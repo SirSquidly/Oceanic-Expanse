@@ -52,6 +52,8 @@ public class OEItems
 	public static Item DRIED_KELP = new ItemFoodBase(1, 0.6F, 16, false);
 	public static Item DRIED_DULSE = new ItemFoodBase(3, 0.6F, 32, false);
 	
+	public static Item PALM_BOAT = new ItemOEBoat();
+	
 	public static Item SPAWN_BUCKET = new ItemSpawnBucket();
 	
 	@SubscribeEvent
@@ -71,6 +73,7 @@ public class OEItems
 		if (ConfigHandler.block.coconut.enableCoconut) itemReadyForRegister(COCONUT_OPEN, "coconut_open");
 		if (ConfigHandler.block.enableKelp) itemReadyForRegister(DRIED_KELP, "dried_kelp");
 		if (ConfigHandler.block.dulse.enableDulse) itemReadyForRegister(DRIED_DULSE, "dried_dulse");
+		itemReadyForRegister(PALM_BOAT, "palm_boat");
 		itemReadyForRegister(SPAWN_BUCKET, "spawn_bucket");
 		if (ConfigHandler.item.heavyBoots.enableHeavyBoots) itemReadyForRegister(HEAVY_BOOTS, "heavy_boots");
 		
