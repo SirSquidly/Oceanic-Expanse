@@ -14,9 +14,9 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
@@ -57,7 +57,7 @@ public class BlockDriedKelp extends Block
 
 		if (!((Boolean)state.getValue(OPEN)).booleanValue() && (this == OEBlocks.DRIED_DULSE_BLOCK ? ConfigHandler.block.dulse.driedDulseShears : ConfigHandler.block.driedKelpShears))
         {
-			if (item == Items.SHEARS)
+			if (item instanceof ItemShears)
 	        {
 				worldIn.setBlockState(pos, this.getDefaultState().withProperty(OPEN, true));
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);

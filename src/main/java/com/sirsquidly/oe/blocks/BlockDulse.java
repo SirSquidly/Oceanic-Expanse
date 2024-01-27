@@ -16,9 +16,9 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -113,7 +113,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 		
 		if (!((Boolean)state.getValue(SHEARED)).booleanValue() && ConfigHandler.block.dulse.dulseShears)
         {
-			if (item == Items.SHEARS)
+			if (item instanceof ItemShears)
 	        {
 				worldIn.setBlockState(pos, state.withProperty(SHEARED, true));
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);

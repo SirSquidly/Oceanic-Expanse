@@ -25,9 +25,10 @@ public class BlockOESlab extends BlockSlab
     {
         super(materialIn);
         this.setSoundType(soundIn);
-        setHardness(hardnessIn);
-		setResistance(resistenceIn);
-		setLightOpacity(255);
+        this.useNeighborBrightness = true;
+        this.setHardness(hardnessIn);
+        this.setResistance(resistenceIn);
+		this.setLightOpacity(255);
 		this.flamability = flamabilityIn;
 		this.fireSpread = fireSpreadIn;
     }

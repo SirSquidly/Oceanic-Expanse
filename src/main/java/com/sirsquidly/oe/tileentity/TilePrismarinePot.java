@@ -44,7 +44,7 @@ public class TilePrismarinePot extends TileEntityLockableLoot
 
 	@Override
 	public String getName()
-	{ return this.hasCustomName() ? this.customName : "oe.container.prismarine_pot"; }
+	{ return this.hasCustomName() ? this.customName : "container.oe.prismarine_pot"; }
 
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)

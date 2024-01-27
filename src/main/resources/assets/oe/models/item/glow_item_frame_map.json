@@ -1,0 +1,9 @@
+{
+    "parent": "block/item_frame_map",
+    "textures":
+    {
+        "particle": "blocks/planks_birch",
+        "wood": "blocks/planks_birch",
+        "back": "oe:items/glow_item_frame_back"
+    }
+}

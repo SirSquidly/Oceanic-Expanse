@@ -7,6 +7,7 @@ import com.sirsquidly.oe.entity.ai.EntityAICrabBarter;
 import com.sirsquidly.oe.entity.ai.EntityAICrabDig;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
@@ -95,7 +96,7 @@ public class EntityCrab extends EntityAnimal
     }
 	
 	public int getTalkInterval()
-    { return 280; }
+    { return ConfigHandler.entity.crab.crabTalkInterval; }
 	
 	public void onLivingUpdate()
     {
@@ -171,7 +172,7 @@ public class EntityCrab extends EntityAnimal
     }
 	
 	protected SoundEvent getAmbientSound()
-	{ return OESounds.ENTITY_CRAB_AMBIENT; }
+	{ return ConfigHandler.entity.crab.crabTalkInterval > 0 ? OESounds.ENTITY_CRAB_AMBIENT : null; }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
     { return OESounds.ENTITY_CRAB_HURT; }

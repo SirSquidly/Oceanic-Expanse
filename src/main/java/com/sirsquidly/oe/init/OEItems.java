@@ -42,8 +42,11 @@ public class OEItems
 	public static Item PEARL = new Item();
 	public static Item CONCH = new ItemConch();
 	public static Item GLOW_INK = new Item();
+	public static Item GLOW_ITEM_FRAME = new ItemGlowItemFrame();
 	public static Item CHLORINE = new ItemChlorine();
 
+	public static Item BLUE_SLIME_BALL = new ItemFoodBase(0, 0, 16, false).setAlwaysEdible();
+	
 	public static Item SQUID_UNCOOKED = new ItemFoodBase(0, 0, 0, false);
 	public static Item SQUID_COOKED = new ItemFoodBase(0, 0, 0, false);
 	
@@ -69,7 +72,9 @@ public class OEItems
 		if (ConfigHandler.item.conch.enableConch) itemReadyForRegister(CONCH, "conch");
 		itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
+		itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
 		itemReadyForRegister(CHLORINE, "chlorine");
+		itemReadyForRegister(BLUE_SLIME_BALL, "blue_slime_ball");
 		if (ConfigHandler.block.coconut.enableCoconut) itemReadyForRegister(COCONUT_OPEN, "coconut_open");
 		if (ConfigHandler.block.enableKelp) itemReadyForRegister(DRIED_KELP, "dried_kelp");
 		if (ConfigHandler.block.dulse.enableDulse) itemReadyForRegister(DRIED_DULSE, "dried_dulse");

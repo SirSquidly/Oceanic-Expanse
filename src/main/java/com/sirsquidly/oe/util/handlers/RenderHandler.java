@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.util.handlers;
 
 import com.sirsquidly.oe.entity.*;
+import com.sirsquidly.oe.entity.item.*;
 import com.sirsquidly.oe.tileentity.*;
 import com.sirsquidly.oe.client.render.entity.*;
 import com.sirsquidly.oe.client.render.tileentity.*;
@@ -28,12 +29,13 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityCrab.class, RenderCrab::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityClam.class, RenderClam::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityLobster.class, RenderLobster::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityOEBoat.class, RenderOEBoat	::new);	
-		RenderingRegistry.registerEntityRenderingHandler(EntityPickled.class, RenderPickled	::new);	
-		RenderingRegistry.registerEntityRenderingHandler(EntityTropicalSlime.class, RenderTropicalSlime	::new);	
+		RenderingRegistry.registerEntityRenderingHandler(EntityOEBoat.class, RenderOEBoat::new);	
+		RenderingRegistry.registerEntityRenderingHandler(EntityGlowItemFrame.class, RenderGlowItemFrame::new);	
+		RenderingRegistry.registerEntityRenderingHandler(EntityPickled.class, RenderPickled::new);	
+		RenderingRegistry.registerEntityRenderingHandler(EntityTropicalSlime.class, RenderTropicalSlime::new);	
 		
-		RenderingRegistry.registerEntityRenderingHandler(EntityTrident.class, RenderTrident	::new);	
-		RenderingRegistry.registerEntityRenderingHandler(EntityConduitEye.class, RenderConduitEye ::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTrident.class, RenderTrident::new);	
+		RenderingRegistry.registerEntityRenderingHandler(EntityConduitEye.class, RenderConduitEye::new);
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileConduit.class, new RenderConduit());
 		

@@ -14,6 +14,9 @@ import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * I tried re-writing this accursed renderer multiple times now, it is just horrendous.
+ */
 @SideOnly(Side.CLIENT)
 public class LayerCrabHeldItem implements LayerRenderer<EntityCrab>
 {
@@ -51,7 +54,7 @@ public class LayerCrabHeldItem implements LayerRenderer<EntityCrab>
     	
         if (!item.isEmpty())
         {
-            GlStateManager.pushMatrix();
+        	GlStateManager.pushMatrix();
 
             if (entity.isSneaking())
             { GlStateManager.translate(0.0F, 0.2F, 0.0F); }
@@ -59,9 +62,8 @@ public class LayerCrabHeldItem implements LayerRenderer<EntityCrab>
             boolean flag = handSide == EnumHandSide.LEFT;
             GlStateManager.translate((flag ? -1 : 1) * 0.1F, 1.2F, -0.2F);
             this.translateToHand(handSide);
-            
-            //GlStateManager.translate((flag ? -1 : 1) * 0.3F, -0.468F, -1.2F);
-            GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+
+            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
             
             minecraft.getItemRenderer().renderItemSide(entity, item, icamtrans, flag);

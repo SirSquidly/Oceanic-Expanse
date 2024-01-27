@@ -289,11 +289,7 @@ public class EntityTrident extends AbstractArrow
 
 	public void setNBT(ItemStack stack, boolean strip)
 	{
-	    NBTTagCompound nbt;
-	    if (stack.hasTagCompound())
-	    { nbt = stack.getTagCompound(); }
-	    else
-	    { nbt = new NBTTagCompound(); }
+	    NBTTagCompound nbt = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
 	 
 	    if (nbt.hasKey("Thrown") && strip)
 	    { nbt.removeTag("Thrown"); }

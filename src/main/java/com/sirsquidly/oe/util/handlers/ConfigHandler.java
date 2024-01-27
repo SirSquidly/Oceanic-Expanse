@@ -955,6 +955,10 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.enableCrab")
 		    @Config.Comment("If Crabs should be enabled")
 		    public boolean enableCrab = true;
+		    
+		    @Config.LangKey("oe.config.entity.crabTalkInterval")
+		    @Config.Comment("The number to ticks between the crab's chirps (ambient sound). 0 disables it, if you hate their chirps.")
+		    public int crabTalkInterval = 280;
 	    }
 		
 		@RequiresMcRestart

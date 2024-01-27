@@ -23,6 +23,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -78,7 +79,7 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 		Item item = itemstack.getItem();
 		boolean isUpper = state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER;
 		
-		if (item == Items.SHEARS && !state.getValue(SANDY) && ConfigHandler.block.seaOats.seaOatShears)
+		if (item instanceof ItemShears && !state.getValue(SANDY) && ConfigHandler.block.seaOats.seaOatShears)
         {
 			if (state.getBlock() == this)
 			{

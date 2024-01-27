@@ -16,7 +16,7 @@ public class OECore implements IFMLLoadingPlugin, IEarlyMixinLoader
 {
 	static
 	{
-		Main.logger.info("THIS RAN. THIS RAN.");
+		//Main.logger.info("Oceanic Expanse Mixin Core detected! Let's do some stuff!");
     }
 	
 	@Override

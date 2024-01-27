@@ -2,6 +2,8 @@ package com.sirsquidly.oe.blocks;
 
 import java.util.List;
 
+import com.sirsquidly.oe.entity.EntityTropicalSlime;
+
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -9,7 +11,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -79,7 +80,7 @@ public class BlockBlueSlime extends BlockBreakable
         	if (entity.isBeingRidden() || entity.isRiding())
         	{ minHorMove = 999.0F; }
 
-            if(!((entity.motionY > 0.8F || entity.motionY < -0.8F) || (entity.motionX > minHorMove || entity.motionX < -minHorMove) || (entity.motionZ > minHorMove || entity.motionZ < -minHorMove)))
+            if(!((entity.motionY > 0.8F || entity.motionY < -0.8F) || (entity.motionX > minHorMove || entity.motionX < -minHorMove) || (entity.motionZ > minHorMove || entity.motionZ < -minHorMove)) && !(entity instanceof EntityTropicalSlime))
             {
                 super.addCollisionBoxToList(state, world, pos, entityBox, collidingBoxes, entity, isActualState);
             }

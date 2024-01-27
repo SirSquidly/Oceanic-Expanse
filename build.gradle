@@ -21,7 +21,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "1.0.7"
+version = "1.1.0"
 group = "com.sirsquidly.oe"
 archivesBaseName = "OceanicExpanse"
 
@@ -104,7 +104,7 @@ jar {
         attributes(
                 'FMLCorePlugin': 'com.sirsquidly.oe.core.OECore',
                 'FMLCorePluginContainsFMLMod': 'true',
-                'ForceLoadAsMod': 'true' // Swap to 'true' when building .jar
+                'ForceLoadAsMod': 'false' // Swap to 'true' when building .jar
         )
     }
 }

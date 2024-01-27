@@ -17,9 +17,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -131,7 +131,7 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 		
 		if ((Integer)state.getValue(AGE).intValue() != maxHeight)
         {
-			if (item == Items.SHEARS)
+			if (item instanceof ItemShears)
 	        {
 				worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(maxHeight)), 2);
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);

@@ -129,6 +129,8 @@ public class ModelCrab extends ModelBase {
         ItemStack mainItem = entity.getHeldItem(EnumHand.MAIN_HAND);
         ItemStack offItem = entity.getHeldItem(EnumHand.OFF_HAND);
         
+        boolean isDigging = crab.getAnimationState() == 1;
+        
         this.eyestlkr1.rotateAngleX = -0.17453292519943295F;
     	this.eyestlkl1.rotateAngleX = -0.17453292519943295F;
     	
@@ -139,41 +141,48 @@ public class ModelCrab extends ModelBase {
         this.clawr1.rotateAngleZ = 0.15F + idle*0.1F;
         this.clawl1.rotateAngleZ = -0.15F - idle*0.1F;    
         
+        this.clawr1.offsetZ = -0.0F;
+        this.clawl1.offsetZ = -0.0F;
+        
         if (!(mainItem.isEmpty()))
         {
             if (entity.getPrimaryHand() == EnumHandSide.RIGHT)
             {
-            	this.clawr1.rotateAngleX = 0.0F;
+            	this.clawr1.rotateAngleX = 1.5F;
             	this.clawr1.rotateAngleY = 0.3F + idle*0.2F;
             	this.clawr1.rotateAngleZ = 0.0F;
+            	if (!isDigging) this.clawr1.offsetZ = -0.1F;
             }
             if (entity.getPrimaryHand() == EnumHandSide.LEFT)
             {
-            	this.clawl1.rotateAngleX = 0.0F;
+            	this.clawl1.rotateAngleX = 1.5F;
             	this.clawl1.rotateAngleY = -0.3F - idle*0.2F;
             	this.clawl1.rotateAngleZ = 0.0F;
+            	if (!isDigging) this.clawl1.offsetZ = -0.1F;
             }
         }
         if (!(offItem.isEmpty()))
         {
         	if (entity.getPrimaryHand() == EnumHandSide.RIGHT)
             {
-        		this.clawl1.rotateAngleX = 0.0F;
+        		this.clawl1.rotateAngleX = 1.5F;
             	this.clawl1.rotateAngleY = -0.3F - idle*0.2F;
             	this.clawl1.rotateAngleZ = 0.0F;
+            	if (!isDigging) this.clawl1.offsetZ = -0.1F;
             	if (crab.getAnimationState() == 2) { this.clawl1.rotateAngleY = 0.2F; this.clawl1.rotateAngleZ = 0.3F - eat*0.3F; }
             }
             if (entity.getPrimaryHand() == EnumHandSide.LEFT)
             {
             	
-            	this.clawr1.rotateAngleX = 0.0F;
+            	this.clawr1.rotateAngleX = 1.5F;
             	this.clawr1.rotateAngleY = 0.3F + idle*0.2F;
             	this.clawr1.rotateAngleZ = 0.0F;
+            	if (!isDigging) this.clawr1.offsetZ = -0.1F;
             	if (crab.getAnimationState() == 2) { this.clawr1.rotateAngleY = 0.2F; this.clawr1.rotateAngleZ = -0.3F + eat*0.3F; }
             }
         }
 
-        if (crab.getAnimationState() == 1) 
+        if (isDigging) 
         { 
         	this.eyestlkr1.rotateAngleX = 0.3F;
         	this.eyestlkl1.rotateAngleX = 0.3F;

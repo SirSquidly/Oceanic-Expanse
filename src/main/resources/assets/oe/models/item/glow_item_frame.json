@@ -1,0 +1,17 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "oe:items/glow_item_frame"
+    },
+    "overrides":
+    [
+        {
+            "predicate": { "model": 1 },
+            "model": "oe:item/glow_item_frame_block"
+        },
+        {
+            "predicate": { "model": 2 },
+            "model": "oe:item/glow_item_frame_map"
+        }
+    ]
+}

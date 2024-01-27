@@ -2,6 +2,7 @@ package com.sirsquidly.oe.init;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.*;
+import com.sirsquidly.oe.entity.item.*;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.Entity;
@@ -38,6 +39,7 @@ public class OEEntities
 		registerEntity("tropical_slime", EntityTropicalSlime.class, ++id, 64, 14327661, 15701910);
 		
 		registerEntity("palm_boat", EntityOEBoat.class, ++id, 100);
+		registerEntity("glow_item_frame", EntityGlowItemFrame.class, ++id, 100);
 		if (ConfigHandler.entity.pickled.enablePickled) registerEntity("pickled", EntityPickled.class, ++id, 80, 8223277, 14221270);
 		
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);
