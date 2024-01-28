@@ -23,6 +23,8 @@ public class OEEnchants
 	public static final Enchantment CHANNELING = new EnchantmentChanneling(Enchantment.Rarity.UNCOMMON);
 	public static final Enchantment RIPTIDE = new EnchantmentRiptide(Enchantment.Rarity.UNCOMMON);
 	
+	public static final Enchantment MOBSTOMP = new EnchantmentMobStomp(Enchantment.Rarity.UNCOMMON);
+	
 	@SubscribeEvent
 	public static void onEnchantRegister(RegistryEvent.Register<Enchantment> event)
 	{
@@ -30,5 +32,7 @@ public class OEEnchants
 		if (ConfigHandler.enchant.impaling.enableWaterJet == 1) event.getRegistry().registerAll(OEEnchants.WATER_JET);
 		
 		if (ConfigHandler.enchant.channeling.enableChannelingEnchant) event.getRegistry().registerAll(OEEnchants.ENCHANTMENTS.toArray(new Enchantment[0]));
+		
+		 event.getRegistry().registerAll(OEEnchants.MOBSTOMP);
 	}
 }

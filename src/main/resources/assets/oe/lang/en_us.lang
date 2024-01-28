@@ -8,6 +8,8 @@ death.attack.oe.trident=%1$s was impaled by %2$s
 death.attack.oe.trident.item=%1$s was impaled by %2$s using %3$s
 death.attack.oe.coconut=%1$s was clonked by a falling coconut
 
+death.attack.oe.mobstomp=%1$s was stomped by %2$s
+death.attack.oe.mobstomp.item=%1$s was stomped by %2$s using %3$s
 
 description.oe.blue_slime_ball.name=Always Edible. Adds 4 Air Bubbles, but removes 1.5 Hunger
 description.oe.chlorine.name=Removes Sea Grass in a 5x5x5 cube
@@ -59,6 +61,8 @@ effect.oe.conduit_power=Conduit Power
 effect.oe.descent=Descent
 
 
+enchantment.oe.mobstomp=Mob Stomp
+enchantment.oe.mobstomp.desc=Falling on a mob damages them, and cuts your fall damage in half.
 enchantment.oe.is_wet=Waterjet
 enchantment.oe.is_wet.desc=Increases the damage to wet mobs.
 

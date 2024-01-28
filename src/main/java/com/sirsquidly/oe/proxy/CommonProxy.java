@@ -29,6 +29,7 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -49,6 +50,9 @@ public class CommonProxy
 	public static final List<Biome> allOceans = new ArrayList<Biome>();
 	
 	public static final DamageSource COCONUT = new DamageSource(Main.MOD_ID + "." + "coconut");
+	
+	public static DamageSource causeMobStompDamage(Entity source)
+    { return (new EntityDamageSource(Main.MOD_ID + "." + "mobstomp", source)); }
 	
 	public static DamageSource causeTridentDamage(EntityTrident trident, @Nullable Entity indirectEntityIn)
     { return (new EntityDamageSourceIndirect(Main.MOD_ID + "." + "trident", trident, indirectEntityIn)).setProjectile(); }
