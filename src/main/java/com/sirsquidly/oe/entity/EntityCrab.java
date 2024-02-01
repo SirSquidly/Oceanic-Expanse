@@ -103,6 +103,7 @@ public class EntityCrab extends EntityAnimal
 		ItemStack offered = this.getHeldItemOffhand();
 		BlockPos blockpos = new BlockPos(this.posX, this.posY-1, this.posZ);
 		IBlockState iblockstate = this.world.getBlockState(blockpos);
+		this.updateArmSwingProgress();
 		
 		if (this.isInWater())
 			{ stepHeight = 1.0F; }

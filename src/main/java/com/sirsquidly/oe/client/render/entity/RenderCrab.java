@@ -25,7 +25,7 @@ public class RenderCrab extends RenderLiving<EntityCrab>
 
 	protected void preRenderCallback(EntityCrab entity, float f) {
 		float size = 0.9375F;
-		float crabRotation = 90.0F;
+		float crabRotation = 0.0F;
 		
 		if (entity.getGrowingAge() < 0)
         {
