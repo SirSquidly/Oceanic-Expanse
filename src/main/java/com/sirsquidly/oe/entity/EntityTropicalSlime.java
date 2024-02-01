@@ -2,11 +2,15 @@ package com.sirsquidly.oe.entity;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.LootTableHandler;
+
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
@@ -41,13 +45,16 @@ public class EntityTropicalSlime extends EntitySlime
         { this.setHealth(this.getMaxHealth()); }
 	}
 	
+	protected Item getDropItem()
+    { return this.getSlimeSize() == 1 ? OEItems.BLUE_SLIME_BALL : null; }
+	
 	@Override
 	protected EnumParticleTypes getParticleType()
     { return this.inWater ? EnumParticleTypes.WATER_BUBBLE : EnumParticleTypes.WATER_SPLASH; }
 	
 	@Nullable
     protected ResourceLocation getLootTable()
-    { return this.getSlimeSize() <= 2 ? LootTableList.ENTITIES_SLIME : LootTableList.EMPTY; }
+    { return this.getSlimeSize() > 1 ? LootTableHandler.ENTITIES_TROPICAL_SLIME : LootTableList.EMPTY; }
 	
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)

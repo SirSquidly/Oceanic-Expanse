@@ -57,23 +57,23 @@ public class PotionBase extends Potion
 		{
 			int modDes = entity.getActivePotionEffect(OEPotions.DESCENT).getAmplifier() + 1;
 			
+			/* This check is so players in Creative and Spectator aren't dragged down **/
+			if (entity instanceof EntityPlayer) if (((EntityPlayer)entity).capabilities.isFlying) return;
+			
+			
 			if (entity.isInWater())
 			{
 				if (entity instanceof EntityPlayer)
 				{
-					EntityPlayer entityplayer = (EntityPlayer)entity;
-					/* This check is so players in Creative and Spectator aren't dragged down **/
-					if (!entityplayer.capabilities.isFlying)
+					entity.motionY -= (ConfigHandler.effect.descent.descentWaterPull * modDes - entity.motionY) * 0.1D;
+					
+					/* Additional pull if Aqua Acrobatics is installed, as swimming is really fast with that mod. **/
+					if (ConfigHandler.effect.descent.descentAqAcWaterPull != 0 && Loader.isModLoaded("aquaacrobatics") && entity.world.getBlockState(entity.getPosition().add(0, entity.getEyeHeight(), 0)).getMaterial() != Material.AIR)
 					{
-						entity.motionY -= (ConfigHandler.effect.descent.descentWaterPull * modDes - entity.motionY) * 0.1D;
-						
-						/* Additional pull if Aqua Acrobatics is installed, as swimming is really fast with that mod. **/
-						if (ConfigHandler.effect.descent.descentAqAcWaterPull != 0 && Loader.isModLoaded("aquaacrobatics") && entity.world.getBlockState(entity.getPosition().add(0, entity.getEyeHeight(), 0)).getMaterial() != Material.AIR)
-						{
-							entity.motionY = entity.motionY - (ConfigHandler.effect.descent.descentAqAcWaterPull * modDes);
-						}
+						entity.motionY = entity.motionY - (ConfigHandler.effect.descent.descentAqAcWaterPull * modDes);
 					}
 				}
+				
 				else entity.motionY -= (ConfigHandler.effect.descent.descentWaterPull * modDes - entity.motionY) * 0.1D;
 			}
 			else if (entity.motionY < 0.0)

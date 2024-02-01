@@ -103,6 +103,9 @@ public class OEBlocks
 		public static Block COQUINA_BRICK_WALL = new BlockOEWall(COQUINA_BRICK).setHardness(0.5F).setResistance(15.0F);
 		//public static Block WRACK = blockReadyForRegister(new BlockWrack(), "wrack");
 		
+		public static Block NACRE_BLOCK = new Block(Material.ROCK, MapColor.QUARTZ).setHardness(0.8F).setResistance(0.8F);
+		public static Block NACRE_SMOOTH = new Block(Material.ROCK, MapColor.QUARTZ).setHardness(0.8F).setResistance(0.8F);
+		
 		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, OESounds.CORAL);
 		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, OESounds.CORAL);
 		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, OESounds.CORAL);
@@ -238,6 +241,9 @@ public class OEBlocks
 			blockReadyForRegister(PICKLED_HEAD, "pickled_head");
 			blockReadyForRegister(PRISMARINE_POT, "prismarine_pot");
 			blockReadyForRegister(PRISMARINE_STALKS, "prismarine_stalks");
+			
+			blockReadyForRegister(NACRE_BLOCK, "nacre_block");
+			blockReadyForRegister(NACRE_SMOOTH, "nacre_smooth");
 
 			blockReadyForRegister(BLUE_SLIME, "blue_slime_block");
 			
