@@ -189,7 +189,7 @@ public class EntityLobster extends EntityAnimal
     
 	@Override
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_CRAB; }
+    { return LootTableHandler.ENTITIES_LOBSTER; }
 	
 	protected float getWaterSlowDown()
     { return 0.98F; }

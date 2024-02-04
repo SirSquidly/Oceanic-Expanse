@@ -3,6 +3,7 @@ package com.sirsquidly.oe.entity.ai;
 import java.util.List;
 
 import com.sirsquidly.oe.entity.EntityCrab;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
@@ -28,7 +29,7 @@ public class EntityAICrabDig extends EntityAIBase
     {
     	ItemStack offHand = this.crab.getHeldItemOffhand();
     	
-	    if (this.crab.getRNG().nextInt(chance) != 0 || this.crab.isChild() || !(offHand.isEmpty()) || this.crab.isAngry()) 
+	    if (!ConfigHandler.entity.crab.enableCrabDigging || !this.crab.canDig() || this.crab.getRNG().nextInt(chance) != 0 || this.crab.isChild() || !(offHand.isEmpty()) || this.crab.isAngry()) 
 	    { return false; }
 	    
 	    else

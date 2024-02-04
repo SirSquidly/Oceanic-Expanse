@@ -50,6 +50,13 @@ public class OEItems
 	public static Item SQUID_UNCOOKED = new ItemFoodBase(0, 0, 0, false);
 	public static Item SQUID_COOKED = new ItemFoodBase(0, 0, 0, false);
 	
+	public static Item CRAB_UNCOOKED = new ItemFoodBase(2, 0.4F, 32, true);
+	public static Item CRAB_COOKED = new ItemFoodBase(6, 0.6F, 32, true);
+	
+	public static Item LOBSTER_UNCOOKED = new ItemFoodBase(3, 0.15F, 32, true);
+	
+	public static Item CRUSTACEAN_SHELL = new Item();
+	
 	public static Item COCONUT_OPEN = new ItemFoodBase(3, 0.6F, 32, false);
 	
 	public static Item DRIED_KELP = new ItemFoodBase(1, 0.6F, 16, false);
@@ -74,6 +81,13 @@ public class OEItems
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
 		itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
 		itemReadyForRegister(CHLORINE, "chlorine");
+		
+		itemReadyForRegister(CRAB_UNCOOKED, "crab");
+		itemReadyForRegister(CRAB_COOKED, "cooked_crab");
+		itemReadyForRegister(CRUSTACEAN_SHELL, "crustacean_shell");
+		
+		itemReadyForRegister(LOBSTER_UNCOOKED, "lobster");
+		
 		itemReadyForRegister(BLUE_SLIME_BALL, "blue_slime_ball");
 		if (ConfigHandler.block.coconut.enableCoconut) itemReadyForRegister(COCONUT_OPEN, "coconut_open");
 		if (ConfigHandler.block.enableKelp) itemReadyForRegister(DRIED_KELP, "dried_kelp");

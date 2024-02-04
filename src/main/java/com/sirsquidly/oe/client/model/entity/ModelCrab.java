@@ -5,7 +5,6 @@ import com.sirsquidly.oe.entity.EntityCrab;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
@@ -129,8 +128,8 @@ public class ModelCrab extends ModelBase {
 
     	EntityCrab crab = (EntityCrab) entityIn;
 
-        float idle = MathHelper.sin((crab.ticksExisted) * 0.07F) * 0.7F;
-        float eat = MathHelper.sin(crab.ticksExisted) * 0.9F;
+        float idle = MathHelper.sin((ageInTicks) * 0.07F) * 0.7F;
+        float eat = MathHelper.sin(ageInTicks) * 0.9F;
         
         ItemStack mainItem = crab.getHeldItem(EnumHand.MAIN_HAND);
         ItemStack offItem = crab.getHeldItem(EnumHand.OFF_HAND);
@@ -155,6 +154,14 @@ public class ModelCrab extends ModelBase {
         this.clawr1.offsetZ = -0.0F;
         this.clawl1.offsetZ = -0.0F;
         
+    	this.body1.offsetX = 0.0F;
+    	this.body1.offsetY = 0.0F;
+    	this.body1.offsetZ = 0.0F;
+    	
+    	this.clawr1.offsetX = 0.0F;
+    	this.clawl1.offsetX = 0.0F;
+    	
+    	
         if (!(mainItem.isEmpty()))
         {
             if (crab.getPrimaryHand() == EnumHandSide.RIGHT)
@@ -197,6 +204,49 @@ public class ModelCrab extends ModelBase {
             }
         }
 
+        if (!isDigging && !crab.isAngry() & crab.isPartying())
+        {
+			float danceSpeed = 1.1F;
+			
+        	float danceXSway = MathHelper.sin((ageInTicks * danceSpeed) * 0.4F) * 0.4F;
+        	
+        	this.body1.offsetY = -0.11F + danceXSway * danceXSway;
+        	
+        	this.body1.offsetX = danceXSway/2;
+        	
+        	this.leglf1.rotateAngleZ = danceXSway * 2.0F;
+            this.leglm1.rotateAngleZ = danceXSway * 2.2F;
+            this.leglb1.rotateAngleZ = danceXSway * 2.4F;
+            this.legrf1.rotateAngleZ = danceXSway * 2.0F;
+            this.legrm1.rotateAngleZ = danceXSway * 2.2F;
+            this.legrb1.rotateAngleZ = danceXSway * 2.4F;
+            
+            
+            if (!rightHolding)
+        	{
+        		this.clawr1.rotateAngleX -= 1.4F + danceXSway*4;
+        		this.clawr1.rotateAngleY += 0.4F;
+            	this.clawr1.rotateAngleZ -= 0.8F + danceXSway*4;
+        	}
+            else
+            {
+            	this.clawr1.offsetX = -this.body1.offsetX;
+            }
+        	if (!leftHolding)
+        	{
+        		this.clawl1.rotateAngleX -= 1.4F - danceXSway*4;
+            	this.clawl1.rotateAngleY -= 0.4F;
+            	this.clawl1.rotateAngleZ += 0.8F - danceXSway*4;
+        	}
+        	else
+            {
+            	this.clawl1.offsetX = -this.body1.offsetX;
+            }
+        }
+        
+        
+        
+        
         if (crab.isAngry())
         {
         	if (!rightHolding)
@@ -226,13 +276,13 @@ public class ModelCrab extends ModelBase {
         	this.clawr1.rotateAngleZ = 0.5F + eat; 
         	this.clawl1.rotateAngleZ = -0.5F - eat;
         }
-        
-        //super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTickTime);
-    
     }
+
+    public void postRenderArm(float scale, EnumHandSide side)
+    { this.getArmForSide(side).postRender(scale); }
     
-    public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
-    {}
+    public ModelRenderer getArmForSide(EnumHandSide side)
+    { return side == EnumHandSide.LEFT ? this.clawl1 : this.clawr1; }
     
     public void postRenderClaw(float scale, EnumHandSide side)
     { this.getClaw(side).postRender(scale); }

@@ -45,6 +45,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityCrab extends EntityAnimal
 {
@@ -53,9 +55,14 @@ public class EntityCrab extends EntityAnimal
 	/** 0 = Normal, 1 = Digging, 2 = Eating */
 	private static final DataParameter<Integer> ANIM_STATE = EntityDataManager.createKey(EntityCrab.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityCrab.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> CAN_BARTER = EntityDataManager.<Boolean>createKey(EntityCrab.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> CAN_DIG = EntityDataManager.<Boolean>createKey(EntityCrab.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> HAS_EGG = EntityDataManager.<Boolean>createKey(EntityCrab.class, DataSerializers.BOOLEAN);
 	private static final Set<Item>TRADE_ITEMS = Sets.newHashSet(Items.FISH);
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
 	private int randomAngrySoundDelay;
+	private boolean crabRave;
+    private BlockPos jukeboxPosition;
 	
 	public EntityCrab(World worldIn)
 	{
@@ -71,6 +78,9 @@ public class EntityCrab extends EntityAnimal
 		super.entityInit(); 
 		this.dataManager.register(ANIM_STATE, 0); 
 		this.dataManager.register(ANGRY, Boolean.valueOf(false));
+		this.dataManager.register(CAN_BARTER, Boolean.valueOf(true));
+		this.dataManager.register(CAN_DIG, Boolean.valueOf(true));
+		this.dataManager.register(HAS_EGG, Boolean.valueOf(false));
 	}
 	
 	protected void initEntityAI()
@@ -97,11 +107,26 @@ public class EntityCrab extends EntityAnimal
 	
 	public int getTalkInterval()
     { return ConfigHandler.entity.crab.crabTalkInterval; }
-	
+
+
+    @SideOnly(Side.CLIENT)
+    public void setPartying(BlockPos pos, boolean raving)
+    {
+        this.jukeboxPosition = pos;
+        this.crabRave = raving;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean isPartying()
+    {
+        return this.crabRave;
+    }
+    
+    
 	public void onLivingUpdate()
     {
 		ItemStack offered = this.getHeldItemOffhand();
-		BlockPos blockpos = new BlockPos(this.posX, this.posY-1, this.posZ);
+		BlockPos blockpos = new BlockPos(this.posX, this.posY - 0.25, this.posZ);
 		IBlockState iblockstate = this.world.getBlockState(blockpos);
 		this.updateArmSwingProgress();
 		
@@ -109,14 +134,22 @@ public class EntityCrab extends EntityAnimal
 			{ stepHeight = 1.0F; }
 		else { stepHeight = 0.6F; }
 		
-		if (this.getAnimationState() == 1)
+		
+		if (this.jukeboxPosition == null || this.jukeboxPosition.distanceSq(this.posX, this.posY, this.posZ) > 20.0D || this.world.getBlockState(this.jukeboxPosition).getBlock() != Blocks.JUKEBOX)
+        {
+            this.crabRave = false;
+            this.jukeboxPosition = null;
+        }
+		
+		if (this.getAnimationState() == 1 || this.isPartying())
         {
         	if (this.world.isRemote && iblockstate.getBlock() != Blocks.AIR)
             {
         		for (int i = 0; i < 2; ++i)
-                { this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX, this.posY, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Block.getStateId(iblockstate)); }	
+                { this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX, this.posY, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * (this.isPartying() ? 0.01D : 0.3D), ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Block.getStateId(iblockstate)); }	
             }
-        	if (this.rand.nextInt(2) == 0) 
+
+        	if (!this.isPartying() && this.rand.nextInt(2) == 0) 
 			{ this.playSound(SoundEvents.BLOCK_SAND_BREAK, 1.0F, 1.0F); }
         }
 		
@@ -153,7 +186,7 @@ public class EntityCrab extends EntityAnimal
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (this.isBarterItem(itemstack) && this.getHeldItemOffhand().isEmpty() && !(this.isChild()))
+        if (this.canBarter() && this.isBarterItem(itemstack) && this.getHeldItemOffhand().isEmpty() && !(this.isChild()))
         {
         	this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, itemstack);
 
@@ -207,7 +240,7 @@ public class EntityCrab extends EntityAnimal
     {
         ItemStack itemstack = itemEntity.getItem();
 
-        if (this.isBarterItem(itemstack) && this.getHeldItemOffhand().isEmpty() && !(this.getHeldItemMainhand().isEmpty()) && !(this.isChild()))
+        if (this.canBarter() && this.isBarterItem(itemstack) && this.getHeldItemOffhand().isEmpty() && !(this.getHeldItemMainhand().isEmpty()) && !(this.isChild()))
         {
         	this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, itemstack);
         	int itemnumber = itemstack.getCount();
@@ -278,6 +311,25 @@ public class EntityCrab extends EntityAnimal
     public void setAngry(boolean angry)
     { this.dataManager.set(ANGRY, Boolean.valueOf(angry)); }
 	
+    public boolean canBarter()
+    { return ((Boolean)this.dataManager.get(CAN_BARTER)).booleanValue(); }
+
+    public void setCanBarter(boolean barter)
+    { this.dataManager.set(CAN_BARTER, Boolean.valueOf(barter)); }
+    
+    public boolean canDig()
+    { return ((Boolean)this.dataManager.get(CAN_DIG)).booleanValue(); }
+
+    public void setCanDig(boolean dig)
+    { this.dataManager.set(CAN_DIG, Boolean.valueOf(dig)); }
+    
+    public boolean hasEgg()
+    { return ((Boolean)this.dataManager.get(HAS_EGG)).booleanValue(); }
+
+    public void setHasEgg(boolean angry)
+    { this.dataManager.set(HAS_EGG, Boolean.valueOf(angry)); }
+    
+    
 	static class AIHurtByTarget extends EntityAIHurtByTarget
     {
         public AIHurtByTarget(EntityCrab crab)
@@ -326,13 +378,19 @@ public class EntityCrab extends EntityAnimal
         super.writeEntityToNBT(compound);
         compound.setInteger("AnimationState", this.getAnimationState());
         compound.setBoolean("Angry", this.isAngry());
+        compound.setBoolean("CanBarter", this.canBarter());
+        compound.setBoolean("CanDig", this.canDig());
+        compound.setBoolean("HasEgg", this.hasEgg());
     }
 	
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
+        this.setAnimationState(0);
         this.setAngry(compound.getBoolean("Angry"));
-        this.setAnimationState(compound.getInteger("AnimationState"));
+        this.setCanBarter(compound.getBoolean("CanBarter"));
+        this.setCanDig(compound.getBoolean("CanDig"));
+        this.setHasEgg(compound.getBoolean("HasEgg"));
     }
 }

@@ -18,6 +18,7 @@ public class LootTableHandler
 	public static final ResourceLocation ENTITIES_DROWNED = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/drowned"));
 	public static final ResourceLocation ENTITIES_PICKLED = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/pickled"));
 	public static final ResourceLocation ENTITIES_TROPICAL_SLIME = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/tropical_slime"));
+	public static final ResourceLocation ENTITIES_LOBSTER = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/lobster"));
 	
 	public static final ResourceLocation GAMEPLAY_CRAB_DIG = LootTableList.register(new ResourceLocation(Main.MOD_ID, "gameplay/crab_dig"));
 	public static final ResourceLocation GAMEPLAY_SHELL_COMB = LootTableList.register(new ResourceLocation(Main.MOD_ID, "gameplay/shell_sand"));

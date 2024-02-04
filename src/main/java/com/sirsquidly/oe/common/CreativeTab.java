@@ -36,6 +36,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 			
 	        add(list, OEItems.GLOW_INK);
 	        if (ConfigHandler.block.waterTorch.enableWaterTorch) add(list, OEBlocks.UNDERWATER_TORCH);
+	        add(list, OEItems.GLOW_ITEM_FRAME);
 	        add(list, OEItems.CHLORINE);
 	        if (ConfigHandler.block.seagrass.enableSeagrass) add(list, OEBlocks.SEAGRASS);
 	        if (ConfigHandler.block.seagrass.enableTallSeagrass) add(list, OEBlocks.TALL_SEAGRASS);
@@ -65,6 +66,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		        add(list, OEBlocks.PALM_FENCE);
 		        add(list, OEBlocks.PALM_FENCE_GATE);
 		        add(list, ((BlockPalmDoor) OEBlocks.PALM_DOOR).getItemStack());
+		        
+		        add(list, OEBlocks.PALM_BOOKSHELF);
 	        }
 	        if (ConfigHandler.block.coconut.enableCoconut)
 	        {
@@ -75,6 +78,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        if (ConfigHandler.item.enableTurtleScute) add(list, OEItems.SCUTE);
 	        if (ConfigHandler.item.turtleShell.enableTurtleShell) add(list, OEItems.TURTLE_HELMET);
 	        if (ConfigHandler.block.turtleEgg.enableTurtleEgg) add(list, OEBlocks.SEA_TURTLE_EGG);
+	        add(list, OEItems.CRUSTACEAN_SHELL);
+	        add(list, OEItems.CRAB_UNCOOKED);
+	        add(list, OEItems.CRAB_COOKED);
+	        add(list, OEItems.LOBSTER_UNCOOKED);
 	        if (ConfigHandler.block.enableShellySand) add(list, OEBlocks.SHELL_SAND);
 	        add(list, OEItems.SHELLS); 
 	        if (ConfigHandler.block.coquina.enableCoquina) add(list, OEBlocks.COQUINA);
@@ -96,10 +103,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		            add(list, conch);
 				}
 	        }
+	        add(list, OEBlocks.PICKLED_HEAD);
+	        add(list, OEItems.BLUE_SLIME_BALL);
+	        add(list, OEBlocks.BLUE_SLIME);
 	        if (ConfigHandler.item.enableNautilusShell) add(list, OEItems.NAUTILUS_SHELL);
 	        add(list, OEItems.HEART_OF_THE_SEA);
 	        if (ConfigHandler.block.conduit.enableConduit) add(list, OEBlocks.CONDUIT);
 	        add(list, OEItems.PEARL);
+	        add(list, OEBlocks.NACRE_BLOCK);
+	        add(list, OEBlocks.NACRE_SMOOTH);
 	        add(list, OEItems.CHARM);
 	        if (ConfigHandler.block.blueIce.enableBlueIce) add(list, OEBlocks.BLUE_ICE);
 	        if (ConfigHandler.block.dulse.enableDulse)
@@ -159,6 +171,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		        add(list, OEBlocks.RED_CORAL_FAN_DEAD);
 		        add(list, OEBlocks.YELLOW_CORAL_FAN_DEAD);
 	        }
+	        add(list, OEBlocks.PRISMARINE_POT);
 	        if (ConfigHandler.block.guardianSpike.enableGuardianSpike) add(list, OEBlocks.GUARDIAN_SPIKE);
 	        
 	        /** I am amazed that this works! Wow! Nice! */

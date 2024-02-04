@@ -959,6 +959,10 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.crabTalkInterval")
 		    @Config.Comment("The number to ticks between the crab's chirps (ambient sound). 0 disables it, if you hate their chirps.")
 		    public int crabTalkInterval = 280;
+		    
+		    @Config.LangKey("oe.config.entity.enableCrabDigging")
+		    @Config.Comment("If Crabs can dig. Does not affect the individual crabs that have 'CanDig' set to false.")
+		    public boolean enableCrabDigging = true;
 	    }
 		
 		@RequiresMcRestart
