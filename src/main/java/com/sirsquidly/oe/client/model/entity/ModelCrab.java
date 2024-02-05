@@ -214,12 +214,12 @@ public class ModelCrab extends ModelBase {
         	
         	this.body1.offsetX = danceXSway/2;
         	
-        	this.leglf1.rotateAngleZ = danceXSway * 2.0F;
-            this.leglm1.rotateAngleZ = danceXSway * 2.2F;
-            this.leglb1.rotateAngleZ = danceXSway * 2.4F;
-            this.legrf1.rotateAngleZ = danceXSway * 2.0F;
-            this.legrm1.rotateAngleZ = danceXSway * 2.2F;
-            this.legrb1.rotateAngleZ = danceXSway * 2.4F;
+        	this.leglf1.rotateAngleZ += danceXSway * 2.0F;
+            this.leglm1.rotateAngleZ += danceXSway * 2.2F;
+            this.leglb1.rotateAngleZ += danceXSway * 2.4F;
+            this.legrf1.rotateAngleZ += danceXSway * 2.0F;
+            this.legrm1.rotateAngleZ += danceXSway * 2.2F;
+            this.legrb1.rotateAngleZ += danceXSway * 2.4F;
             
             
             if (!rightHolding)

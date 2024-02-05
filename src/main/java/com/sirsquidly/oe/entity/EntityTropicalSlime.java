@@ -5,20 +5,37 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.init.Biomes;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.loot.LootTableList;
 
 public class EntityTropicalSlime extends EntitySlime
 {
+	/** Counts until a Tropical Slime Evaporates.*/
+    public int evaporateTimer;
+    
 	public EntityTropicalSlime(World worldIn)
 	{
 		super(worldIn);
@@ -36,7 +53,7 @@ public class EntityTropicalSlime extends EntitySlime
     }
 	
 	/**
-	 * Forcefully updates the Health of the Tropical Slime afer size changes
+	 * Forcefully updates the Health of the Tropical Slime after size changes
 	 */
 	public void updateHealth(boolean resetHealth)
 	{
@@ -56,6 +73,110 @@ public class EntityTropicalSlime extends EntitySlime
     protected ResourceLocation getLootTable()
     { return this.getSlimeSize() > 1 ? LootTableHandler.ENTITIES_TROPICAL_SLIME : LootTableList.EMPTY; }
 	
+	@Override
+    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
+    {
+		if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() || this.world.getDifficulty() == EnumDifficulty.PEACEFUL)
+        {}
+        else
+        { super.setAttackTarget(entitylivingbaseIn); }
+    }
+	
+	public void onUpdate()
+    {
+		EntityLivingBase attackTarget = this.getAttackTarget();
+		super.onUpdate();
+
+        if (this.world.provider.doesWaterVaporize() || this.isBurning())
+        {
+        	double l = this.posX;
+        	double i = this.posY;
+            double j = this.posZ;
+            
+            for (int k = 0; k < 2; ++k)
+            { world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)l + Math.random(), (double)i + Math.random(), (double)j + Math.random(), 0.0D, 0.0D, 0.0D); }
+            
+            if (!world.isRemote) this.evaporateTimer += 1;
+            
+            
+            
+            if (this.evaporateTimer >= 50)
+            {
+            	world.playSound(null, this.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+            	
+            	this.spawnTropicalFish(world, this.getPosition(), false);
+            	
+            	this.setDead();
+            }
+        }
+        
+        //** The material check is to make sure they don't act odd when the player is bobbing on the surface of water. */
+        if (!world.isRemote && this.world.getDifficulty() == EnumDifficulty.PEACEFUL || (attackTarget != null && (!attackTarget.isWet() && this.world.getBlockState(attackTarget.getPosition().down()).getMaterial() != Material.WATER)))
+        {
+        	setAttackTarget(null);
+        }
+    }
+	
+	public void spawnTropicalFish(World world, BlockPos pos, Boolean deadFish)
+	{
+		if (world.isRemote) return;
+		
+		if (deadFish)
+		{
+			ItemStack itemstack = new ItemStack(Items.FISH, 1, 2);
+			
+	    	this.entityDropItem(itemstack, 0.0F);
+		}
+		else
+		{
+			EntityTropicalFish tropicalFish = deadFish ? new EntityTropicalFish(world) : new EntityTropicalFish(world);
+			
+			tropicalFish.setTropicalFishVariant(tropicalFish.getRandomTropicalFishVariant());
+	    	
+	    	tropicalFish.setPosition((double)pos.getX() + 0.5, (double)pos.getY(), (double)pos.getZ() + 0.5);
+	    	
+			world.spawnEntity(tropicalFish);
+		}
+	}
+	
+	public boolean canBreatheUnderwater()
+    { return true; }
+	
+	public boolean isNotColliding()
+    { return this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
+	
+	@Override
+	public boolean getCanSpawnHere()
+    {
+        BlockPos blockpos = new BlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ));
+        Chunk chunk = this.world.getChunkFromBlockCoords(blockpos);
+
+        if (this.world.getWorldInfo().getTerrainType().handleSlimeSpawnReduction(rand, world))
+        {
+            return false;
+        }
+        else
+        {
+            if (this.world.getDifficulty() != EnumDifficulty.PEACEFUL)
+            {
+            	IBlockState iblockstate = this.world.getBlockState((new BlockPos(this)).down());
+                Biome biome = this.world.getBiome(blockpos);
+
+                if (biome == Biomes.SWAMPLAND && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.world.getCurrentMoonPhaseFactor() && this.world.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8))
+                {
+                    return iblockstate.canEntitySpawn(this);
+                }
+
+                if (this.rand.nextInt(10) == 0 && chunk.getRandomWithSeed(987234911L).nextInt(10) == 0 && this.posY < 40.0D)
+                {
+                    return iblockstate.canEntitySpawn(this);
+                }
+            }
+
+            return false;
+        }
+    }
+	
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
@@ -74,10 +195,12 @@ public class EntityTropicalSlime extends EntitySlime
     {
         int i = this.getSlimeSize();
 
+        this.spawnTropicalFish(world, this.getPosition(), false);
+        
         if (!this.world.isRemote && i > 2 && this.getHealth() <= 0.0F)
         {
             int j = 2 + this.rand.nextInt(3);
-
+            
             for (int k = 0; k < j; ++k)
             {
                 float f = ((float)(k % 2) - 0.5F) * (float)i / 4.0F;

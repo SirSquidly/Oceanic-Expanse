@@ -126,7 +126,7 @@ public class EntityTropicalFish extends AbstractFish
     }
 
 	/** Gets a random tropical fish variant, from the acceptable variants. */
-    private int getRandomTropicalFishVariant()
+    public int getRandomTropicalFishVariant()
     {
         if (this.rand.nextInt(101) < ConfigHandler.entity.tropicalFish.tropicalFishDefaultChance && ConfigHandler.entity.tropicalFish.defaultTropicalFishVariants.length > 0)
         {

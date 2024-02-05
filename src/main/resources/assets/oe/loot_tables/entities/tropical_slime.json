@@ -1,31 +1,6 @@
 {
     "pools":
     [
-    	{
-            "name":  "fish_drop",
-            "rolls": 1,
-            "entries":
-            [
-                {
-                    "type": "item",
-                    "name": "minecraft:fish",
-                    "weight": 1,
-                    "functions": [
-                    	{
-                            "function": "set_count",
-                            "count": {
-                                "min": 0,
-                                "max": 1
-                            }
-                        },
-                        {
-                           "function": "set_data",
-                           "data": 2
-                        }
-                    ]
-                }
-            ]
-        },
         {
         	"name":  "slime_drops",
             "rolls": 1,
