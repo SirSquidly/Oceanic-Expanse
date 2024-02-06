@@ -26,4 +26,7 @@ public class LootTableHandler
 	public static final ResourceLocation SHIPWRECK_SUPPLY = LootTableList.register(new ResourceLocation(Main.MOD_ID, "chests/shipwreck_supply"));
 	public static final ResourceLocation SHIPWRECK_MAP = LootTableList.register(new ResourceLocation(Main.MOD_ID, "chests/shipwreck_map"));
 	public static final ResourceLocation SHIPWRECK_TREASURE = LootTableList.register(new ResourceLocation(Main.MOD_ID, "chests/shipwreck_treasure"));
+	
+	//public static final ResourceLocation MONUMENT_TREASURE = LootTableList.register(new ResourceLocation(Main.MOD_ID, "chests/monument_treasure"));
+	public static final ResourceLocation MONUMENT_MYSTIC = LootTableList.register(new ResourceLocation(Main.MOD_ID, "chests/monument_mystic"));
 }

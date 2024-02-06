@@ -836,16 +836,6 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.item.tridentDurability")
 		    @Config.Comment("The Trident's Durability (note, displays as this -1 in-game, as 0 counts as a point)")
 		    public int tridentDurability = 250;
-		    
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.loyaltyVoidReturn")
-		    @Config.Comment("Loyalty Tridents return when in the void")
-		    public boolean loyaltyVoidReturn = true;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.loyaltyVoidReturnLevel")
-		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
-		    public int loyaltyVoidReturnLevel = -15;
 	    }
 		
 		@RequiresMcRestart
@@ -1363,6 +1353,43 @@ public class ConfigHandler
 	
 	public static class configEnchantment
 	{
+		@Config.LangKey("oe.config.enchant.channeling")
+		@Config.Comment("Config for Channeling")
+	    public configChanneling channeling = new configChanneling();
+		
+		public static class configChanneling
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableChannelingEnchant")
+		    @Config.Comment("If the Channeling Enchantment should be enabled.")
+		    public boolean enableChannelingEnchant = true;
+			
+		    @Config.LangKey("oe.config.enchant.channelingWaterCheck")
+		    @Config.Comment("Prevents Lightning if the target is in Water")
+		    public boolean waterCheck = true;
+			
+		    @Config.LangKey("oe.config.enchant.channelingLavaCheck")
+		    @Config.Comment("Prevents Lightning if the target is in Lava")
+		    public boolean lavaCheck = true;
+			
+		    @Config.LangKey("oe.config.enchant.channelingInvert")
+		    @Config.Comment("Inverts the Channeling Whitelist into a Blacklist")
+		    public boolean invertLightning = false;
+			
+			@Config.LangKey("oe.config.enchant.channelingBlocks")
+		    @Config.Comment("Blocks that Channeling Tridents strike Lighting on when hit")
+		    public String[] lightningRodWhitelist = {
+		            "minecraft:iron_bars"
+		    };
+			
+			@Config.LangKey("oe.config.enchant.channelingRidingBlacklist")
+		    @Config.Comment("Prevents Lightning if the target is riding any of these entities")
+		    public String[] ridingBlacklist = {
+				 	"minecraft:boat",
+		            "minecraft:minecart"
+		    };
+		}
+		
 		@Config.LangKey("oe.config.enchant.impaling")
 		@Config.Comment("Config for Impaling and Water Jet")
 	    public configImpaling impaling = new configImpaling();
@@ -1405,42 +1432,32 @@ public class ConfigHandler
 		    };
 		}
 		
-		@Config.LangKey("oe.config.enchant.channeling")
-		@Config.Comment("Config for Channeling")
-	    public configChanneling channeling = new configChanneling();
+		@Config.LangKey("oe.config.enchant.loyalty")
+		@Config.Comment("Config for Loyalty")
+	    public configLoyalty loyalty = new configLoyalty();
 		
-		public static class configChanneling
+		public static class configLoyalty
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableChannelingEnchant")
-		    @Config.Comment("If the Channeling Enchantment should be enabled.")
-		    public boolean enableChannelingEnchant = true;
+		    @Config.LangKey("oe.config.entity.enableLoyaltyEnchant")
+		    @Config.Comment("If the Loyalty Enchantment should be enabled.")
+		    public boolean enableLoyaltyEnchant = true;
 			
-		    @Config.LangKey("oe.config.enchant.channelingWaterCheck")
-		    @Config.Comment("Prevents Lightning if the target is in Water")
-		    public boolean waterCheck = true;
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.loyaltyVoidReturn")
+		    @Config.Comment("Loyalty Tridents return when in the void")
+		    public boolean loyaltyVoidReturn = true;
 			
-		    @Config.LangKey("oe.config.enchant.channelingLavaCheck")
-		    @Config.Comment("Prevents Lightning if the target is in Lava")
-		    public boolean lavaCheck = true;
-			
-		    @Config.LangKey("oe.config.enchant.channelingInvert")
-		    @Config.Comment("Inverts the Channeling Whitelist into a Blacklist")
-		    public boolean invertLightning = false;
-			
-			@Config.LangKey("oe.config.enchant.channelingBlocks")
-		    @Config.Comment("Blocks that Channeling Tridents strike Lighting on when hit")
-		    public String[] lightningRodWhitelist = {
-		            "minecraft:iron_bars"
-		    };
-			
-			@Config.LangKey("oe.config.enchant.channelingRidingBlacklist")
-		    @Config.Comment("Prevents Lightning if the target is riding any of these entities")
-		    public String[] ridingBlacklist = {
-				 	"minecraft:boat",
-		            "minecraft:minecart"
-		    };
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.loyaltyVoidReturnLevel")
+		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
+		    public int loyaltyVoidReturnLevel = -15;
 		}
+		
+		@RequiresMcRestart
+	    @Config.LangKey("oe.config.entity.enableRiptideEnchant")
+	    @Config.Comment("If the Riptide Enchantment should be enabled.")
+	    public boolean enableRiptideEnchant = true;
 	}
 	
 	@Config.LangKey("oe.config.effect")
@@ -1505,6 +1522,32 @@ public class ConfigHandler
 		    @Config.Comment("Makes Coral generate when using underwater bonemeal near Coral Blocks. (0 = Disable, 1 = Generate only on top, 2 = Generate around any side)")
 		    @Config.RangeInt(min = 0, max = 2)
 		    public int waterBonemealCoralGen = 2;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.vanillaTweak.drownConverting")
+	    public configDrownConverting drownConverting = new configDrownConverting();
+		
+		public static class configDrownConverting
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.enableDrownConverting")
+		    @Config.Comment("Enables Drown Converting.")
+		    public boolean enableDrownConverting = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.drownConversionsList")
+		    @Config.Comment("A list of which mobs convert into what, when Drown Converting. If multiple entries exist for the same mob, only the first in the list will be used!")
+		    public String[] drownConversionsList =
+			{
+		    	"minecraft:zombie=oe:drowned",
+			 	"minecraft:husk=minecraft:zombie"
+		    };
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.enableDrownParticles")
+		    @Config.Comment("Adds glowy particles to show when a mob is currently converting.")
+		    public boolean enableDrownParticles = true;
 	    }
 		
 		@RequiresMcRestart

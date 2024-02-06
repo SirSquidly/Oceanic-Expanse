@@ -110,7 +110,7 @@ public class EntityTrident extends AbstractArrow
     {
 		super.onUpdate();
 		
-		if ((ConfigHandler.item.trident.loyaltyVoidReturn && this.posY < ConfigHandler.item.trident.loyaltyVoidReturnLevel || this.ticksInGround >= 8) && !((Boolean)this.dataManager.get(RETURNING)).booleanValue())
+		if ((ConfigHandler.enchant.loyalty.loyaltyVoidReturn && this.posY < ConfigHandler.enchant.loyalty.loyaltyVoidReturnLevel || this.ticksInGround >= 8) && !((Boolean)this.dataManager.get(RETURNING)).booleanValue())
         {
 			this.checkLoyalty();
         }

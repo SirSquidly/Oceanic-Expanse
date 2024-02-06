@@ -7,6 +7,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -45,14 +46,6 @@ public class DrownConversionEvent
 			 	"minecraft:wither_skeleton",
 			 	"oe:tropical_slime"
 	    };
-	
-	public static String[] whatFuck = 
-		{
-			 	"minecraft:zombie=oe:drowned",
-			 	"minecraft:husk=minecraft:zombie"
-	    };
-	
-	public static boolean doInkParticles = true;
 	
 	@SubscribeEvent
 	public static void spawnEvent(EntityJoinWorldEvent event)
@@ -107,7 +100,7 @@ public class DrownConversionEvent
 	                int conversionTime = entityData.getInteger("DrowningConversionTime");
 	                conversionTime -= 1;
 	                
-	                if (rand.nextFloat() > 0.5 && doInkParticles)
+	                if (rand.nextFloat() > 0.5 && ConfigHandler.vanillaTweak.drownConverting.enableDrownParticles)
 	                {
 	                	Main.proxy.spawnParticle(2, world, entity.posX + (rand.nextFloat() - rand.nextFloat()), entity.posY + 1 + (rand.nextFloat() - rand.nextFloat()), entity.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 1, 128, 255, 192);
 	                }
@@ -174,9 +167,36 @@ public class DrownConversionEvent
         worldIn.spawnEntity(drowned);
         entity.setDead();
         
-        for (int i = 0; i < 80 && doInkParticles; i++)
+        for (int i = 0; i < 80 && ConfigHandler.vanillaTweak.drownConverting.enableDrownParticles; i++)
         {
         	Main.proxy.spawnParticle(2, worldIn, drowned.posX + (rand.nextFloat() - rand.nextFloat()), drowned.posY + 1 + (rand.nextFloat() - rand.nextFloat()), drowned.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 3, 128, 255, 192);
         }
     }
+	
+	/**
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+    public static void onRenderMob(RenderLivingEvent.Pre<EntityLivingBase> event)
+	{
+        EntityLivingBase entity = event.getEntity();
+        NBTTagCompound entityData = entity.getEntityData();
+        
+        if(entityData.hasKey("DrowningConversionTime") || entity.isWet())
+        {
+        	GlStateManager.pushMatrix();
+        	entity.renderYawOffset += (float)(Math.cos((double)entity.ticksExisted * 3.25D) * Math.PI * 0.25D);
+        	entity.rotationYawHead += (float)(Math.cos((double)entity.ticksExisted * 3.25D) * Math.PI * 0.25D);
+        }
+    }
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public static void renderLiving(RenderLivingEvent.Post<EntityLivingBase> event)
+	{
+		if(event.getEntity().getEntityData().hasKey("DrowningConversionTime") || event.getEntity().isWet())
+		{
+			GlStateManager.popMatrix();
+		}
+	}
+	*/
 }

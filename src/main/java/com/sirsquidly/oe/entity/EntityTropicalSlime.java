@@ -3,22 +3,24 @@ package com.sirsquidly.oe.entity;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -114,6 +116,58 @@ public class EntityTropicalSlime extends EntitySlime
         if (!world.isRemote && this.world.getDifficulty() == EnumDifficulty.PEACEFUL || (attackTarget != null && (!attackTarget.isWet() && this.world.getBlockState(attackTarget.getPosition().down()).getMaterial() != Material.WATER)))
         {
         	setAttackTarget(null);
+        }
+    }
+	
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+    {
+        ItemStack itemstack = player.getHeldItem(hand);
+
+        if (itemstack.getItem() == Items.BUCKET)
+        {
+        	player.swingArm(EnumHand.MAIN_HAND);
+			
+        	double l = this.posX;
+        	double i = this.posY;
+            double j = this.posZ;
+            
+            for (int k = 0; k < 50; ++k)
+            { world.spawnParticle(EnumParticleTypes.WATER_SPLASH, (double)l + Math.random(), (double)i + Math.random(), (double)j + Math.random(), 0.0D, 0.0D, 0.0D); }
+            
+			if (!this.world.isRemote)
+			{
+                if (!player.capabilities.isCreativeMode)
+                {
+                	itemstack.setCount(itemstack.getCount() - 1);
+                }
+                ItemStack newStack = new ItemStack(OEItems.SPAWN_BUCKET);
+                
+                EntityTropicalFish tropicalFish = new EntityTropicalFish(world);
+    			tropicalFish.setTropicalFishVariant(tropicalFish.getRandomTropicalFishVariant());
+                
+                ItemSpawnBucket.recordEntityNBT(newStack, player, tropicalFish);
+                
+                if (itemstack.isEmpty()) 
+                {
+                    player.setHeldItem(EnumHand.MAIN_HAND, newStack);
+                } 
+                
+                else if (!player.inventory.addItemStackToInventory(newStack)) 
+                {
+                    player.dropItem(newStack, false);
+                }
+                
+                // Lazy solution to the game trying to instantly use the spawn bucket when given to the survival player
+                player.getCooldownTracker().setCooldown(newStack.getItem(), 1);
+                
+                this.isDead = true;
+			}
+			
+			return true;
+        }
+        else
+        {
+            return super.processInteract(player, hand);
         }
     }
 	

@@ -14,6 +14,8 @@ public class BlockOEStairs extends BlockStairs
 	public BlockOEStairs(IBlockState modelState, int flamabilityIn, int fireSpreadIn)
 	{
 		super(modelState);
+		this.useNeighborBrightness = true;
+		this.setLightOpacity(255);
 		this.flamability = flamabilityIn;
 		this.fireSpread = fireSpreadIn;
 	}

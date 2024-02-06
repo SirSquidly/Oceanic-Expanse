@@ -28,11 +28,14 @@ public class OEEnchants
 	@SubscribeEvent
 	public static void onEnchantRegister(RegistryEvent.Register<Enchantment> event)
 	{
-		if (ConfigHandler.enchant.impaling.enableImpalingEnchant) event.getRegistry().registerAll(OEEnchants.IMPALING);
-		if (ConfigHandler.enchant.impaling.enableWaterJet == 1) event.getRegistry().registerAll(OEEnchants.WATER_JET);
+		if (ConfigHandler.enchant.impaling.enableImpalingEnchant) event.getRegistry().register(OEEnchants.IMPALING);
+		if (ConfigHandler.enchant.impaling.enableWaterJet == 1) event.getRegistry().register(OEEnchants.WATER_JET);
 		
-		if (ConfigHandler.enchant.channeling.enableChannelingEnchant) event.getRegistry().registerAll(OEEnchants.ENCHANTMENTS.toArray(new Enchantment[0]));
+		if (ConfigHandler.enchant.loyalty.enableLoyaltyEnchant) event.getRegistry().register(LOYALTY);
 		
-		 event.getRegistry().registerAll(OEEnchants.MOBSTOMP);
+		if (ConfigHandler.enchant.channeling.enableChannelingEnchant) event.getRegistry().register(CHANNELING);
+		if (ConfigHandler.enchant.enableRiptideEnchant) event.getRegistry().register(RIPTIDE);
+		
+		event.getRegistry().register(OEEnchants.MOBSTOMP);
 	}
 }

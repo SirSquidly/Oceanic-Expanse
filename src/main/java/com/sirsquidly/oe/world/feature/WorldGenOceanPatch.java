@@ -7,14 +7,22 @@ import com.sirsquidly.oe.blocks.BlockCoralFan;
 import com.sirsquidly.oe.blocks.BlockCoralFull;
 import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
 import com.sirsquidly.oe.blocks.BlockDulse;
+import com.sirsquidly.oe.blocks.BlockPrismarinePot;
 import com.sirsquidly.oe.blocks.BlockSeaPickle;
 import com.sirsquidly.oe.blocks.BlockTubeSponge;
 import com.sirsquidly.oe.blocks.IChecksWater;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -172,6 +180,22 @@ public class WorldGenOceanPatch implements IWorldGenerator
     	{
     		if (pos.getY() < worldIn.getSeaLevel() - 10 && worldIn.getBlockState(pos.down()).getBlock() instanceof BlockCoralFull) 
     		{ worldIn.setBlockState(pos, this.block.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2); }
+    	}
+    	else if (this.block == OEBlocks.PRISMARINE_POT)
+    	{
+    		if (worldIn.getBlockState(pos.down()).getBlock() instanceof BlockPrismarine)
+    		{
+    			BlockPrismarinePot.EnumAxis randPotRotation = rand.nextInt(2) == 0 ? BlockPrismarinePot.EnumAxis.X : BlockPrismarinePot.EnumAxis.Z;
+        		
+        		worldIn.setBlockState(pos, this.block.getDefaultState().withProperty(BlockPrismarinePot.FACING, randPotRotation).withProperty(BlockPrismarinePot.SEALED, rand.nextInt(10) == 0), 3);
+        		
+                TileEntity tileentity = worldIn.getTileEntity(pos);
+
+                if (tileentity instanceof TilePrismarinePot)
+                {
+                    ((TilePrismarinePot)tileentity).setLootTable(LootTableHandler.MONUMENT_MYSTIC, rand.nextLong());
+                }
+    		}
     	}
     	else
     	{ worldIn.setBlockState(pos, this.block.getDefaultState(), 16 | 2); }

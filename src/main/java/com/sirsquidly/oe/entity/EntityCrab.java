@@ -131,9 +131,18 @@ public class EntityCrab extends EntityAnimal
 		this.updateArmSwingProgress();
 		
 		if (this.isInWater())
-			{ stepHeight = 1.0F; }
+		{ 
+			if (this.rand.nextInt(80) == 0)
+			{
+	            double yawX = Math.cos((this.renderYawOffset) * Math.PI / 180.0D);
+				double yawZ = Math.sin((this.renderYawOffset) * Math.PI / 180.0D);
+				
+				for (int i = 0; i < 6; ++i)
+                { this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - yawX * 0.2D, this.posY + 0.4D, this.posZ - yawZ * 0.2D, 0, 0.15D, 0); }	
+			}
+			stepHeight = 1.0F;
+		}
 		else { stepHeight = 0.6F; }
-		
 		
 		if (this.jukeboxPosition == null || this.jukeboxPosition.distanceSq(this.posX, this.posY, this.posZ) > 20.0D || this.world.getBlockState(this.jukeboxPosition).getBlock() != Blocks.JUKEBOX)
         {

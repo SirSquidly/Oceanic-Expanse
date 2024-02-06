@@ -6,7 +6,6 @@ import net.minecraft.util.ResourceLocation;
 
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.event.DrownConversionEvent;
 
 /**
  * 	This is to break part arrays in the config for use in other areas of the code.
@@ -22,7 +21,7 @@ public class ConfigArrayHandler
 	
 	public static void breakupConfigArrays()
 	{
-		for(String S : DrownConversionEvent.whatFuck)
+		for(String S : ConfigHandler.vanillaTweak.drownConverting.drownConversionsList)
 		{
 			String[] split = S.split("=");
 			
