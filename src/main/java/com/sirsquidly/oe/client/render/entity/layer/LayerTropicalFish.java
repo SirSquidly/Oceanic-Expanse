@@ -42,13 +42,13 @@ public class LayerTropicalFish implements LayerRenderer<EntityTropicalFish>
 	        	if (getModel == "a")
 		        {
 		        	this.modelA.setModelAttributes(this.tropicalFishRenderer.getMainModel());
-			        this.modelA.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+			        this.modelA.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
 			        this.modelA.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		        }
 		        else
 		        {
 		        	this.modelB.setModelAttributes(this.tropicalFishRenderer.getMainModel());
-			        this.modelB.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
+			        this.modelB.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
 			        this.modelB.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		        }
 	        }

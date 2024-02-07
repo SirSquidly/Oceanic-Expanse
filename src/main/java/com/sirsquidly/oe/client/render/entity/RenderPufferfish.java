@@ -1,5 +1,7 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelPufferfish;
 import com.sirsquidly.oe.entity.EntityPufferfish;
@@ -8,6 +10,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -50,8 +53,16 @@ public class RenderPufferfish extends RenderLiving<EntityPufferfish>
         }
 	}
 
-    protected void applyRotations(EntityPufferfish entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
+	protected void applyRotations(EntityPufferfish entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
     {
         super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);
+        
+        if (entityLiving.isFlopping())
+		{
+			float flopSide = MathHelper.sin((p_77043_2_ *0.004F) * 90F) * 90F;
+			
+			GL11.glRotatef(flopSide, 0F, 0F, 1F);
+			GL11.glTranslatef(-flopSide/90 * 0.1F, 0.0F, 0F);
+		}
     }
 }

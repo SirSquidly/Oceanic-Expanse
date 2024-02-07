@@ -1,11 +1,10 @@
 package com.sirsquidly.oe.client.model.entity;
 
-import com.sirsquidly.oe.entity.EntitySalmon;
+import com.sirsquidly.oe.entity.AbstractFish;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -66,14 +65,15 @@ public class ModelSalmon extends ModelBase {
     }
     
     @Override
-    public void setLivingAnimations(EntityLivingBase entity, float swing, float speed, float partialRenderTicks) {
-    	EntitySalmon fish = (EntitySalmon) entity;
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+    {
+    	AbstractFish fish = (AbstractFish) entityIn;
 
-            float flap = MathHelper.sin((fish.ticksExisted) * 0.6F) * 0.6F;
-            if (fish.isFlopping())
-            	flap = MathHelper.sin((fish.ticksExisted) * 1.2F) * 0.6F;
-            body1.rotateAngleY = flap*0.2F;
-            body2.rotateAngleY = flap*0.4F;
-            tail1.rotateAngleY = flap*0.6F;
+        float flap = MathHelper.sin((ageInTicks) * 0.6F) * 0.6F;
+        if (fish.isFlopping())
+        	flap = MathHelper.sin((ageInTicks) * 1.2F) * 0.6F;
+        body1.rotateAngleY = flap*0.2F;
+        body2.rotateAngleY = flap*0.41F;
+        tail1.rotateAngleY = flap*0.6F;
     }
 }

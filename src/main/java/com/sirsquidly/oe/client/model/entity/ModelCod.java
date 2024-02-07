@@ -5,11 +5,10 @@ import com.sirsquidly.oe.entity.AbstractFish;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
+	
 @SideOnly(Side.CLIENT)
 public class ModelCod extends ModelBase {
 	public ModelRenderer body1;
@@ -67,17 +66,17 @@ public class ModelCod extends ModelBase {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
-    
+
     @Override
-    public void setLivingAnimations(EntityLivingBase entity, float swing, float speed, float partialRenderTicks) {
-    	AbstractFish fish = (AbstractFish) entity;
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+    {
+    	AbstractFish fish = (AbstractFish) entityIn;
 
-            float flap = MathHelper.sin((entity.ticksExisted) * 0.6F) * 0.6F;
-            if (fish.isFlopping())
-            	flap = MathHelper.sin((entity.ticksExisted) * 1.2F) * 0.6F;
-            body1.rotateAngleY = flap*0.2F;
-            head1.rotateAngleY = flap*0.1F;
-            tail1.rotateAngleY = flap*0.6F;
+        float flap = MathHelper.sin((ageInTicks) * 0.6F) * 0.6F;
+        if (fish.isFlopping())
+        	flap = MathHelper.sin((ageInTicks) * 1.2F) * 0.6F;
+        body1.rotateAngleY = flap*0.2F;
+        head1.rotateAngleY = flap*0.1F;
+        tail1.rotateAngleY = flap*0.6F;
     }
-
 }
