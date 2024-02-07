@@ -12,10 +12,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -38,7 +39,7 @@ public class BucketMobEvent
     {
 		EntityPlayer player = event.getEntityPlayer();
 		
-		if (!(player.getHeldItemMainhand().getItem() instanceof ItemBucket)) return;
+		if (!(player.getHeldItemMainhand().getItem() == Items.WATER_BUCKET)) return;
 		
 		Vec3d eyePosition = player.getPositionEyes(1.0F);
         Vec3d lookVector = player.getLook(1.0F);
@@ -53,11 +54,13 @@ public class BucketMobEvent
         {
 			World world = player.getEntityWorld();
 			
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(rtresult.getBlockPos()).grow(0.01D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity((Entity)null, new AxisAlignedBB(rtresult.getBlockPos()).grow(0.01D));
+			if (list.isEmpty()) return;
 			
 			for (Entity entity : list)
 	        {
-	            if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityPlayerMP) && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()))
+				ResourceLocation entityId = EntityList.getKey(entity);
+	            if (entity != null && !(entity instanceof EntityPlayer) && entityId != null && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, entityId.toString()))
 	            {
 	                AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox();
 	                RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(eyePosition, traceEnd);
@@ -80,7 +83,7 @@ public class BucketMobEvent
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		
-		if ((stack.getItem() instanceof ItemBucket) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase && !(event.getTarget() instanceof EntityPlayer) && !(event.getTarget() instanceof EntityPlayerMP)) 
+		if ((stack.getItem() instanceof ItemBucket) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase && !(event.getTarget() instanceof EntityPlayer)) 
 		{
 			EntityLivingBase entity = (EntityLivingBase) event.getTarget();
 			

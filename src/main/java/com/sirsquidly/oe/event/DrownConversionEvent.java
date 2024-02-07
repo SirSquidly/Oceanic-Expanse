@@ -22,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -51,10 +52,12 @@ public class DrownConversionEvent
 	public static void spawnEvent(EntityJoinWorldEvent event)
 	{
 		Entity spawn = event.getEntity();
-		/** Bonus security check */
-		if (spawn == null || !(spawn instanceof EntityLiving)) return;
+		ResourceLocation entityID = EntityList.getKey(spawn);
 		
-		if(ArrayUtils.contains(noSwimming, EntityList.getKey(event.getEntity()).toString()))
+		/** Bonus security check */
+		if (spawn == null || !(spawn instanceof EntityLiving) || entityID == null) return;
+
+		if(ArrayUtils.contains(noSwimming, entityID.toString()))
 		{
 			EntityLiving zombie  = (EntityLiving) event.getEntity();			
 			

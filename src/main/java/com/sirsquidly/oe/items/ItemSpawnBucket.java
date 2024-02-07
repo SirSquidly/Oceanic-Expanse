@@ -244,9 +244,16 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 				entity.writeToNBTOptional(entityTag);
 				entityTag.removeTag("Pos");
 				entityTag.removeTag("Motion");
+				//entityTag.removeTag("Rotation");
 				entityTag.removeTag("Fire");
+				entityTag.removeTag("FallDistance");
+				entityTag.removeTag("Dimension");
+				entityTag.removeTag("PortalCooldown");
 				entityTag.removeTag("UUIDMost");
 				entityTag.removeTag("UUIDLeast");
+				entityTag.removeTag("Leashed");
+				entityTag.removeTag("Leash");
+				
 				entity.setDead();
 
 				tags.setTag("EntityTag", entityTag);
