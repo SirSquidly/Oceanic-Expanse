@@ -13,6 +13,7 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -270,6 +271,8 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     {
         if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() && this.world.isDaytime())
         {}
+        if (entitylivingbaseIn instanceof EntityDrowned && entitylivingbaseIn.getHeldItemMainhand().getItem() == OEItems.TRIDENT_ORIG)
+        {}
         else
         { super.setAttackTarget(entitylivingbaseIn); }
     }
@@ -332,7 +335,13 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     	
     	if (isCaptain())
     	{
-    		if (ConfigHandler.item.trident.enableTrident) this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.TRIDENT_ORIG));
+    		if (ConfigHandler.item.trident.enableTrident)
+    		{
+    			//float f = difficulty.getClampedAdditionalDifficulty();
+    			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.TRIDENT_ORIG));
+    			
+    			//EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItemMainhand(), (int)(5.0F + f * (float)this.rand.nextInt(18)), false);
+    		}
     		if (ConfigHandler.item.conch.enableConch) this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.CONCH));
     		
     		return;
@@ -356,6 +365,8 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.NAUTILUS_SHELL));
             this.setDropChance(EntityEquipmentSlot.OFFHAND, 100);
         }
+
+        this.setEnchantmentBasedOnDifficulty(difficulty);
     }
     
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
