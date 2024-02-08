@@ -97,7 +97,6 @@ public class CommonProxy
 		{
 			fluidlogged_enable = true;
 		}
-		
 		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new GuiHandler());
 	}
 	

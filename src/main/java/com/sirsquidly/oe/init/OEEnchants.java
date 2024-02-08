@@ -34,7 +34,7 @@ public class OEEnchants
 		if (ConfigHandler.enchant.loyalty.enableLoyaltyEnchant) event.getRegistry().register(LOYALTY);
 		
 		if (ConfigHandler.enchant.channeling.enableChannelingEnchant) event.getRegistry().register(CHANNELING);
-		if (ConfigHandler.enchant.enableRiptideEnchant) event.getRegistry().register(RIPTIDE);
+		if (ConfigHandler.enchant.riptide.enableRiptideEnchant) event.getRegistry().register(RIPTIDE);
 		
 		event.getRegistry().register(OEEnchants.MOBSTOMP);
 	}

@@ -2,8 +2,10 @@ package com.sirsquidly.oe.event;
 
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSkull;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
@@ -22,6 +24,7 @@ public class NoteBlockPlay
 	@SubscribeEvent
 	public static void noteBlockPlayed(NoteBlockEvent.Play event)
 	{
+		if (!(ConfigHandler.block.pickledHead.pickledHeadNoteblockSounds || ConfigHandler.block.pickledHead.enablePickledHead)) return;
 		BlockPos pos = event.getPos();
 		if(event.getWorld().getBlockState(pos).getBlock() != Blocks.NOTEBLOCK)
 			return;
@@ -29,8 +32,8 @@ public class NoteBlockPlay
 		if (checkAroundForSkull(event.getWorld(), event.getPos()) == OEBlocks.PICKLED_HEAD)
 		{
 			event.setCanceled(true);
-			
-			float pitch = (float) Math.pow(2.0, (event.getVanillaNoteId() - 12) / 12.0);
+
+			float pitch = ConfigHandler.block.pickledHead.pickledHeadNoteblockPitch ? (float) Math.pow(2.0, (event.getVanillaNoteId() - 12) / 12.0) : 1.0F;
 			
 			event.getWorld().playSound(null, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, OESounds.ENTITY_DROWNED_AMBIENT, SoundCategory.BLOCKS, 1F, pitch);
 		}
@@ -44,7 +47,10 @@ public class NoteBlockPlay
 			{ 
 				if (worldIn.getBlockState(pos.offset(facing)).getBlock() == Blocks.SKULL || worldIn.getBlockState(pos.offset(facing)).getBlock() == OEBlocks.PICKLED_HEAD)
 				{
-					return worldIn.getBlockState(pos.offset(facing)).getBlock();
+					if (worldIn.getBlockState(pos.offset(facing)).getValue(BlockSkull.FACING) == facing)
+					{
+						return worldIn.getBlockState(pos.offset(facing)).getBlock();
+					}
 				}
 			}
 	    }

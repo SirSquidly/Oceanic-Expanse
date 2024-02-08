@@ -10,6 +10,7 @@ import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.proxy.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import net.minecraft.enchantment.EnchantmentDurability;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -18,6 +19,9 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -25,8 +29,11 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 public class EntityTrident extends AbstractArrow
 {
@@ -80,10 +87,14 @@ public class EntityTrident extends AbstractArrow
 		this.playSound(OESounds.ENTITY_TRIDENT_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 	}
 
+	/**
+     * Only runs after the Trident has hit an entity
+     */
 	public void missileHit(EntityLivingBase living)
     {
-		this.getItem().damageItem(1, living);
+		damageItem(1);
 		this.doChanneling(living);
+		this.doVanillaEnchants(living);
 		this.checkLoyalty();
     }
 	
@@ -153,6 +164,9 @@ public class EntityTrident extends AbstractArrow
             	}
             }
 		}
+
+		if (this.getItem() == ItemStack.EMPTY || this.getItem().getItemDamage() >= this.getItem().getMaxDamage())
+		{ this.setDead(); }
     }
 	
 	@Override
@@ -164,6 +178,8 @@ public class EntityTrident extends AbstractArrow
         {
         	return;
         }
+
+        damageItem(1);
         
         if (entity != null)
         {
@@ -172,16 +188,19 @@ public class EntityTrident extends AbstractArrow
             damagesource = CommonProxy.causeTridentDamage(this, this.shootingEntity == null ? this : this.shootingEntity);
 
             if (this.isBurning() && !(entity instanceof EntityEnderman))
-            {
+            {		
                 entity.setFire(5);
             }
+            float f = this.damage;
+            f += EnchantmentHelper.getModifierForCreature(this.getItem(), ((EntityLivingBase)entity).getCreatureAttribute());
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getItem()) > 0) f += EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getItem()) * 0.5D + 0.5D;
             
-            if (entity.attackEntityFrom(damagesource, this.damage))
+            if (entity.attackEntityFrom(damagesource, f))
             {
                 if (entity instanceof EntityLivingBase)
                 {
                     EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
-
+                    
                     this.missileHit(entitylivingbase);
                     
                     if (this.shootingEntity != null && entitylivingbase != this.shootingEntity && entitylivingbase instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP)
@@ -218,6 +237,48 @@ public class EntityTrident extends AbstractArrow
         }
     }
 	
+	/**
+     * HAndles damaging the Trident upon landing AND/OR hitting an Entity. Also handles breaking and removing the Trident if the item breaks.
+     */
+	public void damageItem(int amount)
+    {
+		boolean alwaysBreak = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, this.getItem()) > 0;
+		int unbreakingLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, this.getItem());
+		int unbreakingReduction = 0;
+		
+		if (!getItem().isItemStackDamageable() && !alwaysBreak) return;
+
+        for (int k = 0; unbreakingLvl > 0 && k < amount; ++k)
+        {
+            if (EnchantmentDurability.negateDamage(this.getItem(), unbreakingLvl, rand))
+            {
+                ++unbreakingReduction;
+            }
+        }
+
+        amount -= unbreakingReduction;
+
+		getItem().setItemDamage(getItem().getItemDamage() + amount);
+
+		
+		
+		if (getItem().getItemDamage() > getItem().getMaxDamage() - 1 || alwaysBreak)
+		{
+        	this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_ITEM_BREAK, this.getSoundCategory(), 0.8F, 0.8F + this.world.rand.nextFloat() * 0.4F);
+
+            for (int i = 0; i < 10; ++i)
+            {
+            	if (this.world instanceof WorldServer)
+                    ((WorldServer)this.world).spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX - this.motionX * this.rand.nextDouble(), this.posY - this.motionY * this.rand.nextDouble(), this.posZ - this.motionZ * this.rand.nextDouble(), 0, this.motionX, this.motionY, this.motionZ, 0.0D, Item.getIdFromItem(getItem().getItem()), getItem().getMetadata());
+                else
+                    this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ, Item.getIdFromItem(getItem().getItem()), getItem().getMetadata());
+            }
+        	
+            this.setDead();
+		}
+    }
+	
+	
 	@Override
 	public void onCollideWithPlayer(EntityPlayer entityIn)
     {
@@ -225,6 +286,7 @@ public class EntityTrident extends AbstractArrow
         {
         	if (EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, this.getItem()) > 0)
         	{
+        		if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, this.getItem()) > 0) this.setDead();
         		if (entityIn == this.shootingEntity)
                 {
                     super.onCollideWithPlayer(entityIn);
@@ -237,6 +299,9 @@ public class EntityTrident extends AbstractArrow
         }
     }
 	
+	/**
+     * Plays the Loyalty Sound, and sets this entity to do all of the returning behavior
+     */
 	public void checkLoyalty()
     {
 		if (EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, this.getItem()) > 0)
@@ -273,7 +338,33 @@ public class EntityTrident extends AbstractArrow
 			}
 		}
     }
+	
+	/**
+     * Applies Vanilla Enchantment effects to the hit entity
+     */
+	public void doVanillaEnchants(EntityLivingBase target)
+    {
+		int fireAspectLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, this.getItem());
+    	int knockbackLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.KNOCKBACK, this.getItem());
+    	int punchLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, this.getItem());
+		
+    	if (fireAspectLvl > 0)
+        { target.setFire(fireAspectLvl * 4); }
+		
+    	if (knockbackLvl > 0)
+        { target.knockBack(this, (float)knockbackLvl * 0.5F, (double)-MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F))); }
+    	
+    	
+    	if (punchLvl > 0)
+        {
+            float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 
+            if (f1 > 0.0F)
+            { target.addVelocity(this.motionX * punchLvl * 0.6000000238418579D / (double)f1, 0.1D, this.motionZ * punchLvl * 0.6000000238418579D / (double)f1); }
+        }
+    	
+    }
+	
 	public void setItem(ItemStack stack)
     {
         if (!stack.isEmpty())

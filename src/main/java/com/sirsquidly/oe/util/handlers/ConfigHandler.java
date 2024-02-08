@@ -532,6 +532,16 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.block.enablePickledHead")
 		    @Config.Comment("If Pickled Heads are enabled.")
 		    public boolean enablePickledHead = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.pickledHeadNoteblockSounds")
+		    @Config.Comment("If a Pickled Head attached to a Note Block plays the Pickled's ambient sounds.")
+		    public boolean pickledHeadNoteblockSounds = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.pickledHeadNoteblockPitch")
+		    @Config.Comment("If pitch should be used by the Note Block. Requires the Note Block Behavior to be enabled.")
+		    public boolean pickledHeadNoteblockPitch = true;
 	    }
 		
 		@Config.LangKey("oe.config.block.guardianSpike")
@@ -819,6 +829,11 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.item.enableTrident")
 		    @Config.Comment("If Tridents are enabled")
 		    public boolean enableTrident = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.tridentCanThrowBreak")
+		    @Config.Comment("Allows the player to throw a Trident even if it is at 1 durability, leading to it breaking upon impact. Vanilla Minecraft does this.")
+		    public boolean tridentCanThrowBreak = false;
 			
 		    @Config.LangKey("oe.config.item.tridentDamage")
 		    @Config.Comment("The Attack Damage of the Trident")
@@ -1454,10 +1469,29 @@ public class ConfigHandler
 		    public int loyaltyVoidReturnLevel = -15;
 		}
 		
-		@RequiresMcRestart
-	    @Config.LangKey("oe.config.entity.enableRiptideEnchant")
-	    @Config.Comment("If the Riptide Enchantment should be enabled.")
-	    public boolean enableRiptideEnchant = true;
+		@Config.LangKey("oe.config.enchant.riptide")
+		@Config.Comment("Config for Riptide")
+	    public configRiptide riptide = new configRiptide();
+		
+		public static class configRiptide
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableRiptideEnchant")
+		    @Config.Comment("If the Riptide Enchantment should be enabled.")
+		    public boolean enableRiptideEnchant = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.riptideSneakThrowing")
+		    @Config.Comment("Lets the player throw their Riptide trident by sneaking. The throw speed is multiplied by the Riptide level, making them VERY fast!")
+		    public boolean riptideSneakThrowing = false;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.riptideIBroughtMyOwnWaterThankYou")
+		    @Config.Comment("Enables the ability to use Riptide by holding a Bucket in your other hand. I think this really breaks the balance of the Enchantment, but I added it if anyone wants it.")
+		    public boolean riptideIBroughtMyOwnWaterThankYou = false;
+		}
+		
+		
 	}
 	
 	@Config.LangKey("oe.config.effect")

@@ -6,10 +6,27 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.sirsquidly.oe.common.CreativeTab;
+import com.sirsquidly.oe.entity.EntityTrident;
+import com.sirsquidly.oe.init.OEEnchants;
+import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.proxy.CommonProxy;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.dispenser.BehaviorProjectileDispense;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.IPosition;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.projectile.EntityTippedArrow;
+import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -59,5 +76,80 @@ public class Main {
 	}
 	
 	@EventHandler
-	public void PostInit(FMLPostInitializationEvent event) {}
+	public void PostInit(FMLPostInitializationEvent event)
+	{
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(OEItems.TRIDENT_ORIG, new BehaviorProjectileDispense()
+        {
+			
+			public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
+		    {
+				float velocity = EnchantmentHelper.getEnchantmentLevel(OEEnchants.RIPTIDE, stack) > 0 ? EnchantmentHelper.getEnchantmentLevel(OEEnchants.RIPTIDE, stack) * 0.8F : 0.8F;
+				
+				
+		        World world = source.getWorld();
+		        IPosition iposition = BlockDispenser.getDispensePosition(source);
+		        EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+		        IProjectile iprojectile = this.getProjectileEntity(world, iposition, stack);
+                
+                boolean flag = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) != 0 || EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, stack) != 0;
+
+		        iprojectile.shoot((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY() + 0.1F), (double)enumfacing.getFrontOffsetZ(), velocity * 3.0F, this.getProjectileInaccuracy());
+		        world.spawnEntity((Entity)iprojectile);
+		        
+		        if (!flag) 
+		        {
+		        	stack.shrink(1);
+		        }
+		        else
+		        {
+		        	damageTrident(stack, 1);
+		        }
+		        
+		        return stack;
+		    }
+			
+			public void damageTrident(ItemStack stack, int amount)
+			{
+				if (!stack.isItemStackDamageable()) return;
+				
+				if (stack.getItemDamage() < stack.getMaxDamage() - 1)
+				{
+					stack.setItemDamage(stack.getItemDamage() + amount);
+				}
+				else
+				{
+					stack.shrink(1);
+				}
+			}
+			
+            /**
+             * Return the projectile entity spawned by this dispense behavior.
+             */
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn)
+            {
+            	EntityTrident entitytrient = new EntityTrident(worldIn, position.getX(), position.getY(), position.getZ());
+            	
+            	entitytrient.setItem(stackIn);
+            	
+            	int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stackIn);
+
+                if (j > 0)
+                {
+                	entitytrient.setDamage(entitytrient.getDamage() + (double)j * 0.5D + 0.5D);
+                }
+                
+                if (EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stackIn) > 0)
+                { entitytrient.setKnockbackStrength(EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stackIn)); }
+                
+                if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stackIn) > 0) entitytrient.setFire(100);
+
+                if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stackIn) == 0 && EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, stackIn) == 0)
+                {
+                	entitytrient.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
+                }
+
+                return entitytrient;
+            }
+        });
+	}
 }

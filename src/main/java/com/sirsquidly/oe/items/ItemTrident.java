@@ -9,6 +9,7 @@ import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -16,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
@@ -83,7 +85,7 @@ public class ItemTrident extends Item
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         int r = EnchantmentHelper.getEnchantmentLevel(OEEnchants.RIPTIDE, itemstack);
         
-        if (r == 0 || r > 0 && playerIn.isWet())
+        if ((ConfigHandler.item.trident.tridentCanThrowBreak || itemstack.getItemDamage() < itemstack.getMaxDamage() - 1) && (r == 0 || canLetItRip(worldIn, playerIn)))
         {
         	playerIn.setActiveHand(handIn);
         	return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
@@ -94,7 +96,7 @@ public class ItemTrident extends Item
     
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
     {
-        if (entityLiving instanceof EntityPlayer && !(stack.getItemDamage() > stack.getMaxDamage() - 1))
+        if (entityLiving instanceof EntityPlayer && !(stack.getItemDamage() > stack.getMaxDamage()))
         {
             EntityPlayer entityplayer = (EntityPlayer)entityLiving;
             
@@ -106,15 +108,18 @@ public class ItemTrident extends Item
         	
         	if (f >= 0.6 && !worldIn.isRemote)
         	{ 
-        		if (r <= 0)
+        		if (r <= 0 || entityplayer.isSneaking() && ConfigHandler.enchant.riptide.riptideSneakThrowing)
             	{
+        			float velocity = r > 0 ? r * 0.8F : 0.8F;
+        			
     				EntityTrident entitytrient = new EntityTrident(worldIn, entityplayer);
-                    entitytrient.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, 0.8F * 3.0F, 1.0F);
+                    entitytrient.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, velocity * 3.0F, 1.0F);
 
                     entitytrient.setIsCritical(true);
-                    stack.damageItem(1, entityplayer);
+                    
                     entitytrient.setItem(stack);
                     
+                    boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
                     int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 
                     if (j > 0)
@@ -122,19 +127,25 @@ public class ItemTrident extends Item
                     	entitytrient.setDamage(entitytrient.getDamage() + (double)j * 0.5D + 0.5D);
                     }
                     
-                    if (!entityplayer.capabilities.isCreativeMode)
+                    if (EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack) > 0)
+                    { entitytrient.setKnockbackStrength(EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack)); }
+                    
+                    if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0) entitytrient.setFire(100);
+                    
+                    if (!infinity && !entityplayer.capabilities.isCreativeMode)
                     {
                     	stack.setCount(0);
                     }
                     else
                     {
+                    	if (infinity) stack.damageItem(1, entityplayer);
                     	entitytrient.pickupStatus = PickupStatus.CREATIVE_ONLY;
                     }
 
                     worldIn.spawnEntity(entitytrient);	
     			
             	}
-            	else if (entityplayer.isWet())
+            	else if (canLetItRip(worldIn, entityplayer))
             	{
             		stack.damageItem(1, entityplayer);
             		playRiptideSound(worldIn, entityplayer, r);
@@ -166,7 +177,27 @@ public class ItemTrident extends Item
         	}
                 entityplayer.addStat(StatList.getObjectUseStats(this));
             }
+       }
+
+    /**
+     * If the player can use a Trident that has Riptide on it.
+     */
+    public static boolean canLetItRip(World world, EntityLivingBase player)
+    {
+        if (player.isWet()) return true;
+        
+        if (player.isSneaking() && ConfigHandler.enchant.riptide.riptideSneakThrowing) return true;
+        
+        if (ConfigHandler.enchant.riptide.riptideIBroughtMyOwnWaterThankYou)
+        {
+        	if (player.getHeldItemMainhand().getItem() == Items.WATER_BUCKET || player.getHeldItemOffhand().getItem() == Items.WATER_BUCKET )
+        	{
+        		return true;
+        	}
         }
+
+		return false;
+    }
     
     /** Plays the appropriate Riptide song. Shoved to a seperate method for readability. */
     public static void playRiptideSound(World world, EntityLivingBase player, int level)
@@ -193,6 +224,28 @@ public class ItemTrident extends Item
         }
 
         return f;
+    }
+    
+
+    /**
+     * Ahead is copied from ItemSword.
+     */
+    
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
+    {
+        stack.damageItem(1, attacker);
+        return true;
+    }
+
+    
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
+    {
+        if ((double)state.getBlockHardness(worldIn, pos) != 0.0D)
+        {
+            stack.damageItem(2, entityLiving);
+        }
+
+        return true;
     }
     
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
