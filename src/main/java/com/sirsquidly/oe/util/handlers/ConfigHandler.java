@@ -758,6 +758,29 @@ public class ConfigHandler
 		}
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.glowItemFrame")
+	    public configGlowItemFrame glowItemFrame = new configGlowItemFrame();
+		
+		public static class configGlowItemFrame
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableGlowItemFrame")
+		    @Config.Comment("If Glow Item Frames are enabled.")
+		    public boolean enableGlowItemFrame = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.glowItemFrameCeilingsAndFloors")
+		    @Config.Comment("If Glow Item Frames can be placed on Ceilings and Floors.")
+		    public boolean glowItemFrameCeilingsAndFloors = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.glowItemFrameQuarkNamePosition")
+		    @Config.Comment("If ceilings or floors Glow Item Frames render custom item names at the same spots as Quark. Otherwise uses Vanilla name positions.")
+		    public boolean glowItemFrameQuarkNamePosition = true;
+		}
+		
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.heavyBoots")
 	    public configHeavyBoots heavyBoots = new configHeavyBoots();
 		
@@ -968,6 +991,18 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.enableCrabDigging")
 		    @Config.Comment("If Crabs can dig. Does not affect the individual crabs that have 'CanDig' set to false.")
 		    public boolean enableCrabDigging = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.drownConversionsList")
+		    @Config.Comment("A list of which mobs convert into what, when Drown Converting. If multiple entries exist for the same mob, only the first in the list will be used!")
+		    public String[] crabDiggingList =
+			{
+		    	"minecraft:gravel=oe:gameplay/crab_dig/gravel",
+		    	"minecraft:sand:1=oe:gameplay/crab_dig/red_sand",
+		    	"minecraft:sand=oe:gameplay/crab_dig/sand",
+		    	"oe:shell_sand=oe:gameplay/crab_dig/shelly_sand",
+		    	"minecraft:soul_sand=oe:gameplay/crab_dig/soul_sand"
+		    };
 	    }
 		
 		@RequiresMcRestart

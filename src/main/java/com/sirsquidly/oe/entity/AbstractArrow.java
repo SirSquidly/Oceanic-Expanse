@@ -30,8 +30,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
     private int yTile;
     private int zTile;
     protected Block inTile;
-    @SuppressWarnings("unused")
-	private int inData;
+    private int inData;
     protected boolean inGround;
     protected int timeInGround;
     public PickupStatus pickupStatus;

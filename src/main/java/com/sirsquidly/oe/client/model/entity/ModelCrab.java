@@ -272,9 +272,9 @@ public class ModelCrab extends ModelBase {
         	this.eyestlkl1.rotateAngleX = 0.3F;
         	
         	this.clawr1.rotateAngleX = 0.2F - eat;
-        	this.clawl1.rotateAngleX = 0.2F + eat;
-        	this.clawr1.rotateAngleZ = 0.5F + eat; 
-        	this.clawl1.rotateAngleZ = -0.5F - eat;
+        	this.clawr1.rotateAngleZ = 0.5F - eat; 
+        	this.clawl1.rotateAngleX = -0.2F - eat;
+        	this.clawl1.rotateAngleZ = -0.5F + eat;
         }
     }
 

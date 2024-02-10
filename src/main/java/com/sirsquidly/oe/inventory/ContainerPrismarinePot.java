@@ -1,16 +1,11 @@
 package com.sirsquidly.oe.inventory;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.tileentity.TilePrismarinePot;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerPrismarinePot extends Container
 {

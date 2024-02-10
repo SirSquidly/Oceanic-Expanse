@@ -2,7 +2,11 @@ package com.sirsquidly.oe.util.handlers;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.Main;
@@ -18,6 +22,12 @@ public class ConfigArrayHandler
 	public static List<ResourceLocation> DROWNCONVERTFROM = Lists.<ResourceLocation>newArrayList();
 	/** Entities created by the former (DROWNCONVERTFROM) drowning. */
 	public static List<ResourceLocation> DROWNCONVERTTO = Lists.<ResourceLocation>newArrayList();
+	
+	/** Entities that drown to become a different entity. */
+	public static List<IBlockState> CRABDIGFROM = Lists.<IBlockState>newArrayList();
+	/** Loot Tables pulled by the former (CRABDIGFROM). */
+	public static List<ResourceLocation> CRABDIGTO = Lists.<ResourceLocation>newArrayList();
+	
 	
 	public static void breakupConfigArrays()
 	{
@@ -42,5 +52,61 @@ public class ConfigArrayHandler
 				DROWNCONVERTTO.add(new ResourceLocation(split[1]));	
 			}
 		}
+		
+		for(String S : ConfigHandler.entity.crab.crabDiggingList)
+		{
+			String[] split = S.split("=");
+			
+			if (getBlockFromString(split[0]) == null)
+			{
+				Main.logger.error(split[0] + " is not a proper block!");
+			}
+			else if (CRABDIGFROM.contains(new ResourceLocation(split[0])))
+			{
+				Main.logger.error(split[0] + " has multiple crab digging loot tables set in the config! Only the first listed will be used!");
+			}
+			else if (split.length != 2)
+			{
+				if (split.length == 1)
+					Main.logger.error(split[0] + " is missing a loot table! Skipping...");
+				else
+					Main.logger.error(S + " is improperly written!");
+			}
+			else
+			{
+				CRABDIGFROM.add(getBlockFromString(split[0]));
+				CRABDIGTO.add(new ResourceLocation(split[1]));	
+			}
+		}
 	}
+	
+	/**
+     * Rips up a String to return an IBlockState.
+     * 
+     * Returns null if the string cannot be processed!
+     */
+	@SuppressWarnings("deprecation")
+	private static IBlockState getBlockFromString(String string)
+	{
+		String[] parts = string.split(":");
+		
+		Block block = GameRegistry.findRegistry(Block.class).getValue(new ResourceLocation(parts[0], parts[1]));
+		Integer meta = null;
+		
+		if(block == null || block == Blocks.AIR)
+		{
+			Main.logger.error("Could not find" + string + "!");
+			return null;
+		}
+		if(parts.length > 2)
+		{
+			meta = Integer.parseInt(parts[2]);
+			
+			if(meta == -1) 
+			{ meta = null; }
+		}
+
+		return meta == null ? block.getDefaultState() : block.getStateFromMeta(meta);
+	}
+	
 }

@@ -1,26 +1,38 @@
 package com.sirsquidly.oe.entity.ai;
 
 import java.util.List;
+import java.util.Random;
 
+import org.apache.commons.lang3.ArrayUtils;
+
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityCrab;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 
 public class EntityAICrabDig extends EntityAIBase
 {
 	/** The delay between crab actions (pause, eating, removing item [in ticks]) */
     int digTimer;
 	private final EntityCrab crab;
-	int chance = 1000;
+	int chance = 10;
 	
 	public EntityAICrabDig(EntityCrab crabIn)
     { this.crab = crabIn; }
@@ -36,7 +48,7 @@ public class EntityAICrabDig extends EntityAIBase
 	    {
 	    	BlockPos blockpos = new BlockPos(this.crab.posX, this.crab.posY, this.crab.posZ);
 	    	
-	    	return this.crab.world.getBlockState(blockpos.down()).getMaterial() == Material.SAND;
+	    	return ConfigArrayHandler.CRABDIGFROM.contains(this.crab.world.getBlockState(blockpos.down()));
 	    }
     }
     
@@ -51,6 +63,7 @@ public class EntityAICrabDig extends EntityAIBase
 
     public boolean shouldContinueExecuting()
     { 
+    	if (!this.crab.canDig()) return false;
     	ItemStack offHand = this.crab.getHeldItemOffhand();
     	return this.digTimer > 0 && offHand.isEmpty(); 
     }
@@ -70,14 +83,22 @@ public class EntityAICrabDig extends EntityAIBase
     		if (mainHand.isEmpty())
             {
             	LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer)this.crab.world);
-            	List<ItemStack> result = this.crab.world.getLootTableManager().getLootTableFromLocation(LootTableHandler.GAMEPLAY_CRAB_DIG).generateLootForPools(this.crab.getRNG(), lootcontext$builder.build());
             	
-                for (ItemStack itemstack : result)
-                { 
-                	this.crab.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack); 
+            	IBlockState block = this.crab.world.getBlockState(this.crab.getPosition().down());
+            	
+            	if (block == null || ConfigArrayHandler.CRABDIGFROM.isEmpty()) return;
+  
+            	if (ConfigArrayHandler.CRABDIGFROM.contains(block))
+            	{
+            		LootTable loottable = this.crab.world.getLootTableManager().getLootTableFromLocation(ConfigArrayHandler.CRABDIGTO.get(ConfigArrayHandler.CRABDIGFROM.indexOf(block)));
+            		
+            		for (ItemStack itemstack : loottable.generateLootForPools(this.crab.getRNG(), lootcontext$builder.build()))
+                    { 
+                    	this.crab.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack); 
 
-                if (!(itemstack.isEmpty())) { this.crab.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, 1.0F); }
-                }
+                        if (!(itemstack.isEmpty())) { this.crab.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, 1.0F); }
+                    }
+            	}
             }
     		else
     		{

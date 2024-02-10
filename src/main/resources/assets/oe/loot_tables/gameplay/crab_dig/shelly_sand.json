@@ -1,0 +1,54 @@
+{
+    "pools": [
+        {
+        	"name":  "crab_dig",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "oe:barnacle_shells",
+                    "weight": 13
+                },
+                {
+                    "type": "item",
+                    "name": "oe:seastar",
+                    "weight": 13
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:glass_bottle",
+                    "weight": 9
+                },
+                {
+                    "type": "item",
+                    "name": "oe:turtle_scute",
+                    "weight": 9
+                },
+                {
+                    "type": "item",
+                    "name": "oe:conch",
+                    "weight": 5
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:bow",
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "set_damage",
+                            "damage": {
+                                "min": 0,
+                                "max": 0.25
+                            }
+                        },
+                        {
+                            "function": "enchant_with_levels",
+                            "levels": 30,
+                            "treasure": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

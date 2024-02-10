@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -191,6 +192,26 @@ public class EntityCrab extends EntityAnimal
         super.onLivingUpdate();
     }
 	
+	/**
+     * Detects if a player nearby has a Trading Item.
+     */
+	public boolean checkNearbyTrade()
+    {
+		List<Entity> findPlayer = this.world.getEntitiesWithinAABB(EntityPlayer.class, getEntityBoundingBox().grow(10));
+		
+		if (findPlayer.isEmpty()) return false;
+		
+		for (Entity e : findPlayer) 
+    	{
+			if (this.isBarterItem(((EntityPlayer) e).getHeldItemMainhand()) || this.isBarterItem(((EntityPlayer) e).getHeldItemOffhand()))
+			{
+				return true;
+			}
+		}
+
+		return false;
+    }
+
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
     {
         ItemStack itemstack = player.getHeldItem(hand);
@@ -327,7 +348,7 @@ public class EntityCrab extends EntityAnimal
     { this.dataManager.set(CAN_BARTER, Boolean.valueOf(barter)); }
     
     public boolean canDig()
-    { return ((Boolean)this.dataManager.get(CAN_DIG)).booleanValue(); }
+    { return (!checkNearbyTrade() || this.getHeldItemMainhand().isEmpty()) && ((Boolean)this.dataManager.get(CAN_DIG)).booleanValue(); }
 
     public void setCanDig(boolean dig)
     { this.dataManager.set(CAN_DIG, Boolean.valueOf(dig)); }

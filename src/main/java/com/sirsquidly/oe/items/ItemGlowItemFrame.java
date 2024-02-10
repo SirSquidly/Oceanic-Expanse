@@ -3,6 +3,7 @@ package com.sirsquidly.oe.items;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.entity.item.EntityGlowItemFrame;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLivingBase;
@@ -49,10 +50,8 @@ public class ItemGlowItemFrame extends Item
     {
         ItemStack itemstack = player.getHeldItem(hand);
         BlockPos blockpos = pos.offset(facing);
-
-        boolean cork = true;
         
-        if ((cork || facing.getAxis() != EnumFacing.Axis.Y) && player.canPlayerEdit(blockpos, facing, itemstack))
+        if ((ConfigHandler.item.glowItemFrame.glowItemFrameCeilingsAndFloors || facing.getAxis() != EnumFacing.Axis.Y) && player.canPlayerEdit(blockpos, facing, itemstack))
         {
             EntityHanging entityhanging = createEntity(worldIn, blockpos, facing);
 

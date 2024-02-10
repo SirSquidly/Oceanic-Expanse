@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import com.sirsquidly.oe.entity.item.EntityGlowItemFrame;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -86,7 +87,7 @@ public class RenderGlowItemFrame extends RenderItemFrame
 		renderItem(entity);
 		GlStateManager.popMatrix();
 		/** A switch between a name rendering either at the Quark name positions, or in the future vanilla position. */
-		double nameYOffset = true ? glowItemFrame.extFacingDirection == EnumFacing.DOWN ? 0.75D : 0.25D : 0.0D;
+		double nameYOffset = ConfigHandler.item.glowItemFrame.glowItemFrameQuarkNamePosition ? glowItemFrame.extFacingDirection == EnumFacing.DOWN ? 0.75D : 0.25D : 0.0D;
 		renderName(entity, x + glowItemFrame.extFacingDirection.getFrontOffsetX() * 0.3F, y - (nameYOffset), z + glowItemFrame.extFacingDirection.getFrontOffsetZ() * 0.3F);
 	}
 

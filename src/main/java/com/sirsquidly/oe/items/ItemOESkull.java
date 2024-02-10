@@ -9,18 +9,15 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+//import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumActionResult;
@@ -29,7 +26,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -48,7 +44,7 @@ public class ItemOESkull extends ItemBlock
      			@SideOnly(Side.CLIENT)
      			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
      			{
-     				NBTTagCompound nbttagcompound = stack.getTagCompound();
+     				//NBTTagCompound nbttagcompound = stack.getTagCompound();
      				
      				if (entityIn != null && entityIn.isWet())
      				{
