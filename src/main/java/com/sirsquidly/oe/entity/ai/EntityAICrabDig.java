@@ -1,27 +1,14 @@
 package com.sirsquidly.oe.entity.ai;
 
-import java.util.List;
-import java.util.Random;
-
-import org.apache.commons.lang3.ArrayUtils;
-
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityCrab;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
@@ -32,7 +19,7 @@ public class EntityAICrabDig extends EntityAIBase
 	/** The delay between crab actions (pause, eating, removing item [in ticks]) */
     int digTimer;
 	private final EntityCrab crab;
-	int chance = 10;
+	int chance = 1000;
 	
 	public EntityAICrabDig(EntityCrab crabIn)
     { this.crab = crabIn; }
