@@ -55,11 +55,11 @@ import net.minecraft.world.World;
 public class EntityLobster extends EntityAnimal
 {
 	protected Block spawnableBlock = Blocks.SAND;
-	
-	/** 0 = Normal, 1 = Digging, 2 = Eating */
-	private static final DataParameter<Integer> ANIM_STATE = EntityDataManager.createKey(EntityLobster.class, DataSerializers.VARINT);
+
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
-	private static final Set<Item>TRADE_ITEMS = Sets.newHashSet(Items.FISH);
+	private static final DataParameter<Integer> LOBSTER_SIZE = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
+	
+	
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
 	/** Handles all the colors */
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityLobster.class, DataSerializers.VARINT);
@@ -70,15 +70,14 @@ public class EntityLobster extends EntityAnimal
 		super(worldIn);
 		this.setSize(0.8F, 0.3F);
 		this.setCanPickUpLoot(true);
-		this.setAnimationState(0);
 		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
 	protected void entityInit()
     { 
-		super.entityInit(); 
-		this.dataManager.register(ANIM_STATE, 0); 
+		super.entityInit();
 		this.dataManager.register(ANGRY, Boolean.valueOf(false));
+		this.dataManager.register(LOBSTER_SIZE, Integer.valueOf(1));
 		this.dataManager.register(VARIANT, 0);
 	}
 	
@@ -114,28 +113,6 @@ public class EntityLobster extends EntityAnimal
 		if (this.isInWater())
 			{ stepHeight = 1.0F; }
 		else { stepHeight = 0.6F; }
-		
-		if (this.getAnimationState() == 1)
-        {
-        	if (this.world.isRemote && iblockstate.getBlock() != Blocks.AIR)
-            {
-        		for (int i = 0; i < 2; ++i)
-                { this.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, this.posX, this.posY, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Block.getStateId(iblockstate)); }	
-            }
-        	if (this.rand.nextInt(2) == 0) 
-			{ this.playSound(SoundEvents.BLOCK_SAND_BREAK, 1.0F, 1.0F); }
-        }
-		
-		if (this.getAnimationState() == 2 && this.isBarterItem(offered))
-        {
-        	if (this.world.isRemote)
-            {
-        		for (int i = 0; i < 2; ++i)
-                { this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX, this.posY + 0.3D, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Item.getIdFromItem(offered.getItem()), offered.getMetadata()); }	
-            }
-        	if (this.rand.nextInt(2) == 0) 
-			{ this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1.0F, 1.0F); }
-        }
 
 		if (this.isAngry())
         {
@@ -159,9 +136,9 @@ public class EntityLobster extends EntityAnimal
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (this.isBarterItem(itemstack) && this.getHeldItemOffhand().isEmpty() && !(this.isChild()))
+        if (this.isBreedingItem(itemstack) && this.getHeldItemMainhand().isEmpty())
         {
-        	this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, itemstack);
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack);
 
         	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
         }
@@ -205,17 +182,14 @@ public class EntityLobster extends EntityAnimal
 	
 	public boolean isBreedingItem(ItemStack stack)
     { return BREEDING_ITEMS.contains(stack.getItem()); }
-	
-	public boolean isBarterItem(ItemStack stack)
-    { return TRADE_ITEMS.contains(stack.getItem()); }
-	
+
 	protected void updateEquipmentIfNeeded(EntityItem itemEntity)
     {
         ItemStack itemstack = itemEntity.getItem();
 
-        if (this.isBarterItem(itemstack) && this.getHeldItemOffhand().isEmpty() && !(this.getHeldItemMainhand().isEmpty()) && !(this.isChild()))
+        if (this.isBreedingItem(itemstack) && this.getHeldItemMainhand().isEmpty())
         {
-        	this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, itemstack);
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack);
         	int itemnumber = itemstack.getCount();
 
             if (itemnumber - 1 == 0)
@@ -228,12 +202,13 @@ public class EntityLobster extends EntityAnimal
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        livingdata = super.onInitialSpawn(difficulty, livingdata);
         int i = this.getRandomLobsterVariant();
 
         this.setLobsterVariant(i);
 
-        return livingdata;
+        this.setSalmonSize(1 + this.rand.nextInt(4), true);
+        
+        return super.onInitialSpawn(difficulty, livingdata);
     }
 	
 	/** Creates a random number for a Lobster varient, within acceptable range. */
@@ -392,29 +367,52 @@ public class EntityLobster extends EntityAnimal
         }
     }
 	
-	public int getAnimationState()
-    { return this.dataManager.get(ANIM_STATE); }
-	
-	public void setAnimationState(int state)
-    {
-        if(state < 0) { state = 0; }
-        else if(state > 2) { state = 2; }
-
-        this.dataManager.set(ANIM_STATE, state);
-    }
-	
 	public int getLobsterVariant()
     { return this.dataManager.get(VARIANT); }
 	
 	public void setLobsterVariant(int state)
     { this.dataManager.set(VARIANT, state); }
 	
+	protected void setSalmonSize(int size, boolean resetHealth)
+    {
+        this.dataManager.set(LOBSTER_SIZE, Integer.valueOf(size));
+        
+        this.setSize(0.55F + (size * 0.1F - 0.1F), 0.25F + (size * 0.025F));
+        this.setPosition(this.posX, this.posY, this.posZ);
+        //this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)(size * size));
+        if (resetHealth)
+        { this.setHealth(this.getMaxHealth()); }
+    }
+	
+	public void notifyDataManagerChange(DataParameter<?> key)
+    {
+        if (LOBSTER_SIZE.equals(key))
+        {
+            int i = this.getSalmonSize();
+            this.setSize(0.55F + (i * 0.1F - 0.1F), 0.25F + (i * 0.025F));
+            this.rotationYaw = this.rotationYawHead;
+            this.renderYawOffset = this.rotationYawHead;
+
+            if (this.isInWater() && this.rand.nextInt(20) == 0)
+            {
+                this.doWaterSplashEffect();
+            }
+        }
+
+        super.notifyDataManagerChange(key);
+    }
+	
+    public int getSalmonSize()
+    {
+        return ((Integer)this.dataManager.get(LOBSTER_SIZE)).intValue();
+    }
+    
 	@Override
     public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
-        compound.setInteger("AnimationState", this.getAnimationState());
         compound.setBoolean("Angry", this.isAngry());
+        compound.setInteger("Size", this.getSalmonSize());
         compound.setInteger("Variant", this.getLobsterVariant());
     }
 	
@@ -423,7 +421,11 @@ public class EntityLobster extends EntityAnimal
     {
         super.readEntityFromNBT(compound);
         this.setAngry(compound.getBoolean("Angry"));
-        this.setAnimationState(compound.getInteger("AnimationState"));
+        int i = compound.getInteger("Size");
+
+        if (i < 0) { i = 0; }
+
+        this.setSalmonSize(i, false);
         this.setLobsterVariant(compound.getInteger("Variant"));
     }
 }

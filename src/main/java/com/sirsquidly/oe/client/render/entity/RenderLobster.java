@@ -26,7 +26,8 @@ public class RenderLobster extends RenderLiving<EntityLobster>
     }
 
 	protected void preRenderCallback(EntityLobster entity, float f) {
-		float size = 0.9375F;
+		float sizeDefault = 0.9375F;
+		float size = (sizeDefault/1.25F) + ((float)entity.getSalmonSize() * 0.1F - 0.1F);
 		float crabRotation = 0.0F;
 		
 		if (entity.getGrowingAge() < 0)
@@ -34,7 +35,7 @@ public class RenderLobster extends RenderLiving<EntityLobster>
 			size = (float)((double)size * 0.5D);
             this.shadowSize = 0.2F;
         }
-        else { this.shadowSize = 0.35F; }
+        else { this.shadowSize = size * 0.35F; }
         
 		GlStateManager.rotate(crabRotation, 0.0F, 1.0F, 0.0F);
 		GlStateManager.scale(size, size, size);

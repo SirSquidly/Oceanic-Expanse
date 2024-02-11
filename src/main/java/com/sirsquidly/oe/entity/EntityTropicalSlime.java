@@ -199,6 +199,9 @@ public class EntityTropicalSlime extends EntitySlime
 	public boolean isNotColliding()
     { return this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
 	
+	protected boolean canDamagePlayer()
+    { return !this.isSmallSlime() && this.getAttackTarget() != null; }
+	
 	@Override
 	public boolean getCanSpawnHere()
     {

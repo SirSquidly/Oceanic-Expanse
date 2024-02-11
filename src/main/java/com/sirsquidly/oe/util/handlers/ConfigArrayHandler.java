@@ -5,6 +5,9 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -86,11 +89,11 @@ public class ConfigArrayHandler
      * Returns null if the string cannot be processed!
      */
 	@SuppressWarnings("deprecation")
-	private static IBlockState getBlockFromString(String string)
+	public static IBlockState getBlockFromString(String string)
 	{
-		String[] parts = string.split(":");
+		String[] ripString = string.split(":");
 		
-		Block block = GameRegistry.findRegistry(Block.class).getValue(new ResourceLocation(parts[0], parts[1]));
+		Block block = GameRegistry.findRegistry(Block.class).getValue(new ResourceLocation(ripString[0], ripString[1]));
 		Integer meta = null;
 		
 		if(block == null || block == Blocks.AIR)
@@ -98,9 +101,9 @@ public class ConfigArrayHandler
 			Main.logger.error("Could not find" + string + "!");
 			return null;
 		}
-		if(parts.length > 2)
+		if(ripString.length > 2)
 		{
-			meta = Integer.parseInt(parts[2]);
+			meta = Integer.parseInt(ripString[2]);
 			
 			if(meta == -1) 
 			{ meta = null; }
@@ -109,4 +112,29 @@ public class ConfigArrayHandler
 		return meta == null ? block.getDefaultState() : block.getStateFromMeta(meta);
 	}
 	
+	/**
+     * A copy of `getBlockFromString`, but for ItemStacks.
+     */
+	public static ItemStack getItemStackFromString(String string)
+	{
+		String[] ripString = string.split(":");
+		
+		Item item = GameRegistry.findRegistry(Item.class).getValue(new ResourceLocation(ripString[0], ripString[1]));
+		Integer meta = null;
+		
+		if(item == null || item == Items.AIR)
+		{
+			Main.logger.error("Could not find" + string + "!");
+			return null;
+		}
+		if(ripString.length > 2)
+		{
+			meta = Integer.parseInt(ripString[2]);
+			
+			if(meta == -1) 
+			{ meta = null; }
+		}
+
+		return new ItemStack(item, 1, meta);
+	}
 }
