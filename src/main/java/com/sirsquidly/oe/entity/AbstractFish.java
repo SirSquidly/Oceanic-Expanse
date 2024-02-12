@@ -177,7 +177,7 @@ public class AbstractFish extends EntityAnimal
 	*/
 	public boolean isFlopping() 
 	{ 
-		return !this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world));
+		return canFlop() && (!this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world)));
 	}
 	
 	/**
@@ -211,8 +211,8 @@ public class AbstractFish extends EntityAnimal
         {
             f = BlockLiquid.getBlockLiquidHeight(iblockstate, this.world, blockpos);
         }
-        if (this.world.isRemote) {} 
-        else {
+        if (!this.world.isRemote)
+        {
             if (canFlop() && onGround && !this.isInsideOfMaterial(Material.WATER)) 
             {
                 motionY += 0.4D;

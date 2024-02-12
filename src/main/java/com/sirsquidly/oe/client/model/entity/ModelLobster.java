@@ -1,5 +1,7 @@
 package com.sirsquidly.oe.client.model.entity;
 
+import com.sirsquidly.oe.entity.EntityLobster;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
@@ -7,13 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 
-/**
- * This is the model for the Lobster
- * 
- * Some weird things are done here, specifically the Tail is actually shrunk down to half its size.
- * This is so Half-Half Lobsters can have that perfect half-pixel split on their tail!
- * 
- */
 public class ModelLobster extends ModelBase
 {
 	private final ModelRenderer main;
@@ -97,7 +92,6 @@ public class ModelLobster extends ModelBase
 		rot_body = new ModelRenderer(this);
 		rot_body.setRotationPoint(0.0F, -3.0F, 1.0F);
 		main.addChild(rot_body);
-		
 
 		body2 = new ModelRenderer(this);
 		body2.setRotationPoint(0.0F, 3.0F, -1.0F);
@@ -167,6 +161,8 @@ public class ModelLobster extends ModelBase
 	@Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
     {	
+		EntityLobster lobster = (EntityLobster) entityIn;
+		
     	this.legL1_r1.rotateAngleY = 0.2618F;
         this.legL2_r1.rotateAngleY = 0.0873F;
         this.legL3_r1.rotateAngleY = -0.0873F;
@@ -186,6 +182,9 @@ public class ModelLobster extends ModelBase
         this.legR4_r1.rotateAngleZ = -2.7925F;
         
         this.tail1.rotateAngleX = -0.2182F;
+        
+        this.antennaL.rotateAngleZ = 0;
+        this.antennaR.rotateAngleZ = 0;
         
         float l1 = Math.abs(MathHelper.sin(limbSwing*2 * 0.8F + 0.0F) * 1F) * limbSwingAmount;
         float l2 = Math.abs(MathHelper.sin(limbSwing*2 * 0.8F + 0.33F) * 1F) * limbSwingAmount;
@@ -223,7 +222,6 @@ public class ModelLobster extends ModelBase
         this.antennaR.rotateAngleY = netHeadYaw/2 * 0.017453292F;
         this.antennaL.rotateAngleY = netHeadYaw/2 * 0.017453292F;
         
-        
         this.rot_body.rotateAngleX = headPitch/2 * 0.017453292F;
         this.rot_body.rotateAngleY = netHeadYaw/2 * 0.017453292F;
         
@@ -233,6 +231,12 @@ public class ModelLobster extends ModelBase
         
         this.clawROuter.rotateAngleX = headPitch/2 * 0.017453292F;
         this.clawROuter.rotateAngleY = 0.4363F + netHeadYaw/2 * 0.017453292F;
+        
+        if (!lobster.getPassengers().isEmpty())
+        {
+        	this.antennaL.rotateAngleZ += lobster.getSalmonSize() * 0.02D;
+   	     	this.antennaR.rotateAngleZ -= this.antennaL.rotateAngleZ;
+        }
     }
 	
 	 public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)

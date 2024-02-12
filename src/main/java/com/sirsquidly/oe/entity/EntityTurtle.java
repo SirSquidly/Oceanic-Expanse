@@ -1,7 +1,5 @@
 package com.sirsquidly.oe.entity;
 
-import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -9,14 +7,13 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.blocks.BlockTurtleEgg;
+import com.sirsquidly.oe.entity.ai.EntityAIMateCarryEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -27,7 +24,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -36,9 +32,7 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -51,7 +45,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -122,7 +115,8 @@ public class EntityTurtle extends AbstractFish
 	
 	protected void initEntityAI()
     {	
-        this.tasks.addTask(1, new EntityTurtle.TurtleAIMate(this, 1.0D));
+		
+		this.tasks.addTask(1, new EntityAIMateCarryEgg(this, 1.0D, this.isCarryingEgg(), true));
         this.tasks.addTask(2, new EntityTurtle.TurtleAILayEgg(this, 1.0D));
         this.tasks.addTask(2, new EntityTurtle.TurtleAIGOHOME(this, 1.0D));
         this.tasks.addTask(3, new EntityAIPanic(this, 1.1D));
@@ -291,103 +285,6 @@ public class EntityTurtle extends AbstractFish
 
     public void setDigging(boolean bool)
     { this.dataManager.set(DIGGING, Boolean.valueOf(bool)); }
-    
-    
-    public class TurtleAIMate extends EntityAIMate
-	{
-    	private final EntityTurtle turtle;
-    	World world;
-    	private EntityTurtle targetMate;
-    	int spawnBabyDelay;
-    	double moveSpeed;
-        
-    	public TurtleAIMate(EntityTurtle turtle, double speedIn)
-        {
-            super(turtle, speedIn);
-            this.turtle = turtle;
-            this.world = turtle.world;
-            this.moveSpeed = speedIn;
-        }
-    	
-    	public boolean shouldExecute()
-        {
-            if (this.turtle.isCarryingEgg() && ConfigHandler.block.turtleEgg.enableTurtleEgg)
-            { return false; }
-            
-            this.targetMate = this.getNearbyMate();
-            return this.targetMate != null;
-        }
-    	
-    	public boolean shouldContinueExecuting()
-    	{ return this.targetMate.isEntityAlive() && this.targetMate.isInLove() && this.spawnBabyDelay < 60; }
-    	 
-    	private EntityTurtle getNearbyMate()
-        {
-            List<EntityTurtle> list = this.world.<EntityTurtle>getEntitiesWithinAABB(EntityTurtle.class, this.turtle.getEntityBoundingBox().grow(8.0D));
-            double d0 = Double.MAX_VALUE;
-            EntityTurtle nearbyTurtle = null;
-
-            for (EntityTurtle nearbyTurtle1 : list)
-            {
-                if (this.turtle.canMateWith(nearbyTurtle1) && this.turtle.getDistanceSq(nearbyTurtle1) < d0)
-                {
-                	nearbyTurtle = nearbyTurtle1;
-                    d0 = this.turtle.getDistanceSq(nearbyTurtle1);
-                }
-            }
-
-            return nearbyTurtle;
-        }
-    	
-    	public void updateTask()
-        {
-            this.turtle.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.turtle.getVerticalFaceSpeed());
-            this.turtle.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
-            ++this.spawnBabyDelay;
-
-            if (this.spawnBabyDelay >= 60 && this.turtle.getDistanceSq(this.targetMate) < 9.0D)
-            {
-            	this.turtle.setGrowingAge(6000);
-                this.turtle.resetInLove();
-                this.targetMate.resetInLove();
-                
-                final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(turtle, targetMate, null);
-                final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
-                if (cancelled) { return; }
-                
-                EntityPlayerMP playerMP = this.turtle.getLoveCause();
-
-                if (playerMP == null && this.targetMate.getLoveCause() != null)
-                { playerMP = this.targetMate.getLoveCause(); }
-
-                if (playerMP != null)
-                {
-                	playerMP.addStat(StatList.ANIMALS_BRED);
-                    CriteriaTriggers.BRED_ANIMALS.trigger(playerMP, this.turtle, this.targetMate, null);
-                }
-                
-                
-                if (!ConfigHandler.block.turtleEgg.enableTurtleEgg)
-        		{
-                	EntityAgeable entityturtle = turtle.createChild(this.targetMate);
-    				entityturtle.setGrowingAge(-24000);
-    				entityturtle.setLocationAndAngles(turtle.posX, turtle.posY, turtle.posZ, 0.0F, 0.0F);
-    	            world.spawnEntity(entityturtle);
-        		}
-                else
-                {
-                	this.turtle.setGoingHome(true);
-                    this.turtle.setCarryingEgg(true);
-                }
-                
-                Random random = this.turtle.getRNG();
-
-                if (this.world.getGameRules().getBoolean("doMobLoot"))
-                { this.world.spawnEntity(new EntityXPOrb(this.world, this.turtle.posX, this.turtle.posY, this.turtle.posZ, random.nextInt(7) + 1)); }
-            }
-        }
-
-	}
     
 	@SuppressWarnings("unused")
 	public class TurtleAITempt extends EntityAIBase

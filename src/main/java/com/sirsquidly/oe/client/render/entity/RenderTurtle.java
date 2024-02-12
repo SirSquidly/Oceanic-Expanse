@@ -24,7 +24,7 @@ public class RenderTurtle extends RenderLiving<EntityTurtle>
 	@Override
 	protected void preRenderCallback(EntityTurtle entity, float f) 
 	{
-		float size = 0.9375F;
+		float size = 0.9375F + (entity.isCarryingEgg() ? 0.140625F : 0);
 		this.shadowSize = 0.8F;
 		
 		if (entity.getGrowingAge() < 0)
