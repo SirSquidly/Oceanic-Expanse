@@ -211,6 +211,24 @@
     	"category": "neutral",
     	"sounds": [ "oe:entity/fish/swim1", "oe:entity/fish/swim2", "oe:entity/fish/swim3", "oe:entity/fish/swim4", "oe:entity/fish/swim5", "oe:entity/fish/swim6", "oe:entity/fish/swim7"]
      },
+     "entity.lobster.angry": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.lobster.angry",
+    	"sounds": [ "oe:entity/crab/angry1", "oe:entity/crab/angry2"]
+     },
+     "entity.lobster.death": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.lobster.death",
+    	"sounds": [ "oe:entity/crab/death1", "oe:entity/crab/death2"]
+     },
+     "entity.lobster.hurt": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.lobster.hurt",
+    	"sounds": [ "oe:entity/crab/hurt1", "oe:entity/crab/hurt2", "oe:entity/crab/hurt3"]
+     },
      "entity.pufferfish.death": 
 	 {
     	"category": "neutral",

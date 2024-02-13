@@ -47,11 +47,13 @@ public class BlockCoralFan extends Block implements IChecksWater
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	public static final PropertyBool IN_WATER = PropertyBool.create("in_water");
 	
+	@SuppressWarnings("deprecation")
 	public BlockCoralFan(MapColor blockMapColor, SoundType soundIn) 
 	{
 		super(Material.ROCK, blockMapColor);
 		this.setSoundType(soundIn);
 		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 ? false : true);
+		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(IN_WATER, false));
 	}
 	

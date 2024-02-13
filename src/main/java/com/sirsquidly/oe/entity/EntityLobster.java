@@ -120,7 +120,7 @@ public class EntityLobster extends EntityAnimal
         {
 			if (this.randomAngrySoundDelay <= 0)
 			{
-				this.playSound(OESounds.ENTITY_CRAB_ANGRY, 1.0F, 1.0F);
+				this.playSound(OESounds.ENTITY_LOBSTER_ANGRY, 1.0F, 1.0F);
 				this.randomAngrySoundDelay = this.rand.nextInt(40);
 			}
 			this.randomAngrySoundDelay -= 1;
@@ -178,14 +178,11 @@ public class EntityLobster extends EntityAnimal
         return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7;
     }
 	
-	protected SoundEvent getAmbientSound()
-	{ return OESounds.ENTITY_CRAB_AMBIENT; }
-	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    { return OESounds.ENTITY_CRAB_HURT; }
+    { return OESounds.ENTITY_LOBSTER_HURT; }
 
     protected SoundEvent getDeathSound()
-    { return OESounds.ENTITY_CRAB_DEATH; }
+    { return OESounds.ENTITY_LOBSTER_DEATH; }
     
 	@Override
     protected ResourceLocation getLootTable()

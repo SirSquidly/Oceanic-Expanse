@@ -11,6 +11,7 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -35,17 +36,20 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 	public static int maxHeight = Math.max(Math.min(15, 15), 0);
 	/** The random age given when placed. Capped to Kelp's maxHeight variable.*/
 	public static int randomAge = Math.max(Math.min(14, maxHeight), 0);
-	
+	protected static final AxisAlignedBB KELP_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1.0D, 0.875D);
 	protected static final AxisAlignedBB KELP_TOP_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.5625D, 0.875D);
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
+	public static final PropertyBool TOP = PropertyBool.create("top");
 	
+	
+	@SuppressWarnings("deprecation")
 	public BlockTopKelp() {
 		super(Material.WATER);
 		this.setSoundType(OESounds.WET_GRASS);
 		this.setTickRandomly(true);
 		this.setCreativeTab(Main.OCEANEXPTAB);
-
-		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(randomAge + 1)));
+		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(maxHeight)).withProperty(TOP, Boolean.valueOf(false)));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -58,40 +62,42 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
 		Random rand = worldIn.rand;
-        return this.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(randomAge + 1)));
+        return this.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(randomAge + 1))).withProperty(BlockTopKelp.TOP, Boolean.valueOf(isTop(worldIn, pos)));
     }
 	
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-		return KELP_TOP_AABB;
+    	state = state.getActualState(source, pos);
+		return isTop(source, pos) ? KELP_TOP_AABB : KELP_AABB;
     }
     
     @Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-    	if (!(worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER) && !Main.proxy.fluidlogged_enable || worldIn.getBlockState(pos.up()).getBlock() == OEBlocks.KELP || worldIn.getBlockState(pos.up()).getBlock() == this) 
-		{
-			worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState());
-		}
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+    {
+    	if (isTop(worldIn, pos)) 
+		{ worldIn.setBlockState(pos, state.withProperty(TOP, true).withProperty(BlockTopKelp.AGE, Integer.valueOf(worldIn.rand.nextInt(randomAge + 1))), 2); }
 		this.checkAndDropBlock(worldIn, pos, state);
 	}
     
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    { return state.withProperty(TOP, Boolean.valueOf(isTop(worldIn, pos))); }
+    
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this || worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP) && checkPlaceWater(worldIn, pos, false);
-    }
+    { return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this) && checkPlaceWater(worldIn, pos, false); }
 
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
         if ((worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) || 
-        		(worldIn.getBlockState(pos.down()).getBlock() == this) ||  
-        		(worldIn.getBlockState(pos.down()).getBlock() == OEBlocks.KELP)) return true;
+        		(worldIn.getBlockState(pos.down()).getBlock() == this)) return true;
         return false;
     }
 
 	@Override
-	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
+	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
+	{
 		if (!this.canBlockStay(worldIn, pos, state)) 
 		{
 			this.dropBlockAsItem(worldIn, pos, state, 0);
@@ -100,29 +106,23 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
 	}
 
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
-		worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
-	}
+	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+	{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
 
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
-    {
-        return false;
-    }
-
+    { return false; }
+	
+	public boolean isTop(IBlockAccess world, BlockPos pos)
+	{ return world.getBlockState(pos.up()).getBlock() != this; }
 	
 	public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta));
-    }
+    { return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta)); }
 	
-	public int getMetaFromState(IBlockState state) {
-		return ((Integer)state.getValue(AGE)).intValue();
-	}
+	public int getMetaFromState(IBlockState state)
+	{ return ((Integer)state.getValue(AGE)).intValue(); }
 
     protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, BlockLiquid.LEVEL, AGE);
-    }
+    { return new BlockStateContainer(this, BlockLiquid.LEVEL, AGE, TOP); }
     
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
@@ -157,24 +157,48 @@ public class BlockTopKelp extends BlockBush implements IGrowable, IChecksWater
     
     /** Bonemeal Growing **/
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-    { return ((Integer)state.getValue(AGE)).intValue() != maxHeight; }
+    { return true; }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    { return ((Integer)state.getValue(AGE)).intValue() != maxHeight; }
+    { return true; }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {
     	int i = ((Integer)state.getValue(AGE)).intValue();
     	
-        if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && worldIn.getBlockState(pos.up(2)).getMaterial() == Material.WATER)
-        {
-        	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)), 2);
-    		worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState(), 2);
-        }
-        else
-        {
-        	worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)), 2);
-        }
+    	if (i != maxHeight)
+    	{
+    		Main.logger.error("KELP IS NOT!");
+    		
+    		if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && checkPlaceWater(worldIn, pos, false))
+            {
+            	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)), 2);
+        		worldIn.setBlockState(pos, this.getDefaultState(), 2);
+            }
+            else
+            {
+            	worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)), 2);
+            }
+    	}
+    	else
+    	{
+    		BlockPos next = pos.up();
+    		
+    		while (worldIn.getBlockState(next).getBlock() == this)
+    		{ next = next.up(); }
+    		
+    		next = next.down();
+    		if(worldIn.getBlockState(next).getBlock() == this)
+        	{ 
+    			i = ((Integer)worldIn.getBlockState(next).getValue(BlockTopKelp.AGE)).intValue();
+    			
+        		if(OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, next.up()) && i != BlockTopKelp.maxHeight)
+            	{ 
+        			worldIn.setBlockState(next.up(), OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(i + 1)), 16 | 2);
+        			worldIn.setBlockState(next, this.getDefaultState(), 16 | 2);
+            	}
+        	}
+    	}
     }
     
 }

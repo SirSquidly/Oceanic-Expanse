@@ -67,6 +67,11 @@ public class OESounds
 	// ** This sound is used when a fish doesn't specify a flop sound. */
 	public static SoundEvent ENTITY_FISH_FLOP = soundReadyForRegister("entity.fish.flop");
 	public static SoundEvent ENTITY_FISH_SWIM = soundReadyForRegister("entity.fish.swim");
+	
+	public static SoundEvent ENTITY_LOBSTER_ANGRY = soundReadyForRegister("entity.lobster.angry");
+	public static SoundEvent ENTITY_LOBSTER_DEATH = soundReadyForRegister("entity.lobster.death");
+	public static SoundEvent ENTITY_LOBSTER_HURT = soundReadyForRegister("entity.lobster.hurt");
+	
 	public static SoundEvent ENTITY_PUFFERFISH_DEATH = soundReadyForRegister("entity.pufferfish.death");
 	public static SoundEvent ENTITY_PUFFERFISH_DEFLATE = soundReadyForRegister("entity.pufferfish.deflate");
 	public static SoundEvent ENTITY_PUFFERFISH_FLOP = soundReadyForRegister("entity.pufferfish.flop");

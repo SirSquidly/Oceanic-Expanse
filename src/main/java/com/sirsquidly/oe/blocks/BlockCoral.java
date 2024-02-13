@@ -34,10 +34,13 @@ public class BlockCoral extends Block implements IChecksWater
 	protected static final AxisAlignedBB CORAL_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.9375D, 0.875D);
     public static final PropertyBool IN_WATER = PropertyBool.create("in_water");
     
-	public BlockCoral(MapColor blockMapColor, SoundType soundIn) {
+	@SuppressWarnings("deprecation")
+	public BlockCoral(MapColor blockMapColor, SoundType soundIn)
+	{
 		super(Material.ROCK, blockMapColor);
 		this.setSoundType(soundIn);
 		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralDryTicks == 0 ? false : true);
+		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(IN_WATER, false));
 	}
 

@@ -40,11 +40,12 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	
 	protected static final AxisAlignedBB[] TUBE_SPONGE_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.28125D, 0.0D, 0.28125D, 0.71875D, 0.5D, 0.71875D), new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 0.75D, 0.75D), new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.9375D, 0.875D)};
 	
+	@SuppressWarnings("deprecation")
 	public BlockTubeSponge() {
 		super(Material.WATER);
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);
-
+		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
 		setDefaultState(blockState.getBaseState().withProperty(SHEARED, false));
 	}
 

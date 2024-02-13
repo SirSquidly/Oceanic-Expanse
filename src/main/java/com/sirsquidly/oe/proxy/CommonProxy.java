@@ -131,8 +131,8 @@ public class CommonProxy
         	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS, 2, 2, 48, 8, 4, 0.6, false, BiomeDictionary.getBiomes(Type.SWAMP).toArray(new Biome[0])), 0);	
     	}
     	
-    	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.PRISMARINE_POT, 2, 2, 48, 16, 8, 0.0, false, Biomes.DEEP_OCEAN), 0);
-    	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.PRISMARINE_POT, 2, 2, 48, 16, 8, 0.0, true, Biomes.DEEP_OCEAN), 0);
+    	//GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.PRISMARINE_POT, 2, 2, 48, 8, 8, 0.0, false, Biomes.DEEP_OCEAN), 0);
+    	//GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.PRISMARINE_POT, 2, 2, 48, 8, 8, 0.0, true, Biomes.DEEP_OCEAN), 0);
 	}
 
     /** 

@@ -36,11 +36,13 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	
 	protected static final AxisAlignedBB[] DULSE_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.5625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.8125D, 0.8125D), new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 1.0D, 0.9375D), new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 1.0D, 0.9375D), new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D)};
 	
-	public BlockDulse() {
+	@SuppressWarnings("deprecation")
+	public BlockDulse()
+	{
 		super(Material.WATER);
 		this.setSoundType(OESounds.WET_GRASS);
 		this.setTickRandomly(true);
-
+		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
 		setDefaultState(blockState.getBaseState().withProperty(SHEARED, false));
 	}
 
