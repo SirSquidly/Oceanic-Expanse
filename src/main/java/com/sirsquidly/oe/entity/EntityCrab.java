@@ -6,12 +6,15 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAICrabBarter;
 import com.sirsquidly.oe.entity.ai.EntityAICrabDig;
+import com.sirsquidly.oe.entity.ai.EntityAIMateCarryEgg;
+import com.sirsquidly.oe.entity.ai.EntityAIMateDepositEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -49,7 +52,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCrab extends EntityAnimal
+public class EntityCrab extends EntityAnimal implements IEggCarrierMob
 {
 	protected Block spawnableBlock = Blocks.SAND;
 	
@@ -60,7 +63,6 @@ public class EntityCrab extends EntityAnimal
 	private static final DataParameter<Boolean> CAN_DIG = EntityDataManager.<Boolean>createKey(EntityCrab.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> HAS_EGG = EntityDataManager.<Boolean>createKey(EntityCrab.class, DataSerializers.BOOLEAN);
 	private static final Set<Item>TRADE_ITEMS = Sets.newHashSet(Items.FISH);
-	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
 	private int randomAngrySoundDelay;
 	private boolean crabRave;
     private BlockPos jukeboxPosition;
@@ -87,6 +89,8 @@ public class EntityCrab extends EntityAnimal
 	protected void initEntityAI()
     {
 		this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, false));
+		this.tasks.addTask(2, new EntityAIMateCarryEgg(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIMateDepositEgg(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIStompTurtleEgg(this, 1.0D));
 		this.tasks.addTask(2, new EntityAICrabBarter(this));
 		this.tasks.addTask(3, new EntityAICrabDig(this));
@@ -261,7 +265,7 @@ public class EntityCrab extends EntityAnimal
     { return new EntityCrab(this.world); }
 	
 	public boolean isBreedingItem(ItemStack stack)
-    { return BREEDING_ITEMS.contains(stack.getItem()); }
+    { return stack.getItem() == Items.FISH && stack.getMetadata() == 2; }
 	
 	public boolean isBarterItem(ItemStack stack)
     { return TRADE_ITEMS.contains(stack.getItem()); }
@@ -353,13 +357,6 @@ public class EntityCrab extends EntityAnimal
     public void setCanDig(boolean dig)
     { this.dataManager.set(CAN_DIG, Boolean.valueOf(dig)); }
     
-    public boolean hasEgg()
-    { return ((Boolean)this.dataManager.get(HAS_EGG)).booleanValue(); }
-
-    public void setHasEgg(boolean angry)
-    { this.dataManager.set(HAS_EGG, Boolean.valueOf(angry)); }
-    
-    
 	static class AIHurtByTarget extends EntityAIHurtByTarget
     {
         public AIHurtByTarget(EntityCrab crab)
@@ -410,7 +407,7 @@ public class EntityCrab extends EntityAnimal
         compound.setBoolean("Angry", this.isAngry());
         compound.setBoolean("CanBarter", this.canBarter());
         compound.setBoolean("CanDig", this.canDig());
-        compound.setBoolean("HasEgg", this.hasEgg());
+        compound.setBoolean("HasEgg", this.isCarryingEgg());
     }
 	
 	@Override
@@ -421,6 +418,33 @@ public class EntityCrab extends EntityAnimal
         this.setAngry(compound.getBoolean("Angry"));
         this.setCanBarter(compound.getBoolean("CanBarter"));
         this.setCanDig(compound.getBoolean("CanDig"));
-        this.setHasEgg(compound.getBoolean("HasEgg"));
+        this.setCarryingEgg(compound.getBoolean("HasEgg"));
     }
+
+	@Override
+	public boolean isCarryingEgg()
+	{ return ((Boolean)this.dataManager.get(HAS_EGG)).booleanValue(); }
+
+	@Override
+	public void setCarryingEgg(boolean bool)
+	{ this.dataManager.set(HAS_EGG, Boolean.valueOf(bool)); }
+
+	@Override
+	public boolean canLayEgg(World world, BlockPos pos)
+	{
+		IBlockState iblockstate = world.getBlockState(pos);
+
+        return iblockstate.getMaterial() == Material.WATER; 
+	}
+
+	@Override
+	public void placeEgg(World world, BlockPos pos)
+	{
+		EntityCrab entityBaby = new EntityCrab(this.world);
+    	entityBaby.setGrowingAge(-24000);
+    	entityBaby.setLocationAndAngles(this.posX, this.posY, this.posZ, 0.0F, 0.0F);
+        world.spawnEntity(entityBaby);
+        
+		this.setCarryingEgg(false);
+	}
 }

@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.blocks.BlockTurtleEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIMateCarryEgg;
+import com.sirsquidly.oe.entity.ai.EntityAIMateDepositEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
@@ -24,7 +25,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -55,7 +55,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityTurtle extends AbstractFish
+public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 {
 	protected Block spawnableBlock = Blocks.SAND;
 
@@ -115,10 +115,8 @@ public class EntityTurtle extends AbstractFish
 	
 	protected void initEntityAI()
     {	
-		
-		this.tasks.addTask(1, new EntityAIMateCarryEgg(this, 1.0D, this.isCarryingEgg(), true));
-        this.tasks.addTask(2, new EntityTurtle.TurtleAILayEgg(this, 1.0D));
-        this.tasks.addTask(2, new EntityTurtle.TurtleAIGOHOME(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIMateCarryEgg(this, 1.0D));
+		this.tasks.addTask(2, new EntityAIMateDepositEgg(this, 1.0D));
         this.tasks.addTask(3, new EntityAIPanic(this, 1.1D));
         this.tasks.addTask(3, new EntityAIFollowParent(this, 1.1D));
         this.tasks.addTask(3, new EntityTurtle.TurtleAITempt(this, 1.1D, BREEDING_ITEMS));
@@ -442,106 +440,6 @@ public class EntityTurtle extends AbstractFish
 	    }
 	}
 	
-	public class TurtleAILayEgg extends EntityAIMoveToBlock
-	{
-		private boolean onSand;
-	    private final EntityTurtle turtle;
-	    private final double movementSpeed;
-		private int timeoutCounter;
-		private int layCountdown;
-
-	    public TurtleAILayEgg(EntityTurtle turtleIn, double speedIn)
-	    {
-	        super(turtleIn, speedIn, 35);
-	        this.turtle = turtleIn;
-	        this.movementSpeed = speedIn;
-	    }
-
-	    public boolean shouldExecute()
-	    {
-	    	if (this.runDelay <= 0)
-	        {
-	            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.turtle.world, this.turtle))
-	            { return false; }
-	            
-	            if (!this.turtle.isCarryingEgg())
-	            { return false; }
-	            
-	            if (this.turtle.isCarryingEgg() && this.turtle.isGoingHome())
-	            { return false; }
-	        }
-            
-	        return super.shouldExecute();
-	    }
-
-	    public void startExecuting()
-	    {
-	    	this.layCountdown = 100;
-	    	super.startExecuting();
-	    }
-	    
-	    public void resetTask()
-	    {
-	    	this.layCountdown = 0; 
-	    	super.resetTask();
-	    }
-	    
-	    public boolean shouldContinueExecuting()
-	    {
-	    	if (!this.turtle.isCarryingEgg())
-	    	{ return false; }
-	        return super.shouldContinueExecuting();
-	    }
-	    
-	    public void updateTask()
-	    {
-	        super.updateTask();
-	        this.turtle.getLookHelper().setLookPosition((double)this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)this.destinationBlock.getZ() + 0.5D, 10.0F, (float)this.turtle.getVerticalFaceSpeed());
-	        BlockPos blockpos = new BlockPos(this.turtle.posX, this.turtle.posY-1, this.turtle.posZ);
-	        
-	        if (this.turtle.getDistanceSqToCenter(this.destinationBlock) > 1.0D) //this.turtle.world.getBlockState(blockpos).getMaterial() != Material.SAND
-	        {
-	            this.onSand = false;
-	            ++this.timeoutCounter;
-
-	            if (this.timeoutCounter % 40 == 0)
-	            {
-	                this.turtle.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 0.5D), (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-	            }
-	        }
-	        else
-	        {
-	            this.onSand = true;
-	            --this.timeoutCounter;
-	        }
-	        
-	        if (this.onSand)
-	        {
-	        	if (this.layCountdown != 1)
-	        	{ --this.layCountdown; }
-	        	
-	        	if (this.layCountdown == 1 && this.turtle.world.getBlockState(blockpos.up()).getMaterial() == Material.AIR)
-	            { 
-	        		this.turtle.setDigging(false);
-	        		this.turtle.world.setBlockState(blockpos.up(), OEBlocks.SEA_TURTLE_EGG.getDefaultState().withProperty(BlockTurtleEgg.AMOUNT, Integer.valueOf(rand.nextInt(3) + 1)), 3);
-	        		this.turtle.setCarryingEgg(false);
-	            }
-	        	else
-	        	{ this.turtle.setDigging(true); }
-	        	
-	        	this.runDelay = 10;
-	        }
-	    }
-
-	    protected boolean shouldMoveTo(World worldIn, BlockPos pos)
-	    {
-	        IBlockState iblockstate = worldIn.getBlockState(pos);
-
-	        return iblockstate.getMaterial() == Material.SAND; 
-	    }
-	}
-	
-	
 	public void writeEntityToNBT(NBTTagCompound compound)
     {
         super.writeEntityToNBT(compound);
@@ -575,4 +473,18 @@ public class EntityTurtle extends AbstractFish
             this.homePos = homeIn;
         }
     }
+
+	public boolean canLayEgg(World world, BlockPos pos)
+	{
+		IBlockState iblockstate = world.getBlockState(pos);
+
+        return iblockstate.getMaterial() == Material.SAND && world.getBlockState(pos.up()).getBlock() == Blocks.AIR; 
+	}
+
+	@Override
+	public void placeEgg(World world, BlockPos pos)
+	{
+		this.world.setBlockState(pos.up(), OEBlocks.SEA_TURTLE_EGG.getDefaultState().withProperty(BlockTurtleEgg.AMOUNT, Integer.valueOf(world.rand.nextInt(3) + 1)), 3);
+		this.setCarryingEgg(false);
+	}
 }

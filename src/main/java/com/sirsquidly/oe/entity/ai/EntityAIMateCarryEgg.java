@@ -13,6 +13,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 
 import com.sirsquidly.oe.entity.EntityTurtle;
+import com.sirsquidly.oe.entity.IEggCarrierMob;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 /**
@@ -23,35 +24,43 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 public class EntityAIMateCarryEgg extends EntityAIMate
 {
 	private final EntityAnimal animal;
+	private final IEggCarrierMob carrier;
 	private final Class <? extends EntityAnimal > mateClass;
 	World world;
 	private EntityAnimal targetMate;
 	int spawnBabyDelay;
 	double moveSpeed;
-	boolean hasEgg;
 	/** If only the one carrying an egg should have a breeding cooldown */
 	boolean onlyOneCooldown;
     
-	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn, boolean hasEggIn)
+	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn)
     {
-        this(animalIn, speedIn, hasEggIn, false);
+        this(animalIn, speedIn, false);
     }
 	
-	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn, boolean hasEggIn, boolean onlyOneCooldownIn)
+	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn, boolean onlyOneCooldownIn)
     {
         super(animalIn, speedIn);
-        this.animal = animalIn;
-        this.world = animal.world;
-        this.mateClass = animalIn.getClass();
-        this.moveSpeed = speedIn;
-        this.hasEgg = hasEggIn;
-        this.onlyOneCooldown = onlyOneCooldownIn;
-        this.setMutexBits(3);
+        
+        if (!(animalIn instanceof IEggCarrierMob))
+        {
+            throw new IllegalArgumentException("EntityAIMateCarryEgg requires Mob implements IEggCarrierMob");
+        }
+        else
+        {
+        	this.animal = animalIn;
+        	this.carrier = (IEggCarrierMob)animalIn;
+            this.world = animal.world;
+            this.mateClass = animalIn.getClass();
+            this.moveSpeed = speedIn;
+            this.onlyOneCooldown = onlyOneCooldownIn;
+            this.setMutexBits(3);
+        }
     }
 	
 	public boolean shouldExecute()
     {
-        if (this.hasEgg && !this.doLiveBirth() || !this.animal.isInLove())
+        if (this.carrier.isCarryingEgg() && !this.doLiveBirth() || !this.animal.isInLove())
         { return false; }
 
         this.targetMate = this.getNearbyMate();
@@ -120,14 +129,16 @@ public class EntityAIMateCarryEgg extends EntityAIMate
         
         if (this.doLiveBirth())
 		{
-        	EntityAgeable entityturtle = animal.createChild(this.targetMate);
-			entityturtle.setGrowingAge(-24000);
-			entityturtle.setLocationAndAngles(animal.posX, animal.posY, animal.posZ, 0.0F, 0.0F);
-            world.spawnEntity(entityturtle);
+        	EntityAgeable entityBaby = animal.createChild(this.targetMate);
+        	entityBaby.setGrowingAge(-24000);
+        	entityBaby.setLocationAndAngles(animal.posX, animal.posY, animal.posZ, 0.0F, 0.0F);
+            world.spawnEntity(entityBaby);
 		}
         else
         { 
-        	this.setEggCarrying(); 
+        	this.carrier.setCarryingEgg(true);
+    		
+    		if (this.animal instanceof EntityTurtle) ((EntityTurtle) this.animal).setGoingHome(true);
         }
         
         Random random = this.animal.getRNG();
@@ -148,14 +159,5 @@ public class EntityAIMateCarryEgg extends EntityAIMate
 			return !ConfigHandler.block.turtleEgg.enableTurtleEgg;
 		}
 		return false;
-	}
-	
-	public void setEggCarrying()
-	{
-		if (this.animal instanceof EntityTurtle)
-		{
-			((EntityTurtle) this.animal).setGoingHome(true);
-            ((EntityTurtle) this.animal).setCarryingEgg(true);
-		}
 	}
 }
