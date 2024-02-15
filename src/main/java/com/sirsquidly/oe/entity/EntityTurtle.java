@@ -13,6 +13,7 @@ import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
@@ -94,7 +95,10 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 	
 	@Override
 	public boolean canBeLeashedTo(EntityPlayer player)
-    { return false; }
+    { 
+		
+		return true;
+	}
 	
 	@Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
@@ -115,8 +119,9 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 	
 	protected void initEntityAI()
     {	
-		this.tasks.addTask(1, new EntityAIMateCarryEgg(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIMateCarryEgg(this, 1.0D, 20 * ConfigHandler.entity.turtle.turtleBreedCooldown, true));
 		this.tasks.addTask(2, new EntityAIMateDepositEgg(this, 1.0D));
+		this.tasks.addTask(2, new EntityTurtle.TurtleAIGOHOME(this, 1.0D));
         this.tasks.addTask(3, new EntityAIPanic(this, 1.1D));
         this.tasks.addTask(3, new EntityAIFollowParent(this, 1.1D));
         this.tasks.addTask(3, new EntityTurtle.TurtleAITempt(this, 1.1D, BREEDING_ITEMS));
@@ -228,6 +233,9 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
         	if (this.rand.nextInt(2) == 0) 
 			{ this.playSound(SoundEvents.BLOCK_SAND_BREAK, 1.0F, 1.0F); }
 		}
+		
+		if (this.getLeashed())
+		{ this.setGoingHome(false); }
 		
 		super.onLivingUpdate();
     }
@@ -384,14 +392,10 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 
 	    public boolean shouldExecute()
 	    {
-	    	if (this.turtle.isGoingHome())
-	    	{ return true; }
-	    	if (this.turtle.getRNG().nextInt(1000) != 0 || this.turtle.isChild())
+	    	if (this.turtle.getRNG().nextInt(1000) != 0 || this.turtle.isChild() || this.turtle.getLeashed())
 	    	{ return false; }
-	    	if (this.turtle.getDistanceSqToCenter(this.turtle.getHomePos()) > 5.0D)
-	    	{ return true; }
-	    	
-	    	return false;
+
+	    	return this.turtle.getDistanceSqToCenter(this.turtle.getHomePos()) > 5.0D && this.turtle.isGoingHome();
 	    }
 	    
 	    public void startExecuting()

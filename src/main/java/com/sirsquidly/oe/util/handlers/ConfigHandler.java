@@ -1269,6 +1269,10 @@ public class ConfigHandler
 		    @Config.Comment("If Turtles should be enabled")
 		    public boolean enableTurtle = true;
 		    
+			@Config.LangKey("oe.config.entity.turtleBreedCooldown")
+		    @Config.Comment("How many seconds before a Turtle can breed again. For refrence, the Turtle Breeding cooldowns are 90 seconds in Bedrock, 300 (standard 5 minutes) in Java.")
+		    public int turtleBreedCooldown = 90;
+			
 		    @Config.LangKey("oe.config.entity.babyTurtlePredators")
 		    @Config.Comment("These mobs will attack baby turtles. If the mob is tamable (such as a wolf or ocelot), they will only attack if they are untamed.")
 		    public String[] babyTurtlePredators = 

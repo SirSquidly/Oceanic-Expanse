@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityTrident;
+import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;

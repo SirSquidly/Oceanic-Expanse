@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.ai.EntityAITridentThrowing;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
+import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;

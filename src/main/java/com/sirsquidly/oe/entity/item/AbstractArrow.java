@@ -1,4 +1,4 @@
-package com.sirsquidly.oe.entity;
+package com.sirsquidly.oe.entity.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -228,8 +228,13 @@ public class AbstractArrow extends EntityArrow implements IProjectile
                 f1 = waterSpeed;
             }
 
-            if (this.isWet())
+            if (this.isWet() && this.isBurning())
             {
+            	for (int i = 0; i < 10; ++i)
+                {
+                    this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, 0, 0, 0);
+                }
+            	
                 this.extinguish();
             }
 

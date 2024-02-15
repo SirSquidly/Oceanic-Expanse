@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityOEBoat;
+import com.sirsquidly.oe.entity.item.EntityOEBoat;
 
 import net.minecraft.client.model.IMultipassModel;
 import net.minecraft.client.model.ModelBase;

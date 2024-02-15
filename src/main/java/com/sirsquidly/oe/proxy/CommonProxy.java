@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityTrident;
+import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.init.OESounds;

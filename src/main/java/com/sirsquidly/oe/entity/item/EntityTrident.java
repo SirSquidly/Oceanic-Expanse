@@ -1,4 +1,4 @@
-package com.sirsquidly.oe.entity;
+package com.sirsquidly.oe.entity.item;
 
 import java.util.List;
 

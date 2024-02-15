@@ -61,6 +61,7 @@ public class EntityAIMateDepositEgg extends EntityAIMoveToBlock
     
     public void resetTask()
     {
+    	if (this.animal instanceof EntityTurtle) ((EntityTurtle)this.animal).setDigging(false);
     	this.layCountdown = 0; 
     	super.resetTask();
     }

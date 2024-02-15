@@ -30,15 +30,22 @@ public class EntityAIMateCarryEgg extends EntityAIMate
 	private EntityAnimal targetMate;
 	int spawnBabyDelay;
 	double moveSpeed;
+	/** The cooldown before the mob(s) can breed again */
+	int breedCooldown;
 	/** If only the one carrying an egg should have a breeding cooldown */
 	boolean onlyOneCooldown;
     
 	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn)
     {
-        this(animalIn, speedIn, false);
+        this(animalIn, speedIn, 6000);
     }
 	
-	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn, boolean onlyOneCooldownIn)
+	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn, int breedCooldownIn)
+    {
+        this(animalIn, speedIn, breedCooldownIn, false);
+    }
+	
+	public EntityAIMateCarryEgg(EntityAnimal animalIn, double speedIn, int breedCooldownIn, boolean onlyOneCooldownIn)
     {
         super(animalIn, speedIn);
         
@@ -53,6 +60,7 @@ public class EntityAIMateCarryEgg extends EntityAIMate
             this.world = animal.world;
             this.mateClass = animalIn.getClass();
             this.moveSpeed = speedIn;
+            this.breedCooldown = breedCooldownIn;
             this.onlyOneCooldown = onlyOneCooldownIn;
             this.setMutexBits(3);
         }
@@ -107,8 +115,8 @@ public class EntityAIMateCarryEgg extends EntityAIMate
 
 	public void doBabyStuffs()
 	{
-    	this.animal.setGrowingAge(6000);
-    	if (!this.onlyOneCooldown) this.targetMate.setGrowingAge(6000);
+    	this.animal.setGrowingAge(this.breedCooldown);
+    	if (!this.onlyOneCooldown) this.targetMate.setGrowingAge(this.breedCooldown);
         this.animal.resetInLove();
         this.targetMate.resetInLove();
         

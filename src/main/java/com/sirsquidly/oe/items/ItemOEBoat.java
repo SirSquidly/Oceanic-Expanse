@@ -2,7 +2,7 @@ package com.sirsquidly.oe.items;
 
 import java.util.List;
 
-import com.sirsquidly.oe.entity.EntityOEBoat;
+import com.sirsquidly.oe.entity.item.EntityOEBoat;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.sirsquidly.oe.common.CreativeTab;
-import com.sirsquidly.oe.entity.EntityTrident;
+import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.proxy.CommonProxy;
