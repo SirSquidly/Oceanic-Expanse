@@ -4,6 +4,7 @@ import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 
 import mezz.jei.api.*;
+import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.item.ItemStack;
 
@@ -22,5 +23,9 @@ public class CompatJEI implements IModPlugin
         registry.addIngredientInfo(new ItemStack(OEBlocks.SEA_PICKLE), VanillaTypes.ITEM, "oe.jei.sea_pickle.desc");
         
         registry.addIngredientInfo(new ItemStack(OEBlocks.SHELL_SAND), VanillaTypes.ITEM, "oe.jei.shell_sand.desc");
+        
+        IIngredientBlacklist ingredientBlacklist = registry.getJeiHelpers().getIngredientBlacklist();
+		// Game freezes when loading player skulls, see https://bugs.mojang.com/browse/MC-65587
+		ingredientBlacklist.addIngredientToBlacklist(new ItemStack(OEBlocks.KELP_MID));
     }
 }

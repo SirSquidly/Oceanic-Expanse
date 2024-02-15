@@ -16,6 +16,7 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSkull;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -59,7 +60,7 @@ public class OEBlocks
 		public static Block SEAGRASS = new BlockUnderwaterGrass();
 		public static Block TALL_SEAGRASS = new BlockDoubleUnderwater();
 		public static Block KELP = new BlockKelp();
-		public static Block KELP_TOP = new BlockTopKelp();
+		public static Block KELP_MID = new BlockVeryBadAndLazyTransfer(OEBlocks.KELP.getDefaultState());
 		public static Block DRIED_KELP_BLOCK = new BlockDriedKelp();
 		public static Block COCONUT = new BlockCoconut();
 		public static Block PALM_BOOKSHELF = new BlockOEBookshelf(SoundType.WOOD).setHardness(1.5F);
@@ -209,8 +210,10 @@ public class OEBlocks
 			
 			if (ConfigHandler.block.enableKelp)
 			{
-				blockReadyForRegister(KELP_TOP, "kelp");
-				blockReadyForRegister(KELP, "kelp_mid", false);
+				blockReadyForRegister(KELP, "kelp");
+				blockReadyForRegister(KELP_MID, "kelp_mid", false);
+				
+				
 				blockReadyForRegister(DRIED_KELP_BLOCK, "dried_kelp_block");
 			}
 			
@@ -257,7 +260,11 @@ public class OEBlocks
 			if (ConfigHandler.block.turtleEgg.enableTurtleEgg) blockReadyForRegister(SEA_TURTLE_EGG, "turtle_egg");
 			if (ConfigHandler.block.waterTorch.enableWaterTorch) blockReadyForRegister(UNDERWATER_TORCH, "underwater_torch");
 			
+			Main.logger.info("Oceanic Expanse Blocks are Registering!");
+			
 			for (Block blocks : blockList) event.getRegistry().register(blocks);
+			
+			Main.logger.info("Oceanic Expanse Blocks are Registered!");
 		}
 		
 	@SubscribeEvent
@@ -276,6 +283,7 @@ public class OEBlocks
 		
 		registerItemBlock(r, new ItemOESkull(PICKLED_HEAD)); itemBlockBlacklist.add(PICKLED_HEAD);
 		
+		Main.logger.info("Oceanic Expanse Item Blocks are Registering!");
 		/** As stated on itemBlockBlacklist, this registers anything NOT from the blacklist with a generic itemBlock.*/
 		for (Block blocks : blockList) if (!(itemBlockBlacklist.contains(blocks))) { registerItemBlock(r, blocks);}
 	}
@@ -345,6 +353,8 @@ public class OEBlocks
 			ModelLoader.setCustomStateMapper(OEBlocks.COQUINA_BRICK_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_FENCE_GATE, new StateMap.Builder().ignore(BlockFenceGate.POWERED).build());
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
+			
+			ModelLoader.setCustomStateMapper(OEBlocks.PICKLED_HEAD, new StateMap.Builder().ignore(BlockSkull.NODROP).ignore(BlockSkull.FACING).build());
 			
 			/** Sea Pickles actually use the IN_WATER check to change model, or RE-include it**/
 			ModelLoader.setCustomStateMapper(OEBlocks.SEA_PICKLE, new StateMap.Builder().ignore(BlockLiquid.LEVEL).build());

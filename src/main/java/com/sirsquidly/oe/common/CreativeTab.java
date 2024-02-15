@@ -43,7 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        if (ConfigHandler.block.enableSeaPickle) add(list, OEBlocks.SEA_PICKLE);
 	        if (ConfigHandler.block.enableKelp)
 	        {
-	        	add(list, OEBlocks.KELP_TOP);
+	        	add(list, OEBlocks.KELP);
 	        	add(list, OEItems.DRIED_KELP);
 	        	add(list, OEBlocks.DRIED_KELP_BLOCK);
 	        }

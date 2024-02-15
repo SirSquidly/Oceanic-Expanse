@@ -22,7 +22,7 @@ public class OERecipies
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) 
 	{
 		GameRegistry.addSmelting(OEBlocks.SEA_PICKLE, new ItemStack(Items.DYE, 1, EnumDyeColor.LIME.getDyeDamage()), 0.2F);
-		GameRegistry.addSmelting(OEBlocks.KELP_TOP, new ItemStack(OEItems.DRIED_KELP, 1), 0.1F);
+		GameRegistry.addSmelting(OEBlocks.KELP, new ItemStack(OEItems.DRIED_KELP, 1), 0.1F);
 		GameRegistry.addSmelting(OEBlocks.DULSE, new ItemStack(OEItems.DRIED_DULSE, 1), 0.1F);
 		
 		FurnaceFuelHandler fuelReg = new FurnaceFuelHandler();

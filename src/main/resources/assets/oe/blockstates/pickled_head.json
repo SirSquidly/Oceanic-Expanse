@@ -3,7 +3,7 @@
     {
         "normal":
         [
-        	{ "model": "oe:conduit" }
+        	{ "model": "minecraft:soul_sand" }
         ]
     }
 }

@@ -2,7 +2,7 @@ package com.sirsquidly.oe.world.feature;
 
 import java.util.Random;
 
-import com.sirsquidly.oe.blocks.BlockTopKelp;
+import com.sirsquidly.oe.blocks.BlockKelp;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -79,9 +79,8 @@ public class WorldGenKelpForest implements IWorldGenerator
                 	Block blockHere = world.getBlockState(pos.up()).getBlock();
                 	Block blockDown = world.getBlockState(pos).getBlock();
 
-                	if (rand.nextDouble() < ConfigHandler.worldGen.kelpForest.kelpDensity && blockHere == Blocks.WATER && OEBlocks.KELP_TOP.canPlaceBlockAt(world, pos.up()) && blockDown != OEBlocks.KELP_TOP && blockDown != OEBlocks.KELP)
+                	if (rand.nextDouble() < ConfigHandler.worldGen.kelpForest.kelpDensity && blockHere == Blocks.WATER && OEBlocks.KELP.canPlaceBlockAt(world, pos.up()) && blockDown != OEBlocks.KELP)
                     {
-                    	world.setBlockState(pos.up(), OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(rand.nextInt(BlockTopKelp.randomAge + 1))), 16 | 2);
                     	growKelpStalk(world, rand, pos.up());
                     }
                 }
@@ -89,26 +88,19 @@ public class WorldGenKelpForest implements IWorldGenerator
         }
     }
     
-    public boolean growKelpStalk(World worldIn, Random rand, BlockPos pos)
+    public void growKelpStalk(World worldIn, Random rand, BlockPos pos)
     {
-    	IBlockState state = worldIn.getBlockState(pos);
-        
-        if (worldIn.getBlockState(pos).getBlock() == OEBlocks.KELP_TOP)
-        {
-        	for (int i = ((Integer)state.getValue(BlockTopKelp.AGE)).intValue(); i != BlockTopKelp.maxHeight; ++i)
-            {	
-            	if(OEBlocks.KELP_TOP.canPlaceBlockAt(worldIn, pos.up()))
-            	{ 
-            		worldIn.setBlockState(pos.up(), OEBlocks.KELP_TOP.getDefaultState().withProperty(BlockTopKelp.AGE, Integer.valueOf(i)), 16 | 2);
-            		worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState(), 16 | 2);
-            		
-            		pos = pos.up();
-            		state = worldIn.getBlockState(pos);
-            	}
-            	else { break; }
-            }
+    	int max = BlockKelp.maxHeight;
+    	for (int i = rand.nextInt(BlockKelp.randomAge + 1); i != max; ++i)
+        {	
+        	if(OEBlocks.KELP.canPlaceBlockAt(worldIn, pos))
+        	{ 
+        		worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState(), 16 | 2);
+        		
+        		pos = pos.up();
+        	}
+        	else { break; }
         }
-        return true;
     }
     
     public static BlockPos getSeaFloor(World world, int x, int z)
