@@ -40,6 +40,7 @@ public class EntityTrident extends AbstractArrow
 	private static final DataParameter<ItemStack> ITEM = EntityDataManager.<ItemStack>createKey(EntityTrident.class, DataSerializers.ITEM_STACK);
 	static final DataParameter<Boolean> RETURNING = EntityDataManager.<Boolean>createKey(EntityTrident.class, DataSerializers.BOOLEAN);
 	static final DataParameter<Boolean> DID_LIGHTNING = EntityDataManager.<Boolean>createKey(EntityTrident.class, DataSerializers.BOOLEAN);
+	static final DataParameter<Boolean> DID_HIT = EntityDataManager.<Boolean>createKey(EntityTrident.class, DataSerializers.BOOLEAN);
 	
 	public EntityTrident(World worldIn)
 	{
@@ -75,6 +76,7 @@ public class EntityTrident extends AbstractArrow
         this.dataManager.register(ITEM, ItemStack.EMPTY);
         this.dataManager.register(RETURNING, Boolean.valueOf(false));
         this.dataManager.register(DID_LIGHTNING, Boolean.valueOf(false));
+        this.dataManager.register(DID_HIT, Boolean.valueOf(false));
     }
 
 	public void playSoundHit()
@@ -174,12 +176,11 @@ public class EntityTrident extends AbstractArrow
     {
         Entity entity = raytraceResultIn.entityHit;
 
-        if (this.noClip == true)
-        {
-        	return;
-        }
+        if (this.noClip == true) return;
 
-        damageItem(1);
+        if (!((Boolean)this.dataManager.get(DID_HIT)).booleanValue()) damageItem(1);
+        this.dataManager.set(DID_HIT, Boolean.valueOf(true));
+        if (((Boolean)this.dataManager.get(DID_HIT)).booleanValue()) this.canEntityCollide = false;
         
         if (entity != null)
         {
@@ -187,16 +188,17 @@ public class EntityTrident extends AbstractArrow
 
             damagesource = CommonProxy.causeTridentDamage(this, this.shootingEntity == null ? this : this.shootingEntity);
 
-            if (this.isBurning() && !(entity instanceof EntityEnderman))
-            {		
-                entity.setFire(5);
-            }
             float f = this.damage;
             f += EnchantmentHelper.getModifierForCreature(this.getItem(), ((EntityLivingBase)entity).getCreatureAttribute());
             if (EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getItem()) > 0) f += EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getItem()) * 0.5D + 0.5D;
             
             if (entity.attackEntityFrom(damagesource, f))
             {
+            	if (this.isBurning() && !(entity instanceof EntityEnderman))
+                {		
+                    entity.setFire(5);
+                }
+            	
                 if (entity instanceof EntityLivingBase)
                 {
                     EntityLivingBase entitylivingbase = (EntityLivingBase)entity;

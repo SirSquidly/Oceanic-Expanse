@@ -40,6 +40,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
     protected float damage;
     // Custom stuff below
 	protected boolean alwaysBounce;
+	protected boolean canEntityCollide;
 	protected double bounceStrength;
 	protected float airSpeed;
 	protected float waterSpeed;
@@ -51,6 +52,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
         this.yTile = -1;
         this.zTile = -1;
         this.damage = 2.0F;
+        this.canEntityCollide = true;
         this.bounceStrength = -0.1D;
         this.airSpeed = 0.99F;
         this.waterSpeed = 0.6F;
@@ -151,22 +153,36 @@ public class AbstractArrow extends EntityArrow implements IProjectile
                 vec3d = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
             }
 
-            Entity entity = this.findEntityOnPath(vec3d1, vec3d);
-
-            if (entity != null)
+            if (this.canEntityCollide)
             {
-                raytraceresult = new RayTraceResult(entity);
-            }
+            	Entity entity = this.findEntityOnPath(vec3d1, vec3d);
 
-            if (raytraceresult != null && raytraceresult.entityHit instanceof EntityPlayer)
-            {
-                EntityPlayer entityplayer = (EntityPlayer)raytraceresult.entityHit;
+            	RayTraceResult entitycheck = null;
+            	
+                if (entity != null)
+                { entitycheck = new RayTraceResult(entity); }
 
-                if (this.shootingEntity instanceof EntityPlayer && !((EntityPlayer)this.shootingEntity).canAttackPlayer(entityplayer))
+                if (entitycheck != null)
                 {
-                    raytraceresult = null;
+                	if (entitycheck.entityHit instanceof EntityPlayer)
+                	{
+                		EntityPlayer entityplayer = (EntityPlayer)entitycheck.entityHit;
+
+                        if (this.shootingEntity instanceof EntityPlayer && !((EntityPlayer)this.shootingEntity).canAttackPlayer(entityplayer))
+                        {
+                        	raytraceresult = null;
+                        }
+                	}
+                	
+                	if (this.shootingEntity != null && entitycheck.entityHit == this.shootingEntity.getRidingEntity())
+                	{ entitycheck = null; }
+                	
+                	
+                	if (entitycheck != null)
+                    { raytraceresult = entitycheck; }
                 }
-            }
+
+            } 
 
             if (raytraceresult != null && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult))
             {

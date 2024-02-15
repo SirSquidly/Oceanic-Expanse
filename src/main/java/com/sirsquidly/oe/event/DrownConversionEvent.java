@@ -18,6 +18,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntitySkeletonHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -88,7 +90,15 @@ public class DrownConversionEvent
         if (entity == null || entity instanceof EntityPlayer || !(entity instanceof EntityLiving)) return;
         
         if (ArrayUtils.contains(noSwimming, EntityList.getKey(entity).toString()) && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
+        {
         	entity.setAir(100);
+        	
+        	if (entity instanceof EntitySkeletonHorse)
+        	{
+        		//entity.set
+        	}
+        }
+        	
         
         
         if(ConfigArrayHandler.DROWNCONVERTFROM.contains(EntityList.getKey(entity)) && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
@@ -176,6 +186,25 @@ public class DrownConversionEvent
         }
     }
 	
+	@SubscribeEvent
+    public static void onDismount(EntityMountEvent event)
+	{
+		Entity rider = event.getEntityMounting();
+		Entity mount = event.getEntityBeingMounted(); 
+		
+		if (event.isMounting() || rider == null || mount == null || !rider.isWet()) return;
+
+		if (rider instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) rider;
+
+			if (rider.isSneaking() || mount.isDead || player.isPlayerSleeping()) return;
+			
+			event.setCanceled(true);
+		}
+		else event.setCanceled(true);
+    }
+
 	/**
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
