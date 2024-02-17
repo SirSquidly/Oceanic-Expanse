@@ -99,11 +99,11 @@ public class GeneratorFrozenOcean implements IWorldGenerator
                 	{
                 		if (ConfigHandler.worldGen.frozenOcean.frozenSeafloor.enableRockDecor) spawnRockDecor(world, rand, pos, chunkX, chunkZ, x, z);
                 		
-                		new WorldGenOceanPatch(OEBlocks.SEASTAR, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                		new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                    	new WorldGenOceanPatch(OEBlocks.DULSE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dusleTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dulseChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.enableSeastar) new WorldGenOceanPatch(OEBlocks.SEASTAR, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.tubeSponge.enableTubeSponge) new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.dulse.enableDulse) new WorldGenOceanPatch(OEBlocks.DULSE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dusleTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dulseChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
                     	
-                    	new WorldGenBlueIce(ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceChancePerChunk, 50, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);;
+                		if (ConfigHandler.block.blueIce.enableBlueIce) new WorldGenBlueIce(ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceChancePerChunk, 50, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);;
                 	}
                 }
             }

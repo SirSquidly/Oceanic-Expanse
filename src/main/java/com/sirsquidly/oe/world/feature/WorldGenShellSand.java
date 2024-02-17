@@ -91,8 +91,8 @@ public class WorldGenShellSand implements IWorldGenerator
         	
             if(worldIn.getBlockState(blockpos).getBlock() == Blocks.SAND && worldIn.getBlockState(blockpos.up(2)).getBlock() == Blocks.AIR)
 			{ 
-            	worldIn.setBlockState(blockpos, OEBlocks.SHELL_SAND.getDefaultState());
-            	if(worldIn.getBlockState(blockpos.up()).getBlock() == Blocks.AIR && rand.nextInt(ConfigHandler.worldGen.shellPatch.shellPatchSeaStarChance) == 0) worldIn.setBlockState(blockpos.up(), OEBlocks.SEASTAR.getDefaultState().withProperty(BlockSeaStar.IN_WATER, false));
+            	if (ConfigHandler.block.enableShellySand) worldIn.setBlockState(blockpos, OEBlocks.SHELL_SAND.getDefaultState());
+            	if(ConfigHandler.block.enableSeastar && worldIn.getBlockState(blockpos.up()).getBlock() == Blocks.AIR && rand.nextInt(ConfigHandler.worldGen.shellPatch.shellPatchSeaStarChance) == 0) worldIn.setBlockState(blockpos.up(), OEBlocks.SEASTAR.getDefaultState().withProperty(BlockSeaStar.IN_WATER, false));
             }
             else { if (rand.nextInt(placeRetryChance) == 0) { --i; } }
         }

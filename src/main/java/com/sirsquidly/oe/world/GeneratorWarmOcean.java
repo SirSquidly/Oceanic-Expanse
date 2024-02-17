@@ -65,7 +65,7 @@ public class GeneratorWarmOcean implements IWorldGenerator
                 	/** Doesn't use new coordinates like the coral because it doesn't seem to be causing any issues as is..*/
                 	if (x == 0 && z == 0)
                 	{
-                		new WorldGenOceanPatch(OEBlocks.SEA_PICKLE, ConfigHandler.worldGen.warmOcean.seaPickleTriesPerChunk, ConfigHandler.worldGen.warmOcean.seaPickleChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.enableSeaPickle) new WorldGenOceanPatch(OEBlocks.SEA_PICKLE, ConfigHandler.worldGen.warmOcean.seaPickleTriesPerChunk, ConfigHandler.worldGen.warmOcean.seaPickleChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
                 	}
                 }
                 
@@ -84,7 +84,7 @@ public class GeneratorWarmOcean implements IWorldGenerator
             				
         					int k = rand.nextInt(11);
         					
-        					if (coralPos.getY() <= world.getSeaLevel() - 5)
+        					if (ConfigHandler.block.coralBlocks.enableCoralBlock && coralPos.getY() <= world.getSeaLevel() - 5)
         					{
         						if (k >= 8 && ConfigHandler.worldGen.warmOcean.coralReef.enableCoralBulb)
             					{
@@ -102,17 +102,22 @@ public class GeneratorWarmOcean implements IWorldGenerator
         					
         					if (l == 7)
                     		{
-        						new WorldGenOceanPatch(OEBlocks.BLUE_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.PINK_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.RED_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		
-                        		new WorldGenOceanPatch(OEBlocks.BLUE_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.PINK_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.RED_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                        		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+        						if (ConfigHandler.block.coralBlocks.enableCoralFan)
+        						{
+        							new WorldGenOceanPatch(OEBlocks.BLUE_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.PINK_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.RED_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+        						}
+                        		if (ConfigHandler.block.coralBlocks.enableCoral)
+                        		{
+                        			new WorldGenOceanPatch(OEBlocks.BLUE_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.PINK_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.RED_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                            		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                        		}
                     		}
         				}
                 	}

@@ -13,16 +13,14 @@ import com.sirsquidly.oe.blocks.BlockTubeSponge;
 import com.sirsquidly.oe.blocks.IChecksWater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -144,7 +142,7 @@ public class WorldGenOceanPatch implements IWorldGenerator
     /** Used for placing the individual blocks because many blocks require specific checks/randomizing. **/
     public void placeBlock(World worldIn, Random rand, BlockPos pos)
     {
-    	if (this.block == OEBlocks.SEAGRASS && rand.nextDouble() < tallChance && OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, pos))
+    	if (this.block == OEBlocks.SEAGRASS && ConfigHandler.block.seagrass.enableTallSeagrass && rand.nextDouble() < tallChance && OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, pos))
     	{
     		((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(worldIn, pos, 16 | 2);
     	}
