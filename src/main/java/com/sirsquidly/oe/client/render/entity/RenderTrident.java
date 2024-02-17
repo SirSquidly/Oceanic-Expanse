@@ -30,10 +30,7 @@ public class RenderTrident extends Render<EntityTrident>
     {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)x, (float)y, (float)z);
-        
-        double pitchToCenter = 0.25 - (0.25 * Math.abs(entity.rotationPitch / 90.0));
-
-        GlStateManager.translate(0, pitchToCenter, 0);
+        GlStateManager.translate(0, 0, 0);
         GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(90.0F, 0.0F, 0.0F, -1.0F);

@@ -49,6 +49,7 @@ public class EntityTrident extends AbstractArrow
 		this.damage = ConfigHandler.item.trident.tridentThrowDamage;
 		this.alwaysBounce = true;
 		this.bounceStrength = -0.01D;
+		this.bounceYStrength = -0.1D;
 		this.waterSpeed = 0.99F;
 	}
 
@@ -121,14 +122,12 @@ public class EntityTrident extends AbstractArrow
 	@Override
 	public void onUpdate()
     {
-		super.onUpdate();
-		
-		if ((ConfigHandler.enchant.loyalty.loyaltyVoidReturn && this.posY < ConfigHandler.enchant.loyalty.loyaltyVoidReturnLevel || this.ticksInGround >= 8) && !((Boolean)this.dataManager.get(RETURNING)).booleanValue())
+		if ((ConfigHandler.enchant.loyalty.loyaltyVoidReturn && this.posY < ConfigHandler.enchant.loyalty.loyaltyVoidReturnLevel || this.ticksInGround >= 8) && !isReturning())
         {
 			this.checkLoyalty();
         }
 		
-		if (!world.isRemote && ((Boolean)this.dataManager.get(RETURNING)).booleanValue())
+		if (!world.isRemote && isReturning())
 		{
 			if (this.shootingEntity != null && !this.shootingEntity.isDead)
 	        {
@@ -169,6 +168,8 @@ public class EntityTrident extends AbstractArrow
 
 		if (this.getItem() == ItemStack.EMPTY || this.getItem().getItemDamage() >= this.getItem().getMaxDamage())
 		{ this.setDead(); }
+		
+		super.onUpdate();
     }
 	
 	@Override
@@ -216,11 +217,11 @@ public class EntityTrident extends AbstractArrow
                 if (this.alwaysBounce)
                 {
                 	this.motionX *= bounceStrength;
-                    this.motionY *= bounceStrength;
+                    this.motionY *= bounceYStrength;
                     this.motionZ *= bounceStrength;
                     this.rotationPitch += 180.F;
-                    this.rotationYaw += 180.0F;
-                    this.prevRotationYaw += 180.0F;
+                    //this.rotationYaw += 180.0F;
+                    //this.prevRotationYaw += 180.0F;
                 }
             }
             else
@@ -320,7 +321,7 @@ public class EntityTrident extends AbstractArrow
     {
 		if (EnchantmentHelper.getEnchantmentLevel(OEEnchants.CHANNELING, this.getItem()) > 0)
 		{
-			if (world.isThundering() && world.canSeeSky(this.getPosition()) && !((Boolean)this.dataManager.get(DID_LIGHTNING)).booleanValue())
+			if (world.isThundering() && world.canSeeSky(this.getPosition()) && !isReturning())
 			{
 				if (target != null && (!ConfigHandler.enchant.channeling.waterCheck || !target.isInWater()) && (!ConfigHandler.enchant.channeling.lavaCheck || !target.isInLava()))
 				{
@@ -379,6 +380,9 @@ public class EntityTrident extends AbstractArrow
         this.getDataManager().set(ITEM, stack);
         this.getDataManager().setDirty(ITEM);
     }
+	
+	public boolean isReturning()
+	{ return ((Boolean)this.dataManager.get(RETURNING)).booleanValue(); }
 
 	public void setNBT(ItemStack stack, boolean strip)
 	{
@@ -390,7 +394,7 @@ public class EntityTrident extends AbstractArrow
 	    { nbt.setInteger("Thrown", 1); }
 	    stack.setTagCompound(nbt);
 	}
-
+	
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
@@ -410,7 +414,7 @@ public class EntityTrident extends AbstractArrow
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.setBoolean("Returning", ((Boolean)this.dataManager.get(RETURNING)).booleanValue());
+		compound.setBoolean("Returning", isReturning());
 		compound.setBoolean("Did_Lightning", ((Boolean)this.dataManager.get(DID_LIGHTNING)).booleanValue());
 		if (!this.getItem().isEmpty())
         {

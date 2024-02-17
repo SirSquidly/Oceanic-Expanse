@@ -42,6 +42,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 	protected boolean alwaysBounce;
 	protected boolean canEntityCollide;
 	protected double bounceStrength;
+	protected double bounceYStrength;
 	protected float airSpeed;
 	protected float waterSpeed;
 	 
@@ -54,6 +55,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
         this.damage = 2.0F;
         this.canEntityCollide = true;
         this.bounceStrength = -0.1D;
+        this.bounceYStrength = -0.1D;
         this.airSpeed = 0.99F;
         this.waterSpeed = 0.6F;
         this.pickupStatus = PickupStatus.DISALLOWED;
