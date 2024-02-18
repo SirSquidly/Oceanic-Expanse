@@ -20,7 +20,6 @@ public class CoreContainer extends DummyModContainer
         meta.authorList.add("Sir Squidly");
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     @Override
     public boolean registerBus(EventBus bus, LoadController controller)
     {

@@ -247,9 +247,7 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 		
 		IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 		if (this.getHomePos() == BlockPos.ORIGIN && this.getPosition() != BlockPos.ORIGIN)
-        {
-        	this.setHomePos(new BlockPos(this));
-        }
+        { this.setHomePos(new BlockPos(this)); }
 		
 		if (!world.isRemote) 
         {

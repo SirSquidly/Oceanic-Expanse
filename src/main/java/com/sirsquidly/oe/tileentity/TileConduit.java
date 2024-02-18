@@ -45,75 +45,59 @@ public class TileConduit extends TileEntity implements ITickable
 	public void update()
 	{
 		if(world == null) return;
-		
-		doAmbientSounds(world, pos);
+
 		doAnimCounters();
-		doHunting(world, pos);
 		
-		if(world.getTotalWorldTime()%10==0)
+		if(world.getTotalWorldTime() % 20L == 0L)
 		{
-			if (countFrame(world, pos) >= 12)
+			if(countFrame(world, pos) >= 12)
 			{
+				doAmbientSounds(world, pos);
+				doEffect(world, pos);
+				canHunt = countFrame(world, pos) >= this.minHuntrame;
+				if (canHunt) doHunting(world, pos);
+
 				if(!isActive)
 				{
 					world.playSound(null, pos, OESounds.BLOCK_CONDUIT_ACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					isActive = true;
 				}
-				isActive = true;
 			}
 			else
 			{ 
 				if(isActive)
 				{
 					world.playSound(null, pos, OESounds.BLOCK_CONDUIT_DEACTIVATE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					isActive = false; 
+					canHunt = false;
 				}
-				isActive = false; 
 			}
 		}
 		
-		
-		if(world.isRemote)
+		if(world.isRemote && isActive)
 		{
-			if(world.rand.nextInt(2)==0 && countFrame(world, pos) >=12)
-			{
-				spawnParticles(world, pos);
-			}
+			spawnParticles(world, pos);
 		}
-		else
+	}
+	
+	/** Handles giving out the Conduit Power effect to nearby Players.*/
+	public void doEffect(World worldIn, BlockPos pos)
+	{
+		int expandBy = 16 * (int) Math.floor(countFrame(world, pos) / 7);
+		
+		for(EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-expandBy, -expandBy, -expandBy), pos.add(expandBy + 1, expandBy + 1, expandBy + 1))))
 		{
-			if(world.getTotalWorldTime()%4==0)
+			int sphereCheck = (expandBy + 1) * (expandBy + 1);
+			if (player.getDistanceSqToCenter(pos) < sphereCheck && player.isWet())
 			{
-				if(world.getBlockState(pos.up()).getMaterial() != Material.WATER)
-				{
-					//world.destroyBlock(pos,true);
-					return;
-				}
+				player.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 10 * 20 + 10, 0, true, true));
 			}
-			if(world.getTotalWorldTime()%10==0)
-			{
-				if(countFrame(world, pos) >= 12)
-				{
-					int expandBy = 16 * (int) Math.floor(countFrame(world, pos) / 7);
-					
-					for(EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-expandBy, -expandBy, -expandBy), pos.add(expandBy + 1, expandBy + 1, expandBy + 1))))
-					{
-						int sphereCheck = (expandBy + 1) * (expandBy + 1);
-						if (player.getDistanceSqToCenter(pos) < sphereCheck && player.isWet())
-						{
-							player.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 10 * 20 + 10, 0, true, true));
-						}
-					}
-				}
-			}
-			
 		}
 	}
 	
 	/** Handles the Hunting/Attacking behavior of the Conduit.*/
 	public void doHunting(World worldIn, BlockPos pos)
 	{
-		if (countFrame(world, pos) < this.minHuntrame) { canHunt = false; return;} 
-		canHunt = true;
-		
 		List<EntityMob> nearbyMobs = world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(pos.add(-huntRange, -huntRange, -huntRange), pos.add(huntRange + 1, huntRange + 1, huntRange + 1)));
 		
 		if (!nearbyMobs.contains(this.attackTarget))
@@ -216,7 +200,7 @@ public class TileConduit extends TileEntity implements ITickable
 	
 	@SideOnly(Side.CLIENT)
 	public void spawnParticles(World worldIn, BlockPos pos)
-	{	
+	{
 		for (int i = -1; i <= 1; ++i)
         {
             for (int j = -1; j <= 1; ++j)
@@ -226,7 +210,7 @@ public class TileConduit extends TileEntity implements ITickable
                     j = 1;
                 }
 
-                if (world.rand.nextInt(32) == 0 && ConfigHandler.block.conduit.conduitParticles != 0)
+                if (world.rand.nextInt(64) == 0 && ConfigHandler.block.conduit.conduitParticles != 0)
                 {
                     for (int k = -1; k <= 2; ++k)
                     {
@@ -266,7 +250,6 @@ public class TileConduit extends TileEntity implements ITickable
 	    }
 		return i;
 	}
-	
 	
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
