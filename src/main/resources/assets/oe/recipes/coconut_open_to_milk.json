@@ -1,4 +1,11 @@
 {
+  "conditions":
+  [
+    {
+      "type": "config",
+      "prop": "enableCoconut"
+    }
+  ],
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {

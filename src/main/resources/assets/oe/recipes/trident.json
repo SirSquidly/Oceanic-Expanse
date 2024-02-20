@@ -1,4 +1,8 @@
 {
+  "conditions":
+  [
+    { "type": "config", "prop": "tridentAllIngredients" }
+  ],
   "type": "forge:ore_shaped",
   "pattern": [
     " ss",

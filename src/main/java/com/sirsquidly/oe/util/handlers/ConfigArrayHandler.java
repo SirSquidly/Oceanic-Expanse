@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.util.handlers;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -8,10 +9,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.IConditionFactory;
+import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.sirsquidly.oe.Main;
 
 /**
@@ -136,5 +142,44 @@ public class ConfigArrayHandler
 		}
 
 		return new ItemStack(item, 1, meta);
+	}
+	
+	/**
+     * Sets up custom crafting recipe conditions.
+     * 
+     * Used in `_factories.json` in /recipes
+     */
+	public static class ConfigProperty implements IConditionFactory
+	{
+		@Override
+		public BooleanSupplier parse(JsonContext context, JsonObject json)
+		{
+			String prop = JsonUtils.getString(json, "prop");
+			return () -> propertyEnabled(prop);
+		}
+
+		private static boolean propertyEnabled(String property)
+		{
+			switch(property)
+			{
+				case "enableBlueIce": return ConfigHandler.block.blueIce.enableBlueIce;
+				case "conduitAllIngredients": return ConfigHandler.block.conduit.enableConduit & ConfigHandler.item.enableNautilusShell;
+				case "enableCoquina": return ConfigHandler.block.coquina.enableCoquina;
+				case "enableCoquinaBricks": return ConfigHandler.block.coquina.enableCoquinaBricks;
+				case "enableCoquinaBrickWalls": return ConfigHandler.block.coquina.enableCoquinaBrickWalls;
+				case "enableCoconut": return ConfigHandler.block.coconut.enableCoconut;
+				case "enableDusle": return ConfigHandler.block.dulse.enableDulse;
+				case "enablePalmWoods": return ConfigHandler.block.palmBlocks.enablePalmWoods;
+				case "enablePalmStrippedWoods": return ConfigHandler.block.palmBlocks.enablePalmStrippedWoods;
+				case "enableKelp": return ConfigHandler.block.enableKelp;
+				case "enableWaterTorch": return ConfigHandler.block.waterTorch.enableWaterTorch;
+				
+				case "enableGlowItemFrames": return ConfigHandler.item.glowItemFrame.enableGlowItemFrame;
+				case "tridentAllIngredients": return ConfigHandler.item.trident.enableTridentCrafting & ConfigHandler.item.trident.enableTrident & ConfigHandler.block.guardianSpike.enableGuardianSpike;
+				case "turtleShellAllIngredients": return ConfigHandler.item.turtleShell.enableTurtleShell & ConfigHandler.item.enableTurtleScute;
+			}
+
+			throw new JsonSyntaxException("Invalid propertyname '" + property + "'");
+		}
 	}
 }

@@ -854,6 +854,11 @@ public class ConfigHandler
 		    public boolean enableTrident = true;
 			
 			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableTridentCrafting")
+		    @Config.Comment("If Tridents can be crafted. Requires Guardian Spikes to also be enabled.")
+		    public boolean enableTridentCrafting = true;
+			
+			@RequiresMcRestart
 		    @Config.LangKey("oe.config.item.tridentCanThrowBreak")
 		    @Config.Comment("Allows the player to throw a Trident even if it is at 1 durability, leading to it breaking upon impact. Vanilla Minecraft does this.")
 		    public boolean tridentCanThrowBreak = false;

@@ -1,0 +1,6 @@
+{
+  "conditions":
+  {
+    "config": "com.sirsquidly.oe.util.handlers.ConfigArrayHandler$ConfigProperty"
+  }
+}

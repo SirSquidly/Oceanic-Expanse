@@ -1,4 +1,11 @@
 {
+  "conditions":
+  [
+    {
+      "type": "config",
+      "prop": "conduitAllIngredients"
+    }
+  ],
   "type": "forge:ore_shaped",
   "pattern": [
     "nnn",

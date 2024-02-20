@@ -1,4 +1,15 @@
 {
+  "conditions":
+  [
+  	{
+      "type": "config",
+      "prop": "enableCoquina"
+    },
+    {
+      "type": "config",
+      "prop": "enableCoquinaBricks"
+    }
+  ],
   "type": "forge:ore_shaped",
   "pattern": [
     "###"

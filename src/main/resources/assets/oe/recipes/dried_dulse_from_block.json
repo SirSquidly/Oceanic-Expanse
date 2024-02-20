@@ -1,4 +1,11 @@
 {
+  "conditions":
+  [
+    {
+      "type": "config",
+      "prop": "enableDusle"
+    }
+  ],
   "type": "forge:ore_shaped",
   "pattern": [
     "#"

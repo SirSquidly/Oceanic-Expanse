@@ -1,4 +1,8 @@
 {
+  "conditions":
+  [
+    { "type": "config", "prop": "enablePalmWoods" }
+  ],
   "type": "forge:ore_shaped",
   "pattern": [
     "###"
