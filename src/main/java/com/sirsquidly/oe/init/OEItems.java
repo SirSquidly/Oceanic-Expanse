@@ -45,22 +45,25 @@ public class OEItems
 	public static Item GLOW_ITEM_FRAME = new ItemGlowItemFrame();
 	public static Item CHLORINE = new ItemChlorine();
 
-	public static Item BLUE_SLIME_BALL = new ItemFoodBase(0, 0, 16, false).setAlwaysEdible();
+	public static Item BLUE_SLIME_BALL = new ItemFoodBase(0, 0, false, 16).setAlwaysEdible();
 	
-	public static Item SQUID_UNCOOKED = new ItemFoodBase(0, 0, 0, false);
-	public static Item SQUID_COOKED = new ItemFoodBase(0, 0, 0, false);
+	//public static Item SQUID_UNCOOKED = new ItemFoodBase(0, 0, 0, false);
+	//public static Item SQUID_COOKED = new ItemFoodBase(0, 0, 0, false);
 	
-	public static Item CRAB_UNCOOKED = new ItemFoodBase(2, 0.4F, 32, true);
-	public static Item CRAB_COOKED = new ItemFoodBase(6, 0.6F, 32, true);
+	public static Item CRAB_UNCOOKED = new ItemFoodBase(2, 0.4F, true);
+	public static Item CRAB_COOKED = new ItemFoodBase(6, 0.6F, true);
+	public static Item BISQUE_CRAB = new ItemFoodBase(10, 0.8F).setIsSoup();
 	
-	public static Item LOBSTER_UNCOOKED = new ItemFoodBase(3, 0.15F, 32, true);
+	public static Item LOBSTER_UNCOOKED = new ItemFoodBase(3, 0.15F, true);
+	public static Item LOBSTER_COOKED = new ItemFoodBase(8, 0.8F, true);
+	public static Item BISQUE_LOBSTER = new ItemFoodBase(14, 0.8F).setIsSoup();
 	
 	public static Item CRUSTACEAN_SHELL = new Item();
 	
-	public static Item COCONUT_OPEN = new ItemFoodBase(3, 0.6F, 32, false);
+	public static Item COCONUT_OPEN = new ItemFoodBase(3, 0.6F);
 	
-	public static Item DRIED_KELP = new ItemFoodBase(1, 0.6F, 16, false);
-	public static Item DRIED_DULSE = new ItemFoodBase(3, 0.6F, 32, false);
+	public static Item DRIED_KELP = new ItemFoodBase(1, 0.6F, false, 16);
+	public static Item DRIED_DULSE = new ItemFoodBase(3, 0.6F);
 	
 	public static Item PALM_BOAT = new ItemOEBoat();
 	
@@ -84,9 +87,12 @@ public class OEItems
 		
 		itemReadyForRegister(CRAB_UNCOOKED, "crab");
 		itemReadyForRegister(CRAB_COOKED, "cooked_crab");
+		itemReadyForRegister(BISQUE_CRAB, "crab_bisque");
 		itemReadyForRegister(CRUSTACEAN_SHELL, "crustacean_shell");
 		
 		itemReadyForRegister(LOBSTER_UNCOOKED, "lobster");
+		itemReadyForRegister(LOBSTER_COOKED, "cooked_lobster");
+		itemReadyForRegister(BISQUE_LOBSTER, "lobster_bisque");
 		
 		itemReadyForRegister(BLUE_SLIME_BALL, "blue_slime_ball");
 		if (ConfigHandler.block.coconut.enableCoconut) itemReadyForRegister(COCONUT_OPEN, "coconut_open");
