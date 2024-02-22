@@ -1664,6 +1664,34 @@ public class ConfigHandler
 		    public int inkParticleAge = 20;
 	    }
 		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.vanillaTweak.inkSquirting")
+	    public configInkSquirting inkSquirting = new configInkSquirting();
+		
+		public static class configInkSquirting
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.enableInkSquirting")
+		    @Config.Comment("Enables the ability to squirt out Ink Sacs.")
+		    public boolean enableInkSquirting = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.inkSquirtingDispense")
+		    @Config.Comment("Enables the ability for Dispensers to spray ink from Ink Sacs.")
+		    public boolean inkSquirtingDispense = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.inkSquirtingUserImmune")
+		    @Config.Comment("If the player that is squirting the Ink Sac is immune to the effects. Default is false because it is funny.")
+		    public boolean inkSquirtingUserImmune = false;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.inkSquirtingCooldown")
+		    @Config.Comment("Adds a cooldown between uses of Ink Sacs.")
+		    @Config.RangeInt(min = 0, max = 9999)
+		    public int inkSquirtingCooldown = 5;
+	    }
+		
 		@Config.LangKey("oe.config.vanillaTweak.waterLighting")
 	    @Config.Comment("Alters how much light Water and Flowing Water block. Default water is 3. Automatically disabled as not only do I predict some MASSIVE incompatabilities, but this will require every water block to be updated. Every single one. ")
 	    public int waterTweak = 3;

@@ -283,6 +283,12 @@
     	"subtitle": "subtitle.oe.salmon.hurt",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
+     "entity.squid.squirt": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.squid.squirt",
+    	"sounds": [ "oe:item/ink_sac/squirt1", "oe:item/ink_sac/squirt2"]
+     },
      "entity.tropical_fish.death": 
 	 {
     	"category": "neutral",
@@ -372,6 +378,12 @@
     	"category": "player",
     	"subtitle": "subtitle.oe.conch_blow4",
     	"sounds": [ "oe:item/conch_blow4"]
+     },
+     "item.ink_sac.squirt": 
+     {
+    	"category": "player",
+    	"subtitle": "subtitle.oe.ink_sac.squirt",
+    	"sounds": [ "oe:item/ink_sac/squirt1", "oe:item/ink_sac/squirt2" ]
      },
      "entity.drowned.throw": 
      {

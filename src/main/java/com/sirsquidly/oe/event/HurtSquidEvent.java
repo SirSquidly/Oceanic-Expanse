@@ -4,13 +4,16 @@ import java.util.List;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityGlowSquid;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,6 +45,10 @@ public class HurtSquidEvent
 	        double yawX = Math.cos((squid.rotationYaw + 270) * Math.PI / 180.0D);
 			double yawZ = Math.sin((squid.rotationYaw + 270) * Math.PI / 180.0D);
 	        
+			float pitch = isBaby ? (squid.world.rand.nextFloat() - squid.world.rand.nextFloat()) * 0.2F + 1.5F : (squid.world.rand.nextFloat() - squid.world.rand.nextFloat()) * 0.2F + 1.0F;
+			
+			squid.world.playSound((EntityPlayer)null, squid.posX, squid.posY, squid.posZ, OESounds.ENTITY_SQUID_SQUIRT, SoundCategory.PLAYERS, 0.5F, pitch);
+			
 			for (int i = 0; isBaby ? i < ConfigHandler.vanillaTweak.squidInking.babySquidParticleAmount : i < ConfigHandler.vanillaTweak.squidInking.squidParticleAmount; ++i)
             {
 				double x = squid.posX + (squid.world.rand.nextDouble() / 3 - squid.world.rand.nextDouble() / 3) + (yawX * (isBaby ? 0.1D : 0.7D) * pitch1);

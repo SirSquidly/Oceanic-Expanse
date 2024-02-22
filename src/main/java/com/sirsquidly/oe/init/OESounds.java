@@ -82,6 +82,7 @@ public class OESounds
 	public static SoundEvent ENTITY_SALMON_DEATH = soundReadyForRegister("entity.salmon.death");
 	public static SoundEvent ENTITY_SALMON_FLOP = soundReadyForRegister("entity.salmon.flop");
 	public static SoundEvent ENTITY_SALMON_HURT = soundReadyForRegister("entity.salmon.hurt");
+	public static SoundEvent ENTITY_SQUID_SQUIRT = soundReadyForRegister("entity.squid.squirt");
 	
 	public static SoundEvent ENTITY_TRIDENT_SHOOT = soundReadyForRegister("item.trident.throw");
 	public static SoundEvent ENTITY_TRIDENT_IMPACT = soundReadyForRegister("item.trident.impact");
@@ -108,6 +109,7 @@ public class OESounds
 	public static SoundEvent ITEM_CONCH_BLOW2 = soundReadyForRegister("item.conch.conch_blow2");
 	public static SoundEvent ITEM_CONCH_BLOW3 = soundReadyForRegister("item.conch.conch_blow3");
 	public static SoundEvent ITEM_CONCH_BLOW4 = soundReadyForRegister("item.conch.conch_blow4");
+	public static SoundEvent ITEM_INK_SAC_SQUIRT = soundReadyForRegister("item.ink_sac.squirt");
 	
 	public static void registerSounds()
 	{	
