@@ -1,0 +1,19 @@
+{
+  "conditions":
+  [
+    { "type": "config", "prop": "enablePalmWoods" }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "p p",
+    "ppp"
+  ],
+  "key":
+  {
+    "p": { "item": "oe:palm_planks" }
+  },
+  "result":
+  {
+    "item": "oe:palm_boat"
+  }
+}
