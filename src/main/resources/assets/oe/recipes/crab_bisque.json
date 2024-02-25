@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    { "item": "oe:cooked_crab" },
+    { "item": "oe:crustacean_shell" },
+    { "item": "minecraft:milk_bucket" },
+    { "item": "minecraft:bowl" }
+  ],
+  "result":
+  {
+    "item": "oe:crab_bisque"
+  }
+}

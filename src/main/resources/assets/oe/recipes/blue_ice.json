@@ -1,0 +1,17 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern":
+  [
+    "###",
+    "###",
+    "###"
+  ],
+  "key":
+  {
+    "#": { "item": "minecraft:packed_ice" }	
+  },
+  "result":
+  {
+    "item": "oe:blue_ice"
+  }
+}

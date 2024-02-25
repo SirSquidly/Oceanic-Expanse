@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern":
+	[
+		"##",
+		"##"
+	],
+	"key":
+	{
+    	"#": { "item": "oe:crustacean_shell" }	
+	},
+	"result":
+	{
+		"item": "minecraft:dye",
+    	"data": 15
+	}
+}

@@ -1,0 +1,14 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "oe:blue_slime_ball" }	
+  },
+  "result": {
+    "item": "oe:blue_slime_block"
+  }
+}

@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 @Mod.EventBusSubscriber
-public class OERecipies 
+public class OERecipes 
 {
 	@SuppressWarnings("deprecation")
 	@SubscribeEvent
@@ -24,6 +24,9 @@ public class OERecipies
 		GameRegistry.addSmelting(OEBlocks.SEA_PICKLE, new ItemStack(Items.DYE, 1, EnumDyeColor.LIME.getDyeDamage()), 0.2F);
 		GameRegistry.addSmelting(OEBlocks.KELP, new ItemStack(OEItems.DRIED_KELP, 1), 0.1F);
 		GameRegistry.addSmelting(OEBlocks.DULSE, new ItemStack(OEItems.DRIED_DULSE, 1), 0.1F);
+		
+		GameRegistry.addSmelting(OEItems.CRAB_UNCOOKED, new ItemStack(OEItems.CRAB_COOKED, 1), 0.1F);
+		GameRegistry.addSmelting(OEItems.LOBSTER_UNCOOKED, new ItemStack(OEItems.LOBSTER_COOKED, 1), 0.1F);
 		
 		FurnaceFuelHandler fuelReg = new FurnaceFuelHandler();
         GameRegistry.registerFuelHandler(fuelReg);
