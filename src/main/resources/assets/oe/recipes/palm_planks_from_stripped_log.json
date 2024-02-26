@@ -1,0 +1,16 @@
+{
+  "conditions":
+  [
+    { "type": "config", "prop": "enablePalmWoods" }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "oe:palm_log_stripped"
+    }
+  ],
+  "result": {
+    "item": "oe:palm_planks",
+    "count": 4
+  }
+}

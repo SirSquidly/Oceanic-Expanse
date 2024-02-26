@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    { "item": "oe:glow_ink_sac" },
+    { "item": "minecraft:item_frame" }
+  ],
+  "result":
+  {
+    "item": "oe:glow_item_frame"
+  }
+}
