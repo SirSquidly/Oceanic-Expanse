@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import com.sirsquidly.oe.blocks.BlockCoral;
 import com.sirsquidly.oe.blocks.BlockCoralFan;
 import com.sirsquidly.oe.blocks.BlockCoralFull;
-import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
+import com.sirsquidly.oe.blocks.BlockSeagrasss;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -65,7 +65,7 @@ public class UnderwaterBonemealEvent
                     	{ world.setBlockState(blockpos1, OEBlocks.SEAGRASS.getDefaultState()); }
                     	
                     	if ((world.getBlockState(blockpos1).getBlock() == OEBlocks.SEAGRASS || !ConfigHandler.block.seagrass.enableSeagrass) && rand.nextInt(10) == 0 && ConfigHandler.block.seagrass.enableTallSeagrass)
-                    	{ ((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(world, blockpos1, 2); }
+                    	{ ((BlockSeagrasss) OEBlocks.SEAGRASS).placeAt(world, blockpos1, 16 | 2); }
                     }
                 	break;
                 }

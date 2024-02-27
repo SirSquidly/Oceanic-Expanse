@@ -57,10 +57,11 @@ public class OEBlocks
 	
 		public static Block SEA_PICKLE = new BlockSeaPickle();
 		
-		public static Block SEAGRASS = new BlockUnderwaterGrass();
-		public static Block TALL_SEAGRASS = new BlockDoubleUnderwater();
+		public static Block SEAGRASS = new BlockSeagrasss();
 		public static Block KELP = new BlockKelp();
+		
 		public static Block KELP_MID = new BlockVeryBadAndLazyTransfer(OEBlocks.KELP.getDefaultState());
+		public static Block TALL_SEAGRASS = new BlockVeryBadAndLazyTransfer(OEBlocks.SEAGRASS.getDefaultState());
 		public static Block DRIED_KELP_BLOCK = new BlockDriedKelp();
 		public static Block COCONUT = new BlockCoconut();
 		public static Block PALM_BOOKSHELF = new BlockOEBookshelf(SoundType.WOOD).setHardness(1.5F);
@@ -251,7 +252,7 @@ public class OEBlocks
 			blockReadyForRegister(BLUE_SLIME, "blue_slime_block");
 			
 			if (ConfigHandler.block.seagrass.enableSeagrass) blockReadyForRegister(SEAGRASS, "seagrass");
-			if (ConfigHandler.block.seagrass.enableTallSeagrass) blockReadyForRegister(TALL_SEAGRASS, "tall_seagrass");
+			if (ConfigHandler.block.seagrass.enableTallSeagrass) blockReadyForRegister(TALL_SEAGRASS, "tall_seagrass", false);
 			if (ConfigHandler.block.enableSeaPickle) blockReadyForRegister(SEA_PICKLE, "sea_pickle");
 			if (ConfigHandler.block.seaOats.enableSeaOats) blockReadyForRegister(SEA_OATS, "sea_oats");
 			if (ConfigHandler.block.enableSeastar) blockReadyForRegister(SEASTAR, "seastar");

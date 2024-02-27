@@ -142,7 +142,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     
     /** Natural Growing **/
     @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
         if (!worldIn.isAreaLoaded(pos, 1)) return;
         BlockPos blockpos = pos.up();

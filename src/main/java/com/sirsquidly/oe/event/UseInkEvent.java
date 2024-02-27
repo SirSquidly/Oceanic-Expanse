@@ -32,7 +32,7 @@ public class UseInkEvent
 		EntityPlayer player = event.getEntityPlayer();
 		Boolean glowInk = false;
 		
-		if (!(player.getHeldItemMainhand().getItem() == Items.DYE || player.getHeldItemMainhand().getItem() == OEItems.GLOW_INK)) return;
+		if (!(player.getHeldItemMainhand().getItem() == Items.DYE && player.getHeldItemMainhand().getMetadata() == 0 || player.getHeldItemMainhand().getItem() == OEItems.GLOW_INK)) return;
 		
 		if (player.getHeldItemMainhand().getItem() == OEItems.GLOW_INK) glowInk = true;
 		

@@ -1,0 +1,17 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern":
+  [
+    "p p",
+    "p p",
+    "ppp"
+  ],
+  "key":
+  {
+    "p": { "item": "minecraft:prismarine_shard" }
+  },
+  "result":
+  {
+    "item": "oe:prismarine_pot"
+  }
+}

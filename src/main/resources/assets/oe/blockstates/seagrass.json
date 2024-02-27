@@ -1,5 +1,7 @@
 {
     "variants": {
-        "normal": { "model": "oe:seagrass" }
+        "type=0": { "model": "oe:seagrass" },
+        "type=1": { "model": "oe:tall_seagrass_bottom" },
+        "type=2": { "model": "oe:tall_seagrass_top" }
     }
 }

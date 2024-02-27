@@ -5,7 +5,7 @@ import java.util.Random;
 import com.sirsquidly.oe.blocks.BlockCoral;
 import com.sirsquidly.oe.blocks.BlockCoralFan;
 import com.sirsquidly.oe.blocks.BlockCoralFull;
-import com.sirsquidly.oe.blocks.BlockDoubleUnderwater;
+import com.sirsquidly.oe.blocks.BlockSeagrasss;
 import com.sirsquidly.oe.blocks.BlockDulse;
 import com.sirsquidly.oe.blocks.BlockPrismarinePot;
 import com.sirsquidly.oe.blocks.BlockSeaPickle;
@@ -144,7 +144,7 @@ public class WorldGenOceanPatch implements IWorldGenerator
     {
     	if (this.block == OEBlocks.SEAGRASS && ConfigHandler.block.seagrass.enableTallSeagrass && rand.nextDouble() < tallChance && OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, pos))
     	{
-    		((BlockDoubleUnderwater) OEBlocks.TALL_SEAGRASS).placeAt(worldIn, pos, 16 | 2);
+    		((BlockSeagrasss) OEBlocks.SEAGRASS).placeAt(worldIn, pos, 16 | 2);
     	}
     	else if (this.block == OEBlocks.SEA_PICKLE)
     	{
