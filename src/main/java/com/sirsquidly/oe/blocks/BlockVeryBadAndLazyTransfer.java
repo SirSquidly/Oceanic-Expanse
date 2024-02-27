@@ -41,7 +41,7 @@ public class BlockVeryBadAndLazyTransfer extends Block
 	
 	public IBlockState getStateFromMeta(int meta)
     { 
-		return complexReplacer() && transferBlock == OEBlocks.SEAGRASS.getDefaultState() ? transferBlock.withProperty(BlockSeagrasss.TYPE, meta == 0 ? 2 : 1) : transferBlock;
+		return complexReplacer() ? transferBlock.withProperty(BlockSeagrasss.TYPE, meta == 0 ? 2 : 1) : transferBlock;
     }
 	
 	/** If this is a block that requires specialized logic to replace. This logic is under `onBlockAdded` */
