@@ -93,6 +93,11 @@ public class OESounds
 	public static SoundEvent ENTITY_TRIDENT_RIPTIDE3 = soundReadyForRegister("item.trident.riptide3");
 	public static SoundEvent ENTITY_TRIDENT_THUNDER = soundReadyForRegister("item.trident.thunder");
 	
+	public static SoundEvent ENTITY_TROPICAL_SLIME_DEATH = soundReadyForRegister("entity.tropical_slime.death");
+	public static SoundEvent ENTITY_TROPICAL_SLIME_HURT = soundReadyForRegister("entity.tropical_slime.hurt");
+	public static SoundEvent ENTITY_TROPICAL_SLIME_JUMP = soundReadyForRegister("entity.tropical_slime.jump");
+	public static SoundEvent ENTITY_TROPICAL_SLIME_SQUISH = soundReadyForRegister("entity.tropical_slime.squish");
+	
 	public static SoundEvent ENTITY_TROPICAL_FISH_DEATH = soundReadyForRegister("entity.tropical_fish.death");
 	public static SoundEvent ENTITY_TROPICAL_FISH_FLOP = soundReadyForRegister("entity.tropical_fish.flop");
 	public static SoundEvent ENTITY_TROPICAL_FISH_HURT = soundReadyForRegister("entity.tropical_fish.hurt");

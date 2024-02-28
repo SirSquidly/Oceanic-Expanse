@@ -3,6 +3,7 @@ package com.sirsquidly.oe.entity;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -20,10 +21,12 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
@@ -66,6 +69,18 @@ public class EntityTropicalSlime extends EntitySlime
 	
 	protected Item getDropItem()
     { return this.getSlimeSize() == 1 ? OEItems.BLUE_SLIME_BALL : null; }
+	
+	protected SoundEvent getDeathSound()
+    { return OESounds.ENTITY_TROPICAL_SLIME_DEATH; }
+	
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
+    {  return OESounds.ENTITY_TROPICAL_SLIME_HURT; }
+	
+	protected SoundEvent getJumpSound()
+    { return OESounds.ENTITY_TROPICAL_SLIME_JUMP; }
+	
+	protected SoundEvent getSquishSound()
+    { return OESounds.ENTITY_TROPICAL_SLIME_SQUISH; }
 	
 	@Override
 	protected EnumParticleTypes getParticleType()

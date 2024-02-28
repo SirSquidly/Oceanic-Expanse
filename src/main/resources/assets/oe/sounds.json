@@ -307,6 +307,32 @@
     	"subtitle": "subtitle.oe.tropical_fish.hurt",
     	"sounds": [ "oe:entity/fish/hurt1", "oe:entity/fish/hurt2", "oe:entity/fish/hurt3", "oe:entity/fish/hurt4"]
      },
+     
+     "entity.tropical_slime.death": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.tropical_slime.death",
+    	"sounds": [ "oe:entity/tropical_slime/death1"]
+     },
+     "entity.tropical_slime.hurt": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.tropical_slime.hurt",
+    	"sounds": [ "oe:entity/tropical_slime/squish1", "oe:entity/tropical_slime/squish2", "oe:entity/tropical_slime/squish3", "oe:entity/tropical_slime/squish4" ]
+     },
+     "entity.tropical_slime.jump": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.tropical_slime.jump",
+    	"sounds": [ "oe:entity/tropical_slime/jump1", "oe:entity/tropical_slime/jump2", "oe:entity/tropical_slime/jump3", "oe:entity/tropical_slime/jump4" ]
+     },
+     "entity.tropical_slime.squish": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.tropical_slime.squish",
+    	"sounds": [ "oe:entity/tropical_slime/squish1", "oe:entity/tropical_slime/squish2", "oe:entity/tropical_slime/squish3", "oe:entity/tropical_slime/squish4" ]
+     },
+     
      "entity.turtle.ambient": 
 	 {
     	"category": "neutral",
