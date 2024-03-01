@@ -1,16 +1,25 @@
 {
-  "conditions":
-  [
-    { "type": "config", "prop": "enablePalmWoods" }
-  ],
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "oe:palm_log_stripped"
-    }
-  ],
-  "result": {
-    "item": "oe:palm_planks",
-    "count": 4
-  }
+	"conditions":
+	[
+		{ "type": "config", "prop": "enablePalmWoods" }
+	],
+	"type": "forge:ore_shaped",
+	"group": "palm_planks",
+	"pattern":
+	[
+		"#"
+	],
+	"key":
+	{
+		"#":
+		[
+			{ "item": "oe:palm_log_stripped" },
+			{ "item": "oe:palm_wood_stripped" }
+		]
+	},
+	"result":
+	{
+		"item": "oe:palm_planks",
+		"count": 4
+	}
 }
