@@ -39,7 +39,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEItems.GLOW_ITEM_FRAME);
 	        add(list, OEItems.CHLORINE);
 	        if (ConfigHandler.block.seagrass.enableSeagrass) add(list, OEBlocks.SEAGRASS);
-	        if (ConfigHandler.block.seagrass.enableTallSeagrass) add(list, OEBlocks.TALL_SEAGRASS);
 	        if (ConfigHandler.block.enableSeaPickle) add(list, OEBlocks.SEA_PICKLE);
 	        if (ConfigHandler.block.enableKelp)
 	        {

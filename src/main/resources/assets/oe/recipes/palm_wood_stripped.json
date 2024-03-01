@@ -9,10 +9,10 @@
     "##"
   ],
   "key": {
-    "#": { "item": "oe:stripped_palm_log" }	
+    "#": { "item": "oe:palm_log_stripped" }	
   },
   "result": {
-    "item": "oe:stripped_palm_wood",
+    "item": "oe:palm_wood_stripped",
     "count": 3
   }
 }

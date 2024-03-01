@@ -115,14 +115,9 @@ public class EntityTropicalSlime extends EntitySlime
             
             if (!world.isRemote) this.evaporateTimer += 1;
             
-            
-            
             if (this.evaporateTimer >= 50)
             {
             	world.playSound(null, this.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
-            	
-            	this.spawnTropicalFish(world, this.getPosition(), false);
-            	
             	this.setDead();
             }
         }

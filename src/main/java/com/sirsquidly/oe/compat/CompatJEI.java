@@ -25,7 +25,7 @@ public class CompatJEI implements IModPlugin
         registry.addIngredientInfo(new ItemStack(OEBlocks.SHELL_SAND), VanillaTypes.ITEM, "oe.jei.shell_sand.desc");
         
         IIngredientBlacklist ingredientBlacklist = registry.getJeiHelpers().getIngredientBlacklist();
-		// Game freezes when loading player skulls, see https://bugs.mojang.com/browse/MC-65587
 		ingredientBlacklist.addIngredientToBlacklist(new ItemStack(OEBlocks.KELP_MID));
+		ingredientBlacklist.addIngredientToBlacklist(new ItemStack(OEBlocks.TALL_SEAGRASS));
     }
 }
