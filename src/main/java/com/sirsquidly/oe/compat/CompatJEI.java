@@ -27,5 +27,8 @@ public class CompatJEI implements IModPlugin
         IIngredientBlacklist ingredientBlacklist = registry.getJeiHelpers().getIngredientBlacklist();
 		ingredientBlacklist.addIngredientToBlacklist(new ItemStack(OEBlocks.KELP_MID));
 		ingredientBlacklist.addIngredientToBlacklist(new ItemStack(OEBlocks.TALL_SEAGRASS));
+		
+		ingredientBlacklist.addIngredientToBlacklist(new ItemStack(OEBlocks.COQUINA_BRICK_SLAB_D));
+		ingredientBlacklist.addIngredientToBlacklist(new ItemStack(OEBlocks.PALM_SLAB_D));
     }
 }

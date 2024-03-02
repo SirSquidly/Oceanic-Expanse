@@ -8,6 +8,8 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
+import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
@@ -59,6 +61,7 @@ public class EntityLobster extends EntityAnimal
 	private static final DataParameter<Integer> LOBSTER_SIZE = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
+	private static final Set<Item>EDIBLE_ITEMS = Sets.newHashSet(Items.FISH, Item.getItemFromBlock(OEBlocks.KELP), OEItems.DRIED_KELP, OEItems.CRAB_UNCOOKED, OEItems.CRAB_COOKED, OEItems.LOBSTER_COOKED, OEItems.LOBSTER_UNCOOKED);
 	/** Handles all the colors */
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityLobster.class, DataSerializers.VARINT);
 	private int randomAngrySoundDelay;
@@ -208,12 +211,15 @@ public class EntityLobster extends EntityAnimal
 	
 	public boolean isBreedingItem(ItemStack stack)
     { return BREEDING_ITEMS.contains(stack.getItem()); }
+	
+	public boolean isEdibleItem(ItemStack stack)
+    { return EDIBLE_ITEMS.contains(stack.getItem()); }
 
 	protected void updateEquipmentIfNeeded(EntityItem itemEntity)
     {
         ItemStack itemstack = itemEntity.getItem();
 
-        if (this.isBreedingItem(itemstack) && this.getHeldItemMainhand().isEmpty())
+        if (this.isEdibleItem(itemstack) && this.getHeldItemMainhand().isEmpty())
         {
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack);
         	int itemnumber = itemstack.getCount();
