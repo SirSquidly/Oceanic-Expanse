@@ -34,6 +34,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumDyeColor;
@@ -43,8 +44,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -60,6 +63,9 @@ public class EntityLobster extends EntityAnimal
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> LOBSTER_SIZE = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> FOOD = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
+	/** Time between being able to molt. */
+    public int moltCooldown;
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
 	private static final Set<Item>EDIBLE_ITEMS = Sets.newHashSet(Items.FISH, Item.getItemFromBlock(OEBlocks.KELP), OEItems.DRIED_KELP, OEItems.CRAB_UNCOOKED, OEItems.CRAB_COOKED, OEItems.LOBSTER_COOKED, OEItems.LOBSTER_UNCOOKED);
 	/** Handles all the colors */
@@ -71,6 +77,7 @@ public class EntityLobster extends EntityAnimal
 		super(worldIn);
 		//this.setSize(0.8F, 0.3F);
 		this.setCanPickUpLoot(true);
+		this.moltCooldown = 3000;
 		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
@@ -81,6 +88,7 @@ public class EntityLobster extends EntityAnimal
 		this.dataManager.register(LOBSTER_SIZE, Integer.valueOf(1));
 		this.dataManager.register(VARIANT, 0);
 		this.dataManager.register(SADDLED, Boolean.valueOf(false));
+		this.dataManager.register(FOOD, 0);
 	}
 	
 	protected void initEntityAI()
@@ -116,6 +124,23 @@ public class EntityLobster extends EntityAnimal
 			{ stepHeight = 1.0F; }
 		else { stepHeight = 0.6F; }
 
+		
+		
+		if (world.getTotalWorldTime() % 20L == 0L)
+		{
+			if (!this.getHeldItemMainhand().isEmpty()) doEatingStuff();
+			
+			if (!this.world.isRemote && !this.isChild() &&(this.getFood() * 0.75 ) / getSalmonSize() > 1 && --this.moltCooldown <= 0)
+			{
+				this.moltCooldown = 3000;
+				this.playSound(OESounds.ENTITY_LOBSTER_DEATH, 1.0F, 0.5F);
+				this.setSize(this.getSalmonSize() + 1, true);
+				this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 300));
+				this.dropItem(OEItems.CRUSTACEAN_SHELL, 1);
+				this.setFood(0);
+			}
+		}
+		
 		if (this.isAngry())
         {
 			if (this.randomAngrySoundDelay <= 0)
@@ -133,19 +158,42 @@ public class EntityLobster extends EntityAnimal
 		
         super.onLivingUpdate();
     }
+	
+	public void doEatingStuff()
+	{
+		ItemStack food = this.getHeldItemMainhand();
+		
+		if (isEdibleItem(food))
+		{
+			if (this.world.isRemote)
+            {
+        		for (int i = 0; i < 20; ++i)
+                {
+        			this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX, this.posY + 0.3D, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Item.getIdFromItem(food.getItem()), food.getMetadata());
+                }	
+            }
+        	
+        	this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
+        	
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
+        	
+        	this.setFood(this.getFood() + 1);
+		}
+	}
 
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (this.isBreedingItem(itemstack) && this.getHeldItemMainhand().isEmpty())
+        if (this.isEdibleItem(itemstack) && this.getHeldItemMainhand().isEmpty())
         {
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack);
-
+        	this.moltCooldown = 0;
+        	doEatingStuff();
         	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
         }
         
-        if (this.getSalmonSize() > 4)
+        if (this.getSalmonSize() > 12 && !player.isSneaking())
         {
         	if (this.getSaddled() && !this.isBeingRidden())
             {
@@ -175,7 +223,7 @@ public class EntityLobster extends EntityAnimal
         int j = MathHelper.floor(this.getEntityBoundingBox().minY);
         int k = MathHelper.floor(this.posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
-        return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 7;
+        return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock;
     }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
@@ -402,7 +450,7 @@ public class EntityLobster extends EntityAnimal
 	{
 		Entity entity = this.getControllingPassenger();
 		if (!(entity instanceof EntityLivingBase) || entity == null) return false;
-		return (this.isBreedingItem(((EntityLivingBase) entity).getHeldItemMainhand())); 
+		return (this.isEdibleItem(((EntityLivingBase) entity).getHeldItemMainhand())); 
 	}
 		
 	public void travel(float strafe, float vertical, float forward)
@@ -504,6 +552,12 @@ public class EntityLobster extends EntityAnimal
     public void setAngry(boolean angry)
     { this.dataManager.set(ANGRY, Boolean.valueOf(angry)); }
     
+    public int getFood()
+    { return this.dataManager.get(FOOD); }
+	
+	public void setFood(int state)
+    { this.dataManager.set(FOOD, state); }
+	
 	@Override
     public void writeEntityToNBT(NBTTagCompound compound)
     {
@@ -512,6 +566,7 @@ public class EntityLobster extends EntityAnimal
         compound.setInteger("Size", this.getSalmonSize());
         compound.setInteger("Variant", this.getLobsterVariant());
         compound.setBoolean("Saddle", this.getSaddled());
+        compound.setInteger("MoltCooldown", this.moltCooldown);
     }
 	
 	@Override
@@ -526,5 +581,8 @@ public class EntityLobster extends EntityAnimal
         this.setSize(i, false);
         this.setLobsterVariant(compound.getInteger("Variant"));
         this.setSaddled(compound.getBoolean("Saddle"));
+        
+        if (compound.hasKey("EggLayTime"))
+        { this.moltCooldown = compound.getInteger("MoltCooldown"); }
     }
 }
