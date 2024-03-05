@@ -39,27 +39,25 @@ public class InjectAIEvent
 	{
 		Entity spawn = event.getEntity();
 		/** Bonus security check */
-		if (spawn == null) return;
+		if (spawn == null || EntityList.getKey(spawn) == null) return;
 		
 		if(ConfigHandler.block.turtleEgg.zombiesTrample && ConfigHandler.block.turtleEgg.enableTurtleEgg && spawn instanceof EntityZombie)
 		{
-			EntityZombie zombie  = (EntityZombie)event.getEntity();			
+			EntityZombie zombie  = (EntityZombie)spawn;			
 
 			zombie.tasks.addTask(3, new EntityAIStompTurtleEgg(zombie, 1.0D));
 		}		
 		if(ConfigHandler.vanillaTweak.squidFlop && event.getEntity() instanceof EntitySquid)
 		{
-			EntitySquid squid  = (EntitySquid)event.getEntity();			
+			EntitySquid squid  = (EntitySquid)spawn;			
 
 			squid.tasks.addTask(1, new EntityAISquidFlop(squid, 80));
 		}
-		
 		if (event.getEntity() instanceof EntityCreature && ConfigHandler.entity.turtle.enableTurtle)
 		{
-			if(ArrayUtils.contains(ConfigHandler.entity.turtle.babyTurtlePredators, EntityList.getKey((EntityCreature) event.getEntity()).toString()))
-			{
-				EntityCreature turtleHunter  = (EntityCreature)event.getEntity();			
-
+			EntityCreature turtleHunter  = (EntityCreature)spawn;	
+			if(ArrayUtils.contains(ConfigHandler.entity.turtle.babyTurtlePredators, EntityList.getKey(turtleHunter).toString()))
+			{	
 				if (turtleHunter instanceof EntityTameable)
 				{
 					turtleHunter.targetTasks.addTask(3, new EntityAITargetNonTamed((EntityTameable) turtleHunter, EntityTurtle.class, false, new Predicate<EntityLiving>()
