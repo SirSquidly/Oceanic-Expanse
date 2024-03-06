@@ -1665,6 +1665,52 @@ public class ConfigHandler
 	    }
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.vanillaTweak.waterMechanics")
+	    public configWaterMechanics waterMechanics = new configWaterMechanics();
+		
+		public static class configWaterMechanics
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.noSwimList")
+		    @Config.Comment("Sets mobs that will not swim, but simply sink. This only works for mobs that could have swam before!")
+		    public String[] noSwimList =
+			{
+		    	"minecraft:zombie",
+			 	"minecraft:zombie_villager",
+			 	"minecraft:zombie_horse",
+			 	"minecraft:zombie_pigman",
+			 	"minecraft:husk",
+			 	"minecraft:skeleton",
+			 	"minecraft:skeleton_horse",
+			 	"minecraft:stray",
+			 	"minecraft:wither_skeleton",
+			 	"oe:tropical_slime"
+		    };
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.noUnderwaterDismount")
+		    @Config.Comment("Alters the Dismount Behavior to not force you off when underwater.")
+		    public boolean noUnderwaterDismount = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.noDrownList")
+		    @Config.Comment("Sets mobs to not have their air run low when underwater. ONLY applies when underwater!")
+		    public String[] noDrownList =
+			{
+		    	"minecraft:zombie",
+			 	"minecraft:zombie_villager",
+			 	"minecraft:zombie_horse",
+			 	"minecraft:zombie_pigman",
+			 	"minecraft:husk",
+			 	"minecraft:skeleton",
+			 	"minecraft:skeleton_horse",
+			 	"minecraft:stray",
+			 	"minecraft:wither_skeleton",
+			 	"oe:tropical_slime"
+		    };
+	    }
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.vanillaTweak.inkSquirting")
 	    public configInkSquirting inkSquirting = new configInkSquirting();
 		

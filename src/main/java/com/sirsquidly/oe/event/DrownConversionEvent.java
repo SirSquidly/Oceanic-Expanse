@@ -3,8 +3,6 @@ package com.sirsquidly.oe.event;
 import java.util.Iterator;
 import java.util.Random;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -36,20 +34,6 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 @Mod.EventBusSubscriber
 public class DrownConversionEvent
 {
-	public static String[] noSwimming = 
-		{
-			 	"minecraft:zombie",
-			 	"minecraft:zombie_villager",
-			 	"minecraft:zombie_horse",
-			 	"minecraft:zombie_pigman",
-			 	"minecraft:husk",
-			 	"minecraft:skeleton",
-			 	"minecraft:skeleton_horse",
-			 	"minecraft:stray",
-			 	"minecraft:wither_skeleton",
-			 	"oe:tropical_slime"
-	    };
-	
 	@SubscribeEvent
 	public static void spawnEvent(EntityJoinWorldEvent event)
 	{
@@ -59,7 +43,7 @@ public class DrownConversionEvent
 		/** Bonus security check */
 		if (spawn == null || !(spawn instanceof EntityLiving) || entityID == null) return;
 
-		if(ArrayUtils.contains(noSwimming, entityID.toString()))
+		if(ConfigArrayHandler.NOSWIM.contains(entityID))
 		{
 			EntityLiving zombie  = (EntityLiving) event.getEntity();			
 			
@@ -89,7 +73,7 @@ public class DrownConversionEvent
         NBTTagCompound entityData = entity.getEntityData();
         if (entity == null || entity instanceof EntityPlayer || !(entity instanceof EntityLiving)) return;
         
-        if (ArrayUtils.contains(noSwimming, EntityList.getKey(entity).toString()) && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
+        if (ConfigArrayHandler.NODROWN.contains(EntityList.getKey(entity)) && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
         {
         	entity.setAir(100);
         	
@@ -98,8 +82,6 @@ public class DrownConversionEvent
         		//entity.set
         	}
         }
-        	
-        
         
         if(ConfigArrayHandler.DROWNCONVERTFROM.contains(EntityList.getKey(entity)) && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
         {
