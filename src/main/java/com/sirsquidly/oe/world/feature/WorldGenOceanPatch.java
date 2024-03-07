@@ -142,7 +142,7 @@ public class WorldGenOceanPatch implements IWorldGenerator
     /** Used for placing the individual blocks because many blocks require specific checks/randomizing. **/
     public void placeBlock(World worldIn, Random rand, BlockPos pos)
     {
-    	if (this.block == OEBlocks.SEAGRASS && ConfigHandler.block.seagrass.enableTallSeagrass && rand.nextDouble() < tallChance && OEBlocks.TALL_SEAGRASS.canPlaceBlockAt(worldIn, pos))
+    	if (this.block == OEBlocks.SEAGRASS && ConfigHandler.block.seagrass.enableTallSeagrass && rand.nextDouble() < tallChance && OEBlocks.SEAGRASS.canPlaceBlockAt(worldIn, pos) && ((BlockSeagrasss) OEBlocks.SEAGRASS).checkPlaceWater(worldIn, pos.up(), true))
     	{
     		((BlockSeagrasss) OEBlocks.SEAGRASS).placeAt(worldIn, pos, 16 | 2);
     	}
