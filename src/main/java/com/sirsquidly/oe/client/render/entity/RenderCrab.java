@@ -51,7 +51,9 @@ public class RenderCrab extends RenderLiving<EntityCrab>
     { GlStateManager.translate(0.0F, 0.1875F, 0.0F); }
 	
 	protected ResourceLocation getEntityTexture(EntityCrab entity)
-	{ return TEXTURES; }
+	{ 
+		return new ResourceLocation(Main.MOD_ID + ":textures/entities/crab/crab" + entity.getVariant() + ".png");	
+	}
 
     protected void applyRotations(EntityCrab entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
     { super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks); }
