@@ -60,7 +60,6 @@ public class BlockPickledHead extends BlockSkull
 
             if (tileentity instanceof TilePickledSkull)
             {
-            	TilePickledSkull tileentityskull = (TilePickledSkull)tileentity;
                 ItemStack itemstack = new ItemStack(OEBlocks.PICKLED_HEAD, 1);
 
                 drops.add(itemstack);

@@ -12,7 +12,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -32,9 +31,7 @@ public class BlockBlueSlime extends BlockBreakable
 
 	@SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.TRANSLUCENT;
-    }
+    { return BlockRenderLayer.TRANSLUCENT; }
 
     /**
      * Block's chance to react to a living entity falling on it.
@@ -53,16 +50,11 @@ public class BlockBlueSlime extends BlockBreakable
     
     @Override
     public boolean isStickyBlock(IBlockState state)
-    {
-        return true;
-    }
+    { return true; }
     
     public EnumPushReaction getMobilityFlag(IBlockState state)
-    {
-        return EnumPushReaction.IGNORE;
-    }
-    
-    
+    { return EnumPushReaction.IGNORE; }
+ 
     public boolean isFullCube(IBlockState state)
     { return false; }
     
