@@ -67,6 +67,14 @@
         {
             "predicate": { "oe:turtle": 1.00 },
             "model": "oe:item/bucket/bucket_turtle"
+        },
+        {
+            "predicate": { "oe:lobster": 1.00 },
+            "model": "oe:item/bucket/bucket_lobster"
+        },
+        {
+            "predicate": { "oe:tropical_slime": 1.00 },
+            "model": "oe:item/bucket/bucket_turtle"
         }
     ]
 }

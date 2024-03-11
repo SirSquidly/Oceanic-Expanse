@@ -823,7 +823,8 @@ public class ConfigHandler
 				 	"oe:salmon",
 				 	"oe:pufferfish",
 				 	"oe:tropical_fish",
-				 	"oe:crab"
+				 	"oe:crab",
+				 	"oe:lobster"
 		    };
 			
 			@RequiresMcRestart
