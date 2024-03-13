@@ -21,7 +21,9 @@ public class LayerLobsterHalf2 implements LayerRenderer<EntityLobster>
     {
 		if (!entitylivingbaseIn.isInvisible())
 		{
-			this.lobsterRenderer.bindTexture(new ResourceLocation(Main.MOD_ID + ":textures/entities/lobster/lobster_" + entitylivingbaseIn.getLobsterVariant() + "b.png"));
+			int variant = (entitylivingbaseIn.getLobsterVariant() >> 8 & 255) != 0 ? entitylivingbaseIn.getLobsterVariant() >> 8 & 255 : (entitylivingbaseIn.getLobsterVariant() & 255);
+			
+			this.lobsterRenderer.bindTexture(new ResourceLocation(Main.MOD_ID + ":textures/entities/lobster/lobster_" + variant + "b.png"));
 			
 			this.lobsterRenderer.getMainModel().setModelAttributes(this.lobsterRenderer.getMainModel());
 			//this.lobsterRenderer.getMainModel().setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);

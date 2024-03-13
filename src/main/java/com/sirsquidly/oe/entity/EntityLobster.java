@@ -193,6 +193,8 @@ public class EntityLobster extends EntityAnimal
         	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
         }
         
+        System.out.println("Entity Key: " + this.getLobsterVariant());
+        
         if (this.getSalmonSize() > 12 && !player.isSneaking())
         {
         	if (this.getSaddled() && !this.isBeingRidden())
@@ -282,7 +284,7 @@ public class EntityLobster extends EntityAnimal
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        int i = this.getRandomLobsterVariant();
+        int i = this.getRandomLobsterVariant(true);
 
         this.setLobsterVariant(i);
 
@@ -292,26 +294,40 @@ public class EntityLobster extends EntityAnimal
     }
 	
 	/** Creates a random number for a Lobster varient, within acceptable range. */
-	private int getRandomLobsterVariant()
+	private int getRandomLobsterVariant(boolean doSecondaryColoring)
     {
 		float seed = this.rand.nextFloat();
+		int color = 0;
 		
 		if (seed <= (float)ConfigHandler.entity.lobster.lobsterAlbinoChance)
-		{ return 8; }
+		{ color |= (8 << 0);; }
 		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterCottonCandyChance)
-		{ return 7; }
+		{ color |= (7 << 0); }
 		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterCalicoChance)
-		{ return 6; }
+		{ color |= (6 << 0); }
 		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterOrangeChance)
-		{ return 5; }
+		{ color |= (5 << 0); }
 		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterYellowChance)
-		{ return 4; }
+		{ color |= (4 << 0); }
 		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterRedChance)
-		{ return 3; }
+		{ color |= (3 << 0); }
 		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterBlueChance)
-		{ return 2; }
+		{ color |= (2 << 0); }
 		
-		return 0;
+		
+		color = 0;
+		color |= ( this.rand.nextInt(9) << 0);
+		
+		if (doSecondaryColoring)
+		{
+			
+			
+			color |= (getRandomLobsterVariant(false) << 1);
+			
+			color = this.rand.nextInt(9) | this.rand.nextInt(9) << 8;
+		}
+
+		return this.rand.nextInt(9) | this.rand.nextInt(9) << 8;
     }
     
     /** This generates the specific name of the tropical fish variant. */

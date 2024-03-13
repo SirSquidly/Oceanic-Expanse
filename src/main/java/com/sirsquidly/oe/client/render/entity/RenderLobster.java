@@ -40,7 +40,7 @@ public class RenderLobster extends RenderLiving<EntityLobster>
 	}
 	
 	protected ResourceLocation getEntityTexture(EntityLobster entity)
-	{ return  new ResourceLocation(Main.MOD_ID + ":textures/entities/lobster/lobster_" + entity.getLobsterVariant() + "a.png"); }
+	{ return  new ResourceLocation(Main.MOD_ID + ":textures/entities/lobster/lobster_" + (entity.getLobsterVariant() & 255) + "a.png"); }
 
     protected void applyRotations(EntityLobster entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
     { super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks); }
