@@ -15,8 +15,6 @@ import com.sirsquidly.oe.entity.EntityLobster;
 @SideOnly(Side.CLIENT)
 public class RenderLobster extends RenderLiving<EntityLobster>
 {
-	public static final ResourceLocation textureA = new ResourceLocation(Main.MOD_ID + ":textures/entities/lobster/lobster_0.png");
-	public static final ResourceLocation textureB = new ResourceLocation(Main.MOD_ID + ":textures/entities/lobster/lobster_1.png");
 	public static ModelLobster model = new ModelLobster();
 	
 	public RenderLobster(RenderManager manager)
@@ -42,7 +40,7 @@ public class RenderLobster extends RenderLiving<EntityLobster>
 	}
 	
 	protected ResourceLocation getEntityTexture(EntityLobster entity)
-	{ return entity.getLobsterVariant() == 0 ? textureA : textureB; }
+	{ return  new ResourceLocation(Main.MOD_ID + ":textures/entities/lobster/lobster_" + entity.getLobsterVariant() + "a.png"); }
 
     protected void applyRotations(EntityLobster entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
     { super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks); }

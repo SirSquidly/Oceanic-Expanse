@@ -1083,28 +1083,7 @@ public class ConfigHandler
 		    @Config.Comment("The most likely list of tropical fish variants to spawn")
 		    public String[] lobsterVariantNames = 
 			{
-				 	"65536=Clownfish",
-				 	"459008=Triggerfish",
-				 	"917504=Tomato Clownfish",
-				 	"918273=Red Snapper",
-				 	"918529=Red Chichlid",
-				 	"16778497=Ornate Butterflyfish",
-				 	"50660352=Queen Angelfish",
-				 	"50726144=Cotton Candy Betta",
-				 	"67108865=Threadfin",
-				 	"67110144=Goatfish",
-				 	"67371009=Yellow Tang",
-				 	"67699456=Yellowtail Parrotfish",
-				 	"67764993=Dottyback",
-				 	"101253888=Parrotfish",
-				 	"117441025=Moorish Idol",
-				 	"117441793=Butterflyfish",
-				 	"117506305=Anemone",
-				 	"117899265=Black Tang",
-				 	"118161664=Cichlid",
-				 	"185008129=Blue Tang",
-				 	"234882305=Emperor Red Snapper",
-				 	"235340288=Red Lipped Blenny"
+				 	"65536=Halloween"
 		    };
 		}
 		

@@ -239,25 +239,18 @@ public class ModelLobster extends ModelBase
         }
     }
 	
-	 public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
-	 {
-		 float idle = MathHelper.sin((entity.ticksExisted) * 0.07F) * 0.7F;
-		 
-		 this.antennaL.rotateAngleX = 0;
-	     this.antennaR.rotateAngleX = 0;
-		 
-	     this.antennaL.rotateAngleX += 0.15F + idle*0.2F;
-	     this.antennaR.rotateAngleX += 0.15F + idle*0.2F;
-	     
-	     this.clawLOuter.rotateAngleX = 0;
-	     this.clawROuter.rotateAngleX = 0;
-	     
-	     this.clawLOuter.rotateAngleX += 0.15F + idle*0.1F;
-	     this.clawROuter.rotateAngleX += 0.15F + idle*0.1F;
-		 
-	     //this.body.offsetX = 0.0F;
-	     
-	     
-		 //EntityCrab crab = (EntityCrab) entity;
-	 }
+	/**
+	this.antennaL.rotateAngleX = 0;
+    this.antennaR.rotateAngleX = 0;
+	 
+    this.antennaL.rotateAngleX += 0.15F + idle*0.2F;
+    this.antennaR.rotateAngleX += 0.15F + idle*0.2F;
+    
+    this.clawLOuter.rotateAngleX = 0;
+    this.clawROuter.rotateAngleX = 0;
+    
+    this.clawLOuter.rotateAngleX += 0.15F + idle*0.1F;
+    this.clawROuter.rotateAngleX += 0.15F + idle*0.1F;
+	 
+	**/
 }

@@ -294,10 +294,21 @@ public class EntityLobster extends EntityAnimal
 	/** Creates a random number for a Lobster varient, within acceptable range. */
 	private int getRandomLobsterVariant()
     {
-		if (this.rand.nextFloat() <= (float)ConfigHandler.entity.lobster.lobsterBlueChance)
-		{ return 1; }
+		float seed = this.rand.nextFloat();
 		
-		if (this.rand.nextFloat() <= (float)ConfigHandler.entity.lobster.lobsterBlueChance)
+		if (seed <= (float)ConfigHandler.entity.lobster.lobsterAlbinoChance)
+		{ return 8; }
+		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterCottonCandyChance)
+		{ return 7; }
+		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterCalicoChance)
+		{ return 6; }
+		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterOrangeChance)
+		{ return 5; }
+		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterYellowChance)
+		{ return 4; }
+		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterRedChance)
+		{ return 3; }
+		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterBlueChance)
 		{ return 2; }
 		
 		return 0;
