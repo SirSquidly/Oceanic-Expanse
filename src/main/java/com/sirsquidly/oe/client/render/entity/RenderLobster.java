@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelLobster;
 import com.sirsquidly.oe.client.render.entity.layer.LayerLobsterHalf2;
+import com.sirsquidly.oe.client.render.entity.layer.LayerLobsterSaddle;
 import com.sirsquidly.oe.entity.EntityLobster;
 
 @SideOnly(Side.CLIENT)
@@ -21,6 +22,7 @@ public class RenderLobster extends RenderLiving<EntityLobster>
     { 
 		super(manager, model, 0.5F);
 		this.addLayer(new LayerLobsterHalf2(this));
+		this.addLayer(new LayerLobsterSaddle(this));
     }
 
 	protected void preRenderCallback(EntityLobster entity, float f) {
