@@ -102,7 +102,7 @@ public class ConfigArrayHandler
 		{
 			NOSWIM.add(new ResourceLocation(S));
 		}
-	}
+	}	
 	
 	/**
      * Rips up a String to return an IBlockState.

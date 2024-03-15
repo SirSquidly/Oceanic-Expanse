@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.entity.EntityCrab;
+import com.sirsquidly.oe.entity.EntityLobster;
 import com.sirsquidly.oe.entity.EntityTropicalFish;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -73,9 +75,9 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 	/** Overrides the display name to show the Tropical Fish type. */
 	public String getItemStackDisplayName(ItemStack stack)
     {
-		if (pullTropicalNameFromItem(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishSpecificNames)
+		if (pullSpecialNameFromMob(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishSpecificNames)
 		{
-			return ("" + I18n.translateToLocal(this.getUnlocalizedName() + ".name")).trim() + " " + pullTropicalNameFromItem(stack);
+			return ("" + I18n.translateToLocal(this.getUnlocalizedName() + ".name")).trim() + " " + pullSpecialNameFromMob(stack);
 		}
 
         return super.getItemStackDisplayName(stack);
@@ -203,25 +205,30 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
     }
 
 	/** This pulls the name of the Tropical Fish, and formats it as 'Bucket of [Tropical Fish Variant]' */
-	public String pullTropicalNameFromItem(ItemStack stack)
+	public String pullSpecialNameFromMob(ItemStack stack)
     {
 		ResourceLocation entityName = ItemMonsterPlacer.getNamedIdFrom(stack);
 		
 		if (entityName != null)
 		{
-			if (ItemMonsterPlacer.getNamedIdFrom(stack).toString().equals("oe:tropical_fish"))
+			NBTTagCompound tags = stack.getTagCompound();
+
+			if (tags.hasKey("EntityTag"))
 			{
-				NBTTagCompound tags = stack.getTagCompound();
+				tags = (NBTTagCompound) tags.getTag("EntityTag");
 				
-				if (tags.hasKey("EntityTag"))
+				if (tags.hasKey("Variant"))
 				{
-					tags = (NBTTagCompound) tags.getTag("EntityTag");
-					
-					if (tags.hasKey("Variant"))
+					switch (entityName.toString())
 					{
-				        return EntityTropicalFish.getSpecificName(tags.getInteger("Variant"));
+						case "oe:crab":	
+							return EntityCrab.getSpecificName(tags.getInteger("Variant"));
+						case "oe:lobster":	
+							return EntityLobster.getSpecificName(tags.getInteger("Variant"));
+						case "oe:tropical_fish":	
+							return EntityTropicalFish.getSpecificName(tags.getInteger("Variant"));
 					}
-				}	
+				}
 			}
 		}
         return null;
@@ -265,9 +272,9 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		if (pullTropicalNameFromItem(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishTooltips)
+		if (pullSpecialNameFromMob(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishTooltips)
 		{
-			tooltip.add(TextFormatting.ITALIC + pullTropicalNameFromItem(stack));
+			tooltip.add(TextFormatting.ITALIC + pullSpecialNameFromMob(stack));
 		}
 	}
 }

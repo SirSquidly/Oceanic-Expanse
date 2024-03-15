@@ -18,6 +18,7 @@ import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -278,7 +279,11 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
             return this.rand.nextInt(51) == 0 ? 0 : this.rand.nextInt(6);
         }
     }
-	
+
+	/** This generates the specific name of the tropical fish variant. */
+    public static String getSpecificName(int variantInt)
+    { return I18n.format("description.oe.crab_color" + variantInt + ".name") + " " + I18n.format("entity.oe.crab.name"); }
+    
 	protected SoundEvent getAmbientSound()
 	{ return ConfigHandler.entity.crab.crabTalkInterval > 0 ? OESounds.ENTITY_CRAB_AMBIENT : null; }
 	

@@ -1045,39 +1045,6 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.enableLobster")
 		    @Config.Comment("If Lobster should be enabled")
 		    public boolean enableLobster = true;
-			
-			@Config.LangKey("oe.config.entity.lobsterHalfHalfChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterHalfHalfChance = 0.0002;
-			
-			@Config.LangKey("oe.config.entity.lobsterAlbinoChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterAlbinoChance = 0.0001;
-			
-			@Config.LangKey("oe.config.entity.lobsterCottonCandyChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterCottonCandyChance = 0.0001;
-			
-			@Config.LangKey("oe.config.entity.lobsterCalicoChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterCalicoChance = 0.0003;
-			
-			@Config.LangKey("oe.config.entity.lobsterOrangeChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterOrangeChance = 0.0003;
-			
-			@Config.LangKey("oe.config.entity.lobsterYellowChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterYellowChance = 0.0003;
-			
-			@Config.LangKey("oe.config.entity.lobsterRedChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterRedChance = 0.001;
-			
-			@Config.LangKey("oe.config.entity.lobsterBlueChance")
-		    @Config.Comment("The chance a lobster is a 'Half-Half', with 2 colors")
-		    public double lobsterBlueChance = 0.01;
-
 		    
 		    @Config.LangKey("oe.config.entity.lobsterVariantNames")
 		    @Config.Comment("The most likely list of tropical fish variants to spawn")

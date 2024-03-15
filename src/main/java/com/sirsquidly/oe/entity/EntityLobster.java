@@ -1,10 +1,11 @@
 package com.sirsquidly.oe.entity;
 
+import java.util.Random;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang3.ArrayUtils;
+
 
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
@@ -37,8 +38,8 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -193,26 +194,32 @@ public class EntityLobster extends EntityAnimal
         	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
         }
         
-        System.out.println("Entity Key: " + this.getLobsterVariant());
+        //System.out.println("Entity Key: " + this.getLobsterVariant());
         
-        if (this.getSalmonSize() > 12 && !player.isSneaking())
+        if (this.getSalmonSize() > 12)
         {
-        	if (this.getSaddled() && !this.isBeingRidden())
-            {
-                if (!this.world.isRemote)
-                {
-                    player.startRiding(this);
-                }
-
-                return true;
-            }
-            else if (itemstack.getItem() == Items.SADDLE && !this.getSaddled())
+        	if (itemstack.getItem() == Items.SADDLE && !this.getSaddled() && !player.isSneaking())
             {
             	this.setSaddled(true);
                 this.world.playSound(player, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
                 itemstack.shrink(1);
                 return true;
             }
+        	else if (this.getSaddled())
+        	{
+        		if (itemstack.getItem() instanceof ItemShears && this.getSaddled() && player.isSneaking())
+        		{
+        			this.setSaddled(false);
+            		this.world.playSound(player, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
+            		if (!this.world.isRemote) this.dropItem(Items.SADDLE, 1);
+            		return true;
+        		}
+        		else if (!this.isBeingRidden() && !player.isSneaking())
+        		{
+        			if (!this.world.isRemote) player.startRiding(this);
+                    return true;
+        		}
+        	}
         }
         
         return super.processInteract(player, hand);
@@ -284,8 +291,10 @@ public class EntityLobster extends EntityAnimal
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        int i = this.getRandomLobsterVariant(true);
+        int i = this.getRandomLobsterVariant(0, false);
 
+        if (new Random().nextDouble() <= 0.005) i = this.getRandomLobsterVariant(i, true);
+        	
         this.setLobsterVariant(i);
 
         this.setSize(1 + this.rand.nextInt(4), true);
@@ -294,93 +303,52 @@ public class EntityLobster extends EntityAnimal
     }
 	
 	/** Creates a random number for a Lobster varient, within acceptable range. */
-	private int getRandomLobsterVariant(boolean doSecondaryColoring)
+	private int getRandomLobsterVariant(int firstColor, boolean doSecondaryColoring)
     {
-		float seed = this.rand.nextFloat();
-		int color = 0;
-		
-		if (seed <= (float)ConfigHandler.entity.lobster.lobsterAlbinoChance)
-		{ color |= (8 << 0);; }
-		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterCottonCandyChance)
-		{ color |= (7 << 0); }
-		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterCalicoChance)
-		{ color |= (6 << 0); }
-		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterOrangeChance)
-		{ color |= (5 << 0); }
-		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterYellowChance)
-		{ color |= (4 << 0); }
-		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterRedChance)
-		{ color |= (3 << 0); }
-		else if (seed <= (float)ConfigHandler.entity.lobster.lobsterBlueChance)
-		{ color |= (2 << 0); }
-		
-		
-		color = 0;
-		color |= ( this.rand.nextInt(9) << 0);
-		
-		if (doSecondaryColoring)
-		{
-			
-			
-			color |= (getRandomLobsterVariant(false) << 1);
-			
-			color = this.rand.nextInt(9) | this.rand.nextInt(9) << 8;
-		}
+		Random rand = new Random();
+		double seed = 0;
+		int color = firstColor;
+		int shift = doSecondaryColoring ? 8 : 0;
 
-		return this.rand.nextInt(9) | this.rand.nextInt(9) << 8;
+		int[] colorInt = {rand.nextInt(2) + 7, rand.nextInt(4) + 3, 2};
+	    double[] probabilities = {0.001, 0.005, 0.01};
+	    
+	    
+	    for (int i = 0; i < probabilities.length; i++)
+	    {
+	    	seed = rand.nextDouble() / (doSecondaryColoring ? 2 : 1);
+	    	
+	        if (seed <= probabilities[i])
+	        {
+	            color |= (colorInt[i] << shift);
+	            return color;
+	        }
+	    }
+	    if (color == 0)
+	    {
+	    	color |= (rand.nextInt(2) << shift);
+	    }
+
+		return color;
     }
     
     /** This generates the specific name of the tropical fish variant. */
     public static String getSpecificName(int variantInt)
     {
     	String fullName;
-    	int patternNum = variantInt >> 8 & 255;
-        String patternName = I18n.format("description.oe.tropical_fish_a_pattern" + patternNum + ".name");
-
-        /** This overrides the name generator if the name override config includes the variant. */
-    	for(String line : ConfigHandler.entity.tropicalFish.tropicalFishNameOverrides)
-    	{
-    		String[] split = line.split("=");
-    		int what = 0;
-			
-    		try
-    		{ what = Integer.parseInt(split[0]); }
-    		catch(NumberFormatException e)
-    		{ what = 0; }
-    		
-			if (what == variantInt)
-			{
-				return split[1];
-			}
-    	}
-        
-    	if ((variantInt & 255) != 0)
-    	{
-    		patternName = I18n.format("description.oe.tropical_fish_b_pattern" + patternNum + ".name");
-    	}
+    	String color1 = I18n.format("description.oe.lobster_color" + (variantInt & 255) + ".name");
+    	String color2 = I18n.format("description.oe.lobster_color" + (variantInt >> 8 & 255) + ".name");
     	
-    	String color1 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 16 & 255).getDyeColorName());
-    	String color2 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 24 & 255).getDyeColorName());
-    	
-    	if (ConfigHandler.entity.tropicalFish.tropicalFishBedrockColors)
-    	{
-    		int[] bedrockSpecials = new int[]{3, 6, 8, 9, 10}; 
-    		
-    		if (ArrayUtils.contains(bedrockSpecials, EnumDyeColor.byMetadata(variantInt >> 16 & 255).getMetadata()))
-        	{ color1 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 16 & 255).getMetadata()); }
-        	if (ArrayUtils.contains(bedrockSpecials, EnumDyeColor.byMetadata(variantInt >> 24 & 255).getMetadata()))
-        	{ color2 = I18n.format("description.oe.tropical_fish_color." + EnumDyeColor.byMetadata(variantInt >> 24 & 255).getMetadata()); }
-    	}
-    	
-    	if (!color1.equals(color2))
-    	{
-    		fullName = color1 + "-" + color2 + " " + patternName;
-    	}
+    	if (!color1.equals(color2) && (variantInt >> 8 & 255) != 0)
+    	{ fullName = color1 + "-" + color2 + " " + I18n.format("entity.oe.lobster.name"); }
     	else
-    	{
-    		fullName = color1 + " " + patternName;
-    	}
+    	{ fullName = color1 + " " + I18n.format("entity.oe.lobster.name"); }
 
+    	if ((variantInt & 255) == 1 && (variantInt >> 8 & 255) == 5 || (variantInt & 255) == 1 && (variantInt >> 8 & 255) == 5)
+    	{
+    		fullName = I18n.format("description.oe.lobster_half" + (variantInt & 255) + (variantInt >> 8 & 255) + ".name") + " " + I18n.format("entity.oe.lobster.name");
+    	}
+    	
     	return fullName;
     }
     
