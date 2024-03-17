@@ -64,7 +64,7 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 				@SideOnly(Side.CLIENT)
 				public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
 				{ 
-					if (ItemMonsterPlacer.getNamedIdFrom(stack).toString().contains(thisEntity)) return 1.0F;
+					if (ItemMonsterPlacer.getNamedIdFrom(stack) != null && ItemMonsterPlacer.getNamedIdFrom(stack).toString().contains(thisEntity)) return 1.0F;
 					else return 0.0F;
 				}
 			});

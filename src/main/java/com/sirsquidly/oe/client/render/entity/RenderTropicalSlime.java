@@ -26,7 +26,6 @@ public class RenderTropicalSlime extends RenderLiving<EntityTropicalSlime>
         this.addLayer(new LayerTropicalSlimeGel(this));
     }
 
-	
 	protected ResourceLocation getEntityTexture(EntityTropicalSlime entity) 
 	{
 		return SLIME_TEXTURES;
