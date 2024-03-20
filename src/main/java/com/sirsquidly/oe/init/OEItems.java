@@ -43,7 +43,7 @@ public class OEItems
 	public static Item CONCH = new ItemConch();
 	public static Item GLOW_INK = new Item();
 	public static Item GLOW_ITEM_FRAME = new ItemGlowItemFrame();
-	public static Item CHLORINE = new ItemChlorine();
+	public static Item BLEAK = new ItemBleak();
 
 	public static Item BLUE_SLIME_BALL = new ItemFoodBase(0, 0, false, 16).setAlwaysEdible();
 	
@@ -83,7 +83,7 @@ public class OEItems
 		itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
 		itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
-		itemReadyForRegister(CHLORINE, "chlorine");
+		itemReadyForRegister(BLEAK, "bleak");
 		
 		itemReadyForRegister(CRAB_UNCOOKED, "crab");
 		itemReadyForRegister(CRAB_COOKED, "cooked_crab");

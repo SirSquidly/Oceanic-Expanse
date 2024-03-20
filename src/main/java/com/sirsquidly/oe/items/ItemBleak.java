@@ -27,12 +27,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemChlorine extends Item
+public class ItemBleak extends Item
 {
-	private int effectArea = 5;
+	private int effectArea = 15;
 	private int effectMath = effectArea / 2;
 	
-	public ItemChlorine() 
+	public ItemBleak() 
 	{ super(); }
 
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
@@ -87,6 +87,6 @@ public class ItemChlorine extends Item
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.BLUE + I18n.format("description.oe.chlorine.name"));
+		tooltip.add(TextFormatting.BLUE + I18n.format("description.oe.bleak.name"));
 	}
 }

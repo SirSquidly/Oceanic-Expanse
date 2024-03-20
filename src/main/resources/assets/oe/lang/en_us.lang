@@ -11,8 +11,8 @@ death.attack.oe.coconut=%1$s was clonked by a falling coconut
 death.attack.oe.mobstomp=%1$s was stomped by %2$s
 death.attack.oe.mobstomp.item=%1$s was stomped by %2$s using %3$s
 
+description.oe.bleak.name=Kills Sea Grass in a 15x15x15 cube
 description.oe.blue_slime_ball.name=Always Edible. Adds 4 Air Bubbles, but removes 1.5 Hunger
-description.oe.chlorine.name=Removes Sea Grass in a 5x5x5 cube
 description.oe.conch_blow1.name=Distant
 description.oe.conch_blow2.name=Emblem
 description.oe.conch_blow3.name=Snail
@@ -113,9 +113,9 @@ entity.oe.turtle.name=Turtle
 
 
 item.oe.barnacle_shells.name=Barnacle Shells
+item.oe.bleak.name=Bleak
 item.oe.blue_slime_ball.name=Tropical Slimeball
 item.oe.charm.name=Charm
-item.oe.chlorine.name=Chlorine
 item.oe.coconut_open.name=Cracked Coconut
 item.oe.conch.name=Conch
 item.oe.crab.name=Raw Crab

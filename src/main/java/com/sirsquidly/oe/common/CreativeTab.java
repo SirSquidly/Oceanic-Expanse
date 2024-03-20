@@ -37,7 +37,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEItems.GLOW_INK);
 	        if (ConfigHandler.block.waterTorch.enableWaterTorch) add(list, OEBlocks.UNDERWATER_TORCH);
 	        add(list, OEItems.GLOW_ITEM_FRAME);
-	        add(list, OEItems.CHLORINE);
+	        add(list, OEItems.BLEAK);
 	        if (ConfigHandler.block.seagrass.enableSeagrass) add(list, OEBlocks.SEAGRASS);
 	        if (ConfigHandler.block.enableSeaPickle) add(list, OEBlocks.SEA_PICKLE);
 	        if (ConfigHandler.block.enableKelp)
