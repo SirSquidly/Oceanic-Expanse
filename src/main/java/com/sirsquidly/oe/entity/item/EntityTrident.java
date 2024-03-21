@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.proxy.CommonProxy;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.enchantment.EnchantmentDurability;
@@ -325,7 +326,7 @@ public class EntityTrident extends AbstractArrow
 			{
 				if (target != null && (!ConfigHandler.enchant.channeling.waterCheck || !target.isInWater()) && (!ConfigHandler.enchant.channeling.lavaCheck || !target.isInLava()))
 				{
-					if (!ArrayUtils.contains(ConfigHandler.enchant.channeling.ridingBlacklist, EntityList.getKey(target.getLowestRidingEntity()).toString()) )
+					if (!ConfigArrayHandler.ridingBlacklist.contains(EntityList.getKey(target.getLowestRidingEntity())))
 					{
 						this.playSound(OESounds.ENTITY_TRIDENT_THUNDER, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 						world.addWeatherEffect(new EntityLightningBolt(world, posX, posY, posZ, false));

@@ -2,11 +2,9 @@ package com.sirsquidly.oe.event;
 
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -60,7 +58,7 @@ public class BucketMobEvent
 			for (Entity entity : list)
 	        {
 				ResourceLocation entityId = EntityList.getKey(entity);
-	            if (entity != null && !(entity instanceof EntityPlayer) && entityId != null && ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, entityId.toString()))
+	            if (entity != null && !(entity instanceof EntityPlayer) && entityId != null && ConfigArrayHandler.bucketableMobs.contains(entityId))
 	            {
 	                AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox();
 	                RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(eyePosition, traceEnd);
@@ -87,7 +85,7 @@ public class BucketMobEvent
 		{
 			EntityLivingBase entity = (EntityLivingBase) event.getTarget();
 			
-			if (ArrayUtils.contains(ConfigHandler.item.spawnBucket.bucketableMobs, EntityList.getKey(entity).toString()) && !entity.isDead)
+			if (ConfigArrayHandler.bucketableMobs.contains(EntityList.getKey(entity)) && !entity.isDead)
 			{
 				player.swingArm(EnumHand.MAIN_HAND);
 				

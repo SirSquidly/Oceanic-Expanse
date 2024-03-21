@@ -3,12 +3,11 @@ package com.sirsquidly.oe.entity;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -106,7 +105,7 @@ public class EntityPufferfish extends AbstractFish
     {
         if (entityIn instanceof EntityLivingBase && this.getAttackTarget() != entityIn && !(entityIn instanceof EntityCreeper) && this.getRNG().nextInt(10) == 0)
         {
-        	if ((entityIn instanceof EntityPlayer || !ArrayUtils.contains(ConfigHandler.entity.pufferfish.pufferfishFriends, EntityList.getKey((EntityLivingBase) entityIn).toString())))
+        	if ((entityIn instanceof EntityPlayer || !ConfigArrayHandler.pufferfishFriends.contains(EntityList.getKey(entityIn))))
         	{
         		this.setAttackTarget((EntityLivingBase)entityIn);
         	}
@@ -155,7 +154,7 @@ public class EntityPufferfish extends AbstractFish
     			if (entity.isInvisible()) continue;
     			
     			
-    			if (entity instanceof EntityLivingBase && (entity instanceof EntityPlayer || !ArrayUtils.contains(ConfigHandler.entity.pufferfish.pufferfishFriends, EntityList.getKey((EntityLivingBase) entity).toString())) )
+    			if (entity instanceof EntityLivingBase && (entity instanceof EntityPlayer || !ConfigArrayHandler.pufferfishFriends.contains(EntityList.getKey(entity))))
 	        	{
 	        		if (entity.isInvisible()) continue;
         			if(this.getPuffState() < 2)

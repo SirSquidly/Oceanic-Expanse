@@ -2,8 +2,6 @@ package com.sirsquidly.oe.event;
 
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityList;
@@ -28,6 +26,7 @@ import com.sirsquidly.oe.entity.EntityTurtle;
 import com.sirsquidly.oe.entity.ai.EntityAISquidFlop;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 @Mod.EventBusSubscriber
@@ -55,8 +54,9 @@ public class InjectAIEvent
 		}
 		if (event.getEntity() instanceof EntityCreature && ConfigHandler.entity.turtle.enableTurtle)
 		{
-			EntityCreature turtleHunter  = (EntityCreature)spawn;	
-			if(ArrayUtils.contains(ConfigHandler.entity.turtle.babyTurtlePredators, EntityList.getKey(turtleHunter).toString()))
+			EntityCreature turtleHunter  = (EntityCreature)spawn;
+			
+			if(ConfigArrayHandler.babyTurtlePredators.contains(EntityList.getKey(turtleHunter)))
 			{	
 				if (turtleHunter instanceof EntityTameable)
 				{

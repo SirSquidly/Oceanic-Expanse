@@ -41,7 +41,13 @@ public class ConfigArrayHandler
 	public static List<ResourceLocation> NOSWIM = Lists.<ResourceLocation>newArrayList();
 	/** Entities that do not loose air when underwater. */
 	public static List<ResourceLocation> NODROWN = Lists.<ResourceLocation>newArrayList();
+
 	
+	public static List<ResourceLocation> bucketableMobs = Lists.<ResourceLocation>newArrayList();
+	public static List<ResourceLocation> pufferfishFriends = Lists.<ResourceLocation>newArrayList();
+	public static List<ResourceLocation> babyTurtlePredators = Lists.<ResourceLocation>newArrayList();
+	public static List<ResourceLocation> ridingBlacklist = Lists.<ResourceLocation>newArrayList();
+	public static List<ResourceLocation> aquaticMobs = Lists.<ResourceLocation>newArrayList();
 	
 	public static void breakupConfigArrays()
 	{
@@ -94,14 +100,25 @@ public class ConfigArrayHandler
 		}
 		
 		for(String S : ConfigHandler.vanillaTweak.waterMechanics.noDrownList)
-		{
-			NODROWN.add(new ResourceLocation(S));
-		}
+		{ NODROWN.add(new ResourceLocation(S)); }
 		
 		for(String S : ConfigHandler.vanillaTweak.waterMechanics.noSwimList)
-		{
-			NOSWIM.add(new ResourceLocation(S));
-		}
+		{ NOSWIM.add(new ResourceLocation(S)); }
+		
+		for(String S : ConfigHandler.item.spawnBucket.bucketableMobs)
+		{ bucketableMobs.add(new ResourceLocation(S)); }
+		
+		for(String S : ConfigHandler.entity.pufferfish.pufferfishFriends)
+		{ pufferfishFriends.add(new ResourceLocation(S)); }
+		
+		for(String S : ConfigHandler.entity.turtle.babyTurtlePredators)
+		{ babyTurtlePredators.add(new ResourceLocation(S)); }
+		
+		for(String S : ConfigHandler.enchant.channeling.ridingBlacklist)
+		{ ridingBlacklist.add(new ResourceLocation(S)); }
+		
+		for(String S : ConfigHandler.enchant.impaling.aquaticMobs)
+		{ aquaticMobs.add(new ResourceLocation(S)); }
 	}	
 	
 	/**

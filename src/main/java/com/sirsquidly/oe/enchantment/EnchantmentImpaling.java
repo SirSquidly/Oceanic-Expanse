@@ -1,10 +1,9 @@
 package com.sirsquidly.oe.enchantment;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.items.ItemTrident;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.enchantment.Enchantment;
@@ -75,7 +74,7 @@ public class EnchantmentImpaling extends Enchantment
 			
 			if (imp_level > 0) 
 			{
-				if (ConfigHandler.enchant.impaling.enableWaterJet == 2 && target.isWet() || ConfigHandler.enchant.impaling.enableWaterJet != 2 && !(target instanceof EntityPlayer) && ArrayUtils.contains(ConfigHandler.enchant.impaling.aquaticMobs, EntityList.getKey(target).toString()))
+				if (ConfigHandler.enchant.impaling.enableWaterJet == 2 && target.isWet() || ConfigHandler.enchant.impaling.enableWaterJet != 2 && !(target instanceof EntityPlayer) && ConfigArrayHandler.aquaticMobs.contains(EntityList.getKey(target)))
 				{
 					event.setAmount(event.getAmount() + (imp_level * ConfigHandler.enchant.impaling.impalingDamage));
 				}
