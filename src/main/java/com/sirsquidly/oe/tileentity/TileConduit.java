@@ -90,7 +90,7 @@ public class TileConduit extends TileEntity implements ITickable
 			int sphereCheck = (expandBy + 1) * (expandBy + 1);
 			if (player.getDistanceSqToCenter(pos) < sphereCheck && player.isWet())
 			{
-				player.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 10 * 20 + 10, 0, true, true));
+				player.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 10 * 20 + 18, 0, true, true));
 			}
 		}
 	}
