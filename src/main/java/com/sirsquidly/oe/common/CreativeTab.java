@@ -37,7 +37,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEItems.GLOW_INK);
 	        if (ConfigHandler.block.waterTorch.enableWaterTorch) add(list, OEBlocks.UNDERWATER_TORCH);
 	        add(list, OEItems.GLOW_ITEM_FRAME);
-	        add(list, OEItems.BLEAK);
 	        if (ConfigHandler.block.seagrass.enableSeagrass) add(list, OEBlocks.SEAGRASS);
 	        if (ConfigHandler.block.enableSeaPickle) add(list, OEBlocks.SEA_PICKLE);
 	        if (ConfigHandler.block.enableKelp)
@@ -114,6 +113,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEItems.PEARL);
 	        add(list, OEBlocks.NACRE_BLOCK);
 	        add(list, OEBlocks.NACRE_SMOOTH);
+	        add(list, OEItems.BLEAK);
 	        add(list, OEItems.CHARM);
 	        if (ConfigHandler.block.blueIce.enableBlueIce) add(list, OEBlocks.BLUE_ICE);
 	        if (ConfigHandler.block.dulse.enableDulse)
@@ -124,6 +124,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        }
 	        if (ConfigHandler.block.enableSeastar) add(list, OEBlocks.SEASTAR);
 	        if (ConfigHandler.block.tubeSponge.enableTubeSponge) add(list, OEBlocks.TUBE_SPONGE);
+	        add(list, OEItems.HAND_SPONGE);
 	        
 	        if (ConfigHandler.block.coralBlocks.enableCoralBlock) 
 	        {

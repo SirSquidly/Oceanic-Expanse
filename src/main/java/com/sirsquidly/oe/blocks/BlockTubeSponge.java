@@ -143,12 +143,10 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
         if (!worldIn.isRemote && stack.getItem() instanceof ItemShears)
         {
             player.addStat(StatList.getBlockStats(this));
-            spawnAsEntity(worldIn, pos, new ItemStack(this, 1, 0));
+            spawnAsEntity(worldIn, pos, new ItemStack(this, (Integer)state.getValue(AGE) == 2 ? 2 : 1, 0));
         }
         else
-        {
-            super.harvestBlock(worldIn, player, pos, state, te, stack);
-        }
+        { super.harvestBlock(worldIn, player, pos, state, te, stack); }
     }
 	
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)

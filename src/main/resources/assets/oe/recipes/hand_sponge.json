@@ -1,0 +1,18 @@
+{
+  "conditions":
+  [
+    { "type": "config", "prop": "enablePalmWoods" }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "oe:tube_sponge" }	
+  },
+  "result": {
+    "item": "oe:hand_sponge"
+  }
+}
