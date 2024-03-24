@@ -25,17 +25,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemHandSponge extends Item 
+public class ItemSpongeChunk extends Item 
 {
 	private int maxWater = 20;
 	
-	public ItemHandSponge()
+	public ItemSpongeChunk()
 	{ super(); }
 	
 	public String getItemStackDisplayName(ItemStack stack)
     {
-		if (this.isWet(stack))
-		{ return I18n.format("item.oe.hand_sponge_wet.name"); }
+		if (this.isFull(stack))
+		{ return I18n.format("item.oe.hand_sponge_full.name"); }
 
         return super.getItemStackDisplayName(stack);
     }
@@ -47,7 +47,7 @@ public class ItemHandSponge extends Item
 		
 		if (player.isSneaking()) return EnumActionResult.FAIL;
 		
-		if (this.isWet(itemstack))
+		if (this.isFull(itemstack))
 		{
 			if (worldIn.provider.doesWaterVaporize())
         	{
@@ -104,7 +104,7 @@ public class ItemHandSponge extends Item
 		return 0;
     }
 
-	public boolean isWet(ItemStack stack)
+	public boolean isFull(ItemStack stack)
 	{
 		NBTTagCompound tagCompound = stack.getTagCompound();
 		if (tagCompound != null && tagCompound.hasKey("WaterCount", 3))

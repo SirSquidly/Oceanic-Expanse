@@ -13,6 +13,6 @@
     "#": { "item": "oe:tube_sponge" }	
   },
   "result": {
-    "item": "oe:hand_sponge"
+    "item": "oe:sponge_chunk"
   }
 }

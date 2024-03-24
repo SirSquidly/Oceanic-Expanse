@@ -44,7 +44,8 @@ public class OEItems
 	public static Item GLOW_INK = new Item();
 	public static Item GLOW_ITEM_FRAME = new ItemGlowItemFrame();
 	public static Item BLEAK = new ItemBleak();
-	public static Item HAND_SPONGE = new ItemHandSponge();
+	public static Item SPONGE_CHUNK = new ItemSpongeChunk();
+	public static Item SPONGE_CHUNK_WET = new ItemSpongeChunk();
 
 	public static Item BLUE_SLIME_BALL = new ItemFoodBase(0, 0, false, 16).setAlwaysEdible();
 	
@@ -85,7 +86,8 @@ public class OEItems
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
 		itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
 		itemReadyForRegister(BLEAK, "bleak");
-		itemReadyForRegister(HAND_SPONGE, "hand_sponge");
+		itemReadyForRegister(SPONGE_CHUNK, "sponge_chunk");
+		itemReadyForRegister(SPONGE_CHUNK_WET, "sponge_chunk_wet");
 		
 		itemReadyForRegister(CRAB_UNCOOKED, "crab");
 		itemReadyForRegister(CRAB_COOKED, "cooked_crab");

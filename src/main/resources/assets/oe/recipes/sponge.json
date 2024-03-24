@@ -10,7 +10,7 @@
     "###"
   ],
   "key": {
-    "#": { "item": "oe:hand_sponge" }	
+    "#": { "item": "oe:sponge_chunk" }	
   },
   "result": {
     "item": "minecraft:sponge",
