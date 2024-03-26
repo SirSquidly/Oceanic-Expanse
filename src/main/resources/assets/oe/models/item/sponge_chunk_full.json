@@ -1,0 +1,5 @@
+{
+	"parent": "item/generated",
+	"textures":
+	{ "layer0": "oe:items/sponge_chunk_full" }
+}

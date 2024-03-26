@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.init.OEItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,6 +22,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
@@ -30,12 +35,21 @@ public class ItemSpongeChunk extends Item
 	private int maxWater = 20;
 	
 	public ItemSpongeChunk()
-	{ super(); }
+	{ 
+		super();
+		
+		this.addPropertyOverride(new ResourceLocation("full"), new IItemPropertyGetter()
+        {
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+            { return isFull(stack) ? 1.0F : 0.0F; }
+        });
+	}
 	
 	public String getItemStackDisplayName(ItemStack stack)
     {
 		if (this.isFull(stack))
-		{ return I18n.format("item.oe.hand_sponge_full.name"); }
+		{ return I18n.format("item.oe.sponge_chunk_full.name"); }
 
         return super.getItemStackDisplayName(stack);
     }
@@ -53,8 +67,7 @@ public class ItemSpongeChunk extends Item
         	{
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
                 
-				this.setWaterCount(itemstack, 0);
-				
+				this.changeSpongeItem(itemstack, hand, player, 0);
 				
 				for (int k = 0; k < 8; ++k)
                 {
@@ -81,11 +94,10 @@ public class ItemSpongeChunk extends Item
 					else if (block == Blocks.FLOWING_WATER)
 					{ worldIn.setBlockState(blockpos$mutableblockpos, Blocks.AIR.getDefaultState()); }
         		}
-				this.setWaterCount(itemstack, this.getWaterCount(itemstack) + collectedWater);
+				this.changeSpongeItem(itemstack, hand, player, this.getWaterCount(itemstack) + collectedWater);
             }
         	player.setActiveHand(hand);
         	player.getCooldownTracker().setCooldown(this, 5);
-        	player.addStat(StatList.getObjectUseStats(this));
         	
         	return EnumActionResult.SUCCESS;
 		}
@@ -117,7 +129,27 @@ public class ItemSpongeChunk extends Item
 	{
 		if (!stack.hasTagCompound())
 		{ stack.setTagCompound(new NBTTagCompound()); }
-		stack.getTagCompound().setInteger("WaterCount", count);
+		stack.getTagCompound().setInteger("WaterCount", Math.min(count, maxWater));
+    }
+	
+	/** Swaps the sponge chunks between the normal and wet versions. */
+	protected void changeSpongeItem(ItemStack heldStack, EnumHand hand, EntityPlayer player, int waterCount)
+    {
+		ItemStack wetSponge = waterCount > 0 ? new ItemStack(OEItems.SPONGE_CHUNK_WET) : new ItemStack(OEItems.SPONGE_CHUNK);
+		
+		heldStack.shrink(1);
+        player.addStat(StatList.getObjectUseStats(this));
+        if (waterCount > 0) this.setWaterCount(wetSponge, waterCount);
+        
+        if (heldStack.isEmpty())
+        { player.setHeldItem(hand, wetSponge); }
+        else
+        {
+            if (!player.inventory.addItemStackToInventory(wetSponge))
+            {
+                player.dropItem(wetSponge, false);
+            }
+        }
     }
 	
 	@Override

@@ -1,6 +1,12 @@
 {
     "parent": "item/generated",
-    "textures": {
-        "layer0": "oe:items/hand_sponge"
-    }
+    "textures":
+    { "layer0": "oe:items/sponge_chunk_wet" },
+	"overrides":
+	[
+		{
+			"predicate": { "full": 1 },
+			"model": "oe:item/sponge_chunk_full"
+		}
+	]
 }
