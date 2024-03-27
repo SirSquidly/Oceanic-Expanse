@@ -33,10 +33,7 @@ public class ItemCharm extends Item
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
     	if (isSelected || entityIn instanceof EntityPlayer && ((EntityPlayer)entityIn).getHeldItemOffhand() == stack)
-        {
-    		if (worldIn.getBlockState(entityIn.getPosition().up()).getMaterial() == Material.WATER)
-    		{ this.grantConduit(worldIn, entityIn, stack); } 
-        }
+        { this.grantConduit(worldIn, entityIn, stack); }
     }
 
 	public void grantConduit(World worldIn, Entity entityIn, ItemStack stack)
@@ -45,14 +42,17 @@ public class ItemCharm extends Item
 		
 		if (!user.isPotionActive(OEPotions.CONDUIT_POWER) || user.getActivePotionEffect(OEPotions.CONDUIT_POWER).getDuration() <= 9)
 		{
-			for (int i = 0; i < 6; i++)
-			{
-				Main.proxy.spawnParticle(0, entityIn.world, entityIn.posX + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, entityIn.posY + 1.0D + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.height, entityIn.posZ + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, 0, 0, 0, 6);
-			}	
-			
-			//if (worldIn.isRemote) return;
-			stack.damageItem(1, user);
 			user.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 19, 0, true, false));
+			
+			if (worldIn.getBlockState(entityIn.getPosition().up()).getMaterial() == Material.WATER)
+    		{
+				for (int i = 0; i < 6; i++)
+				{
+					Main.proxy.spawnParticle(0, entityIn.world, entityIn.posX + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, entityIn.posY + 1.0D + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.height, entityIn.posZ + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, 0, 0, 0, 6);
+				}	
+				//if (worldIn.isRemote) return;
+				stack.damageItem(1, user);
+    		} 
 		}
     }
 	
