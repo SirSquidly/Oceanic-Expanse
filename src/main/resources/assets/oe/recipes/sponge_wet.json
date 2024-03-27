@@ -1,0 +1,19 @@
+{
+  "conditions":
+  [
+    { "type": "config", "prop": "enablePalmWoods" }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": { "item": "oe:sponge_chunk_wet" }	
+  },
+  "result": {
+    "item": "minecraft:sponge",
+    "data": 1
+  }
+}

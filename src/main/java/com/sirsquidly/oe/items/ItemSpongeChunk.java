@@ -79,7 +79,7 @@ public class ItemSpongeChunk extends Item
 		{
 			if (!worldIn.isRemote && player.canPlayerEdit(pos, facing, itemstack))
 			{
-				int effectMath = 3 / 2;
+				int effectMath = 5 / 2;
 				int collectedWater = 0;
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
             	
