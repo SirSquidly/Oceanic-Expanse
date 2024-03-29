@@ -94,7 +94,6 @@ public class OEBlocks
 		public static Block PICKLED_HEAD = new BlockPickledHead();
 		
 		public static Block PRISMARINE_POT = new BlockPrismarinePot();
-		public static Block PRISMARINE_STALKS = new BlockPrismarineStalks();
 		
 		public static Block SHELL_SAND = new BlockShellSand().setHardness(0.5F).setResistance(0.5F);
 		public static Block COQUINA = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
@@ -244,7 +243,6 @@ public class OEBlocks
 			
 			blockReadyForRegister(PICKLED_HEAD, "pickled_head");
 			blockReadyForRegister(PRISMARINE_POT, "prismarine_pot");
-			blockReadyForRegister(PRISMARINE_STALKS, "prismarine_stalks");
 			
 			blockReadyForRegister(NACRE_BLOCK, "nacre_block");
 			blockReadyForRegister(NACRE_SMOOTH, "nacre_smooth");
