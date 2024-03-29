@@ -161,6 +161,6 @@ public class ItemSpongeChunk extends Item
 		
 		if (nbttagcompound != null && nbttagcompound.hasKey("WaterCount")) { i = nbttagcompound.getInteger("WaterCount"); }
 		
-		tooltip.add(TextFormatting.GRAY + I18n.format("description.oe.hand_sponge_water.name") + " " + i + " / " + maxWater);
+		tooltip.add(TextFormatting.GRAY + I18n.format("description.oe.sponge_chunk_saturation.name") + " " + i + " / " + maxWater);
 	}
 }
