@@ -3,12 +3,13 @@
   "pattern":
   [
     "p p",
-    "p p",
+    "pep",
     "ppp"
   ],
   "key":
   {
-    "p": { "item": "minecraft:prismarine_shard" }
+    "p": { "item": "minecraft:prismarine_shard" },
+    "e": { "item": "minecraft:pearl" }
   },
   "result":
   {
