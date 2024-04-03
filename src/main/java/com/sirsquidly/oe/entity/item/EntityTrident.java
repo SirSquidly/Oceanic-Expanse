@@ -191,7 +191,7 @@ public class EntityTrident extends AbstractArrow
             damagesource = CommonProxy.causeTridentDamage(this, this.shootingEntity == null ? this : this.shootingEntity);
 
             float f = this.damage;
-            f += EnchantmentHelper.getModifierForCreature(this.getItem(), ((EntityLivingBase)entity).getCreatureAttribute());
+            if (entity instanceof EntityLivingBase) f += EnchantmentHelper.getModifierForCreature(this.getItem(), ((EntityLivingBase)entity).getCreatureAttribute());
             if (EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getItem()) > 0) f += EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, this.getItem()) * 0.5D + 0.5D;
             
             if (entity.attackEntityFrom(damagesource, f))
