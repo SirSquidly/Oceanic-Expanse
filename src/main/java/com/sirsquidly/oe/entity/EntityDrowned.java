@@ -126,7 +126,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     
     @Override
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_DROWNED; }
+    { return isCaptain() ? LootTableHandler.ENTITIES_DROWNED_CAPTAIN : LootTableHandler.ENTITIES_DROWNED; }
     
 	public boolean canBreatheUnderwater()
     { return true; }

@@ -15,6 +15,7 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -44,6 +45,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -277,4 +279,12 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 			tooltip.add(TextFormatting.ITALIC + pullSpecialNameFromMob(stack));
 		}
 	}
+	
+	public void registerItemModel()
+	{
+        for (EntityList.EntityEggInfo entityInfo : EntityList.ENTITY_EGGS.values())
+        {
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "entity=" + entityInfo.spawnedID));
+        }
+    }
 }
