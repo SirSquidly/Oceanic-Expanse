@@ -67,7 +67,7 @@ public class EntityLobster extends EntityAnimal
 	/** Time between being able to molt. */
     public int moltCooldown;
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
-	private static final Set<Item>EDIBLE_ITEMS = Sets.newHashSet(Items.FISH, Item.getItemFromBlock(OEBlocks.KELP), OEItems.DRIED_KELP, OEItems.CRAB_UNCOOKED, OEItems.CRAB_COOKED, OEItems.LOBSTER_COOKED, OEItems.LOBSTER_UNCOOKED);
+	private static final Set<Item>EDIBLE_ITEMS = Sets.newHashSet(Items.FISH, Item.getItemFromBlock(OEBlocks.KELP), OEItems.DRIED_KELP, OEItems.CRAB_UNCOOKED, OEItems.CRAB_COOKED, OEItems.LOBSTER_COOKED, OEItems.LOBSTER_UNCOOKED, OEItems.CRUSTACEAN_SHELL);
 	/** Handles all the colors */
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityLobster.class, DataSerializers.VARINT);
 	private int randomAngrySoundDelay;

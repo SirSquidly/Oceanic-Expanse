@@ -20,36 +20,27 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @EventBusSubscriber
-public class EnchantmentMobStomp  extends Enchantment
+public class EnchantmentMobStomp extends Enchantment
 {
-
 	public EnchantmentMobStomp(Rarity rarityIn)
 	{
-		super(rarityIn, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[] {EntityEquipmentSlot.FEET});
+		super(rarityIn, EnumEnchantmentType.ARMOR_FEET, new EntityEquipmentSlot[] {EntityEquipmentSlot.FEET});
         this.setName(Main.MOD_ID + "." + "mobstomp");
         this.setRegistryName(Main.MOD_ID, "mobstomp");
 		OEEnchants.ENCHANTMENTS.add(this);
 	}
 
 	public int getMinEnchantability(int enchantmentLevel)
-    {
-        return 5 + enchantmentLevel * 7;
-    }
+    { return 10 + 20 * (enchantmentLevel - 1); }
 
     public int getMaxEnchantability(int enchantmentLevel)
-    {
-        return 50;
-    }
+    { return this.getMinEnchantability(enchantmentLevel) + 50; }
 
     public int getMaxLevel()
-    {
-        return 2;
-    }
+    { return 2; }
     
     public boolean canApplyTogether(Enchantment ench)
-    {
-        return ench instanceof EnchantmentRiptide ? false : super.canApplyTogether(ench);
-    }
+    { return super.canApplyTogether(ench); }
     
     @SubscribeEvent
 	public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event)
@@ -91,7 +82,5 @@ public class EnchantmentMobStomp  extends Enchantment
     
     @Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack)
-	{
-		return stack.getItem() instanceof ItemHeavyBoots;
-	}
+	{ return stack.getItem() instanceof ItemHeavyBoots; }
 }
