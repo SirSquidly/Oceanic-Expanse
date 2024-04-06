@@ -113,7 +113,7 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
 		}
 		else
 		{
-			if (item instanceof ItemAxe)
+			if (item instanceof ItemAxe && playerIn.capabilities.isCreativeMode)
     		{
     			worldIn.setBlockState(pos, state.withProperty(SEALED, false), 3);
     			worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 0.25F);

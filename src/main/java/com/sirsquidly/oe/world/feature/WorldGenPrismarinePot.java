@@ -116,7 +116,7 @@ public class WorldGenPrismarinePot implements IWorldGenerator
         	
             BlockPos blockpos = position.add(rX, rand.nextInt(placeSpreadY) - rand.nextInt(placeSpreadY), rZ);
             
-            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.WATER && worldIn.getBlockState(blockpos.down()).isSideSolid(worldIn, blockpos.down(), EnumFacing.UP))
+            if (worldIn.getBlockState(blockpos).getBlock() == Blocks.WATER && worldIn.getBlockState(blockpos.down()).isSideSolid(worldIn, blockpos.down(), EnumFacing.UP) && !worldIn.canBlockSeeSky(blockpos))
             {
             	placeBlock(worldIn, rand, blockpos);
             }
@@ -131,7 +131,7 @@ public class WorldGenPrismarinePot implements IWorldGenerator
 		{
 			BlockPrismarinePot.EnumAxis randPotRotation = rand.nextInt(2) == 0 ? BlockPrismarinePot.EnumAxis.X : BlockPrismarinePot.EnumAxis.Z;
     		
-    		worldIn.setBlockState(pos, OEBlocks.PRISMARINE_POT.getDefaultState().withProperty(BlockPrismarinePot.FACING, randPotRotation).withProperty(BlockPrismarinePot.SEALED, rand.nextInt(10) == 0), 3);
+    		worldIn.setBlockState(pos, OEBlocks.PRISMARINE_POT.getDefaultState().withProperty(BlockPrismarinePot.FACING, randPotRotation).withProperty(BlockPrismarinePot.SEALED, rand.nextInt(2) == 0), 3);
     		
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
