@@ -5,8 +5,6 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-
-
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
@@ -14,7 +12,6 @@ import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -32,7 +29,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -58,8 +54,6 @@ import net.minecraft.world.World;
 
 public class EntityLobster extends EntityAnimal
 {
-	protected Block spawnableBlock = Blocks.SAND;
-
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> LOBSTER_SIZE = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
@@ -223,15 +217,14 @@ public class EntityLobster extends EntityAnimal
         
         return super.processInteract(player, hand);
     }
-
+	
+	public boolean isNotColliding()
+    { return this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
+	
 	@Override
 	public boolean getCanSpawnHere()
     {
-        int i = MathHelper.floor(this.posX);
-        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-        int k = MathHelper.floor(this.posZ);
-        BlockPos blockpos = new BlockPos(i, j, k);
-        return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock;
+        return this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
     }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)

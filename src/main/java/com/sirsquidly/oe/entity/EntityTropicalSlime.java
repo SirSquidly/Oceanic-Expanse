@@ -229,7 +229,7 @@ public class EntityTropicalSlime extends EntitySlime
             	IBlockState iblockstate = this.world.getBlockState((new BlockPos(this)).down());
                 Biome biome = this.world.getBiome(blockpos);
 
-                if (biome == Biomes.SWAMPLAND && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.world.getCurrentMoonPhaseFactor() && this.world.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8))
+                if (biome == Biomes.JUNGLE && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.world.getCurrentMoonPhaseFactor() && this.world.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8))
                 {
                     return iblockstate.canEntitySpawn(this);
                 }
