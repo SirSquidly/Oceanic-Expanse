@@ -307,7 +307,12 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
     { return true; }
 	
 	public EntityCrab createChild(EntityAgeable ageable)
-    { return new EntityCrab(this.world); }
+    {
+		EntityCrab entityChild = new EntityCrab(this.world);
+        entityChild.setVariant(this.getRandomBiomeVariant());
+        
+        return entityChild;
+    }
 	
 	public boolean isBreedingItem(ItemStack stack)
     { return stack.getItem() == Items.FISH && stack.getMetadata() == 2; }
@@ -484,11 +489,7 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
 
 	@Override
 	public boolean canLayEgg(World world, BlockPos pos)
-	{
-		IBlockState iblockstate = world.getBlockState(pos);
-
-        return iblockstate.getMaterial() == Material.WATER; 
-	}
+	{ return world.getBlockState(pos).getMaterial() == Material.WATER; }
 
 	@Override
 	public void placeEgg(World world, BlockPos pos)

@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
@@ -133,7 +134,7 @@ public class EntityTropicalSlime extends EntitySlime
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.BUCKET)
+        if (ConfigHandler.entity.tropicalSlime.tropicalSlimeBucketKill && itemstack.getItem() == Items.BUCKET)
         {
         	player.swingArm(EnumHand.MAIN_HAND);
 			
@@ -229,7 +230,7 @@ public class EntityTropicalSlime extends EntitySlime
             	IBlockState iblockstate = this.world.getBlockState((new BlockPos(this)).down());
                 Biome biome = this.world.getBiome(blockpos);
 
-                if (biome == Biomes.JUNGLE && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.world.getCurrentMoonPhaseFactor() && this.world.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8))
+                if (ConfigHandler.entity.tropicalSlime.tropicalSlimeJungleSpawning && biome == Biomes.JUNGLE && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.world.getCurrentMoonPhaseFactor() && this.world.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8))
                 {
                     return iblockstate.canEntitySpawn(this);
                 }

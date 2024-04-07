@@ -6,12 +6,15 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Sets;
+import com.sirsquidly.oe.entity.ai.EntityAIMateCarryEgg;
+import com.sirsquidly.oe.entity.ai.EntityAIMateDepositEgg;
 import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -52,11 +55,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityLobster extends EntityAnimal
+public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 {
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> LOBSTER_SIZE = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> HAS_EGG = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> FOOD = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
 	/** Time between being able to molt. */
     public int moltCooldown;
@@ -82,12 +86,15 @@ public class EntityLobster extends EntityAnimal
 		this.dataManager.register(LOBSTER_SIZE, Integer.valueOf(1));
 		this.dataManager.register(VARIANT, 0);
 		this.dataManager.register(SADDLED, Boolean.valueOf(false));
+		this.dataManager.register(HAS_EGG, Boolean.valueOf(false));
 		this.dataManager.register(FOOD, 0);
 	}
 	
 	protected void initEntityAI()
     {
 		this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, false));
+		this.tasks.addTask(2, new EntityAIMateCarryEgg(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIMateDepositEgg(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIStompTurtleEgg(this, 1.0D));
 		this.tasks.addTask(4, new EntityAITempt(this, 1.0D, Items.FISH, false));
         this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
@@ -253,8 +260,11 @@ public class EntityLobster extends EntityAnimal
 	public EntityLobster createChild(EntityAgeable ageable)
     { 
 		EntityLobster entity = new EntityLobster(world);
-		
-        entity.setSize(1 + this.rand.nextInt(4), true);
+		int i = entity.getRandomLobsterVariant(0, false);
+		if (new Random().nextDouble() <= 0.005) i = entity.getRandomLobsterVariant(i, true);
+     	
+		entity.setLobsterVariant(i);
+		entity.setSize(1 + this.rand.nextInt(4), true); 
 		return entity;
 	}
 	
@@ -268,7 +278,7 @@ public class EntityLobster extends EntityAnimal
     {
         ItemStack itemstack = itemEntity.getItem();
 
-        if (this.isEdibleItem(itemstack) && this.getHeldItemMainhand().isEmpty())
+        if (this.isEdibleItem(itemstack) && this.getHeldItemMainhand().isEmpty() && itemEntity.getAge() >= 5 * 20)
         {
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack);
         	int itemnumber = itemstack.getCount();
@@ -572,4 +582,28 @@ public class EntityLobster extends EntityAnimal
         if (compound.hasKey("EggLayTime"))
         { this.moltCooldown = compound.getInteger("MoltCooldown"); }
     }
+
+	@Override
+	public boolean isCarryingEgg()
+	{ return ((Boolean)this.dataManager.get(HAS_EGG)).booleanValue(); }
+
+	@Override
+	public void setCarryingEgg(boolean bool)
+	{ this.dataManager.set(HAS_EGG, Boolean.valueOf(bool)); }
+
+	@Override
+	public boolean canLayEgg(World world, BlockPos pos)
+	{ return world.getBlockState(pos).getMaterial() == Material.WATER; }
+
+	@Override
+	public void placeEgg(World world, BlockPos pos)
+	{
+		EntityLobster entityBaby = this.createChild(this);
+     	entityBaby.setGrowingAge(-24000);
+     	entityBaby.setLocationAndAngles(this.posX, this.posY, this.posZ, 0.0F, 0.0F);
+     	
+        world.spawnEntity(entityBaby);
+        
+		this.setCarryingEgg(false);
+	}
 }

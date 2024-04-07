@@ -74,7 +74,7 @@
         },
         {
             "predicate": { "oe:tropical_slime": 1.00 },
-            "model": "oe:item/bucket/bucket_turtle"
+            "model": "oe:item/bucket/bucket_tropical_slime"
         }
     ]
 }

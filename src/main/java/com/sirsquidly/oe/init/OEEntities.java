@@ -36,7 +36,7 @@ public class OEEntities
 		if (ConfigHandler.entity.babyGlowSquid.enableBabyGlowSquid) registerEntity("baby_glow_squid", EntityBabyGlowSquid.class, ++id, 100, 3696778, 10944467);
 		
 		if (ConfigHandler.entity.drowned.enableDrowned) registerEntity("drowned", EntityDrowned.class, ++id, 80, 5609880, 12434265);
-		registerEntity("tropical_slime", EntityTropicalSlime.class, ++id, 64, 8498384, 7381193);
+		if (ConfigHandler.entity.tropicalSlime.enableTropicalSlime) registerEntity("tropical_slime", EntityTropicalSlime.class, ++id, 64, 8498384, 7381193);
 		
 		registerEntity("palm_boat", EntityOEBoat.class, ++id, 100);
 		registerEntity("glow_item_frame", EntityGlowItemFrame.class, ++id, 100);
@@ -62,8 +62,8 @@ public class OEEntities
 		if (ConfigHandler.entity.turtle.enableTurtle) EntityRegistry.addSpawn(EntityTurtle.class, 100, 2, 6, EnumCreatureType.CREATURE, Biomes.BEACH);
 		if (ConfigHandler.entity.crab.enableCrab) EntityRegistry.addSpawn(EntityCrab.class, 10, 1, 4, EnumCreatureType.CREATURE, BiomeDictionary.getBiomes(Type.BEACH).toArray(new Biome[0]));
 
-		EntityRegistry.addSpawn(EntityTropicalSlime.class, 3, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		EntityRegistry.addSpawn(EntityTropicalSlime.class, 4, 1, 1, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.JUNGLE).toArray(new Biome[0]));
+		if (ConfigHandler.entity.tropicalSlime.enableTropicalSlime) EntityRegistry.addSpawn(EntityTropicalSlime.class, 3, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
+		if (ConfigHandler.entity.tropicalSlime.enableTropicalSlime && ConfigHandler.entity.tropicalSlime.tropicalSlimeJungleSpawning) EntityRegistry.addSpawn(EntityTropicalSlime.class, 4, 1, 1, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.JUNGLE).toArray(new Biome[0]));
 		
 		if (ConfigHandler.entity.drowned.enableDrowned) EntityRegistry.addSpawn(EntityDrowned.class, 3, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.drowned.enableDrowned) EntityRegistry.addSpawn(EntityDrowned.class, 4, 2, 4, EnumCreatureType.WATER_CREATURE, Biomes.RIVER);
