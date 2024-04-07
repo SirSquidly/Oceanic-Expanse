@@ -6,7 +6,7 @@
 	"overrides": [
         {
             "predicate": { "model": 1 },
-            "model": "oe:item/trident_inv"
+            "model": "oe:item/pickled_head_wet"
         }
     ],
 	"elements": [

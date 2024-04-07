@@ -1,6 +1,5 @@
 package com.sirsquidly.oe.entity;
 
-
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -29,26 +28,20 @@ public class EntityPickled extends EntityDrowned
 	}
 	
 	@Override
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableHandler.ENTITIES_PICKLED;
-    }
+	protected ResourceLocation getLootTable()
+	{ return LootTableHandler.ENTITIES_PICKLED; }
 
 	protected void entityInit()
-    {
-        super.entityInit();
+	{
+		super.entityInit();
         this.dataManager.register(IS_DRY, Boolean.valueOf(false));
-    }
+	}
 	
 	public boolean isDry()
-    {
-        return ((Boolean)this.dataManager.get(IS_DRY)).booleanValue();
-    }
+	{ return ((Boolean)this.dataManager.get(IS_DRY)).booleanValue(); }
 
-    public void setDry(boolean dry)
-    {
-        this.dataManager.set(IS_DRY, Boolean.valueOf(dry));
-    }
+	public void setDry(boolean dry)
+	{ this.dataManager.set(IS_DRY, Boolean.valueOf(dry)); }
     
     public boolean processInteract(EntityPlayer player, EnumHand hand)
     {
@@ -57,6 +50,7 @@ public class EntityPickled extends EntityDrowned
         if (itemstack.getItem() == Items.DYE && itemstack.getItemDamage() == 15 && !this.isChild())
         {
             player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
+            player.swingArm(hand);
             itemstack.shrink(1);
 
         	ItemStack dropPickles = new ItemStack(OEBlocks.SEA_PICKLE, 1);
@@ -72,6 +66,12 @@ public class EntityPickled extends EntityDrowned
             	double p5 = this.rand.nextFloat() * 0.02;
             	double p6 = this.rand.nextFloat() * 0.02;
             	this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + p1, this.posY + p2, this.posZ + p3, p4, p5, p6);
+            	
+            	if (this.world.rand.nextFloat() <= 0.069F)
+            	{
+            		dropPickles = new ItemStack(OEBlocks.PICKLED_HEAD, 1);
+            		j = 0;
+            	}
             	
             	if (!world.isRemote)
             	{
@@ -89,6 +89,9 @@ public class EntityPickled extends EntityDrowned
             return super.processInteract(player, hand);
         }
     }
+    
+	protected ItemStack getSkullDrop()
+	{ return new ItemStack(OEBlocks.PICKLED_HEAD, 1); }
     
     @Override
     public void onLivingUpdate()

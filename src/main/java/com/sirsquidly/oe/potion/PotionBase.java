@@ -53,7 +53,7 @@ public class PotionBase extends Potion
 			else
 			{ removeConduitEffects(entity); }
         }
-		else if(entity.isPotionActive(OEPotions.DESCENT))
+		if(entity.isPotionActive(OEPotions.DESCENT))
 		{
 			int modDes = entity.getActivePotionEffect(OEPotions.DESCENT).getAmplifier() + 1;
 			

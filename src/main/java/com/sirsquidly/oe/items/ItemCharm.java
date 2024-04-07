@@ -46,12 +46,11 @@ public class ItemCharm extends Item
 			
 			if (worldIn.getBlockState(entityIn.getPosition().up()).getMaterial() == Material.WATER)
     		{
-				for (int i = 0; i < 6; i++)
-				{
-					Main.proxy.spawnParticle(0, entityIn.world, entityIn.posX + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, entityIn.posY + 1.0D + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.height, entityIn.posZ + (worldIn.rand.nextDouble() - worldIn.rand.nextDouble()) * (double)entityIn.width, 0, 0, 0, 6);
-				}	
-				//if (worldIn.isRemote) return;
-				stack.damageItem(1, user);
+				boolean isSpectator = user instanceof EntityPlayer && ((EntityPlayer)user).isSpectator();
+				boolean isCreative = user instanceof EntityPlayer && ((EntityPlayer)user).capabilities.isCreativeMode;
+
+				if (!isCreative && !isSpectator) stack.damageItem(1, user);
+				if (!isSpectator)  spawnParticles(entityIn.world, user);
     		} 
 		}
     }

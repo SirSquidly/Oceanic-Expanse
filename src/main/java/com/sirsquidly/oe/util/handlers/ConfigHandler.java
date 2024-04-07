@@ -1211,6 +1211,28 @@ public class ConfigHandler
 		}
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.tropical_slime")
+	    public configTropicalSlime tropicalSlime = new configTropicalSlime();
+		
+		public static class configTropicalSlime
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableLobster")
+		    @Config.Comment("If Tropical Slimes should be enabled")
+		    public boolean enableTropicalSlime = true;
+		    
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.enableJungleTropicalSlime")
+		    @Config.Comment("If Tropical Slimes can spawn in Jungles. Follows the same rules Slimes do in Swamps.")
+		    public boolean tropicalSlimeJungleSpawning = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.entity.tropicalSlimeBucketKill")
+		    @Config.Comment("Allows the player to scoop the Fish out of a medium or small Tropical Slime usong a Bucket. This kills the Slime.")
+		    public boolean tropicalSlimeBucketKill = true;
+		}
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.turtle")
 	    public configTurtle turtle = new configTurtle();
 		
