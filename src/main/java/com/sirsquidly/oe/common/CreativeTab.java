@@ -65,7 +65,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		        add(list, OEBlocks.PALM_FENCE_GATE);
 		        add(list, ((BlockPalmDoor) OEBlocks.PALM_DOOR).getItemStack());
 		        
-		        add(list, OEBlocks.PALM_BOOKSHELF);
+		        add(list, OEItems.PALM_BOAT);
 	        }
 	        if (ConfigHandler.block.coconut.enableCoconut)
 	        {

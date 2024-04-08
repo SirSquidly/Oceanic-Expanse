@@ -237,8 +237,8 @@ public class OEBlocks
 				blockReadyForRegister(PALM_FENCE_GATE, "palm_fence_gate"); PALM_FENCE_GATE.setHardness(2.0F).setResistance(5.0F);
 				blockReadyForRegister(PALM_DOOR, "palm_door");
 				
-				blockReadyForRegister(PALM_BOOKSHELF, "palm_bookshelf");
-				
+				/** Will be re-added later, when I decide how to implement all the Quark compatibility content */
+				//blockReadyForRegister(PALM_BOOKSHELF, "palm_bookshelf");
 			} 
 			
 			blockReadyForRegister(PICKLED_HEAD, "pickled_head");
