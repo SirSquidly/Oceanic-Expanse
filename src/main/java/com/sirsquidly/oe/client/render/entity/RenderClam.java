@@ -2,6 +2,8 @@ package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelClam;
+import com.sirsquidly.oe.client.render.entity.layer.LayerClamHeldItem;
+import com.sirsquidly.oe.client.render.entity.layer.LayerCrabHeldItem;
 import com.sirsquidly.oe.entity.EntityClam;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -18,6 +20,7 @@ public class RenderClam extends RenderLiving<EntityClam>
 	public RenderClam(RenderManager manager)
     {
         super(manager, new ModelClam(), 0.7F);
+        this.addLayer(new LayerClamHeldItem(this));
     }
 
 	protected ResourceLocation getEntityTexture(EntityClam entity) 

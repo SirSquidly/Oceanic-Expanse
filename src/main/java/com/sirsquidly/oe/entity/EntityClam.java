@@ -1,10 +1,12 @@
 package com.sirsquidly.oe.entity;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 
 import net.minecraft.block.Block;
@@ -12,6 +14,7 @@ import net.minecraft.block.BlockMagma;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,16 +22,24 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemShears;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -188,6 +199,52 @@ public class EntityClam extends EntityAnimal
         }
     }
 	
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+    {
+		ItemStack playerItem = player.getHeldItem(EnumHand.MAIN_HAND);
+		ItemStack heldItem = this.getHeldItemMainhand();
+		
+		Boolean doAddClamItem = heldItem.isEmpty() && !playerItem.isEmpty();
+		Boolean doRemoveClamItem = !heldItem.isEmpty() && playerItem.isEmpty();
+		
+		if (this.world.isRemote) return super.processInteract(player, hand);
+		
+		if (doAddClamItem || doRemoveClamItem)
+		{
+			SoundEvent playSound = doAddClamItem ? SoundEvents.ENTITY_ITEMFRAME_ADD_ITEM : SoundEvents.ENTITY_ITEMFRAME_REMOVE_ITEM;
+			ItemStack clamHeld =  doAddClamItem ? playerItem.copy() : ItemStack.EMPTY;
+			
+			this.playSound(playSound, 1.0F, 1.0F);
+			
+			
+			if (doAddClamItem)
+			{ if (!player.capabilities.isCreativeMode) { playerItem.shrink(1); } }
+			else
+			{
+	        	heldItem.setCount(1);
+	        	this.entityDropItem(heldItem.copy(), 0.25F);
+			}
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, clamHeld);
+			player.swingArm(EnumHand.MAIN_HAND);
+			return true;
+		}
+		
+        return super.processInteract(player, hand);
+    }
+	
+	@Nullable
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+    {
+        if (new Random().nextDouble() <= 2)
+        {
+        	//this.getHeldItemMainhand().isEmpty()
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.PEARL));
+        	
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Blocks.SAND));
+        }
+        return super.onInitialSpawn(difficulty, livingdata);
+    }
+	
 	public boolean canBreatheUnderwater()
     { return true; }
 	
@@ -292,7 +349,7 @@ public class EntityClam extends EntityAnimal
         	}
         	else for (Entity e : checkAbove)
         	{
-        		if (!e.isSneaking())
+        		if (!e.isSneaking() && !(e instanceof EntityPlayer))
         		{
         			if (this.clam.getOpenTick() != 0) this.clam.doClamOpening(0);
         			
