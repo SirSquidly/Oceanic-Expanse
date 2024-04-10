@@ -9,7 +9,7 @@
   "key":
   {
     "p": { "item": "minecraft:prismarine_shard" },
-    "e": { "item": "minecraft:pearl" }
+    "e": { "item": "oe:pearl" }
   },
   "result":
   {

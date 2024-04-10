@@ -1217,7 +1217,7 @@ public class ConfigHandler
 		public static class configTropicalSlime
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableLobster")
+		    @Config.LangKey("oe.config.entity.enableTropicalSlime")
 		    @Config.Comment("If Tropical Slimes should be enabled")
 		    public boolean enableTropicalSlime = true;
 		    
