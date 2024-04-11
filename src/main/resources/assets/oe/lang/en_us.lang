@@ -449,6 +449,8 @@ oe.config.entity.enableCod=Enable Cod
 oe.config.entity.crab=Crab Config
 oe.config.entity.enableCrab=Enable Crab
 oe.config.entity.crabTalkInterval=Crab Talk Interval
+oe.config.entity.enableCrabDigging=Enable Crab Digging
+oe.config.entity.crabDiggingList=Crab Digging Table
 oe.config.entity.drowned=Drowned Config
 oe.config.entity.enableDrowned=Enable Drowned
 oe.config.entity.enableDrownedLowerArms=Lower arms when holding in off hand
@@ -501,6 +503,7 @@ oe.config.entity.enableJungleTropicalSlime=Tropical Slimes spawn in Jungles
 oe.config.entity.tropicalSlimeBucketKill=Tropical Slime Bucket Kill
 oe.config.entity.turtle=Turtle Config
 oe.config.entity.enableTurtle=Enable Turtle
+oe.config.entity.turtleBreedCooldown=Turtle Breeding Cooldown
 oe.config.entity.babyTurtlePredators=Baby Turtle hunters
 
 
@@ -588,6 +591,8 @@ oe.config.worldGen.enablePalmTrees=Enable Palm Trees
 oe.config.worldGen.palmTreeFullBark=Palm Trees use full bark logs
 oe.config.worldGen.palmTreeTriesPerChunk=Palm Trees tries per chunk
 oe.config.worldGen.palmTreeChancePerChunk=Palm Tree chance per try
+oe.config.worldGen.monumentPots=Monument Pots Config
+oe.config.worldGen.enableMoumentPots=Enable Prismarine Pots in Monuments
 oe.config.worldGen.shellPatch=Shell Patch Config
 oe.config.worldGen.enableShellPatch=Enable Shell Patches
 oe.config.worldGen.shellPatchTriesPerChunk=Shell Patch tries per Chunk
@@ -608,7 +613,10 @@ oe.config.worldGen.shipwreckChancePerChunk=Shipwreck chance per Chunk
 
 
 oe.config.vanillaTweak=Vanilla Tweaks Config
-
+oe.config.vanillaTweak.drownConverting=Drown Conversion Config
+oe.config.vanillaTweak.enableDrownConverting=Enable Drown Conversion
+oe.config.vanillaTweak.drownConversionsList=Drown Conversion List
+oe.config.vanillaTweak.enableDrownParticles=Enable Drowning Particles
 oe.config.vanillaTweak.waterLighting=Less Water Light Blocking
 oe.config.vanillaTweak.waterCancelReplace=Cancel Water Material Replacement
 oe.config.vanillaTweak.squidFlop=Enable Squid Flopping

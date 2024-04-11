@@ -225,6 +225,18 @@ public class ConfigHandler
 		}
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.monumentPots")
+	    public configMonumentPots monumentPots = new configMonumentPots();
+		
+		public static class configMonumentPots
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.worldGen.enableMoumentPots")
+		    @Config.Comment("If Prismarine Pots in Ocean Monuments should be enabled")
+		    public boolean enableMoumentPots = true;
+		}
+		
+		@RequiresMcRestart
 	    @Config.LangKey("oe.config.worldGen.enableSeagrassPatches")
 	    @Config.Comment("If Seagrass Patches should Generate")
 	    public boolean enableSeagrassPatches = true;
@@ -999,8 +1011,8 @@ public class ConfigHandler
 		    public boolean enableCrabDigging = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.vanillaTweak.drownConversionsList")
-		    @Config.Comment("A list of which mobs convert into what, when Drown Converting. If multiple entries exist for the same mob, only the first in the list will be used!")
+		    @Config.LangKey("oe.config.entity.crabDiggingList")
+		    @Config.Comment("Allows a Crab to dig from certain blocks, and the Loot Table they will pull from.")
 		    public String[] crabDiggingList =
 			{
 		    	"minecraft:gravel=oe:gameplay/crab_dig/gravel",
@@ -1045,13 +1057,6 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.enableLobster")
 		    @Config.Comment("If Lobster should be enabled")
 		    public boolean enableLobster = true;
-		    
-		    @Config.LangKey("oe.config.entity.lobsterVariantNames")
-		    @Config.Comment("The most likely list of tropical fish variants to spawn")
-		    public String[] lobsterVariantNames = 
-			{
-				 	"65536=Halloween"
-		    };
 		}
 		
 		@RequiresMcRestart
@@ -1548,30 +1553,6 @@ public class ConfigHandler
 	public static class configVanillaTweak
 	{
 		@RequiresMcRestart
-		@Config.LangKey("oe.config.vanillaTweak.waterBonemeal")
-	    public configWaterBonemeal waterBonemeal = new configWaterBonemeal();
-		
-		public static class configWaterBonemeal
-		{
-		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.vanillaTweak.enableWaterBonemeal")
-		    @Config.Comment("Enables Underwater Bonemealing.")
-		    public boolean enableWaterBonemeal = true;
-		    
-		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.vanillaTweak.waterBonemealCoralChance")
-		    @Config.Comment("The Coral chance to be placed if it passes the waterBonemealCoralGen check. Else, places Seagrass. 1 / this number.")
-		    @Config.RangeInt(min = 0, max = 9999)
-		    public int waterBonemealCoralChance = 5;
-		    
-		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.vanillaTweak.waterBonemealCoralGen")
-		    @Config.Comment("Makes Coral generate when using underwater bonemeal near Coral Blocks. (0 = Disable, 1 = Generate only on top, 2 = Generate around any side)")
-		    @Config.RangeInt(min = 0, max = 2)
-		    public int waterBonemealCoralGen = 2;
-	    }
-		
-		@RequiresMcRestart
 		@Config.LangKey("oe.config.vanillaTweak.drownConverting")
 	    public configDrownConverting drownConverting = new configDrownConverting();
 		
@@ -1595,6 +1576,30 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.vanillaTweak.enableDrownParticles")
 		    @Config.Comment("Adds glowy particles to show when a mob is currently converting.")
 		    public boolean enableDrownParticles = true;
+	    }
+		
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.vanillaTweak.waterBonemeal")
+	    public configWaterBonemeal waterBonemeal = new configWaterBonemeal();
+		
+		public static class configWaterBonemeal
+		{
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.enableWaterBonemeal")
+		    @Config.Comment("Enables Underwater Bonemealing.")
+		    public boolean enableWaterBonemeal = true;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.waterBonemealCoralChance")
+		    @Config.Comment("The Coral chance to be placed if it passes the waterBonemealCoralGen check. Else, places Seagrass. 1 / this number.")
+		    @Config.RangeInt(min = 0, max = 9999)
+		    public int waterBonemealCoralChance = 5;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.vanillaTweak.waterBonemealCoralGen")
+		    @Config.Comment("Makes Coral generate when using underwater bonemeal near Coral Blocks. (0 = Disable, 1 = Generate only on top, 2 = Generate around any side)")
+		    @Config.RangeInt(min = 0, max = 2)
+		    public int waterBonemealCoralGen = 2;
 	    }
 		
 		@RequiresMcRestart
