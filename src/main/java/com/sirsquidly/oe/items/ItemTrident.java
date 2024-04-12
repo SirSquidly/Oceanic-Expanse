@@ -85,7 +85,7 @@ public class ItemTrident extends Item
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         int r = EnchantmentHelper.getEnchantmentLevel(OEEnchants.RIPTIDE, itemstack);
         
-        if ((ConfigHandler.item.trident.tridentCanThrowBreak || itemstack.getItemDamage() < itemstack.getMaxDamage() - 1) && (r == 0 || canLetItRip(worldIn, playerIn)))
+        if ((!ConfigHandler.item.trident.tridentPreventThrowBreak || itemstack.getItemDamage() < itemstack.getMaxDamage() - 1) && (r == 0 || canLetItRip(worldIn, playerIn)))
         {
         	playerIn.setActiveHand(handIn);
         	return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);

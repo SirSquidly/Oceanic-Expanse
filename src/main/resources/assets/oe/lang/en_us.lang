@@ -430,6 +430,14 @@ oe.config.enchant.channelingLavaCheck=Channeling Avoid Lava
 oe.config.enchant.channelingInvert=Invert Channeling Whitelist
 oe.config.enchant.channelingBlocks=Channeling Block Whitelist
 oe.config.enchant.channelingRidingBlacklist=Channeling Riding Blacklist
+oe.config.enchant.loyalty=Loyalty Config
+oe.config.enchant.enableLoyaltyEnchant=Enable Loyalty
+oe.config.enchant.loyaltyVoidReturn=Loyalty returns from Void
+oe.config.enchant.loyaltyVoidReturnLevel=Loyalty return y-level
+oe.config.enchant.riptide=Riptide Config
+oe.config.enchant.enableRiptideEnchant=Enable Riptide
+oe.config.enchant.riptideSneakThrowing=Allow Sneak Throwing
+oe.config.enchant.riptideIBroughtMyOwnWaterThankYou=I Brought my own Water!
 
 
 oe.config.entity=Entity Config
@@ -540,8 +548,6 @@ oe.config.item.tridentDamage=Trident Damage
 oe.config.item.tridentThrowDamage=Thrown Trident Damage
 oe.config.item.tridentAttackSpeed=Trident Attack Speed
 oe.config.item.tridentDurability=Trident Durability
-oe.config.item.loyaltyVoidReturn=Loyalty returns from Void
-oe.config.item.loyaltyVoidReturnLevel=Loyalty return y-level
 oe.config.item.enableTurtleScute=Enable Turtle Scute
 oe.config.turtleShell=Turtle Shell Config
 oe.config.item.enableTurtleShell=Enable Turtle Shell

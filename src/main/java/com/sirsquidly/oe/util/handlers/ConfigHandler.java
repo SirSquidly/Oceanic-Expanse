@@ -872,9 +872,9 @@ public class ConfigHandler
 		    public boolean enableTridentCrafting = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.tridentCanThrowBreak")
-		    @Config.Comment("Allows the player to throw a Trident even if it is at 1 durability, leading to it breaking upon impact. Vanilla Minecraft does this.")
-		    public boolean tridentCanThrowBreak = false;
+		    @Config.LangKey("oe.config.item.tridentPreventThrowBreak")
+		    @Config.Comment("A safeguard preventing the player from throwing a Trident at 1 durability, as it would break on impact. This safeguard is in Vanilla Minecraft.")
+		    public boolean tridentPreventThrowBreak = true;
 			
 		    @Config.LangKey("oe.config.item.tridentDamage")
 		    @Config.Comment("The Attack Damage of the Trident")
@@ -1472,17 +1472,17 @@ public class ConfigHandler
 		public static class configLoyalty
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableLoyaltyEnchant")
+		    @Config.LangKey("oe.config.enchant.enableLoyaltyEnchant")
 		    @Config.Comment("If the Loyalty Enchantment should be enabled.")
 		    public boolean enableLoyaltyEnchant = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.loyaltyVoidReturn")
+		    @Config.LangKey("oe.config.enchant.loyaltyVoidReturn")
 		    @Config.Comment("Loyalty Tridents return when in the void")
 		    public boolean loyaltyVoidReturn = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.loyaltyVoidReturnLevel")
+		    @Config.LangKey("oe.config.enchant.loyaltyVoidReturnLevel")
 		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
 		    public int loyaltyVoidReturnLevel = -15;
 		}
@@ -1494,7 +1494,7 @@ public class ConfigHandler
 		public static class configRiptide
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableRiptideEnchant")
+		    @Config.LangKey("oe.config.enchant.enableRiptideEnchant")
 		    @Config.Comment("If the Riptide Enchantment should be enabled.")
 		    public boolean enableRiptideEnchant = true;
 			
