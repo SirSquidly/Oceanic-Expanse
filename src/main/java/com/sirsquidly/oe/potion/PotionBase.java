@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -56,6 +57,7 @@ public class PotionBase extends Potion
 		if(entity.isPotionActive(OEPotions.DESCENT))
 		{
 			int modDes = entity.getActivePotionEffect(OEPotions.DESCENT).getAmplifier() + 1;
+			boolean onSlime = entity.onGround && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY-1, entity.posZ)).getBlock() == Blocks.SLIME_BLOCK;
 			
 			/* This check is so players in Creative and Spectator aren't dragged down **/
 			if (entity instanceof EntityPlayer) if (((EntityPlayer)entity).capabilities.isFlying) return;
@@ -79,6 +81,12 @@ public class PotionBase extends Potion
 			else if (entity.motionY < 0.0)
 			{
 				entity.motionY -= (ConfigHandler.effect.descent.descentFallPull * modDes - entity.motionY) * 0.1D;
+			}
+			
+			/** Extra hard-coded check to make sure the momentum is SLOWED when landing on a Slime Block. */
+			if (onSlime && ConfigHandler.effect.descent.descentSlimeFix)
+			{
+				entity.motionY *= 0.4D;
 			}
         }
     }

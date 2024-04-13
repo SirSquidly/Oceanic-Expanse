@@ -776,7 +776,7 @@ public class ConfigHandler
 		public static class configGlowItemFrame
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableGlowItemFrame")
+		    @Config.LangKey("oe.config.item.enableGlowItemFrame")
 		    @Config.Comment("If Glow Item Frames are enabled.")
 		    public boolean enableGlowItemFrame = true;
 			
