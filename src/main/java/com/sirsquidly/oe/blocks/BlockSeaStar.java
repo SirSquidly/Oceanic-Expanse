@@ -21,12 +21,10 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
 {
 	protected static final AxisAlignedBB SEASTAR_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.0625D, 0.875D);
 	
-	@SuppressWarnings("deprecation")
 	public BlockSeaStar()
 	{
 		super(Material.WATER);
 		this.setSoundType(OESounds.WET_GRASS);
-		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(IN_WATER, Boolean.valueOf(true)));
 	}
 

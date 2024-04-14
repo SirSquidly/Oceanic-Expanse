@@ -5,6 +5,7 @@ import java.util.List;
 import com.sirsquidly.oe.entity.EntityTropicalSlime;
 
 import net.minecraft.block.BlockBreakable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -25,6 +26,7 @@ public class BlockBlueSlime extends BlockBreakable
 	public BlockBlueSlime()
 	{
 		super(Material.CLAY, false, MapColor.LAPIS);
+		this.setSoundType(SoundType.SLIME);
         this.setCreativeTab(CreativeTabs.DECORATIONS);
         this.slipperiness = 0.8F;
 	}
