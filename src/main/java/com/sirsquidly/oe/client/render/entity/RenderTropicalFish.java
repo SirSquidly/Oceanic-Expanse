@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -41,10 +42,6 @@ public class RenderTropicalFish extends RenderLiving<EntityTropicalFish>
 			size = (float)((double)size * 0.5D);
             this.shadowSize = 0.25F;
         }
-		if (entity.isFlopping()) {
-			GL11.glRotatef(90F, 0F, 0F, 1F);
-			GL11.glTranslatef(0F, 0.15F, 0F);
-		}
 		
 		float[] afloat = EnumDyeColor.byMetadata(entity.getTropicalFishVariant() >> 16 & 255).getColorComponentValues();
 		
@@ -59,6 +56,14 @@ public class RenderTropicalFish extends RenderLiving<EntityTropicalFish>
 
     protected void applyRotations(EntityTropicalFish entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
     {
-        super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);
+        super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks);		
+		
+        if (entityLiving.isFlopping())
+		{
+			float flopSide = MathHelper.sin((p_77043_2_ *0.004F) * 90F) * 90F;
+			
+			GL11.glRotatef(flopSide, 0F, 0F, 1F);
+			GL11.glTranslatef(-flopSide/90 * 0.1F, 0.0F, 0F);
+		}
     }
 }

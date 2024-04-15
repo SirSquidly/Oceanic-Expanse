@@ -60,17 +60,21 @@ public class ModelDrowned extends ModelZombie
 		
 		if (mainItem == OEItems.TRIDENT_ORIG && flag)
 		{
-			float hand = Math.min((float)drowned.getItemInUseMaxCount() / 35.0F, 1.0F);
+			float maxItemUseDuration = ((EntityLivingBase) entityIn).getActiveItemStack().getMaxItemUseDuration();
+			float itemInUseCount = ((EntityLivingBase) entityIn).getItemInUseCount();
+			float ticksExisted = (float) entityIn.ticksExisted;
+
+			float smoothUseTime = maxItemUseDuration - (itemInUseCount - (ageInTicks - ticksExisted) + 1.0F);
+			float hand = Math.min(smoothUseTime / 18.0F, 2.0F);
 			
 			if (drowned.getPrimaryHand() == EnumHandSide.RIGHT)
             {
-        		this.bipedRightArm.rotateAngleX = -3 - hand;
+	            this.bipedRightArm.rotateAngleX -= hand;
         		usingRTrident = true;
-        		
             }
             if (drowned.getPrimaryHand() == EnumHandSide.LEFT)
             {
-            	this.bipedLeftArm.rotateAngleX = -3 -hand;
+                this.bipedLeftArm.rotateAngleX -= hand;
             	usingLTrident = true;
             }
 		}
