@@ -80,7 +80,7 @@ public class OEItems
 		itemReadyForRegister(SHELLS, "barnacle_shells");
 		if (ConfigHandler.item.enableNautilusShell) itemReadyForRegister(NAUTILUS_SHELL, "nautilus_shell");
 		itemReadyForRegister(HEART_OF_THE_SEA, "heart_of_the_sea");
-		itemReadyForRegister(PEARL, "pearl");
+		if (ConfigHandler.item.pearl.enablePearl) itemReadyForRegister(PEARL, "pearl");
 		if (ConfigHandler.item.conch.enableConch) itemReadyForRegister(CONCH, "conch");
 		itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");

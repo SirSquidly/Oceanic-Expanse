@@ -5,13 +5,13 @@ import java.util.List;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -81,7 +81,7 @@ public class BucketMobEvent
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		
-		if ((stack.getItem() instanceof ItemBucket) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase && !(event.getTarget() instanceof EntityPlayer)) 
+		if ((stack.getItem() == Items.WATER_BUCKET || stack.getItem() == Items.BUCKET && ConfigHandler.item.spawnBucket.enableSpawnBucketEmptyUsage) && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase && !(event.getTarget() instanceof EntityPlayer)) 
 		{
 			EntityLivingBase entity = (EntityLivingBase) event.getTarget();
 			

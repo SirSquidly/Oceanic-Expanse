@@ -254,7 +254,9 @@ public class EntityTropicalSlime extends EntitySlime
         else
         { this.setLeftHanded(false); }
 
-        this.setSlimeSize(2, true);
+        float f = difficulty.getClampedAdditionalDifficulty();
+        
+        this.setSlimeSize(this.rand.nextFloat() < f * 0.1F ? 4 : 2, true);
         this.updateHealth(true);
         return livingdata;
     }
@@ -263,7 +265,7 @@ public class EntityTropicalSlime extends EntitySlime
     {
         int i = this.getSlimeSize();
 
-        this.spawnTropicalFish(world, this.getPosition(), false);
+        if (i <= 2) this.spawnTropicalFish(world, this.getPosition(), false);
         
         if (!this.world.isRemote && i > 2 && this.getHealth() <= 0.0F)
         {

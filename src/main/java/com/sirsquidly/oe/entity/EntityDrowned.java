@@ -258,7 +258,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
                     }
                     
                     entityDrowned.setAttackTarget(this.getAttackTarget());
-                    if (ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSpawnsEquipt) entityDrowned.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityDrowned)), (IEntityLivingData)null);
+                    if (ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainEquippedSpawns) entityDrowned.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityDrowned)), (IEntityLivingData)null);
                     break;
                 }
             }

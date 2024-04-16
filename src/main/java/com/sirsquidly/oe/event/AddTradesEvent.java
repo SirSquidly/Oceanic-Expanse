@@ -3,6 +3,7 @@ package com.sirsquidly.oe.event;
 import java.util.Random;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.passive.EntityVillager.ITradeList;
@@ -32,7 +33,7 @@ public class AddTradesEvent
 		{
             VillagerCareer fisherman = farmerProf.getCareer(1);
 
-            fisherman.addTrade(2, new PearlTrade());
+            if (ConfigHandler.item.pearl.enablePearlTrade) fisherman.addTrade(2, new PearlTrade());
         }
     }
 	

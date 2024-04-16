@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.event;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,6 +25,8 @@ public class PlayerTeleportEvent
 	@SubscribeEvent
 	public static void didPlayerTeleport(LivingEntityUseItemEvent.Finish event)
 	{
+		if (ConfigHandler.item.pearl.enablePearlEndering) return;
+		
 		Entity user = event.getEntity();
 		ItemStack item = event.getItem();
 

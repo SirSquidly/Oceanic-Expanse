@@ -820,6 +820,28 @@ public class ConfigHandler
 	    public boolean enableNautilusShell= true;
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.pearl")
+	    public configPearl pearl = new configPearl();
+		
+		public static class configPearl
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enablePearl")
+		    @Config.Comment("If Pearls are enabled")
+		    public boolean enablePearl = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enablePearlTrade")
+		    @Config.Comment("Adds a Pearl Trade to the Fisherman Villager")
+		    public boolean enablePearlTrade = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enablePearlEndering")
+		    @Config.Comment("Makes a Pearl turn into an Ender Pearl when held and eating Chorus Fruit.")
+		    public boolean enablePearlEndering = true;
+	    }
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.item.spawnBucket")
 	    public configSpawnBucket spawnBucket = new configSpawnBucket();
 		
@@ -853,6 +875,12 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.item.enableAllBucketsCreative")
 		    @Config.Comment("Makes every possible spawn bucket appear in the creative search tab. Warning, this is equal to every spawn egg, and most won't have proper textures!")
 		    public boolean enableAllBucketsCreative = false;
+			
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableSpawnBucketEmptyUsage")
+		    @Config.Comment("Allows empty buckets to be used to bucket mobs. This is true in Bedrock Edition.")
+		    public boolean enableSpawnBucketEmptyUsage = false;
 	    }
 		
 		@RequiresMcRestart
@@ -892,6 +920,12 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.item.tridentDurability")
 		    @Config.Comment("The Trident's Durability (note, displays as this -1 in-game, as 0 counts as a point)")
 		    public int tridentDurability = 250;
+		    
+		    @RequiresMcRestart
+		    @Config.LangKey("oe.config.item.trident3PsnAnimStyle")
+		    @Config.Comment("The style of 3ed person animations the Trident uses. (0 = None, 1 = Vanilla, 2 = Oceanic Expanse)")
+			@Config.RangeInt(min = 0, max = 2)
+		    public int trident3PsnAnimStyle = 2;
 	    }
 		
 		@RequiresMcRestart
@@ -1314,9 +1348,9 @@ public class ConfigHandler
 			    public int drownedCaptainMaxNearbyForSummon = 5;
 				
 				@RequiresMcRestart
-			    @Config.LangKey("oe.config.entity.drownedCaptainSpawnsEquipt")
+			    @Config.LangKey("oe.config.entity.drownedCaptainEquippedSpawns")
 			    @Config.Comment("If drowned spawned by a captain have their normal setup. This allows them to have trident, be babies, or even be MORE CAPTAINS!")
-			    public boolean drownedCaptainSpawnsEquipt = false;
+			    public boolean drownedCaptainEquippedSpawns = false;
 
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.drownedCaptainConchSoundDistance")

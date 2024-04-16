@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 /**
  * Alters the player's arm rotation when using a Trident, in 3ed person
@@ -44,7 +45,6 @@ public abstract class MixinModelBiped extends ModelBase
     {
     	if (entityIn instanceof EntityLivingBase)
     	{
-    		
     		Item mainItem = ((EntityLivingBase) entityIn).getHeldItem(EnumHand.MAIN_HAND).getItem();
     		Item offItem = ((EntityLivingBase) entityIn).getHeldItem(EnumHand.OFF_HAND).getItem();
     		
@@ -54,19 +54,35 @@ public abstract class MixinModelBiped extends ModelBase
     		
     		if (((EntityLivingBase) entityIn).getActiveItemStack().getItem() == OEItems.TRIDENT_ORIG && ((EntityLivingBase) entityIn).getItemInUseCount() > 0)
     		{
-    			/** Used for the entire arm rotating up, instead of 'snapping' into place. **/
-    			float flipUp = Math.min(smoothUseTime / 5.0F, 1.0F);
-    			
-    			if (mainItem == OEItems.TRIDENT_ORIG && mainIsRight || offItem == OEItems.TRIDENT_ORIG && !mainIsRight)
-                {
-                    this.bipedRightArm.rotateAngleX = (this.bipedRightArm.rotateAngleX * 0.5F + 0.2F - (float)Math.PI + (Math.min(smoothUseTime / 15.0F, 1.0F) * -0.5F)) * flipUp;
-                    this.bipedRightArm.rotateAngleY = 0.0F;
-                } 
-                else if(mainItem == OEItems.TRIDENT_ORIG && !mainIsRight || offItem == OEItems.TRIDENT_ORIG && mainIsRight)
-                {
-                    this.bipedLeftArm.rotateAngleX = (this.bipedLeftArm.rotateAngleX * 0.5F + 0.2F - (float)Math.PI + (Math.min(smoothUseTime / 15.0F, 1.0F) * -0.5F)) * flipUp;
-                    this.bipedLeftArm.rotateAngleY = 0.0F;
-                }
+    			if (ConfigHandler.item.trident.trident3PsnAnimStyle == 2)
+    			{
+    				/** Used for the entire arm rotating up, instead of 'snapping' into place. **/
+        			float flipUp = Math.min(smoothUseTime / 5.0F, 1.0F);
+        			
+        			if (mainItem == OEItems.TRIDENT_ORIG && mainIsRight || offItem == OEItems.TRIDENT_ORIG && !mainIsRight)
+                    {
+                        this.bipedRightArm.rotateAngleX = (this.bipedRightArm.rotateAngleX * 0.5F + 0.2F - (float)Math.PI + (Math.min(smoothUseTime / 15.0F, 1.0F) * -0.5F)) * flipUp;
+                        this.bipedRightArm.rotateAngleY = 0.0F;
+                    } 
+                    else if(mainItem == OEItems.TRIDENT_ORIG && !mainIsRight || offItem == OEItems.TRIDENT_ORIG && mainIsRight)
+                    {
+                        this.bipedLeftArm.rotateAngleX = (this.bipedLeftArm.rotateAngleX * 0.5F + 0.2F - (float)Math.PI + (Math.min(smoothUseTime / 15.0F, 1.0F) * -0.5F)) * flipUp;
+                        this.bipedLeftArm.rotateAngleY = 0.0F;
+                    }
+    			}
+    			else if (ConfigHandler.item.trident.trident3PsnAnimStyle == 1)
+    			{
+    				if (mainItem == OEItems.TRIDENT_ORIG && mainIsRight || offItem == OEItems.TRIDENT_ORIG && !mainIsRight)
+                    {
+                        this.bipedRightArm.rotateAngleX = 3.1F;
+                        this.bipedRightArm.rotateAngleY = 0.0F;
+                    } 
+                    else if(mainItem == OEItems.TRIDENT_ORIG && !mainIsRight || offItem == OEItems.TRIDENT_ORIG && mainIsRight)
+                    {
+                        this.bipedLeftArm.rotateAngleX = 3.1F;
+                        this.bipedLeftArm.rotateAngleY = 0.0F;
+                    }
+    			}
     		}
     	}
     }

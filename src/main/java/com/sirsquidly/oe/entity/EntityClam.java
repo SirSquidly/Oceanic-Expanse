@@ -1,13 +1,13 @@
 package com.sirsquidly.oe.entity;
 
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMagma;
@@ -22,10 +22,8 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -34,7 +32,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -235,12 +232,12 @@ public class EntityClam extends EntityAnimal
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-        if (new Random().nextDouble() <= 2)
+        if (this.rand.nextFloat() < 0.05F && ConfigHandler.item.pearl.enablePearl)
+        { this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.PEARL)); }
+        else if (this.rand.nextFloat() < 0.1F)
         {
-        	//this.getHeldItemMainhand().isEmpty()
-        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.PEARL));
-        	
-        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Blocks.SAND));
+        	boolean spawnGravel = this.rand.nextFloat() < 0.25F;
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(spawnGravel ? Blocks.GRAVEL : Blocks.SAND));
         }
         return super.onInitialSpawn(difficulty, livingdata);
     }
