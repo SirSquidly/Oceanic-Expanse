@@ -84,7 +84,7 @@ public class OEItems
 		if (ConfigHandler.item.conch.enableConch) itemReadyForRegister(CONCH, "conch");
 		itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
-		itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
+		if (ConfigHandler.item.glowItemFrame.enableGlowItemFrame) itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
 		itemReadyForRegister(BLEAK, "bleak");
 		itemReadyForRegister(SPONGE_CHUNK, "sponge_chunk");
 		itemReadyForRegister(SPONGE_CHUNK_WET, "sponge_chunk_wet");
