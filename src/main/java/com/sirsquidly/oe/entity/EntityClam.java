@@ -234,11 +234,15 @@ public class EntityClam extends EntityAnimal
     {
         if (this.rand.nextFloat() < 0.05F && ConfigHandler.item.pearl.enablePearl)
         { this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.PEARL)); }
-        else if (this.rand.nextFloat() < 0.1F)
+        else if (this.rand.nextFloat() < 0.5F)
         {
-        	boolean spawnGravel = this.rand.nextFloat() < 0.25F;
+        	boolean spawnGravel = this.rand.nextFloat() < 0.1F;
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(spawnGravel ? Blocks.GRAVEL : Blocks.SAND));
         }
+        
+        this.setDropChance(EntityEquipmentSlot.MAINHAND, 100);
+        this.setDropChance(EntityEquipmentSlot.OFFHAND, 100);
+        
         return super.onInitialSpawn(difficulty, livingdata);
     }
 	
