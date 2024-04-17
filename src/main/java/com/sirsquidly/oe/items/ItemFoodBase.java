@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -49,14 +50,17 @@ public class ItemFoodBase extends ItemFood
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
     {
 		if (worldIn.isRemote) return;
-		
+
         if (stack.getItem() == OEItems.BLUE_SLIME_BALL)
         {
         	player.getFoodStats().setFoodLevel(Math.max(player.getFoodStats().getFoodLevel() - 3, 0));
             player.setAir(Math.min(player.getAir() + 120, 300));
         }
         if (isStew)
-        { player.addItemStackToInventory(new ItemStack(Items.BOWL)); }
+        {
+        	player.addItemStackToInventory(new ItemStack(Items.BOWL));
+        	if (ConfigHandler.item.bisque.enableBisqueMilkEffect) player.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
+        }
     }
 	
 	@Override

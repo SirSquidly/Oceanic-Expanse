@@ -528,6 +528,10 @@ oe.config.effect.descentSlimeFix=Enable Slime Block Fix
 
 oe.config.item=Item Config
 
+oe.config.item.bisque=Bisque Config
+oe.config.block.enableBisqueMilkEffect=Bisques provide Milk Effect
+oe.config.block.enableCrabBisque=Enable Crab Bisque
+oe.config.block.enableLobsterBisque=Enable Lobster Bisque
 oe.config.item.conch=Conch Config
 oe.config.item.enableConch=Enable Conch
 oe.config.item.conchCooldown=Conch Cooldown

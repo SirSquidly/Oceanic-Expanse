@@ -734,7 +734,28 @@ public class ConfigHandler
 	
 	public static class configItem
 	{
-
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.bisque")
+	    public configBisque bisque = new configBisque();
+		
+		public static class configBisque
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableBisqueMilkEffect")
+		    @Config.Comment("If Bisques remove all Potion Effects. This is here because Milk is used to craft Bisque.")
+		    public boolean enableBisqueMilkEffect = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableCrabBisque")
+		    @Config.Comment("If Crab Bisque is enabled.")
+		    public boolean enableCrabBisque = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.enableLobsterBisque")
+		    @Config.Comment("If Lobster Bisque is enabled.")
+		    public boolean enableLobsterBisque = true;
+		}
+		
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.item.conch")
 	    public configConch conch = new configConch();

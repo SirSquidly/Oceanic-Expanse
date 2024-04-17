@@ -91,12 +91,12 @@ public class OEItems
 		
 		itemReadyForRegister(CRAB_UNCOOKED, "crab");
 		itemReadyForRegister(CRAB_COOKED, "cooked_crab");
-		itemReadyForRegister(BISQUE_CRAB, "crab_bisque");
+		if (ConfigHandler.item.bisque.enableCrabBisque) itemReadyForRegister(BISQUE_CRAB, "crab_bisque");
 		itemReadyForRegister(CRUSTACEAN_SHELL, "crustacean_shell");
 		
 		itemReadyForRegister(LOBSTER_UNCOOKED, "lobster");
 		itemReadyForRegister(LOBSTER_COOKED, "cooked_lobster");
-		itemReadyForRegister(BISQUE_LOBSTER, "lobster_bisque");
+		if (ConfigHandler.item.bisque.enableLobsterBisque) itemReadyForRegister(BISQUE_LOBSTER, "lobster_bisque");
 		
 		itemReadyForRegister(BLUE_SLIME_BALL, "blue_slime_ball");
 		if (ConfigHandler.block.coconut.enableCoconut) itemReadyForRegister(COCONUT_OPEN, "coconut_open");
