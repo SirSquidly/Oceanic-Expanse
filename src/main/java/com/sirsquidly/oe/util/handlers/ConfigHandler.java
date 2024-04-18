@@ -791,6 +791,35 @@ public class ConfigHandler
 		}
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.conduitCharm")
+	    public configConduitCharm conduitCharm = new configConduitCharm();
+		
+		public static class configConduitCharm
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableConduitCharm")
+		    @Config.Comment("If the Charm is enabled.")
+		    public boolean enableConduitCharm = true;
+		
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.conduitCharmConduitRange")
+		    @Config.Comment("The radius that Conduit Power is given to nearby Players. Setting to 0 makes only the holder be affected.")
+			@Config.RangeInt(min = 0, max = 9999)
+		    public int conduitCharmConduitRange = 16;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableConduitCharmPulseSound")
+		    @Config.Comment("If the Charm makes a Conduit Pulse each time it applies the effect.")
+		    public boolean enableConduitCharmPulseSound = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.conduitCharmDurability")
+		    @Config.Comment("Te durability of the Charm. Each time it applies Conduit Power, the durability goes down by 1, making this a timer for the item.")
+			@Config.RangeInt(min = 0, max = 9999)
+		    public int conduitCharmDurability = 30;
+		}
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.item.glowItemFrame")
 	    public configGlowItemFrame glowItemFrame = new configGlowItemFrame();
 		
