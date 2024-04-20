@@ -934,6 +934,30 @@ public class ConfigHandler
 	    }
 		
 		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.spongeChunk")
+	    public configSpongeChunk spongeChunk = new configSpongeChunk();
+		
+		public static class configSpongeChunk
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.enableSpongeChunk")
+		    @Config.Comment("If the Charm is enabled.")
+		    public boolean enableSpongeChunk = true;
+		
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.spongeChunkAbsorbRadius")
+		    @Config.Comment("The radius that the Sponge Chunk picks up Water.")
+			@Config.RangeInt(min = 0, max = 100)
+		    public int spongeChunkAbsorbRadius = 5;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.item.spongeChunkMaxSaturation")
+		    @Config.Comment("The max Saturation(water) a Sponge Chunk can hold. Seeting to 0 Disables water collecting, while -1 makes it infinite!")
+			@Config.RangeInt(min = -1, max = 9999)
+		    public int spongeChunkMaxSaturation = 30;
+		}
+		
+		@RequiresMcRestart
 		@Config.LangKey("oe.config.trident")
 	    public configTrident trident = new configTrident();
 		

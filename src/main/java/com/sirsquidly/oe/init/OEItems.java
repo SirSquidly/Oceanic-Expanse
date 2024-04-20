@@ -86,8 +86,8 @@ public class OEItems
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
 		if (ConfigHandler.item.glowItemFrame.enableGlowItemFrame) itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
 		itemReadyForRegister(BLEAK, "bleak");
-		itemReadyForRegister(SPONGE_CHUNK, "sponge_chunk");
-		itemReadyForRegister(SPONGE_CHUNK_WET, "sponge_chunk_wet");
+		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) itemReadyForRegister(SPONGE_CHUNK, "sponge_chunk");
+		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) itemReadyForRegister(SPONGE_CHUNK_WET, "sponge_chunk_wet");
 		
 		itemReadyForRegister(CRAB_UNCOOKED, "crab");
 		itemReadyForRegister(CRAB_COOKED, "cooked_crab");

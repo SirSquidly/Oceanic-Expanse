@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
@@ -32,7 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSpongeChunk extends Item 
 {
-	private int maxWater = 20;
+	private int maxWater = ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation;
 	
 	public ItemSpongeChunk()
 	{ 
@@ -75,11 +76,11 @@ public class ItemSpongeChunk extends Item
                 }
         	}
 		}
-		else
+		else if (ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation != 0)
 		{
 			if (!worldIn.isRemote && player.canPlayerEdit(pos, facing, itemstack))
 			{
-				int effectMath = 5 / 2;
+				int effectMath = ConfigHandler.item.spongeChunk.spongeChunkAbsorbRadius / 2;
 				int collectedWater = 0;
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
             	
@@ -120,7 +121,7 @@ public class ItemSpongeChunk extends Item
 	{
 		NBTTagCompound tagCompound = stack.getTagCompound();
 		if (tagCompound != null && tagCompound.hasKey("WaterCount", 3))
-		{ return tagCompound.getInteger("WaterCount") >= maxWater; }
+		{ return ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation != -1 && tagCompound.getInteger("WaterCount") >= maxWater; }
 		
 		return false;
 	}
@@ -129,7 +130,7 @@ public class ItemSpongeChunk extends Item
 	{
 		if (!stack.hasTagCompound())
 		{ stack.setTagCompound(new NBTTagCompound()); }
-		stack.getTagCompound().setInteger("WaterCount", Math.min(count, maxWater));
+		stack.getTagCompound().setInteger("WaterCount", ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation == -1 ? count : Math.min(count, maxWater));
     }
 	
 	/** Swaps the sponge chunks between the normal and wet versions. */
@@ -161,6 +162,10 @@ public class ItemSpongeChunk extends Item
 		
 		if (nbttagcompound != null && nbttagcompound.hasKey("WaterCount")) { i = nbttagcompound.getInteger("WaterCount"); }
 		
-		tooltip.add(TextFormatting.GRAY + I18n.format("description.oe.sponge_chunk_saturation.name") + " " + i + " / " + maxWater);
+		if (ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation != 0)
+		{
+			if (ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation == -1) tooltip.add(TextFormatting.GRAY + I18n.format("description.oe.sponge_chunk_saturation.name") + " " + i);
+			else tooltip.add(TextFormatting.GRAY + I18n.format("description.oe.sponge_chunk_saturation.name") + " " + i + " / " + maxWater);
+		}
 	}
 }
