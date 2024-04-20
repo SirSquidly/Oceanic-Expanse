@@ -69,6 +69,7 @@ public class OESounds
 	public static SoundEvent ENTITY_LOBSTER_ANGRY = soundReadyForRegister("entity.lobster.angry");
 	public static SoundEvent ENTITY_LOBSTER_DEATH = soundReadyForRegister("entity.lobster.death");
 	public static SoundEvent ENTITY_LOBSTER_HURT = soundReadyForRegister("entity.lobster.hurt");
+	public static SoundEvent ENTITY_LOBSTER_MOLT = soundReadyForRegister("entity.lobster.molt");
 	
 	public static SoundEvent ENTITY_PUFFERFISH_DEATH = soundReadyForRegister("entity.pufferfish.death");
 	public static SoundEvent ENTITY_PUFFERFISH_DEFLATE = soundReadyForRegister("entity.pufferfish.deflate");

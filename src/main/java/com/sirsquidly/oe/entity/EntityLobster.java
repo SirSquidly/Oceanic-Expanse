@@ -12,6 +12,7 @@ import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
@@ -75,7 +76,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 		super(worldIn);
 		//this.setSize(0.8F, 0.3F);
 		this.setCanPickUpLoot(true);
-		this.moltCooldown = 3000;
+		this.moltCooldown = ConfigHandler.entity.lobster.lobsterMoltCooldown;
 		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
@@ -110,6 +111,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
+        this.getEntityAttribute(EntityLivingBase.SWIM_SPEED).setBaseValue(1.8D);
     }
 	
 	public int getTalkInterval()
@@ -117,15 +119,9 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 	
 	public void onLivingUpdate()
     {
-		//ItemStack offered = this.getHeldItemOffhand();
-		//BlockPos blockpos = new BlockPos(this.posX, this.posY-1, this.posZ);
-		//IBlockState iblockstate = this.world.getBlockState(blockpos);
-		
 		if (this.isInWater())
 			{ stepHeight = 1.0F; }
 		else { stepHeight = 0.6F; }
-
-		
 		
 		if (world.getTotalWorldTime() % 20L == 0L)
 		{
@@ -133,8 +129,8 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 			
 			if (!this.world.isRemote && !this.isChild() &&(this.getFood() * 0.75 ) / getSalmonSize() > 1 && --this.moltCooldown <= 0)
 			{
-				this.moltCooldown = 3000;
-				this.playSound(OESounds.ENTITY_LOBSTER_DEATH, 1.0F, 0.5F);
+				this.moltCooldown = ConfigHandler.entity.lobster.lobsterMoltCooldown;
+				this.playSound(OESounds.ENTITY_LOBSTER_MOLT, 1.0F, 0.5F);
 				this.setSize(this.getSalmonSize() + 1, true);
 				this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 300));
 				this.dropItem(OEItems.CRUSTACEAN_SHELL, 1);
@@ -170,7 +166,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
             {
         		for (int i = 0; i < 20; ++i)
                 {
-        			this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX, this.posY + 0.3D, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Item.getIdFromItem(food.getItem()), food.getMetadata());
+        			this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX, this.posY + this.height, this.posZ, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, ((double)this.rand.nextFloat() - 0.5D) * 0.3D, Item.getIdFromItem(food.getItem()), food.getMetadata());
                 }	
             }
         	
@@ -189,13 +185,9 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         if (this.isEdibleItem(itemstack) && this.getHeldItemMainhand().isEmpty())
         {
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack);
-        	this.moltCooldown = 0;
-        	doEatingStuff();
         	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
         }
-        
-        //System.out.println("Entity Key: " + this.getLobsterVariant());
-        
+
         if (this.getSalmonSize() > 12)
         {
         	if (itemstack.getItem() == Items.SADDLE && !this.getSaddled() && !player.isSneaking())
@@ -245,7 +237,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     { return LootTableHandler.ENTITIES_LOBSTER; }
 	
 	protected float getWaterSlowDown()
-    { return 0.98F; }
+    { return this.isBeingRidden() ? 0.89F : 0.8F; }
 	
 	public EnumCreatureAttribute getCreatureAttribute()
     { return EnumCreatureAttribute.ARTHROPOD; }

@@ -1165,6 +1165,11 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.enableLobster")
 		    @Config.Comment("If Lobster should be enabled")
 		    public boolean enableLobster = true;
+			
+			@Config.LangKey("oe.config.entity.lobsterMoltCooldown")
+		    @Config.Comment("The cooldown between when a Lobster can Molt again. Lowers per tick, so 20:1 second. Default is 3000(2.5 minutes).")
+		    public int lobsterMoltCooldown = 3000;
+		    
 		}
 		
 		@RequiresMcRestart

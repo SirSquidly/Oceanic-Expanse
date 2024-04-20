@@ -229,6 +229,12 @@
     	"subtitle": "subtitle.oe.lobster.hurt",
     	"sounds": [ "oe:entity/crab/hurt1", "oe:entity/crab/hurt2", "oe:entity/crab/hurt3"]
      },
+     "entity.lobster.molt": 
+	 {
+    	"category": "neutral",
+    	"subtitle": "subtitle.oe.lobster.molt",
+    	"sounds": [ "oe:entity/crab/death1", "oe:entity/crab/death2"]
+     },
      "entity.pufferfish.death": 
 	 {
     	"category": "neutral",
