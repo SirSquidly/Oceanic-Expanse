@@ -13,9 +13,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -41,7 +41,7 @@ public class ItemCharm extends Item
 	/** Called each Inventory Tick, same thing the Map does. This auto-sets the random sound if it doesn't have one.*/
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
-    	if (isSelected || entityIn instanceof EntityLiving && ((EntityLiving)entityIn).getHeldItemOffhand() == stack)
+    	if (isSelected || entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getHeldItemOffhand() == stack)
         { 
     		this.grantConduit(worldIn, entityIn, stack);
     	}
@@ -84,6 +84,15 @@ public class ItemCharm extends Item
 			}
 		}
 	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment)
+    {
+		if (enchantment == Enchantments.MENDING) return false;
+		if (enchantment == Enchantments.UNBREAKING) return false;
+		
+		return super.canApplyAtEnchantingTable(stack, enchantment);
+    }
 	
 	@SideOnly(Side.CLIENT)
 	public void spawnParticles(World worldIn, Entity entityIn)
