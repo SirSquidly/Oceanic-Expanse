@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    { "item": "oe:pearl" },
+    { "item": "minecraft:prismarine_shard" }
+  ],
+  "result":
+  {
+    "item": "oe:bleak",
+    "count": 8
+  }
+}

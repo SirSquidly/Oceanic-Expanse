@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    { "item": "oe:pearl" }
+  ],
+  "result":
+  {
+    "item": "oe:nacre_block",
+    "count": 4
+  }
+}

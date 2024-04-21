@@ -1,0 +1,19 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern":
+  [
+    "iii",
+    "i i",
+    "npn"
+  ],
+  "key":
+  {
+    "i": { "item": "minecraft:iron_nugget" },
+    "n": { "item": "oe:nautilus_shell" },
+    "p": { "item": "oe:pearl" }
+  },
+  "result":
+  {
+    "item": "oe:charm"
+  }
+}
