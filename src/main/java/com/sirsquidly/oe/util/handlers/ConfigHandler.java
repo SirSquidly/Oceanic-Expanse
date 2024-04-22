@@ -814,7 +814,7 @@ public class ConfigHandler
 			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.item.conduitCharmDurability")
-		    @Config.Comment("Te durability of the Charm. Each time it applies Conduit Power, the durability goes down by 1, making this a timer for the item.")
+		    @Config.Comment("The durability of the Charm. Each time it applies Conduit Power, the durability goes down by 1, making this a timer for the item.")
 			@Config.RangeInt(min = 0, max = 9999)
 		    public int conduitCharmDurability = 30;
 		}

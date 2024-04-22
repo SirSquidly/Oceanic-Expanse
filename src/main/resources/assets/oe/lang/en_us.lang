@@ -654,6 +654,11 @@ oe.config.vanillaTweak.drownConversionsList=Drown Conversion List
 oe.config.vanillaTweak.enableDrownParticles=Enable Drowning Particles
 oe.config.vanillaTweak.waterLighting=Less Water Light Blocking
 oe.config.vanillaTweak.waterCancelReplace=Cancel Water Material Replacement
+oe.config.vanillaTweak.inkSquirting=Ink Squirting Config
+oe.config.vanillaTweak.enableInkSquirting=Enable Ink Squirting
+oe.config.vanillaTweak.inkSquirtingDispense=Dispensers squirt Ink
+oe.config.vanillaTweak.inkSquirtingUserImmune=User is immune to effects
+oe.config.vanillaTweak.inkSquirtingCooldown=Ink Squirting Cooldown
 oe.config.vanillaTweak.squidFlop=Enable Squid Flopping
 oe.config.vanillaTweak.squidPush=Enable Squid Pushing
 oe.config.vanillaTweak.waterBonemeal=Water Bonemealing Config
@@ -666,6 +671,11 @@ oe.config.vanillaTweak.squidParticleAmount=Squid Ink Particle Amount
 oe.config.vanillaTweak.babySquidParticleAmount=Baby Squid Ink Particle Amount
 oe.config.vanillaTweak.inkParticleAge=Squid Ink Particle Length
 oe.config.vanillaTweak.inkBlindnessLength=Squid Ink Blindness Length
+oe.config.vanillaTweak.waterMechanics=Water Mechanics Config
+oe.config.vanillaTweak.noDrownList=Drown Disabling List
+oe.config.vanillaTweak.noSwimList=Swim Disabling List
+oe.config.vanillaTweak.noUnderwaterDismount=Disable Underwater Dismounting
+
 
 
 
