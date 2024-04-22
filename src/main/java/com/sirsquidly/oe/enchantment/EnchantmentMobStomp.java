@@ -4,12 +4,14 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.items.ItemHeavyBoots;
 import com.sirsquidly.oe.proxy.CommonProxy;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -52,23 +54,24 @@ public class EnchantmentMobStomp extends Enchantment
         
 	    	if (stomp_level > 0 && !hasStomped && event.getEntity().fallDistance > 3.0F)
 	    	{
-	    		//** The damage the enchantment will deal to the mod it connects to*/
+	    		//** The damage the enchantment will deal to the mob it connects to*/
 	    		float damage = (event.getEntity().fallDistance - 3) * (stomp_level * 1.0F);
 	    		
-	    		float fallWidthCheck = event.getEntity().width;
+	    		float fallWidthCheck = event.getEntity().width/2;
 	    		float fallHeightCheck = (-(float)event.getEntity().motionY * 0.9F);
 
 	    		Entity entity = event.getEntity().world.findNearestEntityWithinAABB(EntityLivingBase.class, new AxisAlignedBB(event.getEntity().getPosition()).grow(fallWidthCheck, fallHeightCheck, fallWidthCheck), event.getEntity());
 	    		
-	    		if (entity != null && !entity.isDead && ((EntityLivingBase) entity).getHealth() > 0)
+	    		if (entity != null && !entity.isDead && ((EntityLivingBase) entity).getHealth() > 0 && (ConfigHandler.enchant.mobStomp.enableMobStompArmorStandBoing || !(entity instanceof EntityArmorStand)))
 	    		{    		
 	    			entity.attackEntityFrom(CommonProxy.causeMobStompDamage(event.getEntity()), damage);
 	    			
 	    			event.getEntity().world.playSound(null, event.getEntity().getPosition(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 	        		
-	    			event.getEntity().fallDistance = event.getEntity().fallDistance / 2 - 3 - (0.5F + Math.min(100, damage) * 0.02F);
+	    			event.getEntity().fallDistance = 0;
     				((EntityLivingBase) event.getEntity()).getItemStackFromSlot(EntityEquipmentSlot.FEET).getTagCompound().setBoolean("hasStomped", true);
-	
+    				if (ConfigHandler.enchant.mobStomp.enableMobStompDurabilityCost) ((EntityLivingBase) event.getEntity()).getItemStackFromSlot(EntityEquipmentSlot.FEET).damageItem(1, ((EntityLivingBase) event.getEntity()));
+
 	        		event.getEntity().motionY = 0.5F + Math.min(100, damage) * 0.02F;
 	        		event.getEntity().velocityChanged = true;
 	    		}
@@ -82,5 +85,5 @@ public class EnchantmentMobStomp extends Enchantment
     
     @Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack)
-	{ return stack.getItem() instanceof ItemHeavyBoots; }
+	{ return ConfigHandler.enchant.mobStomp.enableMobStompOnAnyBoots ? super.canApplyAtEnchantingTable(stack) : stack.getItem() instanceof ItemHeavyBoots; }
 }

@@ -1600,6 +1600,33 @@ public class ConfigHandler
 		    public int loyaltyVoidReturnLevel = -15;
 		}
 		
+		@Config.LangKey("oe.config.enchant.mobStomp")
+		@Config.Comment("Config for Mob Stomp")
+	    public configMobStomp mobStomp = new configMobStomp();
+		
+		public static class configMobStomp
+		{
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.enableMobStompEnchant")
+		    @Config.Comment("If the Mob Stomp Enchantment should be enabled.")
+		    public boolean enableMobStompEnchant = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.enableMobStompArmorStandBoing")
+		    @Config.Comment("Allows Mob Stomp to work when landing atop an Armor Stand.")
+		    public boolean enableMobStompArmorStandBoing = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.enableMobStompDurabilityCost")
+		    @Config.Comment("Makes Mob Stomp deal 1 durability after a successful use.")
+		    public boolean enableMobStompDurabilityCost = true;
+			
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.enchant.enableMobStompOnAnyBoots")
+		    @Config.Comment("Allows Mob Stomp to be placed on any Boots. This enchantment was made to be exclusive to the Heavy Boots, so this breaks the intended balance.")
+		    public boolean enableMobStompOnAnyBoots = false;
+		}
+		
 		@Config.LangKey("oe.config.enchant.riptide")
 		@Config.Comment("Config for Riptide")
 	    public configRiptide riptide = new configRiptide();
