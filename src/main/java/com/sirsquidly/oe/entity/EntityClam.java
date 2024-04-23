@@ -204,7 +204,7 @@ public class EntityClam extends EntityAnimal
 		Boolean doAddClamItem = heldItem.isEmpty() && !playerItem.isEmpty();
 		Boolean doRemoveClamItem = !heldItem.isEmpty() && playerItem.isEmpty();
 		
-		if (this.world.isRemote) return super.processInteract(player, hand);
+		if (this.world.isRemote || this.getOpenTick() == 0) return super.processInteract(player, hand);
 		
 		if (doAddClamItem || doRemoveClamItem)
 		{
@@ -326,36 +326,39 @@ public class EntityClam extends EntityAnimal
 		private final EntityClam clam;
 
         private AIClamAmbient(EntityClam clamIn)
-        {
-        	this.clam = clamIn;
-        }
+        { this.clam = clamIn; }
 
         public boolean shouldExecute()
-        {
-        	List<Entity> checkAbove = this.clam.world.getEntitiesWithinAABBExcludingEntity(this.clam, getEntityBoundingBox().grow(2.0, 2.0, 2.0));
-        	
-            return !this.clam.getLaunching() && !this.clam.getShaking() && (this.clam.isInWater() && this.clam.rand.nextInt(40) == 0 || !checkAbove.isEmpty() && this.clam.getOpenTick() != 0);
-        }
+        { return !this.clam.getLaunching() && !this.clam.getShaking() && this.clam.isInWater() && (this.clam.rand.nextInt(100) == 0 || isPlayerNear() && this.clam.rand.nextInt(5) == 0); }
 
         public void updateTask()
         {
-        	List<Entity> checkAbove = this.clam.world.getEntitiesWithinAABBExcludingEntity(this.clam, getEntityBoundingBox().grow(2.0, 2.0, 2.0));
-        	
-        	if (checkAbove.isEmpty())
+        	if (!isPlayerNear())
         	{
         		if (this.clam.getOpenTick() != 0)
             	{ this.clam.doClamOpening(0); }
             	else
             	{ this.clam.doClamOpening(20); }
         	}
-        	else for (Entity e : checkAbove)
+        	else
         	{
-        		if (!e.isSneaking() && !(e instanceof EntityPlayer))
-        		{
-        			if (this.clam.getOpenTick() != 0) this.clam.doClamOpening(0);
-        			
-        		}
+        		if (this.clam.getOpenTick() != 0) this.clam.doClamOpening(0);
         	}
+        }
+        
+        /** Boolean check if there is a non-sneaking Player near the Clam.*/
+        public boolean isPlayerNear()
+        {
+        	List<Entity> checkAround = this.clam.world.getEntitiesWithinAABB(EntityPlayer.class, getEntityBoundingBox().grow(8.0, 8.0, 8.0));
+        	
+        	if (!checkAround.isEmpty())
+        	{
+        		for (Entity e : checkAround)
+            	{
+        			if (!e.isSneaking()) return true;
+            	}
+        	}
+        	return false;
         }
     }
 }
