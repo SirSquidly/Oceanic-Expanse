@@ -217,6 +217,19 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         return super.processInteract(player, hand);
     }
 	
+	/** Literally loops the dropLoot method depending on the Lobster's Size. A little hacky. */
+	@Override
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
+    {
+        int loopAmount = Math.max(this.getSalmonSize() / 3, 1);
+     
+        for (int l = 0; l < lootingModifier; l++)
+        { if (this.rand.nextBoolean() == true) ++loopAmount; }
+        
+        for (int i = 0; i < loopAmount; i++)
+        { super.dropLoot(wasRecentlyHit, lootingModifier, source); }
+    }
+	
 	public boolean isNotColliding()
     { return this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
 	

@@ -10,13 +10,21 @@
                     "type": "item",
                     "name": "oe:lobster",
                     "weight": 1,
-                    "functions": [
-                        {
-                            "function": "looting_enchant",
-                            "count": {
-                                "min": 0,
-                                "max": 1
-                            }
+                    "functions":
+                    [
+                         {
+                            "function": "furnace_smelt",
+                            "conditions":
+                            [
+                                {
+                                    "condition": "entity_properties",
+                                    "entity": "this",
+                                    "properties":
+                                    {
+                                        "on_fire": true
+                                    }
+                                }
+                            ]
                         }
                     ]
                 }

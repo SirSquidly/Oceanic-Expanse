@@ -1207,6 +1207,7 @@ public class ConfigHandler
 				 	"oe:baby_squid",
 				 	"oe:baby_glow_squid",
 				 	"oe:cod",
+				 	"oe:lobster",
 				 	"oe:salmon",
 				 	"oe:pufferfish",
 				 	"oe:tropical_fish",
@@ -1571,9 +1572,12 @@ public class ConfigHandler
 				 	"oe:crab",
 				 	"oe:drowned",
 				 	"oe:glow_squid",
+				 	"oe:lobster",
 				 	"oe:pickled",
 				 	"oe:pufferfish",
 				 	"oe:salmon",
+				 	"oe:tropical_fish",
+				 	"oe:tropical_slime",
 				 	"oe:turtle"
 		    };
 		}
