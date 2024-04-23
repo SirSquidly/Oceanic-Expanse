@@ -355,6 +355,8 @@ public class OEBlocks
 			
 			ModelLoader.setCustomStateMapper(OEBlocks.PICKLED_HEAD, new StateMap.Builder().ignore(BlockSkull.NODROP).ignore(BlockSkull.FACING).build());
 			
+			ModelLoader.setCustomStateMapper(OEBlocks.KELP_MID, new StateMap.Builder().ignore(BlockVeryBadAndLazyTransfer.HALF).ignore(BlockLiquid.LEVEL).build());
+			
 			/** Sea Pickles actually use the IN_WATER check to change model, or RE-include it**/
 			ModelLoader.setCustomStateMapper(OEBlocks.SEA_PICKLE, new StateMap.Builder().ignore(BlockLiquid.LEVEL).build());
 		}
