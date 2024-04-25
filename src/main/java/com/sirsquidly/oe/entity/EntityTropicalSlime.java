@@ -151,22 +151,24 @@ public class EntityTropicalSlime extends EntitySlime
                 {
                 	itemstack.setCount(itemstack.getCount() - 1);
                 }
-                ItemStack newStack = new ItemStack(OEItems.SPAWN_BUCKET);
                 
-                EntityTropicalFish tropicalFish = new EntityTropicalFish(world);
-    			tropicalFish.setTropicalFishVariant(tropicalFish.getRandomTropicalFishVariant());
+                ItemStack newStack = new ItemStack(ConfigHandler.entity.tropicalFish.enableTropicalFish ? OEItems.SPAWN_BUCKET : Items.WATER_BUCKET);
                 
-                ItemSpawnBucket.recordEntityNBT(newStack, player, tropicalFish);
+                if (ConfigHandler.entity.tropicalFish.enableTropicalFish)
+                {
+                	EntityTropicalFish tropicalFish = new EntityTropicalFish(world);
+        			tropicalFish.setTropicalFishVariant(tropicalFish.getRandomTropicalFishVariant());
+                    
+                    ItemSpawnBucket.recordEntityNBT(newStack, player, tropicalFish);
+                }
+                else
+                { spawnTropicalFish(world, this.getPosition(), true); }
                 
                 if (itemstack.isEmpty()) 
-                {
-                    player.setHeldItem(EnumHand.MAIN_HAND, newStack);
-                } 
+                { player.setHeldItem(EnumHand.MAIN_HAND, newStack); } 
                 
                 else if (!player.inventory.addItemStackToInventory(newStack)) 
-                {
-                    player.dropItem(newStack, false);
-                }
+                { player.dropItem(newStack, false); }
                 
                 // Lazy solution to the game trying to instantly use the spawn bucket when given to the survival player
                 player.getCooldownTracker().setCooldown(newStack.getItem(), 1);
@@ -186,7 +188,7 @@ public class EntityTropicalSlime extends EntitySlime
 	{
 		if (world.isRemote) return;
 		
-		if (deadFish)
+		if (deadFish || !ConfigHandler.entity.tropicalFish.enableTropicalFish)
 		{
 			ItemStack itemstack = new ItemStack(Items.FISH, 1, 2);
 			
