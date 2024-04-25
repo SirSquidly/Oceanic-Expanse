@@ -241,7 +241,7 @@ public class OEBlocks
 				//blockReadyForRegister(PALM_BOOKSHELF, "palm_bookshelf");
 			} 
 			
-			blockReadyForRegister(PICKLED_HEAD, "pickled_head");
+			if (ConfigHandler.block.pickledHead.enablePickledHead) blockReadyForRegister(PICKLED_HEAD, "pickled_head");
 			blockReadyForRegister(PRISMARINE_POT, "prismarine_pot");
 			
 			blockReadyForRegister(NACRE_BLOCK, "nacre_block");

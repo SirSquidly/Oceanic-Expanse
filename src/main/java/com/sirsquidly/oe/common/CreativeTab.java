@@ -104,7 +104,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		            add(list, conch);
 				}
 	        }
-	        add(list, OEBlocks.PICKLED_HEAD);
+	        if (ConfigHandler.block.pickledHead.enablePickledHead) add(list, OEBlocks.PICKLED_HEAD);
 	        add(list, OEItems.BLUE_SLIME_BALL);
 	        add(list, OEBlocks.BLUE_SLIME);
 	        if (ConfigHandler.item.enableNautilusShell) add(list, OEItems.NAUTILUS_SHELL);
@@ -114,7 +114,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEBlocks.NACRE_BLOCK);
 	        add(list, OEBlocks.NACRE_SMOOTH);
 	        add(list, OEItems.BLEAK);
-	        add(list, OEItems.CHARM);
+	        if (ConfigHandler.item.conduitCharm.enableConduitCharm) add(list, OEItems.CHARM);
 	        if (ConfigHandler.block.blueIce.enableBlueIce) add(list, OEBlocks.BLUE_ICE);
 	        if (ConfigHandler.block.dulse.enableDulse)
 	        {
