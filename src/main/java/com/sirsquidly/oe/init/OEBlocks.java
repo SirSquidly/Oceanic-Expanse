@@ -60,8 +60,6 @@ public class OEBlocks
 		public static Block SEAGRASS = new BlockSeagrasss();
 		public static Block KELP = new BlockKelp();
 		
-		public static Block KELP_MID = new BlockVeryBadAndLazyTransfer(OEBlocks.KELP.getDefaultState());
-		public static Block TALL_SEAGRASS = new BlockVeryBadAndLazyTransfer(OEBlocks.SEAGRASS.getDefaultState());
 		public static Block DRIED_KELP_BLOCK = new BlockDriedKelp();
 		public static Block COCONUT = new BlockCoconut();
 		public static Block PALM_BOOKSHELF = new BlockOEBookshelf(SoundType.WOOD).setHardness(1.5F);
@@ -211,8 +209,6 @@ public class OEBlocks
 			if (ConfigHandler.block.enableKelp)
 			{
 				blockReadyForRegister(KELP, "kelp");
-				blockReadyForRegister(KELP_MID, "kelp_mid", false);
-				
 				
 				blockReadyForRegister(DRIED_KELP_BLOCK, "dried_kelp_block");
 			}
@@ -250,7 +246,6 @@ public class OEBlocks
 			blockReadyForRegister(BLUE_SLIME, "blue_slime_block");
 			
 			if (ConfigHandler.block.seagrass.enableSeagrass) blockReadyForRegister(SEAGRASS, "seagrass");
-			if (ConfigHandler.block.seagrass.enableTallSeagrass) blockReadyForRegister(TALL_SEAGRASS, "tall_seagrass", false);
 			if (ConfigHandler.block.enableSeaPickle) blockReadyForRegister(SEA_PICKLE, "sea_pickle");
 			if (ConfigHandler.block.seaOats.enableSeaOats) blockReadyForRegister(SEA_OATS, "sea_oats");
 			if (ConfigHandler.block.enableSeastar) blockReadyForRegister(SEASTAR, "seastar");
@@ -354,8 +349,6 @@ public class OEBlocks
 			ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
 			
 			ModelLoader.setCustomStateMapper(OEBlocks.PICKLED_HEAD, new StateMap.Builder().ignore(BlockSkull.NODROP).ignore(BlockSkull.FACING).build());
-			
-			ModelLoader.setCustomStateMapper(OEBlocks.KELP_MID, new StateMap.Builder().ignore(BlockVeryBadAndLazyTransfer.HALF).ignore(BlockLiquid.LEVEL).build());
 			
 			/** Sea Pickles actually use the IN_WATER check to change model, or RE-include it**/
 			ModelLoader.setCustomStateMapper(OEBlocks.SEA_PICKLE, new StateMap.Builder().ignore(BlockLiquid.LEVEL).build());

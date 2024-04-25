@@ -51,7 +51,7 @@ public class ItemBleak extends Item
         	
         	for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-effectMath, -effectMath, -effectMath), pos.add(effectMath, effectMath, effectMath)))
     		{
-    			if (worldIn.getBlockState(blockpos$mutableblockpos).getBlock() == OEBlocks.SEAGRASS || worldIn.getBlockState(blockpos$mutableblockpos).getBlock() == OEBlocks.TALL_SEAGRASS)
+    			if (worldIn.getBlockState(blockpos$mutableblockpos).getBlock() == OEBlocks.SEAGRASS)
         		{
         			worldIn.setBlockState(blockpos$mutableblockpos, Blocks.WATER.getDefaultState());
         		}
