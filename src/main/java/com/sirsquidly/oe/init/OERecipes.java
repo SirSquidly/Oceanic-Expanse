@@ -28,6 +28,7 @@ public class OERecipes
 		GameRegistry.addSmelting(OEItems.CRAB_UNCOOKED, new ItemStack(OEItems.CRAB_COOKED, 1), 0.1F);
 		GameRegistry.addSmelting(OEItems.LOBSTER_UNCOOKED, new ItemStack(OEItems.LOBSTER_COOKED, 1), 0.1F);
 		
+		GameRegistry.addSmelting(OEBlocks.NACRE_BLOCK, new ItemStack(OEBlocks.NACRE_SMOOTH, 1), 0.1F);
 		GameRegistry.addSmelting(OEItems.SPONGE_CHUNK_WET, new ItemStack(OEItems.SPONGE_CHUNK, 1), 0.1F);
 		
 		FurnaceFuelHandler fuelReg = new FurnaceFuelHandler();
