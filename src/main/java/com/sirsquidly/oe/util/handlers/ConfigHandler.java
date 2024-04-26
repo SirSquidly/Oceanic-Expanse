@@ -941,7 +941,7 @@ public class ConfigHandler
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.item.enableSpongeChunk")
-		    @Config.Comment("If the Charm is enabled.")
+		    @Config.Comment("If the Sponge Chunk is enabled.")
 		    public boolean enableSpongeChunk = true;
 		
 			@RequiresMcRestart

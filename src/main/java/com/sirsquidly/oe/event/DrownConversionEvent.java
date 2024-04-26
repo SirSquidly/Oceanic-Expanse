@@ -16,7 +16,6 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntitySkeletonHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
@@ -67,33 +66,25 @@ public class DrownConversionEvent
 	@SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event)
     {
-        World world = event.getEntityLiving().getEntityWorld();
-        Random rand = event.getEntity().world.rand;
+		World world = event.getEntityLiving().getEntityWorld();
+		
+		if(world.getTotalWorldTime() % 20L != 0L) return;
         Entity entity = event.getEntity();
-        NBTTagCompound entityData = entity.getEntityData();
         if (entity == null || entity instanceof EntityPlayer || !(entity instanceof EntityLiving)) return;
         
-        if (ConfigArrayHandler.NODROWN.contains(EntityList.getKey(entity)) && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
-        {
-        	entity.setAir(100);
-        	
-        	if (entity instanceof EntitySkeletonHorse)
-        	{
-        		//entity.set
-        	}
-        }
+        Random rand = world.rand;
         
-        if(ConfigArrayHandler.DROWNCONVERTFROM.contains(EntityList.getKey(entity)) && entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
+        if (entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
         {
-			Class<? extends Entity> fromEntity = EntityList.getClass(EntityList.getKey(entity));
-			Class<? extends Entity> toEntity = EntityList.getClass(ConfigArrayHandler.DROWNCONVERTTO.get(ConfigArrayHandler.DROWNCONVERTFROM.indexOf(EntityList.getKey(entity))));
-			
-			if(fromEntity != null && toEntity != null && entity.getClass() == fromEntity) 
-			{
+        	NBTTagCompound entityData = entity.getEntityData();
+        	
+        	if (ConfigArrayHandler.NODROWN.contains(EntityList.getKey(entity))) entity.setAir(100);
+            
+            if (ConfigArrayHandler.DROWNCONVERTFROM.contains(EntityList.getKey(entity)))
+            {
 	            if(entityData.hasKey("DrowningConversionTime"))
 	            {
-	                int conversionTime = entityData.getInteger("DrowningConversionTime");
-	                conversionTime -= 1;
+	                int conversionTime = entityData.getInteger("DrowningConversionTime") - 1;
 	                
 	                if (rand.nextFloat() > 0.5 && ConfigHandler.vanillaTweak.drownConverting.enableDrownParticles)
 	                {
@@ -101,35 +92,31 @@ public class DrownConversionEvent
 	                }
 	                
 	                if(conversionTime <= 0)
-	                {
-	                	placeDrowned(world, (EntityLiving) entity, toEntity, rand);
-	                }
-	                else
-	                {
-	                    entityData.setInteger("DrowningConversionTime", conversionTime);
-	                }
+	                { placeDrowned(world, (EntityLiving) entity, rand); }
+	                
+	                entityData.setInteger("DrowningConversionTime", conversionTime);
 	            }
 	            else
 	            {
 	            	if(!world.isRemote)
 	                {
-	                    int conversionTime = 300;
+	                    int conversionTime = 14;
 	                    entity.getEntityData().setInteger("DrowningConversionTime", conversionTime);
 	                }
 	            }
 			}
-		
-        }
-        /** This is cleanup in case the config was being altered. */
-        else if (entityData.hasKey("DrowningConversionTime"))
-        {
-        	entity.getEntityData().removeTag("DrowningConversionTime");
+            /** This is cleanup in case the config was being altered. */
+            else if (entityData.hasKey("DrowningConversionTime"))
+            {
+            	entity.getEntityData().removeTag("DrowningConversionTime");
+            }
         }
     }
 	
 	
-	public static void placeDrowned(World worldIn, EntityLiving entity, Class<? extends Entity> toEntity, Random rand)
+	public static void placeDrowned(World worldIn, EntityLiving entity, Random rand)
 	{
+		Class<? extends Entity> toEntity = EntityList.getClass(ConfigArrayHandler.DROWNCONVERTTO.get(ConfigArrayHandler.DROWNCONVERTFROM.indexOf(EntityList.getKey(entity))));
 		Entity drowned = EntityRegistry.getEntry(toEntity).newInstance(worldIn);
         
         drowned.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);

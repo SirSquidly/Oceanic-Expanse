@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.entity;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -20,12 +21,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIZombieAttack;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -155,11 +160,13 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	public void onUpdate()
     {
 		super.onUpdate();
-		this.setupSwimTimeing();
+		this.removeInjectedAI();
+		
+		if (!this.isEntityAlive()) return;
 		BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
 		EntityLivingBase attackTarget = this.getAttackTarget();
 		
-		if (this.isEntityAlive() && attackTarget != null && this.isCaptain() && this.getDistanceSq(attackTarget.getPosition()) <= 10.0F)
+		if (attackTarget != null && this.isCaptain() && this.getDistanceSq(attackTarget.getPosition()) <= 10.0F)
         {
             this.conchUseTime += 1;
 
@@ -189,32 +196,22 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 		
 		if (!world.isRemote) 
         {
-			if (attackTarget != null && this.getItemInUseMaxCount() == 0 && (attackTarget.posY - 1.9 > this.posY || attackTarget.posY + 1.9 < this.posY))
-			{
-				this.setSwimming(true);
-			}
-			else this.setSwimming(false);
+			this.setupSwimTimeing();
 			
+			this.setSwimming(attackTarget != null && this.getItemInUseMaxCount() == 0 && (attackTarget.posY - 1.9 > this.posY || attackTarget.posY + 1.9 < this.posY));
 			
-            if (isServerWorld() && (isInWater() && this.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER)) navigator = waterNavigator; 
-            else navigator = groundNavigator;
-            
-            if (isInWater() || ConfigHandler.entity.drowned.enableDrownedStepup) stepHeight = 1.0F;
-            else stepHeight = 0.6F;
-            
+            navigator = isInWater() && this.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER ? waterNavigator : groundNavigator;
+            stepHeight = isInWater() || ConfigHandler.entity.drowned.enableDrownedStepup ? 1.0F : 0.6F;
+
             //** The material check is to make sure they don't act odd when the player is bobbing on the surface of water. */
             if (attackTarget != null && this.world.isDaytime() && (!attackTarget.isWet() && this.world.getBlockState(attackTarget.getPosition().down()).getMaterial() != Material.WATER))
-            {
-            	setAttackTarget(null);
-            }
+            { setAttackTarget(null); }
         }
     }
     
     //** Increases the swim timers when is swimming. */
     public void setupSwimTimeing()
     {
-    	if (!world.isRemote) return;
-    	
     	prevSwimTime = swimTime;
     	
     	if (this.isInWater() && this.isSwimming())
@@ -288,12 +285,11 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
+    	this.removeInjectedAI();
+    	
     	this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
-        if (this.rand.nextFloat() < 0.05F)
-        { this.setLeftHanded(true); }
-        else
-        { this.setLeftHanded(false); }
+    	this.setLeftHanded(this.rand.nextFloat() < 0.05F);
 
         float f = difficulty.getClampedAdditionalDifficulty();
 
@@ -383,6 +379,24 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     
     //Lots of AI Below
     
+  //** Checks and removes any AI Tasks the Drowned should NEVER have. */
+	public void removeInjectedAI()
+	{	
+		Iterator<EntityAITasks.EntityAITaskEntry> iterator = this.tasks.taskEntries.iterator();
+		while (iterator.hasNext())
+		{
+			EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = iterator.next();
+			EntityAIBase entityaibase = entityaitasks$entityaitaskentry.action;
+
+			if (entityaibase instanceof EntityAIBreakDoor || entityaibase instanceof EntityAIMoveThroughVillage)
+			{
+				Main.logger.error(iterator + " was scrubbed from a Drowned! This isn't supposed to be here!");
+				iterator.remove();
+			}
+		}
+	}
+  	
+  	
     public class DrownedAIGettoWater extends EntityAIMoveToBlock
     {
     	EntityCreature drowned;
