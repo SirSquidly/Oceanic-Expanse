@@ -169,7 +169,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     	{
     		if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && checkPlaceWater(worldIn, pos.up(), false))
             {
-            	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)), 2);
+            	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)));
         		worldIn.setBlockState(pos, this.getDefaultState(), 2);
             }
             else
@@ -191,7 +191,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     			
         		if(this.canPlaceBlockAt(worldIn, next.up()) && i != BlockKelp.maxHeight)
             	{ 
-        			worldIn.setBlockState(next.up(), this.getDefaultState().withProperty(BlockKelp.AGE, Integer.valueOf(i + 1)), 16 | 2);
+        			worldIn.setBlockState(next.up(), this.getDefaultState().withProperty(BlockKelp.AGE, Integer.valueOf(i + 1)));
         			worldIn.setBlockState(next, this.getDefaultState(), 16 | 2);
             	}
         	}
