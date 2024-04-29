@@ -743,7 +743,7 @@ public class ConfigHandler
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.enableBisqueMilkEffect")
 		    @Config.Comment("If Bisques remove all Potion Effects. This is here because Milk is used to craft Bisque.")
-		    public boolean enableBisqueMilkEffect = true;
+		    public boolean enableBisqueMilkEffect = false;
 			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.block.enableCrabBisque")
