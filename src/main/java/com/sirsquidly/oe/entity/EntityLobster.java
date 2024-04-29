@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.entity;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -46,6 +47,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -236,7 +238,23 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 	@Override
 	public boolean getCanSpawnHere()
     {
-        return this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this);
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int k = MathHelper.floor(this.posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        
+        List<Entity> checkSurroundingClams = this.world.getEntitiesWithinAABB(EntityLobster.class, getEntityBoundingBox().grow(64, 64, 64));
+		if ( checkSurroundingClams.size() > 3) return false;
+		
+        for (int l = 0; l < 3; l++)
+        {
+        	if (this.world.getBlockState(blockpos.down()).getMaterial() == Material.WATER) blockpos = blockpos.add(0, -l, 0);
+        }
+
+		return this.world.getBlockState(blockpos.down()).isSideSolid(world, new BlockPos(this).down(), EnumFacing.UP);
+    
+		
+        //return this.world.getBlockState((new BlockPos(this)).down()).canEntitySpawn(this) && this.world.getBlockState((new BlockPos(this)).down()).isSideSolid(world, new BlockPos(this).down(), EnumFacing.UP);
     }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
