@@ -24,7 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -153,25 +152,6 @@ public class DrownConversionEvent
         {
         	Main.proxy.spawnParticle(2, worldIn, drowned.posX + (rand.nextFloat() - rand.nextFloat()), drowned.posY + 1 + (rand.nextFloat() - rand.nextFloat()), drowned.posZ + (rand.nextFloat() - rand.nextFloat()), 0, 0, 0, 3, 128, 255, 192);
         }
-    }
-	
-	@SubscribeEvent
-    public static void onDismount(EntityMountEvent event)
-	{
-		Entity rider = event.getEntityMounting();
-		Entity mount = event.getEntityBeingMounted(); 
-		
-		if (event.isMounting() || rider == null || mount == null || !rider.isWet()) return;
-
-		if (rider instanceof EntityPlayer)
-		{
-			EntityPlayer player = (EntityPlayer) rider;
-
-			if (rider.isSneaking() || mount.isDead || player.isPlayerSleeping()) return;
-			
-			event.setCanceled(true);
-		}
-		else event.setCanceled(true);
     }
 
 	/**

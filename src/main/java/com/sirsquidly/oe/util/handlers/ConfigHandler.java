@@ -1806,11 +1806,6 @@ public class ConfigHandler
 		    };
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.vanillaTweak.noUnderwaterDismount")
-		    @Config.Comment("Alters the Dismount Behavior to not force you off when underwater.")
-		    public boolean noUnderwaterDismount = true;
-		    
-		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.vanillaTweak.noDrownList")
 		    @Config.Comment("Sets mobs to not have their air run low when underwater. ONLY applies when underwater!")
 		    public String[] noDrownList =

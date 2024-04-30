@@ -676,7 +676,6 @@ oe.config.vanillaTweak.inkBlindnessLength=Squid Ink Blindness Length
 oe.config.vanillaTweak.waterMechanics=Water Mechanics Config
 oe.config.vanillaTweak.noDrownList=Drown Disabling List
 oe.config.vanillaTweak.noSwimList=Swim Disabling List
-oe.config.vanillaTweak.noUnderwaterDismount=Disable Underwater Dismounting
 
 
 
