@@ -230,6 +230,9 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         
         for (int i = 0; i < loopAmount; i++)
         { super.dropLoot(wasRecentlyHit, lootingModifier, source); }
+        
+        if (this.getSaddled())
+        { this.dropItem(Items.SADDLE, 1); }
     }
 	
 	public boolean isNotColliding()
