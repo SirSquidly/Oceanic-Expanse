@@ -4,10 +4,18 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.blocks.BlockConduit;
+import com.sirsquidly.oe.blocks.BlockCoral;
+import com.sirsquidly.oe.blocks.BlockCoralFan;
+import com.sirsquidly.oe.blocks.BlockPrismarinePot;
+import com.sirsquidly.oe.blocks.BlockSeaPickle;
+import com.sirsquidly.oe.blocks.BlockSeaStar;
+import com.sirsquidly.oe.blocks.BlockUnderwaterTorch;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,6 +42,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemSpongeChunk extends Item 
 {
 	private int maxWater = ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation;
+	public static String[] dontBreakList = 
+		{
+			 	"oe:seagrass",
+			 	"oe:kelp"
+	    };
 	
 	public ItemSpongeChunk()
 	{ 
@@ -80,23 +93,8 @@ public class ItemSpongeChunk extends Item
 		{
 			if (!worldIn.isRemote && player.canPlayerEdit(pos, facing, itemstack))
 			{
-				int effectMath = ConfigHandler.item.spongeChunk.spongeChunkAbsorbRadius / 2;
-				int collectedWater = 0;
-				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
-            	
-				for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-effectMath, -effectMath, -effectMath), pos.add(effectMath, effectMath, effectMath)))
-				{
-					Block block = worldIn.getBlockState(blockpos$mutableblockpos).getBlock();
-					if (block == Blocks.WATER)
-					{
-						worldIn.setBlockState(blockpos$mutableblockpos, Blocks.AIR.getDefaultState());
-						collectedWater++;
-					}
-					else if (block == Blocks.FLOWING_WATER)
-					{ worldIn.setBlockState(blockpos$mutableblockpos, Blocks.AIR.getDefaultState()); }
-        		}
-				this.changeSpongeItem(itemstack, hand, player, this.getWaterCount(itemstack) + collectedWater);
-            }
+				doWaterCollection(worldIn, pos, player, hand, itemstack);
+			}
         	player.setActiveHand(hand);
         	player.getCooldownTracker().setCooldown(this, 5);
         	
@@ -107,6 +105,36 @@ public class ItemSpongeChunk extends Item
 		
 		return EnumActionResult.FAIL;
 	}
+	
+	private void doWaterCollection(World world, BlockPos pos, EntityPlayer player, EnumHand hand, ItemStack itemstack)
+	{
+		int effectMath = ConfigHandler.item.spongeChunk.spongeChunkAbsorbRadius / 2;
+		int collectedWater = 0;
+		world.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+    	
+		for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-effectMath, -effectMath, -effectMath), pos.add(effectMath, effectMath, effectMath)))
+		{
+			//final FluidState fluidState = FluidloggedUtils.getFluidState(world, offset);
+			
+			Block block = world.getBlockState(blockpos$mutableblockpos).getBlock();
+			if (block instanceof BlockConduit || block instanceof BlockCoral || block instanceof BlockCoralFan || block instanceof BlockPrismarinePot || block instanceof BlockSeaPickle || block instanceof BlockSeaStar  || block instanceof BlockUnderwaterTorch)
+			{
+				world.setBlockState(blockpos$mutableblockpos, world.getBlockState(blockpos$mutableblockpos).withProperty(BlockCoral.IN_WATER, false));
+				collectedWater++;
+			}
+			else if (block == Blocks.FLOWING_WATER)
+			{ world.setBlockState(blockpos$mutableblockpos, Blocks.AIR.getDefaultState()); }
+			else if (world.getBlockState(blockpos$mutableblockpos).getMaterial() == Material.WATER)
+			{
+				block.dropBlockAsItemWithChance(world, blockpos$mutableblockpos, world.getBlockState(blockpos$mutableblockpos), 1.0F, 0);
+				world.setBlockState(blockpos$mutableblockpos, Blocks.AIR.getDefaultState());
+				collectedWater++;
+			}
+		}
+		
+		if (!player.capabilities.isCreativeMode) this.changeSpongeItem(itemstack, hand, player, this.getWaterCount(itemstack) + collectedWater);
+	}
+	
 	
 	public int getWaterCount(ItemStack stack)
 	{
