@@ -60,7 +60,7 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 {
 	protected Block spawnableBlock = Blocks.SAND;
 
-	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Item.getItemFromBlock(OEBlocks.SEAGRASS));
+	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(ConfigHandler.block.seagrass.enableSeagrass ? Item.getItemFromBlock(OEBlocks.SEAGRASS) : Item.getItemFromBlock(Blocks.TALLGRASS));
 	private static final UUID SWIMMING_SPEED_BOOST_ID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
 	private static final AttributeModifier SWIM_SPEED_BOOST = (new AttributeModifier(SWIMMING_SPEED_BOOST_ID, "Swimming speed boost", 0.15000000596046448D, 0)).setSaved(false);
 	protected static final DataParameter<BlockPos> HOME_BLOCK_POS = EntityDataManager.<BlockPos>createKey(EntityTurtle.class, DataSerializers.BLOCK_POS);
