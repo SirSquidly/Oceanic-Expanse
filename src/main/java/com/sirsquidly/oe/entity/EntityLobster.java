@@ -45,6 +45,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -78,6 +79,8 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 		super(worldIn);
 		//this.setSize(0.8F, 0.3F);
 		this.setCanPickUpLoot(true);
+		this.setPathPriority(PathNodeType.WALKABLE, 1.0F);
+		this.setPathPriority(PathNodeType.WATER, 0.0F);
 		this.moltCooldown = ConfigHandler.entity.lobster.lobsterMoltCooldown;
 		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
@@ -110,10 +113,10 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.15D);
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
-        this.getEntityAttribute(EntityLivingBase.SWIM_SPEED).setBaseValue(1.8D);
+        this.getEntityAttribute(EntityLivingBase.SWIM_SPEED).setBaseValue(1.0D);
     }
 	
 	public int getTalkInterval()
@@ -271,7 +274,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     { return LootTableHandler.ENTITIES_LOBSTER; }
 	
 	protected float getWaterSlowDown()
-    { return this.isBeingRidden() ? 0.89F : 0.8F; }
+    { return this.isBeingRidden() ? 0.4F : 0.8F; }
 	
 	public EnumCreatureAttribute getCreatureAttribute()
     { return EnumCreatureAttribute.ARTHROPOD; }
@@ -534,7 +537,8 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         this.setPosition(this.posX, this.posY, this.posZ);
         
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)(10.0D + size/2));
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)(0.15D + (size * 0.001D)));
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)(0.1D + (size * 0.001D)));
+        this.getEntityAttribute(EntityLivingBase.SWIM_SPEED).setBaseValue((double)(10.0D + (size * 0.001D)));
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue((double)(1.0D + size/4));
         
         if (resetHealth)

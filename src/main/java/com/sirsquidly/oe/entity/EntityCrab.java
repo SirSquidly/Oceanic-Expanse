@@ -46,6 +46,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -81,6 +82,8 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
 		this.setSize(0.8F, 0.5F);
 		this.setCanPickUpLoot(true);
 		this.setAnimationState(0);
+		this.setPathPriority(PathNodeType.WALKABLE, 0.0F);
+		this.setPathPriority(PathNodeType.WATER, 0.0F);
 		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
