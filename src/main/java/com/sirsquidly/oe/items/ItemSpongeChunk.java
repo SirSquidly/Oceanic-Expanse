@@ -36,6 +36,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.WorldEvents;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -91,7 +92,7 @@ public class ItemSpongeChunk extends Item
 		}
 		else if (ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation != 0)
 		{
-			if (!worldIn.isRemote && player.canPlayerEdit(pos, facing, itemstack))
+			if (player.canPlayerEdit(pos, facing, itemstack))
 			{
 				doWaterCollection(worldIn, pos, player, hand, itemstack);
 			}
@@ -127,6 +128,7 @@ public class ItemSpongeChunk extends Item
 			else if (world.getBlockState(blockpos$mutableblockpos).getMaterial() == Material.WATER)
 			{
 				block.dropBlockAsItemWithChance(world, blockpos$mutableblockpos, world.getBlockState(blockpos$mutableblockpos), 1.0F, 0);
+				if (block != Blocks.WATER && world.isRemote) world.playEvent(WorldEvents.BREAK_BLOCK_EFFECTS, blockpos$mutableblockpos, Block.getStateId(world.getBlockState(blockpos$mutableblockpos)));
 				world.setBlockState(blockpos$mutableblockpos, Blocks.AIR.getDefaultState());
 				collectedWater++;
 			}
