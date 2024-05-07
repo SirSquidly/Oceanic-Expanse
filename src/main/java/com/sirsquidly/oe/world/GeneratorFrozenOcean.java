@@ -196,7 +196,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
     {
     	int xPos = rand.nextInt(16) + 8;
 		int zPos = rand.nextInt(16) + 8;
-		ChunkPos chunkPos = worldIn.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+		ChunkPos chunkPos = worldIn.getChunk(chunkX, chunkZ).getPos();
 		BlockPos floorPos = chunkPos.getBlock(0, 0, 0).add(xPos, 0, zPos);
 		floorPos = getSeaFloor(worldIn, floorPos.getX(), floorPos.getZ()).up();
 		

@@ -156,7 +156,7 @@ public class BlockCoralFan extends Block implements IChecksWater
 	}
     
     @Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
 		if (state.getValue(IN_WATER) && !(worldIn.provider.doesWaterVaporize())) 
 		{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
 		else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
@@ -168,7 +168,7 @@ public class BlockCoralFan extends Block implements IChecksWater
     }
     
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
         return BlockRenderLayer.CUTOUT;
     }

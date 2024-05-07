@@ -45,7 +45,7 @@ public class WorldGenKelpForest implements IWorldGenerator
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{ 
 		//Biome biome = world.getBiomeForCoordsBody(new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8));
-		ChunkPos chunkPos = world.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+		ChunkPos chunkPos = world.getChunk(chunkX, chunkZ).getPos();
         Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
         
         boolean isValidBiome = false;

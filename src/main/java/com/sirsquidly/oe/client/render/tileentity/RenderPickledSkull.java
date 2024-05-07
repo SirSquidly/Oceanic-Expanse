@@ -26,7 +26,7 @@ public class RenderPickledSkull extends TileEntitySpecialRenderer<TilePickledSku
 
 	public void render(TilePickledSkull te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
     {
-        EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+        EnumFacing enumfacing = EnumFacing.byIndex(te.getBlockMetadata() & 7);
         boolean intest = te.getIntestinesOut();
         float f = te.getAnimationProgress(partialTicks);
         this.renderSkull((float)x, (float)y, (float)z, enumfacing, (float)(te.getSkullRotation() * 360) / 16.0F, destroyStage, intest, f);

@@ -61,8 +61,8 @@ public class BlockUnderwaterTorch extends BlockTorch implements IChecksWater
             {
                 EnumFacing enumfacing1 = enumfacing.getOpposite();
                 
-                if (partCheck == 1 || partCheck == 3) Main.proxy.spawnParticle(1, d0 + 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getFrontOffsetZ(), xRandSpead * 0.2D, 0, zRandSpead * 0.2D);
-                if (partCheck >= 2) worldIn.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, d0 + 0.27D * (double)enumfacing1.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getFrontOffsetZ(), xRandSpead, 0.05D, zRandSpead);
+                if (partCheck == 1 || partCheck == 3) Main.proxy.spawnParticle(1, d0 + 0.27D * (double)enumfacing1.getXOffset(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getZOffset(), xRandSpead * 0.2D, 0, zRandSpead * 0.2D);
+                if (partCheck >= 2) worldIn.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, d0 + 0.27D * (double)enumfacing1.getXOffset(), d1 + 0.22D, d2 + 0.27D * (double)enumfacing1.getZOffset(), xRandSpead, 0.05D, zRandSpead);
             }
             else
             {

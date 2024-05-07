@@ -115,8 +115,8 @@ public class GeneratorCoconutTree extends WorldGenAbstractTree
 
                         if (l1 >= k2 && l2 > 0)
                         {
-                            i3 += enumfacing.getFrontOffsetX();
-                            j1 += enumfacing.getFrontOffsetZ();
+                            i3 += enumfacing.getXOffset();
+                            j1 += enumfacing.getZOffset();
                             --l2;
                         }
                         

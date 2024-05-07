@@ -59,7 +59,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator generator, IChunkProvider provider)
 	{
-        ChunkPos chunkPos = world.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+        ChunkPos chunkPos = world.getChunk(chunkX, chunkZ).getPos();
         Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
 
 		for(int i = 0; i < biomes.length; i++)

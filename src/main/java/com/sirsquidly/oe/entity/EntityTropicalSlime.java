@@ -219,7 +219,7 @@ public class EntityTropicalSlime extends EntitySlime
 	public boolean getCanSpawnHere()
     {
         BlockPos blockpos = new BlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ));
-        Chunk chunk = this.world.getChunkFromBlockCoords(blockpos);
+        Chunk chunk = this.world.getChunk(blockpos);
 
         if (this.world.getWorldInfo().getTerrainType().handleSlimeSpawnReduction(rand, world))
         {

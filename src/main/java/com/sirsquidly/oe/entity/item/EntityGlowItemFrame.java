@@ -169,10 +169,10 @@ public class EntityGlowItemFrame extends EntityItemFrame implements IEntityAddit
 			double d0 = (double)this.hangingPosition.getX() + 0.5D;
             double d1 = (double)this.hangingPosition.getY() + 0.5D;
             double d2 = (double)this.hangingPosition.getZ() + 0.5D;
-			d1 = d1 - (double)this.extFacingDirection.getFrontOffsetY() * 0.46875D;
+			d1 = d1 - (double)this.extFacingDirection.getYOffset() * 0.46875D;
 
 			double d6 = this.getHeightPixels();
-			double d7 = -this.extFacingDirection.getFrontOffsetY();
+			double d7 = -this.extFacingDirection.getYOffset();
 			double d8 = this.getHeightPixels();
 
 			this.posX = d0;
@@ -215,7 +215,7 @@ public class EntityGlowItemFrame extends EntityItemFrame implements IEntityAddit
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		this.updateFacingWithBoundingBox(EnumFacing.getFront(compound.getByte("RealFacing")));
+		this.updateFacingWithBoundingBox(EnumFacing.byIndex(compound.getByte("RealFacing")));
 	}
 
 	@Override
@@ -224,5 +224,5 @@ public class EntityGlowItemFrame extends EntityItemFrame implements IEntityAddit
 
 	@Override
 	public void readSpawnData(ByteBuf additionalData)
-	{ updateFacingWithBoundingBox(EnumFacing.getFront(additionalData.readShort())); }
+	{ updateFacingWithBoundingBox(EnumFacing.byIndex(additionalData.readShort())); }
 }

@@ -404,7 +404,7 @@ public class EntityTrident extends AbstractArrow
 		this.dataManager.set(RETURNING, Boolean.valueOf(compound.getBoolean("Returning")));
 		this.dataManager.set(DID_LIGHTNING, Boolean.valueOf(compound.getBoolean("Did_Lightning")));
 		NBTTagCompound nbttagcompound = compound.getCompoundTag("Item");
-        if (nbttagcompound != null && !nbttagcompound.hasNoTags())
+        if (nbttagcompound != null && !nbttagcompound.isEmpty())
         {
             this.setItem(new ItemStack(nbttagcompound));
         }

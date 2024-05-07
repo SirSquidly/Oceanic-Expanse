@@ -117,7 +117,7 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
     }
 	
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) 
+	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) 
 	{ worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
 	
 	@Override

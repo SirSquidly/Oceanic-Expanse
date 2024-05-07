@@ -58,7 +58,7 @@ public class WorldGenPrismarinePot implements IWorldGenerator
 	{
         boolean isValidBiome = false;
 
-        ChunkPos chunkPos = world.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+        ChunkPos chunkPos = world.getChunk(chunkX, chunkZ).getPos();
         Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
         
 		for(int i = 0; i < biomes.length; i++)

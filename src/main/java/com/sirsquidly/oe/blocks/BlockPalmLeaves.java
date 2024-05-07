@@ -81,18 +81,20 @@ public class BlockPalmLeaves extends BlockLeaves
     
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
+    public BlockRenderLayer getRenderLayer()
     {
-        return Blocks.LEAVES.getBlockLayer();
+        return Blocks.LEAVES.getRenderLayer();
     }
     
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return Blocks.LEAVES.isOpaqueCube(state);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
     { return Blocks.LEAVES.shouldSideBeRendered(state, world, pos, side); }

@@ -33,7 +33,7 @@ public class BucketWaterEvent
 		Vec3d eyePosition = player.getPositionEyes(1.0F);
         Vec3d lookVector = player.getLook(1.0F);
         double playerReach = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
-        Vec3d traceEnd = eyePosition.addVector(lookVector.x * playerReach, lookVector.y * playerReach, lookVector.z * playerReach);
+        Vec3d traceEnd = eyePosition.add(lookVector.x * playerReach, lookVector.y * playerReach, lookVector.z * playerReach);
 		RayTraceResult rtresult = player.getEntityWorld().rayTraceBlocks(eyePosition, traceEnd, false);;
 
 		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.BLOCK)

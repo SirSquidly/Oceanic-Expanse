@@ -7,8 +7,10 @@ import javax.annotation.Nullable;
 
 
 
+
 import com.sirsquidly.oe.init.OEBlocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +26,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.WorldEvents;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,11 +43,6 @@ public class ItemBleak extends Item
 		pos = pos.offset(facing);
 		ItemStack itemstack = player.getHeldItem(hand);
 		
-        if (worldIn.isRemote)
-        {
-        	this.spawnParticles(worldIn, pos, 100 * effectMath); 
-        	return EnumActionResult.SUCCESS;
-        }
         if (player.canPlayerEdit(pos, facing, itemstack))
         {
         	worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
@@ -53,12 +51,14 @@ public class ItemBleak extends Item
     		{
     			if (worldIn.getBlockState(blockpos$mutableblockpos).getBlock() == OEBlocks.SEAGRASS)
         		{
+    				if (worldIn.isRemote) worldIn.playEvent(WorldEvents.BREAK_BLOCK_EFFECTS, blockpos$mutableblockpos, Block.getStateId(worldIn.getBlockState(blockpos$mutableblockpos)));
         			worldIn.setBlockState(blockpos$mutableblockpos, Blocks.WATER.getDefaultState());
         		}
     		}
         	if (!player.capabilities.isCreativeMode)
             { itemstack.shrink(1); }
         	
+        	this.spawnParticles(worldIn, pos, 100 * effectMath); 
     		return EnumActionResult.SUCCESS;
         }
         else {return EnumActionResult.FAIL;}

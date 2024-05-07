@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		{ super(label); }
 
 		@Override
-		public ItemStack getTabIconItem() 
+		public ItemStack createIcon() 
 		{ return new ItemStack(OEItems.GLOW_INK); }
 		
 		@Override

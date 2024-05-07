@@ -91,7 +91,7 @@ public class Main {
                 
                 boolean flag = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) != 0 || EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, stack) != 0;
 
-		        iprojectile.shoot((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY() + 0.1F), (double)enumfacing.getFrontOffsetZ(), velocity * 3.0F, this.getProjectileInaccuracy());
+		        iprojectile.shoot((double)enumfacing.getXOffset(), (double)((float)enumfacing.getYOffset() + 0.1F), (double)enumfacing.getZOffset(), velocity * 3.0F, this.getProjectileInaccuracy());
 		        world.spawnEntity((Entity)iprojectile);
 		        
 		        if (!flag) 

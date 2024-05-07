@@ -84,7 +84,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	}
 	
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) 
+	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) 
 	{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
 
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)

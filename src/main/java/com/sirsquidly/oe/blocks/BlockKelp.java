@@ -105,7 +105,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 	}
 
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state)
 	{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
 
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)

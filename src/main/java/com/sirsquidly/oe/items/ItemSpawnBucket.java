@@ -79,7 +79,7 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
     {
 		if (pullSpecialNameFromMob(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishSpecificNames)
 		{
-			return ("" + I18n.translateToLocal(this.getUnlocalizedName() + ".name")).trim() + " " + pullSpecialNameFromMob(stack);
+			return ("" + I18n.translateToLocal(this.getTranslationKey() + ".name")).trim() + " " + pullSpecialNameFromMob(stack);
 		}
 
         return super.getItemStackDisplayName(stack);

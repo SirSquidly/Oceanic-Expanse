@@ -88,7 +88,7 @@ public class RenderGlowItemFrame extends RenderItemFrame
 		GlStateManager.popMatrix();
 		/** A switch between a name rendering either at the Quark name positions, or in the future vanilla position. */
 		double nameYOffset = ConfigHandler.item.glowItemFrame.glowItemFrameQuarkNamePosition ? glowItemFrame.extFacingDirection == EnumFacing.DOWN ? 0.75D : 0.25D : 0.0D;
-		renderName(entity, x + glowItemFrame.extFacingDirection.getFrontOffsetX() * 0.3F, y - (nameYOffset), z + glowItemFrame.extFacingDirection.getFrontOffsetZ() * 0.3F);
+		renderName(entity, x + glowItemFrame.extFacingDirection.getXOffset() * 0.3F, y - (nameYOffset), z + glowItemFrame.extFacingDirection.getZOffset() * 0.3F);
 	}
 
 	protected void renderModel(EntityGlowItemFrame entity, Minecraft mc)

@@ -120,7 +120,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	}
 	
 	@Override
-	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
 		if (state.getValue(IN_WATER) && !(worldIn.provider.doesWaterVaporize()))
 			{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
 		else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }

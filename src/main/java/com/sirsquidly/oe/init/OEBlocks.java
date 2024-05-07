@@ -289,7 +289,7 @@ public class OEBlocks
 	/** Slaps the names to Blocks, and adds them to the blockList to be registered in 'registerBlocks'.*/
 	public static Block blockReadyForRegister(Block block, String name, Boolean addToTab)
 	{
-		block.setUnlocalizedName(Main.MOD_ID + "." + name);
+		block.setTranslationKey(Main.MOD_ID + "." + name);
 		block.setRegistryName(name);
 		
 		if (addToTab) block.setCreativeTab(Main.OCEANEXPTAB);
@@ -302,7 +302,7 @@ public class OEBlocks
 
 	public static ItemDoor registerDoorItem(IForgeRegistry<Item> r, ItemDoor itemDoor, Block block)
 	{ 
-		itemDoor.setUnlocalizedName(block.getUnlocalizedName());
+		itemDoor.setTranslationKey(block.getTranslationKey());
 		itemDoor.setRegistryName(block.getRegistryName());
 		itemDoor.setCreativeTab(Main.OCEANEXPTAB);
 		
@@ -319,7 +319,7 @@ public class OEBlocks
 
 	public static <T extends ItemBlock> T registerItemBlock(IForgeRegistry<Item> registry, T item) {
 		Block block = item.getBlock();
-		item.setUnlocalizedName(block.getUnlocalizedName());
+		item.setTranslationKey(block.getTranslationKey());
 		item.setRegistryName(block.getRegistryName());
 
 		registry.register(item);

@@ -362,7 +362,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
                 
                 if (iblockstate.getMaterial() != Material.AIR)
                 {
-                    this.inTile.onEntityCollidedWithBlock(this.world, blockpos, iblockstate, this);
+                    this.inTile.onEntityCollision(this.world, blockpos, iblockstate, this);
                 }
             }
         }

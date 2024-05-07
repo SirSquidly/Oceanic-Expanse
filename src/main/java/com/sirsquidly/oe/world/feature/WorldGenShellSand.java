@@ -39,7 +39,7 @@ public class WorldGenShellSand implements IWorldGenerator
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) 
 	{
 		boolean isValidBiome = false;
-		ChunkPos chunkPos = world.getChunkFromChunkCoords(chunkX, chunkZ).getPos();
+		ChunkPos chunkPos = world.getChunk(chunkX, chunkZ).getPos();
         Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
         int getMaxY = Math.max(world.getSeaLevel() + ConfigHandler.worldGen.shellPatch.shellPatchAboveSeaLevel, 1);
         
