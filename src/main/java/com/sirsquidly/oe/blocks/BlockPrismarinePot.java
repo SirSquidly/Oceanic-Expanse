@@ -16,6 +16,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -54,7 +55,7 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
 	
 	public BlockPrismarinePot()
 	{
-		super(Material.WATER);
+		super(Material.GROUND);
 		this.hasTileEntity = true;
 		this.setSoundType(SoundType.STONE);
 		this.setHardness(2.5f);
@@ -63,6 +64,14 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
 		setDefaultState(blockState.getBaseState().withProperty(FACING, BlockPrismarinePot.EnumAxis.X).withProperty(SEALED, false));
 	}
 
+	@Override
+	@Deprecated
+	public Material getMaterial(IBlockState state)
+	{
+		if(!(state.getValue(IN_WATER)) || Main.proxy.fluidlogged_enable) return super.getMaterial(state);
+		return Material.WATER;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos)
@@ -71,15 +80,7 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
 			return 10.0F;
         return super.getBlockHardness(blockState, worldIn, pos);
     }
-	
-	@Override
-	@Deprecated
-	public Material getMaterial(IBlockState state)
-	{
-		if(state.getValue(IN_WATER) && !Main.proxy.fluidlogged_enable) return super.getMaterial(state);
-		return Material.GROUND;
-	}
-	
+
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
 		ItemStack itemstack = playerIn.getHeldItem(hand);
@@ -173,9 +174,10 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
     	BlockPrismarinePot.EnumAxis convertFacing = placer.getHorizontalFacing().getOpposite() != EnumFacing.NORTH ? placer.getHorizontalFacing().getOpposite() != EnumFacing.SOUTH ? BlockPrismarinePot.EnumAxis.X : BlockPrismarinePot.EnumAxis.Z : BlockPrismarinePot.EnumAxis.Z;
+    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
     	
     	if (!checkWater(worldIn, pos)) return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(false)).withProperty(FACING, convertFacing);
-    	return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(true)).withProperty(FACING, convertFacing);
+    	return this.getDefaultState().withProperty(IN_WATER, isWater).withProperty(FACING, convertFacing);
     }
 
     @Override
@@ -236,6 +238,9 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
 
     public boolean isFullCube(IBlockState state)
     { return false; }
+    
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
+    { return BlockFaceShape.MIDDLE_POLE_THICK; }
 
 	public EnumBlockRenderType getRenderType(IBlockState state)
     { return EnumBlockRenderType.MODEL; }
