@@ -87,7 +87,7 @@ public class OEItems
 		if (ConfigHandler.item.glowItemFrame.enableGlowItemFrame) itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");
 		itemReadyForRegister(BLEAK, "bleak");
 		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) itemReadyForRegister(SPONGE_CHUNK, "sponge_chunk");
-		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) itemReadyForRegister(SPONGE_CHUNK_WET, "sponge_chunk_wet");
+		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) itemReadyForRegister(SPONGE_CHUNK_WET, "sponge_chunk_wet", false);
 		
 		itemReadyForRegister(CRAB_UNCOOKED, "crab");
 		itemReadyForRegister(CRAB_COOKED, "cooked_crab");
@@ -113,13 +113,16 @@ public class OEItems
 	}
 	
 	public static Item itemReadyForRegister(Item item, String name)
+	{ return itemReadyForRegister(item, name, true); }
+	
+	public static Item itemReadyForRegister(Item item, String name, Boolean addToTab)
 	{
 		if (name != null)
 		{
 			item.setTranslationKey(Main.MOD_ID + "." + name);
 			item.setRegistryName(name);
 		}
-		item.setCreativeTab(Main.OCEANEXPTAB);
+		if (addToTab) item.setCreativeTab(Main.OCEANEXPTAB);
 		
 		itemList.add(item);
 

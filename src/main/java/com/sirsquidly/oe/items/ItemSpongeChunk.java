@@ -76,21 +76,7 @@ public class ItemSpongeChunk extends Item
 		
 		if (player.isSneaking()) return EnumActionResult.FAIL;
 		
-		if (this.isFull(itemstack))
-		{
-			if (worldIn.provider.doesWaterVaporize())
-        	{
-				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
-                
-				this.changeSpongeItem(itemstack, hand, player, 0);
-				
-				for (int k = 0; k < 8; ++k)
-                {
-					if (worldIn.isRemote) worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0.0D, 0.0D, 0.0D);
-                }
-        	}
-		}
-		else if (ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation != 0)
+		if (!worldIn.provider.doesWaterVaporize() && ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation != 0)
 		{
 			if (player.canPlayerEdit(pos, facing, itemstack))
 			{
@@ -98,12 +84,22 @@ public class ItemSpongeChunk extends Item
 			}
         	player.setActiveHand(hand);
         	player.getCooldownTracker().setCooldown(this, 5);
-        	
         	return EnumActionResult.SUCCESS;
 		}
-	
-		
-		
+		else if (getWaterCount(itemstack) > 0)
+		{
+			worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+            
+			this.changeSpongeItem(itemstack, hand, player, 0);
+			
+			if (worldIn.isRemote)
+			{
+				for (int k = 0; k < 8; ++k)
+	            { worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0.0D, 0.0D, 0.0D); }
+			}
+			return EnumActionResult.SUCCESS;
+		}
+
 		return EnumActionResult.FAIL;
 	}
 	
