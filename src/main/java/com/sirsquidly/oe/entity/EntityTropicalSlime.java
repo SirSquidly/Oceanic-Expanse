@@ -107,12 +107,20 @@ public class EntityTropicalSlime extends EntitySlime
 
         if (this.world.provider.doesWaterVaporize() || this.isBurning())
         {
-        	double l = this.posX;
-        	double i = this.posY;
-            double j = this.posZ;
+            double size = this.getSlimeSize();
             
-            for (int k = 0; k < 2; ++k)
-            { world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)l + Math.random(), (double)i + Math.random(), (double)j + Math.random(), 0.0D, 0.0D, 0.0D); }
+            for (int i = 0; i < size/2; ++i)
+            {
+                float f = this.rand.nextFloat() * ((float)Math.PI * 2F);
+                float f1 = this.rand.nextFloat() * 0.5F + 0.5F;
+                float f2 = MathHelper.sin(f) * (float)size * 0.4F * f1;
+                float f3 = MathHelper.cos(f) * (float)size * 0.4F * f1;
+                
+                double j = this.posX + (double)f2;
+                double k = this.posY + (this.rand.nextFloat() * (float)size * 0.5F);
+                double l = this.posZ + (double)f3;
+                world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, j, k, l, 0.0D, 0.0D, 0.0D);
+            }
             
             if (!world.isRemote) this.evaporateTimer += 1;
             
