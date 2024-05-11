@@ -55,12 +55,16 @@ repositories
         url = "https://maven.cleanroommc.com"
     }
     maven {
+        // Fluidlogged API files
+        url 'https://jitpack.io'
+    }
+    maven {
         //JEI files
         name = "DVS1 Maven FS"
         url = "http://dvs1.progwml6.com/files/maven"
     }
     maven {
-        // location of a maven mirror for JEI files, as a fallback
+        // Fallback maven mirror for JEI files
         name = "ModMaven"
         url = "http://modmaven.k-4u.nl"
     }
@@ -74,6 +78,7 @@ repositories
 
 dependencies
 {
+	deobfCompile "com.github.jbredwards:fluidlogged-api:${fluidlogged_api_version}"	
 	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}"
 	
 	implementation "zone.rong:mixinbooter:8.4"

@@ -1,9 +1,13 @@
 package com.sirsquidly.oe.items;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
+
 import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.blocks.BlockConduit;
 import com.sirsquidly.oe.blocks.BlockCoral;
 import com.sirsquidly.oe.blocks.BlockCoralFan;
@@ -111,7 +115,17 @@ public class ItemSpongeChunk extends Item
     	
 		for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-effectMath, -effectMath, -effectMath), pos.add(effectMath, effectMath, effectMath)))
 		{
-			//final FluidState fluidState = FluidloggedUtils.getFluidState(world, offset);
+			/** If Fluidlogged API is installed, we get to use their methods! */
+			if (Main.proxy.fluidlogged_enable)
+			{
+				final FluidState fluidState = FluidloggedUtils.getFluidState(world, blockpos$mutableblockpos);
+            	
+				if(!fluidState.isEmpty() && fluidState.getMaterial() == Material.WATER && fluidState.isValid())
+				{
+					fluidState.getFluidBlock().drain(world, blockpos$mutableblockpos, true);
+					collectedWater++;
+				}
+            }
 			
 			Block block = world.getBlockState(blockpos$mutableblockpos).getBlock();
 			if (block instanceof BlockConduit || block instanceof BlockCoral || block instanceof BlockCoralFan || block instanceof BlockPrismarinePot || block instanceof BlockSeaPickle || block instanceof BlockSeaStar  || block instanceof BlockUnderwaterTorch)
