@@ -10,6 +10,7 @@
 	{blockId:"oe:seastar"},
 	{blockId:"oe:underwater_torch"},
 	{blockId:"oe:tube_sponge"},
+	{blockId:"oe:turtle_egg"},
 	{blockId:"oe:blue_coral"},
 	{blockId:"oe:pink_coral"},
 	{blockId:"oe:prismarine_pot"},
