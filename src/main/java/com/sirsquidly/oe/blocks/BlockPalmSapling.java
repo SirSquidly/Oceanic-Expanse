@@ -6,9 +6,9 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.world.feature.GeneratorCoconutTree;
 
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockSand;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -58,12 +58,12 @@ public class BlockPalmSapling extends BlockBush implements IGrowable
 	@Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand;
+        return worldIn.getBlockState(pos.down()).getMaterial() == Material.SAND;
     }
 	
 	@Override
 	protected boolean canSustainBush(IBlockState state) 
-	{ return state.getBlock() instanceof BlockSand; }
+	{ return state.getMaterial() == Material.SAND; }
 	
 	@Override
 	public int getMetaFromState(IBlockState state)
