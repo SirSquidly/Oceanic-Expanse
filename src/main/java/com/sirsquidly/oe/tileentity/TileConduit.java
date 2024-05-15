@@ -1,5 +1,8 @@
 package com.sirsquidly.oe.tileentity;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
+
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -11,6 +14,7 @@ import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -237,11 +241,18 @@ public class TileConduit extends TileEntity implements ITickable
 	    		for (int j1 = -2; j1 <= 2; j1++)
 		    	{
 	    			BlockPos tPos = pos.add(h1, i1, j1);
-	    			
+	    			IBlockState blockState = worldIn.getBlockState(tPos);
 	    			/** If the area directly around the Conduit isn't water, just return 0.  */
 					if (h1 != -2 && i1 != -2 && j1 != -2 && h1 != 2 && i1 != 2 && j1 != 2)
 					{
-						if (worldIn.getBlockState(tPos).getMaterial() != Material.WATER && !(worldIn.getBlockState(tPos).getBlock() instanceof IChecksWater)) return 0;
+						/** If Fluidlogged API is installed, we get to use their methods! */
+						if (Main.proxy.fluidlogged_enable)
+						{
+							final FluidState fluidState = FluidloggedUtils.getFluidState(world, tPos);
+			            	
+							if(fluidState.isEmpty() || fluidState.getMaterial() != Material.WATER) return 0;
+			            }
+						else if (blockState.getMaterial() != Material.WATER && !(blockState.getBlock() instanceof IChecksWater)) return 0;
 					}
 					else if ( ArrayUtils.contains(ConfigHandler.block.conduit.conduitFrameBlocks, worldIn.getBlockState(tPos).getBlock().getRegistryName().toString()) )
 					{ i++; }
