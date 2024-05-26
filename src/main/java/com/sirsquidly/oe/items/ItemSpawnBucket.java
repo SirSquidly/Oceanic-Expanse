@@ -77,12 +77,14 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
 	/** Overrides the display name to show the Tropical Fish type. */
 	public String getItemStackDisplayName(ItemStack stack)
     {
+		String entityName = I18n.translateToLocal("entity." + EntityList.getTranslationName(getNamedIdFrom(stack)) + ".name");
+		
 		if (pullSpecialNameFromMob(stack) != null && ConfigHandler.item.spawnBucket.spawnBucketTropicalFishSpecificNames)
 		{
-			return ("" + I18n.translateToLocal(this.getTranslationKey() + ".name")).trim() + " " + pullSpecialNameFromMob(stack);
+			entityName = pullSpecialNameFromMob(stack);
 		}
 
-        return super.getItemStackDisplayName(stack);
+		return I18n.translateToLocalFormatted("item.oe.spawn_bucket.name", entityName);
     }
 	
 	@Override
