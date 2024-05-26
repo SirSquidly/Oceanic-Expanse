@@ -122,6 +122,6 @@ public class ItemCharm extends Item
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		tooltip.add(TextFormatting.GRAY + I18n.format("Gives Conduit Power when outside of a Conduit's Range."));
+		tooltip.add(TextFormatting.BLUE + I18n.format("description.oe.charm.name"));
 	}
 }

@@ -13,6 +13,7 @@ death.attack.oe.mobstomp.item=%1$s was stomped by %2$s using %3$s
 
 description.oe.bleak.name=Kills Sea Grass in a 15x15x15 cube
 description.oe.blue_slime_ball.name=Always Edible. Adds 4 Air Bubbles, but removes 1.5 Hunger
+description.oe.charm.name=Gives Conduit Power when outside of a Conduit's Range.
 description.oe.conch_blow1.name=Distant
 description.oe.conch_blow2.name=Emblem
 description.oe.conch_blow3.name=Snail
