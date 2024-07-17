@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.minecraft.block.BlockJukebox;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
@@ -40,7 +39,7 @@ public class PlayerJukeboxEvent
 			List<Entity> checkForCrabs = event.getWorld().getEntitiesWithinAABB(EntityCrab.class, new AxisAlignedBB(pos).grow(16.0F, 16.0F, 16.0F));
 			for (Entity e : checkForCrabs)
 			{
-				((EntityLivingBase) e).setPartying(event.getPos(), true);
+				((EntityCrab) e).setPartying(event.getPos(), true);
 			}
 		}
     }

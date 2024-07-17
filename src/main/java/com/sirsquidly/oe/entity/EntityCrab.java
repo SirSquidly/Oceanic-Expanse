@@ -57,8 +57,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityCrab extends EntityAnimal implements IEggCarrierMob
 {
@@ -126,19 +124,14 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
     { return ConfigHandler.entity.crab.crabTalkInterval; }
 
 
-    @SideOnly(Side.CLIENT)
     public void setPartying(BlockPos pos, boolean raving)
     {
         this.jukeboxPosition = pos;
         this.crabRave = raving;
     }
 
-    @SideOnly(Side.CLIENT)
     public boolean isPartying()
-    {
-        return this.crabRave;
-    }
-    
+    { return this.crabRave; }
     
 	public void onLivingUpdate()
     {
