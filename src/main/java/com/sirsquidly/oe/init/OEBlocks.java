@@ -275,7 +275,7 @@ public class OEBlocks
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerItemBlock(r, new ItemBlockSlab(PALM_SLAB, (BlockSlab)PALM_SLAB, (BlockSlab)PALM_SLAB_D)); itemBlockBlacklist.add(PALM_SLAB);
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
 		
-		registerItemBlock(r, new ItemOESkull(PICKLED_HEAD)); itemBlockBlacklist.add(PICKLED_HEAD);
+		if (ConfigHandler.block.pickledHead.enablePickledHead) registerItemBlock(r, new ItemOESkull(PICKLED_HEAD)); itemBlockBlacklist.add(PICKLED_HEAD);
 		
 		Main.logger.info("Oceanic Expanse Item Blocks are Registering!");
 		/** As stated on itemBlockBlacklist, this registers anything NOT from the blacklist with a generic itemBlock.*/
