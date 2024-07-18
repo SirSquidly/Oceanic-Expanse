@@ -1,0 +1,696 @@
+itemGroup.oceanictab=Oceanic Expanse
+
+
+container.oe.prismarine_pot=Lurker's Locker
+
+
+death.attack.oe.trident=%1$s been pummeled to pieces by %2$s
+death.attack.oe.trident.item=%1$s been pummeled to pieces by %2$s using %3$s
+death.attack.oe.coconut=%1$s been crumped by a coconut
+
+death.attack.oe.mobstomp=%1$s been boot'd by %2$s
+death.attack.oe.mobstomp.item=%1$s been boot'd by %2$s using %3$s
+
+description.oe.bleak.name=Kills Sea Grass in a 15x15x15 cube
+description.oe.blue_slime_ball.name=Foul, but Edible. Gives 4 Breath, and ye hurl 1.5 Shanks
+description.oe.conch_blow1.name=Sail Ho
+description.oe.conch_blow2.name=King's Salute
+description.oe.conch_blow3.name=Parley
+description.oe.conch_blow4.name=Avast ye Dwarves
+description.oe.crab_color0.name=Red
+description.oe.crab_color1.name=Pale
+description.oe.crab_color2.name=Green
+description.oe.crab_color3.name=Ashen
+description.oe.crab_color4.name=Blue
+description.oe.crab_color5.name=Powder
+description.oe.sponge_chunk_saturation.name=Soak:
+description.oe.heavy_boots.name=Damns ye with Lead Legs for 10 seconds when worn!
+description.oe.lobster_color0.name=Brown
+description.oe.lobster_color1.name=Black
+description.oe.lobster_color2.name=Blue
+description.oe.lobster_color3.name=Red
+description.oe.lobster_color4.name=Yellow
+description.oe.lobster_color5.name=Orange
+description.oe.lobster_color6.name=Calico
+description.oe.lobster_color7.name=Cotton Candy
+description.oe.lobster_color8.name=Albino
+description.oe.lobster_half15.name=Halloween
+description.oe.lobster_half51.name=Halloween
+
+description.oe.tropical_fish_color.3=Sky
+description.oe.tropical_fish_color.6=Rose
+description.oe.tropical_fish_color.8=Silver
+description.oe.tropical_fish_color.9=Teal
+description.oe.tropical_fish_color.10=Plum
+description.oe.tropical_fish_color.white=White
+description.oe.tropical_fish_color.orange=Orange
+description.oe.tropical_fish_color.magenta=Magenta
+description.oe.tropical_fish_color.light_blue=Light Blue
+description.oe.tropical_fish_color.yellow=Yellow
+description.oe.tropical_fish_color.lime=Lime
+description.oe.tropical_fish_color.pink=Pink
+description.oe.tropical_fish_color.gray=Gray
+description.oe.tropical_fish_color.silver=Light Gray
+description.oe.tropical_fish_color.cyan=Cyan
+description.oe.tropical_fish_color.purple=Purple
+description.oe.tropical_fish_color.blue=Blue
+description.oe.tropical_fish_color.brown=Brown
+description.oe.tropical_fish_color.green=Green
+description.oe.tropical_fish_color.red=Red
+description.oe.tropical_fish_color.black=Black
+description.oe.tropical_fish_a_pattern0.name=Kob
+description.oe.tropical_fish_a_pattern1.name=Sunstreak
+description.oe.tropical_fish_a_pattern2.name=Snooper
+description.oe.tropical_fish_a_pattern3.name=Dasher
+description.oe.tropical_fish_a_pattern4.name=Brinely
+description.oe.tropical_fish_a_pattern5.name=Spotty
+description.oe.tropical_fish_b_pattern0.name=Flopper
+description.oe.tropical_fish_b_pattern1.name=Stripey
+description.oe.tropical_fish_b_pattern2.name=Glitter
+description.oe.tropical_fish_b_pattern3.name=Blockfish
+description.oe.tropical_fish_b_pattern4.name=Betty
+description.oe.tropical_fish_b_pattern5.name=Clayfish
+
+description.oe.turtle_helmet.name=Ye breath 10 seconds Mermaid's Breath outside of water!
+
+
+effect.oe.conduit_power=Sea's Blessin'
+description.effect.oe.conduit=Grants Water Breathing, Night Vision, and Haste when submerged in water.
+
+effect.oe.descent=Lead Legs Syndrome
+description.effect.oe.descent=Pulls affected entities downward.
+
+
+enchantment.oe.mobstomp=Mob Stomp
+enchantment.oe.mobstomp.desc=Landin' atop another hurts 'em, not you.
+enchantment.oe.is_wet=Feed the Fish
+enchantment.oe.is_wet.desc=Rends wet foes.
+
+enchantment.oe.channeling=Charging
+enchantment.oe.channeling.desc=Strikes lightning when impacting a mob or lightning rod during a thunderstorm.
+enchantment.oe.is_watermob=Impaling
+enchantment.oe.is_watermob.desc=Increases the damage dealt to aquatic mobs.
+enchantment.oe.loyalty=Me Loyal
+enchantment.oe.loyalty.desc=Returns to the owner upon impacting a mob or block.
+enchantment.oe.riptide=Riptide
+enchantment.oe.riptide.desc=Launches the owner in the direction they are facing, if they are wet.
+
+
+entity.oe.baby_glow_squid.name=Glowin' Kraken Whelp
+entity.oe.baby_squid.name=Kraken Whelp
+entity.oe.crab.name=Crab
+entity.oe.clam.name=Clam
+entity.oe.glow_item_frame.name=Glowin' Booty Rack
+entity.oe.lobster.name=Lobstarrr
+entity.oe.palm_boat.name=Palm Boat
+entity.oe.pickled.name=Bilge Carouser
+entity.oe.tropical_slime.name=Cube o' Watermold
+
+entity.oe.cod.name=Codfish
+entity.oe.drowned.name=Sunken Sailor
+entity.oe.glow_squid.name=Glowin' Kraken
+entity.oe.pufferfish.name=Blowfish
+entity.oe.salmon.name=Salmon
+entity.oe.tropical_fish.name=Colorful Fish
+entity.oe.turtle.name=Turtle
+
+
+item.oe.barnacle_shells.name=Barnacles
+item.oe.bleak.name=Bleachin' Powder
+item.oe.blue_slime_ball.name=Ball o' Watermold
+item.oe.charm.name=Conduit Trinket
+item.oe.coconut_open.name=Split Coconut
+item.oe.conch.name=Shellhorn
+item.oe.crab.name=Raw Crablegs
+item.oe.crab_bisque.name=Crab Chowdarrr
+item.oe.cooked_crab.name=Cooked Crablegs
+item.oe.crustacean_shell.name=Piece o' Crabbyshell
+item.oe.dried_dulse.name=Dry Red Sea Lettuce
+item.oe.heavy_boots.name=Weighty Peg-leg
+item.oe.sponge_chunk.name=Swab
+item.oe.sponge_chunk_wet.name=Used Swab
+item.oe.sponge_chunk_full.name=Sodden Swab
+item.oe.lobster.name=Lobstarrr Tail
+item.oe.lobster_bisque.name=Lobstarrr Chowdarrr
+item.oe.cooked_lobster.name=Smoked Lobstarrr Tail
+item.oe.palm_boat.name=Vessel o' Palm
+item.oe.pearl.name=Pearl
+item.oe.spawn_bucket.name=Pail o' %s
+
+item.oe.dried_kelp.name=Dry Sea Lettuce
+item.oe.glow_ink_sac.name=Kraken's Glowin' Paint
+item.oe.glow_item_frame.name=Glowin' Booty Rack
+item.oe.heart_of_the_sea.name=Heart o' Davy Jones
+item.oe.nautilus_shell.name=Sea Beast's Shell
+item.oe.trident.name=Poseidon's Fightin' Fork
+item.oe.turtle_scute.name=Piece o' Turtleshell
+item.oe.turtle_helmet.name=Shell o' Turtle
+
+
+subtitle.oe.coconut_hit=Coconut clonk
+subtitle.oe.clam.close=Clam closes
+subtitle.oe.clam.death=Clam perishes
+subtitle.oe.clam.hurt=Clam hurts
+subtitle.oe.clam.hurt_closed=Clam hurts
+subtitle.oe.clam.open=Clam opens
+subtitle.oe.clam.open_land=Clam opens
+subtitle.oe.clam.shake=Clam shakes
+subtitle.oe.conch_blow1=Shellhorn blows
+subtitle.oe.conch_blow2=Shellhorn blows
+subtitle.oe.conch_blow3=Shellhorn blows
+subtitle.oe.conch_blow4=Shellhorn blows
+subtitle.oe.crab.ambient=Crab chirps
+subtitle.oe.crab.angry=Crab snips angrily
+subtitle.oe.crab.death=Crab perishes
+subtitle.oe.crab.hurt=Crab hurts
+subtitle.oe.lobster.angry=Lobstarrr snips angrily
+subtitle.oe.lobster.death=Lobstarrr perishes
+subtitle.oe.lobster.hurt=Lobstarrr hurts
+subtitle.oe.lobster.molt=Lobstarrr molts
+subtitle.oe.ink_sac.squirt=Ink Sac Squirts
+
+subtitle.oe.cod.death=Codfish dies
+subtitle.oe.cod.flop=Codfish flops
+subtitle.oe.cod.hurt=Codfish hurts
+subtitle.oe.conduit.activate=Source o' th' Seas triggers
+subtitle.oe.conduit.ambient=Source o' th' Seas pulses
+subtitle.oe.conduit.attack=Source o' th' Seas attacks
+subtitle.oe.conduit.deactivate=Source o' th' Seas halts
+subtitle.oe.coral.break=Ye block be broken
+subtitle.oe.coral.hit=Block breaking
+subtitle.oe.coral.place=Block placed
+subtitle.oe.coral.step=Walkin'
+subtitle.oe.drowned.ambient=Sunken Sailor gurgles
+subtitle.oe.drowned.hurt=Sunken Sailor hurts
+subtitle.oe.drowned.death=Sunken Sailor perishes
+subtitle.oe.drowned.step=Sunken Sailor steps
+subtitle.oe.drowned.throw=Sunken Sailor throws Fightin' Fork
+subtitle.oe.fish.flop=Fish flops
+subtitle.oe.pufferfish.death=Blowfish perishes
+subtitle.oe.pufferfish.deflate=Blowfish deflates
+subtitle.oe.pufferfish.flop=Blowfish flops
+subtitle.oe.pufferfish.hurt=Blowfish hurts
+subtitle.oe.pufferfish.inflate=Blowfish inflates
+subtitle.oe.pufferfish.sting=Blowfish stings
+subtitle.oe.salmon.death=Salmon perishes
+subtitle.oe.salmon.flop=Salmon flops
+subtitle.oe.salmon.hurt=Salmon hurts
+subtitle.oe.squid.squirt=Kraken bails ink
+subtitle.oe.tropical_fish.death=Colorful Fish perishes
+subtitle.oe.tropical_fish.flop=Colorful Fish flops
+subtitle.oe.tropical_fish.hurt=Colorful Fish hurts
+subtitle.oe.tropical_slime.death=Cube o' Watermold perishes
+subtitle.oe.tropical_slime.hurt=Cube o' Watermold hurts
+subtitle.oe.tropical_slime.jump=Cube o' Watermold sloshes
+subtitle.oe.tropical_slime.squish=Cube o' Watermold sloshes
+subtitle.oe.trident.throw=Poseidon's Fightin' Fork clangs
+subtitle.oe.trident.impact=Poseidon's Fightin' Fork vibrates
+subtitle.oe.trident.hit=Poseidon's Fightin' Fork stabs
+subtitle.oe.trident.return=Poseidon's Fightin' Fork returns
+subtitle.oe.trident.riptide1=Poseidon's Fightin' Fork zooms
+subtitle.oe.trident.riptide2=Poseidon's Fightin' Fork zooms
+subtitle.oe.trident.riptide3=Poseidon's Fightin' Fork zooms
+subtitle.oe.trident.thunder=Poseidon's Fightin' Fork thunder cracks
+subtitle.oe.turtle.ambient=Turtle chirps
+subtitle.oe.turtle.baby_death=Tiny Turtle perishes
+subtitle.oe.turtle.baby_hurt=Tiny Turtle hurts
+subtitle.oe.turtle.baby_step=Tiny Turtle crawls
+subtitle.oe.turtle.hurt=Turtle hurts
+subtitle.oe.turtle.death=Turtle perishes
+subtitle.oe.turtle.step=Turtle crawls
+subtitle.oe.turtle.swim=Turtle swims
+subtitle.oe.wet_grass.break=Ye block be broken
+subtitle.oe.wet_grass.hit=Block breaking
+subtitle.oe.wet_grass.place=Block placed
+subtitle.oe.wet_grass.step=Walkin'
+
+
+tile.oe.blue_slime_block.name=Block o' Watermold
+tile.oe.coconut.name=Coconut
+tile.oe.coquina.name=Cockle
+tile.oe.coquina_brick.name=Bricks o' Cockle
+tile.oe.coquina_brick_stairs.name=Stairs o' Bricks o' Cockle 
+tile.oe.coquina_brick_slab_double.name=Slab o' Bricks o' Cockle
+tile.oe.coquina_brick_wall.name=Wall o' Bricks o' Cockle 
+tile.oe.dulse.name=Red Sea Lettuce
+tile.oe.dried_dulse_block.name=Chunk o' Dry Red Sea Lettuce
+tile.oe.guardian_spike.name=Lurker's Poker
+tile.oe.nacre_block.name=Mother o' Pearl
+tile.oe.nacre_smooth.name=Smooth Mother o' Pearl
+tile.oe.palm_bookshelf.name=Palm Stack o' Knowledge
+tile.oe.palm_log.name=Palm Log
+tile.oe.palm_log_stripped.name=Bare Palm Log
+tile.oe.palm_wood.name=Palm Wood
+tile.oe.palm_wood_stripped.name=Bare Palm Wood
+tile.oe.palm_planks.name=Palm Planks
+tile.oe.palm_stairs.name=Stairs o' Palm
+tile.oe.palm_fence.name=Picket o' Palm
+tile.oe.palm_fence_gate.name=Picket Gate o' Palm
+tile.oe.palm_slab_double.name=Slab o' Palm
+item.tile.oe.palm_door.name=Door o' Palm
+tile.oe.palm_pressure_plate.name=Palm Booby Trap
+tile.oe.palm_trapdoor.name=Hatch o' Palm
+tile.oe.palm_leaves.name=Leaves o' Palm
+tile.oe.palm_leaves_flowering.name=Flowering Leaves o' Palm
+tile.oe.palm_sapling.name=Palm Meager shrub
+tile.oe.pickled_head.name=Poor Carouser's Head
+tile.oe.prismarine_pot.name=Lurker's Locker
+tile.oe.sea_oats.name=Beachside Grass
+tile.oe.seastar.name=Starfish
+tile.oe.shell_sand.name=Shells n' Sand
+tile.oe.tube_sponge.name=Ocean Sponge
+tile.oe.underwater_torch.name=Kraken's Torch
+
+tile.oe.blue_coral_block.name=Chunk o' Cylind'r Coral
+tile.oe.blue_coral.name=Cylind'r Coral
+tile.oe.blue_coral_fan.name=Cylin'dr Coral Waf'r
+tile.oe.blue_coral_block_dead.name=Chunk o' Dead Cylind'r Coral
+tile.oe.blue_coral_dead.name=Dead Cylind'r o' Coral
+tile.oe.blue_coral_fan_dead.name=Dead Cylin'dr Coral Waf'r
+tile.oe.blue_ice.name=Blue Frost
+tile.oe.conduit.name=Source o' th' Seas
+tile.oe.dried_kelp_block.name=Chunk o' Dry Sea Lettuce
+tile.oe.kelp.name=Sea Lettuce
+tile.oe.pink_coral_block.name=Chunk o' Walnut Coral
+tile.oe.pink_coral.name=Walnut Coral
+tile.oe.pink_coral_fan.name=Walnut Coral Waf'r
+tile.oe.pink_coral_block_dead.name=Dead Chunk o' Walnut Coral
+tile.oe.pink_coral_dead.name=Dead Walnut Coral
+tile.oe.pink_coral_fan_dead.name=Dead Walnut Coral Waf'r
+tile.oe.purple_coral_block.name=Chunk o' Cyst Coral
+tile.oe.purple_coral.name=Cyst Coral
+tile.oe.purple_coral_fan.name=Cyst Coral Waf'r
+tile.oe.purple_coral_block_dead.name=Dead Chunk o' Cyst Coral
+tile.oe.purple_coral_dead.name=Dead Cyst Coral
+tile.oe.purple_coral_fan_dead.name=Dead Cyst Coral Waf'r
+tile.oe.red_coral_block.name=Chunk o' Burnin' Coral
+tile.oe.red_coral.name=Burnin' Coral
+tile.oe.red_coral_fan.name=Burnin' Coral Waf'r
+tile.oe.red_coral_block_dead.name=Dead Chunk o' Burnin' Coral
+tile.oe.red_coral_dead.name=Dead Burnin' Coral
+tile.oe.red_coral_fan_dead.name=Dead Burnin' Coral Waf'r
+tile.oe.sea_pickle.name=Salty Sea Pickle
+tile.oe.seagrass.name=Grass o' Sea
+tile.oe.turtle_egg.name=Turtle Cackle Fruit
+tile.oe.yellow_coral_block.name=Chunk o' Horn Coral
+tile.oe.yellow_coral.name=Horn Coral
+tile.oe.yellow_coral_fan.name=Horn Coral Waf'r
+tile.oe.yellow_coral_block_dead.name=Dead Chunk o' Horn Coral
+tile.oe.yellow_coral_dead.name=Dead Horn Coral
+tile.oe.yellow_coral_fan_dead.name=Dead Horn Coral Waf'r
+
+
+potion.effect.oe.descent=Spirit o' Lead Legs
+
+potion.effect.oe.turtle_master=Brew o' Turtle Master
+potion.effect.oe.turtle_master_long=Brew o' Turtle Master
+potion.effect.oe.turtle_master_strong=Brew o' Turtle Master
+
+
+splash_potion.effect.oe.descent=Grenade o' Lead Legs
+
+splash_potion.effect.oe.turtle_master=Grenade o' Turtle Master
+splash_potion.effect.oe.turtle_master_long=Grenade o' Turtle Master
+splash_potion.effect.oe.turtle_master_strong=Grenade o' Turtle Master
+
+
+lingering_potion.effect.oe.descent=Bottled Fog o' Lead Legs
+
+lingering_potion.effect.oe.turtle_master=Bottled Fog o' Turtle Master
+lingering_potion.effect.oe.turtle_master_long=Bottled Fog o' Turtle Master
+lingering_potion.effect.oe.turtle_master_strong=Bottled Fog o' Turtle Master
+
+
+tipped_arrow.effect.oe.descent=Bolt o' Lead Legs
+
+tipped_arrow.effect.oe.turtle_master=Bolt o' Turtle Master
+tipped_arrow.effect.oe.turtle_master_long=Bolt o' Turtle Master
+tipped_arrow.effect.oe.turtle_master_strong=Bolt o' Turtle Master
+
+
+
+
+
+
+oe.config.title=Oceanic Expanse Config
+
+
+oe.config.block=Block Config
+
+oe.config.block.blueIce=Blue Ice Config
+oe.config.block.enableBlueIce=Enable Blue Ice
+oe.config.block.blueIceLight=Blue Ice Light
+oe.config.block.blueIceSlipperiness=Blue Ice Slipperiness
+oe.config.block.coconut=Coconut Config
+oe.config.block.enableCoconut=Enable Coconut
+oe.config.block.coconutHitSound=Enable Coconut Clonk
+oe.config.block.coconutFallBreak=Coconut break height
+oe.config.block.coconutFallDamage=Coconut Fall Damage
+oe.config.block.coconutFallMaxDamage=Coconut Max Fall Damage
+oe.config.block.conduit=Conduit Config
+oe.config.block.enableConduit=Enable Conduit
+oe.config.block.enableConduitPulse=Enable Conduit Pulsing
+oe.config.block.conduitLight=Conduit Light
+oe.config.block.conduitParticles=Conduit Particles
+oe.config.block.conduitFrameBlocks=Conduit Frame Blocks
+oe.config.block.coralBlocks=Coral Blocks Config
+oe.config.block.enableCoralBlock=Enable Full Coral Blocks
+oe.config.block.enableCoralFan=Enable Coral Fans
+oe.config.block.enableCoral=Enable Corals
+oe.config.block.coralBlockDryTicks=Full Coral Block dry tics
+oe.config.block.coralFanDryTicks=Coral Fan dry tics
+oe.config.block.coralDryTicks=Coral dry tics
+oe.config.block.coquina=Coquina Config
+oe.config.block.enableCoquina=Enable Coquina
+oe.config.block.enableCoquinaBricks=Enable Coquina Bricks
+oe.config.block.enableCoquinaBrickWalls=Enable Coquina Brick Walls
+oe.config.block.dulse=Dulse Config
+oe.config.block.enableDulse=Enable Dulse
+oe.config.block.dulseShears=Shearing Dulse
+oe.config.block.driedDulseShears=Can cut Dried Dulse string
+oe.config.block.guardianSpike=Guardian Spike Config
+oe.config.block.enableGuardianSpike=Enable Guardian Spike
+oe.config.block.guardianSpikeFallMultiplier=Guardian Spike fall damage multiplier
+oe.config.block.guardianSpikeDropChance=Guardian Spike drop chance
+oe.config.block.guardianSpikeLooting=Guardian drop looting bonus
+oe.config.block.guardianSpikeElderDropChance=Elder Guardian Spike drop chance
+oe.config.block.guardianSpikeElderLooting=Elder Guardian drop looting bonus
+oe.config.block.enableKelp=Enable Kelp
+oe.config.block.driedKelpShears=Can cut Dried Kelp string
+oe.config.block.palmBlocks=Palm Wood Config
+oe.config.block.enablePalmSapling=Enable Palm Sapling
+oe.config.block.enablePalmLeaves=Enable Palm Leaves
+oe.config.block.enablePalmStripping=Enable Palm Stripping
+oe.config.block.enablePalmStrippedWoods=Enable Stripped Palm Woods
+oe.config.block.enablePalmWoods=Enable Palm Woods
+oe.config.block.pickledHead=Pickled Head Config
+oe.config.block.enablePickledHead=Enable Pickled Head
+oe.config.block.pickledHeadNoteblockSounds=Enable Pickled Note Block
+oe.config.block.pickledHeadNoteblockPitch=Pickled Note Block Pitch Changes
+oe.config.block.seagrass=Seagrass Config
+oe.config.block.enableSeagrass=Enable Seagrass
+oe.config.block.enableTallSeagrass=Enable Tall Seagrass
+oe.config.block.seaOats=Sea Oats Config
+oe.config.block.enableSeaOats=Enable Sea Oats
+oe.config.block.seaOatShears=Can shear Sea Oats short
+oe.config.block.enableSeaPickle=Enable Sea Pickles
+oe.config.block.enableSeastar=Enable Sea Stars
+oe.config.block.enableShellySand=Enable Shelly Sand
+oe.config.block.tubeSponge=Tube Sponge Config
+oe.config.block.enableTubeSponge=Enable Tube Sponge
+oe.config.block.tubeSpongeShears=Shearing Tube Sponge
+oe.config.block.turtleEggs=Turtle Egg Config
+oe.config.block.enableTurtleEgg=Enable Turtle Eggs
+oe.config.block.amountOnTrample=Amount of Turtle Eggs broken on trample
+oe.config.block.particlesOnFall=Turtle Egg particles when fallen on
+oe.config.block.puffOnTrample=Turtle Egg puff when trampled
+oe.config.block.zombiesTrample=Zombies trample Turtle Eggs
+
+oe.config.block.waterTorch=Underwater Torch Config
+oe.config.block.enableWaterTorch=Enable Underwater Torches
+oe.config.block.waterTorchLight=Underwater Torch Light
+oe.config.block.waterTorchParticles=Underwater Torch Particles
+
+oe.config.block.zombiesTrample=Zombies trample Turtle Eggs
+oe.config.block.waterTorch=Underwater Torch Config
+oe.config.block.enableWaterTorch=Enable Underwater Torches
+oe.config.block.waterTorchLight=Underwater Torch Light
+oe.config.block.waterTorchParticles=Underwater Torch Particles
+
+
+oe.config.enchant=Enchantment Config
+
+oe.config.enchant.impaling=Impaling Config
+oe.config.entity.enableImpalingEnchant=Enable Impaling
+oe.config.enchant.enableWaterJet=Enable Water Jet
+oe.config.enchant.impalingDamage=Impaling Damage
+oe.config.enchant.waterJetDamage=Water Jet Damage
+oe.config.enchant.impalingMobs=Impaling Affected Mobs
+oe.config.enchant.channeling=Channeling Config
+oe.config.entity.enableChannelingEnchant=Enable Channeling
+oe.config.enchant.channelingWaterCheck=Channeling Avoid Water
+oe.config.enchant.channelingLavaCheck=Channeling Avoid Lava
+oe.config.enchant.channelingInvert=Invert Channeling Whitelist
+oe.config.enchant.channelingBlocks=Channeling Block Whitelist
+oe.config.enchant.channelingRidingBlacklist=Channeling Riding Blacklist
+oe.config.enchant.loyalty=Loyalty Config
+oe.config.enchant.enableLoyaltyEnchant=Enable Loyalty
+oe.config.enchant.loyaltyVoidReturn=Loyalty returns from Void
+oe.config.enchant.loyaltyVoidReturnLevel=Loyalty return y-level
+oe.config.enchant.mobStomp=Mob Stomp Config
+oe.config.enchant.enableMobStompEnchant=Enable Mob Stomp
+oe.config.enchant.enableMobStompArmorStandBoing=Allow Mob Stomp against Armor Stands
+oe.config.enchant.enableMobStompDurabilityCost=Enable Durability Cost
+oe.config.enchant.enableMobStompOnAnyBoots=Allow on Any Boots
+oe.config.enchant.riptide=Riptide Config
+oe.config.enchant.enableRiptideEnchant=Enable Riptide
+oe.config.enchant.riptideSneakThrowing=Allow Sneak Throwing
+oe.config.enchant.riptideIBroughtMyOwnWaterThankYou=I Brought my own Water!
+
+
+oe.config.entity=Entity Config
+
+oe.config.entity.babySquid=Baby Squid Config
+oe.config.entity.enableBabySquid=Enable Baby Squid
+oe.config.entity.babySquidCustomModel=Enable Baby Squid custom model
+oe.config.entity.babySquidSpawnChance=Baby Squid spawn chance
+oe.config.entity.babyGlowSquid=Baby Glow Squid Config
+oe.config.entity.enableBabyGlowSquid=Enable Baby Glow Squid
+oe.config.entity.babyGlowSquidCustomModel=Enable Baby Glow Squid custom model
+oe.config.entity.babyGlowSquidSpawnChance=Baby Glow Squid spawn chance
+oe.config.entity.clam=Clam Config
+oe.config.entity.enableClam=Enable Clam
+oe.config.entity.cod=Cod Config
+oe.config.entity.enableCod=Enable Cod
+oe.config.entity.crab=Crab Config
+oe.config.entity.enableCrab=Enable Crab
+oe.config.entity.crabTalkInterval=Crab Talk Interval
+oe.config.entity.enableCrabDigging=Enable Crab Digging
+oe.config.entity.crabDiggingList=Crab Digging Table
+oe.config.entity.drowned=Drowned Config
+oe.config.entity.enableDrowned=Enable Drowned
+oe.config.entity.enableDrownedLowerArms=Lower arms when holding in off hand
+oe.config.entity.drownedArmorSpawning=Enable Natural Armor spawning
+oe.config.entity.drownedTridentSpawnChance=Trident spawn chance
+oe.config.entity.drownedRodSpawnChance=Fishing Rod spawn chance
+oe.config.entity.drownedNautilusSpawnChance=Nautilus Shell spawn chance
+oe.config.entity.drownedTridentMeleeRange=Trident Drowned melee range
+oe.config.entity.drownedGlowLayer=Enable Drowned 2ed Layer
+oe.config.entity.drownedCaptain=Drowned Captain Config
+oe.config.entity.enableDrownedCaptain=Enable Drowned Captain
+oe.config.entity.drownedCaptainSetChance=Drowned Captain spawn chance
+oe.config.entity.enableDrownedCaptainTexture=Enable Drowned Captain Texture
+oe.config.entity.drownedCaptainSummonCooldown=Drowned Captain summon cooldown
+oe.config.entity.drownedCaptainHealthMultiplier=Drowned Captain health multiplier
+oe.config.entity.drownedCaptainMaxNearbyForSummon=Drowned Captain Spawn Cap
+oe.config.entity.drownedCaptainSpawnsEquipt=Drowned Captain's spawns are setup
+oe.config.entity.drownedCaptainConchSoundDistance=Drowned Captain Conch Sound Distance
+oe.config.entity.glowSquid=Glow Squid Config
+oe.config.entity.glowSquidBodyBright=Glow Squid Brightness
+oe.config.entity.glowSquidLayer=Enable Glow Squid 2ed Layer
+oe.config.entity.glowSquidLayerBright=Glow Squid Layer Brightness
+oe.config.entity.glowSquidSpawnMaxHeight=Glow Squid Max Spawn Height
+oe.config.entity.enableDrownedStepup=Enable Drowned block stepup
+oe.config.entity.enableDrownedSwimAnims=Enable Drowned swimming animations
+oe.config.entity.lobster=Lobster Config
+oe.config.entity.enableLobster=Enable Lobster
+oe.config.entity.lobsterMoltCooldown=Molting Cooldown
+oe.config.entity.pickled=Pickled Config
+oe.config.entity.enablePickled=Enable Pickled
+oe.config.entity.pufferfish=Pufferfish Config
+oe.config.entity.enablePufferfish=Enable Pufferfish
+oe.config.entity.enablePufferfishInflateOnHit=Pufferfish Inflate when Hit
+oe.config.entity.pufferfishFriends=Pufferfish Trusted
+oe.config.entity.pufferfishPoisonLength=Pufferfish Poison Length
+oe.config.entity.pufferfishPoisonAmplifier=Pufferfish Poison Amplifier
+oe.config.entity.salmon=Salmon Config
+oe.config.entity.enableSalmon=Enable Salmon
+oe.config.entity.salmonSizeVarience=Salmon random sizes
+oe.config.entity.salmonFeedingGrowth=Salmon GROW
+oe.config.entity.tropicalFish=Tropical Fish Config
+oe.config.entity.enableTropicalFish=Enable Tropical Fish
+oe.config.entity.tropicalFishDefaultChance=Tropical Fish default variant chance
+oe.config.entity.tropicalFishBedrockColors=Tropical Fish Bedrock Colors
+oe.config.entity.enableBlackTropicalFish=Tropical Fish come in Black
+oe.config.entity.defaultTropicalFishVariants=Tropical Fish default variants
+oe.config.entity.tropicalFishNameOverrides=Tropical Fish name overrides
+oe.config.entity.tropical_slime=Tropical Slime Config
+oe.config.entity.enableTropicalSlime=Enable Tropical Slimes
+oe.config.entity.enableJungleTropicalSlime=Tropical Slimes spawn in Jungles
+oe.config.entity.tropicalSlimeBucketKill=Tropical Slime Bucket Kill
+oe.config.entity.turtle=Turtle Config
+oe.config.entity.enableTurtle=Enable Turtle
+oe.config.entity.turtleBreedCooldown=Turtle Breeding Cooldown
+oe.config.entity.babyTurtlePredators=Baby Turtle hunters
+
+
+oe.config.effect=Effect Config
+
+oe.config.effect.descent=Descent Config
+oe.config.effect.descentFallPull=Descent Gravity/Falling Pull
+oe.config.effect.descentWaterPull=Descent Water Pull
+oe.config.effect.descentAqAcWaterPull=(Aqua Acrobatics) Descent Water Pull
+oe.config.effect.descentSlimeFix=Enable Slime Block Fix
+
+
+oe.config.item=Item Config
+
+oe.config.item.bisque=Bisque Config
+oe.config.block.enableBisqueMilkEffect=Bisques provide Milk Effect
+oe.config.block.enableCrabBisque=Enable Crab Bisque
+oe.config.block.enableLobsterBisque=Enable Lobster Bisque
+oe.config.item.conch=Conch Config
+oe.config.item.enableConch=Enable Conch
+oe.config.item.conchCooldown=Conch Cooldown
+oe.config.item.conchSoundDistance=Conch Sound Distance
+oe.config.item.conchDisplayHorn=Display Conch Sound Name
+oe.config.item.conchDisplayRawSound=Display Raw Sound Name
+oe.config.item.conduitCharm=Conduit Charm Config
+oe.config.item.enableConduitCharm=Enable Conduit Charm
+oe.config.item.conduitCharmConduitRange=Conduit Effect Range
+oe.config.item.enableConduitCharmPulseSound=Charm Pulse Sound
+oe.config.item.conduitCharmDurability=Charm Durability
+oe.config.item.glowItemFrame=Glow Item Frame Config
+oe.config.item.enableGlowItemFrame=Enable Glow Item Frame
+oe.config.item.glowItemFrameCeilingsAndFloors=Flat Glow Item Frames
+oe.config.item.glowItemFrameQuarkNamePosition=Use Quark Name Positions
+oe.config.heavyBoots=Heavy Boots Config
+oe.config.item.enableHeavyBoots=Enable Heavy Boots
+oe.config.item.heavyBootsEffectLength=Heavy Boots Effect Length
+oe.config.item.heavyBootsDesc=Enable Heavy Boots Description
+oe.config.item.enableNautilusShell=Enable Nautilus Shell
+oe.config.item.pearl=Pearl Config
+oe.config.item.enablePearl=Enable Pearl
+oe.config.item.enablePearlTrade=Add Villager Pearl Trade
+oe.config.item.enablePearlEndering=Chorus Fruit converts Pearls
+oe.config.item.spawnBucket=Spawn Bucket/Bucketing
+oe.config.item.spawnBucketMobs=Bucketable Mobs
+oe.config.item.enableAllBucketsCreative=ALL Buckets in Creative Search Tab
+oe.config.item.enableSpawnBucketEmptyUsage=Empty Buckets can Bucket Mobs
+oe.config.item.spawnBucketTropicalFishSpecificNames=Bucket uses Tropical Fish name
+oe.config.item.spawnBucketTropicalFishTooltips=Bucket tooltip uses Tropical Fish name
+oe.config.item.spongeChunk=Sponge Chunk Config
+oe.config.item.enableSpongeChunk=Enable Sponge Chunk
+oe.config.item.spongeChunkAbsorbRadius=Absorbtion Radius
+oe.config.item.spongeChunkMaxSaturation=Max Saturation
+oe.config.trident=Trident Config
+oe.config.item.enableTrident=Enable Trident
+oe.config.item.tridentDamage=Trident Damage
+oe.config.item.enableTridentCrafting=Enable Crafting Recipe
+oe.config.item.trident3PsnAnimStyle=Trident Animation Style
+oe.config.item.tridentThrowDamage=Thrown Trident Damage
+oe.config.item.tridentAttackSpeed=Trident Attack Speed
+oe.config.item.tridentDurability=Trident Durability
+oe.config.item.tridentPreventThrowBreak=Enable Throw Break Safeguard
+oe.config.item.enableTurtleScute=Enable Turtle Scute
+oe.config.turtleShell=Turtle Shell Config
+oe.config.item.enableTurtleShell=Enable Turtle Shell
+oe.config.item.turtleShellEffectLength=Turtle Shell Effect Length
+oe.config.item.enableTurtleShellDesc=Enable Turtle Shell Description
+
+
+oe.config.worldGen=World Gen Config
+
+oe.config.worldGen.coquinaOutcrop=Coquina Outcrop Config
+oe.config.worldGen.enableCoquinaOutcrops=Enable Coquina Outcrop
+oe.config.worldGen.coquinaOutcropTriesPerChunk=Coquina Outcrop tries per chunk
+oe.config.worldGen.coquinaOutcropChancePerChunk=Coquina Outcrop chance per try
+
+oe.config.worldGen.kelpForest=Kelp Forest Config
+oe.config.worldGen.enableKelpForest=Enable Kelp Forest
+oe.config.worldGen.kelpConnective=Kelp Forest Connectiveness
+oe.config.worldGen.kelpSpread=Kelp Forest Spread
+oe.config.worldGen.kelpDensity=Kelp Density
+oe.config.worldGen.frozenOcean=Frozen Ocean Config
+oe.config.worldGen.enableFrozenOcean=Enable Frozen Oceans
+oe.config.worldGen.enableIceBerg=Enable IceBergs
+oe.config.worldGen.enableIceSheet=Enable Ice Sheet
+oe.config.worldGen.iceSheetSpread=Ice Sheet Spread
+oe.config.worldGen.frozenSeafloor=Frozen Seafloor Config
+oe.config.worldGen.enableRockDecor=Enable Granite Chunks
+oe.config.worldGen.seastarTriesPerChunk=Seastar tries per chunk
+oe.config.worldGen.seastarChancePerChunk=Seastar chance per try
+oe.config.worldGen.tubeSpongeTriesPerChunk=Tube Sponge tries per chunk
+oe.config.worldGen.tubeSpongeChancePerChunk=Tube Sponge chance per try
+oe.config.worldGen.dusleTriesPerChunk=Dulse tries per chunk
+oe.config.worldGen.dulseChancePerChunk=Dulse chance per try
+oe.config.worldGen.blueIceTriesPerChunk=Blue Ice tries per chunk
+oe.config.worldGen.blueIceChancePerChunk=Blue Ice chance per try
+
+oe.config.worldGen.warmOcean=Warm Ocean Config
+oe.config.worldGen.enableWarmOcean=Enable Warm Oceans
+oe.config.worldGen.seaPickleTriesPerChunk=Sea Pickle tries per chunk
+oe.config.worldGen.seaPickleChancePerChunk=Sea Pickle chance per try
+oe.config.worldGen.coralReef=Coral Reef Config
+oe.config.worldGen.enableCoralReef=Enable Coral reefs
+oe.config.worldGen.enableCoralStalk=Enable Coral Stalks
+oe.config.worldGen.enableCoralBranch=Enable Coral Branchs
+oe.config.worldGen.enableCoralBulb=Enable Coral Bulbs
+oe.config.worldGen.palmTree=Palm Tree Config
+oe.config.worldGen.enablePalmTrees=Enable Palm Trees
+oe.config.worldGen.palmTreeFullBark=Palm Trees use full bark logs
+oe.config.worldGen.palmTreeTriesPerChunk=Palm Trees tries per chunk
+oe.config.worldGen.palmTreeChancePerChunk=Palm Tree chance per try
+oe.config.worldGen.monumentPots=Monument Pots Config
+oe.config.worldGen.enableMoumentPots=Enable Prismarine Pots in Monuments
+oe.config.worldGen.shellPatch=Shell Patch Config
+oe.config.worldGen.enableShellPatch=Enable Shell Patches
+oe.config.worldGen.shellPatchTriesPerChunk=Shell Patch tries per Chunk
+oe.config.worldGen.shellPatchChancePerChunk=Shell Patch chance per Try
+oe.config.worldGen.shellPatchAboveSeaLevel=Shell Patch max Y above Sea Level
+oe.config.worldGen.shellPatchSeaStarChance=Shell Patch Sea Star chance
+oe.config.worldGen.seaOatsPatch=Sea Oats Patch Config
+oe.config.worldGen.enableSeagrassPatches=Enable Seagrass Patches
+oe.config.worldGen.enableSeaOatsPatch=Enable Sea Oats Patch
+oe.config.worldGen.seaOatsPatchTriesPerChunk=Sea Oats Patch tries per Chunk
+oe.config.worldGen.seaOatsPatchChancePerChunk=Sea Oats Patch chance per Chunk
+oe.config.worldGen.seaOatsPatchMinTallSides=Tall Sea Oats minimum solid sides
+oe.config.worldGen.seaOatsPatchChancePerChunk=Short Sea Oats placement chance
+oe.config.worldGen.shipwreck=Shipwreck Config
+oe.config.worldGen.enableShipwrecks=Enable Shipwrecks
+oe.config.worldGen.enableShipwreckDrowned=Enable Shipwreck Drowned Groups
+oe.config.worldGen.shipwreckChancePerChunk=Shipwreck chance per Chunk
+
+oe.config.vanillaTweak=Vanilla Tweaks Config
+oe.config.vanillaTweak.drownConverting=Drown Conversion Config
+oe.config.vanillaTweak.enableDrownConverting=Enable Drown Conversion
+oe.config.vanillaTweak.drownConversionsList=Drown Conversion List
+oe.config.vanillaTweak.enableDrownParticles=Enable Drowning Particles
+oe.config.vanillaTweak.waterLighting=Less Water Light Blocking
+oe.config.vanillaTweak.waterCancelReplace=Cancel Water Material Replacement
+oe.config.vanillaTweak.inkSquirting=Ink Squirting Config
+oe.config.vanillaTweak.enableInkSquirting=Enable Ink Squirting
+oe.config.vanillaTweak.inkSquirtingDispense=Dispensers squirt Ink
+oe.config.vanillaTweak.inkSquirtingUserImmune=User is immune to effects
+oe.config.vanillaTweak.inkSquirtingCooldown=Ink Squirting Cooldown
+oe.config.vanillaTweak.squidFlop=Enable Squid Flopping
+oe.config.vanillaTweak.squidPush=Enable Squid Pushing
+oe.config.vanillaTweak.waterBonemeal=Water Bonemealing Config
+oe.config.vanillaTweak.enableWaterBonemeal=Enable Water Bonemealing
+oe.config.vanillaTweak.waterBonemealCoralChance=Coral Place Chance
+oe.config.vanillaTweak.waterBonemealCoralGen=Bonemeal Coral Place Rules
+oe.config.vanillaTweak.squidInking=Squid Inking Config
+oe.config.vanillaTweak.enableSquidInking=Enable Squid Inking
+oe.config.vanillaTweak.squidParticleAmount=Squid Ink Particle Amount
+oe.config.vanillaTweak.babySquidParticleAmount=Baby Squid Ink Particle Amount
+oe.config.vanillaTweak.inkParticleAge=Squid Ink Particle Length
+oe.config.vanillaTweak.inkBlindnessLength=Squid Ink Blindness Length
+oe.config.vanillaTweak.waterMechanics=Water Mechanics Config
+oe.config.vanillaTweak.noDrownList=Drown Disabling List
+oe.config.vanillaTweak.noSwimList=Swim Disabling List
+
+
+
+
+
+
+
+
+oe.jei.barnacle_shells.desc=These vile barnacles ain't just pesky critters clingin' to hulls! If ye let 'em be, they grow somethin' fierce, ready to keel haul a whole ship and crew straight to Davy Jones Locker!\n\nMaybe fashioned into Cockle, or brew a fierce Spirit o' Lead Legs.\n\nAlso maybe fixed into Weighted Peg-legs atop ye Slab o' Fixin.
+oe.jei.coconut.desc=Coconuts are a.\n\nIf a coconut lands on a mob, it will deal damage equal to [distance fallen] - 1, capped at 19 damage.\n\nIf a coconut falls from a height greater than 5 blocks or smash with an impliment, it'll split.
+oe.jei.conduit.desc=The Source o' th' Seas gives the Sea's Bessin' when active, and can attack nearby underwater hostile mobs.\n\nTo activate, build a frame of Prismarine Blocks around the outside of the conduit, in a 5x5x5 area. The inner 3x3x3 area must be open water, with the conduit in the center. The conduit will animate when active. At least 12 frame blocks are required to activate.\n\nThe Conduit Power effect is given within an area equal to [frame blocks amount]/7 * 16.\n\nIf there are at lest 42 block in the frame, the conduit will begin 'hunting', dealing damage to any wet hostile mobs within 8 blocks.
+oe.jei.guardian_spike.desc=Lurker's Pokers can be fashioned into Poesiden's Fightin' Fork. Pillaged from a Great Sea Lurker, or rarely from their crew.\n\nStumblin' atop doubles yer fall!
+oe.jei.palm_leaves_flowering.desc=Flowering Palm Leaves grow Coconuts on their bottom, and can be bonemealed.\n\nThey cannot be obtained in survival.
+oe.jei.sea_oats.desc=Sea Oats come in Short and Tall variants, with the Tall variant able to generate Sand.\n\nIf Tall Sea Oats have a block touching 1 side, they have a chance to become sandy on the bottom. Using a Shovel on the Tall Sea Oats will harvest a duplicate of the sand it is planted on.\n\nUsing Shears on Tall Sea Oats will cut it into Short Sea Oats, while using Bonemeal on Short Sea Oats will grow it into Tall Sea Oats.
+oe.jei.sea_pickle.desc=Sea Pickles can be placed into groups up to 4. When underwater, they emit light.\n\nUsing Bonemeal on a colony of Sea Pickles less than 4 will increase the number. If the colony is atop a Coral Block, Sea Pickles can be spread atop nearby Coral Blocks.
+oe.jei.shell_sand.desc=Take yer Spades to Shells n' Sand with interact or direct diggin' for the plunder! A gentle Touch unlike ye Pirate hands can take the whole block.
