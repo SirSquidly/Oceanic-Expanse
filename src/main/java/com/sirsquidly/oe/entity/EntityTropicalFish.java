@@ -159,7 +159,7 @@ public class EntityTropicalFish extends AbstractFish
     		
 			if (what == variantInt)
 			{
-				return split[1];
+				return I18n.format(split[1]);
 			}
     	}
         

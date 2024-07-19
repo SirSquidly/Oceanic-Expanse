@@ -72,6 +72,29 @@ description.oe.tropical_fish_b_pattern3.name=Blockfish
 description.oe.tropical_fish_b_pattern4.name=Betty
 description.oe.tropical_fish_b_pattern5.name=Clayfish
 
+description.oe.tropical_fish.65536.name=Clownfish
+description.oe.tropical_fish.459008.name=Triggerfish
+description.oe.tropical_fish.917504.name=Tomato Clownfish
+description.oe.tropical_fish.918273.name=Red Snapper
+description.oe.tropical_fish.918529.name=Red Chichlid
+description.oe.tropical_fish.16778497.name=Ornate Butterflyfish
+description.oe.tropical_fish.50660352.name=Queen Angelfish
+description.oe.tropical_fish.50726144.name=Cotton Candy Betta
+description.oe.tropical_fish.67108865.name=Threadfin
+description.oe.tropical_fish.67110144.name=Goatfish
+description.oe.tropical_fish.67371009.name=Yellow Tang
+description.oe.tropical_fish.67699456.name=Yellowtail Parrotfish
+description.oe.tropical_fish.67764993.name=Dottyback
+description.oe.tropical_fish.101253888.name=Parrotfish
+description.oe.tropical_fish.117441025.name=Moorish Idol
+description.oe.tropical_fish.117441793.name=Butterflyfish
+description.oe.tropical_fish.117506305.name=Anemone
+description.oe.tropical_fish.117899265.name=Black Tang
+description.oe.tropical_fish.118161664.name=Cichlid
+description.oe.tropical_fish.185008129.name=Blue Tang
+description.oe.tropical_fish.234882305.name=Emperor Red Snapper
+description.oe.tropical_fish.235340288.name=Red Lipped Blenny
+
 description.oe.turtle_helmet.name=Gives 10 seconds Water Breathing outside of water.
 
 

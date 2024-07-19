@@ -1301,31 +1301,31 @@ public class ConfigHandler
 		    };
 		    
 		    @Config.LangKey("oe.config.entity.tropicalFishNameOverrides")
-		    @Config.Comment("The most likely list of tropical fish variants to spawn")
+		    @Config.Comment("Assigns unique names for certain Tropical Fish. Accepts Translation Keys or Raw String.")
 		    public String[] tropicalFishNameOverrides = 
 			{
-				 	"65536=Clownfish",
-				 	"459008=Triggerfish",
-				 	"917504=Tomato Clownfish",
-				 	"918273=Red Snapper",
-				 	"918529=Red Chichlid",
-				 	"16778497=Ornate Butterflyfish",
-				 	"50660352=Queen Angelfish",
-				 	"50726144=Cotton Candy Betta",
-				 	"67108865=Threadfin",
-				 	"67110144=Goatfish",
-				 	"67371009=Yellow Tang",
-				 	"67699456=Yellowtail Parrotfish",
-				 	"67764993=Dottyback",
-				 	"101253888=Parrotfish",
-				 	"117441025=Moorish Idol",
-				 	"117441793=Butterflyfish",
-				 	"117506305=Anemone",
-				 	"117899265=Black Tang",
-				 	"118161664=Cichlid",
-				 	"185008129=Blue Tang",
-				 	"234882305=Emperor Red Snapper",
-				 	"235340288=Red Lipped Blenny"
+				 	"65536=description.oe.tropical_fish.65536.name",
+				 	"459008=description.oe.tropical_fish.459008.name",
+				 	"917504=description.oe.tropical_fish.917504.name",
+				 	"918273=description.oe.tropical_fish.918273.name",
+				 	"918529=description.oe.tropical_fish.918529.name",
+				 	"16778497=description.oe.tropical_fish.16778497.name",
+				 	"50660352=description.oe.tropical_fish.50660352.name",
+				 	"50726144=description.oe.tropical_fish.50726144.name",
+				 	"67108865=description.oe.tropical_fish.67108865.name",
+				 	"67110144=description.oe.tropical_fish.67110144.name",
+				 	"67371009=description.oe.tropical_fish.67371009.name",
+				 	"67699456=description.oe.tropical_fish.67699456.name",
+				 	"67764993=description.oe.tropical_fish.67764993.name",
+				 	"101253888=description.oe.tropical_fish.101253888.name",
+				 	"117441025=description.oe.tropical_fish.117441025.name",
+				 	"117441793=description.oe.tropical_fish.117441793.name",
+				 	"117506305=description.oe.tropical_fish.117506305.name",
+				 	"117899265=description.oe.tropical_fish.117899265.name",
+				 	"118161664=description.oe.tropical_fish.118161664.name",
+				 	"185008129=description.oe.tropical_fish.185008129.name",
+				 	"234882305=description.oe.tropical_fish.234882305.name",
+				 	"235340288=description.oe.tropical_fish.235340288.name"
 		    };
 		}
 		
