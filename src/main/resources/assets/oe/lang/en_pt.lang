@@ -13,6 +13,7 @@ death.attack.oe.mobstomp.item=%1$s been boot'd by %2$s using %3$s
 
 description.oe.bleak.name=Kills Sea Grass in a 15x15x15 cube
 description.oe.blue_slime_ball.name=Foul, but Edible. Gives 4 Breath, and ye hurl 1.5 Shanks
+description.oe.charm.name=Gives Sea's Blessin' when away from the Source o' th' Seas.
 description.oe.conch_blow1.name=Sail Ho
 description.oe.conch_blow2.name=King's Salute
 description.oe.conch_blow3.name=Parley
@@ -687,10 +688,10 @@ oe.config.vanillaTweak.noSwimList=Swim Disabling List
 
 
 oe.jei.barnacle_shells.desc=These vile barnacles ain't just pesky critters clingin' to hulls! If ye let 'em be, they grow somethin' fierce, ready to keel haul a whole ship and crew straight to Davy Jones Locker!\n\nMaybe fashioned into Cockle, or brew a fierce Spirit o' Lead Legs.\n\nAlso maybe fixed into Weighted Peg-legs atop ye Slab o' Fixin.
-oe.jei.coconut.desc=Coconuts are a.\n\nIf a coconut lands on a mob, it will deal damage equal to [distance fallen] - 1, capped at 19 damage.\n\nIf a coconut falls from a height greater than 5 blocks or smash with an impliment, it'll split.
-oe.jei.conduit.desc=The Source o' th' Seas gives the Sea's Bessin' when active, and can attack nearby underwater hostile mobs.\n\nTo activate, build a frame of Prismarine Blocks around the outside of the conduit, in a 5x5x5 area. The inner 3x3x3 area must be open water, with the conduit in the center. The conduit will animate when active. At least 12 frame blocks are required to activate.\n\nThe Conduit Power effect is given within an area equal to [frame blocks amount]/7 * 16.\n\nIf there are at lest 42 block in the frame, the conduit will begin 'hunting', dealing damage to any wet hostile mobs within 8 blocks.
+oe.jei.coconut.desc=Coconuts be swayed by Gravity.\n\nIf a coconut falls upon a scallywag, it'll deal it's [distance fallen] - 1 damage, but no more than 19 damage!\n\nWhen fallin' off a great height ov'r 5 blocks, or smashed with an impliment, it'll split.
+oe.jei.conduit.desc=The Source o' th' Seas grants the Sea's Blessin' when swirlin', and can strike nearby Sea Beasts.\n\nTo set it a'swirl, raise a frame o' Prismarine Blocks 'round the outside, in a 5x5x5 area. The inner 3x3x3 must be open, with the Source o' th' Seas at the heart. With at least 12 surroundin' blocks, the Source comes alive.\n\nThe amount o' frame blocks affects the Sea's Blessin' range, equal to [frame blocks amount]/7 * 16.\n\nIf there be at least 42 Prismarine Blocks 'round, the Source grows nasty, attacking any Sea Beasts within 8 blocks.
 oe.jei.guardian_spike.desc=Lurker's Pokers can be fashioned into Poesiden's Fightin' Fork. Pillaged from a Great Sea Lurker, or rarely from their crew.\n\nStumblin' atop doubles yer fall!
-oe.jei.palm_leaves_flowering.desc=Flowering Palm Leaves grow Coconuts on their bottom, and can be bonemealed.\n\nThey cannot be obtained in survival.
-oe.jei.sea_oats.desc=Sea Oats come in Short and Tall variants, with the Tall variant able to generate Sand.\n\nIf Tall Sea Oats have a block touching 1 side, they have a chance to become sandy on the bottom. Using a Shovel on the Tall Sea Oats will harvest a duplicate of the sand it is planted on.\n\nUsing Shears on Tall Sea Oats will cut it into Short Sea Oats, while using Bonemeal on Short Sea Oats will grow it into Tall Sea Oats.
-oe.jei.sea_pickle.desc=Sea Pickles can be placed into groups up to 4. When underwater, they emit light.\n\nUsing Bonemeal on a colony of Sea Pickles less than 4 will increase the number. If the colony is atop a Coral Block, Sea Pickles can be spread atop nearby Coral Blocks.
+oe.jei.palm_leaves_flowering.desc=These Flowery Leaves O' Palm be the source of Coconuts, and eagerly grow more with Mashed Bones!\n\nAlas, they be anchored where they are, and cannot be taken.
+oe.jei.sea_oats.desc=Beachside Grass be found along the coasts, in stubby and tall.\n\nCutters'll bring the tall short, while Crushed Bones grow the stubby grass tall.\n\nWhen Tall Beachside Grass be against a wall, they may catch some sand on the wind. Yer Spade'll pull the sand free, the same type the Grass be restin' upon.
+oe.jei.sea_pickle.desc=Salty Sea Pickles clump up in groups, up t' 4, and give an earie glow submerged. \n\nFeedin' Mashed Bones to a clump, and ye'll see 'em multiply. If fed while restin' atop Coral, they can spread atop nearby Coral Blocks!
 oe.jei.shell_sand.desc=Take yer Spades to Shells n' Sand with interact or direct diggin' for the plunder! A gentle Touch unlike ye Pirate hands can take the whole block.

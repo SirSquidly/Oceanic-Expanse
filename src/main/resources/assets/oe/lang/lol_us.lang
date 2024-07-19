@@ -13,6 +13,7 @@ death.attack.oe.mobstomp.item=%1$s got lim stmopd by %2$s and iz %3$s
 
 description.oe.bleak.name=Kills Sea Grass in a 15x15x15 cube
 description.oe.blue_slime_ball.name=Sippy? Give 4 Aerz, but not tasty -1.5 hungry!
+description.oe.charm.name=supa KITTY POWA when awas from sussy box!
 description.oe.conch_blow1.name=Ovr ther
 description.oe.conch_blow2.name=COD rank
 description.oe.conch_blow3.name=Slimey ew
@@ -300,32 +301,32 @@ tile.oe.yellow_coral_dead.name=Ded Jorn koral
 tile.oe.yellow_coral_fan_dead.name=Ded Jorn koral fen
 
 
-potion.effect.oe.descent=Spirit o' Lead Legs
+potion.effect.oe.descent=Poshun ov Fail
 
-potion.effect.oe.turtle_master=Brew o' Turtle Master
-potion.effect.oe.turtle_master_long=Brew o' Turtle Master
-potion.effect.oe.turtle_master_strong=Brew o' Turtle Master
-
-
-splash_potion.effect.oe.descent=Grenade o' Lead Legs
-
-splash_potion.effect.oe.turtle_master=Grenade o' Turtle Master
-splash_potion.effect.oe.turtle_master_long=Grenade o' Turtle Master
-splash_potion.effect.oe.turtle_master_strong=Grenade o' Turtle Master
+potion.effect.oe.turtle_master=Poshun ov TurTl Boss
+potion.effect.oe.turtle_master_long=Poshun ov TurTl Boss
+potion.effect.oe.turtle_master_strong=Poshun ov TurTl Boss
 
 
-lingering_potion.effect.oe.descent=Bottled Fog o' Lead Legs
+splash_potion.effect.oe.descent=Spleshy Poshun ov Fail
 
-lingering_potion.effect.oe.turtle_master=Bottled Fog o' Turtle Master
-lingering_potion.effect.oe.turtle_master_long=Bottled Fog o' Turtle Master
-lingering_potion.effect.oe.turtle_master_strong=Bottled Fog o' Turtle Master
+splash_potion.effect.oe.turtle_master=Spleshy Poshun ov TurTl Boss
+splash_potion.effect.oe.turtle_master_long=Spleshy Poshun ov TurTl Boss
+splash_potion.effect.oe.turtle_master_strong=Spleshy Poshun ov TurTl Boss
 
 
-tipped_arrow.effect.oe.descent=Bolt o' Lead Legs
+lingering_potion.effect.oe.descent=Linnerin Poshun ov Fail
 
-tipped_arrow.effect.oe.turtle_master=Bolt o' Turtle Master
-tipped_arrow.effect.oe.turtle_master_long=Bolt o' Turtle Master
-tipped_arrow.effect.oe.turtle_master_strong=Bolt o' Turtle Master
+lingering_potion.effect.oe.turtle_master=Linnerin Poshun ov TurTl Boss
+lingering_potion.effect.oe.turtle_master_long=Linnerin Poshun ov TurTl Boss
+lingering_potion.effect.oe.turtle_master_strong=Linnerin Poshun ov TurTl Boss
+
+
+tipped_arrow.effect.oe.descent=Speshul Shooty Tignh Dat Makez u Fail
+
+tipped_arrow.effect.oe.turtle_master=Speshul Shooty Tignh Dat Makez u TurTl Boss
+tipped_arrow.effect.oe.turtle_master_long=Speshul Shooty Tignh Dat Makez u TurTl Boss
+tipped_arrow.effect.oe.turtle_master_strong=Speshul Shooty Tignh Dat Makez u TurTl Boss
 
 
 
@@ -686,11 +687,11 @@ oe.config.vanillaTweak.noSwimList=Swim Disabling List
 
 
 
-oe.jei.barnacle_shells.desc=These vile barnacles ain't just pesky critters clingin' to hulls! If ye let 'em be, they grow somethin' fierce, ready to keel haul a whole ship and crew straight to Davy Jones Locker!\n\nMaybe fashioned into Cockle, or brew a fierce Spirit o' Lead Legs.\n\nAlso maybe fixed into Weighted Peg-legs atop ye Slab o' Fixin.
-oe.jei.coconut.desc=Coconuts are a.\n\nIf a coconut lands on a mob, it will deal damage equal to [distance fallen] - 1, capped at 19 damage.\n\nIf a coconut falls from a height greater than 5 blocks or smash with an impliment, it'll split.
-oe.jei.conduit.desc=The Source o' th' Seas gives the Sea's Bessin' when active, and can attack nearby underwater hostile mobs.\n\nTo activate, build a frame of Prismarine Blocks around the outside of the conduit, in a 5x5x5 area. The inner 3x3x3 area must be open water, with the conduit in the center. The conduit will animate when active. At least 12 frame blocks are required to activate.\n\nThe Conduit Power effect is given within an area equal to [frame blocks amount]/7 * 16.\n\nIf there are at lest 42 block in the frame, the conduit will begin 'hunting', dealing damage to any wet hostile mobs within 8 blocks.
-oe.jei.guardian_spike.desc=Lurker's Pokers can be fashioned into Poesiden's Fightin' Fork. Pillaged from a Great Sea Lurker, or rarely from their crew.\n\nStumblin' atop doubles yer fall!
-oe.jei.palm_leaves_flowering.desc=Flowering Palm Leaves grow Coconuts on their bottom, and can be bonemealed.\n\nThey cannot be obtained in survival.
-oe.jei.sea_oats.desc=Sea Oats come in Short and Tall variants, with the Tall variant able to generate Sand.\n\nIf Tall Sea Oats have a block touching 1 side, they have a chance to become sandy on the bottom. Using a Shovel on the Tall Sea Oats will harvest a duplicate of the sand it is planted on.\n\nUsing Shears on Tall Sea Oats will cut it into Short Sea Oats, while using Bonemeal on Short Sea Oats will grow it into Tall Sea Oats.
-oe.jei.sea_pickle.desc=Sea Pickles can be placed into groups up to 4. When underwater, they emit light.\n\nUsing Bonemeal on a colony of Sea Pickles less than 4 will increase the number. If the colony is atop a Coral Block, Sea Pickles can be spread atop nearby Coral Blocks.
-oe.jei.shell_sand.desc=Take yer Spades to Shells n' Sand with interact or direct diggin' for the plunder! A gentle Touch unlike ye Pirate hands can take the whole block.
+oe.jei.barnacle_shells.desc=Tha Poptatoe chip bt U don eat >:3, it make Colqueena, or Bubbled 2 Poshun ov Fal.\n\nUR the zelda bOOTs b fixxed in anbil.
+oe.jei.coconut.desc=Clonck nut fals lik The Value of the United States Dollar, and go OWIE [disbanse fal] - 1, but not 19 more!!1\n\n2 big a fal, ovr 5 meatrs, makig it waltr whit mode!! or U brek with toolz, u dew u, lol
+oe.jei.conduit.desc=A stwang box givz da Kitty Powah effek when itz on, and ZAP nearby undawata bad fishiez.\n\nPowaful majiks needz wrk, yu need to bild a kitty fort of Prizmarine stuff around da it, in a 5x5x5 area. Da inside haz be all open wata, wif da box chillin' and grillin' >:3 it will start doin' a happy dance when itz active. It needz big fort, at LEAST 12 bloxks!!1\n\nKitty Powah effek is in [fort blokz amount]/7 * 16. Math is hard, but more blokz, more powah!\n\nIf dere are at least 42 blokz in da frame, da silly box goez ULTA KITTE MODE, LIEK SHAGGY, KINGA DA WATr!!! It SMITE any wet bad fishiez within 8 paws!
+oe.jei.guardian_spike.desc=Who up Dinging thy hopper??? fork styl! Boomer Sharks poop these, or the normie onz sometimes I guess.\n\nAn tripping goes OW MY PAWS OWWWWWWWWW x2!!!1
+oe.jei.palm_leaves_flowering.desc=DA COCNUT palmz but tey grow Cocnut, lik duh! Stupoid! Idiot! MORON! Butt Skelington powder gives POWER f4 cocnut!\n\nU cant hav them.
+oe.jei.sea_oats.desc=Bech grazz come in tall and not tal, but Tal can can kitty litter\n\nIf Tall haz block snuggle side, it might getz littr on da bottom like sandy paws! BIG SPOOn clens paws off, an u get the littr 4 free!\n\nSkizzors givs it a harecut, but smush skeletn makes it grow back.
+oe.jei.sea_pickle.desc=See Pikols in scary grops! Butt they glows like LED undweater!!1\n\nSkelegintolizo littr maks moar, up to 4. and dye spred atop Koral Cubes.
+oe.jei.shell_sand.desc=Kitteh littr but ther's sharp thingies u cans digz wit spoon. Or haz it wit Smooth Digin!
