@@ -375,7 +375,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     	else
     	{ fullName = color1 + " " + I18n.format("entity.oe.lobster.name"); }
 
-    	if ((variantInt & 255) == 1 && (variantInt >> 8 & 255) == 5 || (variantInt & 255) == 1 && (variantInt >> 8 & 255) == 5)
+    	if ((variantInt & 255) == 1 && (variantInt >> 8 & 255) == 5 || (variantInt & 255) == 5 && (variantInt >> 8 & 255) == 1)
     	{
     		fullName = I18n.format("description.oe.lobster_half" + (variantInt & 255) + (variantInt >> 8 & 255) + ".name") + " " + I18n.format("entity.oe.lobster.name");
     	}
