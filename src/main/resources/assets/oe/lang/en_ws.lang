@@ -11,24 +11,25 @@ death.attack.oe.coconut=%1$s was clonked by a falling coconut
 death.attack.oe.mobstomp=%1$s was stomped by %2$s
 death.attack.oe.mobstomp.item=%1$s was stomped by %2$s using %3$s
 
-description.oe.bleak.name=Killeth Flote Grass within a 15x15x15 cube
-description.oe.blue_slime_ball.name=Always Edible. Adds 4 Air Bubbles, but removes 1.5 Hunger
+description.oe.bleak.name=Slays Sargasso keen, within a cube 15x15x15.
+description.oe.blue_slime_ball.name=E'er fit for consumption, bestows bubbles 4, yet wretchedly, it leaves thee hungering 1.5 more.
+description.oe.charm.name=Bestows the Conduit's might, beyond the eye's keen sight.
 description.oe.conch_blow1.name=Distant
 description.oe.conch_blow2.name=Emblem
 description.oe.conch_blow3.name=Snail
 description.oe.conch_blow4.name=Buffalo
-description.oe.crab_color0.name=Red
+description.oe.crab_color0.name=R'd
 description.oe.crab_color1.name=Pale
 description.oe.crab_color2.name=Green
 description.oe.crab_color3.name=Ashen
 description.oe.crab_color4.name=Blue
 description.oe.crab_color5.name=Powder
 description.oe.sponge_chunk_saturation.name=Saturation:
-description.oe.heavy_boots.name=Gives 10 seconds Descent when worn.
+description.oe.heavy_boots.name=Inflicts 10 seconds Descend when worn.
 description.oe.lobster_color0.name=Brown
 description.oe.lobster_color1.name=Black
 description.oe.lobster_color2.name=Blue
-description.oe.lobster_color3.name=Red
+description.oe.lobster_color3.name=R'd
 description.oe.lobster_color4.name=Yellow
 description.oe.lobster_color5.name=Orange
 description.oe.lobster_color6.name=Calico
@@ -45,18 +46,18 @@ description.oe.tropical_fish_color.10=Plum
 description.oe.tropical_fish_color.white=White
 description.oe.tropical_fish_color.orange=Orange
 description.oe.tropical_fish_color.magenta=Magenta
-description.oe.tropical_fish_color.light_blue=Light Blue
+description.oe.tropical_fish_color.light_blue=Lighteth blue
 description.oe.tropical_fish_color.yellow=Yellow
 description.oe.tropical_fish_color.lime=Lime
 description.oe.tropical_fish_color.pink=Pink
-description.oe.tropical_fish_color.gray=Gray
-description.oe.tropical_fish_color.silver=Light Gray
+description.oe.tropical_fish_color.gray=Grizzled
+description.oe.tropical_fish_color.silver=Lighteth grizzled
 description.oe.tropical_fish_color.cyan=Cyan
 description.oe.tropical_fish_color.purple=Purple
 description.oe.tropical_fish_color.blue=Blue
 description.oe.tropical_fish_color.brown=Brown
 description.oe.tropical_fish_color.green=Green
-description.oe.tropical_fish_color.red=Red
+description.oe.tropical_fish_color.red=R'd
 description.oe.tropical_fish_color.black=Black
 description.oe.tropical_fish_a_pattern0.name=Kob
 description.oe.tropical_fish_a_pattern1.name=Sunstreak
@@ -68,29 +69,52 @@ description.oe.tropical_fish_b_pattern0.name=Flopper
 description.oe.tropical_fish_b_pattern1.name=Stripey
 description.oe.tropical_fish_b_pattern2.name=Glitter
 description.oe.tropical_fish_b_pattern3.name=Blockfish
-description.oe.tropical_fish_b_pattern4.name=Betty
+description.oe.tropical_fish_b_pattern4.name=MacBeth
 description.oe.tropical_fish_b_pattern5.name=Clayfish
 
-description.oe.turtle_helmet.name=Gives 10 seconds Water Breathing outside of water.
+description.oe.tropical_fish.65536.name=Exotic Fish
+description.oe.tropical_fish.459008.name=Triggerfish
+description.oe.tropical_fish.917504.name=Tomato Clownfish
+description.oe.tropical_fish.918273.name=Red Snapper
+description.oe.tropical_fish.918529.name=Red Chichlid
+description.oe.tropical_fish.16778497.name=Ornate Butterflyfish
+description.oe.tropical_fish.50660352.name=Queen Angelfish
+description.oe.tropical_fish.50726144.name=Cotton Candy Betta
+description.oe.tropical_fish.67108865.name=Threadfin
+description.oe.tropical_fish.67110144.name=Goatfish
+description.oe.tropical_fish.67371009.name=Yellow Tang
+description.oe.tropical_fish.67699456.name=Yellowtail Parrotfish
+description.oe.tropical_fish.67764993.name=Dottyback
+description.oe.tropical_fish.101253888.name=Parrotfish
+description.oe.tropical_fish.117441025.name=Moorish Idol
+description.oe.tropical_fish.117441793.name=Butterflyfish
+description.oe.tropical_fish.117506305.name=Anemone
+description.oe.tropical_fish.117899265.name=Black Tang
+description.oe.tropical_fish.118161664.name=Cichlid
+description.oe.tropical_fish.185008129.name=Blue Tang
+description.oe.tropical_fish.234882305.name=Emperor Red Snapper
+description.oe.tropical_fish.235340288.name=Red Lipped Blenny
+
+description.oe.turtle_helmet.name=Bestows 10 seconds of breath 'neath water's embrace, and doth restores upon the land's gentle grace.
 
 
 effect.oe.conduit_power=Conduit Power
 
-effect.oe.descent=Descent
+effect.oe.descent=Descend
 
 
-enchantment.oe.mobstomp=Mob Stomp
+enchantment.oe.mobstomp=Jupiter's Stomp
 enchantment.oe.mobstomp.desc=Transfers your fall damage to mobs upon landing on them, and resets your own fall distance.
-enchantment.oe.is_wet=Waterjet
+enchantment.oe.is_wet=Tempest's Wrath
 enchantment.oe.is_wet.desc=Increases the damage to wet mobs.
 
-enchantment.oe.channeling=Channeling
+enchantment.oe.channeling=Thunder-stone
 enchantment.oe.channeling.desc=Strikes lightning when impacting a mob or lightning rod during a thunderstorm.
-enchantment.oe.is_watermob=Impaling
+enchantment.oe.is_watermob=Neptune's Throw
 enchantment.oe.is_watermob.desc=Increases the damage dealt to aquatic mobs.
-enchantment.oe.loyalty=Loyalty
+enchantment.oe.loyalty=Enchanted Bond
 enchantment.oe.loyalty.desc=Returns to the owner upon impacting a mob or block.
-enchantment.oe.riptide=Riptide
+enchantment.oe.riptide=Sprites Flight
 enchantment.oe.riptide.desc=Launches the owner in the direction they are facing, if they are wet.
 
 
@@ -109,7 +133,7 @@ entity.oe.drowned.name=Grindylow
 entity.oe.glow_squid.name=Glowen Cuttlefish
 entity.oe.pufferfish.name=Blowfish
 entity.oe.salmon.name=Salmon
-entity.oe.tropical_fish.name=Exotic Fish
+entity.oe.tropical_fish.name=Tropical Gudgeon
 entity.oe.turtle.name=Turtle
 
 
@@ -232,7 +256,7 @@ tile.oe.coquina_brick_slab_double.name=Coquina Brick Slab
 tile.oe.coquina_brick_wall.name=Coquina Brick Wall
 tile.oe.dulse.name=Dulse
 tile.oe.dried_dulse_block.name=Dried Dulse Block
-tile.oe.guardian_spike.name=Guardian Spike
+tile.oe.guardian_spike.name=Morgen's Comb
 tile.oe.nacre_block.name=Nacre Block
 tile.oe.nacre_smooth.name=Smooth Nacre Block
 tile.oe.palm_bookshelf.name=Palm Bookshelf
@@ -298,32 +322,32 @@ tile.oe.yellow_coral_dead.name=Dead Yellow Coral
 tile.oe.yellow_coral_fan_dead.name=Dead Small Yellow Coral
 
 
-potion.effect.oe.descent=Potion of Descent
+potion.effect.oe.descent=Potion o' Descend
 
-potion.effect.oe.turtle_master=Potion of the Turtle Master
-potion.effect.oe.turtle_master_long=Potion of the Turtle Master +
-potion.effect.oe.turtle_master_strong=Potion of the Turtle Master II
-
-
-splash_potion.effect.oe.descent=Splash Potion of Descent
-
-splash_potion.effect.oe.turtle_master=Splash Potion of the Turtle Master
-splash_potion.effect.oe.turtle_master_long=Splash Potion of the Turtle Master +
-splash_potion.effect.oe.turtle_master_strong=Splash Potion of the Turtle Master II
+potion.effect.oe.turtle_master=Potion o' Shield Wall
+potion.effect.oe.turtle_master_long=Potion o' Shield Wall
+potion.effect.oe.turtle_master_strong=Potion o' Shield Wall
 
 
-lingering_potion.effect.oe.descent=Lingering Potion of Descent
+splash_potion.effect.oe.descent=Throwing Potion o' Descend
 
-lingering_potion.effect.oe.turtle_master=Lingering Potion of the Turtle Master
-lingering_potion.effect.oe.turtle_master_long=Lingering Potion of the Turtle Master +
-lingering_potion.effect.oe.turtle_master_strong=Lingering Potion of the Turtle Master II
+splash_potion.effect.oe.turtle_master=Throwing Potion o' Shield Wall
+splash_potion.effect.oe.turtle_master_long=Throwing Potion o' the Shield Wall
+splash_potion.effect.oe.turtle_master_strong=Throwing Potion o' the Shield Wall
 
 
-tipped_arrow.effect.oe.descent=Arrow of Descent
+lingering_potion.effect.oe.descent=Lingering Potion o' Descend
 
-tipped_arrow.effect.oe.turtle_master=Arrow of the Turtle Master
-tipped_arrow.effect.oe.turtle_master_long=Arrow of the Turtle Master +
-tipped_arrow.effect.oe.turtle_master_strong=Arrow of the Turtle Master II
+lingering_potion.effect.oe.turtle_master=Lingering Potion o' Shield Wall
+lingering_potion.effect.oe.turtle_master_long=Lingering Potion o' Shield Wall
+lingering_potion.effect.oe.turtle_master_strong=Lingering Potion o' Shield Wall
+
+
+tipped_arrow.effect.oe.descent=Arrow o' Descend
+
+tipped_arrow.effect.oe.turtle_master=Arrow o' Shield Wall
+tipped_arrow.effect.oe.turtle_master_long=Arrow o' Shield Wall
+tipped_arrow.effect.oe.turtle_master_strong=Arrow o' Shield Wall
 
 
 
@@ -689,7 +713,7 @@ description.effect.oe.descent=Pulls affected entities downward.
 oe.jei.barnacle_shells.desc=The Husks of Barnacles with a skillful hand, may be fashioned into Coquina, or brewed into a Potion o' Descent most tanned.\n\nMoreover, they may mend Lead Boots, scars sealed away, the venerable anvil extending their end to another day.
 oe.jei.coconut.desc=The steadfast Coconut, subject to gravity's spell, should it fall upon a creature, it rings most knell-\n\n[distance fallen] - 1 harm inflicted, a grievous plight, yet ne'er shall it exceed more thant 19's blight.\n\nShould it plummet from heights of 5 blocks or more, or be struck by a tool swung with might and uproar, it shall crack and splinter, its form undone, its sturdy shape reduced to none.
 oe.jei.conduit.desc=When Conduit wakes, it's Power it bestows, and to smite at foes under the ocean's current flows.\n\nTo rouse its slumber, a frame must be erect, Prismarine Blocks in a 5x5 aespect. Yet the inner 3 must remain open sea, with the Conduit at the center, where it is free.\n\nThe frame's size shall its Power's range define, [frame blocks amount]/7 * 16 align.\n\nWith 42 blocks, the eye shall open wide, striking any evils within 8 blocks abide.
-oe.jei.guardian_spike.desc=The Guardian Spikes may forge Tridents of Neptune's might, either dropped by Morgen or rarely a Water Sprite.\n\nIf thou falls on them, thy damage is marred, doubled in harm as thou art scarred.
+oe.jei.guardian_spike.desc=The Morgen's Comb may forge Tridents of Neptune's might, either dropped by Morgen or rarely a Water Sprite.\n\nIf thou falls on them, thy damage is marred, doubled in harm as thou art scarred.
 oe.jei.palm_leaves_flowering.desc=Floweth'ring Areca Leaves in splendor grow, with Bone Powder's touch, Coconuts shall show.\n\nYet their fair splendor escapes mortals hands, as flowers drift away like shifting sands.
 oe.jei.sea_oats.desc=Along the coasts Flote Oats stand, both tall and small, a coastal band. If a wall doth shield the grass's side, the tall ones gather sands far and wide. With spade in hand, this harvest taken, sand alike to where it's stationed.\n\nWith shears, the Tall bow down, and Bone Powder's touch makes Short rise from the ground.
 oe.jei.sea_pickle.desc=Sea Cucumbers, in groups of 4  may be placed, submerged in waters, they glow with grace.\n\nA touch of Bone Powder expands their store, to nearby Coral blocks, they extend with ease and more.
