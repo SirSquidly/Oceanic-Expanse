@@ -22,11 +22,14 @@ public class OEPotions
 {
 	public static final Potion CONDUIT_POWER = new PotionBase("conduit_power", false, 1950417, 0);
 	public static final Potion DESCENT = new PotionBase("descent", true, 10053222, 1);
+	public static final Potion SEEPING = new PotionBase("seeping", true, 10053222, 2);
 	
 	public static PotionType TURTLE_MASTER_POTION;
 	public static PotionType LONG_TURTLE_MASTER_POTION;
 	public static PotionType STRONG_TURTLE_MASTER_POTION;
 	public static final PotionType DESCENT_POTION = new PotionType(Main.MOD_ID + "." + "descent", new PotionEffect[] { new PotionEffect(DESCENT, 2400)} ).setRegistryName("descent");
+	
+	public static final PotionType SEEPING_POTION = new PotionType(Main.MOD_ID + "." + "seeping", new PotionEffect[] { new PotionEffect(SEEPING, 2400)} ).setRegistryName("seeping");
 
 	@SubscribeEvent
 	public static void onPotionTypeRegister(RegistryEvent.Register<PotionType> event)
@@ -53,6 +56,7 @@ public class OEPotions
 		registerPotionMixes();
 		
 		event.getRegistry().register(OEPotions.DESCENT_POTION);
+		event.getRegistry().register(OEPotions.SEEPING_POTION);
 	}
 	
 	@SubscribeEvent
@@ -60,6 +64,7 @@ public class OEPotions
 	{
 		event.getRegistry().register(OEPotions.CONDUIT_POWER);
 		event.getRegistry().register(OEPotions.DESCENT);
+		event.getRegistry().register(OEPotions.SEEPING);
 	}
 	
 	public static void registerPotionMixes()

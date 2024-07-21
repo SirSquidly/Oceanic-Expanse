@@ -1,9 +1,12 @@
 package com.sirsquidly.oe.blocks;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
 import com.sirsquidly.oe.entity.EntityTurtle;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -17,6 +20,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
@@ -102,6 +106,8 @@ public class BlockTurtleEgg extends Block
 		{ 
 			world.setBlockState(pos, iblockstate.withProperty(AMOUNT, Integer.valueOf(j - 1)));
 		}
+		
+		world.spawnEntity(new EntityXPOrb(world, pos.getX()+0.5, pos.getY(), pos.getZ()+0.5, 1));
     }
 	
 	public boolean checkSand(World world, BlockPos pos) 
@@ -110,6 +116,9 @@ public class BlockTurtleEgg extends Block
 		if(world.getBlockState(pos.down()).getBlock() instanceof BlockSand) return true;
 		return false;
     }
+	
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    { if (checkSand(worldIn, pos)) worldIn.playEvent(2005, pos, 0); }
 	
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {

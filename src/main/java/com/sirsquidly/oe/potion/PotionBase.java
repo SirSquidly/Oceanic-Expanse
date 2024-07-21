@@ -1,12 +1,14 @@
 package com.sirsquidly.oe.potion;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.entity.EntityTropicalSlime;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -89,6 +91,16 @@ public class PotionBase extends Potion
 				entity.motionY *= 0.4D;
 			}
         }
+		if(entity.isPotionActive(OEPotions.SEEPING) && entity.isDead)
+		{
+			EntityTropicalSlime entityTropicalslime = new EntityTropicalSlime(entity.world);
+
+            //entityTropicalslime.setSlimeSize(2, true);
+            //entityTropicalslime.updateHealth(true);
+			entityTropicalslime.onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
+            entityTropicalslime.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.getRNG().nextFloat() * 360.0F, 0.0F);
+            entity.world.spawnEntity(entityTropicalslime);
+		}
     }
 	
 	/** Specific for Conduit Power. Removes the potion effects.*/
