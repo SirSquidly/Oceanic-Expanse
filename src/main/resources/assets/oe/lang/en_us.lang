@@ -101,6 +101,7 @@ description.oe.turtle_helmet.name=Gives 10 seconds Water Breathing outside of wa
 effect.oe.conduit_power=Conduit Power
 
 effect.oe.descent=Descent
+effect.oe.seeping=Seeping
 
 
 enchantment.oe.mobstomp=Mob Stomp
@@ -709,6 +710,7 @@ oe.config.vanillaTweak.noSwimList=Swim Disabling List
 
 description.effect.oe.conduit=Grants Water Breathing, Night Vision, and Haste when submerged in water.
 description.effect.oe.descent=Pulls affected entities downward.
+description.effect.oe.seeping=Spawns a Tropical Slime on an entity's death.
 
 oe.jei.barnacle_shells.desc=Barnacle Shells can be used to craft Coquina, or brew Potions of Descent.\n\nCan also be used to repair Heavy Boots in an anvil.
 oe.jei.coconut.desc=Coconuts are a gravity-affected block.\n\nIf a coconut lands on a mob, it will deal damage equal to [distance fallen] - 1, capped at 19 damage.\n\nIf a coconut falls from a height greater than 5 blocks or is mined with any tool, it will drop 2 Cracked Coconuts.
