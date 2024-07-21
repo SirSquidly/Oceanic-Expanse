@@ -9,6 +9,7 @@ import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,7 +21,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -59,9 +59,16 @@ public class GeneratorShipwreck implements IWorldGenerator
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator generator, IChunkProvider provider)
 	{
-        ChunkPos chunkPos = world.getChunk(chunkX, chunkZ).getPos();
-        Biome biome = world.getBiomeForCoordsBody(chunkPos.getBlock(0, 0, 0));
-
+        int x = chunkX * 16 + 8;
+        int z = chunkZ * 16 + 8;
+        BlockPos pos = new BlockPos(x, 0, z);
+        Biome biome = world.getBiomeForCoordsBody(pos);
+		
+        Block topBlock = world.getBlockState(world.getTopSolidOrLiquidBlock(pos)).getBlock();
+        
+		if (topBlock == Blocks.LAVA || topBlock == Blocks.AIR) return;
+		Main.logger.info(world.getBlockState(world.getTopSolidOrLiquidBlock(pos.down())).getBlock());
+		
 		for(int i = 0; i < biomes.length; i++)
 		{
 			if(biome == biomes[i])
@@ -70,7 +77,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 				{
 					if(rand.nextInt(chancePerAttempt) == 0)
 					{
-						spawnShipwreck(world, rand, chunkX * 16 + rand.nextInt(8) + 8, chunkZ * 16 + rand.nextInt(8) + 8);
+						spawnShipwreck(world, rand, pos.getX(), pos.getZ());
 					}
 				}
 				break;
@@ -202,7 +209,7 @@ public class GeneratorShipwreck implements IWorldGenerator
         for (; pos.getY() > 0; pos = pos.down())
         {
         	IBlockState state = world.getBlockState(pos);
-        	if (!(state.getBlock().isReplaceable(world, pos)) && state.getMaterial() != Material.LEAVES && state.getMaterial() != Material.ICE)
+        	if (!(state.getBlock().isReplaceable(world, pos)) && state.getMaterial() != Material.LEAVES && state.getMaterial() != Material.ICE && state.getMaterial() != Material.WATER)
         	{ break;}
         }
         return pos;
