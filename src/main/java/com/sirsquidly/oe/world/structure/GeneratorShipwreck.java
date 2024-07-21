@@ -67,7 +67,6 @@ public class GeneratorShipwreck implements IWorldGenerator
         Block topBlock = world.getBlockState(world.getTopSolidOrLiquidBlock(pos)).getBlock();
         
 		if (topBlock == Blocks.LAVA || topBlock == Blocks.AIR) return;
-		Main.logger.info(world.getBlockState(world.getTopSolidOrLiquidBlock(pos.down())).getBlock());
 		
 		for(int i = 0; i < biomes.length; i++)
 		{
