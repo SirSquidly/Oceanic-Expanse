@@ -65,6 +65,8 @@ public class DrownConversionEvent
 	@SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event)
     {
+		if (!ConfigHandler.vanillaTweak.drownConverting.enableDrownConverting) return;
+		
 		World world = event.getEntityLiving().getEntityWorld();
 		
 		if(world.getTotalWorldTime() % 20L != 0L) return;

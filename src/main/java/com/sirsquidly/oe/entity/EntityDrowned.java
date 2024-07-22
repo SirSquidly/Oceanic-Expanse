@@ -50,6 +50,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -279,7 +280,20 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
       /* Lazy fix for Drowned spawning where they shouldn't **/
     	if (this.world.provider.getDimension() != 0) return false;
 
-	return super.getCanSpawnHere();
+        int i = MathHelper.floor(this.posX);
+        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int k = MathHelper.floor(this.posZ);
+        BlockPos blockpos = new BlockPos(i, j, k);
+        
+        List<Entity> checkSurroundingDrowned = this.world.getEntitiesWithinAABB(EntityDrowned.class, getEntityBoundingBox().grow(64, 64, 64));
+		if ( checkSurroundingDrowned.size() > 3) return false;
+		
+        for (int l = 0; l < 3; l++)
+        {
+        	if (this.world.getBlockState(blockpos.down()).getMaterial() == Material.WATER) blockpos = blockpos.add(0, -l, 0);
+        }
+
+		return this.world.getBlockState(blockpos.down()).isSideSolid(world, new BlockPos(this).down(), EnumFacing.UP);
 	}
     
     @Override
