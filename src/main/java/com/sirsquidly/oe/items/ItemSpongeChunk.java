@@ -82,7 +82,7 @@ public class ItemSpongeChunk extends Item
 		
 		if (!worldIn.provider.doesWaterVaporize() && ConfigHandler.item.spongeChunk.spongeChunkMaxSaturation != 0)
 		{
-			if (player.canPlayerEdit(pos, facing, itemstack))
+			if (!this.isFull(itemstack) && player.canPlayerEdit(pos, facing, itemstack))
 			{
 				doWaterCollection(worldIn, pos, player, hand, itemstack);
 			}
