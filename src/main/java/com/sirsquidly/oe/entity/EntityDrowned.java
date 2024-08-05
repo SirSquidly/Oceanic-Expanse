@@ -161,6 +161,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	public void onUpdate()
     {
 		super.onUpdate();
+
 		this.removeInjectedAI();
 		
 		if (!this.isEntityAlive()) return;
@@ -277,23 +278,13 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     @Override
    	public boolean getCanSpawnHere()
     {
-      /* Lazy fix for Drowned spawning where they shouldn't **/
+        /* Lazy fix for Drowned spawning where they shouldn't **/
     	if (this.world.provider.getDimension() != 0) return false;
 
-        int i = MathHelper.floor(this.posX);
-        int j = MathHelper.floor(this.getEntityBoundingBox().minY);
-        int k = MathHelper.floor(this.posZ);
-        BlockPos blockpos = new BlockPos(i, j, k);
-        
         List<Entity> checkSurroundingDrowned = this.world.getEntitiesWithinAABB(EntityDrowned.class, getEntityBoundingBox().grow(64, 64, 64));
-		if ( checkSurroundingDrowned.size() > 3) return false;
-		
-        for (int l = 0; l < 3; l++)
-        {
-        	if (this.world.getBlockState(blockpos.down()).getMaterial() == Material.WATER) blockpos = blockpos.add(0, -l, 0);
-        }
+		if ( checkSurroundingDrowned.size() > 2) return false;
 
-		return this.world.getBlockState(blockpos.down()).isSideSolid(world, new BlockPos(this).down(), EnumFacing.UP);
+        return super.getCanSpawnHere();
 	}
     
     @Override
