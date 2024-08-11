@@ -190,7 +190,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
         	if (i > 4)
             { i = 4; }
         	
-        	worldIn.setBlockState(pos, this.getDefaultState().withProperty(AMOUNT, Integer.valueOf(i)), 2);
+        	worldIn.setBlockState(pos, state.withProperty(AMOUNT, Integer.valueOf(i)), 2);
         }
         
         if (this.isCoralBlock(worldIn, pos.down()))
