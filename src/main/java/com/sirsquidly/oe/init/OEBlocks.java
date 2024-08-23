@@ -339,20 +339,20 @@ public class OEBlocks
 		for(Block b : blockList)
 		{
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(b), 0, new ModelResourceLocation(b.getRegistryName(), "inventory"));
-			
 			/** So many blocks are submergable, might as well set this for all **/
 			ModelLoader.setCustomStateMapper(b, new StateMap.Builder().ignore(BlockLiquid.LEVEL).ignore(BlockCoralFan.IN_WATER).ignore(BlockTubeSponge.SHEARED).build());
-			
-			ModelLoader.setCustomStateMapper(OEBlocks.PALM_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
-			ModelLoader.setCustomStateMapper(OEBlocks.COQUINA_BRICK_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
-			ModelLoader.setCustomStateMapper(OEBlocks.PALM_FENCE_GATE, new StateMap.Builder().ignore(BlockFenceGate.POWERED).build());
-			ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
-			
-			ModelLoader.setCustomStateMapper(OEBlocks.PICKLED_HEAD, new StateMap.Builder().ignore(BlockSkull.NODROP).ignore(BlockSkull.FACING).build());
-			
-			/** Sea Pickles actually use the IN_WATER check to change model, or RE-include it**/
-			ModelLoader.setCustomStateMapper(OEBlocks.SEA_PICKLE, new StateMap.Builder().ignore(BlockLiquid.LEVEL).build());
 		}
+
+		/** These have custom states, so they are taken outside the universal setup, they aren't required in the loop. **/
+		ModelLoader.setCustomStateMapper(OEBlocks.PALM_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
+		ModelLoader.setCustomStateMapper(OEBlocks.COQUINA_BRICK_SLAB_D, new StateMap.Builder().ignore(BlockSlab.HALF).build());
+		ModelLoader.setCustomStateMapper(OEBlocks.PALM_FENCE_GATE, new StateMap.Builder().ignore(BlockFenceGate.POWERED).build());
+		ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
+
+		ModelLoader.setCustomStateMapper(OEBlocks.PICKLED_HEAD, new StateMap.Builder().ignore(BlockSkull.NODROP).ignore(BlockSkull.FACING).build());
+
+		/** Sea Pickles actually use the IN_WATER check to change model, or RE-include it**/
+		ModelLoader.setCustomStateMapper(OEBlocks.SEA_PICKLE, new StateMap.Builder().ignore(BlockLiquid.LEVEL).build());
 	}
 	
 	

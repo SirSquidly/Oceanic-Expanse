@@ -50,6 +50,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -160,6 +161,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	public void onUpdate()
     {
 		super.onUpdate();
+
 		this.removeInjectedAI();
 		
 		if (!this.isEntityAlive()) return;
@@ -276,10 +278,13 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     @Override
    	public boolean getCanSpawnHere()
     {
-      /* Lazy fix for Drowned spawning where they shouldn't **/
+        /* Lazy fix for Drowned spawning where they shouldn't **/
     	if (this.world.provider.getDimension() != 0) return false;
 
-	return super.getCanSpawnHere();
+        List<Entity> checkSurroundingDrowned = this.world.getEntitiesWithinAABB(EntityDrowned.class, getEntityBoundingBox().grow(64, 64, 64));
+		if ( checkSurroundingDrowned.size() > 2) return false;
+
+        return super.getCanSpawnHere();
 	}
     
     @Override

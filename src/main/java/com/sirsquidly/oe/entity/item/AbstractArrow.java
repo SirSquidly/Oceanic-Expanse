@@ -31,9 +31,9 @@ public class AbstractArrow extends EntityArrow implements IProjectile
     private int zTile;
     protected Block inTile;
     private int inData;
-    protected boolean inGround;
-    protected int timeInGround;
-    public PickupStatus pickupStatus;
+    //protected boolean inGround;
+    //protected int timeInGround;
+    //public PickupStatus pickupStatus;
     protected int ticksInGround;
     @SuppressWarnings("unused")
 	private int ticksInAir;
@@ -58,7 +58,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
         this.bounceYStrength = -0.1D;
         this.airSpeed = 0.99F;
         this.waterSpeed = 0.6F;
-        this.pickupStatus = PickupStatus.DISALLOWED;
+        //this.pickupStatus = PickupStatus.DISALLOWED;
 	}
 	
 	public AbstractArrow(World worldIn, double x, double y, double z)
@@ -74,7 +74,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 
         if (shooter instanceof EntityPlayer)
         {
-        	this.pickupStatus = PickupStatus.ALLOWED;
+        	this.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
         }
     }
 
@@ -325,16 +325,18 @@ public class AbstractArrow extends EntityArrow implements IProjectile
                     this.rotationYaw += 180.0F;
                     this.prevRotationYaw += 180.0F;
                     this.ticksInAir = 0;
-                    
+
+                    /**
                     if (!this.world.isRemote && this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ < 0.0010000000474974513D)
                     {
                         if (this.pickupStatus == PickupStatus.ALLOWED)
                         {
-                            //this.entityDropItem(this.getArrowStack(), 0.1F);
+                            this.entityDropItem(this.getArrowStack(), 0.1F);
                         }
 
-                        //this.setDead();
+                        this.setDead();
                     }
+                     */
                 }
             }
             else
@@ -389,11 +391,11 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 	@Override
 	public void onCollideWithPlayer(EntityPlayer entityIn)
     {
-        if (!this.world.isRemote && this.inGround && this.arrowShake <= 0)
+        if (!this.world.isRemote && (this.inGround || this.noClip) && this.arrowShake <= 0)
         {
-            boolean flag = this.pickupStatus == PickupStatus.ALLOWED || this.pickupStatus == PickupStatus.CREATIVE_ONLY && entityIn.capabilities.isCreativeMode;
+            boolean flag = this.pickupStatus == EntityArrow.PickupStatus.ALLOWED || this.pickupStatus == EntityArrow.PickupStatus.CREATIVE_ONLY && entityIn.capabilities.isCreativeMode;
 
-            if (this.pickupStatus == PickupStatus.ALLOWED && !entityIn.inventory.addItemStackToInventory(this.getArrowStack()))
+            if (this.pickupStatus == EntityArrow.PickupStatus.ALLOWED && !entityIn.inventory.addItemStackToInventory(this.getArrowStack()))
             {
                 flag = false;
             }

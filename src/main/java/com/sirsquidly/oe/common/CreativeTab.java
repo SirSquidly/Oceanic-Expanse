@@ -124,7 +124,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        }
 	        if (ConfigHandler.block.enableSeastar) add(list, OEBlocks.SEASTAR);
 	        if (ConfigHandler.block.tubeSponge.enableTubeSponge) add(list, OEBlocks.TUBE_SPONGE);
-	        add(list, OEItems.SPONGE_CHUNK);
+			if (ConfigHandler.item.spongeChunk.enableSpongeChunk) add(list, OEItems.SPONGE_CHUNK);
 	        
 	        if (ConfigHandler.block.coralBlocks.enableCoralBlock) 
 	        {

@@ -307,7 +307,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     {
         ItemStack itemstack = itemEntity.getItem();
 
-        if (this.isEdibleItem(itemstack) && this.getHeldItemMainhand().isEmpty() && itemEntity.getAge() >= 5 * 20)
+        if (this.isEdibleItem(itemstack) && this.getHeldItemMainhand().isEmpty() && itemEntity.ticksExisted >= 5 * 20)
         {
         	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, itemstack);
         	int itemnumber = itemstack.getCount();
@@ -609,7 +609,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         this.setLobsterVariant(compound.getInteger("Variant"));
         this.setSaddled(compound.getBoolean("Saddle"));
         
-        if (compound.hasKey("EggLayTime"))
+        if (compound.hasKey("MoltCooldown"))
         { this.moltCooldown = compound.getInteger("MoltCooldown"); }
     }
 

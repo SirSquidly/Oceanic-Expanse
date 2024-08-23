@@ -1,7 +1,10 @@
 package com.sirsquidly.oe.entity.item;
 
 import java.util.List;
+import java.util.UUID;
 
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
@@ -42,11 +45,13 @@ public class EntityTrident extends AbstractArrow
 	static final DataParameter<Boolean> RETURNING = EntityDataManager.<Boolean>createKey(EntityTrident.class, DataSerializers.BOOLEAN);
 	static final DataParameter<Boolean> DID_LIGHTNING = EntityDataManager.<Boolean>createKey(EntityTrident.class, DataSerializers.BOOLEAN);
 	static final DataParameter<Boolean> DID_HIT = EntityDataManager.<Boolean>createKey(EntityTrident.class, DataSerializers.BOOLEAN);
-	
+	/** This saves the true owner of a Trident, so projectile reflection doesn't confuse Loyalty at all. */
+	public Entity trueOwner;
+
 	public EntityTrident(World worldIn)
 	{
 		super(worldIn);
-		this.pickupStatus = PickupStatus.DISALLOWED;
+		//this.pickupStatus = PickupStatus.DISALLOWED;
 		this.damage = ConfigHandler.item.trident.tridentThrowDamage;
 		this.alwaysBounce = true;
 		this.bounceStrength = -0.01D;
@@ -61,15 +66,19 @@ public class EntityTrident extends AbstractArrow
     }
 
 	public EntityTrident(World worldIn, EntityLivingBase shooter)
-    {
-        this(worldIn, shooter.posX, shooter.posY + (double)shooter.getEyeHeight() - 0.10000000149011612D, shooter.posZ);
-        this.shootingEntity = shooter;
+	{ this(worldIn, shooter, shooter); }
 
-        if (shooter instanceof EntityPlayer)
-        {
-        	this.pickupStatus = PickupStatus.ALLOWED;
-        }
-    }
+	public EntityTrident(World worldIn, EntityLivingBase shooter, EntityLivingBase trueOwnerIn)
+	{
+		this(worldIn, shooter.posX, shooter.posY + (double)shooter.getEyeHeight() - 0.10000000149011612D, shooter.posZ);
+		this.shootingEntity = shooter;
+		this.trueOwner = trueOwnerIn;
+
+		if (trueOwnerIn instanceof EntityPlayer)
+		{
+			this.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
+		}
+	}
 
 	protected void entityInit()
     {
@@ -130,12 +139,17 @@ public class EntityTrident extends AbstractArrow
 		
 		if (!world.isRemote && isReturning())
 		{
-			if (this.shootingEntity != null && !this.shootingEntity.isDead)
+			/* These variables are set specifically so Loyalty Tridents can be picked back up on world Reloading */
+			this.arrowShake = -1;
+			this.noClip = true;
+			this.setNoGravity(true);
+
+			if (this.trueOwner != null && !this.trueOwner.isDead)
 	        {
 				int i = EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, this.getItem());
-				double d0 = this.shootingEntity.posX - this.posX;
-	            double d1 = this.shootingEntity.posY + (double)this.shootingEntity.getEyeHeight() - this.posY;
-	            double d2 = this.shootingEntity.posZ - this.posZ;
+				double d0 = this.trueOwner.posX - this.posX;
+	            double d1 = this.trueOwner.posY + (double)this.trueOwner.getEyeHeight() - this.posY;
+	            double d2 = this.trueOwner.posZ - this.posZ;
 	            double d3 = 0.15 + i * 0.05D;
 	            
 	            this.rotationPitch = 180.0F;
@@ -145,7 +159,7 @@ public class EntityTrident extends AbstractArrow
 	        }
 			else
 			{
-				if (this.shootingEntity instanceof EntityPlayer)
+				if (this.trueOwner instanceof EntityPlayer)
 		        {
 					this.entityDropItem(this.getArrowStack(), 0.1F);
 					this.setDead();
@@ -160,7 +174,7 @@ public class EntityTrident extends AbstractArrow
 
             for (Entity e : list)
             {
-            	if (e == this.shootingEntity && !(e instanceof EntityPlayer))
+            	if (e == this.trueOwner && !(e instanceof EntityPlayer))
             	{
             		this.setDead();
             	}
@@ -291,7 +305,7 @@ public class EntityTrident extends AbstractArrow
         	if (EnchantmentHelper.getEnchantmentLevel(OEEnchants.LOYALTY, this.getItem()) > 0)
         	{
         		if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, this.getItem()) > 0) this.setDead();
-        		if (entityIn == this.shootingEntity)
+        		if (entityIn == this.trueOwner)
                 {
                     super.onCollideWithPlayer(entityIn);
                 }
@@ -312,7 +326,6 @@ public class EntityTrident extends AbstractArrow
         {
 			this.playSound(OESounds.ENTITY_TRIDENT_RETURN, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 			this.dataManager.set(RETURNING, Boolean.valueOf(true));
-			this.inGround = true;
 			this.noClip = true;
 			this.setNoGravity(true);
         }
@@ -408,6 +421,21 @@ public class EntityTrident extends AbstractArrow
         {
             this.setItem(new ItemStack(nbttagcompound));
         }
+
+		if (compound.hasKey("TrueOwner", 8))
+		{
+			String uuidS = compound.getString("TrueOwner");
+
+			if (!uuidS.isEmpty())
+			{
+				try
+				{
+					this.trueOwner =  this.world.getPlayerEntityByUUID(UUID.fromString(uuidS));
+				}
+				catch (Throwable e)
+				{ }
+			}
+		}
 	}
 
 	@Override
@@ -421,5 +449,6 @@ public class EntityTrident extends AbstractArrow
         {
             compound.setTag("Item", this.getItem().writeToNBT(new NBTTagCompound()));
         }
+		compound.setString("TrueOwner", this.trueOwner.getUniqueID().toString());
 	}
 }
