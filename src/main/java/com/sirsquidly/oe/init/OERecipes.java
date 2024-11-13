@@ -21,21 +21,29 @@ public class OERecipes
 	@SubscribeEvent
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) 
 	{
-		GameRegistry.addSmelting(OEBlocks.SEA_PICKLE, new ItemStack(Items.DYE, 1, EnumDyeColor.LIME.getDyeDamage()), 0.2F);
-		GameRegistry.addSmelting(OEBlocks.KELP, new ItemStack(OEItems.DRIED_KELP, 1), 0.1F);
-		GameRegistry.addSmelting(OEBlocks.DULSE, new ItemStack(OEItems.DRIED_DULSE, 1), 0.1F);
-		
+		if (ConfigHandler.block.enableSeaPickle) GameRegistry.addSmelting(OEBlocks.SEA_PICKLE, new ItemStack(Items.DYE, 1, EnumDyeColor.LIME.getDyeDamage()), 0.2F);
+		if (ConfigHandler.block.enableKelp) GameRegistry.addSmelting(OEBlocks.KELP, new ItemStack(OEItems.DRIED_KELP, 1), 0.1F);
+		if (ConfigHandler.block.dulse.enableDulse) GameRegistry.addSmelting(OEBlocks.DULSE, new ItemStack(OEItems.DRIED_DULSE, 1), 0.1F);
+
 		GameRegistry.addSmelting(OEItems.CRAB_UNCOOKED, new ItemStack(OEItems.CRAB_COOKED, 1), 0.1F);
 		GameRegistry.addSmelting(OEItems.LOBSTER_UNCOOKED, new ItemStack(OEItems.LOBSTER_COOKED, 1), 0.1F);
-		
+
 		GameRegistry.addSmelting(OEBlocks.NACRE_BLOCK, new ItemStack(OEBlocks.NACRE_SMOOTH, 1), 0.1F);
-		GameRegistry.addSmelting(OEItems.SPONGE_CHUNK_WET, new ItemStack(OEItems.SPONGE_CHUNK, 1), 0.1F);
-		
+		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) GameRegistry.addSmelting(OEItems.SPONGE_CHUNK_WET, new ItemStack(OEItems.SPONGE_CHUNK, 1), 0.1F);
+
+		if (ConfigHandler.block.palmBlocks.enablePalmWoods)
+		{
+			GameRegistry.addSmelting(OEBlocks.PALM_LOG, new ItemStack(Items.COAL, 1, 1), 0.15F);
+			GameRegistry.addSmelting(OEBlocks.PALM_WOOD, new ItemStack(Items.COAL, 1,1 ), 0.15F);
+
+			if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) GameRegistry.addSmelting(OEBlocks.PALM_LOG_STRIPPED, new ItemStack(Items.COAL, 1,1 ), 0.15F);
+			if (ConfigHandler.block.palmBlocks.enablePalmStrippedWoods) GameRegistry.addSmelting(OEBlocks.PALM_WOOD_STRIPPED, new ItemStack(Items.COAL, 1,1 ), 0.15F);
+		}
+
 		FurnaceFuelHandler fuelReg = new FurnaceFuelHandler();
         GameRegistry.registerFuelHandler(fuelReg);
-        
-		fuelReg.addFuel(OEBlocks.DRIED_KELP_BLOCK, 4000);
-		
+
+		if (ConfigHandler.block.enableKelp) fuelReg.addFuel(OEBlocks.DRIED_KELP_BLOCK, 4000);
 		initOreDict();
 	}
 	
