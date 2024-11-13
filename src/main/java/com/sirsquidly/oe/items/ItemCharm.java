@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.potion.PotionBase;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.material.Material;
@@ -55,7 +56,7 @@ public class ItemCharm extends Item
 		
 		if (!user.isPotionActive(OEPotions.CONDUIT_POWER) || user.getActivePotionEffect(OEPotions.CONDUIT_POWER).getDuration() <= 9)
 		{
-			if (worldIn.getBlockState(entityIn.getPosition().up()).getMaterial() == Material.WATER)
+			if (PotionBase.isEntityHeadSubmerged(user))
     		{
 				if (ConfigHandler.item.conduitCharm.enableConduitCharmPulseSound) worldIn.playSound(null, entityIn.getPosition(), OESounds.BLOCK_CONDUIT_BEAT, SoundCategory.BLOCKS, 1.0f, 1.0f);
 				user.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 119, 0, true, true));

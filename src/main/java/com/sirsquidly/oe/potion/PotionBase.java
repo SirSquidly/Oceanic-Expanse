@@ -4,8 +4,11 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -14,6 +17,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 
 /** 
@@ -37,17 +41,17 @@ public class PotionBase extends Potion
     public void performEffect(EntityLivingBase entity, int amplifier)
     {
 		if(entity.isPotionActive(OEPotions.CONDUIT_POWER))
-		{	
+		{
 			if ( entity.getActivePotionEffect(OEPotions.CONDUIT_POWER).getDuration() > 1)
 			{
-				if (entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
-		    	{
+				if (isEntityHeadSubmerged(entity))
+				{
 					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 210, 0, true, false));
 
 					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 210, 0, true, false));
-					
+
 					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.HASTE, 210, entity.getActivePotionEffect(OEPotions.CONDUIT_POWER).getAmplifier(), true, false));
-		    	}
+				}
 				else
 				{ removeConduitEffects(entity); }
 			}
@@ -99,7 +103,24 @@ public class PotionBase extends Potion
 		if (entity.isPotionActive(MobEffects.HASTE) && entity.getActivePotionEffect(MobEffects.HASTE).getDuration() < 210) entity.removePotionEffect(MobEffects.HASTE);
 		return;
 	}
-	
+
+	/** Tells if the given entity has their head underwater */
+	public static boolean isEntityHeadSubmerged(Entity entity)
+	{
+		/* Special Checks required if Fluidlogged API is being used */
+		if (Main.proxy.fluidlogged_enable)
+		{
+			final FluidState fluidState = FluidloggedUtils.getFluidState(entity.world, new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ));
+
+			if(!fluidState.isEmpty() && fluidState.getMaterial() == Material.WATER && fluidState.isValid())
+			{ return true; }
+		}
+		else if (entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
+		{ return true; }
+
+		return false;
+	}
+
 	/** Required so the effect actually runs. */
 	public boolean isReady(int duration, int amplifier)
     { return true; }

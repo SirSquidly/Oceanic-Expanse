@@ -22,6 +22,7 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -71,7 +72,7 @@ public class AbstractFish extends EntityAnimal
     { 
 		return !checkNearbyEntites(16, 10, null) && checkHeight((int)this.posY, this.world);
     }
-	
+
 	/** Enables proper Despawning on Fish. Players don't need them to be persistent, and could use a bucket to make them so anyway. */
 	protected boolean canDespawn()
     { return true; }
@@ -168,7 +169,16 @@ public class AbstractFish extends EntityAnimal
 	
 	public boolean isNotColliding()
     { return this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
-	
+
+	/** DENY getting into Boats */
+	@Override
+	public boolean startRiding(Entity entityIn, boolean force)
+	{
+		if (entityIn instanceof EntityBoat) return false;
+
+		return this.startRiding(entityIn, false);
+	}
+
 	public boolean isBreedingItem(ItemStack stack)
     { return BREEDING_ITEMS.contains(stack.getItem()); }
 	

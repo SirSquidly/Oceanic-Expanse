@@ -161,7 +161,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	public void onUpdate()
     {
 		super.onUpdate();
-
+        this.setupSwimTimeing();
 		this.removeInjectedAI();
 		
 		if (!this.isEntityAlive()) return;
@@ -195,11 +195,9 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             	this.conchUseTime = 0;
             }
         }
-		
+
 		if (!world.isRemote) 
         {
-			this.setupSwimTimeing();
-			
 			this.setSwimming(attackTarget != null && this.getItemInUseMaxCount() == 0 && (attackTarget.posY - 1.9 > this.posY || attackTarget.posY + 1.9 < this.posY));
 			
             navigator = isInWater() && this.world.getBlockState(blockpos.up()).getMaterial() == Material.WATER ? waterNavigator : groundNavigator;

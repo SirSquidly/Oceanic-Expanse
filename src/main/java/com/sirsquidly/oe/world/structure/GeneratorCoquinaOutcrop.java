@@ -82,7 +82,7 @@ public class GeneratorCoquinaOutcrop implements IWorldGenerator
 					//** Grabs the lowest Y block from around the middle of the structure, for snapping to the floor. Just need the middle, because no need to check each corner, it's cooler for overhangs and such.*/
 					BlockPos placeCheck = pos.add(Template.transformedBlockPos(placementsettings, new BlockPos(0 + (size.getX()/2), 0, 0 + (size.getZ()/2))));
 						
-					for ( IBlockState state = world.getBlockState(placeCheck); ((state.getBlock().isReplaceable(world, placeCheck) || state.getMaterial() == Material.WATER || state.getMaterial() == Material.LEAVES) && placeCheck.getY() > 0); state = world.getBlockState(placeCheck) )
+					for ( IBlockState state = world.getBlockState(placeCheck); ((state.getBlock().isReplaceable(world, placeCheck) || state.getMaterial() == Material.WATER || state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.WOOD) && placeCheck.getY() > 0); state = world.getBlockState(placeCheck) )
 			        { placeCheck = placeCheck.down(); }	
 					pos = new BlockPos(pos.getX(), placeCheck.getY(), pos.getZ());
 					
