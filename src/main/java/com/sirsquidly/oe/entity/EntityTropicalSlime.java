@@ -218,7 +218,7 @@ public class EntityTropicalSlime extends EntitySlime
     { return true; }
 	
 	public boolean isNotColliding()
-    { return this.world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
+    { return this.world.checkNoEntityCollision(this.getEntityBoundingBox(), this); }
 	
 	protected boolean canDamagePlayer()
     { return !this.isSmallSlime() && this.getAttackTarget() != null; }
@@ -245,7 +245,7 @@ public class EntityTropicalSlime extends EntitySlime
                     return iblockstate.canEntitySpawn(this);
                 }
 
-                if (this.rand.nextInt(10) == 0 && chunk.getRandomWithSeed(987234911L).nextInt(10) == 0 && this.posY < 40.0D)
+                if (chunk.getRandomWithSeed(987234911L).nextInt(10) == 0 && this.posY < 50.0D)
                 {
                     return iblockstate.canEntitySpawn(this);
                 }
@@ -269,6 +269,13 @@ public class EntityTropicalSlime extends EntitySlime
         this.setSlimeSize(this.rand.nextFloat() < f * 0.1F ? 4 : 2, true);
         this.updateHealth(true);
         return livingdata;
+    }
+
+    /** Hard set values when a Tropical Slime is spawned via the Seeping Effect. */
+    public void onSeepingSpawn()
+    {
+        this.setSlimeSize(2, true);
+        this.updateHealth(true);
     }
 	
 	public void setDead()
