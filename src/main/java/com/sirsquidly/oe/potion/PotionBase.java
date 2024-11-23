@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.potion;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.entity.EntityTropicalSlime;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -17,14 +18,17 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /** 
  *  Currently hosts the effects for all the mod's potion effects. 
  *  I will split this up into multiple classes if many more effects are added.
  *  
  * */
+@Mod.EventBusSubscriber
 public class PotionBase extends Potion
 {
 	protected static final ResourceLocation TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/gui/potion_effects.png");
@@ -94,6 +98,33 @@ public class PotionBase extends Potion
 			}
         }
     }
+
+	/** Uses Forge's `LivingDeathEvent`, as repeatedly scanning if an Entity is dead is silly. */
+	@SubscribeEvent
+	public static void onSeepingDeathEvent(LivingDeathEvent event)
+	{
+		EntityLivingBase entity = event.getEntityLiving();
+		/* Tropical Slimes and Bosses are immune. */
+		if (entity instanceof EntityTropicalSlime || !entity.isNonBoss()) entity.removePotionEffect(OEPotions.SEEPING);
+		/* Cancel if the mob doesn't even have Seeping. */
+		if (!entity.isPotionActive(OEPotions.SEEPING)) return;
+
+		if(!entity.world.isRemote)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				EntityTropicalSlime tropicalSlime = new EntityTropicalSlime(entity.world);
+
+				tropicalSlime.onSeepingSpawn();
+				/* Currently is placed directly at the entity's death spot, implement 5x5x5 spawn area later. */
+				tropicalSlime.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.getRNG().nextFloat() * 360.0F, 0.0F);
+
+				entity.world.spawnEntity(tropicalSlime);
+			}
+		}
+		/* Makes certain the effect is removed after preforming the spawn. */
+		entity.removePotionEffect(OEPotions.SEEPING);
+	}
 	
 	/** Specific for Conduit Power. Removes the potion effects.*/
 	public static void removeConduitEffects(EntityLivingBase entity)
