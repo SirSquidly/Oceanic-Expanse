@@ -53,7 +53,7 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);
 
-		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.LOWER).withProperty(SANDY, false));
+		setDefaultState(blockState.getBaseState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER).withProperty(SANDY, true));
 	}
 	
 	public int checkTouching(World worldIn, BlockPos pos, boolean doNotTogether)
@@ -83,6 +83,8 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
         {
 			if (state.getBlock() == this)
 			{
+                if (worldIn.getBlockState(isUpper ? pos.down() : pos).getValue(SANDY)) dropSand(worldIn, isUpper ? pos.down() : pos);
+
 				worldIn.setBlockState(isUpper ? pos : pos.up(), Blocks.AIR.getDefaultState(), 3);
 				worldIn.setBlockState(isUpper ? pos.down() : pos, this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER).withProperty(SANDY, true), 3);
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -93,40 +95,33 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 		else if (item instanceof ItemSpade)
         {
 			if ((isUpper && worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.down()).getValue(SANDY)) || (!isUpper && state.getValue(SANDY) ))
-			{ 
-				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-				
-				Random rand = worldIn.rand;
-			    for (int i = 0; i < 50; ++i)
-			    {
-			    	double speedX = ((double)rand.nextFloat() - 0.5D) * 0.3D;
-			     	double speedY = ((double)rand.nextFloat() - 0.5D) * 0.3D;
-			     	double speedZ = ((double)rand.nextFloat() - 0.5D) * 0.3D;
-			     	worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX() + rand.nextDouble(), pos.getY() - (isUpper ? 1 : 0) + rand.nextDouble(), pos.getZ() + rand.nextDouble(), speedX, speedY, speedZ, Block.getStateId(worldIn.getBlockState(pos.down(isUpper ? 2 : 1))));
-			    }
+			{
 			    itemstack.damageItem(1, playerIn);
-			    ItemStack blockBelow = new ItemStack(worldIn.getBlockState(pos.down(isUpper ? 2 : 1)).getBlock(), 1, worldIn.getBlockState(pos.down(isUpper ? 2 : 1)).getBlock().getMetaFromState(worldIn.getBlockState(pos.down(isUpper ? 2 : 1))));
-			    
-				spawnAsEntity(worldIn, isUpper ? pos.down() : pos, blockBelow);
-				worldIn.setBlockState(isUpper ? pos.down() : pos, this.getDefaultState().withProperty(SANDY, false), 3);
+                dropSand(worldIn, isUpper ? pos.down() : pos);
+				worldIn.setBlockState(isUpper ? pos.down() : pos, this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.LOWER).withProperty(SANDY, false), 3);
 				return true;
 			}
 		
         }
 		return false;
     }
-	
-	@Override
-	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) 
-	{ worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
-	
-	@Override
-	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
+
+    /** Drops the Sand block this is planted atop. Pass the bottom Sandy Sea Oats in `pos`! */
+    public void dropSand(World worldIn, BlockPos pos)
     {
-        if (!this.canBlockStay(worldIn, pos, state))
+        worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+        Random rand = worldIn.rand;
+        for (int i = 0; i < 50; ++i)
         {
-        	worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+            double speedX = ((double)rand.nextFloat() - 0.5D) * 0.3D;
+            double speedY = ((double)rand.nextFloat() - 0.5D) * 0.3D;
+            double speedZ = ((double)rand.nextFloat() - 0.5D) * 0.3D;
+            worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX() + rand.nextDouble(), pos.getY() + rand.nextDouble(), pos.getZ() + rand.nextDouble(), speedX, speedY, speedZ, Block.getStateId(worldIn.getBlockState(pos.down(1))));
         }
+
+        ItemStack blockBelow = new ItemStack(worldIn.getBlockState(pos.down()).getBlock(), 1, worldIn.getBlockState(pos.down()).getBlock().getMetaFromState(worldIn.getBlockState(pos.down())));
+        spawnAsEntity(worldIn, pos, blockBelow);
     }
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
@@ -135,13 +130,14 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
         boolean upper = state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.UPPER;
         
         if (state.getValue(SANDY) && upper)
-        { return worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand; }
-        
-        if (upper)
-        { return worldIn.getBlockState(pos.down()).getBlock() == this; }
-        else
-        { return worldIn.getBlockState(pos.up()).getBlock() == this && worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand; }
+        { return canSustainBush(worldIn.getBlockState(pos.down())); }
+
+        return upper ? worldIn.getBlockState(pos.down()).getBlock() == this : canSustainBush(worldIn.getBlockState(pos.down())) && worldIn.getBlockState(pos.up()).getBlock() == this;
     }
+
+    /* Due to me being stupid in the past, the BASE STATE is not metadata 0, so we gotta hard set it on placement */
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    { return this.getDefaultState(); }
 	
 	// Me when I REALLY didn't want to use an if check for literally no reason
 	@Override
@@ -152,20 +148,16 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 	
 	@Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    { 
-		return worldIn.getBlockState(pos.down()).getBlock() instanceof BlockSand && worldIn.isAirBlock(pos) && (worldIn.isAirBlock(pos.up()) || worldIn.getBlockState(pos.up()).getBlock() == this); 
-    }
+    { return canSustainBush(worldIn.getBlockState(pos.down())) && worldIn.isAirBlock(pos); }
 	
 	@Override
 	protected boolean canSustainBush(IBlockState state) 
-	{ 
-		return state.getBlock() instanceof BlockSand || state.getBlock() == this;
-	}
+	{ return state.getBlock() instanceof BlockSand; }
 
 	public void placeAt(World worldIn, BlockPos lowerPos, int flags)
     {
-        worldIn.setBlockState(lowerPos, this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.LOWER), flags);
-        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER), flags);
+        worldIn.setBlockState(lowerPos, this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.LOWER).withProperty(SANDY, false), flags);
+        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().withProperty(HALF, BlockDoubleSeaOats.EnumBlockHalf.UPPER).withProperty(SANDY, false), flags);
     }
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
@@ -174,15 +166,10 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
 
     	if (state.getValue(HALF) == BlockDoubleSeaOats.EnumBlockHalf.LOWER && !(state.getValue(SANDY)) && this.checkTouching(worldIn, pos, false) >= 1 && worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(5) == 0))
         {
-    		worldIn.setBlockState(pos, this.getDefaultState().withProperty(SANDY, true));
+    		worldIn.setBlockState(pos, state.withProperty(SANDY, true));
     		net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
         }
     }
-    
-	// Just used the placeAt, less typing
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-    { this.placeAt(worldIn, pos, 2); }
 	
     @Override
     public IBlockState getStateFromMeta(int meta)
@@ -223,7 +210,7 @@ public class BlockDoubleSeaOats extends BlockBush implements IGrowable, net.mine
         if (!worldIn.isRemote && stack.getItem() == Items.SHEARS)
         {
             player.addStat(StatList.getBlockStats(this));
-            spawnAsEntity(worldIn, pos, new ItemStack(this, 2, 0));
+            spawnAsEntity(worldIn, pos, new ItemStack(this, 1, 0));
         }
         else
         { super.harvestBlock(worldIn, player, pos, state, te, stack); }

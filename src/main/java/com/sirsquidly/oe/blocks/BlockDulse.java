@@ -52,10 +52,10 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 		if(Main.proxy.fluidlogged_enable) { return Material.PLANTS; }
 		return super.getMaterial(state);
 	}
-	
+
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return DULSE_AABB[((Integer)state.getValue(AGE)).intValue()];
+        return DULSE_AABB[(Integer) state.getValue(AGE)];
     }
 	
 	@Override
@@ -74,15 +74,21 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
 		if (checkSurfaceWater(worldIn, pos, state)) return false;
-        if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
-        return false;
+
+		int age = state.getValue(AGE);
+		/* Age 3 requires Dulse above it, AND the normal check at the bottom! */
+		if (age == 3 && worldIn.getBlockState(pos.up()).getBlock() != this) return false;
+		/* The top of the double-tall Dulse (age 4) only requires Dulse below it to be accepted */
+		if (age == 4 && worldIn.getBlockState(pos.down()).getBlock() == this) return true;
+
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP);
     }
 	
 	@Override
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
 		if (!this.canBlockStay(worldIn, pos, state)) 
 		{
-			if (state.getValue(AGE).intValue() != 4 || (state.getValue(AGE).intValue() == 4 && worldIn.getBlockState(pos.down()).getBlock() != this))
+			this.dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
 		}
 	}
@@ -97,9 +103,15 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
     	super.updateTick(worldIn, pos, state, rand);
-        if (worldIn.isRemote || (Boolean)state.getValue(SHEARED).booleanValue()) return;
-        
-        if (worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(5) == 0))
+        if (worldIn.isRemote || (Boolean) state.getValue(SHEARED)) return;
+
+		/* Default is 5% chance to grow, as Dulse doesn't have lots of ages */
+		int growRate = 20;
+		/* Encourages more spaced growth, as Dulse is a greedy crop */
+		for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL)
+		{ if (worldIn.getBlockState(pos.offset(facing)).getBlock() == this) growRate += 5; }
+
+        if (worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(growRate) == 0))
         {
         	this.grow(worldIn, rand, pos, state);
     		net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
@@ -111,9 +123,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 		Item item = itemstack.getItem();
 		
-		((Integer)state.getValue(AGE)).intValue();
-		
-		if (!((Boolean)state.getValue(SHEARED)).booleanValue() && ConfigHandler.block.dulse.dulseShears)
+		if (!(Boolean) state.getValue(SHEARED) && ConfigHandler.block.dulse.dulseShears)
         {
 			if (item instanceof ItemShears)
 	        {
@@ -136,29 +146,30 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
      */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
     { 
-    	if (state.getValue(AGE).intValue() > 2) return false;
+    	if (state.getValue(AGE) > 2) return false;
 		return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || Main.proxy.fluidlogged_enable); 
     }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
     { 
-    	if (state.getValue(AGE).intValue() > 2) return false;
+    	if (state.getValue(AGE) > 2) return false;
     	return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || Main.proxy.fluidlogged_enable);
     }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {
-    	int i = ((Integer)state.getValue(AGE)).intValue();
-    	
-    	if(rand.nextInt(5) < 100 && i != 4 && !(Boolean)state.getValue(SHEARED).booleanValue())
+    	int i = (Integer) state.getValue(AGE);
+
+    	if(i != 4 && !(Boolean) state.getValue(SHEARED))
 		{ 
-    		if (i < 2) worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i + 1)));
+    		if (i < 2) worldIn.setBlockState(pos, state.withProperty(AGE, i + 1));
     		if (i == 2 && this.canPlaceFullAge(worldIn, pos))
     		{ this.placeAt(worldIn, pos, 2); }
 		}
     }
 
-    @Override public int quantityDropped(IBlockState state, int fortune, Random random){ return (Math.min(4, (Integer)state.getValue(AGE) + 1)); }
+	/** Drops 3 Dulse if fully grown. */
+    @Override public int quantityDropped(IBlockState state, int fortune, Random random){ return (Integer)state.getValue(AGE) != 4 ? (Math.min(4, (Integer)state.getValue(AGE) + 1)) : 0; }
 	
 	public IBlockState getStateFromMeta(int meta)
     {
@@ -167,15 +178,15 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater
 		if (meta > 4)
 		{ gogle -= 8; }
 		
-		return this.getDefaultState().withProperty(AGE, Integer.valueOf((gogle))).withProperty(SHEARED, (meta & 8) != 0);
+		return this.getDefaultState().withProperty(AGE, gogle).withProperty(SHEARED, (meta & 8) != 0);
     }
  
 	public int getMetaFromState(IBlockState state)
 	{
 	    int i = 0;
-	    i = i | ((Integer)state.getValue(AGE)).intValue();
+	    i = i | (Integer) state.getValue(AGE);
 	    
-	    if (((Boolean)state.getValue(SHEARED)).booleanValue())
+	    if ((Boolean) state.getValue(SHEARED))
 	    { i |= 8; }
 	    return i;
 	}
