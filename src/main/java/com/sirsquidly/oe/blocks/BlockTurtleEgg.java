@@ -63,9 +63,9 @@ public class BlockTurtleEgg extends Block
 		int partiCheck = ConfigHandler.block.turtleEgg.particlesOnFall;
 			
 		if (worldIn instanceof WorldServer && (partiCheck == 2 && entityIn instanceof EntityLivingBase || partiCheck !=0 && entityIn instanceof EntityZombie))
-        {
-			((WorldServer)worldIn).spawnParticle(EnumParticleTypes.ITEM_CRACK, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 16, 0.01D, 0.01D, 0.01D, 0.15D, Item.getIdFromItem(Item.getItemFromBlock(this)));
-        }
+		{
+			((WorldServer)worldIn).spawnParticle(EnumParticleTypes.ITEM_CRACK, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 16, 0.01D, 0.01D, 0.01D, 0.15D, Item.getIdFromItem(Item.getItemFromBlock(this)), 0);
+		}
 		
 		worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 		

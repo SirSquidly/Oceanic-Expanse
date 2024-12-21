@@ -77,11 +77,10 @@ public class OEBlocks
 		public static Block PALM_LEAVES = new BlockPalmLeaves();
 		public static Block PALM_LEAVES_FLOWERING = new BlockPalmLeavesFlowering();
 		public static Block PALM_SAPLING = new BlockPalmSapling();
-		
 		public static Block BLUE_ICE = new BlockBlueIce().setHardness(2.8F).setResistance(2.8F);
 		public static Block BLUE_SLIME = new BlockBlueSlime();
 		public static Block SEA_TURTLE_EGG = new BlockTurtleEgg().setHardness(0.5F).setResistance(0.5F);
-		public static Block CONDUIT = new BlockConduit();
+		public static Block CONDUIT = new BlockConduit().setHardness(3.0F).setResistance(5.0F);
 		public static Block SEA_OATS = new BlockDoubleSeaOats();
 		public static Block TUBE_SPONGE = new BlockTubeSponge();
 		public static Block SEASTAR = new BlockSeaStar();

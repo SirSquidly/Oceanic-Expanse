@@ -31,7 +31,9 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
 	
 	public BlockConduit()
 	{
-		super(Material.ROCK);
+		super(Material.GROUND);
+		this.setHarvestLevel("pickaxe", 0);
+		this.setSoundType(SoundType.STONE);
 		this.setLightLevel(1.0F);
 		this.hasTileEntity = true;
 		this.setSoundType(SoundType.STONE);

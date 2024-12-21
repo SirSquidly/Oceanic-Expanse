@@ -10,7 +10,6 @@ import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.potion.PotionBase;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -50,6 +49,8 @@ public class ItemCharm extends Item
 
 	public void grantConduit(World worldIn, Entity entityIn, ItemStack stack)
     {
+		if (worldIn.isRemote) return;
+
 		EntityLivingBase user = (EntityLivingBase) entityIn;
 		
 		user.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 1, 0, true, true));
@@ -94,8 +95,7 @@ public class ItemCharm extends Item
 		
 		return super.canApplyAtEnchantingTable(stack, enchantment);
     }
-	
-	@SideOnly(Side.CLIENT)
+
 	public void spawnParticles(World worldIn, Entity entityIn)
 	{
 		double d0 = entityIn.posX;
