@@ -14,7 +14,8 @@ public class LootTableHandler
 	public static final ResourceLocation ENTITIES_TURTLE = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/turtle"));
 	public static final ResourceLocation ENTITIES_GLOW_SQUID = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/glow_squid"));
 	public static final ResourceLocation ENTITIES_CRAB = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/crab"));
-	
+	public static final ResourceLocation ENTITIES_DOLPHIN = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/dolphin"));
+
 	public static final ResourceLocation ENTITIES_DROWNED = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/drowned"));
 	public static final ResourceLocation ENTITIES_DROWNED_CAPTAIN = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/drowned_captain"));
 	public static final ResourceLocation ENTITIES_PICKLED = LootTableList.register(new ResourceLocation(Main.MOD_ID, "entities/pickled"));

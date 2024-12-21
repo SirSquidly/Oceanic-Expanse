@@ -55,7 +55,10 @@ public class OESounds
 	public static SoundEvent ENTITY_CRAB_ANGRY = soundReadyForRegister("entity.crab.angry");
 	public static SoundEvent ENTITY_CRAB_DEATH = soundReadyForRegister("entity.crab.death");
 	public static SoundEvent ENTITY_CRAB_HURT = soundReadyForRegister("entity.crab.hurt");
-	
+
+	public static SoundEvent ENTITY_DOLPHIN_AMBIENT_WATER = soundReadyForRegister("entity.dolphin.ambient.water");
+	public static SoundEvent ENTITY_DOLPHIN_HURT = soundReadyForRegister("entity.dolphin.hurt");
+
 	public static SoundEvent ENTITY_DROWNED_AMBIENT = soundReadyForRegister("entity.drowned.ambient");
 	public static SoundEvent ENTITY_DROWNED_HURT = soundReadyForRegister("entity.drowned.hurt");
 	public static SoundEvent ENTITY_DROWNED_DEATH = soundReadyForRegister("entity.drowned.death");

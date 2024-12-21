@@ -21,6 +21,7 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityPufferfish.class, RenderPufferfish::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTropicalFish.class, RenderTropicalFish::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTurtle.class, RenderTurtle::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDolphin.class, RenderDolphin::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDrowned.class, RenderDrowned::new);
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityGlowSquid.class, RenderGlowSquid::new);

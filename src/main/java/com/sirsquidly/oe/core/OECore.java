@@ -13,22 +13,15 @@ import com.google.common.collect.Lists;
 @IFMLLoadingPlugin.SortingIndex(Integer.MIN_VALUE)
 public class OECore implements IFMLLoadingPlugin, IEarlyMixinLoader 
 {
-	static
-	{
-		//Main.logger.info("Oceanic Expanse Mixin Core detected! Let's do some stuff!");
-    }
-	
 	@Override
-    public List<String> getMixinConfigs() 
-    {
-        return Lists.newArrayList( "mixins.oe.json" );
-    }
-	
+    public List<String> getMixinConfigs()
+    { return Lists.newArrayList( "mixins.oe.json" ); }
+
 	@Override
 	public String[] getASMTransformerClass() { return new String[0]; }
 
 	@Override
-	public String getModContainerClass() 
+	public String getModContainerClass()
 	{ return null; }
 
 	@Override
