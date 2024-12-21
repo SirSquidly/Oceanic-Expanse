@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.client.render.entity;
 
+import com.sirsquidly.oe.client.render.entity.layer.LayerRiptideAnim;
 import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.Main;
@@ -35,6 +36,8 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
         this.addLayer(new LayerCustomHead(model.bipedHead));
         this.addLayer(new LayerElytra(this));
         this.addLayer(new LayerHeldItem(this));
+
+		this.addLayer(new LayerRiptideAnim(this));
         
         if (ConfigHandler.entity.drowned.drownedGlowLayer)
         { this.addLayer(new LayerDrowned(this)); }
@@ -65,21 +68,30 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
 	protected void preRenderCallback(EntityDrowned entity, float f) 
 	{
 		float size = 0.9375F;
-		float bobbing = MathHelper.cos(entity.ticksExisted * 0.09F) * 0.05F + 0.05F;
-		float swimAngle = entity.getClientSwimTime(f) * entity.rotationPitch;
-		
-		if (entity.isInWater() && ConfigHandler.entity.drowned.enableDrownedSwimAnims)
-		{
-			GL11.glRotatef(-bobbing*20, 1F, 0F, 0F);
-			GL11.glTranslatef(0F, bobbing/2 - 0.1F, 0F);
-		}
-		if (entity.isInWater() && entity.getClientSwimTime(f) != 0)
-		{
-			GL11.glRotatef(90.0F * entity.getClientSwimTime(f), 1F, 0F, 0F);
-			GL11.glTranslatef(0F, 1F * entity.getClientSwimTime(f), (1F + (swimAngle/30)) * entity.getClientSwimTime(f));
-			GL11.glRotatef(swimAngle * entity.getClientSwimTime(f), 1F, 0F, 0F);
-		}
-		
 		GlStateManager.scale(size, size, size);
+		if (entity.getRiptideUseTime() > 0)
+		{
+			float spinSpeed = 50.0F;
+
+			GlStateManager.rotate(90.0F - entity.rotationPitch, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotate((entity.ticksExisted + f) * -spinSpeed, 0.0F, 1.0F, 0.0F);
+		}
+		else
+		{
+			float bobbing = MathHelper.cos(entity.ticksExisted * 0.09F) * 0.05F + 0.05F;
+			float swimAngle = entity.getClientSwimTime(f) * entity.rotationPitch;
+
+			if (entity.isInWater() && ConfigHandler.entity.drowned.enableDrownedSwimAnims)
+			{
+				GL11.glRotatef(-bobbing*20, 1F, 0F, 0F);
+				GL11.glTranslatef(0F, bobbing/2 - 0.1F, 0F);
+			}
+			if (entity.isInWater() && entity.getClientSwimTime(f) != 0)
+			{
+				GL11.glRotatef(90.0F * entity.getClientSwimTime(f), 1F, 0F, 0F);
+				GL11.glTranslatef(0F, 1F * entity.getClientSwimTime(f), (1F + (swimAngle/30)) * entity.getClientSwimTime(f));
+				GL11.glRotatef(swimAngle * entity.getClientSwimTime(f), 1F, 0F, 0F);
+			}
+		}
 	}
 }

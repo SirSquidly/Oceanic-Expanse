@@ -4,9 +4,12 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.network.OEPacketHandler;
+import com.sirsquidly.oe.network.OEPacketRiptide;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.state.IBlockState;
@@ -35,6 +38,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -149,16 +153,17 @@ public class ItemTrident extends Item
             	{
             		stack.damageItem(1, entityplayer);
             		playRiptideSound(worldIn, entityplayer, r);
-            		
+
+                    if (entityplayer.hasCapability(CapabilityRiptide.RIPTIDE_CAP, null))
+                    {
+                        entityplayer.getCapability(CapabilityRiptide.RIPTIDE_CAP, null).setRiptideTimer(6 + (r * 4));
+
+                        OEPacketHandler.CHANNEL.sendToAllTracking(new OEPacketRiptide(entityplayer.getEntityId(), true), new NetworkRegistry.TargetPoint(entityplayer.world.provider.getDimension(), entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D));
+                    }
+
             		Vec3d moveVec = entityplayer.getLookVec().scale(0.6 + (r * 1.2));
 
-            		if (entityplayer.canBePushed())
-            		{
-            			entityplayer.motionX = moveVec.x;
-            			entityplayer.motionY = moveVec.y/1.8;
-            			entityplayer.motionZ = moveVec.z;
-            			entityplayer.velocityChanged = true;
-        			}
+            		if (entityplayer.canBePushed()) riptideMovement(entityplayer, moveVec);
             		
             		/** This looks weird. This deals damage to nearby entities when using Riptide, and also damages the Trident for each hit. */
             		for (EntityLivingBase entitylivingbase :entityplayer.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(entityplayer.getPosition()).grow(1, 1, 1)))
@@ -212,6 +217,25 @@ public class ItemTrident extends Item
         		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE3, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
     }
+
+    /** Simply applies the momentum to the Riptide User in the given direction.
+     * NOTE: Check `canBePushed` BEFORE using this method, if you don't want the movement to be forced!
+     * */
+    public static void riptideMovement(EntityLivingBase user, Vec3d direction)
+    {
+        user.motionX = direction.x;
+        user.motionY = direction.y/1.8;
+        user.motionZ = direction.z;
+        user.velocityChanged = true;
+
+        /* Adds a slight 'jump' if the user is on the ground. */
+        if (user.onGround)
+        {
+            //user.move(MoverType.SELF, 0, 1.199F, 0);
+            user.motionY += 0.4F;
+        }
+    }
+
     
     public static float getArrowVelocity(int charge)
     {

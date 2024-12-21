@@ -9,12 +9,15 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.ai.EntityAITridentThrowing;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.entity.item.EntityTrident;
+import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.items.ItemTrident;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -55,6 +58,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -67,6 +71,9 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 	private static final DataParameter<Boolean> IS_CAPTAIN = EntityDataManager.<Boolean>createKey(EntityDrowned.class, DataSerializers.BOOLEAN);
 	/** The time since the conch was last used */
     private int conchUseTime;
+
+    /** Riptide for Drowned */
+    private static final DataParameter<Integer> RIPTIDE_TIME = EntityDataManager.createKey(EntityDrowned.class, DataSerializers.VARINT);
     
     private float swimTime;
     private float prevSwimTime;
@@ -91,6 +98,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
         super.entityInit();
         this.dataManager.register(IS_SWIMMING, Boolean.valueOf(false));
         this.dataManager.register(IS_CAPTAIN, Boolean.valueOf(false));
+        this.dataManager.register(RIPTIDE_TIME, 0);
     }
 	
 	protected void initEntityAI()
@@ -138,7 +146,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     { return true; }
 	
 	protected float getWaterSlowDown()
-    { return this.world.getBlockState(new BlockPos(this.posX, this.posY, this.posZ).up()).getMaterial() == Material.WATER && this.hurtTime == 0 ? 0.98F : super.getWaterSlowDown(); }
+    { return this.world.getBlockState(new BlockPos(this.posX, this.posY, this.posZ).up()).getMaterial() == Material.WATER && this.hurtTime == 0 && this.getRiptideUseTime() == 0 ? 0.98F : super.getWaterSlowDown(); }
 	
 	public boolean isSwimming()
     { return ((Boolean)this.dataManager.get(IS_SWIMMING)).booleanValue(); }
@@ -167,14 +175,26 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 		if (!this.isEntityAlive()) return;
 		BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
 		EntityLivingBase attackTarget = this.getAttackTarget();
-		
-		if (attackTarget != null && this.isCaptain() && this.getDistanceSq(attackTarget.getPosition()) <= 10.0F)
+
+        if (getRiptideUseTime() > 0)
+        {
+            setRiptideUseTime(getRiptideUseTime() - 1);
+
+            if (this.collidedHorizontally)
+            {
+                setRiptideUseTime(0);
+                this.motionX = 0;
+                this.motionZ = 0;
+            }
+        }
+
+		if (!world.isRemote && attackTarget != null && this.isCaptain() && this.getDistanceSq(attackTarget.getPosition()) <= (32.0F * 32.0F))
         {
             this.conchUseTime += 1;
 
             if (this.conchUseTime >= ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSummonCooldown * 20)
             {
-            	List<Entity> checkNearbyDrowned = this.world.getEntitiesWithinAABB(EntityDrowned.class, getEntityBoundingBox().grow(15, 15, 15));
+                List<Entity> checkNearbyDrowned = this.world.getEntitiesWithinAABB(EntityDrowned.class, getEntityBoundingBox().grow(15, 15, 15));
         		if ( checkNearbyDrowned.size() < ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainMaxNearbyForSummon)
         		{
         			ItemStack offHand = this.getHeldItemOffhand();
@@ -261,7 +281,12 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
             }
         }
     }
-    
+    public int getRiptideUseTime()
+    { return this.dataManager.get(RIPTIDE_TIME); }
+
+    public void setRiptideUseTime(int time)
+    { this.dataManager.set(RIPTIDE_TIME, time); }
+
     @Override
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
     {
@@ -311,7 +336,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 
         this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
         
-        if (this.rand.nextFloat() < f * (ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSetChance * 0.01F) && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptain)
+        if (true || this.rand.nextFloat() < f * (ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSetChance * 0.01F) && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptain)
         {
         	this.setIsCaptain(true);	
         	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("Captain drowned bonus", ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainHealthMultiplier, 2));
@@ -335,10 +360,10 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     	{
     		if (ConfigHandler.item.trident.enableTrident)
     		{
-    			//float f = difficulty.getClampedAdditionalDifficulty();
+    			float f = difficulty.getClampedAdditionalDifficulty();
     			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(OEItems.TRIDENT_ORIG));
     			
-    			//EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItemMainhand(), (int)(5.0F + f * (float)this.rand.nextInt(18)), false);
+    			EnchantmentHelper.addRandomEnchantment(this.rand, this.getHeldItemMainhand(), (int)(5.0F + f * (float)this.rand.nextInt(18)), false);
     		}
     		if (ConfigHandler.item.conch.enableConch) this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(OEItems.CONCH));
     		
@@ -369,15 +394,40 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     
     public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
     {
-        EntityTrident entitytrident = new EntityTrident(this.world, this);
-        double d0 = target.posX - this.posX;
-        double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entitytrident.posY;
-        double d2 = target.posZ - this.posZ;
-        double d3 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
-        entitytrident.shoot(d0, d1 + d3 * 0.10000000298023224D, d2, 0.8F * 3.0F, 1.0F);
-        entitytrident.setItem(this.getHeldItemMainhand());
-        this.playSound(OESounds.ENTITY_DROWNED_THROW, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.spawnEntity(entitytrident);
+        int r = EnchantmentHelper.getEnchantmentLevel(OEEnchants.RIPTIDE, this.getHeldItemMainhand());
+
+        if (r <= 0)
+        {
+            EntityTrident entitytrident = new EntityTrident(this.world, this);
+            double d0 = target.posX - this.posX;
+            double d1 = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - entitytrident.posY;
+            double d2 = target.posZ - this.posZ;
+            double d3 = (double)MathHelper.sqrt(d0 * d0 + d2 * d2);
+            entitytrident.shoot(d0, d1 + d3 * 0.10000000298023224D, d2, 0.8F * 3.0F, 1.0F);
+            entitytrident.setItem(this.getHeldItemMainhand());
+            this.playSound(OESounds.ENTITY_DROWNED_THROW, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+            this.world.spawnEntity(entitytrident);
+        }
+        else
+        {
+            /* Force the Drowned to look at its target, so the movement is accurate */
+            this.getLookHelper().setLookPositionWithEntity(target, 0.0F, 0.0F);
+
+            ItemTrident.playRiptideSound(this.world, this, r);
+
+            /* `getLookVec()` was giving bad results, so we just make our own vector to move toward the Target */
+            Vec3d entityPos = this.getPositionVector().add(0, this.getEyeHeight(), 0);
+            Vec3d targetPos = target.getPositionVector().add(0, target.getEyeHeight(), 0);
+            double riptideSpeed = 0.6 + (r * 1.2);
+            Vec3d direction = targetPos.subtract(entityPos).normalize().scale(riptideSpeed);
+
+
+            setRiptideUseTime(6 + (r * 4));
+
+            if (this.canBePushed()) ItemTrident.riptideMovement(this, direction);
+
+            this.getLookHelper().setLookPositionWithEntity(target, 0.0F, 0.0F);
+        }
     }
     
     //Lots of AI Below
@@ -497,6 +547,8 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     {
         super.writeEntityToNBT(compound);
         compound.setBoolean("IsCaptain", this.isCaptain());
+        compound.setInteger("summonCooldown", this.conchUseTime);
+        compound.setInteger("riptideTimer", this.getRiptideUseTime());
     }
 
     @Override
@@ -504,6 +556,9 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     {
         super.readEntityFromNBT(compound);
         this.setIsCaptain(compound.getBoolean("IsCaptain"));
+        if (compound.hasKey("summonCooldown"))
+        { this.conchUseTime = compound.getInteger("summonCooldown"); }
+        this.setRiptideUseTime(compound.getInteger("riptideTimer"));
     }
     
     class GroupData implements IEntityLivingData

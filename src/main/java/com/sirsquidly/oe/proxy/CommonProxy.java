@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
@@ -36,6 +37,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -88,9 +90,8 @@ public class CommonProxy
 	{
 		OEEntities.registerEntitySpawns();
 		OESounds.registerSounds();
-		
 		OEPacketHandler.registerMessages();
-		
+		CapabilityManager.INSTANCE.register(CapabilityRiptide.ICapabilityRiptide.class, new CapabilityRiptide.Storage(), CapabilityRiptide.RiptideMethods::new);
 		ConfigArrayHandler.breakupConfigArrays();
 		
 		if (Loader.isModLoaded("fluidlogged_api"))
