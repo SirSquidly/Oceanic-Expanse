@@ -57,7 +57,7 @@ public class TileConduit extends TileEntity implements ITickable
 			if(countFrame(world, pos) >= 12)
 			{
 				doAmbientSounds(world, pos);
-				doEffect(world, pos);
+				if (!world.isRemote) doEffect(world, pos);
 				canHunt = countFrame(world, pos) >= this.minHuntrame;
 				if (canHunt) doHunting(world, pos);
 
