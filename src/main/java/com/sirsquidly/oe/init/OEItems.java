@@ -88,14 +88,20 @@ public class OEItems
 		itemReadyForRegister(BLEAK, "bleak");
 		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) itemReadyForRegister(SPONGE_CHUNK, "sponge_chunk");
 		if (ConfigHandler.item.spongeChunk.enableSpongeChunk) itemReadyForRegister(SPONGE_CHUNK_WET, "sponge_chunk_wet", false);
-		
-		itemReadyForRegister(CRAB_UNCOOKED, "crab");
-		itemReadyForRegister(CRAB_COOKED, "cooked_crab");
+
+		if (ConfigHandler.entity.crab.enableCrab)
+		{
+			itemReadyForRegister(CRAB_UNCOOKED, "crab");
+			itemReadyForRegister(CRAB_COOKED, "cooked_crab");
+		}
 		if (ConfigHandler.item.bisque.enableCrabBisque) itemReadyForRegister(BISQUE_CRAB, "crab_bisque");
 		itemReadyForRegister(CRUSTACEAN_SHELL, "crustacean_shell");
-		
-		itemReadyForRegister(LOBSTER_UNCOOKED, "lobster");
-		itemReadyForRegister(LOBSTER_COOKED, "cooked_lobster");
+
+		if (ConfigHandler.entity.lobster.enableLobster)
+		{
+			itemReadyForRegister(LOBSTER_UNCOOKED, "lobster");
+			itemReadyForRegister(LOBSTER_COOKED, "cooked_lobster");
+		}
 		if (ConfigHandler.item.bisque.enableLobsterBisque) itemReadyForRegister(BISQUE_LOBSTER, "lobster_bisque");
 		
 		itemReadyForRegister(BLUE_SLIME_BALL, "blue_slime_ball");

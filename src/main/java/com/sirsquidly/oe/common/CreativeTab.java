@@ -77,11 +77,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        if (ConfigHandler.item.turtleShell.enableTurtleShell) add(list, OEItems.TURTLE_HELMET);
 	        if (ConfigHandler.block.turtleEgg.enableTurtleEgg) add(list, OEBlocks.SEA_TURTLE_EGG);
 	        add(list, OEItems.CRUSTACEAN_SHELL);
-	        add(list, OEItems.CRAB_UNCOOKED);
-	        add(list, OEItems.CRAB_COOKED);
+			if (ConfigHandler.entity.crab.enableCrab)
+			{
+				add(list, OEItems.CRAB_UNCOOKED);
+				add(list, OEItems.CRAB_COOKED);
+			}
 	        if (ConfigHandler.item.bisque.enableCrabBisque) add(list, OEItems.BISQUE_CRAB);
-	        add(list, OEItems.LOBSTER_UNCOOKED);
-	        add(list, OEItems.LOBSTER_COOKED);
+			if (ConfigHandler.entity.lobster.enableLobster)
+			{
+				add(list, OEItems.LOBSTER_UNCOOKED);
+				add(list, OEItems.LOBSTER_COOKED);
+			}
 	        if (ConfigHandler.item.bisque.enableLobsterBisque) add(list, OEItems.BISQUE_LOBSTER);
 	        if (ConfigHandler.block.enableShellySand) add(list, OEBlocks.SHELL_SAND);
 	        add(list, OEItems.SHELLS); 

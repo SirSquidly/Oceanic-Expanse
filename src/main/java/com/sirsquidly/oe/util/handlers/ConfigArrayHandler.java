@@ -224,11 +224,15 @@ public class ConfigArrayHandler
 			{
 				case "enableBlueIce": return ConfigHandler.block.blueIce.enableBlueIce;
 				case "conduitAllIngredients": return ConfigHandler.block.conduit.enableConduit & ConfigHandler.item.enableNautilusShell;
+				case "enableBisqueCrab": return ConfigHandler.item.bisque.enableCrabBisque;
+				case "enableBisqueLobster": return ConfigHandler.item.bisque.enableLobsterBisque;
 				case "enableCoquina": return ConfigHandler.block.coquina.enableCoquina;
 				case "enableCoquinaBricks": return ConfigHandler.block.coquina.enableCoquinaBricks;
 				case "enableCoquinaBrickWalls": return ConfigHandler.block.coquina.enableCoquinaBrickWalls;
 				case "enableCoconut": return ConfigHandler.block.coconut.enableCoconut;
+				case "enableCrab": return ConfigHandler.entity.crab.enableCrab;
 				case "enableDusle": return ConfigHandler.block.dulse.enableDulse;
+				case "enableLobster": return ConfigHandler.entity.lobster.enableLobster;
 				case "enablePalmWoods": return ConfigHandler.block.palmBlocks.enablePalmWoods;
 				case "enablePalmStrippedWoods": return ConfigHandler.block.palmBlocks.enablePalmStrippedWoods;
 				case "enableKelp": return ConfigHandler.block.enableKelp;

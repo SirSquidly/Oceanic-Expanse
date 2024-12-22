@@ -1,4 +1,9 @@
 {
+  "conditions":
+  [
+    { "type": "config", "prop": "enableBisqueCrab" },
+    { "type": "config", "prop": "enableCrab" }
+  ],
   "type": "minecraft:crafting_shapeless",
   "ingredients":
   [
