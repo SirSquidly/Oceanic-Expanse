@@ -18,6 +18,10 @@ description.oe.conch_blow1.name=Distant
 description.oe.conch_blow2.name=Emblem
 description.oe.conch_blow3.name=Snail
 description.oe.conch_blow4.name=Buffalo
+description.oe.conch_resonance0.name=Wave's Wail
+description.oe.conch_resonance1.name=Brine's Breath
+description.oe.conch_resonance2.name=Captain's Call
+description.oe.conch_resonance3.name=Sea's Serenade
 description.oe.crab_color0.name=Red
 description.oe.crab_color1.name=Pale
 description.oe.crab_color2.name=Green
@@ -99,6 +103,7 @@ description.oe.turtle_helmet.name=Gives 10 seconds Water Breathing outside of wa
 
 
 effect.oe.conduit_power=Conduit Power
+effect.oe.dolphins_grace=Dolphin's Grace
 
 effect.oe.descent=Descent
 effect.oe.seeping=Seeping
@@ -130,6 +135,7 @@ entity.oe.pickled.name=Pickled
 entity.oe.tropical_slime.name=Tropical Slime
 
 entity.oe.cod.name=Cod
+entity.oe.dolphin.name=Dolphin
 entity.oe.drowned.name=Drowned
 entity.oe.glow_squid.name=Glow Squid
 entity.oe.pufferfish.name=Pufferfish
@@ -144,6 +150,7 @@ item.oe.blue_slime_ball.name=Tropical Slimeball
 item.oe.charm.name=Conduit Charm
 item.oe.coconut_open.name=Cracked Coconut
 item.oe.conch.name=Conch
+item.oe.magic_conch.name=Magic Conch
 item.oe.crab.name=Raw Crab
 item.oe.crab_bisque.name=Crab Bisque
 item.oe.cooked_crab.name=Cooked Crab
@@ -203,6 +210,8 @@ subtitle.oe.coral.break=Block broken
 subtitle.oe.coral.hit=Block breaking
 subtitle.oe.coral.place=Block placed
 subtitle.oe.coral.step=Footsteps
+subtitle.oe.dolphin.ambient.water=Dolphin whistles
+subtitle.oe.dolphin.hurt=Dolphin hurts
 subtitle.oe.drowned.ambient=Drowned gurgles
 subtitle.oe.drowned.hurt=Drowned hurts
 subtitle.oe.drowned.death=Drowned dies
@@ -324,6 +333,7 @@ tile.oe.yellow_coral_fan_dead.name=Dead Horn Coral Fan
 
 
 potion.effect.oe.descent=Potion of Descent
+potion.effect.oe.seeping=Potion of Seeping
 
 potion.effect.oe.turtle_master=Potion of the Turtle Master
 potion.effect.oe.turtle_master_long=Potion of the Turtle Master +
@@ -331,6 +341,7 @@ potion.effect.oe.turtle_master_strong=Potion of the Turtle Master II
 
 
 splash_potion.effect.oe.descent=Splash Potion of Descent
+splash_potion.effect.oe.seeping=Splash Potion of Seeping
 
 splash_potion.effect.oe.turtle_master=Splash Potion of the Turtle Master
 splash_potion.effect.oe.turtle_master_long=Splash Potion of the Turtle Master +
@@ -338,6 +349,7 @@ splash_potion.effect.oe.turtle_master_strong=Splash Potion of the Turtle Master 
 
 
 lingering_potion.effect.oe.descent=Lingering Potion of Descent
+lingering_potion.effect.oe.seeping=Lingering Potion of Seeping
 
 lingering_potion.effect.oe.turtle_master=Lingering Potion of the Turtle Master
 lingering_potion.effect.oe.turtle_master_long=Lingering Potion of the Turtle Master +
@@ -345,6 +357,7 @@ lingering_potion.effect.oe.turtle_master_strong=Lingering Potion of the Turtle M
 
 
 tipped_arrow.effect.oe.descent=Arrow of Descent
+tipped_arrow.effect.oe.seeping=Arrow of Seeping
 
 tipped_arrow.effect.oe.turtle_master=Arrow of the Turtle Master
 tipped_arrow.effect.oe.turtle_master_long=Arrow of the Turtle Master +
@@ -709,8 +722,9 @@ oe.config.vanillaTweak.noSwimList=Swim Disabling List
 
 
 description.effect.oe.conduit=Grants Water Breathing, Night Vision, and Haste when submerged in water.
+description.effect.oe.dolphins_grace=Increases swimming speed.
 description.effect.oe.descent=Pulls affected entities downward.
-description.effect.oe.seeping=Spawns a Tropical Slime on an entity's death.
+description.effect.oe.seeping=Spawns 2 Tropical Slimes on an entity's death.
 
 oe.jei.barnacle_shells.desc=Barnacle Shells can be used to craft Coquina, or brew Potions of Descent.\n\nCan also be used to repair Heavy Boots in an anvil.
 oe.jei.coconut.desc=Coconuts are a gravity-affected block.\n\nIf a coconut lands on a mob, it will deal damage equal to [distance fallen] - 1, capped at 19 damage.\n\nIf a coconut falls from a height greater than 5 blocks or is mined with any tool, it will drop 2 Cracked Coconuts.
