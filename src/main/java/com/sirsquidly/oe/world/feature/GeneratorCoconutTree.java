@@ -214,9 +214,11 @@ public class GeneratorCoconutTree extends WorldGenAbstractTree
 	private void placeFloweringLeafAt(World worldIn, BlockPos pos)
     {
         IBlockState state = worldIn.getBlockState(pos);
+        /* Only a 75% chance to place a Flowering Leaf at the spot, so some Coconut Palms have more or less than others */
+        IBlockState GET_LEAF = worldIn.rand.nextDouble() < 0.75D ? LEAF_FLOWERING : LEAF;
 
         if (state.getBlock().isAir(state, worldIn, pos) || state.getBlock().isLeaves(state, worldIn, pos))
-        { this.setBlockAndNotifyAdequately(worldIn, pos, LEAF_FLOWERING); }
+        { this.setBlockAndNotifyAdequately(worldIn, pos, GET_LEAF); }
     }
 	
 	@Override
