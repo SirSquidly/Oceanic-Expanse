@@ -1,4 +1,9 @@
 {
+  "conditions":
+  [
+    { "type": "config", "prop": "enableBisqueLobster" },
+    { "type": "config", "prop": "enableLobster" }
+  ],
   "type": "minecraft:crafting_shapeless",
   "ingredients":
   [

@@ -11,7 +11,6 @@ import net.minecraft.block.BlockTorch;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -71,30 +70,13 @@ public class BlockUnderwaterTorch extends BlockTorch implements IChecksWater
             }
         }
     }
-	
+
+    /** Just grab the result of the parent's `getStateForPlacement`, then set the InWater property. */
 	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
 		boolean isWet = checkPlaceWater(worldIn, pos, false);
-		BlockPos blockpos = pos.offset(facing.getOpposite());
-		IBlockState iblockstate = worldIn.getBlockState(blockpos);
-		//BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
-        
-    	if (!isExceptBlockForAttachWithPiston(iblockstate.getBlock()) && iblockstate.getBlockFaceShape(worldIn, blockpos, facing) == BlockFaceShape.SOLID)
-        {
-            return this.getDefaultState().withProperty(FACING, facing).withProperty(IN_WATER, isWet);
-        }
-        else
-        {
-            for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-            {
-                if (super.canPlaceBlockAt(worldIn, pos))
-                {
-                    return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(IN_WATER, isWet);
-                }
-            }
-            return this.getDefaultState().withProperty(IN_WATER, isWet);
-        }
+        return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(IN_WATER, isWet);
     }
 	
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
