@@ -176,7 +176,7 @@ public class AbstractFish extends EntityAnimal
 	{
 		if (entityIn instanceof EntityBoat) return false;
 
-		return this.startRiding(entityIn, false);
+		return super.startRiding(entityIn, force);
 	}
 
 	public boolean isBreedingItem(ItemStack stack)
