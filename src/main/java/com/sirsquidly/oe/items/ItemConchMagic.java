@@ -79,6 +79,9 @@ public class ItemConchMagic extends ItemConch
 				case 2:
 					doDrownedSummon(playerIn);
 					break;
+				case 3:
+					doPositiveEffects(playerIn, 16);
+					break;
 			}
 		}
 
@@ -145,10 +148,8 @@ public class ItemConchMagic extends ItemConch
 
 			if (nearbyEntity.getDistanceSq(user) <= range * range)
 			{
-				if (nearbyEntity.isInWater())
-				{ nearbyEntity.addPotionEffect(new PotionEffect(OEPotions.DESCENT, 210, 0)); }
-				else
-				{ nearbyEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 210, 0)); }
+				nearbyEntity.addPotionEffect(new PotionEffect(OEPotions.DESCENT, 210, 0));
+				nearbyEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 210, 0));
 			}
 		}
 	}
@@ -194,6 +195,23 @@ public class ItemConchMagic extends ItemConch
 					user.world.spawnEntity(entity);
 					break;
 				}
+			}
+		}
+	}
+
+	/** Applies Regeneration onto nearby mobs. */
+	private static void doPositiveEffects(EntityLivingBase user, int range)
+	{
+		if (user.world.isRemote) return;
+
+		for (EntityLivingBase nearbyEntity : user.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(user.getPosition()).grow(range, range, range)))
+		{
+			if (nearbyEntity == user) continue;
+
+			if (nearbyEntity.getDistanceSq(user) <= range * range)
+			{
+				nearbyEntity.addPotionEffect(new PotionEffect(OEPotions.DOLPHINS_GRACE, 210, 0));
+				nearbyEntity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 210, 0));
 			}
 		}
 	}
