@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import com.sirsquidly.oe.Main;
 
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -46,11 +47,12 @@ public class GeneratorCoquinaOutcrop implements IWorldGenerator
 		boolean isValidBiome = false;
 		int x = chunkX * 16 + 8 + rand.nextInt(10);
 		int z = chunkZ * 16 + 8 + rand.nextInt(10);
-		int y = world.getHeight();
+		/* Start from the height of the */
+		int y = world.getHeight(new BlockPos(x, 0, z)).getY();
 
 		BlockPos xzPos = new BlockPos(x, 1, z);
 		Biome biome = world.getBiomeForCoordsBody(xzPos);
-		
+
 		for(int i = 0; i < biomes.length; i++)
 		{
 			if(biome == biomes[i])
@@ -73,20 +75,22 @@ public class GeneratorCoquinaOutcrop implements IWorldGenerator
 					Rotation[] arotation = Rotation.values();
 					
 					PlacementSettings placementsettings = (new PlacementSettings()).setReplacedBlock(Blocks.STRUCTURE_VOID).setRotation(arotation[rand.nextInt(arotation.length)]);
-					//PlacementSettings placementsettings = (new PlacementSettings()).setReplacedBlock(Blocks.STRUCTURE_VOID);
 					ResourceLocation location = getRandomStructure(rand.nextInt(10));
 					Template template = manager.get(mcServer, location);
 					
 					BlockPos size = template.getSize();
 
-					//** Grabs the lowest Y block from around the middle of the structure, for snapping to the floor. Just need the middle, because no need to check each corner, it's cooler for overhangs and such.*/
-					BlockPos placeCheck = pos.add(Template.transformedBlockPos(placementsettings, new BlockPos(0 + (size.getX()/2), 0, 0 + (size.getZ()/2))));
+					/* Grabs the lowest Y block from around the middle of the structure, for snapping to the floor. Just need the middle, because no need to check each corner, it's cooler for overhangs and such.*/
+					BlockPos placeCheck = pos.add(Template.transformedBlockPos(placementsettings, new BlockPos(size.getX() / 2, 0, size.getZ() / 2)));
 						
 					for ( IBlockState state = world.getBlockState(placeCheck); ((state.getBlock().isReplaceable(world, placeCheck) || state.getMaterial() == Material.WATER || state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.WOOD) && placeCheck.getY() > 0); state = world.getBlockState(placeCheck) )
 			        { placeCheck = placeCheck.down(); }	
 					pos = new BlockPos(pos.getX(), placeCheck.getY(), pos.getZ());
+
+					/* If the obtained position is not at Sand, don't even continue the generation. */
+					if (!(world.getBlockState(placeCheck.down()).getBlock() instanceof BlockSand)) return;
 					
-					/** This buries the ship down a bit. */
+					/* This buries the Coquina Chunk down a bit. */
 					pos = pos.down(rand.nextInt(6));
 					
 					IBlockState state = world.getBlockState(pos);
