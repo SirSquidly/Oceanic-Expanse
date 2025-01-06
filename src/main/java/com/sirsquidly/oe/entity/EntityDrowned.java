@@ -162,6 +162,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     {
 		super.onUpdate();
         this.setupSwimTimeing();
+        // TODO: Move to a timed check
 		this.removeInjectedAI();
 		
 		if (!this.isEntityAlive()) return;
@@ -393,7 +394,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 
 			if (entityaibase instanceof EntityAIBreakDoor || entityaibase instanceof EntityAIMoveThroughVillage)
 			{
-				Main.logger.error(iterator + " was scrubbed from a Drowned! This isn't supposed to be here!");
+                Main.logger.error(iterator + " was removed from a Drowned! This injected AI was incompatible and would cause crashes. Adjust the configs of mob AI mods (e.g., Special AI) to disable Door Breaking or Move Through Village for Drowned and Pickled mobs.");
 				iterator.remove();
 			}
 		}
