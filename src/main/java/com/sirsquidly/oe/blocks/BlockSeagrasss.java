@@ -84,7 +84,7 @@ public class BlockSeagrasss extends BlockBush implements IGrowable, IChecksWater
 	public void placeAt(World worldIn, BlockPos lowerPos, int flags)
     {
         worldIn.setBlockState(lowerPos, this.getDefaultState().withProperty(TYPE, 1), flags);
-        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().withProperty(TYPE, 2));
+        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().withProperty(TYPE, 2), flags);
     }
 
 	// Just used the placeAt, less typing

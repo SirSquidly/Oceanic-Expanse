@@ -7,12 +7,9 @@ import com.sirsquidly.oe.blocks.BlockKelp;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import git.jbredwards.fluidlogged_api.api.util.FluidState;
-import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -20,7 +17,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class WorldGenKelpForest implements IWorldGenerator
@@ -108,9 +104,7 @@ public class WorldGenKelpForest implements IWorldGenerator
 			if (!OEBlocks.KELP.canPlaceBlockAt(worldIn, pos)) break;
 
 			IBlockState kelpState = OEBlocks.KELP.getDefaultState();
-			worldIn.setBlockState(pos, kelpState, 2);
-
-			if (useFluidlogged) FluidloggedUtils.setFluidState(worldIn, pos, kelpState, FluidState.of(FluidRegistry.WATER), true);
+			worldIn.setBlockState(pos, kelpState, 2 | 64);
 
 			pos = pos.up();
 		}

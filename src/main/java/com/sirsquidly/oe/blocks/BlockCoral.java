@@ -7,8 +7,6 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import git.jbredwards.fluidlogged_api.api.util.FluidState;
-import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
@@ -27,7 +25,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -158,8 +155,7 @@ public class BlockCoral extends Block implements IChecksWater, ISpecialWorldGen
 	{
 		if (worldIn.getBlockState(pos.down()).getBlock() instanceof BlockCoralFull)
 		{
-			worldIn.setBlockState(pos, state.withProperty(BlockCoral.IN_WATER, true), 16 | 2);
-			if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos, state, FluidState.of(FluidRegistry.WATER), true);
+			worldIn.setBlockState(pos, state.withProperty(BlockCoral.IN_WATER, true), 2 | 64);
 		}
 	}
 

@@ -11,8 +11,6 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import git.jbredwards.fluidlogged_api.api.util.FluidState;
-import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
@@ -35,7 +33,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -115,8 +112,7 @@ public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldG
             BlockPos checkPos = pos.offset(enumfacing);
             if (worldIn.getBlockState(checkPos).isSideSolid(worldIn, checkPos, enumfacing) && checkCoralBlock(worldIn.getBlockState(checkPos).getBlock()))
             {
-                worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing.getOpposite()).withProperty(IN_WATER, true), 16 | 2);
-                if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos, state, FluidState.of(FluidRegistry.WATER), true);
+                worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing.getOpposite()).withProperty(IN_WATER, true), 2 | 64);
             }
         }
     }

@@ -153,14 +153,10 @@ public class WorldGenOceanPatch implements IWorldGenerator
 		/** Seagrass remains hardcoded due to biomes using different chances of double height, a better method should be devised later. */
 		if (blockState.getBlock() == OEBlocks.SEAGRASS && ConfigHandler.block.seagrass.enableTallSeagrass && rand.nextDouble() < tallChance && OEBlocks.SEAGRASS.canPlaceBlockAt(worldIn, pos) && ((BlockSeagrasss) OEBlocks.SEAGRASS).checkPlaceWater(worldIn, pos.up(), true))
 		{
-			((BlockSeagrasss) OEBlocks.SEAGRASS).placeAt(worldIn, pos, 16 | 2);
-			if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos, blockState, FluidState.of(FluidRegistry.WATER), true);
-			if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos.up(), blockState, FluidState.of(FluidRegistry.WATER), true);
+			((BlockSeagrasss) OEBlocks.SEAGRASS).placeAt(worldIn, pos, 2 | 64);
 		}
 		else
-		{ worldIn.setBlockState(pos, this.blockState, 16 | 2); }
-
-		if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos, this.blockState, FluidState.of(FluidRegistry.WATER), true);
+		{ worldIn.setBlockState(pos, this.blockState, 2 | 64); }
 	}
 
 	/**

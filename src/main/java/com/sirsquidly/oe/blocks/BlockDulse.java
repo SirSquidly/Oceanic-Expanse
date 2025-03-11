@@ -1,17 +1,12 @@
 package com.sirsquidly.oe.blocks;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
-import com.google.common.collect.Lists;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import git.jbredwards.fluidlogged_api.api.util.FluidState;
-import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
@@ -33,7 +28,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
 
 public class BlockDulse extends BlockBush implements IGrowable, IChecksWater, ISpecialWorldGen
 {
@@ -147,23 +141,16 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater, IS
 		int dulseAge = rand.nextInt(4);
 
 		if (dulseAge >= 3 && ((IChecksWater) OEBlocks.DULSE).checkWater(worldIn, pos.up()))
-		{
-			((BlockDulse) OEBlocks.DULSE).placeAt(worldIn, pos, 16 | 2);
-			if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos, state, FluidState.of(FluidRegistry.WATER), true);
-		}
+		{ ((BlockDulse) OEBlocks.DULSE).placeAt(worldIn, pos, 2 | 64); }
 		if (dulseAge < 3)
-		{
-			worldIn.setBlockState(pos, state.withProperty(BlockDulse.AGE, dulseAge), 2);
-		}
+		{ worldIn.setBlockState(pos, state.withProperty(BlockDulse.AGE, dulseAge), 2 | 64); }
 	}
 
 	public void placeAt(World worldIn, BlockPos lowerPos, int flags)
     {
 		IBlockState state = this.getDefaultState().withProperty(SHEARED, true);
         worldIn.setBlockState(lowerPos, state.withProperty(AGE, 3), flags);
-        worldIn.setBlockState(lowerPos.up(), state.withProperty(AGE, 4));
-		if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, lowerPos, state, FluidState.of(FluidRegistry.WATER), true);
-		if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, lowerPos.up(), state, FluidState.of(FluidRegistry.WATER), true);
+        worldIn.setBlockState(lowerPos.up(), state.withProperty(AGE, 4), flags);
     }
 	
 	/**
