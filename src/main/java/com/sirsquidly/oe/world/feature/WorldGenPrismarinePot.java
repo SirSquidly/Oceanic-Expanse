@@ -2,6 +2,9 @@ package com.sirsquidly.oe.world.feature;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.Main;
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -13,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import com.sirsquidly.oe.blocks.BlockPrismarinePot;
@@ -132,7 +136,8 @@ public class WorldGenPrismarinePot implements IWorldGenerator
 			BlockPrismarinePot.EnumAxis randPotRotation = rand.nextInt(2) == 0 ? BlockPrismarinePot.EnumAxis.X : BlockPrismarinePot.EnumAxis.Z;
     		
     		worldIn.setBlockState(pos, OEBlocks.PRISMARINE_POT.getDefaultState().withProperty(BlockPrismarinePot.FACING, randPotRotation).withProperty(BlockPrismarinePot.SEALED, rand.nextInt(2) == 0), 3);
-    		
+			if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos, OEBlocks.PRISMARINE_POT.getDefaultState(), FluidState.of(FluidRegistry.WATER), true);
+
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
             if (tileentity instanceof TilePrismarinePot)

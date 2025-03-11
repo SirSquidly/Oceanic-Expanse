@@ -2,6 +2,7 @@ package com.sirsquidly.oe.world;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.blocks.BlockTubeSponge;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.world.feature.WorldGenBlueIce;
@@ -98,10 +99,9 @@ public class GeneratorFrozenOcean implements IWorldGenerator
                 	if (x == 15 && z == 15)
                 	{
                 		if (ConfigHandler.worldGen.frozenOcean.frozenSeafloor.enableRockDecor) spawnRockDecor(world, rand, pos, chunkX, chunkZ, x, z);
-                		
-                		if (ConfigHandler.block.enableSeastar) new WorldGenOceanPatch(OEBlocks.SEASTAR, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                		if (ConfigHandler.block.tubeSponge.enableTubeSponge) new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                		if (ConfigHandler.block.dulse.enableDulse) new WorldGenOceanPatch(OEBlocks.DULSE, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dusleTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dulseChancePerChunk, 8, 4, 4, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.enableSeastar) new WorldGenOceanPatch(OEBlocks.SEASTAR.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.tubeSponge.enableTubeSponge) new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeChancePerChunk, 8, 4, 4, 0.0, false, biomes).setSeaLevelMinRequirement(10).setIntStatePropertyRange(BlockTubeSponge.AGE, 0,3).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.dulse.enableDulse) new WorldGenOceanPatch(OEBlocks.DULSE.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dusleTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dulseChancePerChunk, 8, 4, 4, 0.0, false, biomes).setSeaLevelMinRequirement(1).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
                     	
                 		if (ConfigHandler.block.blueIce.enableBlueIce) new WorldGenBlueIce(ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceChancePerChunk, 50, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);;
                 	}

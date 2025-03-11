@@ -11,6 +11,8 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
@@ -33,10 +35,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockCoralFan extends Block implements IChecksWater
+public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldGen
 {
 	protected static final AxisAlignedBB AABB_DOWN = new AxisAlignedBB(0.125D, 1.0D, 0.125D, 0.875D, 0.75D, 0.875D);
     protected static final AxisAlignedBB AABB_UP = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 0.25D, 0.875D);
@@ -46,20 +49,24 @@ public class BlockCoralFan extends Block implements IChecksWater
     protected static final AxisAlignedBB AABB_EAST = new AxisAlignedBB(0.0D, 0.3125D, 0.0625D, 0.5D, 0.6875D, 0.9375D);
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	public static final PropertyBool IN_WATER = PropertyBool.create("in_water");
-	
+
+    /** This is used for storing the dead version of this coral, if there is one. */
+    private Block deadVersion = null;
+
 	@SuppressWarnings("deprecation")
-	public BlockCoralFan(MapColor blockMapColor, SoundType soundIn) 
+	public BlockCoralFan(MapColor blockMapColor, SoundType soundIn, Block deadVersionIn)
 	{
 		super(Material.ROCK, blockMapColor);
 		this.setSoundType(soundIn);
-		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 ? false : true);
+        this.deadVersion = deadVersionIn;
+		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralFanDryTicks != 0);
 		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(IN_WATER, false));
 	}
 	
 	//** This just helps register dead coral faster */
 	public BlockCoralFan()
-	{ this(MapColor.GRAY, SoundType.STONE); }
+	{ this(MapColor.GRAY, SoundType.STONE, null); }
 		
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
     { return canPlaceBlock(worldIn, pos, side); }
@@ -98,50 +105,37 @@ public class BlockCoralFan extends Block implements IChecksWater
         return canPlaceBlock(worldIn, pos, facing) ? this.getDefaultState().withProperty(FACING, facing).withProperty(IN_WATER, isWet) : this.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(IN_WATER, isWet);
     }
 
-
-    public void placeAt(World worldIn, BlockPos pos, Random rand, Block block, boolean onlyOnCoral)
+    public void placeGeneration(World worldIn, BlockPos pos, Random rand, IBlockState state)
     {
-    	List<EnumFacing> list = Lists.newArrayList(EnumFacing.values());
+        List<EnumFacing> list = Lists.newArrayList(EnumFacing.values());
         Collections.shuffle(list, rand);
-        
-		for (EnumFacing enumfacing : list)
+
+        for (EnumFacing enumfacing : list)
         {
-			BlockPos checkPos = pos.offset(enumfacing);
-			if (worldIn.getBlockState(checkPos).isSideSolid(worldIn, checkPos, enumfacing) && ( !onlyOnCoral || checkCoralBlock(worldIn.getBlockState(checkPos))))
-            {  worldIn.setBlockState(pos, block.getDefaultState().withProperty(FACING, enumfacing.getOpposite()).withProperty(IN_WATER, true), 16 | 2); }
+            BlockPos checkPos = pos.offset(enumfacing);
+            if (worldIn.getBlockState(checkPos).isSideSolid(worldIn, checkPos, enumfacing) && checkCoralBlock(worldIn.getBlockState(checkPos).getBlock()))
+            {
+                worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing.getOpposite()).withProperty(IN_WATER, true), 16 | 2);
+                if (Main.proxy.fluidlogged_enable) FluidloggedUtils.setFluidState(worldIn, pos, state, FluidState.of(FluidRegistry.WATER), true);
+            }
         }
     }
     
-    public boolean checkCoralBlock(IBlockState state)
+    public boolean checkCoralBlock(Block block)
     {
-        if (state.getBlock() == OEBlocks.BLUE_CORAL_BLOCK || state.getBlock() == OEBlocks.PINK_CORAL_BLOCK || state.getBlock() == OEBlocks.PURPLE_CORAL_BLOCK || state.getBlock() == OEBlocks.RED_CORAL_BLOCK || state.getBlock() == OEBlocks.YELLOW_CORAL_BLOCK)
-    	{ return true; }
-        
-        if (state.getBlock() == OEBlocks.BLUE_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.PINK_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.PURPLE_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.RED_CORAL_BLOCK_DEAD || state.getBlock() == OEBlocks.YELLOW_CORAL_BLOCK_DEAD)
-    	{ return true; }
-        
-        return false;
+        /* Use a list of all Coral Fans, so we can just iterate and add generators for each instead of writing it all out. */
+        List<Block> allCoralBlocks = Lists.newArrayList( OEBlocks.BLUE_CORAL_BLOCK, OEBlocks.PINK_CORAL_BLOCK, OEBlocks.PURPLE_CORAL_BLOCK, OEBlocks.RED_CORAL_BLOCK, OEBlocks.YELLOW_CORAL_BLOCK );
+        List<Block> allDeadCoralBlocks = Lists.newArrayList( OEBlocks.BLUE_CORAL_BLOCK_DEAD, OEBlocks.PINK_CORAL_BLOCK_DEAD, OEBlocks.PURPLE_CORAL_BLOCK_DEAD, OEBlocks.RED_CORAL_BLOCK_DEAD, OEBlocks.YELLOW_CORAL_BLOCK_DEAD );
+
+        return allCoralBlocks.contains(block) || allDeadCoralBlocks.contains(block);
     }
     
 	/** 
      * Basic Block stuff
      * **/
-    
+
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-    	if (state.getBlock() == OEBlocks.BLUE_CORAL_FAN)
-    	{ return Item.getItemFromBlock(OEBlocks.BLUE_CORAL_FAN_DEAD); }	
-    	if (state.getBlock() == OEBlocks.PINK_CORAL_FAN)
-    	{ return Item.getItemFromBlock(OEBlocks.PINK_CORAL_FAN_DEAD); }
-    	if (state.getBlock() == OEBlocks.PURPLE_CORAL_FAN)
-    	{ return Item.getItemFromBlock(OEBlocks.PURPLE_CORAL_FAN_DEAD); }
-    	if (state.getBlock() == OEBlocks.RED_CORAL_FAN)
-    	{ return Item.getItemFromBlock(OEBlocks.RED_CORAL_FAN_DEAD); }
-    	if (state.getBlock() == OEBlocks.YELLOW_CORAL_FAN)
-    	{ return Item.getItemFromBlock(OEBlocks.YELLOW_CORAL_FAN_DEAD); }
-    	
-    	return super.getItemDropped(state, rand, fortune);
-    }
+    { return this.deadVersion != null ? Item.getItemFromBlock(this.deadVersion) : super.getItemDropped(state, rand, fortune); }
     
     protected boolean canSilkHarvest() { return true; }
     
@@ -330,28 +324,9 @@ public class BlockCoralFan extends Block implements IChecksWater
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        boolean flag = ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 ? true : checkWater(worldIn, pos);
-        
-        if (!flag)
-        {
-        	this.makeDead(worldIn, pos, state, rand);
-        }
-    }
-    
-    public void makeDead(World worldIn, BlockPos pos, IBlockState state, Random rand)
-    {
-        boolean w = (Boolean)state.getValue(IN_WATER);
-        EnumFacing f = (EnumFacing)state.getValue(FACING);
-        
-        if (state.getBlock() == OEBlocks.BLUE_CORAL_FAN)
-    	{ worldIn.setBlockState(pos, OEBlocks.BLUE_CORAL_FAN_DEAD.getDefaultState().withProperty(FACING, f).withProperty(IN_WATER, w), 2); }
-    	if (state.getBlock() == OEBlocks.PINK_CORAL_FAN)
-    	{ worldIn.setBlockState(pos, OEBlocks.PINK_CORAL_FAN_DEAD.getDefaultState().withProperty(FACING, f).withProperty(IN_WATER, w), 2); }
-    	if (state.getBlock() == OEBlocks.PURPLE_CORAL_FAN)
-    	{ worldIn.setBlockState(pos, OEBlocks.PURPLE_CORAL_FAN_DEAD.getDefaultState().withProperty(FACING, f).withProperty(IN_WATER, w), 2); }
-    	if (state.getBlock() == OEBlocks.RED_CORAL_FAN)
-    	{ worldIn.setBlockState(pos, OEBlocks.RED_CORAL_FAN_DEAD.getDefaultState().withProperty(FACING, f).withProperty(IN_WATER, w), 2); }
-    	if (state.getBlock() == OEBlocks.YELLOW_CORAL_FAN)
-    	{ worldIn.setBlockState(pos, OEBlocks.YELLOW_CORAL_FAN_DEAD.getDefaultState().withProperty(FACING, f).withProperty(IN_WATER, w), 2); }
+        boolean flag = ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 || checkWater(worldIn, pos);
+
+        if (!flag && this.deadVersion != null)
+        { worldIn.setBlockState(pos, this.deadVersion.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(IN_WATER, state.getValue(IN_WATER)), 2); }
     }
 }

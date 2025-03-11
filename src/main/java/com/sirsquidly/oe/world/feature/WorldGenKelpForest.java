@@ -2,10 +2,13 @@ package com.sirsquidly.oe.world.feature;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.blocks.BlockKelp;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +20,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 public class WorldGenKelpForest implements IWorldGenerator
@@ -65,23 +69,29 @@ public class WorldGenKelpForest implements IWorldGenerator
 
     private void spawnKelpForest(World world, Random rand, int chunkX, int chunkZ)
     {
+		/* Stored so we don't need to redo math. */
+		int chunkPosX = chunkX * 16 + 8;
+		int chunkPosZ = chunkZ * 16 + 8;
+
     	this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
     	this.sandNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.sandNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
     	this.kelpNoiseGen = kelpForestNoiseGen.generateNoiseOctaves(this.kelpNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, ConfigHandler.worldGen.kelpForest.kelpConnective, 1.0, ConfigHandler.worldGen.kelpForest.kelpConnective);
     	
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++)
-            {   
-                BlockPos pos = getSeaFloor(world, chunkX * 16 + 8 + x, chunkZ * 16 + 8 + z);
+            {
+				int posX = chunkPosX + x;
+				int posZ = chunkPosZ + z;
+
+				BlockPos pos = world.getTopSolidOrLiquidBlock(new BlockPos(posX, 0, posZ));
                 
                 if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > ConfigHandler.worldGen.kelpForest.kelpSpread && !(this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6) && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.95)) 
-                { 
-                	Block blockHere = world.getBlockState(pos.up()).getBlock();
-                	Block blockDown = world.getBlockState(pos).getBlock();
+                {
+                	Block blockDown = world.getBlockState(pos.down()).getBlock();
 
-                	if (rand.nextDouble() < ConfigHandler.worldGen.kelpForest.kelpDensity && blockHere == Blocks.WATER && OEBlocks.KELP.canPlaceBlockAt(world, pos.up()) && blockDown != OEBlocks.KELP)
+                	if (rand.nextDouble() < ConfigHandler.worldGen.kelpForest.kelpDensity && OEBlocks.KELP.canPlaceBlockAt(world, pos) && blockDown != OEBlocks.KELP)
                     {
-                    	growKelpStalk(world, rand, pos.up());
+                    	growKelpStalk(world, rand, pos);
                     }
                 }
             }
@@ -90,17 +100,20 @@ public class WorldGenKelpForest implements IWorldGenerator
     
     public void growKelpStalk(World worldIn, Random rand, BlockPos pos)
     {
-    	int max = BlockKelp.maxHeight;
-    	for (int i = rand.nextInt(BlockKelp.randomAge + 1); i != max; ++i)
-        {	
-        	if(OEBlocks.KELP.canPlaceBlockAt(worldIn, pos))
-        	{ 
-        		worldIn.setBlockState(pos, OEBlocks.KELP.getDefaultState(), 16 | 2);
-        		
-        		pos = pos.up();
-        	}
-        	else { break; }
-        }
+		int growthLimit = rand.nextInt(BlockKelp.randomAge + 1);
+		boolean useFluidlogged = Main.proxy.fluidlogged_enable;
+
+		for (int i = 0; i < growthLimit; i++)
+		{
+			if (!OEBlocks.KELP.canPlaceBlockAt(worldIn, pos)) break;
+
+			IBlockState kelpState = OEBlocks.KELP.getDefaultState();
+			worldIn.setBlockState(pos, kelpState, 2);
+
+			if (useFluidlogged) FluidloggedUtils.setFluidState(worldIn, pos, kelpState, FluidState.of(FluidRegistry.WATER), true);
+
+			pos = pos.up();
+		}
     }
     
     public static BlockPos getSeaFloor(World world, int x, int z)

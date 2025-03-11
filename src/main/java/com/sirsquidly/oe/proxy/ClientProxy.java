@@ -1,13 +1,16 @@
 package com.sirsquidly.oe.proxy;
 
-import com.sirsquidly.oe.client.particle.ParticleTypes;
+import com.sirsquidly.oe.client.particle.*;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy {
 	    
@@ -28,6 +31,25 @@ public class ClientProxy extends CommonProxy {
     {
         Minecraft minecraft = Minecraft.getMinecraft();
         World world = minecraft.world;
-        minecraft.effectRenderer.addEffect(ParticleTypes.getFactory(particleId).createParticle(0, world, posX, posY, posZ, speedX, speedY, speedZ, parameters));
+        minecraft.effectRenderer.addEffect(getFactory(particleId).createParticle(0, world, posX, posY, posZ, speedX, speedY, speedZ, parameters));
+    }
+
+    /**
+     * This is used by the Particle Spawning as an ID system for out Particles.
+     * We do not require Ids for Particles, it's just more convenient for sending over packets!
+     * */
+    @SideOnly(Side.CLIENT)
+    public static IParticleFactory getFactory(int particleId)
+    {
+        switch(particleId)
+        {
+            default:
+            case 0:
+                return new ParticleConduit.Factory();
+            case 1:
+                return new ParticleGlow.Factory();
+            case 2:
+                return new ParticleInk.Factory();
+        }
     }
 }

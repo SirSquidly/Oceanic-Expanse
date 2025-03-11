@@ -76,6 +76,8 @@ public class Main {
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
+		proxy.postInitRegistries(event);
+
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(OEItems.TRIDENT_ORIG, new BehaviorProjectileDispense()
         {
 			

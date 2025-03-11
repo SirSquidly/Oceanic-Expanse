@@ -1,13 +1,17 @@
 package com.sirsquidly.oe.world;
 
+import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
 import com.sirsquidly.oe.blocks.BlockCoralFull;
+import com.sirsquidly.oe.blocks.BlockSeaPickle;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.world.feature.WorldGenOceanPatch;
 import com.sirsquidly.oe.world.feature.coral.*;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -65,7 +69,7 @@ public class GeneratorWarmOcean implements IWorldGenerator
                 	/** Doesn't use new coordinates like the coral because it doesn't seem to be causing any issues as is..*/
                 	if (x == 0 && z == 0)
                 	{
-                		if (ConfigHandler.block.enableSeaPickle) new WorldGenOceanPatch(OEBlocks.SEA_PICKLE, ConfigHandler.worldGen.warmOcean.seaPickleTriesPerChunk, ConfigHandler.worldGen.warmOcean.seaPickleChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+                		if (ConfigHandler.block.enableSeaPickle) new WorldGenOceanPatch(OEBlocks.SEA_PICKLE.getDefaultState(), ConfigHandler.worldGen.warmOcean.seaPickleTriesPerChunk, ConfigHandler.worldGen.warmOcean.seaPickleChancePerChunk, 16, false, biomes).setSeaLevelMinRequirement(1).setIntStatePropertyRange(BlockSeaPickle.AMOUNT, 1,4).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
                 	}
                 }
                 
@@ -104,19 +108,23 @@ public class GeneratorWarmOcean implements IWorldGenerator
                     		{
         						if (ConfigHandler.block.coralBlocks.enableCoralFan)
         						{
-        							new WorldGenOceanPatch(OEBlocks.BLUE_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.PINK_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.RED_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL_FAN, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+									/* Use a list of all Coral Fans, so we can just iterate and add generators for each instead of writing it all out. */
+									List<Block> allCoralFans = Lists.newArrayList( OEBlocks.BLUE_CORAL_FAN, OEBlocks.PINK_CORAL_FAN, OEBlocks.PURPLE_CORAL_FAN, OEBlocks.RED_CORAL_FAN, OEBlocks.YELLOW_CORAL_FAN );
+
+									for (Block coralFan: allCoralFans)
+									{
+										new WorldGenOceanPatch(coralFan.getDefaultState(), 8, 2, 48, 8, 16, 0.0, false, biomes).setSeaLevelMinRequirement(10).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+									}
         						}
                         		if (ConfigHandler.block.coralBlocks.enableCoral)
                         		{
-                        			new WorldGenOceanPatch(OEBlocks.BLUE_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.PINK_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.PURPLE_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.RED_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-                            		new WorldGenOceanPatch(OEBlocks.YELLOW_CORAL, 8, 2, 48, 8, 16, 0.0, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+									/* Use a list of all Coral, exact same as above list for Coral Fans. */
+									List<Block> allCoral = Lists.newArrayList( OEBlocks.BLUE_CORAL, OEBlocks.PINK_CORAL, OEBlocks.PURPLE_CORAL, OEBlocks.RED_CORAL, OEBlocks.YELLOW_CORAL );
+
+									for (Block coral: allCoral)
+									{
+										new WorldGenOceanPatch(coral.getDefaultState(), 8, 2, 48, 8, 16, 0.0, false, biomes).setSeaLevelMinRequirement(10).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
+									}
                         		}
                     		}
         				}

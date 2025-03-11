@@ -91,7 +91,7 @@ public class OEBlocks
 		public static Block PICKLED_HEAD = new BlockPickledHead();
 		
 		public static Block PRISMARINE_POT = new BlockPrismarinePot();
-		
+
 		public static Block SHELL_SAND = new BlockShellSand().setHardness(0.5F).setResistance(0.5F);
 		public static Block COQUINA = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
 		public static Block COQUINA_BRICK = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
@@ -104,38 +104,40 @@ public class OEBlocks
 		public static Block NACRE_BLOCK = new Block(Material.ROCK, MapColor.QUARTZ).setHardness(0.8F).setResistance(0.8F);
 		public static Block NACRE_SMOOTH = new Block(Material.ROCK, MapColor.QUARTZ).setHardness(0.8F).setResistance(0.8F);
 		
-		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, OESounds.CORAL);
-		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, OESounds.CORAL);
-		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, OESounds.CORAL);
-		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED, OESounds.CORAL);
-		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW, OESounds.CORAL);
+
 		public static Block BLUE_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block PINK_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block PURPLE_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block RED_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block YELLOW_CORAL_BLOCK_DEAD = new BlockCoralFull();
+		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, OESounds.CORAL, BLUE_CORAL_BLOCK_DEAD);
+		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, OESounds.CORAL, PINK_CORAL_BLOCK_DEAD);
+		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, OESounds.CORAL, PURPLE_CORAL_BLOCK_DEAD);
+		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED, OESounds.CORAL, RED_CORAL_BLOCK_DEAD);
+		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW, OESounds.CORAL, YELLOW_CORAL_BLOCK_DEAD);
 
-		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE, OESounds.CORAL);
-		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK, OESounds.CORAL);
-		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE, OESounds.CORAL);
-		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED, OESounds.CORAL);
-		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW, OESounds.CORAL);
 		public static Block BLUE_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block PINK_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block PURPLE_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block RED_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block YELLOW_CORAL_FAN_DEAD = new BlockCoralFan();
-		
-		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE, OESounds.CORAL);
-		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK, OESounds.CORAL);
-		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE, OESounds.CORAL);
-		public static Block RED_CORAL = new BlockCoral(MapColor.RED, OESounds.CORAL);
-		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW, OESounds.CORAL);
+		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE, OESounds.CORAL, BLUE_CORAL_FAN_DEAD);
+		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK, OESounds.CORAL, PINK_CORAL_FAN_DEAD);
+		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE, OESounds.CORAL, PURPLE_CORAL_FAN_DEAD);
+		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED, OESounds.CORAL, RED_CORAL_FAN_DEAD);
+		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW, OESounds.CORAL, YELLOW_CORAL_FAN_DEAD);
+
 		public static Block BLUE_CORAL_DEAD = new BlockCoral();
 		public static Block PINK_CORAL_DEAD = new BlockCoral();
 		public static Block PURPLE_CORAL_DEAD = new BlockCoral();
 		public static Block RED_CORAL_DEAD = new BlockCoral();
 		public static Block YELLOW_CORAL_DEAD = new BlockCoral();
+		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE, OESounds.CORAL, BLUE_CORAL_DEAD);
+		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK, OESounds.CORAL, PINK_CORAL_DEAD);
+		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE, OESounds.CORAL, PURPLE_CORAL_DEAD);
+		public static Block RED_CORAL = new BlockCoral(MapColor.RED, OESounds.CORAL, RED_CORAL_DEAD);
+		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW, OESounds.CORAL, YELLOW_CORAL_DEAD);
+
 		
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event)
@@ -145,7 +147,7 @@ public class OEBlocks
 			if (ConfigHandler.block.coconut.enableCoconut) blockReadyForRegister(COCONUT, "coconut");
 			if (ConfigHandler.block.conduit.enableConduit) blockReadyForRegister(CONDUIT, "conduit");
 			if (ConfigHandler.block.coquina.enableCoquina) blockReadyForRegister(COQUINA, "coquina");
-			
+
 			if (ConfigHandler.block.coquina.enableCoquinaBricks) 
 			{
 				blockReadyForRegister(COQUINA_BRICK, "coquina_brick");
