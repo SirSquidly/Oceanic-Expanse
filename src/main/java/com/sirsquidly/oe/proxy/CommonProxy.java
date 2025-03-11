@@ -105,6 +105,7 @@ public class CommonProxy
 
 	public void postInitRegistries(FMLPostInitializationEvent event)
 	{
+		ResonanceUtil.registerResonanceEffects();
 		ConfigArrayHandler.breakupConfigArrays();
 	}
 	

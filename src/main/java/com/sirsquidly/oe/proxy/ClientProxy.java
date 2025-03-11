@@ -50,6 +50,10 @@ public class ClientProxy extends CommonProxy {
                 return new ParticleGlow.Factory();
             case 2:
                 return new ParticleInk.Factory();
+            case 3:
+                return new ParticleConchWave.Factory();
+            case 4:
+                return new ParticleBubbleGold.Factory();
         }
     }
 }

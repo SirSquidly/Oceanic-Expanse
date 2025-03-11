@@ -1,9 +1,7 @@
 {
-    "variants":
-    {
-        "normal":
-        [
-        	{ "model": "oe:conduit" }
+    "variants": {
+        "normal": [
+            { "model": "oe:conduit" }
         ]
     }
 }

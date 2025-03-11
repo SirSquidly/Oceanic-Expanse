@@ -42,7 +42,8 @@ public class OEEntities
 		registerEntity("palm_boat", EntityOEBoat.class, ++id, 100);
 		registerEntity("glow_item_frame", EntityGlowItemFrame.class, ++id, 100);
 		if (ConfigHandler.entity.pickled.enablePickled) registerEntity("pickled", EntityPickled.class, ++id, 80, 8223277, 14221270);
-		
+		registerEntity("drowned_summon", EntityDrownedSummon.class, ++id, 80);
+
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);
 		registerEntity("conduit_eye", EntityConduitEye.class, ++id, 80);
 		registerEntity("trident", EntityTrident.class, ++id, 80);

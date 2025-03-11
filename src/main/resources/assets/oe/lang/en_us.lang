@@ -18,10 +18,6 @@ description.oe.conch_blow1.name=Distant
 description.oe.conch_blow2.name=Emblem
 description.oe.conch_blow3.name=Snail
 description.oe.conch_blow4.name=Buffalo
-description.oe.conch_resonance0.name=Wave's Wail
-description.oe.conch_resonance1.name=Brine's Breath
-description.oe.conch_resonance2.name=Captain's Call
-description.oe.conch_resonance3.name=Sea's Serenade
 description.oe.crab_color0.name=Red
 description.oe.crab_color1.name=Pale
 description.oe.crab_color2.name=Green
@@ -111,6 +107,8 @@ effect.oe.seeping=Seeping
 
 enchantment.oe.mobstomp=Mob Stomp
 enchantment.oe.mobstomp.desc=Transfers your fall damage to mobs upon landing on them, and resets your own fall distance.
+enchantment.oe.rebound=Nor's Rebound
+enchantment.oe.rebound.desc=Transfers your fall damage to mobs upon landing on them, and resets your own fall distance.
 enchantment.oe.is_wet=Waterjet
 enchantment.oe.is_wet.desc=Increases the damage to wet mobs.
 
@@ -176,6 +174,15 @@ item.oe.trident.name=Trident
 item.oe.turtle_scute.name=Scute
 item.oe.turtle_helmet.name=Turtle Shell
 
+resonance.oe.wave_wail=Wave's Wail
+resonance.oe.brine_breath=Brine's Breath
+resonance.oe.captain_call=Captain's Call
+resonance.oe.sea_serenade=Sea's Serenade
+
+description.resonance.oe.wave_wail=Knocks entities away from the user.
+description.resonance.oe.brine_breath=Grants Slowness and Descent to nearby entities.
+description.resonance.oe.captain_call=Summons a friendly Drowned.
+description.resonance.oe.sea_serenade=Grants Regeneration and Dolphin's Grace to nearby entities, and grants Instant Health to Undead.
 
 subtitle.oe.coconut_hit=Coconut clonk
 subtitle.oe.clam.close=Clam closes
@@ -290,6 +297,7 @@ tile.oe.prismarine_pot.name=Prismarine Pot
 tile.oe.sea_oats.name=Sea Oats
 tile.oe.seastar.name=Sea Star
 tile.oe.shell_sand.name=Shelly Sand
+tile.oe.stagnant.name=Stagnant
 tile.oe.tube_sponge.name=Tube Sponge
 tile.oe.underwater_torch.name=Underwater Torch
 
