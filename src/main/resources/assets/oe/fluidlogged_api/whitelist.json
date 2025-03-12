@@ -6,6 +6,7 @@
 	{blockId:"oe:palm_sapling"},
 	{blockId:"oe:sea_pickle"},
 	{blockId:"oe:seagrass"},
+	{blockId:"oe:stagnant"},
 	{blockId:"oe:tall_seagrass"},
 	{blockId:"oe:seastar"},
 	{blockId:"oe:underwater_torch"},

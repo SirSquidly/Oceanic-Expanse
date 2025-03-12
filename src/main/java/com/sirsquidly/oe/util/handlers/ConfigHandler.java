@@ -653,7 +653,46 @@ public class ConfigHandler
 	    @Config.LangKey("oe.config.block.enableShellySand")
 	    @Config.Comment("If Shelly Sand is enabled")
 	    public boolean enableShellySand = true;
-		
+
+		@Config.LangKey("oe.config.block.stagnant")
+		public configStagnant stagnant = new configStagnant();
+
+		public static class configStagnant
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.enableStagnant")
+			@Config.Comment("Enables the Stagnant.")
+			public boolean enableStagnant = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.stagnantLight")
+			@Config.Comment("How much Light the Stagnant emits")
+			@Config.RangeDouble(min = 0, max = 16)
+			public double stagnantLight = 14;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.stagnantParticles")
+			@Config.Comment("The particles used by the Stagnant when active or Attacking. (0 = None, 1 = Bedrock Runes, 2 = Java Eyes/Nautilus, 3 = Both, 4 = Yellow Bolt)")
+			@Config.RangeInt(min = 0, max = 18)
+			public double stagnantParticles = 3;
+
+			@Config.LangKey("oe.config.block.stagnantFrameBlocks")
+			@Config.Comment("Blocks accepted by the Stagnant as Frame Blocks.")
+			public String[] stagnantFrameBlocks = {
+					"minecraft:prismarine",
+					"minecraft:sea_lantern"
+			};
+
+			@Config.LangKey("oe.config.block.stagnantIgnoreTargets")
+			@Config.Comment("Entities the the Stagnant will ignore. EVERY entity extending EntityLivingBase is targeted, unless specified here.")
+			public String[] stagnantIgnoreTargets = {
+					"minecraft:armor_stand",
+					"minecraft:guardian",
+					"minecraft:elder_guardian",
+					"oe:drowned"
+			};
+		}
+
 		@Config.LangKey("oe.config.block.tubeSponge")
 	    public configTubeSponge tubeSponge = new configTubeSponge();
 		
@@ -1087,6 +1126,17 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.entity.enableClam")
 		    @Config.Comment("If Clams should be enabled")
 		    public boolean enableClam = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.clamBiomineralizationList")
+			@Config.Comment("Converts items held within a Clam. Written as 'blockID/itemID:metadata' = 'converstionTime' = 'resulting blockID/itemID:metadata'.")
+			public String[] clamBiomineralizationList =
+					{
+							"minecraft:gravel=10=minecraft:sand",
+							"minecraft:sand:1=40=oe:pearl",
+							"minecraft:sand=40=oe:pearl",
+							"oe:shell_sand=5=oe:pearl"
+					};
 	    }
 		
 		@RequiresMcRestart

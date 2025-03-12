@@ -70,6 +70,7 @@ public class CommonProxy
 		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Main.MOD_ID, "conduit"));
 		GameRegistry.registerTileEntity(TilePickledSkull.class, new ResourceLocation(Main.MOD_ID, "pickled_skull"));
 		GameRegistry.registerTileEntity(TilePrismarinePot.class, new ResourceLocation(Main.MOD_ID, "prismarine_pot"));
+		GameRegistry.registerTileEntity(TileStasis.class, new ResourceLocation(Main.MOD_ID, "stagnant"));
 		
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.OCEAN));
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.BEACH));

@@ -50,6 +50,8 @@ public class ConfigArrayHandler
 	public static List<ResourceLocation> ridingBlacklist = Lists.<ResourceLocation>newArrayList();
 	public static List<ResourceLocation> aquaticMobs = Lists.<ResourceLocation>newArrayList();
 
+	public static List<ResourceLocation> stagnantIgnored = Lists.<ResourceLocation>newArrayList();
+
 	public static void breakupConfigArrays()
 	{
 		for(String S : ConfigHandler.vanillaTweak.drownConverting.drownConversionsList)
@@ -130,6 +132,9 @@ public class ConfigArrayHandler
 
 		for(String S : ConfigHandler.enchant.impaling.aquaticMobs)
 		{ aquaticMobs.add(new ResourceLocation(S)); }
+
+		for(String S : ConfigHandler.block.stagnant.stagnantIgnoreTargets)
+		{ stagnantIgnored.add(new ResourceLocation(S)); }
 	}
 
 	/**

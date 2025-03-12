@@ -449,13 +449,6 @@ oe.config.block.amountOnTrample=Amount of Turtle Eggs broken on trample
 oe.config.block.particlesOnFall=Turtle Egg particles when fallen on
 oe.config.block.puffOnTrample=Turtle Egg puff when trampled
 oe.config.block.zombiesTrample=Zombies trample Turtle Eggs
-
-oe.config.block.waterTorch=Underwater Torch Config
-oe.config.block.enableWaterTorch=Enable Underwater Torches
-oe.config.block.waterTorchLight=Underwater Torch Light
-oe.config.block.waterTorchParticles=Underwater Torch Particles
-
-oe.config.block.zombiesTrample=Zombies trample Turtle Eggs
 oe.config.block.waterTorch=Underwater Torch Config
 oe.config.block.enableWaterTorch=Enable Underwater Torches
 oe.config.block.waterTorchLight=Underwater Torch Light
@@ -733,6 +726,8 @@ description.effect.oe.conduit=Grants Water Breathing, Night Vision, and Haste wh
 description.effect.oe.dolphins_grace=Increases swimming speed.
 description.effect.oe.descent=Pulls affected entities downward.
 description.effect.oe.seeping=Spawns 2 Tropical Slimes on an entity's death.
+
+oe.jei.stagnant.desc=A Stagnant attacks nearby underwater entities when active, and can inflict Mining Fatigue.\n\nTo activate, build a frame of Prismarine Blocks around the outside of the stagnant, in a 5x5x5 area. The stagnant will animate when active. At least 12 frame blocks are required to activate.\n\nThe stagnant's attack range is equal to [frame blocks amount]/7 * 16.\n\nIf there are at lest 64 block in the frame, the stagnant will become an 'Elder', increasing its damage by 2 and making it give Mining Fatigue to any Players within a [frame blocks amount]/8 area.
 
 oe.jei.barnacle_shells.desc=Barnacle Shells can be used to craft Coquina, or brew Potions of Descent.\n\nCan also be used to repair Heavy Boots in an anvil.
 oe.jei.coconut.desc=Coconuts are a gravity-affected block.\n\nIf a coconut lands on a mob, it will deal damage equal to [distance fallen] - 1, capped at 19 damage.\n\nIf a coconut falls from a height greater than 5 blocks or is mined with any tool, it will drop 2 Cracked Coconuts.
