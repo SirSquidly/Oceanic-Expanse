@@ -24,6 +24,7 @@ public class OEEnchants
 	public static final Enchantment RIPTIDE = new EnchantmentRiptide(Enchantment.Rarity.UNCOMMON);
 	
 	public static final Enchantment MOBSTOMP = new EnchantmentMobStomp(Enchantment.Rarity.UNCOMMON);
+	public static final Enchantment REBOUND = new EnchantmentRebound(Enchantment.Rarity.UNCOMMON);
 	
 	@SubscribeEvent
 	public static void onEnchantRegister(RegistryEvent.Register<Enchantment> event)
@@ -37,5 +38,6 @@ public class OEEnchants
 		if (ConfigHandler.enchant.riptide.enableRiptideEnchant) event.getRegistry().register(RIPTIDE);
 		
 		event.getRegistry().register(OEEnchants.MOBSTOMP);
+		event.getRegistry().register(OEEnchants.REBOUND);
 	}
 }
