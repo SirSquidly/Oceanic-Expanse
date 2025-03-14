@@ -47,6 +47,7 @@ public class OEEntities
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);
 		registerEntity("conduit_eye", EntityConduitEye.class, ++id, 80);
 		registerEntity("trident", EntityTrident.class, ++id, 80);
+		registerEntity("underwater_tnt", EntityUnderwaterTNTPrimed.class, ++id, 80);
 	}
 
 	public static void registerEntitySpawns()

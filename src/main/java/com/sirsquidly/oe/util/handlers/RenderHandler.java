@@ -38,6 +38,7 @@ public class RenderHandler
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrident.class, RenderTrident::new);	
 		RenderingRegistry.registerEntityRenderingHandler(EntityConduitEye.class, RenderConduitEye::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityUnderwaterTNTPrimed.class, RenderUnderwaterTNT::new);
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileConduit.class, new RenderConduit());
 
