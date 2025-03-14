@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "bottom": "oe:blocks/underwater_tnt_bottom",
+        "top": "oe:blocks/underwater_tnt_top",
+        "side": "oe:blocks/underwater_tnt_side"
+    }
+}
