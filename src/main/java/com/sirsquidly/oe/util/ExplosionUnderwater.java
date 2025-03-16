@@ -3,15 +3,17 @@ package com.sirsquidly.oe.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.sirsquidly.oe.Main;
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDynamicLiquid;
-import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -49,6 +51,14 @@ public class ExplosionUnderwater extends Explosion
     private final Map<EntityPlayer, Vec3d> playerKnockbackMap;
     private final Vec3d position;
 
+    /** A list of water blocks to be compared against. */
+    public static List<Block> waterBlocks = Lists.newArrayList(Blocks.WATER, Blocks.FLOWING_WATER );
+    /** The chance for any blocks within `waterBlocks` to be destroyed by the explosion. */
+    public double destroyChance = 0.05;
+
+    /** The chance for any block to be dropped. */
+    public float blockDropChance;
+
     public ExplosionUnderwater(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean causesFire, boolean damagesTerrain)
     {
         super(worldIn, entityIn, x, y, z, size, causesFire, damagesTerrain);
@@ -58,6 +68,7 @@ public class ExplosionUnderwater extends Explosion
         this.world = worldIn;
         this.exploder = entityIn;
         this.size = size;
+        this.blockDropChance = 1.0F / size;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -109,8 +120,10 @@ public class ExplosionUnderwater extends Explosion
                             if (iblockstate.getMaterial() != Material.AIR)
                             {
                                 float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.world, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(world, blockpos, (Entity)null, this);
-                                /* IGNORE the blast resistance of any Liquids! */
-                                if (iblockstate.getBlock() instanceof BlockDynamicLiquid || iblockstate.getBlock() instanceof BlockStaticLiquid) f2 = 0;
+
+                                /* Math required for getting the true blast resistance, as if Water was not there at all. */
+                                f2 = this.getBaseBlockResistance(iblockstate.getBlock(), blockpos, f2);
+
                                 f -= (f2 + 0.3F) * 0.3F;
                             }
 
@@ -207,10 +220,10 @@ public class ExplosionUnderwater extends Explosion
 
                 if (iblockstate.getMaterial() != Material.AIR)
                 {
-                    if ((iblockstate.getBlock() instanceof BlockDynamicLiquid || iblockstate.getBlock() instanceof BlockStaticLiquid) && this.random.nextFloat() < 0.95F) continue;
+                    if (this.isWaterBlock(block) && this.random.nextFloat() > destroyChance) continue;
 
                     if (block.canDropFromExplosion(this))
-                    { block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), 1.0F / this.size, 0); }
+                    { block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), this.blockDropChance, 0); }
 
                     block.onBlockExploded(this.world, blockpos, this);
                 }
@@ -250,4 +263,26 @@ public class ExplosionUnderwater extends Explosion
             }
         }
     }
+
+    /** Sets the `destroyChance`. */
+    public void setWaterDestructionChance(double chanceIn)
+    { this.destroyChance = chanceIn; }
+
+    /** Sets the `blockDropChance`. */
+    public void setBlockDropChance(float chanceIn)
+    { this.blockDropChance = chanceIn; }
+
+    /** Returns an Adjusted version of Blast Resistance, to account for Water. Pure Water ALWAYS returns 0, meanwhile Fluidlogged Blocks return the blast resistance of their BASE block. */
+    public float getBaseBlockResistance(Block block, BlockPos pos, float originalResistance)
+    {
+        if (this.isWaterBlock(block)) return 0.0F;
+        if (!Main.proxy.fluidlogged_enable) return originalResistance;
+
+        final FluidState fluidState = FluidloggedUtils.getFluidState(world, pos);
+        return fluidState.isEmpty() ? originalResistance : block.getExplosionResistance(this.exploder);
+    }
+
+    /** If this given block is within `waterBlocks`. */
+    public boolean isWaterBlock(Block block)
+    { return waterBlocks.contains(block); }
 }

@@ -2,14 +2,13 @@ package com.sirsquidly.oe.blocks;
 
 import com.sirsquidly.oe.entity.item.EntityUnderwaterTNTPrimed;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
@@ -32,7 +31,7 @@ public class BlockUnderwaterTNT extends Block
     {
         super(Material.TNT);
         this.setDefaultState(this.blockState.getBaseState().withProperty(UNSTABLE, Boolean.FALSE));
-        this.setCreativeTab(CreativeTabs.REDSTONE);
+        this.setSoundType(SoundType.PLANT);
     }
 
     public boolean canDropFromExplosion(Explosion explosionIn)
@@ -44,7 +43,7 @@ public class BlockUnderwaterTNT extends Block
     {
         if (!worldIn.isRemote)
         {
-            EntityUnderwaterTNTPrimed underwaterTNTPrimed = new EntityUnderwaterTNTPrimed(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), igniter);
+            EntityUnderwaterTNTPrimed underwaterTNTPrimed = new EntityUnderwaterTNTPrimed(worldIn, (float)pos.getX() + 0.5F, pos.getY(), (float)pos.getZ() + 0.5F, igniter);
             underwaterTNTPrimed.setFuse(80);
             worldIn.spawnEntity(underwaterTNTPrimed);
             worldIn.playSound((EntityPlayer)null, underwaterTNTPrimed.posX, underwaterTNTPrimed.posY, underwaterTNTPrimed.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -107,7 +106,7 @@ public class BlockUnderwaterTNT extends Block
     {
         if (!worldIn.isRemote)
         {
-            EntityUnderwaterTNTPrimed underwaterTNTPrimed = new EntityUnderwaterTNTPrimed(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), explosionIn.getExplosivePlacedBy());
+            EntityUnderwaterTNTPrimed underwaterTNTPrimed = new EntityUnderwaterTNTPrimed(worldIn, (float)pos.getX() + 0.5F, pos.getY(), (float)pos.getZ() + 0.5F, explosionIn.getExplosivePlacedBy());
             underwaterTNTPrimed.setFuse(worldIn.rand.nextInt(20) + 10);
             worldIn.spawnEntity(underwaterTNTPrimed);
         }
@@ -118,7 +117,7 @@ public class BlockUnderwaterTNT extends Block
 
     public int getMetaFromState(IBlockState state)
     {
-        return (Boolean) state.getValue(UNSTABLE) ? 1 : 0;
+        return state.getValue(UNSTABLE) ? 1 : 0;
     }
 
     protected BlockStateContainer createBlockState()

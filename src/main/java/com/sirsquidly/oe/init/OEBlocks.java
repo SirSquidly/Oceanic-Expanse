@@ -257,9 +257,8 @@ public class OEBlocks
 			if (ConfigHandler.block.enableShellySand) blockReadyForRegister(SHELL_SAND, "shell_sand");
 			if (ConfigHandler.block.tubeSponge.enableTubeSponge) blockReadyForRegister(TUBE_SPONGE, "tube_sponge");
 			if (ConfigHandler.block.turtleEgg.enableTurtleEgg) blockReadyForRegister(SEA_TURTLE_EGG, "turtle_egg");
+			if (ConfigHandler.block.waterTNT.enableWaterTNT) blockReadyForRegister(UNDERWATER_TNT, "underwater_tnt");
 			if (ConfigHandler.block.waterTorch.enableWaterTorch) blockReadyForRegister(UNDERWATER_TORCH, "underwater_torch");
-
-			blockReadyForRegister(UNDERWATER_TNT, "underwater_tnt");
 			
 			Main.logger.info("Oceanic Expanse Blocks are Registering!");
 			

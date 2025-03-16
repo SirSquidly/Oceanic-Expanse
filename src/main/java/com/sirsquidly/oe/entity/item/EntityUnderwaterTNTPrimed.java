@@ -1,15 +1,13 @@
 package com.sirsquidly.oe.entity.item;
 
 import com.sirsquidly.oe.util.ExplosionUnderwater;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -65,7 +63,6 @@ public class EntityUnderwaterTNTPrimed extends EntityTNTPrimed
             this.motionY *= -0.5D;
         }
 
-        //if (!this.world.isRemote) this.setFuse(this.getFuse() - 1);
         this.setFuse(this.getFuse() - 1);
 
         if (this.getFuse() <= 0)
@@ -86,6 +83,8 @@ public class EntityUnderwaterTNTPrimed extends EntityTNTPrimed
         float f = 4.0F;
         ExplosionUnderwater explosion = new ExplosionUnderwater(this.world, this, this.posX, this.posY + (double)(this.height / 16.0F), this.posZ, 4.0F, true, true);
         //if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this, explosion)) return explosion;
+        explosion.setWaterDestructionChance(ConfigHandler.block.waterTNT.waterDestructionChance * 0.01F);
+        explosion.setBlockDropChance(ConfigHandler.block.waterTNT.blockDropChance * 0.01F);
         explosion.preformStandardExplosion();
     }
 

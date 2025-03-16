@@ -742,7 +742,30 @@ public class ConfigHandler
 		    @Config.Comment("If any mob extending Zombie (Zombie, Husks, Drowned, ect) are given the trampleAI")
 		    public boolean zombiesTrample = true;
 	    }
-		
+
+		@Config.LangKey("oe.config.block.waterTNT")
+		public configUnderwaterTNT waterTNT = new configUnderwaterTNT();
+
+		public static class configUnderwaterTNT
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.waterTNT.enableWaterTNT")
+			@Config.Comment("If Underwater TNT is enabled")
+			public boolean enableWaterTNT = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.waterTNT.waterDestructionChance")
+			@Config.Comment("The percent chance to remove water in the Underwater TNT's blast. Set to 5% default, note that this causes block updates, so high numbers will create lag.")
+			@Config.RangeDouble(min = 0, max = 100)
+			public float waterDestructionChance = 5;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.waterTNT.blockDropChance")
+			@Config.Comment("The percent chance to drop a block destroyed in the Underwater TNT's blast.")
+			@Config.RangeDouble(min = 0, max = 100)
+			public float blockDropChance = 25;
+		}
+
 		@Config.LangKey("oe.config.block.waterTorch")
 	    public configUnderwaterTorch waterTorch = new configUnderwaterTorch();
 		
