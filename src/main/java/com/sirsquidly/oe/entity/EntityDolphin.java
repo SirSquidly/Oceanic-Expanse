@@ -45,7 +45,6 @@ public class EntityDolphin extends AbstractFish
     {
 		super(worldIn);
         this.setSize(0.9F, 0.6F);
-        this.rand.setSeed(1 + this.getEntityId());
 	}
 
     protected void entityInit()

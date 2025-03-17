@@ -42,12 +42,7 @@ public class EntityTropicalSlime extends EntitySlime
 	/** Counts until a Tropical Slime Evaporates.*/
     public int evaporateTimer;
     
-	public EntityTropicalSlime(World worldIn)
-	{
-		super(worldIn);
-		
-        this.rand.setSeed((long)(1 + this.getEntityId()));
-	}
+	public EntityTropicalSlime(World worldIn) { super(worldIn); }
 	
 	protected void initEntityAI()
     { 

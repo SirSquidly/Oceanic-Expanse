@@ -30,7 +30,6 @@ public class EntityGlowSquid extends EntitySquid
 	public EntityGlowSquid(World worldIn) {
 		super(worldIn);
         this.setSize(0.8F, 0.8F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
         
         this.particleChancePerTick = 1;
         this.particlePerTick = 1;

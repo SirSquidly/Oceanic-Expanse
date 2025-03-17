@@ -82,7 +82,6 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 		this.setPathPriority(PathNodeType.WALKABLE, 1.0F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
 		this.moltCooldown = ConfigHandler.entity.lobster.lobsterMoltCooldown;
-		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
 	protected void entityInit()

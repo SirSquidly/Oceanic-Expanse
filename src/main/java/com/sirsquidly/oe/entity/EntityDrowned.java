@@ -87,7 +87,6 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 		this.experienceValue = 10;
 		this.setPathPriority(PathNodeType.WALKABLE, 1.0F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
         
         this.waterNavigator = new PathNavigateSwimmer(this, worldIn);
         this.groundNavigator = new PathNavigateGround(this, worldIn);

@@ -82,7 +82,6 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
 		this.setAnimationState(0);
 		this.setPathPriority(PathNodeType.WALKABLE, 0.0F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
-		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
 	protected void entityInit()

@@ -13,7 +13,6 @@ import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -30,7 +29,6 @@ public class EntityCod extends AbstractFish
 	public EntityCod(World worldIn) {
 		super(worldIn);
         this.setSize(0.6F, 0.3F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
 	protected void applyEntityAttributes()

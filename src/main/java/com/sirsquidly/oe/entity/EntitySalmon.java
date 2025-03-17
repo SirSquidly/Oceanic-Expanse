@@ -42,10 +42,7 @@ public class EntitySalmon extends AbstractFish
 	private static final DataParameter<Integer> SALMON_SIZE = EntityDataManager.<Integer>createKey(EntitySalmon.class, DataSerializers.VARINT);
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 	
-	public EntitySalmon(World worldIn) {
-		super(worldIn);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
-	}
+	public EntitySalmon(World worldIn) { super(worldIn); }
 	
 	protected void applyEntityAttributes()
     {

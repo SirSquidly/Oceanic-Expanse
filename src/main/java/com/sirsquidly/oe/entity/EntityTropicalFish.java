@@ -42,10 +42,10 @@ public class EntityTropicalFish extends AbstractFish
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityTropicalFish.class, DataSerializers.VARINT);
 	
-	public EntityTropicalFish(World worldIn) {
+	public EntityTropicalFish(World worldIn)
+    {
 		super(worldIn);
         this.setSize(0.5F, 0.4F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
 	protected void entityInit()
