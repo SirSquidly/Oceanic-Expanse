@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
@@ -54,8 +53,6 @@ public class EntityClam extends EntityAnimal
     private static final AttributeModifier CLOSED_ARMOR_BONUS = (new AttributeModifier(CLOSED_ARMOR_BONUS_ID, "Closed armor bonus", 20.0D, 0)).setSaved(false);
     private float prevOpenAmount;
     private float openAmount;
-    private float launchOpenTimer;
-    private int launchWarnShaking;
 
 	/* How long this Clam has held its current item. */
 	private int minutesItemHeld;
@@ -67,12 +64,12 @@ public class EntityClam extends EntityAnimal
 		super(worldIn);
 		this.setSize(1.5F, 0.4F);
 		this.isImmuneToFire = true;
-		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
 	protected void initEntityAI()
     {
-		this.tasks.addTask(1, new EntityClam.AIClamAmbient(this));
+		this.tasks.addTask(1, new EntityClam.AIClamLaunch(this));
+		this.tasks.addTask(2, new EntityClam.AIClamAmbient(this));
     }
 	
 	protected void applyEntityAttributes()
@@ -110,66 +107,23 @@ public class EntityClam extends EntityAnimal
     { return OESounds.ENTITY_CLAM_DEATH; }
 	
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    {
-        return this.getOpenTick() > 0 ? OESounds.ENTITY_CLAM_HURT : OESounds.ENTITY_CLAM_HURT_CLOSED;
-    }
+    { return this.getOpenTick() > 0 ? OESounds.ENTITY_CLAM_HURT : OESounds.ENTITY_CLAM_HURT_CLOSED; }
+
+	protected SoundEvent getOpenSound()
+	{ return this.isInWater() ? OESounds.ENTITY_CLAM_OPEN : OESounds.ENTITY_CLAM_OPEN_LAND; }
+
+	protected SoundEvent getCloseSound()
+	{ return OESounds.ENTITY_CLAM_CLOSE; }
+
+	protected SoundEvent getShakeSound()
+	{ return OESounds.ENTITY_CLAM_SHAKE; }
 	
 	public void onUpdate()
 	{
 		super.onUpdate();
 		
-		if (this.getOpenTick() == 0 && !this.isDead)
-		{
-			List<Entity> checkAbove = this.world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(0, 1, 0).grow(0, 0.5, 0));
-			
-			for (Entity e : checkAbove) 
-	    	{
-				if (e instanceof EntityClam) continue;
-				
-				if (!this.getShaking()) this.playSound(OESounds.ENTITY_CLAM_SHAKE, 1.0F, 1.0F);
-				
-				this.setShaking(true);
-				launchWarnShaking += 1;
-				
-				BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
-				
-				if ((launchWarnShaking >= 20 || this.world.getBlockState(blockpos.down()).getBlock() instanceof BlockMagma) && !this.world.getBlockState(blockpos.up()).isSideSolid(world, blockpos.up(), EnumFacing.DOWN))
-				{
-					this.setShaking(false);
-					this.doClamOpening(20);
-					this.setLaunching(true);
-					launchWarnShaking = 0;
-					
-					if (this.isInWater())
-					{
-						for (int i = 0; i < 300; ++i)
-	                    { this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX + ((double)this.rand.nextFloat() - 0.5D), this.posY, this.posZ + ((double)this.rand.nextFloat() - 0.5D), ((double)this.rand.nextFloat() - 0.5D) * 0.5D, ((double)this.rand.nextFloat() - 0.5D) * 8.0D, ((double)this.rand.nextFloat() - 0.5D) * 0.5D); }	
-					}
-					
-					e.motionY = e.isInWater() ? 3.0F : 1.0F;
-					e.velocityChanged = true;
-				}
-			}
-			if (checkAbove.isEmpty())
-			{
-				this.setShaking(false);
-				launchWarnShaking = 0;
-			}
-		}
-		
-		if (this.getOpenTick() > 0 && this.getLaunching())
-		{
-			launchOpenTimer += 1;
-			
-			if (launchOpenTimer > 20)
-        	{ this.doClamOpening(0); }
-		}
-		
-		
 		float f1 = (float)this.getOpenTick() * 0.01F;
         this.prevOpenAmount = this.openAmount;
-
-
 		float clamSpeed = this.getLaunching() ? 0.05F : 0.005F;
 
 		if (this.openAmount > f1)
@@ -177,11 +131,7 @@ public class EntityClam extends EntityAnimal
 		else if (this.openAmount < f1)
 		{ this.openAmount = MathHelper.clamp(this.openAmount + clamSpeed, 0.0F, f1); }
 
-		if (this.getLaunching() && this.openAmount == f1 && launchOpenTimer > 20)
-		{
-			launchOpenTimer = 0;
-			this.setLaunching(false);
-		}
+		if (!this.getShaking() && this.openAmount == 0) this.setLaunching(false);
 
 		/** Every minute, update the `minutesItemHeld` data and swap out the item if required. */
 		if (!this.world.isRemote && (this.ticksExisted + this.getEntityId()) % 1200 == 0)
@@ -209,10 +159,8 @@ public class EntityClam extends EntityAnimal
 		}
 	}
 
-
 	private void setupConvertTimes(ItemStack item)
 	{
-		Main.logger.error("Conversion Times ye");
 		for (int i = 0; i < ConfigArrayHandler.itemClamConvertFrom.size(); i++)
 		{
 			ItemStack listItem = ConfigArrayHandler.itemClamConvertFrom.get(i);
@@ -325,25 +273,17 @@ public class EntityClam extends EntityAnimal
         if (!this.world.isRemote)
         {
         	IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.ARMOR);
-        	
+			SoundEvent sound = getOpenSound();
+
         	iattributeinstance.removeModifier(CLOSED_ARMOR_BONUS);
 
             if (ticks == 0)
             {
             	iattributeinstance.applyModifier(CLOSED_ARMOR_BONUS);
-                this.playSound(OESounds.ENTITY_CLAM_CLOSE, 1.0F, 1.0F);
+				sound = getCloseSound();
             }
-            else
-            {
-            	if (this.isInWater())
-            	{
-            		this.playSound(OESounds.ENTITY_CLAM_OPEN, 1.0F, 1.0F);
-            	}
-            	else
-            	{
-            		this.playSound(OESounds.ENTITY_CLAM_OPEN_LAND, 1.0F, 1.0F);
-            	}
-            }
+
+			this.playSound(sound, 1.0F, 1.0F);
         }
 
         this.dataManager.set(OPEN_TICK, (byte) ticks);
@@ -368,7 +308,10 @@ public class EntityClam extends EntityAnimal
 		this.minutesItemHeld = compound.getInteger("MinutesItemHeld");
 		this.minutesItemSwap = compound.getInteger("MinutesItemSwap");
 	}
-	
+
+	/**
+	* AI for Clams to randomly Open and Close
+	* */
 	class AIClamAmbient extends EntityAIBase
     {
 		private final EntityClam clam;
@@ -377,36 +320,102 @@ public class EntityClam extends EntityAnimal
         { this.clam = clamIn; }
 
         public boolean shouldExecute()
-        { return !this.clam.getLaunching() && !this.clam.getShaking() && this.clam.isInWater() && (this.clam.rand.nextInt(100) == 0 || isPlayerNear() && this.clam.rand.nextInt(5) == 0); }
+        { return !this.clam.getLaunching() && !this.clam.getShaking() && this.clam.isInWater() && this.clam.rand.nextInt(100) == 0; }
 
         public void updateTask()
         {
-        	if (!isPlayerNear())
-        	{
-        		if (this.clam.getOpenTick() != 0)
-            	{ this.clam.doClamOpening(0); }
-            	else
-            	{ this.clam.doClamOpening(20); }
-        	}
-        	else
-        	{
-        		if (this.clam.getOpenTick() != 0) this.clam.doClamOpening(0);
-        	}
-        }
-        
-        /** Boolean check if there is a non-sneaking Player near the Clam.*/
-        public boolean isPlayerNear()
-        {
-        	List<Entity> checkAround = this.clam.world.getEntitiesWithinAABB(EntityPlayer.class, getEntityBoundingBox().grow(8.0, 8.0, 8.0));
-        	
-        	if (!checkAround.isEmpty())
-        	{
-        		for (Entity e : checkAround)
-            	{
-        			if (!e.isSneaking()) return true;
-            	}
-        	}
-        	return false;
+			if (this.clam.getOpenTick() != 0)
+			{ this.clam.doClamOpening(0); }
+			else
+			{ this.clam.doClamOpening(20); }
         }
     }
+
+	/**
+	 * AI for Clams to detect and launch mobs atop them
+	 * */
+	class AIClamLaunch extends EntityAIBase
+	{
+		private final EntityClam clam;
+		private List<Entity> entitiesAtopClam;
+		/** Timer for how long the Clam has been shaking for. */
+		private int launchWarnShaking;
+		/** Timer for how long the Clam has been open since preforming a Launch. */
+		private int launchOpenTimer;
+		/** If the Clam preformed the launching of above entities. */
+		private boolean didLaunch;
+
+		private AIClamLaunch(EntityClam clamIn)
+		{ this.clam = clamIn; }
+
+		public boolean shouldExecute()
+		{
+			if (this.clam.getLaunching()) return true;
+			this.entitiesAtopClam = getAboveEntities();
+			return this.clam.getOpenTick() == 0 && !entitiesAtopClam.isEmpty();
+		}
+
+		public void resetTask()
+		{
+			this.clam.setShaking(false);
+			this.launchWarnShaking = 0;
+			this.launchOpenTimer = 0;
+			this.didLaunch = false;
+		}
+
+		public void updateTask()
+		{
+			if (this.didLaunch)
+			{
+				if (this.clam.getOpenTick() > 0 && ++launchOpenTimer > 20) this.clam.doClamOpening(0);
+				return;
+			}
+
+			if (entitiesAtopClam.isEmpty()) return;
+
+			if (!this.clam.getLaunching())
+			{
+				if (!this.clam.getShaking())
+				{
+					this.clam.playSound(this.clam.getShakeSound(), 1.0F, 1.0F);
+					this.clam.setShaking(true);
+				}
+
+				BlockPos blockpos = new BlockPos(this.clam.posX, this.clam.posY, this.clam.posZ);
+
+				if ((++launchWarnShaking >= 20 || this.clam.world.getBlockState(blockpos.down()).getBlock() instanceof BlockMagma) && !this.clam.world.getBlockState(blockpos.up()).isSideSolid(world, blockpos.up(), EnumFacing.DOWN))
+				{
+					/* This does not work within AI Tasks, look into some better way to do launch particles? */
+					//if (this.clam.isInWater())
+					//{
+					//	  for (int i = 0; i < 300; ++i)
+					//	  { this.clam.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.clam.posX + ((double)this.clam.rand.nextFloat() - 0.5D), this.clam.posY, this.clam.posZ + ((double)this.clam.rand.nextFloat() - 0.5D), ((double)this.clam.rand.nextFloat() - 0.5D) * 0.5D, ((double)this.clam.rand.nextFloat() - 0.5D) * 8.0D, ((double)this.clam.rand.nextFloat() - 0.5D) * 0.5D); }
+					//}
+
+					this.clam.setShaking(false);
+					this.clam.doClamOpening(20);
+					launchWarnShaking = 0;
+					this.clam.setLaunching(true);
+				}
+			}
+			else
+			{
+				for (Entity e : entitiesAtopClam)
+				{
+					e.motionY = e.isInWater() ? 3.0F : 1.0F;
+					e.velocityChanged = true;
+				}
+
+				this.clam.setShaking(false);
+				this.didLaunch = true;
+			}
+		}
+
+		public List<Entity> getAboveEntities()
+		{
+			List<Entity> checkAbove = this.clam.world.getEntitiesWithinAABBExcludingEntity(this.clam, getEntityBoundingBox().offset(0, 1, 0).grow(0, 0.5, 0));
+			checkAbove.removeIf(thisEntity -> thisEntity.isDead || thisEntity instanceof EntityClam);
+			return checkAbove;
+		}
+	}
 }
