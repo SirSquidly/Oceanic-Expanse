@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.util.handlers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
@@ -51,6 +52,11 @@ public class ConfigArrayHandler
 	public static List<ResourceLocation> aquaticMobs = Lists.<ResourceLocation>newArrayList();
 
 	public static List<ResourceLocation> stagnantIgnored = Lists.<ResourceLocation>newArrayList();
+
+	/** Aw man Clams use a lot */
+	public static List<ItemStack> itemClamConvertFrom = Lists.<ItemStack>newArrayList();
+	public static List<Integer> itemClamConvertTime = Lists.<Integer>newArrayList();
+	public static List<ItemStack> itemClamConvertTo = Lists.<ItemStack>newArrayList();
 
 	public static void breakupConfigArrays()
 	{
@@ -109,6 +115,35 @@ public class ConfigArrayHandler
 			{
 				CRABDIGFROM.add(getBlockFromString(split[0]));
 				CRABDIGTO.add(new ResourceLocation(split[1]));
+			}
+		}
+
+
+		for(String S : ConfigHandler.entity.clam.clamBiomineralizationList)
+		{
+			String[] split = S.split("=");
+
+			if (split.length != 3)
+			{
+				Main.logger.error(S + " is improperly written! Skipping...");
+				continue;
+			}
+
+			ItemStack stackA = getItemStackFromString(split[0]);
+			Integer time = Integer.valueOf(split[1]);
+			ItemStack stackB = getItemStackFromString(split[2]);
+
+			if (stackA == null)
+			{ Main.logger.error(split[0] + " is not a proper item!"); }
+			else if (stackB == null)
+			{ Main.logger.error(split[2] + " is not a proper item!"); }
+			else if (itemClamConvertFrom.contains(stackA))
+			{ Main.logger.error(split[0] + " has multiple crab digging loot tables set in the config! Only the first listed will be used!"); }
+			else
+			{
+				itemClamConvertFrom.add(getItemStackFromString(split[0]));
+				itemClamConvertTime.add(Integer.valueOf(split[1]));
+				itemClamConvertTo.add(getItemStackFromString(split[2]));
 			}
 		}
 
@@ -191,7 +226,7 @@ public class ConfigArrayHandler
 		String[] ripString = string.split(":");
 
 		Item item = GameRegistry.findRegistry(Item.class).getValue(new ResourceLocation(ripString[0], ripString[1]));
-		Integer meta = null;
+		int meta = 0;
 
 		if(item == null || item == Items.AIR)
 		{
@@ -203,7 +238,7 @@ public class ConfigArrayHandler
 			meta = Integer.parseInt(ripString[2]);
 
 			if(meta == -1)
-			{ meta = null; }
+			{ meta = 0; }
 		}
 
 		return new ItemStack(item, 1, meta);
@@ -237,11 +272,13 @@ public class ConfigArrayHandler
 				case "enableCoconut": return ConfigHandler.block.coconut.enableCoconut;
 				case "enableCrab": return ConfigHandler.entity.crab.enableCrab;
 				case "enableDusle": return ConfigHandler.block.dulse.enableDulse;
+				case "enableKelp": return ConfigHandler.block.enableKelp;
 				case "enableLobster": return ConfigHandler.entity.lobster.enableLobster;
 				case "enablePalmWoods": return ConfigHandler.block.palmBlocks.enablePalmWoods;
 				case "enablePalmStrippedWoods": return ConfigHandler.block.palmBlocks.enablePalmStrippedWoods;
-				case "enableKelp": return ConfigHandler.block.enableKelp;
+				case "enableStagnant": return ConfigHandler.block.stagnant.enableStagnant;
 				case "enableWaterTorch": return ConfigHandler.block.waterTorch.enableWaterTorch;
+				case "enableUnderwaterTNT": return ConfigHandler.block.waterTNT.enableWaterTNT;
 
 				case "enableGlowItemFrames": return ConfigHandler.item.glowItemFrame.enableGlowItemFrame;
 				case "tridentAllIngredients": return ConfigHandler.item.trident.enableTridentCrafting & ConfigHandler.item.trident.enableTrident & ConfigHandler.block.guardianSpike.enableGuardianSpike;

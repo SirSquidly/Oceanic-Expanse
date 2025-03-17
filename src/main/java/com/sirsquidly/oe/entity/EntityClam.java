@@ -5,8 +5,10 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
@@ -25,6 +27,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -53,6 +56,11 @@ public class EntityClam extends EntityAnimal
     private float openAmount;
     private float launchOpenTimer;
     private int launchWarnShaking;
+
+	/* How long this Clam has held its current item. */
+	private int minutesItemHeld;
+	/* When a Clam will need to convert the held item. */
+	private int minutesItemSwap;
 	
 	public EntityClam(World worldIn)
 	{
@@ -78,25 +86,25 @@ public class EntityClam extends EntityAnimal
 	protected void entityInit()
     { 
 		super.entityInit(); 
-		this.dataManager.register(OPEN_TICK, Byte.valueOf((byte)0));
-		this.dataManager.register(SHAKING, Boolean.valueOf(false));
-		this.dataManager.register(LAUNCH_OPEN, Boolean.valueOf(false));
+		this.dataManager.register(OPEN_TICK, (byte) 0);
+		this.dataManager.register(SHAKING, Boolean.FALSE);
+		this.dataManager.register(LAUNCH_OPEN, Boolean.FALSE);
 	}
 	
 	public boolean getShaking()
-    { return ((Boolean)this.dataManager.get(SHAKING)).booleanValue(); }
+    { return this.dataManager.get(SHAKING); }
 
     public void setShaking(boolean shake)
-    { this.dataManager.set(SHAKING, Boolean.valueOf(shake)); }
+    { this.dataManager.set(SHAKING, shake); }
     
     public boolean getLaunching()
-    { return ((Boolean)this.dataManager.get(LAUNCH_OPEN)).booleanValue(); }
+    { return this.dataManager.get(LAUNCH_OPEN); }
 
     public void setLaunching(boolean launch)
-    { this.dataManager.set(LAUNCH_OPEN, Boolean.valueOf(launch)); }
+    { this.dataManager.set(LAUNCH_OPEN, launch); }
     
 	public int getOpenTick()
-    { return ((Byte)this.dataManager.get(OPEN_TICK)).byteValue(); }
+    { return (Byte) this.dataManager.get(OPEN_TICK); }
 	
 	protected SoundEvent getDeathSound()
     { return OESounds.ENTITY_CLAM_DEATH; }
@@ -113,7 +121,6 @@ public class EntityClam extends EntityAnimal
 		if (this.getOpenTick() == 0 && !this.isDead)
 		{
 			List<Entity> checkAbove = this.world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(0, 1, 0).grow(0, 0.5, 0));
-			
 			
 			for (Entity e : checkAbove) 
 	    	{
@@ -154,48 +161,70 @@ public class EntityClam extends EntityAnimal
 		{
 			launchOpenTimer += 1;
 			
-			
 			if (launchOpenTimer > 20)
-        	{
-        		this.doClamOpening(0);
-        	}
+        	{ this.doClamOpening(0); }
 		}
 		
 		
 		float f1 = (float)this.getOpenTick() * 0.01F;
         this.prevOpenAmount = this.openAmount;
 
-        
-        if (this.getLaunching())
-    	{
-        	if (this.openAmount > f1)
-            {
-                this.openAmount = MathHelper.clamp(this.openAmount - 0.05F, f1, 1.0F);
-            }
-            else if (this.openAmount < f1)
-            {
-                this.openAmount = MathHelper.clamp(this.openAmount + 0.05F, 0.0F, f1);
-            }
-        	
-        	if (this.openAmount == f1 && launchOpenTimer > 20)
-        	{ 
-        		launchOpenTimer = 0;
-        		this.setLaunching(false); 
-        	}
-    	}
-        else
-        {
-        	if (this.openAmount > f1)
-            {
-                this.openAmount = MathHelper.clamp(this.openAmount - 0.005F, f1, 1.0F);
-            }
-            else if (this.openAmount < f1)
-            {
-                this.openAmount = MathHelper.clamp(this.openAmount + 0.005F, 0.0F, f1);
-            }
-        }
+
+		float clamSpeed = this.getLaunching() ? 0.05F : 0.005F;
+
+		if (this.openAmount > f1)
+		{ this.openAmount = MathHelper.clamp(this.openAmount - clamSpeed, f1, 1.0F); }
+		else if (this.openAmount < f1)
+		{ this.openAmount = MathHelper.clamp(this.openAmount + clamSpeed, 0.0F, f1); }
+
+		if (this.getLaunching() && this.openAmount == f1 && launchOpenTimer > 20)
+		{
+			launchOpenTimer = 0;
+			this.setLaunching(false);
+		}
+
+		/** Every minute, update the `minutesItemHeld` data and swap out the item if required. */
+		if (!this.world.isRemote && (this.ticksExisted + this.getEntityId()) % 1200 == 0)
+		{
+			if (++this.minutesItemHeld >= this.minutesItemSwap) swapHeldItem();
+		}
     }
-	
+
+	private void swapHeldItem()
+	{
+		ItemStack currentItem = this.getHeldItemMainhand();
+
+		for (int i = 0; i < ConfigArrayHandler.itemClamConvertFrom.size(); i++)
+		{
+			ItemStack listItem = ConfigArrayHandler.itemClamConvertFrom.get(i);
+			if (ItemStack.areItemsEqual(listItem, currentItem))
+			{
+				ItemStack newItemstack = ConfigArrayHandler.itemClamConvertTo.get(i);
+
+				this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, newItemstack);
+				this.setupConvertTimes(newItemstack);
+				this.minutesItemHeld = 0;
+				return;
+			}
+		}
+	}
+
+
+	private void setupConvertTimes(ItemStack item)
+	{
+		Main.logger.error("Conversion Times ye");
+		for (int i = 0; i < ConfigArrayHandler.itemClamConvertFrom.size(); i++)
+		{
+			ItemStack listItem = ConfigArrayHandler.itemClamConvertFrom.get(i);
+
+			if (ItemStack.areItemsEqual(listItem, item))
+			{
+				this.minutesItemSwap = ConfigArrayHandler.itemClamConvertTime.get(i);
+				return;
+			}
+		}
+	}
+
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
     {
 		ItemStack playerItem = player.getHeldItem(EnumHand.MAIN_HAND);
@@ -222,7 +251,9 @@ public class EntityClam extends EntityAnimal
 	        	this.entityDropItem(heldItem.copy(), 0.25F);
 			}
 			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, clamHeld);
+			if (!clamHeld.isEmpty()) this.setupConvertTimes(clamHeld);
 			player.swingArm(EnumHand.MAIN_HAND);
+			this.minutesItemHeld = 0;
 			return true;
 		}
 		
@@ -237,7 +268,10 @@ public class EntityClam extends EntityAnimal
         else if (this.rand.nextFloat() < 0.5F)
         {
         	boolean spawnGravel = this.rand.nextFloat() < 0.1F;
-        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(spawnGravel ? Blocks.GRAVEL : Blocks.SAND));
+			ItemStack block = new ItemStack(spawnGravel ? Blocks.GRAVEL : Blocks.SAND);
+
+        	this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, block);
+			this.setupConvertTimes(block);
         }
         
         this.setDropChance(EntityEquipmentSlot.MAINHAND, 100);
@@ -312,14 +346,28 @@ public class EntityClam extends EntityAnimal
             }
         }
 
-        this.dataManager.set(OPEN_TICK, Byte.valueOf((byte)ticks));
+        this.dataManager.set(OPEN_TICK, (byte) ticks);
     }
-	
+
 	@SideOnly(Side.CLIENT)
     public float getClientOpenAmount(float p_184688_1_)
-    {
-        return this.prevOpenAmount + (this.openAmount - this.prevOpenAmount) * p_184688_1_;
-    }
+    { return this.prevOpenAmount + (this.openAmount - this.prevOpenAmount) * p_184688_1_; }
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
+		super.writeEntityToNBT(compound);
+		compound.setInteger("MinutesItemHeld", this.minutesItemHeld);
+		compound.setInteger("MinutesItemSwap", this.minutesItemSwap);
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
+		super.readEntityFromNBT(compound);
+		this.minutesItemHeld = compound.getInteger("MinutesItemHeld");
+		this.minutesItemSwap = compound.getInteger("MinutesItemSwap");
+	}
 	
 	class AIClamAmbient extends EntityAIBase
     {
