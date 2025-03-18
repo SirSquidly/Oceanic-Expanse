@@ -98,7 +98,7 @@ public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldG
 
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-    	boolean isWet = checkWater(worldIn, pos);
+    	boolean isWet = isPositionUnderwater(worldIn, pos);
         return canPlaceBlock(worldIn, pos, facing) ? this.getDefaultState().withProperty(FACING, facing).withProperty(IN_WATER, isWet) : this.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(IN_WATER, isWet);
     }
 
@@ -284,13 +284,13 @@ public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldG
     {
     	if (this.canBlockStay(worldIn, pos, state) && !Main.proxy.fluidlogged_enable) swapWaterProperty(worldIn, pos, state);
     	this.checkForDrop(worldIn, pos, state);
-        if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        if (!isPositionUnderwater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
     	if (!Main.proxy.fluidlogged_enable) swapWaterProperty(worldIn, pos, state);
-    	if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+    	if (!isPositionUnderwater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
@@ -320,7 +320,7 @@ public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldG
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        boolean flag = ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 || checkWater(worldIn, pos);
+        boolean flag = ConfigHandler.block.coralBlocks.coralFanDryTicks == 0 || isPositionUnderwater(worldIn, pos);
 
         if (!flag && this.deadVersion != null)
         { worldIn.setBlockState(pos, this.deadVersion.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(IN_WATER, state.getValue(IN_WATER)), 2); }

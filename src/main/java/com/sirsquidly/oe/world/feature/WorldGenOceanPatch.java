@@ -151,7 +151,7 @@ public class WorldGenOceanPatch implements IWorldGenerator
 		if (seaLevelMin > -1 && pos.getY() >= worldIn.getSeaLevel() - seaLevelMin) return;
 		if (!propertyRanges.isEmpty()) applyIntStatePropertiesRange(this.blockState, rand);
 		/** Seagrass remains hardcoded due to biomes using different chances of double height, a better method should be devised later. */
-		if (blockState.getBlock() == OEBlocks.SEAGRASS && ConfigHandler.block.seagrass.enableTallSeagrass && rand.nextDouble() < tallChance && OEBlocks.SEAGRASS.canPlaceBlockAt(worldIn, pos) && ((BlockSeagrasss) OEBlocks.SEAGRASS).checkPlaceWater(worldIn, pos.up(), true))
+		if (blockState.getBlock() == OEBlocks.SEAGRASS && ConfigHandler.block.seagrass.enableTallSeagrass && rand.nextDouble() < tallChance && OEBlocks.SEAGRASS.canPlaceBlockAt(worldIn, pos) && ((BlockSeagrasss) OEBlocks.SEAGRASS).isPositionUnderwater(worldIn, pos.up(), true))
 		{
 			((BlockSeagrasss) OEBlocks.SEAGRASS).placeAt(worldIn, pos, 2 | 64);
 		}

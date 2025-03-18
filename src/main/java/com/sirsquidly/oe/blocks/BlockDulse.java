@@ -62,19 +62,19 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater, IS
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && isPositionUnderwater(worldIn, pos);
     }
 	
 	/** Checks if the Double tall 4th age crop can be placed here.*/
 	public boolean canPlaceFullAge(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && (worldIn.getBlockState(pos).getBlock() == this || checkPlaceWater(worldIn, pos, false)) && checkPlaceWater(worldIn, pos.up(), true);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && (worldIn.getBlockState(pos).getBlock() == this || isPositionUnderwater(worldIn, pos)) && isPositionUnderwater(worldIn, pos.up(), true);
     }
 	
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (checkSurfaceWater(worldIn, pos, state)) return false;
+		if (!isPositionUnderwater(worldIn, pos)) return false;
 
 		int age = state.getValue(AGE);
 		/* Age 3 requires Dulse above it, AND the normal check at the bottom! */
@@ -140,7 +140,7 @@ public class BlockDulse extends BlockBush implements IGrowable, IChecksWater, IS
 	{
 		int dulseAge = rand.nextInt(4);
 
-		if (dulseAge >= 3 && ((IChecksWater) OEBlocks.DULSE).checkWater(worldIn, pos.up()))
+		if (dulseAge >= 3 && ((IChecksWater) OEBlocks.DULSE).isPositionUnderwater(worldIn, pos.up()))
 		{ ((BlockDulse) OEBlocks.DULSE).placeAt(worldIn, pos, 2 | 64); }
 		if (dulseAge < 3)
 		{ worldIn.setBlockState(pos, state.withProperty(BlockDulse.AGE, dulseAge), 2 | 64); }

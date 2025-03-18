@@ -33,7 +33,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	
 	public BlockSeaPickle() {
 		super(Material.WATER);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, Integer.valueOf(1)).withProperty(IN_WATER, Boolean.valueOf(true)));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, 1).withProperty(IN_WATER, Boolean.TRUE));
 		
 		this.setSoundType(SoundType.SLIME);
 		this.setHardness(0.1F);
@@ -80,7 +80,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (checkSurfaceWater(worldIn, pos, state)) return false;
+		if (state.getValue(IN_WATER) && !isPositionUnderwater(worldIn, pos)) return false;
 		if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos)) return true;
         return false;
     }
@@ -92,10 +92,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 
 	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-		boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
-    	return this.getDefaultState().withProperty(IN_WATER, isWater);
-    }
+    { return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos)); }
     
 	
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
@@ -108,68 +105,52 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	 *  Break for water if Submerged 
 	 *  **/
     @Override
-	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
+	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
+    {
 		if (!this.canBlockStay(worldIn, pos, state)) 
 		{
 			this.dropBlockAsItem(worldIn, pos, state, 0);
-			
-			if (state.getValue(IN_WATER) && !(worldIn.provider.doesWaterVaporize()))
-				{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
-			else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
+			if (state.getValue(IN_WATER)) worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
 		}
 	}
 	
 	@Override
-	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
-		if (state.getValue(IN_WATER) && !(worldIn.provider.doesWaterVaporize()))
-			{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
-		else { worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3); }
-	}
+	public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state)
+    { if (state.getValue(IN_WATER)) worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return PICKLE_AABB[((Integer)state.getValue(AMOUNT)).intValue() - 1];
-    }
+    { return PICKLE_AABB[(Integer) state.getValue(AMOUNT) - 1]; }
 	
 	@Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-		return PICKLE_AABB[((Integer)state.getValue(AMOUNT)).intValue() - 1];
-    }
+    { return PICKLE_AABB[(Integer) state.getValue(AMOUNT) - 1]; }
 	
     public IBlockState getStateFromMeta(int meta)
-    {
-    	return this.getDefaultState().withProperty(AMOUNT, Integer.valueOf((meta & 3) + 1)).withProperty(IN_WATER, (meta & 4) != 0);
-    }
+    { return this.getDefaultState().withProperty(AMOUNT, (meta & 3) + 1).withProperty(IN_WATER, (meta & 4) != 0); }
 
     public int getMetaFromState(IBlockState state)
     {
     	int i = 0;
-        i = i | (state.getValue(AMOUNT)).intValue() - 1;
+        i = i | state.getValue(AMOUNT) - 1;
 
-        if (((Boolean)state.getValue(IN_WATER)).booleanValue())
+        if ((Boolean) state.getValue(IN_WATER))
         { i |= 4; }
 
         return i;
     }
     
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+    { return BlockFaceShape.UNDEFINED; }
     
     @Override public int quantityDropped(IBlockState state, int fortune, Random random){ return ((Integer)state.getValue(AMOUNT)); }
 
     protected BlockStateContainer createBlockState()
-    {
-    	return new BlockStateContainer(this, BlockLiquid.LEVEL, AMOUNT, IN_WATER);
-    }
+    { return new BlockStateContainer(this, BlockLiquid.LEVEL, AMOUNT, IN_WATER); }
     
     @Override
-    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-        return layer == BlockRenderLayer.CUTOUT || layer == BlockRenderLayer.TRANSLUCENT;
-    }
+    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer)
+    { return layer == BlockRenderLayer.CUTOUT || layer == BlockRenderLayer.TRANSLUCENT; }
     
     /** 
      * Bonemeal Growing 
@@ -182,7 +163,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {
-    	int i = ((Integer)state.getValue(AMOUNT)).intValue();
+    	int i = (Integer) state.getValue(AMOUNT);
     	
         if (i < 4)
         {
@@ -190,7 +171,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
         	if (i > 4)
             { i = 4; }
         	
-        	worldIn.setBlockState(pos, state.withProperty(AMOUNT, Integer.valueOf(i)), 2);
+        	worldIn.setBlockState(pos, state.withProperty(AMOUNT, i), 2);
         }
         
         if (this.isCoralBlock(worldIn, pos.down()))
@@ -216,12 +197,10 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 
         if (worldIn.getBlockState(blockpos1).getBlock() == Blocks.WATER && this.canBlockStay(worldIn, blockpos1, this.getDefaultState()) && this.isCoralBlock(worldIn, blockpos1.down()))
         {
-            worldIn.setBlockState(blockpos1, this.getDefaultState().withProperty(AMOUNT, Integer.valueOf(rand.nextInt(4) + 1)), 2);
+            worldIn.setBlockState(blockpos1, this.getDefaultState().withProperty(AMOUNT, rand.nextInt(4) + 1), 2);
         }
     }
     
     private boolean isCoralBlock(World worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos).getBlock() instanceof BlockCoralFull;
-    }
+    { return worldIn.getBlockState(pos).getBlock() instanceof BlockCoralFull; }
 }

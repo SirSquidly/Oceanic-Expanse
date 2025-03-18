@@ -57,20 +57,16 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	}
 	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return TUBE_SPONGE_AABB[((Integer)state.getValue(AGE)).intValue()];
-    }
+    { return TUBE_SPONGE_AABB[(Integer) state.getValue(AGE)]; }
 	
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, false);
-    }
+    { return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && isPositionUnderwater(worldIn, pos); }
 	
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (checkSurfaceWater(worldIn, pos, state)) return false;
+		if (!isPositionUnderwater(worldIn, pos)) return false;
         if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
         return false;
     }
@@ -78,9 +74,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	@Override
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
 		if (!this.canBlockStay(worldIn, pos, state)) 
-		{
-			worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
-		}
+		{ worldIn.setBlockState(pos, Blocks.WATER.getDefaultState()); }
 	}
 	
 	@Override
@@ -97,10 +91,10 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
         
         if (canGrow(worldIn, pos, state) && worldIn.isAreaLoaded(pos, 1) && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, canGrow(worldIn, pos, state)))
         {
-        	int i = ((Integer)state.getValue(AGE)).intValue();
+        	int i = (Integer) state.getValue(AGE);
         	
         	if(i < 2 && (this.checkSponge(worldIn, pos) ? rand.nextInt(10) : rand.nextInt(40)) == 0)
-    		{ worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i + 1))); }
+    		{ worldIn.setBlockState(pos, state.withProperty(AGE, i + 1)); }
         	
     		net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
         }
@@ -111,9 +105,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 		Item item = itemstack.getItem();
 		
-		((Integer)state.getValue(AGE)).intValue();
-		
-		if (!((Boolean)state.getValue(SHEARED)).booleanValue() && ConfigHandler.block.tubeSponge.tubeSpongeShears)
+		if (!(Boolean) state.getValue(SHEARED) && ConfigHandler.block.tubeSponge.tubeSpongeShears)
         {
 			if (item == Items.SHEARS)
 	        {
@@ -132,7 +124,7 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
     }
 	
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state)
-    { return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || Main.proxy.fluidlogged_enable) && state.getValue(AGE).intValue() < 2; }
+    { return (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER || Main.proxy.fluidlogged_enable) && state.getValue(AGE) < 2; }
     
 	/**
      * Shearing stuffs.
@@ -160,16 +152,14 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	public int getMetaFromState(IBlockState state)
 	{
 	    int i = 0;
-	    i = i | ((Integer)state.getValue(AGE)).intValue();
+	    i = i | (Integer) state.getValue(AGE);
 	    
-	    if (((Boolean)state.getValue(SHEARED)).booleanValue())
+	    if ((Boolean) state.getValue(SHEARED))
 	    { i |= 4; }
 	    return i;
 	}
 	
 	@Override
 	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, BlockLiquid.LEVEL, AGE, SHEARED);
-	}
+	{ return new BlockStateContainer(this, BlockLiquid.LEVEL, AGE, SHEARED); }
 }

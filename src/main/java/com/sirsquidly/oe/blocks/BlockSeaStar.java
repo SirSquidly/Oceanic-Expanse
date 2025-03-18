@@ -25,7 +25,7 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
 	{
 		super(Material.WATER);
 		this.setSoundType(OESounds.WET_GRASS);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(IN_WATER, Boolean.valueOf(true)));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(IN_WATER, Boolean.TRUE));
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (checkSurfaceWater(worldIn, pos, state)) return false;
+		if (state.getValue(IN_WATER) && !isPositionUnderwater(worldIn, pos)) return false;
         if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
         return false;
     }
@@ -63,10 +63,7 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
     
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
-    	return this.getDefaultState().withProperty(IN_WATER, isWater);
-    }
+    { return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos)); }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {

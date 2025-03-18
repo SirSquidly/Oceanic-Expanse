@@ -48,7 +48,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 		this.setTickRandomly(true);
 		this.setCreativeTab(Main.OCEANEXPTAB);
 		this.setLightOpacity(Blocks.WATER.getLightOpacity(Blocks.WATER.getDefaultState()));
-		setDefaultState(blockState.getBaseState().withProperty(AGE, Integer.valueOf(maxHeight)).withProperty(TOP, Boolean.valueOf(false)));
+		setDefaultState(blockState.getBaseState().withProperty(AGE, maxHeight).withProperty(TOP, Boolean.FALSE));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -61,7 +61,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
 		Random rand = worldIn.rand;
-        return this.getDefaultState().withProperty(BlockKelp.AGE, Integer.valueOf(rand.nextInt(randomAge + 1))).withProperty(BlockKelp.TOP, Boolean.valueOf(isTop(worldIn, pos)));
+        return this.getDefaultState().withProperty(BlockKelp.AGE, rand.nextInt(randomAge + 1)).withProperty(BlockKelp.TOP, isTop(worldIn, pos));
     }
 	
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -74,17 +74,17 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
     	if (isTop(worldIn, pos)) 
-		{ worldIn.setBlockState(pos, state.withProperty(TOP, true).withProperty(BlockKelp.AGE, Integer.valueOf(worldIn.rand.nextInt(randomAge + 1))), 2); }
+		{ worldIn.setBlockState(pos, state.withProperty(TOP, true).withProperty(BlockKelp.AGE, worldIn.rand.nextInt(randomAge + 1)), 2); }
 		this.checkAndDropBlock(worldIn, pos, state);
 	}
     
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    { return state.withProperty(TOP, Boolean.valueOf(isTop(worldIn, pos))); }
+    { return state.withProperty(TOP, isTop(worldIn, pos)); }
     
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    { return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this) && checkPlaceWater(worldIn, pos, false); }
+    { return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this) && isPositionUnderwater(worldIn, pos); }
 
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
@@ -115,10 +115,10 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 	{ return world.getBlockState(pos.up()).getBlock() != this; }
 	
 	public IBlockState getStateFromMeta(int meta)
-    { return this.getDefaultState().withProperty(AGE, Integer.valueOf(meta)); }
+    { return this.getDefaultState().withProperty(AGE, meta); }
 	
 	public int getMetaFromState(IBlockState state)
-	{ return ((Integer)state.getValue(AGE)).intValue(); }
+	{ return (Integer) state.getValue(AGE); }
 
     protected BlockStateContainer createBlockState()
     { return new BlockStateContainer(this, BlockLiquid.LEVEL, AGE, TOP); }
@@ -128,11 +128,11 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 		ItemStack itemstack = playerIn.getHeldItem(hand);
 		Item item = itemstack.getItem();
 		
-		if ((Integer)state.getValue(AGE).intValue() != maxHeight)
+		if ((Integer) state.getValue(AGE) != maxHeight)
         {
 			if (item instanceof ItemShears)
 	        {
-				worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(maxHeight)), 2);
+				worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, maxHeight), 2);
 				worldIn.playSound((EntityPlayer)null, pos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.0F, 1.0F);
 	            return true;
 	        }
@@ -146,7 +146,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     {
         if (!worldIn.isAreaLoaded(pos, 1)) return;
         BlockPos blockpos = pos.up();
-        int i = ((Integer)state.getValue(AGE)).intValue();
+        int i = state.getValue(AGE);
         
         if (i < 15 &&  net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, blockpos, state, rand.nextInt(1) == 0))
         {
@@ -163,18 +163,18 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {
-    	int i = ((Integer)state.getValue(AGE)).intValue();
+    	int i = (Integer) state.getValue(AGE);
     	
     	if (i != maxHeight)
     	{
-    		if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && checkPlaceWater(worldIn, pos.up(), false))
+    		if (worldIn.getBlockState(pos.up()).getBlock() == Blocks.WATER && isPositionUnderwater(worldIn, pos.up()))
             {
-            	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)));
+            	worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(AGE, i + 1));
         		worldIn.setBlockState(pos, this.getDefaultState(), 2);
             }
             else
             {
-            	worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, Integer.valueOf(i + 1)), 2);
+            	worldIn.setBlockState(pos, this.getDefaultState().withProperty(AGE, i + 1), 2);
             }
     	}
     	else
@@ -187,11 +187,11 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     		next = next.down();
     		if(worldIn.getBlockState(next).getBlock() == this)
         	{ 
-    			i = ((Integer)worldIn.getBlockState(next).getValue(BlockKelp.AGE)).intValue();
+    			i = (Integer) worldIn.getBlockState(next).getValue(BlockKelp.AGE);
     			
         		if(this.canPlaceBlockAt(worldIn, next.up()) && i != BlockKelp.maxHeight)
             	{ 
-        			worldIn.setBlockState(next.up(), this.getDefaultState().withProperty(BlockKelp.AGE, Integer.valueOf(i + 1)));
+        			worldIn.setBlockState(next.up(), this.getDefaultState().withProperty(BlockKelp.AGE, i + 1));
         			worldIn.setBlockState(next, this.getDefaultState(), 16 | 2);
             	}
         	}

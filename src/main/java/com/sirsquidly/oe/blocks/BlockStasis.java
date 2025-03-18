@@ -2,6 +2,7 @@ package com.sirsquidly.oe.blocks;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.tileentity.TileStasis;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.ITileEntityProvider;
@@ -33,7 +34,7 @@ public class BlockStasis extends Block implements ITileEntityProvider, IChecksWa
 		super(Material.GROUND);
 		this.setHarvestLevel("pickaxe", 0);
 		this.setSoundType(SoundType.STONE);
-		this.setLightLevel(1.0F);
+		this.setLightLevel((float) (ConfigHandler.block.stagnant.stagnantLight / 16));
 		this.hasTileEntity = true;
 		this.setSoundType(SoundType.STONE);
 	}
@@ -62,10 +63,7 @@ public class BlockStasis extends Block implements ITileEntityProvider, IChecksWa
 	
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
-    	return this.getDefaultState().withProperty(IN_WATER, isWater);
-    }
+    { return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos)); }
     
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {

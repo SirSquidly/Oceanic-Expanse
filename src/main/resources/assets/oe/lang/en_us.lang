@@ -300,6 +300,7 @@ tile.oe.shell_sand.name=Shelly Sand
 tile.oe.stagnant.name=Stagnant
 tile.oe.tube_sponge.name=Tube Sponge
 tile.oe.underwater_torch.name=Underwater Torch
+tile.oe.underwater_tnt.name=Underwater TNT
 
 tile.oe.blue_coral_block.name=Tube Coral Block
 tile.oe.blue_coral.name=Tube Coral

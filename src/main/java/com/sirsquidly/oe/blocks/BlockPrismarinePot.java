@@ -174,9 +174,9 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
     	BlockPrismarinePot.EnumAxis convertFacing = placer.getHorizontalFacing().getOpposite() != EnumFacing.NORTH ? placer.getHorizontalFacing().getOpposite() != EnumFacing.SOUTH ? BlockPrismarinePot.EnumAxis.X : BlockPrismarinePot.EnumAxis.Z : BlockPrismarinePot.EnumAxis.Z;
-    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
+    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: isPositionUnderwater(worldIn, pos);
     	
-    	if (!checkWater(worldIn, pos)) return this.getDefaultState().withProperty(IN_WATER, Boolean.valueOf(false)).withProperty(FACING, convertFacing);
+    	if (!isPositionUnderwater(worldIn, pos)) return this.getDefaultState().withProperty(IN_WATER, Boolean.FALSE).withProperty(FACING, convertFacing);
     	return this.getDefaultState().withProperty(IN_WATER, isWater).withProperty(FACING, convertFacing);
     }
 

@@ -74,10 +74,7 @@ public class BlockUnderwaterTorch extends BlockTorch implements IChecksWater
     /** Just grab the result of the parent's `getStateForPlacement`, then set the InWater property. */
 	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-		boolean isWet = checkPlaceWater(worldIn, pos, false);
-        return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(IN_WATER, isWet);
-    }
+    { return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(IN_WATER, isPositionUnderwater(worldIn, pos)); }
 	
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
@@ -88,7 +85,7 @@ public class BlockUnderwaterTorch extends BlockTorch implements IChecksWater
 	@Override
 	protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (checkSurfaceWater(worldIn, pos, state)) return false;
+		if (state.getValue(IN_WATER) && !isPositionUnderwater(worldIn, pos)) return false;
         return super.checkForDrop(worldIn, pos, state);
     }
 	

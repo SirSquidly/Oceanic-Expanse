@@ -16,7 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCoralFull extends Block
+public class BlockCoralFull extends Block implements IChecksWater
 {
 	public static final PropertyBool IS_DEAD = PropertyBool.create("is_dead");
 

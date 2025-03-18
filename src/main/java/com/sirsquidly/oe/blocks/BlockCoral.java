@@ -125,19 +125,19 @@ public class BlockCoral extends Block implements IChecksWater, ISpecialWorldGen
     {
     	if (this.canBlockStay(worldIn, pos, state) && !Main.proxy.fluidlogged_enable) swapWaterProperty(worldIn, pos, state);
     	this.checkForDrop(worldIn, pos, state);
-        if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+        if (!isPositionUnderwater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-    	return this.getDefaultState().withProperty(IN_WATER, checkPlaceWater(worldIn, pos, false));
+    	return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos, false));
     }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
     	if (!Main.proxy.fluidlogged_enable) swapWaterProperty(worldIn, pos, state);
-    	if (!checkWater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+    	if (!isPositionUnderwater(worldIn, pos)) worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
     
     private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
@@ -167,7 +167,7 @@ public class BlockCoral extends Block implements IChecksWater, ISpecialWorldGen
     
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        boolean flag = ConfigHandler.block.coralBlocks.coralDryTicks == 0 || checkWater(worldIn, pos);
+        boolean flag = ConfigHandler.block.coralBlocks.coralDryTicks == 0 || isPositionUnderwater(worldIn, pos);
         
         if (!flag && this.deadVersion != null)
         { worldIn.setBlockState(pos, this.deadVersion.getDefaultState().withProperty(IN_WATER, state.getValue(IN_WATER)), 2); }
