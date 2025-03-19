@@ -1,0 +1,24 @@
+{
+  "conditions":
+  [
+    {
+      "type": "config",
+      "prop": "enableStagnant"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern":
+  [
+    "###",
+    "###",
+    "###"
+  ],
+  "key":
+  {
+    "#": { "item": "minecraft:ice" }
+  },
+  "result":
+  {
+    "item": "minecraft:packed_ice"
+  }
+}

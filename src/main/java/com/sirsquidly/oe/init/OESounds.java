@@ -30,7 +30,12 @@ public class OESounds
 	public static SoundEvent BLOCK_CORAL_STEP = soundReadyForRegister("block.coral.step");
 	
 	public static SoundType CORAL = new SoundType(1.0f, 1.0f, BLOCK_CORAL_BREAK, BLOCK_CORAL_STEP, BLOCK_CORAL_PLACE, BLOCK_CORAL_HIT, BLOCK_CORAL_FALL);
-	
+
+	public static SoundEvent BLOCK_TURTLE_EGG_CRACK = soundReadyForRegister("block.turtle_egg.crack");
+	public static SoundEvent BLOCK_TURTLE_EGG_BREAK = soundReadyForRegister("block.turtle_egg.egg_break");
+	public static SoundEvent BLOCK_TURTLE_EGG_STOMP = soundReadyForRegister("block.turtle_egg.fall");
+	public static SoundEvent BLOCK_TURTLE_EGG_HATCH = soundReadyForRegister("block.turtle_egg.hatch");
+
 	public static SoundEvent BLOCK_WET_GRASS_BREAK = soundReadyForRegister("block.wet_grass.break");
 	public static SoundEvent BLOCK_WET_GRASS_FALL = soundReadyForRegister("block.wet_grass.fall");
 	public static SoundEvent BLOCK_WET_GRASS_HIT = soundReadyForRegister("block.wet_grass.hit");

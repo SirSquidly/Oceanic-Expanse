@@ -63,6 +63,30 @@
     	"subtitle": "subtitle.oe.coral.step",
     	"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
     },
+	"block.turtle_egg.crack":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.crack",
+		"sounds": [ "oe:block/turtle_egg/crack1", "oe:block/turtle_egg/crack2", "oe:block/turtle_egg/crack3", "oe:block/turtle_egg/crack4", "oe:block/turtle_egg/crack5" ]
+	},
+	"block.turtle_egg.egg_break":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.egg_break",
+		"sounds": [ "oe:block/turtle_egg/egg_break1", "oe:block/turtle_egg/egg_break2" ]
+	},
+	"block.turtle_egg.fall":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.fall",
+		"sounds": [ "oe:block/turtle_egg/fall1", "oe:block/turtle_egg/fall2", "oe:block/turtle_egg/fall3", "oe:block/turtle_egg/fall4" ]
+	},
+	"block.turtle_egg.hatch":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.hatch",
+		"sounds": [ "oe:block/turtle_egg/hatch1", "oe:block/turtle_egg/hatch2", "oe:block/turtle_egg/hatch3" ]
+	},
     "block.wet_grass.break": 
     {
     	"category": "block",

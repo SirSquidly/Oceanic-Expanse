@@ -84,15 +84,11 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    { return (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this) && isPositionUnderwater(worldIn, pos); }
+    { return canBlockStay(worldIn, pos, worldIn.getBlockState(pos)) && isPositionUnderwater(worldIn, pos); }
 
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if ((worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) || 
-        		(worldIn.getBlockState(pos.down()).getBlock() == this)) return true;
-        return false;
-    }
+    { return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() == this; }
 
 	@Override
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)

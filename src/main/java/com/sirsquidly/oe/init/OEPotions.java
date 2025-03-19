@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sirsquidly.oe.potion.PotionDolphinsGrace;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
@@ -59,7 +60,7 @@ public class OEPotions
 		registerPotionMixes();
 		
 		event.getRegistry().register(OEPotions.DESCENT_POTION);
-		event.getRegistry().register(OEPotions.SEEPING_POTION);
+		if (ConfigHandler.effect.seeping.enableSeeping) event.getRegistry().register(OEPotions.SEEPING_POTION);
 	}
 	
 	@SubscribeEvent
@@ -67,7 +68,7 @@ public class OEPotions
 	{
 		event.getRegistry().register(OEPotions.CONDUIT_POWER);
 		event.getRegistry().register(OEPotions.DESCENT);
-		event.getRegistry().register(OEPotions.SEEPING);
+		if (ConfigHandler.effect.seeping.enableSeeping) event.getRegistry().register(OEPotions.SEEPING);
 		event.getRegistry().register(OEPotions.DOLPHINS_GRACE);
 	}
 	
@@ -78,6 +79,6 @@ public class OEPotions
 		PotionHelper.addMix(OEPotions.TURTLE_MASTER_POTION, Items.GLOWSTONE_DUST, OEPotions.STRONG_TURTLE_MASTER_POTION);
 		
 		PotionHelper.addMix(PotionTypes.AWKWARD, OEItems.SHELLS, OEPotions.DESCENT_POTION);
-		PotionHelper.addMix(PotionTypes.AWKWARD, Item.getItemFromBlock(OEBlocks.BLUE_SLIME), OEPotions.SEEPING_POTION);
+		if (ConfigHandler.effect.seeping.enableSeeping && ConfigHandler.effect.seeping.enableSeepingBrewing) PotionHelper.addMix(PotionTypes.AWKWARD, Item.getItemFromBlock(OEBlocks.BLUE_SLIME), OEPotions.SEEPING_POTION);
 	}
 }

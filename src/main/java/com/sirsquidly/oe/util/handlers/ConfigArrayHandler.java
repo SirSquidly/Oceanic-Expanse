@@ -272,6 +272,7 @@ public class ConfigArrayHandler
 				case "enableCoconut": return ConfigHandler.block.coconut.enableCoconut;
 				case "enableCrab": return ConfigHandler.entity.crab.enableCrab;
 				case "enableDusle": return ConfigHandler.block.dulse.enableDulse;
+				case "enableGlowItemFrames": return ConfigHandler.item.glowItemFrame.enableGlowItemFrame;
 				case "enableKelp": return ConfigHandler.block.enableKelp;
 				case "enableLobster": return ConfigHandler.entity.lobster.enableLobster;
 				case "enablePalmWoods": return ConfigHandler.block.palmBlocks.enablePalmWoods;
@@ -280,7 +281,7 @@ public class ConfigArrayHandler
 				case "enableWaterTorch": return ConfigHandler.block.waterTorch.enableWaterTorch;
 				case "enableUnderwaterTNT": return ConfigHandler.block.waterTNT.enableWaterTNT;
 
-				case "enableGlowItemFrames": return ConfigHandler.item.glowItemFrame.enableGlowItemFrame;
+				case "enablePackedIceCraft": return ConfigHandler.block.enablePackedIceRecipe;
 				case "tridentAllIngredients": return ConfigHandler.item.trident.enableTridentCrafting & ConfigHandler.item.trident.enableTrident & ConfigHandler.block.guardianSpike.enableGuardianSpike;
 				case "turtleShellAllIngredients": return ConfigHandler.item.turtleShell.enableTurtleShell & ConfigHandler.item.enableTurtleScute;
 			}

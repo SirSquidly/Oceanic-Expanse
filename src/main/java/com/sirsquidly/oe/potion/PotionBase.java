@@ -111,7 +111,7 @@ public class PotionBase extends Potion
 
 		if(!entity.world.isRemote)
 		{
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < entity.getActivePotionEffect(OEPotions.SEEPING).getAmplifier(); i++)
 			{
 				EntityTropicalSlime tropicalSlime = new EntityTropicalSlime(entity.world);
 

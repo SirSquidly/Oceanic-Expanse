@@ -334,6 +334,11 @@ public class ConfigHandler
 	
 	public static class configBlock
 	{
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.block.enablePackedIceRecipe")
+		@Config.Comment("If an Ice to Packed Ice recipe is enabled")
+		public boolean enablePackedIceRecipe = false;
+
 		@Config.LangKey("oe.config.block.blueIce")
 	    public configBlueIce blueIce = new configBlueIce();
 		
@@ -741,6 +746,12 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.block.zombiesTrample")
 		    @Config.Comment("If any mob extending Zombie (Zombie, Husks, Drowned, ect) are given the trampleAI")
 		    public boolean zombiesTrample = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.turtleEgg.breakXP")
+			@Config.Comment("Drops this much XP whenever destroyed. Setting to 0 disables this. ")
+			@Config.RangeInt(min = 0)
+			public int breakXP = 0;
 	    }
 
 		@Config.LangKey("oe.config.block.waterTNT")
@@ -1760,6 +1771,23 @@ public class ConfigHandler
 		    @Config.Comment("Fixes an odd bug where slime blocks led to infinite momentum building. I made it a config option because it's funny.")
 		    public boolean descentSlimeFix = true;
 	    }
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.effect.seeping")
+		public configSeeping seeping = new configSeeping();
+
+		public static class configSeeping
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.effect.seeping.enableSeeping")
+			@Config.Comment("If Seeping should be enabled.")
+			public boolean enableSeeping = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.effect.seeping.enableSeeping")
+			@Config.Comment("Enables the brewing of Seeping, using an Awkward Potion and a Tropical Slime Block.")
+			public boolean enableSeepingBrewing = true;
+		}
 	}
 	
 	

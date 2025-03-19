@@ -156,7 +156,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 
 			//How far down it goes. Smaller number is more.
 			double bottomVertScale = vertScale / 1.5;
-			double bottomHeightRatio = Math.pow(((double) -seaLevelDifference / heightSmoothening) / 4, slopeFactor);
+			double bottomHeightRatio = Math.pow(((double) -seaLevelDifference * 2 / heightSmoothening) / 4, slopeFactor);
 			double bottomHeightDropoff = scale - seaLevelDifference * bottomVertScale + bottomHeightRatio;
 
 			/** Sets the SeaLevel and one block above to use the same result, giving Icebergs the sharp edged where they touch the water..*/
@@ -181,7 +181,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 				/** Block noise on the edges of the bottom half of the iceberg. Large = more noise.*/
 				double bottomEdgeNoise = 0.2;
 
-				if (noiseGen / 6 - rand.nextDouble() * bottomEdgeNoise > bottomHeightDropoff && (!stack || noiseCircleGen / 1 > topHeightDropoff))
+				if (noiseGen / 6 - rand.nextDouble() * bottomEdgeNoise > bottomHeightDropoff && (!stack || noiseCircleGen / 1 > bottomHeightDropoff))
 				{
 					if (world.getBlockState(icePos).getMaterial() == Material.WATER || world.getBlockState(icePos).getBlock() == Blocks.ICE || world.getBlockState(icePos).getMaterial() == Material.AIR)
 					{ placeIcebergBlock(world, icePos); }
