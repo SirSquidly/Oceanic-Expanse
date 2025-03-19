@@ -81,8 +81,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
 		if (state.getValue(IN_WATER) && !isPositionUnderwater(worldIn, pos)) return false;
-		if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos)) return true;
-        return false;
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock().canPlaceTorchOnTop(worldIn.getBlockState(pos), worldIn, pos);
     }
 
 	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
@@ -93,13 +92,6 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     { return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos)); }
-    
-	
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-    	checkAndDropBlock(worldIn, pos, state);
-        super.onBlockAdded(worldIn, pos, state);
-    }
     
     /**
 	 *  Break for water if Submerged 

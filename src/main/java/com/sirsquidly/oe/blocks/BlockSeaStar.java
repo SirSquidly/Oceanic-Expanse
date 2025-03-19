@@ -43,16 +43,13 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
 	
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP);
-    }
+    { return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP); }
 	
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
 		if (state.getValue(IN_WATER) && !isPositionUnderwater(worldIn, pos)) return false;
-        if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
-        return false;
+			return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP);
     }
 	
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
@@ -64,12 +61,6 @@ public class BlockSeaStar extends BlockBush implements IChecksWater
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     { return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos)); }
-    
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
-    {
-    	checkAndDropBlock(worldIn, pos, state);
-        super.onBlockAdded(worldIn, pos, state);
-    }
     
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
 		if (!this.canBlockStay(worldIn, pos, state)) 
