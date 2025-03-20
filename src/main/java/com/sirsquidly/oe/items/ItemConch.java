@@ -88,16 +88,8 @@ public class ItemConch extends Item
 	/** Adds a random sound to a new Conch.*/
 	public void addRandomSound(ItemStack stack, Random rand)
 	{
-	    NBTTagCompound nbt;
-	    if (stack.hasTagCompound())
-	    { nbt = stack.getTagCompound(); }
-	    else
-	    { nbt = new NBTTagCompound(); }
-	 
-	    int conchNum = rand.nextInt(4) + 1;
-	    nbt.setString("Sound", "oe:item.conch.conch_blow" + conchNum);
-	    
-	    stack.setTagCompound(nbt);
+		int conchNum = rand.nextInt(4) + 1;
+		setSound(stack, conchNum);
 	}
 	
 	public static void setSound(ItemStack stack, int sound)

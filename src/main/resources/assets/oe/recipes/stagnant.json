@@ -1,10 +1,8 @@
 {
   "conditions":
   [
-    {
-      "type": "config",
-      "prop": "conduitAllIngredients"
-    }
+    { "type": "config", "prop": "enableConduit" },
+    { "type": "config", "prop": "enablePearl" }
   ],
   "type": "forge:ore_shaped",
   "pattern": [

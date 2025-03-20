@@ -266,6 +266,8 @@ public class ConfigArrayHandler
 				case "conduitAllIngredients": return ConfigHandler.block.conduit.enableConduit & ConfigHandler.item.enableNautilusShell;
 				case "enableBisqueCrab": return ConfigHandler.item.bisque.enableCrabBisque;
 				case "enableBisqueLobster": return ConfigHandler.item.bisque.enableLobsterBisque;
+				case "enableConch": return ConfigHandler.item.conch.enableConch;
+				case "enableConduit": return ConfigHandler.block.conduit.enableConduit;
 				case "enableCoquina": return ConfigHandler.block.coquina.enableCoquina;
 				case "enableCoquinaBricks": return ConfigHandler.block.coquina.enableCoquinaBricks;
 				case "enableCoquinaBrickWalls": return ConfigHandler.block.coquina.enableCoquinaBrickWalls;
@@ -275,8 +277,10 @@ public class ConfigArrayHandler
 				case "enableGlowItemFrames": return ConfigHandler.item.glowItemFrame.enableGlowItemFrame;
 				case "enableKelp": return ConfigHandler.block.enableKelp;
 				case "enableLobster": return ConfigHandler.entity.lobster.enableLobster;
+				case "enableMagicConch": return ConfigHandler.item.magicConch.enableMagicConch;
 				case "enablePalmWoods": return ConfigHandler.block.palmBlocks.enablePalmWoods;
 				case "enablePalmStrippedWoods": return ConfigHandler.block.palmBlocks.enablePalmStrippedWoods;
+				case "enablePearl": return ConfigHandler.item.pearl.enablePearl;
 				case "enableStagnant": return ConfigHandler.block.stagnant.enableStagnant;
 				case "enableWaterTorch": return ConfigHandler.block.waterTorch.enableWaterTorch;
 				case "enableUnderwaterTNT": return ConfigHandler.block.waterTNT.enableWaterTNT;

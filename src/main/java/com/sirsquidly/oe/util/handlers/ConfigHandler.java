@@ -936,7 +936,29 @@ public class ConfigHandler
 		    @Config.Comment("Heavy Boots have a description.")
 		    public boolean heavyBootsDesc = true;
 	    }
-		
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.magicConch")
+		public configItem.configMagicConch magicConch = new configItem.configMagicConch();
+
+		public static class configMagicConch
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.magicConch.enableMagicConch")
+			@Config.Comment("Enables Magic Conchs.")
+			public boolean enableMagicConch = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.magicConch.addResonancesToCreative")
+			@Config.Comment("Adds Magic Conchs with each Resonance to the Creative Tab.")
+			public boolean addResonancesToCreative = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.magicConch.durability")
+			@Config.Comment("How many points of durability the Magic Conch has (note, displays as this -1 in-game, as 0 counts as a point)")
+			public int durability = 32;
+		}
+
 		@RequiresMcRestart
 	    @Config.LangKey("oe.config.item.enableNautilusShell")
 	    @Config.Comment("If Nautilus Shells are enabled. This WILL break Shelly Sand if disabled.")

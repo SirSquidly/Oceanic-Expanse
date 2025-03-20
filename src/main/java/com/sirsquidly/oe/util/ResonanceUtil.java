@@ -15,7 +15,7 @@ import java.util.*;
 * */
 public abstract class ResonanceUtil
 {
-    private static final Map<Integer, Resonance> REGISTRY = new HashMap<>();
+    public static final Map<Integer, Resonance> REGISTRY = new HashMap<>();
 
     /** Resonances get registered to a list, so they can be checked. */
     public static void registerResonanceEffects()
@@ -62,18 +62,22 @@ public abstract class ResonanceUtil
     public static void addRandomResonance(ItemStack stack, Random rand)
     {
         if (REGISTRY.isEmpty()) return;
-
         List<Integer> keys = new ArrayList<>(REGISTRY.keySet());
-        NBTTagCompound nbt;
         int randomId = keys.get(rand.nextInt(keys.size()));
 
+        setResonance(stack, randomId);
+    }
+
+    /** Applies the given Resonance to the Itemstack. */
+    public static void setResonance(ItemStack stack, int sound)
+    {
+        NBTTagCompound nbt;
         if (stack.hasTagCompound())
         { nbt = stack.getTagCompound(); }
         else
         { nbt = new NBTTagCompound(); }
 
-        nbt.setInteger("Resonance", randomId);
-
+        nbt.setInteger("Resonance", sound);
         stack.setTagCompound(nbt);
     }
 }

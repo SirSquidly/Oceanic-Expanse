@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,7 +29,7 @@ public class ItemConchMagic extends ItemConch
 		super();
 		/* As they have Durability, they cannot be stacked like normal Conchs*/
 		this.maxStackSize = 1;
-		this.setMaxDamage(31);
+		this.setMaxDamage(ConfigHandler.item.magicConch.durability - 1);
 	}
 	
 	/** Called each Inventory Tick, same thing the Map does. This auto-sets the random resonance if it doesn't have one.*/
@@ -38,21 +39,26 @@ public class ItemConchMagic extends ItemConch
 
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
         if (!worldIn.isRemote)
-        {
-			if (ResonanceUtil.getResonance(stack) == null) ResonanceUtil.addRandomResonance(stack, worldIn.rand);
-        }
+        { if (ResonanceUtil.getResonance(stack) == null) ResonanceUtil.addRandomResonance(stack, worldIn.rand); }
     }
 	
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-
 		Resonance resonance = ResonanceUtil.getResonance(itemstack);
 
 		if (resonance != null) resonance.onUse(playerIn, itemstack);
-
 		return super.onItemRightClick(worldIn, playerIn, handIn);
     }
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment)
+	{
+		if (enchantment == Enchantments.MENDING) return false;
+		if (enchantment == Enchantments.UNBREAKING) return false;
+
+		return super.canApplyAtEnchantingTable(stack, enchantment);
+	}
 
 	public EnumRarity getRarity(ItemStack stack)
 	{ return EnumRarity.UNCOMMON; }
@@ -66,8 +72,6 @@ public class ItemConchMagic extends ItemConch
 		Resonance resonance = ResonanceUtil.getResonance(stack);
 
 		if (resonance != null)
-		{
-			tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format(resonance.getName()));
-		}
+		{ tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format(resonance.getName())); }
 	}
 }
