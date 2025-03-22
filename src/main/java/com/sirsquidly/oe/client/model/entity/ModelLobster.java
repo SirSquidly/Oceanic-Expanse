@@ -185,15 +185,15 @@ public class ModelLobster extends ModelBase
         this.antennaL.rotateAngleZ = 0;
         this.antennaR.rotateAngleZ = 0;
         
-        float l1 = Math.abs(MathHelper.sin(limbSwing*2 * 0.8F + 0.0F) * 1F) * limbSwingAmount;
-        float l2 = Math.abs(MathHelper.sin(limbSwing*2 * 0.8F + 0.33F) * 1F) * limbSwingAmount;
-        float l3 = Math.abs(MathHelper.sin(limbSwing*2 * 0.8F + 0.66F) * 1F) * limbSwingAmount;
-        float l4 = Math.abs(MathHelper.sin(limbSwing*2 * 0.8F + 0.99F) * 1F) * limbSwingAmount;
+        float l1 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.8F + 0.0F)) * limbSwingAmount;
+        float l2 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.8F + 0.33F)) * limbSwingAmount;
+        float l3 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.8F + 0.66F)) * limbSwingAmount;
+        float l4 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.8F + 0.99F)) * limbSwingAmount;
         
-        float f7 = Math.abs(MathHelper.sin(limbSwing*2 * 0.6662F + 0.0F) * 1.0F) * limbSwingAmount;
-        float f8 = Math.abs(MathHelper.sin(limbSwing*2 * 0.6662F + (float)Math.PI) * 1F) * limbSwingAmount;
-        float f9 = Math.abs(MathHelper.sin(limbSwing*2 * 0.6662F + ((float)Math.PI / 2F)) * 1F) * limbSwingAmount;
-        float f10 = Math.abs(MathHelper.sin(limbSwing*2 * 0.6662F + ((float)Math.PI * 3F / 2F)) * 1F) * limbSwingAmount;
+        float f7 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.6662F + 0.0F)) * limbSwingAmount;
+        float f8 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.6662F + (float) Math.PI)) * limbSwingAmount;
+        float f9 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.6662F + ((float) Math.PI / 2F))) * limbSwingAmount;
+        float f10 = Math.abs(MathHelper.sin(limbSwing * 2 * 0.6662F + ((float) Math.PI * 3F / 2F))) * limbSwingAmount;
         
         this.legL1_r1.rotateAngleY += -l1;
         this.legL2_r1.rotateAngleY += -l2;
@@ -233,7 +233,7 @@ public class ModelLobster extends ModelBase
         
         if (!lobster.getPassengers().isEmpty())
         {
-        	this.antennaL.rotateAngleZ += lobster.getSalmonSize() * 0.02D;
+        	this.antennaL.rotateAngleZ += lobster.getSize() * 0.02D;
    	     	this.antennaR.rotateAngleZ -= this.antennaL.rotateAngleZ;
         }
     }

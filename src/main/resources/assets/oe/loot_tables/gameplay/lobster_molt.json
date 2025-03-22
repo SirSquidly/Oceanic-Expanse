@@ -1,0 +1,17 @@
+{
+    "pools":
+    [
+    	{
+            "name":  "molt_drop",
+            "rolls": 1,
+            "entries":
+            [
+                {
+                    "type": "item",
+                    "name": "oe:crustacean_shell",
+                    "weight": 1
+                }
+            ]
+        }
+    ]
+}
