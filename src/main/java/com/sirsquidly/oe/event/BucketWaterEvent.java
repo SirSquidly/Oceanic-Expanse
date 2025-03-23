@@ -35,7 +35,7 @@ public class BucketWaterEvent
         Vec3d traceEnd = eyePosition.add(player.getLook(1.0F).scale(player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue()));
 		RayTraceResult rtresult = player.getEntityWorld().rayTraceBlocks(eyePosition, traceEnd, false);;
 
-		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.BLOCK && stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET)
+		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.BLOCK && (stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET))
         {
 			BlockPos bucketPos = world.getBlockState(rtresult.getBlockPos()).getMaterial() == Material.WATER ? rtresult.getBlockPos() : rtresult.getBlockPos().offset(rtresult.sideHit);
 

@@ -140,7 +140,7 @@ public class TileStasis extends TileEntity implements ITickable
 			if (++attackTick >= getAttackDuration() / 20)
 			{
 				world.playSound(null, attackTarget.getPosition(), OESounds.BLOCK_CONDUIT_ATTACK, SoundCategory.BLOCKS, 1.0f, 1.0f);
-				attackTarget.attackEntityFrom(DamageSource.MAGIC, isElder ? 6 : 4);
+				attackTarget.attackEntityFrom(DamageSource.MAGIC, isElder ? 8 : 6);
 				this.attackTick = 0;
 				this.clientAttackTick = 0;
 			}
