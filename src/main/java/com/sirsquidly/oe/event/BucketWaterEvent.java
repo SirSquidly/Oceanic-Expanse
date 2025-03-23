@@ -1,17 +1,17 @@
 package com.sirsquidly.oe.event;
 
+import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -29,27 +29,18 @@ public class BucketWaterEvent
 		
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
-		
+		World world = event.getWorld();
+
 		Vec3d eyePosition = player.getPositionEyes(1.0F);
-        Vec3d lookVector = player.getLook(1.0F);
-        double playerReach = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue();
-        Vec3d traceEnd = eyePosition.add(lookVector.x * playerReach, lookVector.y * playerReach, lookVector.z * playerReach);
+        Vec3d traceEnd = eyePosition.add(player.getLook(1.0F).scale(player.getEntityAttribute(EntityPlayer.REACH_DISTANCE).getAttributeValue()));
 		RayTraceResult rtresult = player.getEntityWorld().rayTraceBlocks(eyePosition, traceEnd, false);;
 
-		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.BLOCK)
+		if (rtresult != null && rtresult.typeOfHit == RayTraceResult.Type.BLOCK && stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET)
         {
-			if (stack.getItem() instanceof ItemBucket || stack.getItem() == OEItems.SPAWN_BUCKET) 
-			{
-				boolean flag1 = event.getWorld().getBlockState(rtresult.getBlockPos()).getMaterial() == Material.WATER;
-	            BlockPos blockpos1 = flag1 ? rtresult.getBlockPos() : rtresult.getBlockPos().offset(rtresult.sideHit);
-	                
-	            IBlockState iblockstate = event.getWorld().getBlockState(blockpos1);
-					
-				if (iblockstate.getMaterial() == Material.WATER && !(iblockstate.getBlock() instanceof BlockLiquid))
-				{
-					event.setCanceled(true);
-				}
-			}
+			BlockPos bucketPos = world.getBlockState(rtresult.getBlockPos()).getMaterial() == Material.WATER ? rtresult.getBlockPos() : rtresult.getBlockPos().offset(rtresult.sideHit);
+
+			if (OEBlocks.blockList.contains(world.getBlockState(bucketPos).getBlock()))
+			{ event.setCanceled(true); }
         }
     }
 }

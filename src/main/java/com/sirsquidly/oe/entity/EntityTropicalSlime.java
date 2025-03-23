@@ -10,6 +10,7 @@ import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -19,9 +20,11 @@ import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -36,6 +39,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.loot.LootTableList;
+
+import java.util.Collection;
 
 public class EntityTropicalSlime extends EntitySlime
 {
@@ -100,7 +105,7 @@ public class EntityTropicalSlime extends EntitySlime
 		EntityLivingBase attackTarget = this.getAttackTarget();
 		super.onUpdate();
 
-        if (this.world.provider.doesWaterVaporize() || this.isBurning())
+        if (!this.isPotionActive(MobEffects.FIRE_RESISTANCE) && (this.world.provider.doesWaterVaporize() || this.isBurning()))
         {
             double size = this.getSlimeSize();
             
@@ -199,10 +204,17 @@ public class EntityTropicalSlime extends EntitySlime
 		}
 		else
 		{
-			EntityTropicalFish tropicalFish = deadFish ? new EntityTropicalFish(world) : new EntityTropicalFish(world);
+			EntityTropicalFish tropicalFish = new EntityTropicalFish(world);
 			
 			tropicalFish.setTropicalFishVariant(tropicalFish.getRandomTropicalFishVariant());
-	    	
+
+            Collection<PotionEffect> collection = this.getActivePotionEffects();
+            if (!collection.isEmpty())
+            {
+                for (PotionEffect potioneffect : collection)
+                { tropicalFish.addPotionEffect(new PotionEffect(potioneffect)); }
+            }
+
 	    	tropicalFish.setPosition((double)pos.getX() + 0.5, (double)pos.getY(), (double)pos.getZ() + 0.5);
 	    	
 			world.spawnEntity(tropicalFish);

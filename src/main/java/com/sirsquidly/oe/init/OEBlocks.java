@@ -47,7 +47,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class OEBlocks 
 {
 		/** Contains every block ran through the 'blockReadyForRegister' function. So they all SHOULD be registered. */
-		private static List<Block> blockList = new ArrayList<Block>();
+		public static List<Block> blockList = new ArrayList<Block>();
 		/** Records any blocks that have a unique itemBlock assigned, as the rest are automatically slapped with the default itemBlock.*/
 		private static List<Block> itemBlockBlacklist = new ArrayList<Block>();
 		/** Used for items settup here, and need to have models registered as such. */
