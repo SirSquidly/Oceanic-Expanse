@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
+import net.minecraft.block.BlockDynamicLiquid;
+import net.minecraft.block.SoundType;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.Main;
@@ -126,19 +131,15 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
             BlockPos blockpos = rtresult.getBlockPos();
 
             if (!worldIn.isBlockModifiable(playerIn, blockpos))
-            {
-                return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
-            }
+            { return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack); }
             else
             {
                 boolean flag1 = worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos);
                 BlockPos blockpos1 = flag1 && rtresult.sideHit == EnumFacing.UP ? blockpos : blockpos.offset(rtresult.sideHit);
 
                 if (!playerIn.canPlayerEdit(blockpos1, rtresult.sideHit, itemstack))
-                {
-                    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
-                }
-                else if (!playerIn.isSneaking() && this.tryPlaceWater(playerIn, worldIn, blockpos1) || playerIn.isSneaking())
+                { return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack); }
+                else if (!playerIn.isSneaking() && this.tryPlaceBlock(playerIn, itemstack, worldIn, blockpos1) || playerIn.isSneaking())
                 {	
                     if (playerIn instanceof EntityPlayerMP)
                     { CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)playerIn, blockpos1, itemstack); }
@@ -149,9 +150,7 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
                     	
                     	Entity entity = EntityList.createEntityFromNBT(entityTag, worldIn);
                     	if(itemstack.hasDisplayName())
-                    	{
-                    		entity.setCustomNameTag(itemstack.getDisplayName());
-                    	}
+                    	{ entity.setCustomNameTag(itemstack.getDisplayName()); }
                     	
                     	if (entity instanceof EntityLiving) ((EntityLiving) entity).enablePersistence();
             			entity.setPosition((double)blockpos1.getX() + 0.5, (double)blockpos1.getY(), (double)blockpos1.getZ() + 0.5);
@@ -169,20 +168,20 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
         }
     }
 
-	public boolean tryPlaceWater(@Nullable EntityPlayer player, World worldIn, BlockPos posIn)
+	public boolean tryPlaceBlock(@Nullable EntityPlayer player, ItemStack stack, World worldIn, BlockPos posIn)
     {
 		IBlockState iblockstate = worldIn.getBlockState(posIn);
         Material material = iblockstate.getMaterial();
-        boolean flag = !material.isSolid();
-        boolean flag1 = iblockstate.getBlock().isReplaceable(worldIn, posIn);
+        boolean solid = material.isSolid();
+        boolean replacable = iblockstate.getBlock().isReplaceable(worldIn, posIn);
 
-        if (!worldIn.isAirBlock(posIn) && !flag && !flag1)
-        {
-            return false;
-        }
+        if (!worldIn.isAirBlock(posIn) && solid && !replacable)
+        { return false; }
         else
         {
-        	if (worldIn.provider.doesWaterVaporize())
+			IBlockState state = getBlockFromNBT(stack);
+
+        	if (state.getMaterial() == Material.WATER && worldIn.provider.doesWaterVaporize())
         	{
         		int l = posIn.getX();
                 int i = posIn.getY();
@@ -190,23 +189,45 @@ public class ItemSpawnBucket extends ItemMonsterPlacer
                 worldIn.playSound(player, posIn, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
                 for (int k = 0; k < 8; ++k)
-                {
-                    worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)l + Math.random(), (double)i + Math.random(), (double)j + Math.random(), 0.0D, 0.0D, 0.0D);
-                }
+                { worldIn.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)l + Math.random(), (double)i + Math.random(), (double)j + Math.random(), 0.0D, 0.0D, 0.0D); }
         	}
         	else
         	{
-        		if (!worldIn.isRemote && (flag || flag1) && !material.isLiquid())
-                {
-                    worldIn.destroyBlock(posIn, true);
-                }
+				if (state.getBlock() instanceof BlockDynamicLiquid)
+				{ worldIn.playSound(player, posIn, OESounds.ITEM_SPAWN_BUCKET_EMPTY_FISH, SoundCategory.BLOCKS, 1.0F, 1.0F); }
+                else
+				{
+					AxisAlignedBB blockCollision = state.getCollisionBoundingBox(worldIn, posIn);
+					/* If we know the saves state is not fluid, a Collision check is required. */
+					if (blockCollision != null && !worldIn.checkNoEntityCollision(blockCollision.offset(posIn))) return false;
 
-                worldIn.playSound(player, posIn, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                worldIn.setBlockState(posIn, Blocks.FLOWING_WATER.getDefaultState(), 11);
+					SoundType soundtype = state.getBlock().getSoundType(state, worldIn, posIn, player);
+					worldIn.playSound(player, posIn, soundtype.getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+				}
+
+				if (state.getMaterial() != Material.AIR)
+				{
+					if (!worldIn.isRemote && (!solid || replacable) && !material.isLiquid())
+					{ worldIn.destroyBlock(posIn, true); }
+
+					worldIn.setBlockState(posIn, state, 11);
+				}
         	}
         	return true;
         }
     }
+
+	/* Gets the saved block ID from the ItemStack, as a BlockState.
+	*
+	* If it returns null, default to Water.
+	* */
+	public IBlockState getBlockFromNBT(ItemStack itemStack)
+	{
+		if (!itemStack.getTagCompound().hasKey("block")) return Blocks.FLOWING_WATER.getDefaultState();
+
+		IBlockState state = ConfigArrayHandler.getBlockFromString(itemStack.getTagCompound().getString("block"));
+		return state != null ? state : Blocks.AIR.getDefaultState();
+	}
 
 	/** This pulls the name of the Tropical Fish, and formats it as 'Bucket of [Tropical Fish Variant]' */
 	public String pullSpecialNameFromMob(ItemStack stack)

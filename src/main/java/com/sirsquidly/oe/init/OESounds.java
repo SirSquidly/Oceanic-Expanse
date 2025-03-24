@@ -117,11 +117,14 @@ public class OESounds
 	public static SoundEvent ENTITY_TURTLE_BABY_STEP = soundReadyForRegister("entity.turtle.baby_step");
 	public static SoundEvent ENTITY_TURTLE_STEP = soundReadyForRegister("entity.turtle.step");
 	public static SoundEvent ENTITY_TURTLE_SWIM = soundReadyForRegister("entity.turtle.swim");
+
 	public static SoundEvent ITEM_CONCH_BLOW1 = soundReadyForRegister("item.conch.conch_blow1");
 	public static SoundEvent ITEM_CONCH_BLOW2 = soundReadyForRegister("item.conch.conch_blow2");
 	public static SoundEvent ITEM_CONCH_BLOW3 = soundReadyForRegister("item.conch.conch_blow3");
 	public static SoundEvent ITEM_CONCH_BLOW4 = soundReadyForRegister("item.conch.conch_blow4");
 	public static SoundEvent ITEM_INK_SAC_SQUIRT = soundReadyForRegister("item.ink_sac.squirt");
+	public static SoundEvent ITEM_SPAWN_BUCKET_EMPTY_FISH = soundReadyForRegister("item.spawn_bucket.empty_fish");
+	public static SoundEvent ITEM_SPAWN_BUCKET_FILL_FISH = soundReadyForRegister("item.spawn_bucket.fill_fish");
 	
 	public static void registerSounds()
 	{	

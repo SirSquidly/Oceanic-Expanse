@@ -182,6 +182,12 @@ public class ConfigArrayHandler
 	{
 		String[] ripString = string.split(":");
 
+		if (ripString.length < 2)
+		{
+			Main.logger.error("Improperly written blockstate!");
+			return null;
+		}
+
 		Block block = GameRegistry.findRegistry(Block.class).getValue(new ResourceLocation(ripString[0], ripString[1]));
 		Integer meta = null;
 

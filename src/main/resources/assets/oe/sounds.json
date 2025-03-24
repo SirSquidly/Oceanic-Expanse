@@ -453,6 +453,18 @@
     	"subtitle": "subtitle.oe.ink_sac.squirt",
     	"sounds": [ "oe:item/ink_sac/squirt1", "oe:item/ink_sac/squirt2" ]
      },
+	 "item.spawn_bucket.empty_fish":
+	 {
+		"category": "player",
+		"subtitle": "subtitle.oe.spawn_bucket.empty_fish",
+		"sounds": [ "oe:item/spawn_bucket/empty_fish1", "oe:item/spawn_bucket/empty_fish2", "oe:item/spawn_bucket/empty_fish3" ]
+	 },
+	 "item.spawn_bucket.fill_fish":
+	 {
+		"category": "player",
+		"subtitle": "subtitle.oe.spawn_bucket.fill_fish",
+		 "sounds": [ "oe:item/spawn_bucket/fill_fish1", "oe:item/spawn_bucket/fill_fish2", "oe:item/spawn_bucket/fill_fish3" ]
+	 },
      "entity.drowned.throw": 
      {
     	"category": "hostile",
