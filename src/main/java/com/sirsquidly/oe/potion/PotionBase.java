@@ -5,11 +5,8 @@ import com.sirsquidly.oe.entity.EntityTropicalSlime;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
-import git.jbredwards.fluidlogged_api.api.util.FluidState;
-import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -46,9 +43,9 @@ public class PotionBase extends Potion
     {
 		if(entity.isPotionActive(OEPotions.CONDUIT_POWER))
 		{
-			if ( entity.getActivePotionEffect(OEPotions.CONDUIT_POWER).getDuration() > 1)
+			if (entity.getActivePotionEffect(OEPotions.CONDUIT_POWER).getDuration() > 1)
 			{
-				if (isEntityHeadSubmerged(entity))
+				if (entity.isInsideOfMaterial(Material.WATER))
 				{
 					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 210, 0, true, false));
 
@@ -133,23 +130,6 @@ public class PotionBase extends Potion
 		if (entity.isPotionActive(MobEffects.NIGHT_VISION) && entity.getActivePotionEffect(MobEffects.NIGHT_VISION).getDuration() < 210) entity.removePotionEffect(MobEffects.NIGHT_VISION);
 		if (entity.isPotionActive(MobEffects.HASTE) && entity.getActivePotionEffect(MobEffects.HASTE).getDuration() < 210) entity.removePotionEffect(MobEffects.HASTE);
 		return;
-	}
-
-	/** Tells if the given entity has their head underwater */
-	public static boolean isEntityHeadSubmerged(Entity entity)
-	{
-		/* Special Checks required if Fluidlogged API is being used */
-		if (Main.proxy.fluidlogged_enable)
-		{
-			final FluidState fluidState = FluidloggedUtils.getFluidState(entity.world, new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ));
-
-			if(!fluidState.isEmpty() && fluidState.getMaterial() == Material.WATER && fluidState.isValid())
-			{ return true; }
-		}
-		else if (entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
-		{ return true; }
-
-		return false;
 	}
 
 	/** Required so the effect actually runs. */

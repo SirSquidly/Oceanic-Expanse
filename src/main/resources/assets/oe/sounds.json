@@ -247,6 +247,12 @@
     	"category": "neutral",
     	"sounds": [ "oe:entity/fish/swim1", "oe:entity/fish/swim2", "oe:entity/fish/swim3", "oe:entity/fish/swim4", "oe:entity/fish/swim5", "oe:entity/fish/swim6", "oe:entity/fish/swim7"]
      },
+	"entity.generic.drown_convert":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.generic.drown_convert",
+		"sounds": [ "oe:entity/generic/drown_convert/convert1", "oe:entity/generic/drown_convert/convert2", "oe:entity/generic/drown_convert/convert3" ]
+	},
      "entity.lobster.angry": 
 	 {
     	"category": "neutral",
@@ -456,13 +462,13 @@
 	 "item.spawn_bucket.empty_fish":
 	 {
 		"category": "player",
-		"subtitle": "subtitle.oe.spawn_bucket.empty_fish",
+		"subtitle": "subtitle.oe.item.spawn_bucket.empty_fish",
 		"sounds": [ "oe:item/spawn_bucket/empty_fish1", "oe:item/spawn_bucket/empty_fish2", "oe:item/spawn_bucket/empty_fish3" ]
 	 },
 	 "item.spawn_bucket.fill_fish":
 	 {
 		"category": "player",
-		"subtitle": "subtitle.oe.spawn_bucket.fill_fish",
+		"subtitle": "subtitle.oe.item.spawn_bucket.fill_fish",
 		 "sounds": [ "oe:item/spawn_bucket/fill_fish1", "oe:item/spawn_bucket/fill_fish2", "oe:item/spawn_bucket/fill_fish3" ]
 	 },
      "entity.drowned.throw": 
