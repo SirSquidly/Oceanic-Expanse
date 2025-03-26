@@ -61,8 +61,11 @@ public interface IChecksWater
 	default boolean isAcceptableNeighbor(World worldIn, BlockPos pos, EnumFacing facing)
 	{ return isWaterHere(worldIn, pos) || worldIn.getBlockState(pos).isSideSolid(worldIn, pos, facing); }
 
-	/** If the given block is Water, or Fluidlogged. */
-	default boolean isWaterHere(World worldIn, BlockPos pos)
+	/**
+	 * If the given block is Water, or Fluidlogged.
+	 *  Note: This should NOT be used to MODIFY the fluidlogged state of blocks!
+	 * */
+	default public boolean isWaterHere(World worldIn, BlockPos pos)
 	{
 		if (worldIn.getBlockState(pos).getMaterial() == Material.WATER) return true;
 		if (Main.proxy.fluidlogged_enable)

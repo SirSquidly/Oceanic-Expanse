@@ -82,7 +82,7 @@ public class BlockCoralFull extends Block implements IChecksWater
         for (EnumFacing enumfacing : EnumFacing.values())
         {
         	BlockPos blockpos = pos.offset(enumfacing);
-            if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
+            if (isWaterHere(worldIn, blockpos))
             {
                 flag = true;
                 break;

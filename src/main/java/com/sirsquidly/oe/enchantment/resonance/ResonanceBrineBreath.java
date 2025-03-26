@@ -3,6 +3,7 @@ package com.sirsquidly.oe.enchantment.resonance;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEPotions;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -30,7 +31,8 @@ public class ResonanceBrineBreath extends Resonance
         if (target.getDistanceSq(user) > range * range) return;
 
         target.addPotionEffect(new PotionEffect(OEPotions.DESCENT, 210, 0));
-        target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 210, 0));
+        /* Gives Slowness 2 for Non-Players, 1 for normal Players */
+        target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 210, target instanceof EntityPlayer ? 0 : 1));
 
         spawnResonanceManyParticles(target, user.width, 20);
     }
