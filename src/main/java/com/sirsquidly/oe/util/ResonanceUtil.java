@@ -22,7 +22,7 @@ public abstract class ResonanceUtil
     {
         ResonanceUtil.register(0, new ResonanceWaveWail(Main.MOD_ID + "." + "wave_wail", 8));
         ResonanceUtil.register(1, new ResonanceBrineBreath(Main.MOD_ID + "." + "brine_breath", 16));
-        ResonanceUtil.register(2, new ResonanceCaptainCall(Main.MOD_ID + "." + "captain_call", 0));
+        ResonanceUtil.register(2, new ResonanceCaptainCall(Main.MOD_ID + "." + "captain_call", 0, 4));
         ResonanceUtil.register(3, new ResonanceSeaSerenade(Main.MOD_ID + "." + "sea_serenade", 16));
     }
 

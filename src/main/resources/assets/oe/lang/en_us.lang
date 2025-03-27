@@ -200,11 +200,14 @@ subtitle.oe.crab.ambient=Crab chirps
 subtitle.oe.crab.angry=Crab snips angrily
 subtitle.oe.crab.death=Crab dies
 subtitle.oe.crab.hurt=Crab hurts
+subtitle.oe.generic.drown_convert=Something converts
 subtitle.oe.lobster.angry=Lobster snips angrily
 subtitle.oe.lobster.death=Lobster dies
 subtitle.oe.lobster.hurt=Lobster hurts
 subtitle.oe.lobster.molt=Lobster molts
 subtitle.oe.ink_sac.squirt=Ink Sac Squirts
+subtitle.oe.item.spawn_bucket.empty_fish=Bucket empties
+subtitle.oe.item.spawn_bucket.fill_fish=Something captured
 
 subtitle.oe.cod.death=Cod dies
 subtitle.oe.cod.flop=Cod flops

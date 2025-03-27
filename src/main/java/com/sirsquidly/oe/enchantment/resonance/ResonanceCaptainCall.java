@@ -18,10 +18,7 @@ public class ResonanceCaptainCall extends Resonance
     /** The name placed upon the Magic Conch. */
     protected static String itemName;
 
-    public ResonanceCaptainCall(String nameIn, int resonanceRangeIn)
-    {
-        super(nameIn, resonanceRangeIn);
-    }
+    public ResonanceCaptainCall(String nameIn, int resonanceRangeIn, int durabilityCostIn) { super(nameIn, resonanceRangeIn, durabilityCostIn); }
 
     @Override
     public void onUse(EntityLivingBase user, ItemStack item)
@@ -30,12 +27,16 @@ public class ResonanceCaptainCall extends Resonance
         Main.proxy.spawnParticle(3, user.world, user.posX, user.posY + user.getEyeHeight(), user.posZ, 0, 0.01, 0, 2);
 
         if (item.hasDisplayName()) itemName = item.getDisplayName();
-        doDrownedSummon(user);
+        /** Only damage the item if a Drowned successfully is summoned in! */
+        if (doDrownedSummon(user))
+        { item.damageItem(getDurabilityCost(), user); }
+
         spawnResonanceManyParticles(user, user.width, 80);
     }
 
-    /** Summons a Drowned, who is friendly to the player. */
-    private static void doDrownedSummon(EntityLivingBase user)
+    /** Summons a Drowned, who is friendly to the player.
+     * @return*/
+    private static boolean doDrownedSummon(EntityLivingBase user)
     {
         BlockPos pos = new BlockPos(user);
         int maxAttempts = 80;
@@ -44,10 +45,16 @@ public class ResonanceCaptainCall extends Resonance
         {
             EntityDrowned entity = new EntityDrowned(user.world);
 
+            /** Summoned Drowned. */
             if (user instanceof EntityPlayer)
             {
                 entity = new EntityDrownedSummon(user.world);
                 ((EntityDrownedSummon) entity).setOwnerId(user.getUniqueID());
+            }
+            else if (user instanceof EntityDrownedSummon)
+            {
+                entity = new EntityDrownedSummon(user.world);
+                ((EntityDrownedSummon) entity).setOwnerId(((EntityDrownedSummon)user).getOwnerId());
             }
 
             int offsetX = user.world.rand.nextInt(10 * 2) - 10;
@@ -69,7 +76,7 @@ public class ResonanceCaptainCall extends Resonance
                     entity.targetTasks.addTask(3, new EntityAIHurtByTarget(entity, false));
                     entity.tasks.addTask(4, new EntityAISummonCrew(entity, user));
 
-                    entity.playSound(OESounds.ENTITY_TRIDENT_THUNDER, 1.0F, 1.0F);
+                    entity.playSound(OESounds.ENTITY_GENERIC_DROWN_CONVERT, 1.0F, 1.0F);
 
                     for (int j = 0; j < 80; j++)
                     {
@@ -82,10 +89,11 @@ public class ResonanceCaptainCall extends Resonance
                     entity.setAttackTarget(user.getLastAttackedEntity());
 
                     user.world.spawnEntity(entity);
-                    break;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     @Override
