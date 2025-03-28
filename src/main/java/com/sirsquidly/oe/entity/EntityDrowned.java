@@ -286,15 +286,26 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     public void setRiptideUseTime(int time)
     { this.dataManager.set(RIPTIDE_TIME, time); }
 
+    /**
+     * Used when setting the Attack Target, since Drowned have special rules for targeting.
+     *
+     * If the target is not wet during the day, do not pass. If the target is a Trident Drowned, do not pass.
+     * Extra class checks are there so Drowned Shipmates don't use these rules, and Drowned can infight them.
+     */
     @Override
-    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
+    public void setAttackTarget(@Nullable EntityLivingBase attackTarget)
     {
-        if (entitylivingbaseIn != null && !entitylivingbaseIn.isDead && !entitylivingbaseIn.isWet() && this.world.isDaytime())
-        {}
-        if (entitylivingbaseIn instanceof EntityDrowned && entitylivingbaseIn.getHeldItemMainhand().getItem() == OEItems.TRIDENT_ORIG)
-        {}
-        else
-        { super.setAttackTarget(entitylivingbaseIn); }
+        if (this.getClass() == EntityDrowned.class)
+        {
+            if (attackTarget == null || attackTarget.isDead)
+            {
+                super.setAttackTarget(attackTarget);
+                return;
+            }
+            if (!attackTarget.isWet() && this.world.isDaytime()) return;
+            if (attackTarget.getClass() == this.getClass() && attackTarget.getHeldItemMainhand().getItem() == OEItems.TRIDENT_ORIG) return;
+        }
+        super.setAttackTarget(attackTarget);
     }
     
     @Override
