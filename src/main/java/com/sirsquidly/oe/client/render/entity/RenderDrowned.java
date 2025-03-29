@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.client.render.entity.layer.LayerRiptideAnim;
+import net.minecraft.entity.monster.EntitySpider;
 import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.Main;
@@ -23,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderDrowned extends RenderLiving<EntityDrowned>
+public class RenderDrowned<T extends EntityDrowned> extends RenderLiving<T>
 {
 	public static final ResourceLocation DROWNED_ZOMBIE_CAPTAIN_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_captain.png");
 	public static final ResourceLocation DROWNED_ZOMBIE_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned.png");
@@ -59,13 +60,17 @@ public class RenderDrowned extends RenderLiving<EntityDrowned>
         return (ModelZombie)super.getMainModel();
     }
 	
-	protected ResourceLocation getEntityTexture(EntityDrowned entity)
-	{
-		return entity.isCaptain() && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptainTexture ? DROWNED_ZOMBIE_CAPTAIN_TEXTURE : DROWNED_ZOMBIE_TEXTURE;
-	}
+	protected ResourceLocation getEntityTexture(T entity)
+	{ return entity.isCaptain() && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptainTexture ? DROWNED_ZOMBIE_CAPTAIN_TEXTURE : DROWNED_ZOMBIE_TEXTURE; }
+
+	/**
+	 * `getEntityTexture` has protected access and needs to be utilized via RenderLiving, so this is a public method so the LayerRenderer can check the texture
+	 * */
+	public ResourceLocation accessEntityTexture(T entity)
+	{ return getEntityTexture(entity); }
 	
 	@Override
-	protected void preRenderCallback(EntityDrowned entity, float f) 
+	protected void preRenderCallback(T entity, float f)
 	{
 		float size = 0.9375F;
 		GlStateManager.scale(size, size, size);
