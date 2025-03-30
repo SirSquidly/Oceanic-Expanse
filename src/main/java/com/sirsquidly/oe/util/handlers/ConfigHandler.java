@@ -1236,7 +1236,29 @@ public class ConfigHandler
 		    	"minecraft:soul_sand=oe:gameplay/crab_dig/soul_sand"
 		    };
 	    }
-		
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.dolphin")
+		public configDolphin dolphin = new configDolphin();
+
+		public static class configDolphin
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.dolphin.enableDolphin")
+			@Config.Comment("If Dolphins should be enabled")
+			public boolean enableDolphin = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.dolphin.dolphinsRequireAir")
+			@Config.Comment("If Dolphins require Air to prevent suffocation. This does not alter their Moistness (water) requirement.")
+			public boolean dolphinsRequireAir = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.dolphin.dolphinsGiveGrace")
+			@Config.Comment("Allows Dolphins to grant Dolphin's Grace to nearby sprint-swimming Players")
+			public boolean dolphinsGiveGrace = true;
+		}
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.glowSquid")
 	    public configGlowSquid glowSquid = new configGlowSquid();

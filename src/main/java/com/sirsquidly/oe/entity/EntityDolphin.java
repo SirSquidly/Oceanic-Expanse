@@ -5,9 +5,9 @@ import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import net.minecraft.block.material.Material;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityGuardian;
@@ -26,19 +26,20 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Set;
 
-public class EntityDolphin extends AbstractFish
+public class EntityDolphin extends AbstractFish implements IMeleeAnimal
 {
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(OEItems.LOBSTER_COOKED);
     private static final DataParameter<Integer> MOISTURE = EntityDataManager.createKey(EntityDolphin.class, DataSerializers.VARINT);
 
+    /* Default is 4800*/
     int maxAir = 4800;
+    /* Default is 2400*/
     int maxMoistness = 2400;
 
 	public EntityDolphin(World worldIn)
@@ -64,15 +65,15 @@ public class EntityDolphin extends AbstractFish
 	
 	protected void initEntityAI()
     {
-        this.tasks.addTask(1, new DolphinAiGetToAir(this, 1.0D, 64));
+        this.tasks.addTask(0, new DolphinAiGetToAir(this, 1.0D));
         this.tasks.addTask(2, new DolphinAiFollowPlayer(this, 4.0D));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
-        this.tasks.addTask(4, new EntityAIAvoidEntity<>(this, EntityGuardian.class, 8.0F, 1.0D, 1.0D));
         this.tasks.addTask(4, new EntityAIWanderUnderwater(this, 1.0D, 10, true));
+        this.tasks.addTask(4, new EntityAILookIdle(this));
         this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(6, new EntityAIMate(this, 1.0D));
-		this.tasks.addTask(7, new EntityAILookIdle(this));
-		this.tasks.addTask(7, new DolphinAIFollowParent(this, 1.25D));
+        this.tasks.addTask(6, new DolphinAIFollowParent(this, 1.25D));
+        this.tasks.addTask(7, new EntityAIAvoidEntity<>(this, EntityGuardian.class, 8.0F, 1.0D, 1.0D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
     }
 
@@ -111,93 +112,44 @@ public class EntityDolphin extends AbstractFish
 
         if (this.isEntityAlive())
         {
-            /* TODO: Write better check to avoid suffocation if too far to move! */
-            /* If the Dolphin cannot move, but is receiving updates, just manually give it Air and Moistness. Also applies if AI is disabled. */
-            if (!this.world.isBlockLoaded(this.getPosition(), false) || this.isAIDisabled())
+            if (!this.isMovementBlocked() && this.isServerWorld() && !this.isAIDisabled())
+            {
+                if (this.isWet()) this.setMoisture(maxMoistness);
+                else
+                {
+                    int j = this.getMoisture();
+                    --j;
+                    this.setMoisture(j);
+
+                    if (this.getMoisture() == -20)
+                    {
+                        this.setMoisture(0);
+                        this.attackEntityFrom(DamageSource.DROWN, 1.0F);
+                    }
+                }
+
+                if (ConfigHandler.entity.dolphin.dolphinsRequireAir)
+                {
+                    /* This is used to restore Air more generously than vanilla, so Dolphins are more likely to get their air */
+                    if (!this.isInsideOfMaterial(Material.WATER) || this.isPotionActive(MobEffects.WATER_BREATHING))
+                    { this.setAir(maxAir); }
+                    else
+                    {
+                        if (this.world.getBlockState(new BlockPos(this.posX, this.posY + this.height + 0.2, this.posZ)).getMaterial() == Material.AIR)
+                        { this.setAir(maxAir); }
+                    }
+                }
+            }
+            else
             {
                 this.setMoisture(maxMoistness);
                 this.setAir(maxAir);
-                return;
-            }
-
-            if (this.isWet()) this.setMoisture(maxMoistness);
-            else
-            {
-                int j = this.getMoisture();
-                --j;
-                this.setMoisture(j);
-
-                if (this.getMoisture() == -20)
-                {
-                    this.setMoisture(0);
-                    this.attackEntityFrom(DamageSource.DROWN, 1.0F);
-                }
-            }
-
-            /* This is used to restore Air more generously than vanilla, so Dolphins are more likely to get their air */
-            if (!this.isInsideOfMaterial(Material.WATER) || this.isPotionActive(MobEffects.WATER_BREATHING))
-            { this.setAir(maxAir); }
-            else
-            {
-                if (this.world.getBlockState(new BlockPos(this.posX, this.posY + this.height + 0.2, this.posZ)).getMaterial() == Material.AIR)
-                { this.setAir(maxAir); }
             }
         }
     }
 
     public boolean attackEntityAsMob(Entity entityIn)
-    {
-        float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-        int i = 0;
-
-        if (entityIn instanceof EntityLivingBase)
-        {
-            f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase)entityIn).getCreatureAttribute());
-            i += EnchantmentHelper.getKnockbackModifier(this);
-        }
-
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
-
-        if (flag)
-        {
-            if (i > 0 && entityIn instanceof EntityLivingBase)
-            {
-                ((EntityLivingBase)entityIn).knockBack(this, (float)i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), -MathHelper.cos(this.rotationYaw * 0.017453292F));
-                this.motionX *= 0.6D;
-                this.motionZ *= 0.6D;
-            }
-
-            int j = EnchantmentHelper.getFireAspectModifier(this);
-
-            if (j > 0)
-            { entityIn.setFire(j * 4); }
-
-            if (entityIn instanceof EntityPlayer)
-            {
-                EntityPlayer entityplayer = (EntityPlayer)entityIn;
-                ItemStack itemstack = this.getHeldItemMainhand();
-                ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
-
-                if (!itemstack.isEmpty() && !itemstack1.isEmpty() && itemstack.getItem().canDisableShield(itemstack, itemstack1, entityplayer, this) && itemstack1.getItem().isShield(itemstack1, entityplayer))
-                {
-                    float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
-
-                    if (this.rand.nextFloat() < f1)
-                    {
-                        entityplayer.getCooldownTracker().setCooldown(itemstack1.getItem(), 100);
-                        this.world.setEntityState(entityplayer, (byte)30);
-                    }
-                }
-            }
-            this.applyEnchantments(this, entityIn);
-        }
-        return flag;
-    }
-
-    /** TODO: Look into Sky checking? Using direct 'canSeeSky' seems to be returning false always. */
-    @Override
-    public boolean getCanSpawnHere()
-    { return super.getCanSpawnHere(); }
+    { return normalAttack(this, entityIn); }
 
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
@@ -245,106 +197,81 @@ public class EntityDolphin extends AbstractFish
 
     public class DolphinAiGetToAir extends EntityAIBase
     {
-        protected int runDelay;
-        protected int runDelayReset = 50;
-        protected int runDelayResetRandAdd = 50;
         protected BlockPos destinationBlock = BlockPos.ORIGIN;
         EntityCreature dolphin;
         private final double movementSpeed;
         private int timeoutCounter;
-        private final int searchLength;
 
-        /* How long the mob has been at the desired destination */
-        private int stayTicks;
-        /* How long the mob is allowed to/supposed to stay at the desired destination */
-        private int maxStayTicks;
-
-        public DolphinAiGetToAir(EntityCreature creature, double speedIn, int length)
+        public DolphinAiGetToAir(EntityCreature creature, double speedIn)
         {
             this.dolphin = creature;
             this.movementSpeed = speedIn;
-            this.searchLength = length;
             this.setMutexBits(1);
         }
 
         public boolean shouldExecute()
-        {
-            /* If the destination is already set, then continue trying to reach it */
-            if (destinationBlock != BlockPos.ORIGIN)
-            { return true; }
-
-            if (--this.runDelay <= 0)
-            {
-                this.runDelay = runDelayReset + this.dolphin.getRNG().nextInt(runDelayResetRandAdd);
-                return this.dolphin.getAir() < 250 && this.dolphin.isInWater() && this.searchForDestination();
-            }
-
-            return false;
-        }
+        { return this.dolphin.getAir() < 250; }
 
         public boolean shouldContinueExecuting()
-        { return this.maxStayTicks > this.stayTicks && this.timeoutCounter <= 1200 && this.shouldMoveTo(this.dolphin.world, this.destinationBlock); }
+        { return this.destinationBlock != BlockPos.ORIGIN && this.dolphin.getNavigator().noPath(); }
 
+        /* This sets the Destination Block for the Dolphin to head to. If Air cannot be found, the Dolphin just moves straight up. */
+        @Override
         public void startExecuting()
         {
-            this.dolphin.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, this.destinationBlock.getY() + 1, (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-            this.timeoutCounter = 0;
-            this.stayTicks = 0;
-            this.maxStayTicks = 5;
+            if (!getNearestAir())
+            { this.destinationBlock = this.dolphin.getPosition().up(8); }
+
+            this.dolphin.getNavigator().tryMoveToXYZ( destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, destinationBlock.getZ() + 0.5D, this.movementSpeed );
         }
 
         /** Required, clears the destination if the task is reset. */
         public void resetTask()
-        { this.destinationBlock = BlockPos.ORIGIN; }
+        {
+            this.destinationBlock = BlockPos.ORIGIN;
+            this.dolphin.getNavigator().clearPath();
+        }
 
         public void updateTask()
         {
-            this.dolphin.getLookHelper().setLookPosition((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 0.5D), (double)((float)this.destinationBlock.getZ()) + 0.5D, 10.0F, 0.0F);
-
+            //this.dolphin.getLookHelper().setLookPosition(destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, destinationBlock.getZ() + 0.5D, 10.0F, 0.0F);
             if (this.dolphin.getDistanceSqToCenter(this.destinationBlock) > 1.0D)
             {
-                ++this.timeoutCounter;
-
-                if (this.timeoutCounter % 40 == 0)
+                if (++this.timeoutCounter % 20 == 0)
                 {
-                    this.dolphin.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 0.5D), (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+                    /* If the navigator fails for any reason, override it with a simpler goal! */
+                    if (this.dolphin.getNavigator().tryMoveToXYZ(destinationBlock.getX() + 0.5D, destinationBlock.getY() + 1, destinationBlock.getZ() + 0.5D, this.movementSpeed))
+                    { this.destinationBlock = this.dolphin.getPosition().up(8); }
                 }
             }
-            else
-            {
-                ++stayTicks;
-                if (this.dolphin.isInWater()) this.dolphin.motionY = 0.2D;
-            }
+            else if (this.dolphin.isInWater())
+            { this.dolphin.motionY = 0.2D; }
         }
 
-        private boolean searchForDestination()
+        private boolean getNearestAir()
         {
-            BlockPos.MutableBlockPos blockPos = new BlockPos.MutableBlockPos(this.dolphin.getPosition());
             int maxRadiusXZ = 2;
             int maxRadiusY = 8;
+            BlockPos bestBlock = null;
+            double shortestDistance = Double.MAX_VALUE;
 
-            for (int radiusY = 1; radiusY <= maxRadiusY; radiusY++)
+            for (BlockPos pos : BlockPos.getAllInBoxMutable( this.dolphin.getPosition().add(-maxRadiusXZ, 0, -maxRadiusXZ), this.dolphin.getPosition().add(maxRadiusXZ, maxRadiusY, maxRadiusXZ)))
             {
-                for (int radiusXZ = 1; radiusXZ <= maxRadiusXZ; radiusXZ++)
+                if (shouldMoveTo(this.dolphin.world, pos) && this.dolphin.isWithinHomeDistanceFromPosition(pos))
                 {
-                    for (int x1 = -radiusXZ; x1 <= radiusXZ; x1++)
-                    {
-                        for (int y1 = 0; y1 <= radiusY; y1++)
-                        {
-                            for (int z1 = -radiusXZ; z1 <= radiusXZ; z1++)
-                            {
-                                /* Zero need to re-check positions, so only scan at the edge of the current value of radius! */
-                                if (Math.abs(x1) == radiusXZ || Math.abs(y1) == radiusY || Math.abs(z1) == radiusXZ)
-                                    blockPos.setPos(this.dolphin.posX + x1, this.dolphin.posY + y1, this.dolphin.posZ + z1);
+                    double distanceSq = this.dolphin.getDistanceSqToCenter(pos);
 
-                                if (this.dolphin.isWithinHomeDistanceFromPosition(blockPos) && this.shouldMoveTo(this.dolphin.world, blockPos) && dolphin.getNavigator().getPathToPos(blockPos) != null) {
-                                    this.destinationBlock = blockPos;
-                                    return true;
-                                }
-                            }
-                        }
+                    if (distanceSq < shortestDistance && this.dolphin.getNavigator().getPathToPos(pos) != null)
+                    {
+                        shortestDistance = distanceSq;
+                        bestBlock = pos.toImmutable();
                     }
                 }
+            }
+            if (bestBlock != null)
+            {
+                this.destinationBlock = bestBlock;
+                return true;
             }
             return false;
         }
@@ -386,10 +313,8 @@ public class EntityDolphin extends AbstractFish
             else
             { this.dolphin.getNavigator().clearPath(); }
 
-            if (this.dolphin.getDistance(followPlayer) <= 15)
-            {
-                this.followPlayer.addPotionEffect(new PotionEffect(OEPotions.DOLPHINS_GRACE, 110, 0));
-            }
+            if (ConfigHandler.entity.dolphin.dolphinsGiveGrace && this.dolphin.getDistance(followPlayer) <= 15)
+            { this.followPlayer.addPotionEffect(new PotionEffect(OEPotions.DOLPHINS_GRACE, 110, 0)); }
         }
 
         /** Many checks for the player which get repeated */

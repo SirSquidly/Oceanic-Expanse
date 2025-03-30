@@ -28,7 +28,7 @@ public class OEEntities
 		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) registerEntity("tropical_fish", EntityTropicalFish.class, ++id, 64, 16019232, 15724527);
 		if (ConfigHandler.entity.pufferfish.enablePufferfish) registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
 		if (ConfigHandler.entity.turtle.enableTurtle) registerEntity("turtle", EntityTurtle.class, ++id, 64, 12763520, 4702026);
-		registerEntity("dolphin", EntityDolphin.class, ++id, 80, 5609880, 12434265);
+		if (ConfigHandler.entity.dolphin.enableDolphin) registerEntity("dolphin", EntityDolphin.class, ++id, 64, 5265784, 14213610);
 		if (ConfigHandler.entity.crab.enableCrab) registerEntity("crab", EntityCrab.class, ++id, 64, 11765373, 14894652);
 		if (ConfigHandler.entity.clam.enableClam) registerEntity("clam", EntityClam.class, ++id, 64, 14327661, 15701910);
 		if (ConfigHandler.entity.lobster.enableLobster) registerEntity("lobster", EntityLobster.class, ++id, 64, 7425351, 14894652);
