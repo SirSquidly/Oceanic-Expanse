@@ -12,11 +12,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderDrownedSummon extends RenderDrowned<EntityDrownedSummon>
 {
 	public static final ResourceLocation DROWNED_ZOMBIE_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned.png");
-	public static final ResourceLocation DROWNED_SUMMON_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_shipmate/drowned_shipmate.png");
+	private static final ResourceLocation[] DROWNED_SUMMON_TEXTURE = new ResourceLocation[]
+			{
+					new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_shipmate/drowned_shipmate0.png"),
+					new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_shipmate/drowned_shipmate1.png"),
+					new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_shipmate/drowned_shipmate2.png"),
+					new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_shipmate/drowned_shipmate3.png")
+			};
 
 	public RenderDrownedSummon(RenderManager manager)
     { super(manager); }
-	
+
 	protected ResourceLocation getEntityTexture(EntityDrownedSummon entity)
-	{ return ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptainTexture ? DROWNED_SUMMON_TEXTURE : DROWNED_ZOMBIE_TEXTURE; }
+	{ return ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptainTexture ? DROWNED_SUMMON_TEXTURE[entity.getVariant()] : DROWNED_ZOMBIE_TEXTURE; }
 }

@@ -3,11 +3,9 @@ package com.sirsquidly.oe.enchantment.resonance;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.entity.EntityDrownedSummon;
-import com.sirsquidly.oe.entity.ai.EntityAISummonCrew;
 import com.sirsquidly.oe.init.OESounds;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -34,8 +32,10 @@ public class ResonanceCaptainCall extends Resonance
         spawnResonanceManyParticles(user, user.width, 80);
     }
 
-    /** Summons a Drowned, who is friendly to the player.
-     * @return*/
+    /**
+     * Summons a Drowned, who is friendly to the player.
+     * @return Boolean; If the spawn passes.
+     * */
     private static boolean doDrownedSummon(EntityLivingBase user)
     {
         BlockPos pos = new BlockPos(user);
@@ -50,11 +50,13 @@ public class ResonanceCaptainCall extends Resonance
             {
                 entity = new EntityDrownedSummon(user.world);
                 ((EntityDrownedSummon) entity).setOwnerId(user.getUniqueID());
+                ((EntityDrownedSummon) entity).setVariant(user.world.rand.nextInt(4));
             }
             else if (user instanceof EntityDrownedSummon)
             {
                 entity = new EntityDrownedSummon(user.world);
                 ((EntityDrownedSummon) entity).setOwnerId(((EntityDrownedSummon)user).getOwnerId());
+                ((EntityDrownedSummon) entity).setVariant(user.world.rand.nextInt(4));
             }
 
             int offsetX = user.world.rand.nextInt(10 * 2) - 10;
@@ -72,10 +74,6 @@ public class ResonanceCaptainCall extends Resonance
 
                 if (user.world.getBlockState(spawnPos).getMaterial() == Material.WATER || i > maxAttempts / 2 && user.world.getBlockState(groundPos).isSideSolid(user.world, groundPos, EnumFacing.UP))
                 {
-                    entity.targetTasks.taskEntries.clear();
-                    entity.targetTasks.addTask(3, new EntityAIHurtByTarget(entity, false));
-                    entity.tasks.addTask(4, new EntityAISummonCrew(entity, user));
-
                     entity.playSound(OESounds.ENTITY_GENERIC_DROWN_CONVERT, 1.0F, 1.0F);
 
                     for (int j = 0; j < 80; j++)
@@ -99,9 +97,9 @@ public class ResonanceCaptainCall extends Resonance
     @Override
     public void spawnResonanceParticle(EntityLivingBase user, float distance)
     {
-        double posX = (double)user.posX + ((user.getRNG().nextFloat() * 2 - 1) * distance);
-        double posY = (double)user.posY + ((user.getRNG().nextFloat() * 2 - 1) * distance);
-        double posZ = (double)user.posZ + ((user.getRNG().nextFloat() * 2 - 1) * distance);
+        double posX = user.posX + ((user.getRNG().nextFloat() * 2 - 1) * distance);
+        double posY = user.posY + ((user.getRNG().nextFloat() * 2 - 1) * distance);
+        double posZ = user.posZ + ((user.getRNG().nextFloat() * 2 - 1) * distance);
         double speedX = (user.getRNG().nextFloat() * 2 - 1) * 0.2F;
         double speedZ = (user.getRNG().nextFloat() * 2 - 1) * 0.2F;
 

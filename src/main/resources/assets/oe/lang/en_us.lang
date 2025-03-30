@@ -126,6 +126,7 @@ entity.oe.baby_glow_squid.name=Baby Glow Squid
 entity.oe.baby_squid.name=Baby Squid
 entity.oe.crab.name=Crab
 entity.oe.clam.name=Clam
+entity.oe.drowned_shipmate.name=Drowned Shipmate
 entity.oe.glow_item_frame.name=Glow Item Frame
 entity.oe.lobster.name=Lobster
 entity.oe.palm_boat.name=Palm Boat
@@ -180,9 +181,9 @@ resonance.oe.captain_call=Captain's Call
 resonance.oe.sea_serenade=Sea's Serenade
 
 description.resonance.oe.wave_wail=Knocks entities away from the user.
-description.resonance.oe.brine_breath=Grants Slowness and Descent to nearby entities.
+description.resonance.oe.brine_breath=Inflicts Slowness and Descent upon nearby entities.
 description.resonance.oe.captain_call=Summons a friendly Drowned.
-description.resonance.oe.sea_serenade=Grants Regeneration and Dolphin's Grace to nearby entities, and grants Instant Health to Undead.
+description.resonance.oe.sea_serenade=Grants Regeneration and Dolphin's Grace upon nearby entities, and inflicts Instant Health to Undead.
 
 subtitle.oe.coconut_hit=Coconut clonk
 subtitle.oe.clam.close=Clam closes
