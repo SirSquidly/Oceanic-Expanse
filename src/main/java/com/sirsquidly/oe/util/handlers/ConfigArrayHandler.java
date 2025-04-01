@@ -291,7 +291,7 @@ public class ConfigArrayHandler
 				case "enableWaterTorch": return ConfigHandler.block.waterTorch.enableWaterTorch;
 				case "enableUnderwaterTNT": return ConfigHandler.block.waterTNT.enableWaterTNT;
 
-				case "enablePackedIceCraft": return ConfigHandler.block.enablePackedIceRecipe;
+				case "enablePackedIceCraft": return ConfigHandler.vanillaTweak.enablePackedIceRecipe;
 				case "tridentAllIngredients": return ConfigHandler.item.trident.enableTridentCrafting & ConfigHandler.item.trident.enableTrident & ConfigHandler.block.guardianSpike.enableGuardianSpike;
 				case "turtleShellAllIngredients": return ConfigHandler.item.turtleShell.enableTurtleShell & ConfigHandler.item.enableTurtleScute;
 			}
