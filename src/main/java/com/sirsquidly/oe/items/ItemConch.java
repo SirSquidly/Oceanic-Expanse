@@ -86,7 +86,7 @@ public class ItemConch extends Item
     }
 	
 	/** Adds a random sound to a new Conch.*/
-	public void addRandomSound(ItemStack stack, Random rand)
+	public static void addRandomSound(ItemStack stack, Random rand)
 	{
 		int conchNum = rand.nextInt(4) + 1;
 		setSound(stack, conchNum);

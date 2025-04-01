@@ -1,7 +1,6 @@
 package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.client.render.entity.layer.LayerRiptideAnim;
-import net.minecraft.entity.monster.EntitySpider;
 import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.Main;
@@ -28,7 +27,9 @@ public class RenderDrowned<T extends EntityDrowned> extends RenderLiving<T>
 {
 	public static final ResourceLocation DROWNED_ZOMBIE_CAPTAIN_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_captain.png");
 	public static final ResourceLocation DROWNED_ZOMBIE_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned.png");
-	/** This is seperate so the same model is used for LayerCustomHead */
+	private static final ResourceLocation[] DROWNED_EMISSIVE_TEXTURE = new ResourceLocation[] { new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_e.png"), new ResourceLocation(Main.MOD_ID + ":textures/entities/zombie/drowned_captain_e.png") };
+
+	/** This is separate so the same model is used for LayerCustomHead */
 	public static ModelDrowned model = new ModelDrowned();
 	
 	public RenderDrowned(RenderManager manager)
@@ -63,11 +64,9 @@ public class RenderDrowned<T extends EntityDrowned> extends RenderLiving<T>
 	protected ResourceLocation getEntityTexture(T entity)
 	{ return entity.isCaptain() && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptainTexture ? DROWNED_ZOMBIE_CAPTAIN_TEXTURE : DROWNED_ZOMBIE_TEXTURE; }
 
-	/**
-	 * `getEntityTexture` has protected access and needs to be utilized via RenderLiving, so this is a public method so the LayerRenderer can check the texture
-	 * */
-	public ResourceLocation accessEntityTexture(T entity)
-	{ return getEntityTexture(entity); }
+	/** Returns the emissive texture to be rendered within `LayerDrowned` */
+	public ResourceLocation getEntityEmissiveTexture(T entity)
+	{ return DROWNED_EMISSIVE_TEXTURE[entity.isCaptain() ? 1: 0]; }
 	
 	@Override
 	protected void preRenderCallback(T entity, float f)

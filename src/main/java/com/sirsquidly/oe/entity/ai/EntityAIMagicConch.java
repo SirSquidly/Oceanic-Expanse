@@ -1,18 +1,23 @@
 package com.sirsquidly.oe.entity.ai;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.enchantment.resonance.Resonance;
+import com.sirsquidly.oe.enchantment.resonance.ResonanceCaptainCall;
+import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.items.ItemConch;
 import com.sirsquidly.oe.util.ResonanceUtil;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 
 public class EntityAIMagicConch extends EntityAIBase
 {
@@ -73,6 +78,13 @@ public class EntityAIMagicConch extends EntityAIBase
             {
                 Resonance resonance = ResonanceUtil.getResonance(this.heldItemOffhand);
                 if (resonance != null) resonance.onUse(this.entityHost, this.heldItemOffhand);
+            }
+            else if (this.entityHost instanceof EntityDrowned && ((EntityDrowned) this.entityHost).isCaptain())
+            {
+                Resonance captainResonance = new ResonanceCaptainCall(Main.MOD_ID + "true_captain_call", 0,0);
+                captainResonance.onUse(this.entityHost, this.heldItemOffhand);
+
+                //if (ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainEquippedSpawns) entityDrowned.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityDrowned)), (IEntityLivingData)null);
             }
 
             this.entityHost.resetActiveHand();

@@ -72,9 +72,8 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 				int posX = chunkPosX + x;
 				int posZ = chunkPosZ + z;
 
-				BlockPos pos = world.getTopSolidOrLiquidBlock(new BlockPos(posX, 0, posZ));
-                
-                Biome biome = world.getBiomeForCoordsBody(pos);
+				BlockPos posWaterFloor = world.getTopSolidOrLiquidBlock(new BlockPos(posX, 0, posZ));
+                Biome biome = world.getBiomeForCoordsBody(posWaterFloor);
                 
                 boolean isValidBiome = false;
                 boolean isBeachBiome = false;	
@@ -91,34 +90,35 @@ public class GeneratorFrozenOcean implements IWorldGenerator
         		}
 
 				/** The scale of Frozen Oceans. Noise filter, so smaller number = larger results. 4 is default. 0.6*/
-				double frozenOceanScale = 0.1;
+				double frozenOceanScale = 0.6;
 
 				if (isValidBiome && ConfigHandler.worldGen.frozenOcean.enableFrozenOcean && this.frozenOceanNoiseGen[x * 16 + z] / frozenOceanScale - rand.nextDouble() * 0.01 > 0.0 && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6))
 				{
-					BlockPos posSurface = world.getHeight(new BlockPos(posX, 0, posZ));
+					BlockPos posWaterSurface = world.getHeight(new BlockPos(posX, 0, posZ));
 
-					if (world.getBlockState(pos.down()).getBlock() == Blocks.SAND)
-					{ world.setBlockState(pos.down(), Blocks.GRAVEL.getDefaultState(), 16 | 2); }
+					if (world.getBlockState(posWaterFloor.down()).getBlock() == Blocks.SAND)
+					{ world.setBlockState(posWaterFloor.down(), Blocks.GRAVEL.getDefaultState(), 16 | 2); }
 
 					if (ConfigHandler.worldGen.frozenOcean.enableIcebergs && !isBeachBiome)
 					{
-						spawnIceBerg(world, rand, posSurface, chunkX, chunkZ, x, z, false, 0.3, 0.01, 3, 1);
-						spawnIceBerg(world, rand, posSurface, chunkX, chunkZ, x, z, true, 0.3, 0.01, 10, 0.5);
-						icebergToppings(world, rand, posSurface, chunkX, chunkZ, x, z);
+						spawnIceBerg(world, rand, posWaterSurface, chunkX, chunkZ, x, z, false, 0.3, 0.01, 3, 1);
+						spawnIceBerg(world, rand, posWaterSurface, chunkX, chunkZ, x, z, true, 0.3, 0.01, 10, 0.5);
+						icebergToppings(world, rand, posWaterSurface, chunkX, chunkZ, x, z);
 					}
 
 					//floatingIceCleaner(world, posSurface);
 
 					if (ConfigHandler.worldGen.frozenOcean.enableIceSheet && this.iceSheetNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.225 > ConfigHandler.worldGen.frozenOcean.iceSheetSpread)
 					{
-						if (world.getBlockState(posSurface.down()).getBlock() == Blocks.WATER)
-						{ world.setBlockState(posSurface.down(), Blocks.ICE.getDefaultState(), 16 | 2); }
+						if (world.getBlockState(posWaterSurface.down()).getBlock() == Blocks.WATER)
+						{ world.setBlockState(posWaterSurface.down(), Blocks.ICE.getDefaultState(), 16 | 2); }
 					}
 
+					/* TODO: Test if generators are better when placed BEFORE all the surface generation (Split into Stages/Layers?) */
 					/** Doesn't use new coordinates because it doesn't seem to be causing any issues as is.*/
 					if (x == 15 && z == 15)
 					{
-						if (ConfigHandler.worldGen.frozenOcean.frozenSeafloor.enableRockDecor) spawnRockDecor(world, rand, pos, chunkX, chunkZ, x, z);
+						if (ConfigHandler.worldGen.frozenOcean.frozenSeafloor.enableRockDecor) spawnRockDecor(world, rand, posWaterFloor, chunkX, chunkZ, x, z);
 						if (ConfigHandler.block.enableSeastar) new WorldGenOceanPatch(OEBlocks.SEASTAR.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 						if (ConfigHandler.block.tubeSponge.enableTubeSponge) new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeChancePerChunk, 8, 4, 4, 0.0, false, biomes).setSeaLevelMinRequirement(10).setIntStatePropertyRange(BlockTubeSponge.AGE, 0,3).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 						if (ConfigHandler.block.dulse.enableDulse) new WorldGenOceanPatch(OEBlocks.DULSE.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dusleTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dulseChancePerChunk, 8, 4, 4, 0.0, false, biomes).setSeaLevelMinRequirement(1).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
@@ -147,19 +147,18 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 		for (int y = maxHeight; y >= maxDepth; y--)
 		{
 			BlockPos icePos = new BlockPos(chunkX * 16 + 8 + x, y, chunkZ * 16 + 8 + z);
-			/** Block height above or below Sea Level. */
+			/* Block height above or below Sea Level. */
 			int seaLevelDifference = y - seaLevel;
 
-			/** Used to round off the tips of the Icebergs. */
+			/* Used to round off the tips of the Icebergs. */
 			double topHeightRatio = Math.pow((double) seaLevelDifference / heightSmoothening, slopeFactor);
-			//double topHeightDropoff = scale + seaLevelDifference * vertScale + topHeightRatio;
 
-			//How far down it goes. Smaller number is more.
+			/* Used for scaling the bottom of the Iceberg, smaller = larger changes. */
 			double bottomVertScale = vertScale / 1.5;
 			double bottomHeightRatio = Math.pow(((double) -seaLevelDifference * 2 / heightSmoothening) / 4, slopeFactor);
 			double bottomHeightDropoff = scale - seaLevelDifference * bottomVertScale + bottomHeightRatio;
 
-			/** Sets the SeaLevel and one block above to use the same result, giving Icebergs the sharp edged where they touch the water..*/
+			/* Sets the SeaLevel and one block above to use the same result, giving Icebergs the sharp edged where they touch the water. */
 			if (seaLevelDifference <= 0)
 			{
 				seaLevelDifference = 1;
@@ -178,7 +177,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 			}
 			else
 			{
-				/** Block noise on the edges of the bottom half of the iceberg. Large = more noise.*/
+				/* Block noise on the edges of the bottom half of the iceberg. Large = more noise.*/
 				double bottomEdgeNoise = 0.2;
 
 				if (noiseGen / 6 - rand.nextDouble() * bottomEdgeNoise > bottomHeightDropoff && (!stack || noiseCircleGen / 1 > bottomHeightDropoff))

@@ -189,22 +189,16 @@ public class AbstractFish extends EntityAnimal
 	* Detects if the fish isn't in water. Used for flopping motion and animation.
 	*/
 	public boolean isFlopping() 
-	{ 
-		return canFlop() && (!this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world)));
-	}
+	{ return canFlop() && (!this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world))); }
 	
-	/**
-	* If this fish can flop when on land.
-	*/
+	/** If this fish can flop when on land. */
 	public boolean canFlop() 
 	{ return true; }
 	
 	protected SoundEvent getAmbientSound()
     { return this.isInWater() ? OESounds.ENTITY_FISH_SWIM : null; }
 	
-	/**
-	* The sound a fish uses when Flopping
-	*/
+	/** The sound a fish uses when Flopping */
 	public SoundEvent getFlopSound()
     { return OESounds.ENTITY_FISH_FLOP; }
 	

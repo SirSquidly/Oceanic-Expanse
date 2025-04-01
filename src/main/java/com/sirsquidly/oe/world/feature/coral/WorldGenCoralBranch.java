@@ -4,30 +4,25 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Lists;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenCoralBranch extends CoralGen
+public class WorldGenCoralBranch extends WorldGenerator
 {
+	private IBlockState blockState;
 	/** The chance the branch has to decide to go up while generating. Doesn't control how side branches are automatically shifted up on the first parts.*/
 	private double upChance = 0.25F;
 	
-	public WorldGenCoralBranch(int type) 
-	{
-		super();
-		this.coralType = type;
-	}
+	public WorldGenCoralBranch(IBlockState blockStateIn)
+	{ this.blockState = blockStateIn; }
 
 	public boolean generate(World worldIn, Random rand, BlockPos pos)
     {
-		if (this.coralType == 0)
-		{
-			this.coralType = rand.nextInt(5)+1;
-		}
-		
 		/** Decides how many times to loop the branch generator.*/
 		int branch = 2 + rand.nextInt(2);
 		/** Determines the overall direction the thing generates in, so North makes every branch reach North, ect.*/
@@ -37,7 +32,7 @@ public class WorldGenCoralBranch extends CoralGen
         Collections.shuffle(list, rand);
         
         /** The first piece, auto-placed incase the firstFacing wasn't picked at all.*/
-        this.placeCoralBlockAt(worldIn, pos, this.coralType);
+		this.setBlockAndNotifyAdequately(worldIn, pos, blockState);
         
         /** Does all the actual generation. I'm actually proud of this.*/
         for (EnumFacing enumfacing : list.subList(0, branch))
@@ -54,19 +49,17 @@ public class WorldGenCoralBranch extends CoralGen
                 for (int i = 1; i <= Math.max(rand.nextInt(6) - 3, 1); ++i)
                 {
                 	blockpos = pos.offset(enumfacing, i).up();
-                	this.placeCoralBlockAt(worldIn, blockpos, this.coralType);
+					this.setBlockAndNotifyAdequately(worldIn, blockpos, blockState);
                 }
         	}
 
         	for (int i = 0; i <= brnchLngh; ++i)
             {
-        		this.placeCoralBlockAt(worldIn, blockpos, this.coralType);
+				this.setBlockAndNotifyAdequately(worldIn, blockpos, blockState);
                 blockpos = blockpos.offset(firstFacing);
                 
                 if (rand.nextFloat() < upChance)
-            	{
-            		blockpos = blockpos.up();
-            	}
+            	{ blockpos = blockpos.up(); }
             }
         }
 		return true;
