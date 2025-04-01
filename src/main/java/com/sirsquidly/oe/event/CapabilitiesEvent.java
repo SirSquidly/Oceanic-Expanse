@@ -1,24 +1,15 @@
 package com.sirsquidly.oe.event;
 
-import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.network.OEPacketHandler;
 import com.sirsquidly.oe.network.OEPacketRiptide;
-import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
-import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber
 public class CapabilitiesEvent

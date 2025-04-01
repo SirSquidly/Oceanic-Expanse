@@ -67,9 +67,8 @@ public class BlockTubeSponge extends BlockBush implements IChecksWater
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
 		if (!isPositionUnderwater(worldIn, pos)) return false;
-        if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) return true;
-        return false;
-    }
+		return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP);
+	}
 	
 	@Override
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {

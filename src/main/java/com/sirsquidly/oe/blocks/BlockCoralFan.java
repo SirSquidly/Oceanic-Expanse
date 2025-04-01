@@ -174,16 +174,12 @@ public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldG
     }
     
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+    { return BlockFaceShape.UNDEFINED; }
     
     /** Bounding Box and Collision Swapping **/
     @Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-        return NULL_AABB;
-    }
+    { return NULL_AABB; }
 	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
@@ -268,10 +264,10 @@ public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldG
     }
 
     public IBlockState withRotation(IBlockState state, Rotation rot)
-    { return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING))); }
+    { return state.withProperty(FACING, rot.rotate(state.getValue(FACING))); }
 
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    { return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING))); }
+    { return state.withRotation(mirrorIn.toRotation(state.getValue(FACING))); }
 
     protected BlockStateContainer createBlockState()
     { return new BlockStateContainer(this, new IProperty[] {BlockLiquid.LEVEL, FACING, IN_WATER}); }
@@ -305,10 +301,7 @@ public class BlockCoralFan extends Block implements IChecksWater, ISpecialWorldG
 	}
     
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
-    {
-		if (this.canPlaceBlockAt(worldIn, pos) && canPlaceBlock(worldIn, pos, (EnumFacing)state.getValue(FACING))) return true;
-        return false;
-    }
+    { return this.canPlaceBlockAt(worldIn, pos) && canPlaceBlock(worldIn, pos, state.getValue(FACING)); }
     
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {}
     

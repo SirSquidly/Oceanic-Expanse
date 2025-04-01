@@ -1,21 +1,12 @@
 package com.sirsquidly.oe.tileentity;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.blocks.IChecksWater;
-import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import git.jbredwards.fluidlogged_api.api.util.FluidState;
-import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -140,7 +131,7 @@ public class TileStasis extends TileEntity implements ITickable
 			if (++attackTick >= getAttackDuration() / 20)
 			{
 				world.playSound(null, attackTarget.getPosition(), OESounds.BLOCK_CONDUIT_ATTACK, SoundCategory.BLOCKS, 1.0f, 1.0f);
-				attackTarget.attackEntityFrom(DamageSource.MAGIC, isElder ? 8 : 6);
+				attackTarget.attackEntityFrom(DamageSource.MAGIC, isElder ? 10 : 6);
 				this.attackTick = 0;
 				this.clientAttackTick = 0;
 			}

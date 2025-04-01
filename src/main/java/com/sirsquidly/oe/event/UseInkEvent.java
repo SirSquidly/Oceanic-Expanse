@@ -30,7 +30,7 @@ public class UseInkEvent
 		if (!ConfigHandler.vanillaTweak.inkSquirting.enableInkSquirting) return;
 		
 		EntityPlayer player = event.getEntityPlayer();
-		Boolean glowInk = false;
+		boolean glowInk = false;
 		
 		if (!(player.getHeldItemMainhand().getItem() == Items.DYE && player.getHeldItemMainhand().getMetadata() == 0 || player.getHeldItemMainhand().getItem() == OEItems.GLOW_INK)) return;
 		

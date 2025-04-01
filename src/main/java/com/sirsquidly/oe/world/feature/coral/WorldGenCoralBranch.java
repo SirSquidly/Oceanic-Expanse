@@ -32,7 +32,7 @@ public class WorldGenCoralBranch extends WorldGenerator
         Collections.shuffle(list, rand);
         
         /** The first piece, auto-placed incase the firstFacing wasn't picked at all.*/
-		this.setBlockAndNotifyAdequately(worldIn, pos, blockState);
+		placeCoralBlockAt(worldIn, pos, blockState);
         
         /** Does all the actual generation. I'm actually proud of this.*/
         for (EnumFacing enumfacing : list.subList(0, branch))
@@ -49,13 +49,13 @@ public class WorldGenCoralBranch extends WorldGenerator
                 for (int i = 1; i <= Math.max(rand.nextInt(6) - 3, 1); ++i)
                 {
                 	blockpos = pos.offset(enumfacing, i).up();
-					this.setBlockAndNotifyAdequately(worldIn, blockpos, blockState);
+					placeCoralBlockAt(worldIn, blockpos, blockState);
                 }
         	}
 
         	for (int i = 0; i <= brnchLngh; ++i)
             {
-				this.setBlockAndNotifyAdequately(worldIn, blockpos, blockState);
+				placeCoralBlockAt(worldIn, blockpos, blockState);
                 blockpos = blockpos.offset(firstFacing);
                 
                 if (rand.nextFloat() < upChance)
@@ -64,4 +64,7 @@ public class WorldGenCoralBranch extends WorldGenerator
         }
 		return true;
     }
+
+	public void placeCoralBlockAt(World worldIn, BlockPos pos, IBlockState blockState)
+	{ if(pos.getY() < worldIn.getSeaLevel() - 1) this.setBlockAndNotifyAdequately(worldIn, pos, blockState); }
 }

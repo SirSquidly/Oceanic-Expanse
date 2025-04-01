@@ -39,7 +39,7 @@ public class WorldGenCoralStalk extends WorldGenerator
         
         for (int i = 0; i <= baseHeight; ++i)
         {
-			this.setBlockAndNotifyAdequately(worldIn, blockpos, blockState);
+            placeCoralBlockAt(worldIn, blockpos, blockState);
         	/** Used to place branches in random spots along the base stalk, like Bedrock Edition.*/
             if (!uniformBranchPlacement && counter != 4 && rand.nextFloat() < 0.75f)
             {
@@ -82,8 +82,11 @@ public class WorldGenCoralStalk extends WorldGenerator
                 	posRotate = posRotate.offset(facing);
                 }
 
-				this.setBlockAndNotifyAdequately(worldIn, posRotate, blockState);
+                placeCoralBlockAt(worldIn, posRotate, blockState);
             }
         }
 	}
+
+    public void placeCoralBlockAt(World worldIn, BlockPos pos, IBlockState blockState)
+    { if(pos.getY() < worldIn.getSeaLevel() - 1) this.setBlockAndNotifyAdequately(worldIn, pos, blockState); }
 }

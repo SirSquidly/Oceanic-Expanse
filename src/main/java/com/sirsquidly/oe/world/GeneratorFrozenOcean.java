@@ -116,13 +116,15 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 
 					/* TODO: Test if generators are better when placed BEFORE all the surface generation (Split into Stages/Layers?) */
 					/** Doesn't use new coordinates because it doesn't seem to be causing any issues as is.*/
-					if (x == 15 && z == 15)
+					if (x == 0 && z == 0)
 					{
 						if (ConfigHandler.worldGen.frozenOcean.frozenSeafloor.enableRockDecor) spawnRockDecor(world, rand, posWaterFloor, chunkX, chunkZ, x, z);
 						if (ConfigHandler.block.enableSeastar) new WorldGenOceanPatch(OEBlocks.SEASTAR.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.seastarChancePerChunk, 16, false, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 						if (ConfigHandler.block.tubeSponge.enableTubeSponge) new WorldGenOceanPatch(OEBlocks.TUBE_SPONGE.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.tubeSpongeChancePerChunk, 8, 4, 4, 0.0, false, biomes).setSeaLevelMinRequirement(10).setIntStatePropertyRange(BlockTubeSponge.AGE, 0,3).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 						if (ConfigHandler.block.dulse.enableDulse) new WorldGenOceanPatch(OEBlocks.DULSE.getDefaultState(), ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dusleTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.dulseChancePerChunk, 8, 4, 4, 0.0, false, biomes).setSeaLevelMinRequirement(1).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
-
+					}
+					else if (x == 15 && z == 15)
+					{
 						if (ConfigHandler.block.blueIce.enableBlueIce) new WorldGenBlueIce(ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceTriesPerChunk, ConfigHandler.worldGen.frozenOcean.frozenSeafloor.blueIceChancePerChunk, 50, biomes).generate(rand, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 					}
 				}

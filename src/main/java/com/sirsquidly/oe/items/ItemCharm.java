@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.potion.PotionBase;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.material.Material;

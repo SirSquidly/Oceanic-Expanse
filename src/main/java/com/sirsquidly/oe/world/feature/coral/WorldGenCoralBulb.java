@@ -43,7 +43,7 @@ public class WorldGenCoralBulb extends WorldGenerator
 	    					{}
 	    					else if (rand.nextFloat() > failChance)
 	    					{
-								this.setBlockAndNotifyAdequately(worldIn, tPos.down(ranDwnShft), blockState);
+								placeCoralBlockAt(worldIn, tPos.down(ranDwnShft), blockState);
 	    					}
 		    			}
 	    			}
@@ -52,4 +52,7 @@ public class WorldGenCoralBulb extends WorldGenerator
 	    }
 		return true;
     }
+
+	public void placeCoralBlockAt(World worldIn, BlockPos pos, IBlockState blockState)
+	{ if(pos.getY() < worldIn.getSeaLevel() - 1) this.setBlockAndNotifyAdequately(worldIn, pos, blockState); }
 }

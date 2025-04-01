@@ -130,9 +130,7 @@ public class BlockCoral extends Block implements IChecksWater, ISpecialWorldGen
     
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-    	return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos, false));
-    }
+    { return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos, false)); }
     
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
