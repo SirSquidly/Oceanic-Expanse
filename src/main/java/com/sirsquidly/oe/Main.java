@@ -44,7 +44,7 @@ public class Main {
 	public static final String MOD_ID = "oe";
 	public static final String NAME = "Oceanic Expanse";
 	public static final String CONFIG_NAME = "oceanic_expanse";
-	public static final String VERSION = "1.1.6";
+	public static final String VERSION = "1.2.0";
 	public static final String ACCEPTED_VERSIONS = "[1.12.2]";
 	public static final String CLIENT_PROXY_CLASS = "com.sirsquidly.oe.proxy.ClientProxy";
 	public static final String COMMON_PROXY_CLASS = "com.sirsquidly.oe.proxy.CommonProxy";
@@ -76,6 +76,8 @@ public class Main {
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
+		proxy.postInitRegistries(event);
+
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(OEItems.TRIDENT_ORIG, new BehaviorProjectileDispense()
         {
 			

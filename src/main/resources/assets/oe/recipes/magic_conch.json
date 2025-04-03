@@ -1,0 +1,8 @@
+{
+  "conditions":
+  [
+    { "type": "config", "prop": "enableConch" },
+    { "type": "config", "prop": "enablePearl" }
+  ],
+  "type": "magic_conch"
+}

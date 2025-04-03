@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.entity.EntityTurtle;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
@@ -17,10 +18,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -33,6 +34,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.Constants;
 
 public class BlockTurtleEgg extends Block
 {
@@ -50,6 +52,8 @@ public class BlockTurtleEgg extends Block
 	
 	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
     {
+		if (entityIn instanceof EntityTurtle || entityIn.isSneaking()) return;
+
         if (worldIn instanceof WorldServer && entityIn instanceof EntityLivingBase && worldIn.rand.nextInt(100) == 0 && !(entityIn instanceof EntityZombie))
         {
         	onBroken(worldIn, pos, false);
@@ -60,6 +64,8 @@ public class BlockTurtleEgg extends Block
 	
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
     {
+		if (entityIn instanceof EntityTurtle) return;
+
 		int partiCheck = ConfigHandler.block.turtleEgg.particlesOnFall;
 			
 		if (worldIn instanceof WorldServer && (partiCheck == 2 && entityIn instanceof EntityLivingBase || partiCheck !=0 && entityIn instanceof EntityZombie))
@@ -67,7 +73,7 @@ public class BlockTurtleEgg extends Block
 			((WorldServer)worldIn).spawnParticle(EnumParticleTypes.ITEM_CRACK, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 16, 0.01D, 0.01D, 0.01D, 0.15D, Item.getIdFromItem(Item.getItemFromBlock(this)), 0);
 		}
 		
-		worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+		worldIn.playSound((EntityPlayer)null, pos, OESounds.BLOCK_TURTLE_EGG_STOMP, SoundCategory.BLOCKS, 0.5F, 0.9F + (worldIn.rand.nextFloat() * 0.2F));
 		
 		if(!worldIn.isRemote && worldIn.rand.nextInt(3) == 0 && entityIn instanceof EntityLivingBase && !(entityIn instanceof EntityZombie))
 		{  onBroken(worldIn, pos, false); }
@@ -75,52 +81,46 @@ public class BlockTurtleEgg extends Block
 		super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
     }
 	
-	public void onBroken(World world, BlockPos pos, boolean wasAI) 
+	public void onBroken(World world, BlockPos pos, boolean wasAI)
 	{
 		IBlockState iblockstate = world.getBlockState(pos);
-		int j = world.getBlockState(pos).getValue(AMOUNT);
-		
-		int AIbreak = ConfigHandler.block.turtleEgg.amountOnTrample;
+		int eggAmount = world.getBlockState(pos).getValue(AMOUNT);
+
 		int partiCheck = ConfigHandler.block.turtleEgg.puffOnTrample;
-		
+
 		if (world instanceof WorldServer && (partiCheck == 2 || partiCheck !=0 && wasAI))
         {
             ((WorldServer)world).spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 20, 0.02D, 0.02D, 0.02D, 0.05D);
         }
-		
-		world.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
-		
-		if (wasAI && AIbreak >= j || !(wasAI) && j <= 1)
-		{ 
-			world.setBlockToAir(pos); 
-		}
-		if (wasAI && AIbreak < j)
-		{ 
-			world.setBlockState(pos, iblockstate.withProperty(AMOUNT, Integer.valueOf(j - AIbreak)));
-		}
-		if (j > 1 && j != 0 && !(wasAI))
-		{ 
-			world.setBlockState(pos, iblockstate.withProperty(AMOUNT, Integer.valueOf(j - 1)));
-		}
+
+		world.playSound((EntityPlayer)null, pos, OESounds.BLOCK_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + (world.rand.nextFloat() * 0.2F));
+
+		int amountBroken = wasAI ? ConfigHandler.block.turtleEgg.amountOnTrample : 1;
+
+		if (amountBroken >= eggAmount)
+		{ world.setBlockToAir(pos); }
+		else
+		{ world.setBlockState(pos, iblockstate.withProperty(AMOUNT, eggAmount - amountBroken)); }
+
+		if (ConfigHandler.block.turtleEgg.breakXP == 0) return;
+
+		/* Spawn XP based on how many eggs were broken */
+		for (int i = amountBroken; i-- > 0;)
+		{ world.spawnEntity(new EntityXPOrb(world, pos.getX() + 0.5, pos.getY(), pos.getZ()+ 0.5, ConfigHandler.block.turtleEgg.breakXP)); }
     }
 	
 	public boolean checkSand(World world, BlockPos pos) 
-	{
-		if (world.isRemote) return false;
-		if(world.getBlockState(pos.down()).getBlock() instanceof BlockSand) return true;
-		return false;
-    }
+	{ return !world.isRemote && world.getBlockState(pos.down()).getBlock() instanceof BlockSand; }
+	
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    { if (checkSand(worldIn, pos)) worldIn.playEvent(2005, pos, 0); }
 	
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
 		if (checkSand(worldIn, pos))
 		{
 			int t = (int)(worldIn.getWorldTime() % 24000L);
-			if (t >= 21600 && t <= 22550)
-			{
-				doCrack(worldIn, pos);
-			}
-			else if (worldIn.rand.nextInt(500) == 0)
+			if ((t >= 21600 && t <= 22550) || worldIn.rand.nextInt(500) == 0)
 			{
 				doCrack(worldIn, pos);
 			}
@@ -134,13 +134,18 @@ public class BlockTurtleEgg extends Block
 		int j = iblockstate.getValue(CRACK);
 		
 		if (j < 2)
-		{ 
-			world.setBlockState(pos, iblockstate.withProperty(CRACK, Integer.valueOf(j + 1)));
+		{
+			world.playSound((EntityPlayer)null, pos, OESounds.BLOCK_TURTLE_EGG_CRACK, SoundCategory.BLOCKS, 0.7F, 0.9F + (world.rand.nextFloat() * 0.2F));
+			world.setBlockState(pos, iblockstate.withProperty(CRACK, j + 1));
 		}
 		else
 		{
+			world.playEvent(Constants.WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(world.getBlockState(pos)));
+
 			for (int l = 1; l <= iblockstate.getValue(AMOUNT); l++)
 			{
+				world.playSound((EntityPlayer)null, pos, OESounds.BLOCK_TURTLE_EGG_HATCH, SoundCategory.BLOCKS, 0.7F, 0.9F + (world.rand.nextFloat() * 0.2F));
+
 				EntityTurtle entityturtle = new EntityTurtle(world);
 				entityturtle.setGrowingAge(-24000);
 				entityturtle.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
@@ -163,11 +168,11 @@ public class BlockTurtleEgg extends Block
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    { return EGGS_AABB[((Integer)state.getValue(AMOUNT)).intValue() - 1]; }
+    { return EGGS_AABB[state.getValue(AMOUNT).intValue() - 1]; }
 	
 	@Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    { return EGGS_AABB[((Integer)state.getValue(AMOUNT)).intValue() - 1]; }
+    { return EGGS_AABB[(Integer) state.getValue(AMOUNT) - 1]; }
 	
 	public boolean isFullCube(IBlockState state)
     { return false; }
@@ -184,8 +189,8 @@ public class BlockTurtleEgg extends Block
     public int getMetaFromState(IBlockState state)
     {
     	int i = 0;
-        i = i | (state.getValue(AMOUNT)).intValue() - 1;
-        i |= state.getValue(CRACK).intValue() << 2;
+        i = i | state.getValue(AMOUNT) - 1;
+        i |= state.getValue(CRACK) << 2;
         
         return i;
     }

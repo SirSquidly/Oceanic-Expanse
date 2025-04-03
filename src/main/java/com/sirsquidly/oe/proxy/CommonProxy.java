@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
@@ -15,6 +16,8 @@ import com.sirsquidly.oe.network.OEPacketSpawnParticles;
 import com.sirsquidly.oe.tileentity.TileConduit;
 import com.sirsquidly.oe.tileentity.TilePickledSkull;
 import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.tileentity.TileStasis;
+import com.sirsquidly.oe.util.ResonanceUtil;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.GuiHandler;
@@ -36,9 +39,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -65,6 +70,7 @@ public class CommonProxy
 		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Main.MOD_ID, "conduit"));
 		GameRegistry.registerTileEntity(TilePickledSkull.class, new ResourceLocation(Main.MOD_ID, "pickled_skull"));
 		GameRegistry.registerTileEntity(TilePrismarinePot.class, new ResourceLocation(Main.MOD_ID, "prismarine_pot"));
+		GameRegistry.registerTileEntity(TileStasis.class, new ResourceLocation(Main.MOD_ID, "stagnant"));
 		
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.OCEAN));
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.BEACH));
@@ -88,16 +94,20 @@ public class CommonProxy
 	{
 		OEEntities.registerEntitySpawns();
 		OESounds.registerSounds();
-		
 		OEPacketHandler.registerMessages();
-		
-		ConfigArrayHandler.breakupConfigArrays();
+		CapabilityManager.INSTANCE.register(CapabilityRiptide.ICapabilityRiptide.class, new CapabilityRiptide.Storage(), CapabilityRiptide.RiptideMethods::new);
 		
 		if (Loader.isModLoaded("fluidlogged_api"))
 		{
 			fluidlogged_enable = true;
 		}
 		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new GuiHandler());
+	}
+
+	public void postInitRegistries(FMLPostInitializationEvent event)
+	{
+		ResonanceUtil.registerResonanceEffects();
+		ConfigArrayHandler.breakupConfigArrays();
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -125,10 +135,10 @@ public class CommonProxy
     	
     	if (ConfigHandler.worldGen.enableSeagrassPatches && ConfigHandler.block.seagrass.enableSeagrass)
     	{
-    		GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS, 2, 2, 48, 8, 4, 0.4, false, Biomes.RIVER), 0);
-        	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS, 6, 2, 48, 8, 4, 0.3, false, Biomes.OCEAN), 0);
-        	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS, 6, 2, 64, 8, 4, 0.8, false, Biomes.DEEP_OCEAN), 0);
-        	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS, 2, 2, 48, 8, 4, 0.6, false, BiomeDictionary.getBiomes(Type.SWAMP).toArray(new Biome[0])), 0);	
+    		GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS.getDefaultState(), 2, 2, 48, 8, 4, 0.4, false, Biomes.RIVER), 0);
+        	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS.getDefaultState(), 6, 2, 48, 8, 4, 0.3, false, Biomes.OCEAN), 0);
+        	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS.getDefaultState(), 6, 2, 64, 8, 4, 0.8, false, Biomes.DEEP_OCEAN), 0);
+        	GameRegistry.registerWorldGenerator(new WorldGenOceanPatch(OEBlocks.SEAGRASS.getDefaultState(), 2, 2, 48, 8, 4, 0.6, false, BiomeDictionary.getBiomes(Type.SWAMP).toArray(new Biome[0])), 0);
     	}
     	
     	GameRegistry.registerWorldGenerator(new WorldGenPrismarinePot(2, 2, 48, 8, 8, false, Biomes.DEEP_OCEAN), 0);

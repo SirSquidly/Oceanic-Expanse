@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraft.client.resources.I18n;
@@ -40,10 +42,10 @@ public class EntityTropicalFish extends AbstractFish
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityTropicalFish.class, DataSerializers.VARINT);
 	
-	public EntityTropicalFish(World worldIn) {
+	public EntityTropicalFish(World worldIn)
+    {
 		super(worldIn);
         this.setSize(0.5F, 0.4F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
 	protected void entityInit()
@@ -60,9 +62,10 @@ public class EntityTropicalFish extends AbstractFish
     }
 	
 	protected void initEntityAI()
-    {	
-		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
-		this.tasks.addTask(2, new EntityAILookIdle(this));
+    {
+        this.tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 1.6D, 1.4D));
+        this.tasks.addTask(2, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
+        this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
     }
@@ -119,9 +122,7 @@ public class EntityTropicalFish extends AbstractFish
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         int i = this.getRandomTropicalFishVariant();
-
         this.setTropicalFishVariant(i);
-
         return livingdata;
     }
 
@@ -207,6 +208,7 @@ public class EntityTropicalFish extends AbstractFish
 		int i = this.getRandomTropicalFishVariant();
 
         fish.setTropicalFishVariant(i);
+        if (ageable.isNoDespawnRequired()) fish.enablePersistence();
 		
         return fish;
     }

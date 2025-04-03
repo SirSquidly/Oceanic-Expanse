@@ -63,10 +63,7 @@ public class BlockConduit extends Block implements ITileEntityProvider, IChecksW
 	
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-    	boolean isWater = Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
-    	return this.getDefaultState().withProperty(IN_WATER, isWater);
-    }
+    { return this.getDefaultState().withProperty(IN_WATER, isPositionUnderwater(worldIn, pos)); }
     
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {

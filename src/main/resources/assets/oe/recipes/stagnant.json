@@ -1,0 +1,22 @@
+{
+  "conditions":
+  [
+    { "type": "config", "prop": "enableConduit" },
+    { "type": "config", "prop": "enablePearl" }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "brb",
+    "ece",
+    "brb"
+  ],
+  "key": {
+    "b": { "item": "oe:bleak" },
+    "c": { "item": "oe:conduit" },
+    "e": { "item": "oe:pearl" },
+    "r": { "item": "minecraft:prismarine_crystals" }
+  },
+  "result": {
+    "item": "oe:stagnant"
+  }
+}

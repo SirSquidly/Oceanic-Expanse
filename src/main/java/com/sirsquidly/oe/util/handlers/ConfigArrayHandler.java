@@ -50,6 +50,13 @@ public class ConfigArrayHandler
 	public static List<ResourceLocation> ridingBlacklist = Lists.<ResourceLocation>newArrayList();
 	public static List<ResourceLocation> aquaticMobs = Lists.<ResourceLocation>newArrayList();
 
+	public static List<ResourceLocation> stagnantIgnored = Lists.<ResourceLocation>newArrayList();
+
+	/** Aw man Clams use a lot */
+	public static List<ItemStack> itemClamConvertFrom = Lists.<ItemStack>newArrayList();
+	public static List<Integer> itemClamConvertTime = Lists.<Integer>newArrayList();
+	public static List<ItemStack> itemClamConvertTo = Lists.<ItemStack>newArrayList();
+
 	public static void breakupConfigArrays()
 	{
 		for(String S : ConfigHandler.vanillaTweak.drownConverting.drownConversionsList)
@@ -110,6 +117,35 @@ public class ConfigArrayHandler
 			}
 		}
 
+
+		for(String S : ConfigHandler.entity.clam.clamBiomineralizationList)
+		{
+			String[] split = S.split("=");
+
+			if (split.length != 3)
+			{
+				Main.logger.error(S + " is improperly written! Skipping...");
+				continue;
+			}
+
+			ItemStack stackA = getItemStackFromString(split[0]);
+			Integer time = Integer.valueOf(split[1]);
+			ItemStack stackB = getItemStackFromString(split[2]);
+
+			if (stackA == null)
+			{ Main.logger.error(split[0] + " is not a proper item!"); }
+			else if (stackB == null)
+			{ Main.logger.error(split[2] + " is not a proper item!"); }
+			else if (itemClamConvertFrom.contains(stackA))
+			{ Main.logger.error(split[0] + " has multiple crab digging loot tables set in the config! Only the first listed will be used!"); }
+			else
+			{
+				itemClamConvertFrom.add(getItemStackFromString(split[0]));
+				itemClamConvertTime.add(Integer.valueOf(split[1]));
+				itemClamConvertTo.add(getItemStackFromString(split[2]));
+			}
+		}
+
 		for(String S : ConfigHandler.vanillaTweak.waterMechanics.noDrownList)
 		{ NODROWN.add(new ResourceLocation(S)); }
 
@@ -130,6 +166,9 @@ public class ConfigArrayHandler
 
 		for(String S : ConfigHandler.enchant.impaling.aquaticMobs)
 		{ aquaticMobs.add(new ResourceLocation(S)); }
+
+		for(String S : ConfigHandler.block.stagnant.stagnantIgnoreTargets)
+		{ stagnantIgnored.add(new ResourceLocation(S)); }
 	}
 
 	/**
@@ -141,6 +180,12 @@ public class ConfigArrayHandler
 	public static IBlockState getBlockFromString(String string)
 	{
 		String[] ripString = string.split(":");
+
+		if (ripString.length < 2)
+		{
+			Main.logger.error("Improperly written blockstate!");
+			return null;
+		}
 
 		Block block = GameRegistry.findRegistry(Block.class).getValue(new ResourceLocation(ripString[0], ripString[1]));
 		Integer meta = null;
@@ -186,7 +231,7 @@ public class ConfigArrayHandler
 		String[] ripString = string.split(":");
 
 		Item item = GameRegistry.findRegistry(Item.class).getValue(new ResourceLocation(ripString[0], ripString[1]));
-		Integer meta = null;
+		int meta = 0;
 
 		if(item == null || item == Items.AIR)
 		{
@@ -198,7 +243,7 @@ public class ConfigArrayHandler
 			meta = Integer.parseInt(ripString[2]);
 
 			if(meta == -1)
-			{ meta = null; }
+			{ meta = 0; }
 		}
 
 		return new ItemStack(item, 1, meta);
@@ -226,19 +271,26 @@ public class ConfigArrayHandler
 				case "conduitAllIngredients": return ConfigHandler.block.conduit.enableConduit & ConfigHandler.item.enableNautilusShell;
 				case "enableBisqueCrab": return ConfigHandler.item.bisque.enableCrabBisque;
 				case "enableBisqueLobster": return ConfigHandler.item.bisque.enableLobsterBisque;
+				case "enableConch": return ConfigHandler.item.conch.enableConch;
+				case "enableConduit": return ConfigHandler.block.conduit.enableConduit;
 				case "enableCoquina": return ConfigHandler.block.coquina.enableCoquina;
 				case "enableCoquinaBricks": return ConfigHandler.block.coquina.enableCoquinaBricks;
 				case "enableCoquinaBrickWalls": return ConfigHandler.block.coquina.enableCoquinaBrickWalls;
 				case "enableCoconut": return ConfigHandler.block.coconut.enableCoconut;
 				case "enableCrab": return ConfigHandler.entity.crab.enableCrab;
 				case "enableDusle": return ConfigHandler.block.dulse.enableDulse;
+				case "enableGlowItemFrames": return ConfigHandler.item.glowItemFrame.enableGlowItemFrame;
+				case "enableKelp": return ConfigHandler.block.enableKelp;
 				case "enableLobster": return ConfigHandler.entity.lobster.enableLobster;
+				case "enableMagicConch": return ConfigHandler.item.magicConch.enableMagicConch;
 				case "enablePalmWoods": return ConfigHandler.block.palmBlocks.enablePalmWoods;
 				case "enablePalmStrippedWoods": return ConfigHandler.block.palmBlocks.enablePalmStrippedWoods;
-				case "enableKelp": return ConfigHandler.block.enableKelp;
+				case "enablePearl": return ConfigHandler.item.pearl.enablePearl;
+				case "enableStagnant": return ConfigHandler.block.stagnant.enableStagnant;
 				case "enableWaterTorch": return ConfigHandler.block.waterTorch.enableWaterTorch;
+				case "enableUnderwaterTNT": return ConfigHandler.block.waterTNT.enableWaterTNT;
 
-				case "enableGlowItemFrames": return ConfigHandler.item.glowItemFrame.enableGlowItemFrame;
+				case "enablePackedIceCraft": return ConfigHandler.vanillaTweak.enablePackedIceRecipe;
 				case "tridentAllIngredients": return ConfigHandler.item.trident.enableTridentCrafting & ConfigHandler.item.trident.enableTrident & ConfigHandler.block.guardianSpike.enableGuardianSpike;
 				case "turtleShellAllIngredients": return ConfigHandler.item.turtleShell.enableTurtleShell & ConfigHandler.item.enableTurtleScute;
 			}

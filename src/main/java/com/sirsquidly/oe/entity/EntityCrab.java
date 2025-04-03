@@ -19,10 +19,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -58,7 +56,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class EntityCrab extends EntityAnimal implements IEggCarrierMob
+public class EntityCrab extends EntityAnimal implements IEggCarrierMob, IMeleeAnimal
 {
 	protected Block spawnableBlock = Blocks.SAND;
 	
@@ -82,7 +80,6 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
 		this.setAnimationState(0);
 		this.setPathPriority(PathNodeType.WALKABLE, 0.0F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
-		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
 	protected void entityInit()
@@ -334,55 +331,8 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob
 	
 	public boolean attackEntityAsMob(Entity entityIn)
     {
-        float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-        int i = 0;
-
-        if (entityIn instanceof EntityLivingBase)
-        {
-            f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase)entityIn).getCreatureAttribute());
-            i += EnchantmentHelper.getKnockbackModifier(this);
-        }
-
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
-
-        if (flag)
-        {
-        	this.setAngry(false);
-        	
-            if (i > 0 && entityIn instanceof EntityLivingBase)
-            {
-                ((EntityLivingBase)entityIn).knockBack(this, (float)i * 0.5F, (double)MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)));
-                this.motionX *= 0.6D;
-                this.motionZ *= 0.6D;
-            }
-
-            int j = EnchantmentHelper.getFireAspectModifier(this);
-
-            if (j > 0)
-            { entityIn.setFire(j * 4); }
-
-            if (entityIn instanceof EntityPlayer)
-            {
-                EntityPlayer entityplayer = (EntityPlayer)entityIn;
-                ItemStack itemstack = this.getHeldItemMainhand();
-                ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
-
-                if (!itemstack.isEmpty() && !itemstack1.isEmpty() && itemstack.getItem().canDisableShield(itemstack, itemstack1, entityplayer, this) && itemstack1.getItem().isShield(itemstack1, entityplayer))
-                {
-                    float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
-
-                    if (this.rand.nextFloat() < f1)
-                    {
-                        entityplayer.getCooldownTracker().setCooldown(itemstack1.getItem(), 100);
-                        this.world.setEntityState(entityplayer, (byte)30);
-                    }
-                }
-            }
-
-            this.applyEnchantments(this, entityIn);
-        }
-
-        return flag;
+        if (normalAttack(this, entityIn)) this.setAngry(false);
+        return normalAttack(this, entityIn);
     }
 	
 	public boolean isAngry()

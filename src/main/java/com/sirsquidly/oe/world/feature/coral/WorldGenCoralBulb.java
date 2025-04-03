@@ -2,27 +2,22 @@ package com.sirsquidly.oe.world.feature.coral;
 
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class WorldGenCoralBulb extends CoralGen
+public class WorldGenCoralBulb extends WorldGenerator
 {
+	private IBlockState blockState;
 	/** The chance for any block to not generate.*/
 	private double failChance = 0.1F;
 	
-	public WorldGenCoralBulb(int type) 
-	{
-		super();
-		this.coralType = type;
-	}
+	public WorldGenCoralBulb(IBlockState blockStateIn)
+	{ this.blockState = blockStateIn; }
 
 	public boolean generate(World worldIn, Random rand, BlockPos pos)
     {
-		if (this.coralType == 0)
-		{
-			this.coralType = rand.nextInt(5)+1;
-		}
-
 		int ranDwnShft = rand.nextInt(2) + 1;
 		
 		int len = rand.nextInt(3) + 3;
@@ -48,9 +43,8 @@ public class WorldGenCoralBulb extends CoralGen
 	    					{}
 	    					else if (rand.nextFloat() > failChance)
 	    					{
-	    						placeCoralBlockAt(worldIn, tPos.down(ranDwnShft), coralType);
+								placeCoralBlockAt(worldIn, tPos.down(ranDwnShft), blockState);
 	    					}
-		    				
 		    			}
 	    			}
 		    	}	
@@ -58,4 +52,7 @@ public class WorldGenCoralBulb extends CoralGen
 	    }
 		return true;
     }
+
+	public void placeCoralBlockAt(World worldIn, BlockPos pos, IBlockState blockState)
+	{ if(pos.getY() < worldIn.getSeaLevel() - 1) this.setBlockAndNotifyAdequately(worldIn, pos, blockState); }
 }

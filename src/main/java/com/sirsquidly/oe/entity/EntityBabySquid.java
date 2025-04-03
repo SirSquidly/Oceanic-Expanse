@@ -13,7 +13,6 @@ public class EntityBabySquid extends EntitySquid
 	public EntityBabySquid(World worldIn) {
 		super(worldIn);
         this.setSize(0.4F, 0.4F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
 	public static void registerFixesSquid(DataFixer fixer)

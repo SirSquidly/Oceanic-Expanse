@@ -340,147 +340,147 @@ public class ConfigHandler
 		public static class configBlueIce
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableBlueIce")
+		    @Config.LangKey("oe.config.block.blueIce.enableBlueIce")
 		    @Config.Comment("If Blue Ice is enabled")
 		    public boolean enableBlueIce = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.blueIceLight")
+		    @Config.LangKey("oe.config.block.blueIce.blueIceLight")
 		    @Config.Comment("How much Light Blue Ice gives off")
 		    @Config.RangeDouble(min = 0, max = 16)
 		    public double blueIceLight = 0;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.blueIceSlipperiness")
+		    @Config.LangKey("oe.config.block.blueIce.blueIceSlipperiness")
 		    @Config.Comment("The slipperiness of Blue Ice")
 		    @Config.RangeDouble(min = 0.6, max = 10)
 		    public double blueIceSlipperiness = 0.989;
 	    }
-		
+
+		@Config.LangKey("oe.config.block.coconut")
+		public configCoconut coconut = new configCoconut();
+
+		public static class configCoconut
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coconut.enableCoconut")
+			@Config.Comment("If Coconuts are enabled. This also enables Open Coconuts.")
+			public boolean enableCoconut = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coconut.coconutHitSound")
+			@Config.Comment("If coconuts go Clonk when hitting an entity")
+			public boolean coconutHitSound = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coconut.coconutFallBreak")
+			@Config.Comment("How many blocks a Coconut must fall to break. (-1 = Disabled entirely)")
+			@Config.RangeDouble(min = -1, max = 9999)
+			public double coconutFallBreak = 6.0;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coconut.coconutFallDamage")
+			@Config.Comment("How much damage per block added to a falling Coconut.")
+			@Config.RangeDouble(min = -1, max = 9999)
+			public double coconutFallDamage = 1.0;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coconut.coconutFallMaxDamage")
+			@Config.Comment("How much max damage can a falling coconut deal")
+			@Config.RangeInt(min = 0, max = 9999)
+			public int coconutFallMaxDamage = 19;
+		}
+
 		@Config.LangKey("oe.config.block.conduit")
 	    public configConduit conduit = new configConduit();
 		
 		public static class configConduit
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableConduit")
+		    @Config.LangKey("oe.config.block.conduit.enableConduit")
 		    @Config.Comment("Enables the Conduit. Wait, why would you disable this?! It took me forever to make!")
 		    public boolean enableConduit = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableConduitPulse")
+		    @Config.LangKey("oe.config.block.conduit.enableConduitPulse")
 		    @Config.Comment("Enables the pulsing animation for the Conduit Eye/Heart.")
 		    public boolean enableConduitPulse = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.conduitLight")
+		    @Config.LangKey("oe.config.block.conduit.conduitLight")
 		    @Config.Comment("How much Light the Conduit emits")
 		    @Config.RangeDouble(min = 0, max = 16)
 		    public double conduitLight = 14;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.conduitParticles")
+		    @Config.LangKey("oe.config.block.conduit.conduitParticles")
 		    @Config.Comment("The particles used by the Conduit when active or Attacking. (0 = None, 1 = Bedrock Runes, 2 = Java Eyes/Nautilus, 3 = Both, 4 = Yellow Bolt)")
 		    @Config.RangeInt(min = 0, max = 18)
 		    public double conduitParticles = 3;
 			
-			@Config.LangKey("oe.config.block.conduitFrameBlocks")
+			@Config.LangKey("oe.config.block.conduit.conduitFrameBlocks")
 		    @Config.Comment("Blocks accepted by the Conduit as Frame Blocks.")
 		    public String[] conduitFrameBlocks = {
 		            "minecraft:prismarine",
 					"minecraft:sea_lantern"
 		    };
 	    }
-		
+
+		@Config.LangKey("oe.config.block.coquina")
+		public configCoquina coquina = new configCoquina();
+
+		public static class configCoquina
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coquina.enableCoquina")
+			@Config.Comment("If Coquina is enabled")
+			public boolean enableCoquina = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coquina.enableCoquinaBricks")
+			@Config.Comment("If Coquina Bricks, Coquina Brick Stairs, and Coquina Brick Slabs are enabled")
+			public boolean enableCoquinaBricks = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.coquina.enableCoquinaBrickWalls")
+			@Config.Comment("If Coquina Brick Walls are enabled. Requires Coquina Bricks to be enabled")
+			public boolean enableCoquinaBrickWalls = true;
+		}
+
 		@Config.LangKey("oe.config.block.coralBlocks")
 	    public configCoralBlocks coralBlocks = new configCoralBlocks();
 		
 		public static class configCoralBlocks
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCoralBlock")
+		    @Config.LangKey("oe.config.block.coralBlocks.enableCoralBlock")
 		    @Config.Comment("Enables Coral Blocks")
 		    public boolean enableCoralBlock = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCoralFan")
+		    @Config.LangKey("oe.config.block.coralBlocks.enableCoralFan")
 		    @Config.Comment("Enables Coral Fans")
 		    public boolean enableCoralFan = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCoral")
+		    @Config.LangKey("oe.config.block.coralBlocks.enableCoral")
 		    @Config.Comment("Enabled Coral")
 		    public boolean enableCoral = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.coralBlockDryTicks")
+		    @Config.LangKey("oe.config.block.coralBlocks.coralBlockDryTicks")
 		    @Config.Comment("World Ticks before Coral Blocks die. If set to 0, the coral will never die.")
 		    public int coralBlockDryTicks = 100;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.coralFanDryTicks")
+		    @Config.LangKey("oe.config.block.coralBlocks.coralFanDryTicks")
 		    @Config.Comment("World Ticks before Coral Fans die. If set to 0, the coral will never die.")
 		    public int coralFanDryTicks = 100;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.coralDryTicks")
+		    @Config.LangKey("oe.config.block.coralBlocks.coralDryTicks")
 		    @Config.Comment("World Ticks before Coral dies. If set to 0, the coral will never die.")
 		    public int coralDryTicks = 100;
-	    }
-		
-		@Config.LangKey("oe.config.block.coquina")
-	    public configCoquina coquina = new configCoquina();
-		
-		public static class configCoquina
-		{
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCoquina")
-		    @Config.Comment("If Coquina is enabled")
-		    public boolean enableCoquina = true;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCoquinaBricks")
-		    @Config.Comment("If Coquina Bricks, Coquina Brick Stairs, and Coquina Brick Slabs are enabled")
-		    public boolean enableCoquinaBricks = true;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCoquinaBrickWalls")
-		    @Config.Comment("If Coquina Brick Walls are enabled. Requires Coquina Bricks to be enabled")
-		    public boolean enableCoquinaBrickWalls = true;
-	    }
-		
-		@Config.LangKey("oe.config.block.coconut")
-	    public configCoconut coconut = new configCoconut();
-		
-		public static class configCoconut
-		{
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCoconut")
-		    @Config.Comment("If Coconuts are enabled. This also enables Open Coconuts.")
-		    public boolean enableCoconut = true;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.coconutHitSound")
-		    @Config.Comment("If coconuts go Clonk when hitting an entity")
-		    public boolean coconutHitSound = true;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.coconutFallBreak")
-		    @Config.Comment("How many blocks a Coconut must fall to break. (-1 = Disabled entirely)")
-		    @Config.RangeDouble(min = -1, max = 9999)
-		    public double coconutFallBreak = 6.0;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.coconutFallDamage")
-		    @Config.Comment("How much damage per block added to a falling Coconut.")
-		    @Config.RangeDouble(min = -1, max = 9999)
-		    public double coconutFallDamage = 1.0;
-			
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.coconutFallMaxDamage")
-		    @Config.Comment("How much max damage can a falling coconut deal")
-			@Config.RangeInt(min = 0, max = 9999)
-		    public int coconutFallMaxDamage = 19;
 	    }
 		
 		@Config.LangKey("oe.config.block.dulse")
@@ -489,17 +489,17 @@ public class ConfigHandler
 		public static class configDulse
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableDulse")
+		    @Config.LangKey("oe.config.block.dulse.enableDulse")
 		    @Config.Comment("If Dulse is enabled. This also enables the Dried Dulse item and block.")
 		    public boolean enableDulse = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.dulseShears")
+		    @Config.LangKey("oe.config.block.dulse.dulseShears")
 		    @Config.Comment("If Shears can be used on Dulse to prevent it from growing. Sheared Dulse can be set back using bonemeal.")
 		    public boolean dulseShears = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.driedDulseShears")
+		    @Config.LangKey("oe.config.block.dulse.driedDulseShears")
 		    @Config.Comment("If the string on Dried Kelp can be removed using Shears.")
 		    public boolean driedDulseShears = true;
 	    }
@@ -510,27 +510,27 @@ public class ConfigHandler
 		public static class configPalmBlocks
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enablePalmSapling")
+		    @Config.LangKey("oe.config.block.palmBlocks.enablePalmSapling")
 		    @Config.Comment("If Palm Saplings are enabled.")
 		    public boolean enablePalmSapling = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enablePalmLeaves")
+		    @Config.LangKey("oe.config.block.palmBlocks.enablePalmLeaves")
 		    @Config.Comment("If Palm Leaves are enabled. Flowering Palm Leaves require this and Coconuts to both be enabled.")
 		    public boolean enablePalmLeaves = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enablePalmWoods")
+		    @Config.LangKey("oe.config.block.palmBlocks.enablePalmWoods")
 		    @Config.Comment("If Palm Woods are enabled. Note this doesn't disable Palm Trees, they will generate using Jungle Wood.")
 		    public boolean enablePalmWoods = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enablePalmStripping")
+		    @Config.LangKey("oe.config.block.palmBlocks.enablePalmStripping")
 		    @Config.Comment("Adds the ability to strip Palm woods by using an Axe on it.")
 		    public boolean enablePalmStripping = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enablePalmStrippedWoods")
+		    @Config.LangKey("oe.config.block.palmBlocks.enablePalmStrippedWoods")
 		    @Config.Comment("If Stripped Palm Woods are enabled. Note this also disables Palm wood stripping.")
 		    public boolean enablePalmStrippedWoods = true;
 	    }
@@ -541,17 +541,17 @@ public class ConfigHandler
 		public static class configPickledHead
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enablePickledHead")
+		    @Config.LangKey("oe.config.block.pickledHead.enablePickledHead")
 		    @Config.Comment("If Pickled Heads are enabled.")
 		    public boolean enablePickledHead = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.pickledHeadNoteblockSounds")
+		    @Config.LangKey("oe.config.block.pickledHead.pickledHeadNoteblockSounds")
 		    @Config.Comment("If a Pickled Head attached to a Note Block plays the Pickled's ambient sounds.")
 		    public boolean pickledHeadNoteblockSounds = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.pickledHeadNoteblockPitch")
+		    @Config.LangKey("oe.config.block.pickledHead.pickledHeadNoteblockPitch")
 		    @Config.Comment("If pitch should be used by the Note Block. Requires the Note Block Behavior to be enabled.")
 		    public boolean pickledHeadNoteblockPitch = true;
 	    }
@@ -562,36 +562,36 @@ public class ConfigHandler
 		public static class configGuardianSpike
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableGuardianSpike")
+		    @Config.LangKey("oe.config.block.guardianSpike.enableGuardianSpike")
 		    @Config.Comment("If the Guardian Spike is enabled")
 		    public boolean enableGuardianSpike = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.guardianSpikeFallMultiplier")
+		    @Config.LangKey("oe.config.block.guardianSpike.guardianSpikeFallMultiplier")
 		    @Config.Comment("How much a Guardian Spike multiplies Fall Damage.")
 		    @Config.RangeDouble(min = 0, max = 9999)
 		    public double guSpiFallMultiplier = 2.0;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.guardianSpikeDropChance")
+		    @Config.LangKey("oe.config.block.guardianSpike.guardianSpikeDropChance")
 		    @Config.Comment("The percent chance a Guardian drops a spike.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double guardianSpikeDropChance = 1;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.guardianSpikeLooting")
+		    @Config.LangKey("oe.config.block.guardianSpike.guardianSpikeLooting")
 		    @Config.Comment("The percent increase per level of looting to the Guardian.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double guardianSpikeLooting = 0.5;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.guardianSpikeElderDropChance")
+		    @Config.LangKey("oe.config.block.guardianSpike.guardianSpikeElderDropChance")
 		    @Config.Comment("The percent chance an Elder Guardian drops a spike.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double guardianSpikeElderDropChance = 100;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.guardianSpikeElderLooting")
+		    @Config.LangKey("oe.config.block.guardianSpike.guardianSpikeElderLooting")
 		    @Config.Comment("The percent increase per level of looting to the Elder Guardian.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double guardianSpikeElderLooting = 0;
@@ -613,12 +613,12 @@ public class ConfigHandler
 		public static class configSeagrass
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableSeagrass")
+		    @Config.LangKey("oe.config.block.seagrass.enableSeagrass")
 		    @Config.Comment("If Seagrass is enabled")
 		    public boolean enableSeagrass = true;
 		    
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableTallSeagrass")
+		    @Config.LangKey("oe.config.block.seagrass.enableTallSeagrass")
 		    @Config.Comment("If Tall Seagrass is enabled")
 		    public boolean enableTallSeagrass = true;
 	    }
@@ -629,12 +629,12 @@ public class ConfigHandler
 		public static class configSeaOats
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableSeaOats")
+		    @Config.LangKey("oe.config.block.seaOats.enableSeaOats")
 		    @Config.Comment("If Sea Oats are enabled")
 		    public boolean enableSeaOats = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.seaOatShears")
+		    @Config.LangKey("oe.config.block.seaOats.seaOatShears")
 		    @Config.Comment("If Sea Oats can be sheared down to their short version.")
 		    public boolean seaOatShears = true;
 	    }
@@ -653,19 +653,58 @@ public class ConfigHandler
 	    @Config.LangKey("oe.config.block.enableShellySand")
 	    @Config.Comment("If Shelly Sand is enabled")
 	    public boolean enableShellySand = true;
-		
+
+		@Config.LangKey("oe.config.block.stagnant")
+		public configStagnant stagnant = new configStagnant();
+
+		public static class configStagnant
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.stagnant.enableStagnant")
+			@Config.Comment("Enables the Stagnant.")
+			public boolean enableStagnant = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.stagnant.stagnantLight")
+			@Config.Comment("How much Light the Stagnant emits")
+			@Config.RangeDouble(min = 0, max = 16)
+			public double stagnantLight = 14;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.stagnant.stagnantParticles")
+			@Config.Comment("The particles used by the Stagnant when active or Attacking. (0 = None, 1 = Bedrock Runes, 2 = Java Eyes/Nautilus, 3 = Both, 4 = Yellow Bolt)")
+			@Config.RangeInt(min = 0, max = 18)
+			public double stagnantParticles = 3;
+
+			@Config.LangKey("oe.config.block.stagnant.stagnantFrameBlocks")
+			@Config.Comment("Blocks accepted by the Stagnant as Frame Blocks.")
+			public String[] stagnantFrameBlocks = {
+					"minecraft:prismarine",
+					"minecraft:sea_lantern"
+			};
+
+			@Config.LangKey("oe.config.block.stagnant.stagnantIgnoreTargets")
+			@Config.Comment("Entities the the Stagnant will ignore. EVERY entity extending EntityLivingBase is targeted, unless specified here.")
+			public String[] stagnantIgnoreTargets = {
+					"minecraft:armor_stand",
+					"minecraft:guardian",
+					"minecraft:elder_guardian",
+					"oe:drowned"
+			};
+		}
+
 		@Config.LangKey("oe.config.block.tubeSponge")
 	    public configTubeSponge tubeSponge = new configTubeSponge();
 		
 		public static class configTubeSponge
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableTubeSponge")
+		    @Config.LangKey("oe.config.block.tubeSponge.enableTubeSponge")
 		    @Config.Comment("If Tube Sponges are enabled")
 		    public boolean enableTubeSponge = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.tubeSpongeShears")
+		    @Config.LangKey("oe.config.block.tubeSponge.tubeSpongeShears")
 		    @Config.Comment("If Shears can be used on Tube Sponge to prevent it from growing.")
 		    public boolean tubeSpongeShears = true;
 	    }
@@ -676,52 +715,81 @@ public class ConfigHandler
 		public static class configTurtleEgg
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableTurtleEgg")
+		    @Config.LangKey("oe.config.block.turtleEgg.enableTurtleEgg")
 		    @Config.Comment("If Turtle Eggs are enabled. If disabled, breeding turtles will just create a baby directly, like normal mob breeding.")
 		    public boolean enableTurtleEgg = true;
-			
+
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.amountOnTrample")
+		    @Config.LangKey("oe.config.block.turtleEgg.amountOnTrample")
 		    @Config.Comment("Amount of Turtle Eggs broken each time the trampleAI succeeds.")
 		    @Config.RangeInt(min = 0, max = 4)
 		    public int amountOnTrample = 1;
-			
+
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.particlesOnFall")
+			@Config.LangKey("oe.config.block.turtleEgg.breakXP")
+			@Config.Comment("Drops this much XP whenever destroyed. Setting to 0 disables this. ")
+			@Config.RangeInt(min = 0)
+			public int breakXP = 0;
+
+			@RequiresMcRestart
+		    @Config.LangKey("oe.config.block.turtleEgg.particlesOnFall")
 		    @Config.Comment("If egg shell particles spawn when fallen on. (0 = Never, 1 = By AI, 2 = Always)")
 		    @Config.RangeInt(min = 0, max = 2)
 		    public int particlesOnFall = 2;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.puffOnTrample")
+		    @Config.LangKey("oe.config.block.turtleEgg.puffOnTrample")
 		    @Config.Comment("If puff particles spawn when trampled. (0 = Never, 1 = By AI, 2 = Always)")
 		    @Config.RangeInt(min = 0, max = 2)
 		    public int puffOnTrample = 2;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.zombiesTrample")
+		    @Config.LangKey("oe.config.block.turtleEgg.zombiesTrample")
 		    @Config.Comment("If any mob extending Zombie (Zombie, Husks, Drowned, ect) are given the trampleAI")
 		    public boolean zombiesTrample = true;
 	    }
-		
+
+		@Config.LangKey("oe.config.block.waterTNT")
+		public configUnderwaterTNT waterTNT = new configUnderwaterTNT();
+
+		public static class configUnderwaterTNT
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.waterTNT.enableWaterTNT")
+			@Config.Comment("If Underwater TNT is enabled")
+			public boolean enableWaterTNT = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.waterTNT.waterDestructionChance")
+			@Config.Comment("The percent chance to remove water in the Underwater TNT's blast. Set to 5% default, note that this causes block updates, so high numbers will create lag.")
+			@Config.RangeDouble(min = 0, max = 100)
+			public float waterDestructionChance = 5;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.block.waterTNT.blockDropChance")
+			@Config.Comment("The percent chance to drop a block destroyed in the Underwater TNT's blast.")
+			@Config.RangeDouble(min = 0, max = 100)
+			public float blockDropChance = 25;
+		}
+
 		@Config.LangKey("oe.config.block.waterTorch")
 	    public configUnderwaterTorch waterTorch = new configUnderwaterTorch();
 		
 		public static class configUnderwaterTorch
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableWaterTorch")
+		    @Config.LangKey("oe.config.block.waterTorch.enableWaterTorch")
 		    @Config.Comment("If Underwater Torches are enabled")
 		    public boolean enableWaterTorch = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.waterTorchLight")
+		    @Config.LangKey("oe.config.block.waterTorch.waterTorchLight")
 		    @Config.Comment("How much Light the Underwater Torch gives off")
 		    @Config.RangeDouble(min = 0, max = 16)
 		    public double waterTorchLight = 14;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.waterTorchParticles")
+		    @Config.LangKey("oe.config.block.waterTorch.waterTorchParticles")
 		    @Config.Comment("The particles of the Underwater Torch. (0 = None, 1 = Glow Squid Glow, 2 = Firework Sparks, 3 = Both)")
 		    @Config.RangeDouble(min = 0, max = 3)
 		    public double waterTorchParticles = 1;
@@ -741,17 +809,17 @@ public class ConfigHandler
 		public static class configBisque
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableBisqueMilkEffect")
+		    @Config.LangKey("oe.config.item.bisque.enableBisqueMilkEffect")
 		    @Config.Comment("If Bisques remove all Potion Effects. This is here because Milk is used to craft Bisque.")
 		    public boolean enableBisqueMilkEffect = false;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableCrabBisque")
+		    @Config.LangKey("oe.config.item.bisque.enableCrabBisque")
 		    @Config.Comment("If Crab Bisque is enabled.")
 		    public boolean enableCrabBisque = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableLobsterBisque")
+		    @Config.LangKey("oe.config.item.bisque.enableLobsterBisque")
 		    @Config.Comment("If Lobster Bisque is enabled.")
 		    public boolean enableLobsterBisque = true;
 		}
@@ -763,29 +831,29 @@ public class ConfigHandler
 		public static class configConch
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.block.enableConch")
+		    @Config.LangKey("oe.config.item.conch.enableConch")
 		    @Config.Comment("If Conches are enabled. This WILL break Shelly Sand if disabled.")
 		    public boolean enableConch = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.conchCooldown")
+		    @Config.LangKey("oe.config.item.conch.conchCooldown")
 		    @Config.Comment("The default cooldown between uses of the Conch. Can be altered per-conch using the 'Cooldown' NBT tag.")
 			@Config.RangeInt(min = 0, max = 9999)
 		    public int conchCooldown = 60;
 		
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.conchSoundDistance")
+		    @Config.LangKey("oe.config.item.conch.conchSoundDistance")
 		    @Config.Comment("The attenuation distance of the Conch, how far away it's heard from.")
 			@Config.RangeInt(min = 0, max = 9999)
 		    public int conchSoundDistance = 256;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.conchDisplayHorn")
+		    @Config.LangKey("oe.config.item.conch.conchDisplayHorn")
 		    @Config.Comment("Adds description text to the Conch to tell which Horn sound is attached to it. Only for the default horn sounds.")
 		    public boolean conchDisplayHorn = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.conchDisplayRawSound")
+		    @Config.LangKey("oe.config.item.conch.conchDisplayRawSound")
 		    @Config.Comment("Adds the attached sound's registry name to the Conch's description. Overridden by 'conchDisplayHorn' if the sound is a horn sound.")
 		    public boolean conchDisplayRawSound = true;
 		}
@@ -797,23 +865,23 @@ public class ConfigHandler
 		public static class configConduitCharm
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableConduitCharm")
+		    @Config.LangKey("oe.config.item.conduitCharm.enableConduitCharm")
 		    @Config.Comment("If the Charm is enabled.")
 		    public boolean enableConduitCharm = true;
 		
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.conduitCharmConduitRange")
+		    @Config.LangKey("oe.config.item.conduitCharm.conduitCharmConduitRange")
 		    @Config.Comment("The radius that Conduit Power is given to nearby Players. Setting to 0 makes only the holder be affected.")
 			@Config.RangeInt(min = 0, max = 9999)
 		    public int conduitCharmConduitRange = 16;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableConduitCharmPulseSound")
+		    @Config.LangKey("oe.config.item.conduitCharm.enableConduitCharmPulseSound")
 		    @Config.Comment("If the Charm makes a Conduit Pulse each time it applies the effect.")
 		    public boolean enableConduitCharmPulseSound = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.conduitCharmDurability")
+		    @Config.LangKey("oe.config.item.conduitCharm.conduitCharmDurability")
 		    @Config.Comment("The durability of the Charm. Each time it applies Conduit Power, the durability goes down by 1, making this a timer for the item.")
 			@Config.RangeInt(min = 0, max = 9999)
 		    public int conduitCharmDurability = 30;
@@ -826,17 +894,17 @@ public class ConfigHandler
 		public static class configGlowItemFrame
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableGlowItemFrame")
+		    @Config.LangKey("oe.config.item.glowItemFrame.enableGlowItemFrame")
 		    @Config.Comment("If Glow Item Frames are enabled.")
 		    public boolean enableGlowItemFrame = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.glowItemFrameCeilingsAndFloors")
+		    @Config.LangKey("oe.config.item.glowItemFrame.glowItemFrameCeilingsAndFloors")
 		    @Config.Comment("If Glow Item Frames can be placed on Ceilings and Floors.")
 		    public boolean glowItemFrameCeilingsAndFloors = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.glowItemFrameQuarkNamePosition")
+		    @Config.LangKey("oe.config.item.glowItemFrame.glowItemFrameQuarkNamePosition")
 		    @Config.Comment("If ceilings or floors Glow Item Frames render custom item names at the same spots as Quark. Otherwise uses Vanilla name positions.")
 		    public boolean glowItemFrameQuarkNamePosition = true;
 		}
@@ -849,21 +917,43 @@ public class ConfigHandler
 		public static class configHeavyBoots
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableHeavyBoots")
+		    @Config.LangKey("oe.config.item.heavyBoots.enableHeavyBoots")
 		    @Config.Comment("If Heavy Boots are enabled")
 		    public boolean enableHeavyBoots= true;
 			
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.item.heavyBootsEffectLength")
+		    @Config.LangKey("oe.config.item.heavyBoots.heavyBootsEffectLength")
 		    @Config.Comment("How long (in seconds) Descent is given.")
 		    public int heavyBootsEffectLength = 10;
 		    
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.heavyBootsDesc")
+		    @Config.LangKey("oe.config.item.heavyBoots.heavyBootsDesc")
 		    @Config.Comment("Heavy Boots have a description.")
 		    public boolean heavyBootsDesc = true;
 	    }
-		
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.magicConch")
+		public configItem.configMagicConch magicConch = new configItem.configMagicConch();
+
+		public static class configMagicConch
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.magicConch.enableMagicConch")
+			@Config.Comment("Enables Magic Conchs.")
+			public boolean enableMagicConch = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.magicConch.addResonancesToCreative")
+			@Config.Comment("Adds Magic Conchs with each Resonance to the Creative Tab.")
+			public boolean addResonancesToCreative = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.magicConch.durability")
+			@Config.Comment("How many points of durability the Magic Conch has (note, displays as this -1 in-game, as 0 counts as a point)")
+			public int durability = 32;
+		}
+
 		@RequiresMcRestart
 	    @Config.LangKey("oe.config.item.enableNautilusShell")
 	    @Config.Comment("If Nautilus Shells are enabled. This WILL break Shelly Sand if disabled.")
@@ -876,17 +966,17 @@ public class ConfigHandler
 		public static class configPearl
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enablePearl")
+		    @Config.LangKey("oe.config.item.pearl.enablePearl")
 		    @Config.Comment("If Pearls are enabled")
 		    public boolean enablePearl = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enablePearlTrade")
+		    @Config.LangKey("oe.config.item.pearl.enablePearlTrade")
 		    @Config.Comment("Adds a Pearl Trade to the Fisherman Villager")
 		    public boolean enablePearlTrade = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enablePearlEndering")
+		    @Config.LangKey("oe.config.item.pearl.enablePearlEndering")
 		    @Config.Comment("Makes a Pearl turn into an Ender Pearl when held and eating Chorus Fruit.")
 		    public boolean enablePearlEndering = true;
 	    }
@@ -897,7 +987,7 @@ public class ConfigHandler
 		
 		public static class configSpawnBucket
 		{
-			@Config.LangKey("oe.config.item.spawnBucketMobs")
+			@Config.LangKey("oe.config.item.spawnBucket.spawnBucketMobs")
 		    @Config.Comment("Mobs that can be bucketed. These will also appear in Creative Tabs.")
 		    public String[] bucketableMobs = 
 			{
@@ -912,23 +1002,23 @@ public class ConfigHandler
 		    };
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.spawnBucketTropicalFishSpecificNames")
+		    @Config.LangKey("oe.config.item.spawnBucket.spawnBucketTropicalFishSpecificNames")
 		    @Config.Comment("If buckets of tropical fish add the fish's colors and type to the bucket name (ex 'Bucket of White Kob'). Note this does not override if the fish already has a custom name.")
 		    public boolean spawnBucketTropicalFishSpecificNames = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.spawnBucketTropicalFishTooltips")
+		    @Config.LangKey("oe.config.item.spawnBucket.spawnBucketTropicalFishTooltips")
 		    @Config.Comment("If buckets of tropical fish add the fish's colors and type in a tooltip.")
 		    public boolean spawnBucketTropicalFishTooltips = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableAllBucketsCreative")
+		    @Config.LangKey("oe.config.item.spawnBucket.enableAllBucketsCreative")
 		    @Config.Comment("Makes every possible spawn bucket appear in the creative search tab. Warning, this is equal to every spawn egg, and most won't have proper textures!")
 		    public boolean enableAllBucketsCreative = false;
 			
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableSpawnBucketEmptyUsage")
+		    @Config.LangKey("oe.config.item.spawnBucket.enableSpawnBucketEmptyUsage")
 		    @Config.Comment("Allows empty buckets to be used to bucket mobs. This is true in Bedrock Edition.")
 		    public boolean enableSpawnBucketEmptyUsage = false;
 	    }
@@ -940,18 +1030,18 @@ public class ConfigHandler
 		public static class configSpongeChunk
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableSpongeChunk")
+		    @Config.LangKey("oe.config.item.spongeChunk.enableSpongeChunk")
 		    @Config.Comment("If the Sponge Chunk is enabled.")
 		    public boolean enableSpongeChunk = true;
 		
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.spongeChunkAbsorbRadius")
+		    @Config.LangKey("oe.config.item.spongeChunk.spongeChunkAbsorbRadius")
 		    @Config.Comment("The radius that the Sponge Chunk picks up Water.")
 			@Config.RangeInt(min = 0, max = 100)
 		    public int spongeChunkAbsorbRadius = 5;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.spongeChunkMaxSaturation")
+		    @Config.LangKey("oe.config.item.spongeChunk.spongeChunkMaxSaturation")
 		    @Config.Comment("The max Saturation(water) a Sponge Chunk can hold. Seeting to 0 Disables water collecting, while -1 makes it infinite!")
 			@Config.RangeInt(min = -1, max = 9999)
 		    public int spongeChunkMaxSaturation = 30;
@@ -964,39 +1054,39 @@ public class ConfigHandler
 		public static class configTrident
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableTrident")
+		    @Config.LangKey("oe.config.item.trident.enableTrident")
 		    @Config.Comment("If Tridents are enabled")
 		    public boolean enableTrident = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableTridentCrafting")
+		    @Config.LangKey("oe.config.item.trident.enableTridentCrafting")
 		    @Config.Comment("If Tridents can be crafted. Requires Guardian Spikes to also be enabled.")
 		    public boolean enableTridentCrafting = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.tridentPreventThrowBreak")
+		    @Config.LangKey("oe.config.item.trident.tridentPreventThrowBreak")
 		    @Config.Comment("A safeguard preventing the player from throwing a Trident at 1 durability, as it would break on impact. This safeguard is in Vanilla Minecraft.")
 		    public boolean tridentPreventThrowBreak = true;
 			
-		    @Config.LangKey("oe.config.item.tridentDamage")
+		    @Config.LangKey("oe.config.item.trident.tridentDamage")
 		    @Config.Comment("The Attack Damage of the Trident")
 		    public int tridentDamage = 9;
 			
-		    @Config.LangKey("oe.config.item.tridentThrowDamage")
+		    @Config.LangKey("oe.config.item.trident.tridentThrowDamage")
 		    @Config.Comment("The Attack Damage of the Thrown Trident")
 		    public int tridentThrowDamage = 8;
 			
-		    @Config.LangKey("oe.config.item.tridentAttackSpeed")
+		    @Config.LangKey("oe.config.item.trident.tridentAttackSpeed")
 		    @Config.Comment("The Attack Speed of the Trident")
 		    public double tridentSpeed = 1.1;
 			
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.item.tridentDurability")
+		    @Config.LangKey("oe.config.item.trident.tridentDurability")
 		    @Config.Comment("The Trident's Durability (note, displays as this -1 in-game, as 0 counts as a point)")
 		    public int tridentDurability = 250;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.item.trident3PsnAnimStyle")
+		    @Config.LangKey("oe.config.item.trident.trident3PsnAnimStyle")
 		    @Config.Comment("The style of 3ed person animations the Trident uses. (0 = None, 1 = Vanilla, 2 = Oceanic Expanse)")
 			@Config.RangeInt(min = 0, max = 2)
 		    public int trident3PsnAnimStyle = 2;
@@ -1014,17 +1104,17 @@ public class ConfigHandler
 		public static class configTurtleShell
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableTurtleShell")
+		    @Config.LangKey("oe.config.item.turtleShell.enableTurtleShell")
 		    @Config.Comment("If Turtle Shells are enabled")
 		    public boolean enableTurtleShell= true;
 			
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.item.turtleShellEffectLength")
+		    @Config.LangKey("oe.config.item.turtleShell.turtleShellEffectLength")
 		    @Config.Comment("How long (in seconds) Water Breathing is given.")
 		    public int turtleShellEffectLength = 10;
 		    
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.item.enableTurtleShellDesc")
+		    @Config.LangKey("oe.config.item.turtleShell.enableTurtleShellDesc")
 		    @Config.Comment("Turtle Shell has a description.")
 		    public boolean enableTurtleShellDesc = true;
 	    }
@@ -1042,16 +1132,16 @@ public class ConfigHandler
 		
 		public static class configBabySquid
 		{
-		    @Config.LangKey("oe.config.entity.enableBabySquid")
+		    @Config.LangKey("oe.config.entity.babySquid.enableBabySquid")
 		    @Config.Comment("If Baby Squids should be enabled")
 		    public boolean enableBabySquid = true;
 		    
-		    @Config.LangKey("oe.config.entity.babySquidCustomModel")
+		    @Config.LangKey("oe.config.entity.babySquid.babySquidCustomModel")
 		    @Config.Comment("If Baby Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
 		    public boolean babySquidCustomModel = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.babySquidSpawnChance")
+		    @Config.LangKey("oe.config.entity.babySquid.babySquidSpawnChance")
 		    @Config.Comment("The percent chance for a Baby Squid to spawn along-side an adult squid.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double babySquidSpawnChance = 14.3;
@@ -1063,16 +1153,16 @@ public class ConfigHandler
 		
 		public static class configBabyGlowSquid
 		{
-		    @Config.LangKey("oe.config.entity.enableBabyGlowSquid")
+		    @Config.LangKey("oe.config.entity.babyGlowSquid.enableBabyGlowSquid")
 		    @Config.Comment("If Baby Glow Squids should be enabled")
 		    public boolean enableBabyGlowSquid = true;
 		    
-		    @Config.LangKey("oe.config.entity.babyGlowSquidCustomModel")
+		    @Config.LangKey("oe.config.entity.babyGlowSquid.babyGlowSquidCustomModel")
 		    @Config.Comment("If Baby Glow Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
 		    public boolean babyGlowSquidCustomModel = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.babyGlowSquidSpawnChance")
+		    @Config.LangKey("oe.config.entity.babyGlowSquid.babyGlowSquidSpawnChance")
 		    @Config.Comment("The percent chance for a Baby Glow Squid to spawn along-side an adult glow squid.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double babyGlowSquidSpawnChance = 14.3;
@@ -1084,9 +1174,20 @@ public class ConfigHandler
 		
 		public static class configClam
 		{
-		    @Config.LangKey("oe.config.entity.enableClam")
+		    @Config.LangKey("oe.config.entity.clam.enableClam")
 		    @Config.Comment("If Clams should be enabled")
 		    public boolean enableClam = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.clam.clamBiomineralizationList")
+			@Config.Comment("Converts items held within a Clam. Written as 'blockID/itemID:metadata' = 'converstionTime' = 'resulting blockID/itemID:metadata'.")
+			public String[] clamBiomineralizationList =
+					{
+							"minecraft:gravel=10=minecraft:sand",
+							"minecraft:sand:1=40=oe:pearl",
+							"minecraft:sand=40=oe:pearl",
+							"oe:shell_sand=5=oe:pearl"
+					};
 	    }
 		
 		@RequiresMcRestart
@@ -1095,7 +1196,7 @@ public class ConfigHandler
 		
 		public static class configCod
 		{
-		    @Config.LangKey("oe.config.entity.enableCod")
+		    @Config.LangKey("oe.config.entity.cod.enableCod")
 		    @Config.Comment("If Cod should be enabled")
 		    public boolean enableCod = true;
 	    }
@@ -1106,20 +1207,20 @@ public class ConfigHandler
 		
 		public static class configCrab
 		{
-		    @Config.LangKey("oe.config.entity.enableCrab")
+		    @Config.LangKey("oe.config.entity.crab.enableCrab")
 		    @Config.Comment("If Crabs should be enabled")
 		    public boolean enableCrab = true;
 		    
-		    @Config.LangKey("oe.config.entity.crabTalkInterval")
+		    @Config.LangKey("oe.config.entity.crab.crabTalkInterval")
 		    @Config.Comment("The number to ticks between the crab's chirps (ambient sound). 0 disables it, if you hate their chirps.")
 		    public int crabTalkInterval = 280;
 		    
-		    @Config.LangKey("oe.config.entity.enableCrabDigging")
+		    @Config.LangKey("oe.config.entity.crab.enableCrabDigging")
 		    @Config.Comment("If Crabs can dig. Does not affect the individual crabs that have 'CanDig' set to false.")
 		    public boolean enableCrabDigging = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.crabDiggingList")
+		    @Config.LangKey("oe.config.entity.crab.crabDiggingList")
 		    @Config.Comment("Allows a Crab to dig from certain blocks, and the Loot Table they will pull from.")
 		    public String[] crabDiggingList =
 			{
@@ -1130,27 +1231,49 @@ public class ConfigHandler
 		    	"minecraft:soul_sand=oe:gameplay/crab_dig/soul_sand"
 		    };
 	    }
-		
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.entity.dolphin")
+		public configDolphin dolphin = new configDolphin();
+
+		public static class configDolphin
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.dolphin.enableDolphin")
+			@Config.Comment("If Dolphins should be enabled")
+			public boolean enableDolphin = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.dolphin.dolphinsRequireAir")
+			@Config.Comment("If Dolphins require Air to prevent suffocation. This does not alter their Moistness (water) requirement.")
+			public boolean dolphinsRequireAir = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.dolphin.dolphinsGiveGrace")
+			@Config.Comment("Allows Dolphins to grant Dolphin's Grace to nearby sprint-swimming Players")
+			public boolean dolphinsGiveGrace = true;
+		}
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.glowSquid")
 	    public configGlowSquid glowSquid = new configGlowSquid();
 		
 		public static class configGlowSquid
 		{
-		    @Config.LangKey("oe.config.entity.glowSquidBodyBright")
+		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidBodyBright")
 		    @Config.Comment("Minimum brightness of Glow Squids. 15 is Full Bright")
 		    public int glowSquidBodyBright = 4;
 			
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.glowSquidLayer")
+		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidLayer")
 		    @Config.Comment("If Glow Squids should have a 2ed layer for brightness")
 		    public boolean glowSquidLayer = true;
 		    
-		    @Config.LangKey("oe.config.entity.glowSquidLayerBright")
+		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidLayerBright")
 		    @Config.Comment("Brightness of a Glow Squids' second layer. 15 is Full Bright")
 		    public int glowSquidLayerBright = 11;
 		    
-		    @Config.LangKey("oe.config.entity.glowSquidSpawnMaxHeight")
+		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidSpawnMaxHeight")
 		    @Config.Comment("The Maximum spawn height of the Glow Squid")
 		    public int glowSquidSpawnMaxHeight = 40;
 	    }
@@ -1162,11 +1285,11 @@ public class ConfigHandler
 		public static class configLobster
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableLobster")
+		    @Config.LangKey("oe.config.entity.lobster.enableLobster")
 		    @Config.Comment("If Lobster should be enabled")
 		    public boolean enableLobster = true;
 			
-			@Config.LangKey("oe.config.entity.lobsterMoltCooldown")
+			@Config.LangKey("oe.config.entity.lobster.lobsterMoltCooldown")
 		    @Config.Comment("The cooldown between when a Lobster can Molt again. Lowers per tick, so 20:1 second. Default is 3000(2.5 minutes).")
 		    public int lobsterMoltCooldown = 3000;
 		    
@@ -1178,7 +1301,7 @@ public class ConfigHandler
 		
 		public static class configPickled
 		{
-		    @Config.LangKey("oe.config.entity.enablePickled")
+		    @Config.LangKey("oe.config.entity.pickled.enablePickled")
 		    @Config.Comment("If Pickled should be enabled")
 		    public boolean enablePickled = true;
 	    }
@@ -1190,16 +1313,16 @@ public class ConfigHandler
 		public static class configPufferfish
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enablePufferfish")
+		    @Config.LangKey("oe.config.entity.pufferfish.enablePufferfish")
 		    @Config.Comment("If Pufferfish should be enabled")
 		    public boolean enablePufferfish = true;
 		    
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enablePufferfishInflateOnHit")
+		    @Config.LangKey("oe.config.entity.pufferfish.enablePufferfishInflateOnHit")
 		    @Config.Comment("Pufferfish instantly inflate to full when hurt")
 		    public boolean enablePufferfishInflateOnHit = true;
 			
-		    @Config.LangKey("oe.config.entity.pufferfishFriends")
+		    @Config.LangKey("oe.config.entity.pufferfish.pufferfishFriends")
 		    @Config.Comment("Mobs that don't scare the Pufferfish.")
 		    public String[] pufferfishFriends = 
 			{
@@ -1216,11 +1339,11 @@ public class ConfigHandler
 				 	"oe:clam"
 		    };
 		    
-		    @Config.LangKey("oe.config.entity.pufferfishPoisonLength")
+		    @Config.LangKey("oe.config.entity.pufferfish.pufferfishPoisonLength")
 		    @Config.Comment("How long the Pufferfish Poison lasts.")
 		    public int pufferfishPoisonLength = 6;
 		    
-		    @Config.LangKey("oe.config.entity.pufferfishPoisonAmplifier")
+		    @Config.LangKey("oe.config.entity.pufferfish.pufferfishPoisonAmplifier")
 		    @Config.Comment("The amplifier of the Pufferfish Poison.")
 		    public int pufferfishPoisonAmplifier = 1;
 		}
@@ -1232,17 +1355,17 @@ public class ConfigHandler
 		public static class configSalmon
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableSalmon")
+		    @Config.LangKey("oe.config.entity.salmon.enableSalmon")
 		    @Config.Comment("If Slamon should be enabled")
 		    public boolean enableSalmon = true;
 			
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.salmonSizeVarience")
+		    @Config.LangKey("oe.config.entity.salmon.salmonSizeVarience")
 		    @Config.Comment("If Salmon can spawn in a variety of sizes.")
 		    public boolean salmonSizeVarience = true;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.salmonFeedingGrowth")
+		    @Config.LangKey("oe.config.entity.salmon.salmonFeedingGrowth")
 		    @Config.Comment("When using breeding items on Salmon, they grow in size. This is a joke feature.")
 		    public boolean salmonFeedingGrowth = false;
 		}
@@ -1254,25 +1377,25 @@ public class ConfigHandler
 		public static class configTropicalFish
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableTropicalFish")
+		    @Config.LangKey("oe.config.entity.tropicalFish.enableTropicalFish")
 		    @Config.Comment("If Tropical Fish should be enabled")
 		    public boolean enableTropicalFish = true;
 		    
-			@Config.LangKey("oe.config.entity.tropicalFishDefaultChance")
+			@Config.LangKey("oe.config.entity.tropicalFish.tropicalFishDefaultChance")
 		    @Config.Comment("The percent chance a tropical fish is from the default variants list.")
 		    public int tropicalFishDefaultChance = 90;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.tropicalFishBedrockColors")
+		    @Config.LangKey("oe.config.entity.tropicalFish.tropicalFishBedrockColors")
 		    @Config.Comment("If Tropical fish colors should use bedrock names. [Light Blue -> Sky, Pink -> Rose, Light Gray -> Silver, Cyan -> Teal, Purple -> Plum]")
 		    public boolean tropicalFishBedrockColors = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableBlackTropicalFish")
+		    @Config.LangKey("oe.config.entity.tropicalFish.enableBlackTropicalFish")
 		    @Config.Comment("If Black should be included in the list of possible tropical fish colors. This is not in vanilla Minecraft, as it makes the fish eyes hard to see.")
 		    public boolean enableBlackTropicalFish = false;
 			
-		    @Config.LangKey("oe.config.entity.defaultTropicalFishVariants")
+		    @Config.LangKey("oe.config.entity.tropicalFish.defaultTropicalFishVariants")
 		    @Config.Comment("The most likely list of tropical fish variants to spawn")
 		    public String[] defaultTropicalFishVariants = 
 			{
@@ -1300,7 +1423,7 @@ public class ConfigHandler
 				 	"235340288"
 		    };
 		    
-		    @Config.LangKey("oe.config.entity.tropicalFishNameOverrides")
+		    @Config.LangKey("oe.config.entity.tropicalFish.tropicalFishNameOverrides")
 		    @Config.Comment("Assigns unique names for certain Tropical Fish. Accepts Translation Keys or Raw String.")
 		    public String[] tropicalFishNameOverrides = 
 			{
@@ -1336,17 +1459,17 @@ public class ConfigHandler
 		public static class configTropicalSlime
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableTropicalSlime")
+		    @Config.LangKey("oe.config.entity.tropical_slime.enableTropicalSlime")
 		    @Config.Comment("If Tropical Slimes should be enabled")
 		    public boolean enableTropicalSlime = true;
 		    
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableJungleTropicalSlime")
+		    @Config.LangKey("oe.config.entity.tropical_slime.enableJungleTropicalSlime")
 		    @Config.Comment("If Tropical Slimes can spawn in Jungles. Follows the same rules Slimes do in Swamps.")
 		    public boolean tropicalSlimeJungleSpawning = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.tropicalSlimeBucketKill")
+		    @Config.LangKey("oe.config.entity.tropical_slime.tropicalSlimeBucketKill")
 		    @Config.Comment("Allows the player to scoop the Fish out of a medium or small Tropical Slime usong a Bucket. This kills the Slime.")
 		    public boolean tropicalSlimeBucketKill = true;
 		}
@@ -1358,15 +1481,15 @@ public class ConfigHandler
 		public static class configTurtle
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableTurtle")
+		    @Config.LangKey("oe.config.entity.turtle.enableTurtle")
 		    @Config.Comment("If Turtles should be enabled")
 		    public boolean enableTurtle = true;
 		    
-			@Config.LangKey("oe.config.entity.turtleBreedCooldown")
+			@Config.LangKey("oe.config.entity.turtle.turtleBreedCooldown")
 		    @Config.Comment("How many seconds before a Turtle can breed again. For refrence, the Turtle Breeding cooldowns are 90 seconds in Bedrock, 300 (standard 5 minutes) in Java.")
 		    public int turtleBreedCooldown = 90;
 			
-		    @Config.LangKey("oe.config.entity.babyTurtlePredators")
+		    @Config.LangKey("oe.config.entity.turtle.babyTurtlePredators")
 		    @Config.Comment("These mobs will attack baby turtles. If the mob is tamable (such as a wolf or ocelot), they will only attack if they are untamed.")
 		    public String[] babyTurtlePredators = 
 			{
@@ -1403,7 +1526,7 @@ public class ConfigHandler
 			    @Config.LangKey("oe.config.entity.drownedCaptainSetChance")
 			    @Config.Comment("The chance for a drowned to be a drowned captain. Calculated as '(this x Clamped Regional Difficulty)%'")
 				@Config.RangeDouble(min = 0, max = 100)
-			    public double drownedCaptainSetChance = 5;
+			    public double drownedCaptainSetChance = 0.01;
 				
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.enableDrownedCaptainTexture")
@@ -1507,29 +1630,29 @@ public class ConfigHandler
 		public static class configChanneling
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableChannelingEnchant")
+		    @Config.LangKey("oe.config.enchant.channeling.enableChannelingEnchant")
 		    @Config.Comment("If the Channeling Enchantment should be enabled.")
 		    public boolean enableChannelingEnchant = true;
 			
-		    @Config.LangKey("oe.config.enchant.channelingWaterCheck")
+		    @Config.LangKey("oe.config.enchant.channeling.channelingWaterCheck")
 		    @Config.Comment("Prevents Lightning if the target is in Water")
 		    public boolean waterCheck = true;
 			
-		    @Config.LangKey("oe.config.enchant.channelingLavaCheck")
+		    @Config.LangKey("oe.config.enchant.channeling.channelingLavaCheck")
 		    @Config.Comment("Prevents Lightning if the target is in Lava")
 		    public boolean lavaCheck = true;
 			
-		    @Config.LangKey("oe.config.enchant.channelingInvert")
+		    @Config.LangKey("oe.config.enchant.channeling.channelingInvert")
 		    @Config.Comment("Inverts the Channeling Whitelist into a Blacklist")
 		    public boolean invertLightning = false;
 			
-			@Config.LangKey("oe.config.enchant.channelingBlocks")
+			@Config.LangKey("oe.config.enchant.channeling.channelingBlocks")
 		    @Config.Comment("Blocks that Channeling Tridents strike Lighting on when hit")
 		    public String[] lightningRodWhitelist = {
 		            "minecraft:iron_bars"
 		    };
 			
-			@Config.LangKey("oe.config.enchant.channelingRidingBlacklist")
+			@Config.LangKey("oe.config.enchant.channeling.channelingRidingBlacklist")
 		    @Config.Comment("Prevents Lightning if the target is riding any of these entities")
 		    public String[] ridingBlacklist = {
 				 	"minecraft:boat",
@@ -1544,24 +1667,24 @@ public class ConfigHandler
 		public static class configImpaling
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.enableImpalingEnchant")
+		    @Config.LangKey("oe.config.enchant.impaling.enableImpalingEnchant")
 		    @Config.Comment("If the Impaling Enchantment should be enabled.")
 		    public boolean enableImpalingEnchant = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.enableWaterJet")
+		    @Config.LangKey("oe.config.enchant.impaling.enableWaterJet")
 		    @Config.Comment("Adds the Water Jet enchantment, which functions like Bedrock Edition's Impaling (Bonus damage to wet mobs). (0 = Disabled, 1 = Enabled, 2 = Disable, and make Impaling use this behavior instead.)")
 		    public int enableWaterJet = 1;
 			
-		    @Config.LangKey("oe.config.enchant.impalingDamage")
+		    @Config.LangKey("oe.config.enchant.impaling.impalingDamage")
 		    @Config.Comment("Increases Impaling damage by this per level")
 		    public float impalingDamage = 2.5F;
 			
-		    @Config.LangKey("oe.config.enchant.waterJetDamage")
+		    @Config.LangKey("oe.config.enchant.impaling.waterJetDamage")
 		    @Config.Comment("Increases Water Jet damage by this per level")
 		    public float waterJetDamage = 1.0F;
 			
-			@Config.LangKey("oe.config.enchant.impalingMobs")
+			@Config.LangKey("oe.config.enchant.impaling.impalingMobs")
 		    @Config.Comment("Mobs affected by the Impaling enchantment")
 		    public String[] aquaticMobs = {
 				 	"minecraft:squid",
@@ -1589,17 +1712,17 @@ public class ConfigHandler
 		public static class configLoyalty
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.enableLoyaltyEnchant")
+		    @Config.LangKey("oe.config.enchant.loyalty.enableLoyaltyEnchant")
 		    @Config.Comment("If the Loyalty Enchantment should be enabled.")
 		    public boolean enableLoyaltyEnchant = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.loyaltyVoidReturn")
+		    @Config.LangKey("oe.config.enchant.loyalty.loyaltyVoidReturn")
 		    @Config.Comment("Loyalty Tridents return when in the void")
 		    public boolean loyaltyVoidReturn = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.loyaltyVoidReturnLevel")
+		    @Config.LangKey("oe.config.enchant.loyalty.loyaltyVoidReturnLevel")
 		    @Config.Comment("Loyalty Tridents return when below this y-level. (Requires void return to be enabled))")
 		    public int loyaltyVoidReturnLevel = -15;
 		}
@@ -1611,22 +1734,22 @@ public class ConfigHandler
 		public static class configMobStomp
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.enableMobStompEnchant")
+		    @Config.LangKey("oe.config.enchant.mobStomp.enableMobStompEnchant")
 		    @Config.Comment("If the Mob Stomp Enchantment should be enabled.")
 		    public boolean enableMobStompEnchant = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.enableMobStompArmorStandBoing")
+		    @Config.LangKey("oe.config.enchant.mobStomp.enableMobStompArmorStandBoing")
 		    @Config.Comment("Allows Mob Stomp to work when landing atop an Armor Stand.")
 		    public boolean enableMobStompArmorStandBoing = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.enableMobStompDurabilityCost")
+		    @Config.LangKey("oe.config.enchant.mobStomp.enableMobStompDurabilityCost")
 		    @Config.Comment("Makes Mob Stomp deal 1 durability after a successful use.")
 		    public boolean enableMobStompDurabilityCost = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.enableMobStompOnAnyBoots")
+		    @Config.LangKey("oe.config.enchant.mobStomp.enableMobStompOnAnyBoots")
 		    @Config.Comment("Allows Mob Stomp to be placed on any Boots. This enchantment was made to be exclusive to the Heavy Boots, so this breaks the intended balance.")
 		    public boolean enableMobStompOnAnyBoots = false;
 		}
@@ -1638,17 +1761,17 @@ public class ConfigHandler
 		public static class configRiptide
 		{
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.enableRiptideEnchant")
+		    @Config.LangKey("oe.config.enchant.riptide.enableRiptideEnchant")
 		    @Config.Comment("If the Riptide Enchantment should be enabled.")
 		    public boolean enableRiptideEnchant = true;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.riptideSneakThrowing")
+		    @Config.LangKey("oe.config.enchant.riptide.riptideSneakThrowing")
 		    @Config.Comment("Lets the player throw their Riptide trident by sneaking. The throw speed is multiplied by the Riptide level, making them VERY fast!")
 		    public boolean riptideSneakThrowing = false;
 			
 			@RequiresMcRestart
-		    @Config.LangKey("oe.config.enchant.riptideIBroughtMyOwnWaterThankYou")
+		    @Config.LangKey("oe.config.enchant.riptide.riptideIBroughtMyOwnWaterThankYou")
 		    @Config.Comment("Enables the ability to use Riptide by holding a Bucket in your other hand. I think this really breaks the balance of the Enchantment, but I added it if anyone wants it.")
 		    public boolean riptideIBroughtMyOwnWaterThankYou = false;
 		}
@@ -1669,24 +1792,41 @@ public class ConfigHandler
 		public static class configDescent
 		{
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.effect.descentFallPull")
+		    @Config.LangKey("oe.config.effect.descent.descentFallPull")
 		    @Config.Comment("How much Descent pulls the player when falling. Is multiplied per amplifier, and the current falling speed.")
 		    public double descentFallPull = 0.05;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.effect.descentWaterPull")
+		    @Config.LangKey("oe.config.effect.descent.descentWaterPull")
 		    @Config.Comment("How much Descent pulls the player when in water. Is multiplied per amplifier, and the current sinking speed.")
 		    public double descentWaterPull = 0.05;
 		    
 		    @RequiresMcRestart
-		    @Config.LangKey("oe.config.effect.descentAqAcWaterPull")
+		    @Config.LangKey("oe.config.effect.descent.descentAqAcWaterPull")
 		    @Config.Comment("How much Descent pulls the player when in water, WITH Aqua Acrobatics installed. Uses a different formula, but will use the original if set to 0.")
 		    public double descentAqAcWaterPull = 0.07;
 		    
-		    @Config.LangKey("oe.config.effect.descentSlimeFix")
+		    @Config.LangKey("oe.config.effect.descent.descentSlimeFix")
 		    @Config.Comment("Fixes an odd bug where slime blocks led to infinite momentum building. I made it a config option because it's funny.")
 		    public boolean descentSlimeFix = true;
 	    }
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.effect.seeping")
+		public configSeeping seeping = new configSeeping();
+
+		public static class configSeeping
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.effect.seeping.enableSeeping")
+			@Config.Comment("If Seeping should be enabled.")
+			public boolean enableSeeping = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.effect.seeping.enableSeepingBrewing")
+			@Config.Comment("Enables the brewing of Seeping, using an Awkward Potion and a Tropical Slime Block.")
+			public boolean enableSeepingBrewing = true;
+		}
 	}
 	
 	
@@ -1721,7 +1861,12 @@ public class ConfigHandler
 		    @Config.Comment("Adds glowy particles to show when a mob is currently converting.")
 		    public boolean enableDrownParticles = true;
 	    }
-		
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.vanillaTweak.enablePackedIceRecipe")
+		@Config.Comment("If an Ice to Packed Ice recipe is enabled")
+		public boolean enablePackedIceRecipe = false;
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.vanillaTweak.waterBonemeal")
 	    public configWaterBonemeal waterBonemeal = new configWaterBonemeal();

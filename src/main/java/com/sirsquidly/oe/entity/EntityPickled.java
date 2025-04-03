@@ -24,7 +24,6 @@ public class EntityPickled extends EntityDrowned
 		super(worldIn);
 		this.setPathPriority(PathNodeType.WALKABLE, 0.0F);
 		this.setPathPriority(PathNodeType.WATER, 10.0F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
 	@Override

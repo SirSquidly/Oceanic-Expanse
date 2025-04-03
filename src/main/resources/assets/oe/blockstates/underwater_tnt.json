@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "unstable=false": { "model": "oe:underwater_tnt" },
+        "unstable=true": { "model": "oe:underwater_tnt" }
+    }
+}

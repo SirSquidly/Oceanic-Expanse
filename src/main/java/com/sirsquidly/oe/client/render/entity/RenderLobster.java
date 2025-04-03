@@ -27,7 +27,7 @@ public class RenderLobster extends RenderLiving<EntityLobster>
 
 	protected void preRenderCallback(EntityLobster entity, float f) {
 		float sizeDefault = 0.9375F;
-		float size = (sizeDefault/1.25F) + ((float)entity.getSalmonSize() * 0.1F - 0.1F);
+		float size = (sizeDefault/1.25F) + ((float)entity.getSize() * 0.1F - 0.1F);
 		float crabRotation = 0.0F;
 		
 		if (entity.getGrowingAge() < 0)

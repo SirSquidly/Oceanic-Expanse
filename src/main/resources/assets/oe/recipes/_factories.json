@@ -2,5 +2,8 @@
   "conditions":
   {
     "config": "com.sirsquidly.oe.util.handlers.ConfigArrayHandler$ConfigProperty"
+  },
+  "recipes": {
+    "magic_conch": "com.sirsquidly.oe.util.handlers.ConchNBTRecipe$Factory"
   }
 }

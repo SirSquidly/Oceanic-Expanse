@@ -50,11 +50,11 @@ public class ItemBlockSeaPickle extends ItemBlock {
 
             if (block == this.block)
             {
-                int i = ((Integer)iblockstate.getValue(BlockSeaPickle.AMOUNT)).intValue();
+                int i = (Integer) iblockstate.getValue(BlockSeaPickle.AMOUNT);
 
                 if (i < 4)
                 {
-                    IBlockState iblockstate1 = iblockstate.withProperty(BlockSeaPickle.AMOUNT, Integer.valueOf(i + 1));
+                    IBlockState iblockstate1 = iblockstate.withProperty(BlockSeaPickle.AMOUNT, i + 1);
                     AxisAlignedBB axisalignedbb = iblockstate1.getCollisionBoundingBox(worldIn, blockpos);
 
                     if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(blockpos)) && worldIn.setBlockState(blockpos, iblockstate1, 10))
@@ -63,9 +63,9 @@ public class ItemBlockSeaPickle extends ItemBlock {
                         worldIn.playSound(player, blockpos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
 
                         if (player instanceof EntityPlayerMP)
-                        {
-                            CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos, itemstack);
-                        }
+                        { CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)player, pos, itemstack); }
+                        /* Runs any `onBlockPlacedBy` logic associated with the given block*/
+                        iblockstate.getBlock().onBlockPlacedBy(worldIn, pos, iblockstate, player, itemstack);
 
                         itemstack.shrink(1);
                         return EnumActionResult.SUCCESS;
@@ -109,6 +109,6 @@ public class ItemBlockSeaPickle extends ItemBlock {
     public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack)
     {
         IBlockState state = world.getBlockState(pos);
-        return (state.getBlock() != this.block || getBlock(world, pos, this.block)) ? super.canPlaceBlockOnSide(world, pos, side, player, stack) : true;
+        return state.getBlock() == this.block && !getBlock(world, pos, this.block) || super.canPlaceBlockOnSide(world, pos, side, player, stack);
     }
 }

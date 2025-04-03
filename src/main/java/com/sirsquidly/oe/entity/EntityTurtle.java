@@ -81,7 +81,6 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
         this.waterNavigator = new PathNavigateSwimmer(this, worldIn);
         this.groundNavigator = new PathNavigateGround(this, worldIn);
         this.setHomePos(new BlockPos(this));
-        this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
 	@Override

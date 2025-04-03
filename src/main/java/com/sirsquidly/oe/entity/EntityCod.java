@@ -9,9 +9,11 @@ import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,7 +29,6 @@ public class EntityCod extends AbstractFish
 	public EntityCod(World worldIn) {
 		super(worldIn);
         this.setSize(0.6F, 0.3F);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 	
 	protected void applyEntityAttributes()
@@ -38,9 +39,10 @@ public class EntityCod extends AbstractFish
     }
 	
 	protected void initEntityAI()
-    {	
-		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
-		this.tasks.addTask(2, new EntityAILookIdle(this));
+    {
+        this.tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 1.6D, 1.4D));
+		this.tasks.addTask(2, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
+		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
     }
@@ -89,7 +91,9 @@ public class EntityCod extends AbstractFish
 	
 	public EntityCod createChild(EntityAgeable ageable)
     {
-        return new EntityCod(this.world);
+        EntityCod fish = new EntityCod(this.world);
+        if (ageable.isNoDespawnRequired()) fish.enablePersistence();
+        return fish;
     }
 	
 	public boolean isBreedingItem(ItemStack stack)

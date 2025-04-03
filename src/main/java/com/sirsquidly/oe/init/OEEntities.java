@@ -28,6 +28,7 @@ public class OEEntities
 		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) registerEntity("tropical_fish", EntityTropicalFish.class, ++id, 64, 16019232, 15724527);
 		if (ConfigHandler.entity.pufferfish.enablePufferfish) registerEntity("pufferfish", EntityPufferfish.class, ++id, 64, 15453241, 4365242);
 		if (ConfigHandler.entity.turtle.enableTurtle) registerEntity("turtle", EntityTurtle.class, ++id, 64, 12763520, 4702026);
+		if (ConfigHandler.entity.dolphin.enableDolphin) registerEntity("dolphin", EntityDolphin.class, ++id, 64, 5265784, 14213610);
 		if (ConfigHandler.entity.crab.enableCrab) registerEntity("crab", EntityCrab.class, ++id, 64, 11765373, 14894652);
 		if (ConfigHandler.entity.clam.enableClam) registerEntity("clam", EntityClam.class, ++id, 64, 14327661, 15701910);
 		if (ConfigHandler.entity.lobster.enableLobster) registerEntity("lobster", EntityLobster.class, ++id, 64, 7425351, 14894652);
@@ -41,20 +42,25 @@ public class OEEntities
 		registerEntity("palm_boat", EntityOEBoat.class, ++id, 100);
 		registerEntity("glow_item_frame", EntityGlowItemFrame.class, ++id, 100);
 		if (ConfigHandler.entity.pickled.enablePickled) registerEntity("pickled", EntityPickled.class, ++id, 80, 8223277, 14221270);
-		
+		registerEntity("drowned_summon", EntityDrownedSummon.class, ++id, 80);
+
 		registerEntity("coconut", EntityFallingCoconut.class, ++id, 20);
 		registerEntity("conduit_eye", EntityConduitEye.class, ++id, 80);
 		registerEntity("trident", EntityTrident.class, ++id, 80);
+		registerEntity("underwater_tnt", EntityUnderwaterTNTPrimed.class, ++id, 80);
 	}
 
 	public static void registerEntitySpawns()
 	{
-		EntityRegistry.addSpawn(EntityGlowSquid.class, 5, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
+		/* Spawn Weight needs to be high due to the height limitation of the spawning */
+		EntityRegistry.addSpawn(EntityGlowSquid.class, 8, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
+
 		if (ConfigHandler.entity.pufferfish.enablePufferfish) EntityRegistry.addSpawn(EntityPufferfish.class, 5, 1, 5, EnumCreatureType.WATER_CREATURE, Biomes.DEEP_OCEAN);
 		
 		if (ConfigHandler.entity.cod.enableCod) EntityRegistry.addSpawn(EntityCod.class, 15, 3, 7, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.salmon.enableSalmon) EntityRegistry.addSpawn(EntitySalmon.class, 15, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.RIVER).toArray(new Biome[0]));
 		if (ConfigHandler.entity.salmon.enableSalmon) EntityRegistry.addSpawn(EntitySalmon.class, 15, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
+		EntityRegistry.addSpawn(EntityDolphin.class, 10, 3, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) EntityRegistry.addSpawn(EntityTropicalFish.class, 30, 8, 8, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.clam.enableClam) EntityRegistry.addSpawn(EntityClam.class, 5, 1, 1, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.lobster.enableLobster) EntityRegistry.addSpawn(EntityLobster.class, 3, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
@@ -79,6 +85,7 @@ public class OEEntities
 		EntitySpawnPlacementRegistry.setPlacementType(EntityTropicalFish.class, SpawnPlacementType.IN_WATER);
 		EntitySpawnPlacementRegistry.setPlacementType(EntityPufferfish.class, SpawnPlacementType.IN_WATER);
 		EntitySpawnPlacementRegistry.setPlacementType(EntityDrowned.class, SpawnPlacementType.IN_WATER);
+		EntitySpawnPlacementRegistry.setPlacementType(EntityDolphin.class, SpawnPlacementType.IN_WATER);
 		
 		EntitySpawnPlacementRegistry.setPlacementType(EntityClam.class, SpawnPlacementType.IN_WATER);
 		EntitySpawnPlacementRegistry.setPlacementType(EntityLobster.class, SpawnPlacementType.IN_WATER);
