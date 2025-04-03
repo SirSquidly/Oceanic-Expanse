@@ -58,6 +58,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 		/* Stored so we don't need to redo math. */
 		int chunkPosX = chunkX * 16 + 8;
 		int chunkPosZ = chunkZ * 16 + 8;
+		int groundReplaceLowest = world.getSeaLevel() - 3;
 
     	this.sandNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.sandNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
     	this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
@@ -72,6 +73,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 				int posX = chunkPosX + x;
 				int posZ = chunkPosZ + z;
 
+				/** Gets the lowest non-water block, usually for the Sea Floor */
 				BlockPos posWaterFloor = world.getTopSolidOrLiquidBlock(new BlockPos(posX, 0, posZ));
                 Biome biome = world.getBiomeForCoordsBody(posWaterFloor);
                 
@@ -94,28 +96,27 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 
 				if (isValidBiome && ConfigHandler.worldGen.frozenOcean.enableFrozenOcean && this.frozenOceanNoiseGen[x * 16 + z] / frozenOceanScale - rand.nextDouble() * 0.01 > 0.0 && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6))
 				{
-					BlockPos posWaterSurface = world.getHeight(new BlockPos(posX, 0, posZ));
+					/** Used by Features that are placed at Sea Level exactly */
+					BlockPos posSeaLevel = new BlockPos(posX, world.getSeaLevel(), posZ);
 
-					if (world.getBlockState(posWaterFloor.down()).getBlock() == Blocks.SAND)
+					if (world.getBlockState(posWaterFloor.down()).getBlock() == Blocks.SAND && posWaterFloor.getY() < groundReplaceLowest)
 					{ world.setBlockState(posWaterFloor.down(), Blocks.GRAVEL.getDefaultState(), 16 | 2); }
 
 					if (ConfigHandler.worldGen.frozenOcean.enableIcebergs && !isBeachBiome)
 					{
-						spawnIceBerg(world, rand, posWaterSurface, chunkX, chunkZ, x, z, false, 0.3, 0.01, 3, 1);
-						spawnIceBerg(world, rand, posWaterSurface, chunkX, chunkZ, x, z, true, 0.3, 0.01, 10, 0.5);
-						icebergToppings(world, rand, posWaterSurface, chunkX, chunkZ, x, z);
+						spawnIceBerg(world, rand, posSeaLevel, chunkX, chunkZ, x, z, false, 0.3, 0.01, 3, 1);
+						spawnIceBerg(world, rand, posSeaLevel, chunkX, chunkZ, x, z, true, 0.3, 0.01, 10, 0.5);
+						icebergToppings(world, rand, posSeaLevel, chunkX, chunkZ, x, z);
 					}
 
 					//floatingIceCleaner(world, posSurface);
 
 					if (ConfigHandler.worldGen.frozenOcean.enableIceSheet && this.iceSheetNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.225 > ConfigHandler.worldGen.frozenOcean.iceSheetSpread)
 					{
-						if (world.getBlockState(posWaterSurface.down()).getBlock() == Blocks.WATER)
-						{ world.setBlockState(posWaterSurface.down(), Blocks.ICE.getDefaultState(), 16 | 2); }
+						if (world.getBlockState(posSeaLevel.down()).getBlock().isReplaceable(world, posSeaLevel.down()))
+						{ world.setBlockState(posSeaLevel.down(), Blocks.ICE.getDefaultState(), 16 | 2); }
 					}
 
-					/* TODO: Test if generators are better when placed BEFORE all the surface generation (Split into Stages/Layers?) */
-					/** Doesn't use new coordinates because it doesn't seem to be causing any issues as is.*/
 					if (x == 0 && z == 0)
 					{
 						if (ConfigHandler.worldGen.frozenOcean.frozenSeafloor.enableRockDecor) spawnRockDecor(world, rand, posWaterFloor, chunkX, chunkZ, x, z);

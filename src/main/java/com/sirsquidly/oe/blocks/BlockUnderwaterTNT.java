@@ -56,11 +56,11 @@ public class BlockUnderwaterTNT extends Block
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
-        if (worldIn.isBlockPowered(pos)) this.onPlayerDestroy(worldIn, pos, state);
+        if (worldIn.isBlockPowered(pos)) this.onPlayerDestroy(worldIn, pos, state.withProperty(UNSTABLE, true));
     }
 
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    { if (worldIn.isBlockPowered(pos)) this.onPlayerDestroy(worldIn, pos, state); }
+    { if (worldIn.isBlockPowered(pos)) this.onPlayerDestroy(worldIn, pos, state.withProperty(UNSTABLE, true)); }
 
     public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state)
     {
