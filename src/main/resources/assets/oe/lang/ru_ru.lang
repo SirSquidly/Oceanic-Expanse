@@ -35,8 +35,8 @@ description.oe.lobster_color5.name=Оранжевый
 description.oe.lobster_color6.name=Ситцевый
 description.oe.lobster_color7.name=Цвета сладкой ваты
 description.oe.lobster_color8.name=Альбинос
-description.oe.lobster_half15.name=Хэллоуин
-description.oe.lobster_half51.name=Хэллоуин
+description.oe.lobster_half15.name=Хэллоуинский
+description.oe.lobster_half51.name=Хэллоуинский
 
 description.oe.tropical_fish_color.3=Небесный
 description.oe.tropical_fish_color.6=Розовый
@@ -99,12 +99,16 @@ description.oe.turtle_helmet.name=Даёт 10 секунд Подводного 
 
 
 effect.oe.conduit_power=Сила моря
+effect.oe.dolphins_grace=Грация дельфина
 
 effect.oe.descent=Спуск
+effect.oe.seeping=Протекание
 
 
 enchantment.oe.mobstomp=Топтыга
 enchantment.oe.mobstomp.desc=Переносит весь урон от падения с себя на мобов, на которых пришлось падение.
+enchantment.oe.rebound=Скачок Нора
+enchantment.oe.rebound.desc=Подбрасывает вас при приземлении на высоту, зависящую от высоты падения. За каждый уровень зачарования добавляется один отскок.
 enchantment.oe.is_wet=Поток воды
 enchantment.oe.is_wet.desc=Увеличивает урон по мокрым мобам.
 
@@ -122,6 +126,7 @@ entity.oe.baby_glow_squid.name=Маленький светящийся спру�
 entity.oe.baby_squid.name=Маленький спрут
 entity.oe.crab.name=Краб
 entity.oe.clam.name=Устрица
+entity.oe.drowned_shipmate.name=Утопленник-матрос
 entity.oe.glow_item_frame.name=Светящаяся рамка
 entity.oe.lobster.name=Лобстер
 entity.oe.palm_boat.name=Лодка из пальмового дерева
@@ -129,6 +134,7 @@ entity.oe.pickled.name=Засоленный
 entity.oe.tropical_slime.name=Тропическая слизь
 
 entity.oe.cod.name=Треска
+entity.oe.dolphin.name=Дельфин
 entity.oe.drowned.name=Утопленник
 entity.oe.glow_squid.name=Светящийся спрут
 entity.oe.pufferfish.name=Иглобрюх
@@ -143,6 +149,7 @@ item.oe.blue_slime_ball.name=Шарик тропической слизи
 item.oe.charm.name=Амулет проводника
 item.oe.coconut_open.name=Треснутый кокос
 item.oe.conch.name=Ракушка
+item.oe.magic_conch.name=Волшебная ракушка
 item.oe.crab.name=Сырое мясо краба
 item.oe.crab_bisque.name=Крабовый суп
 item.oe.cooked_crab.name=Приготовленный краб
@@ -168,6 +175,15 @@ item.oe.trident.name=Трезубец
 item.oe.turtle_scute.name=Черепаший щиток
 item.oe.turtle_helmet.name=Чеерпаший панцирь
 
+resonance.oe.wave_wail=Вой волны
+resonance.oe.brine_breath=Дыхание рассола
+resonance.oe.captain_call=Клич капитана
+resonance.oe.sea_serenade=Серенада моря
+
+description.resonance.oe.wave_wail=Отбрасывает существ при использовании.
+description.resonance.oe.brine_breath=Накладывает Замедление и спуск на существ поблизости.
+description.resonance.oe.captain_call=Призывает утопленника-матроса.
+description.resonance.oe.sea_serenade=Даёт Регенерацию и Грацию дельфина существам поблизости, а на Нежить накладывает Мгновенное исцеление.
 
 subtitle.oe.coconut_hit=Удар кокосом
 subtitle.oe.clam.close=Устрица закрывается
@@ -185,11 +201,14 @@ subtitle.oe.crab.ambient=Краб чирикает
 subtitle.oe.crab.angry=Краб злобно шипит
 subtitle.oe.crab.death=Краб умирает
 subtitle.oe.crab.hurt=Краб ранен
+subtitle.oe.generic.drown_convert=Что-то превращается
 subtitle.oe.lobster.angry=Лобстер злобно шипит
 subtitle.oe.lobster.death=Лобстер умирает
 subtitle.oe.lobster.hurt=Лобстер ранен
 subtitle.oe.lobster.molt=Лобстер линяет
 subtitle.oe.ink_sac.squirt=Чернильный мешок брызжет
+subtitle.oe.item.spawn_bucket.empty_fish=Ведро опустошилось
+subtitle.oe.item.spawn_bucket.fill_fish=Что-то поймано
 
 subtitle.oe.cod.death=Треска умирает
 subtitle.oe.cod.flop=Треска бултыхается
@@ -202,6 +221,8 @@ subtitle.oe.coral.break=Сломан блок
 subtitle.oe.coral.hit=Блок ломается
 subtitle.oe.coral.place=Блок поставлен
 subtitle.oe.coral.step=Шаги
+subtitle.oe.dolphin.ambient.water=Дельфин свистит
+subtitle.oe.dolphin.hurt=Дельфин ранен
 subtitle.oe.drowned.ambient=Утопленник гурчит
 subtitle.oe.drowned.hurt=Утопленник ранен
 subtitle.oe.drowned.death=Утопленник умирает
@@ -241,6 +262,10 @@ subtitle.oe.turtle.hurt=Черепаха ранен
 subtitle.oe.turtle.death=Черепаха умирает
 subtitle.oe.turtle.step=Черепаха плетётся
 subtitle.oe.turtle.swim=Черепаха плывёт
+subtitle.oe.turtle_egg.crack=Черепашье яйцо трещит
+subtitle.oe.turtle_egg.egg_break=Черепашье яйцо ломается
+subtitle.oe.turtle_egg.fall=Черепашье яйцо раздавлено
+subtitle.oe.turtle_egg.hatch=Черепашье яйцо вылупляется
 subtitle.oe.wet_grass.break=Блок сломан
 subtitle.oe.wet_grass.hit=Блок ломается
 subtitle.oe.wet_grass.place=Блок поставлен
@@ -280,8 +305,10 @@ tile.oe.prismarine_pot.name=Призмариновый горшок
 tile.oe.sea_oats.name=Морской овёс
 tile.oe.seastar.name=Морская звезда
 tile.oe.shell_sand.name=Песок с ракушками
+tile.oe.stagnant.name=Волнорез
 tile.oe.tube_sponge.name=Трубчатая губка
 tile.oe.underwater_torch.name=Подводный факел
+tile.oe.underwater_tnt.name=Подводный динамит
 
 tile.oe.blue_coral_block.name=Блок трубчатого коралла
 tile.oe.blue_coral.name=Трубчатый коралл
@@ -321,14 +348,17 @@ tile.oe.yellow_coral_block_dead.name=Мёртвый блок рогового к
 tile.oe.yellow_coral_dead.name=Мёртвый роговой корал
 tile.oe.yellow_coral_fan_dead.name=Мёртвый веер рогового коралла
 
+
 potion.effect.oe.descent=Зелье Спуска
+potion.effect.oe.seeping=Зелье Протекания
 
 potion.effect.oe.turtle_master=Зелье Повелителя черепах
 potion.effect.oe.turtle_master_long=Зелье Повелителя черепах +
 potion.effect.oe.turtle_master_strong=Зелье Повелителя черепах II
 
 
-splash_potion.effect.oe.descent=Взрывное Potion of Descent
+splash_potion.effect.oe.descent=Взрывное зелье спуска
+splash_potion.effect.oe.seeping=Взрывное зелье Протекания
 
 splash_potion.effect.oe.turtle_master=Взрывное зелье Повелителя черепах
 splash_potion.effect.oe.turtle_master_long=Взрывное зелье Повелителя черепах +
@@ -336,13 +366,15 @@ splash_potion.effect.oe.turtle_master_strong=Взрывное зелье Пов�
 
 
 lingering_potion.effect.oe.descent=Туманное зелье Спуска
+lingering_potion.effect.oe.seeping=Туманное зелье Протекания
 
 lingering_potion.effect.oe.turtle_master=Туманное зелье Повелителя черепах
 lingering_potion.effect.oe.turtle_master_long=Туманное зелье Повелителя черепах +
 lingering_potion.effect.oe.turtle_master_strong=Туманное зелье Повелителя черепах II
 
 
-tipped_arrow.effect.oe.descent=Стрела Descent
+tipped_arrow.effect.oe.descent=Стрела спуска
+tipped_arrow.effect.oe.seeping=Стрела Протекания
 
 tipped_arrow.effect.oe.turtle_master=Стрела Повелителя черепах
 tipped_arrow.effect.oe.turtle_master_long=Стрела Повелителя черепах +
@@ -413,7 +445,13 @@ oe.config.block.enableSeagrass=Наличие водорослей
 oe.config.block.enableTallSeagrass=Наличие высоких водорослей
 oe.config.block.seaOats=Конйиг морского овса
 oe.config.block.enableSeaOats=Наличие морского овса
-oe.config.block.seaOatShears=Могут подрезать морской овёс
+oe.config.block.seaOatShears=Можно подрезать морской овёс
+oe.config.block.stagnant=Конфиг Волнореза
+oe.config.block.stagnant.enableStagnant=Включить волнорез
+oe.config.block.stagnant.stagnantLight=Свет Волнореза
+oe.config.block.stagnant.stagnantParticles=Частицы Волнореза
+oe.config.block.stagnant.stagnantFrameBlocks=Блоки в рамке Волнореза
+oe.config.block.stagnant.stagnantIgnoreTargets=Мобы, игнорируемые Волнорезом
 oe.config.block.enableSeaPickle=Наличие морских огурцов
 oe.config.block.enableSeastar=Наличие морских звёзд
 oe.config.block.enableShellySand=Наличие песка с ракушками
@@ -423,10 +461,14 @@ oe.config.block.tubeSpongeShears=Срезание ножницами трубч�
 oe.config.block.turtleEggs=Конфиг черепашьих яиц
 oe.config.block.enableTurtleEgg=Наличие черепашьих яиц
 oe.config.block.amountOnTrample=Количество растаптываемых яиц
+oe.config.block.turtleEgg.breakXP=Выпадение опыта
 oe.config.block.particlesOnFall=Частицы от черепашьих яиц при падении на них
 oe.config.block.puffOnTrample=Черепашьи яйца лопаются, если на них прыгать
 oe.config.block.zombiesTrample=Могут ли зомби растоптать черепашьи яйца
-
+oe.config.block.waterTNT=Конфиг подводного динмаита
+oe.config.block.waterTNT.enableWaterTNT=Включить подовдный динамит
+oe.config.block.waterTNT.waterDestructionChance=Шанс убрать воду
+oe.config.block.waterTNT.blockDropChance=Шанс дропа блоков
 oe.config.block.waterTorch=Конфиг подводного факела
 oe.config.block.enableWaterTorch=Наличие Подводного факела
 oe.config.block.waterTorchLight=Свет подводного факела
@@ -488,6 +530,10 @@ oe.config.entity.enableCrab=Наличие Краба
 oe.config.entity.crabTalkInterval=Интервал звуков Краба
 oe.config.entity.enableCrabDigging=Наличие копания Краба
 oe.config.entity.crabDiggingList=Таблица копания Краба
+oe.config.entity.dolphin=Конфиг дельфина
+oe.config.entity.dolphin.enableDolphin=Включиь дельфинов
+oe.config.entity.dolphin.dolphinsRequireAir=Дельфинам нужен воздух
+oe.config.entity.dolphin.dolphinsGiveGrace=Дельфины дают Грацию дельфина
 oe.config.entity.drowned=Утопленник - Конфиг
 oe.config.entity.enableDrowned=Наличие Утопленника 
 oe.config.entity.enableDrownedLowerArms=Опустить руки, когда предмет в левой руке
@@ -552,6 +598,9 @@ oe.config.effect.descentFallPull=Гравитация Спуска/Притяж�
 oe.config.effect.descentWaterPull=Притяжение Спуска в воде
 oe.config.effect.descentAqAcWaterPull=(Aqua Acrobatics) Притяжение Спуска в воде
 oe.config.effect.descentSlimeFix=Включить фикс блоков слизи
+oe.config.effect.seeping=Конфиг Протекания
+oe.config.effect.seeping.enableSeeping=Включить Протекание
+oe.config.effect.seeping.enableSeepingBrewing=Включить рецепт Зелья Протекания
 
 
 oe.config.item=Конфиг Предметов
@@ -677,6 +726,7 @@ oe.config.vanillaTweak.drownConverting=Конверсия при утоплен�
 oe.config.vanillaTweak.enableDrownConverting=Включить Конверсию при утоплении
 oe.config.vanillaTweak.drownConversionsList=Список Конверсии при утоплении
 oe.config.vanillaTweak.enableDrownParticles=Включить Частицы утопления
+oe.config.vanillaTweak.enablePackedIceRecipe=Включить рецепт Плотного льда
 oe.config.vanillaTweak.waterLighting=Вода меньше блокирует свет
 oe.config.vanillaTweak.waterCancelReplace=Отменить замену материала Water
 oe.config.vanillaTweak.inkSquirting=Брызги чернил - Конфиг
@@ -704,10 +754,10 @@ oe.config.vanillaTweak.noSwimList=Список включения всплыва
 
 
 
-
-
 description.effect.oe.conduit=Даёт Подводное дыхание, Ночное зрение и Спешку при погружении под воду.
+description.effect.oe.dolphins_grace=Увеличивает скорость плавания.
 description.effect.oe.descent=Тянет существ вниз.
+description.effect.oe.seeping=Спавнит Тропических Слизней при убийстве существ.
 
 oe.jei.barnacle_shells.desc=Раковины моллюсков можно использовать для создания ракушечника или зелья Спуска.\n\nНа наковальне ими можно чинить Тяжёлые ботинки.
 oe.jei.coconut.desc=Кокосы подвержены гравитации.\n\nЕсли кокос упадёт на моба, он нанесёт урон, равный [дистанция падения] - 1, максимум 19.\n\nЕсли кокос падает с высоты более 5 блоков или если сломать его любым инструментом, с него выпадет 2 треснутых кокоса.
@@ -717,3 +767,4 @@ oe.jei.palm_leaves_flowering.desc=Цветущие листья пальмы с�
 oe.jei.sea_oats.desc=Морской овёс бывает коротким и высоким, и высокий способен создавать песок.\n\nЕсли высокий морской овёс соприкасается с блоком, у него есть шанс стать песчаным на дне. Использование лопаты на морском овсе даст копию песка, на котором он посажен.\n\nИспользование ножниц на высоком морском овсе делает его коротким, а костная мука делает обратное.
 oe.jei.sea_pickle.desc=Морские огурцы можно ставить группами вплоть до 4. Когда они под водой, они начинают светиться.\n\nИспользование костной муки на группе, в которй меньше 4-х огурцов, увеличит их число. Если колония растёт на блоке коралла, морские огурцы начнут распространяться на остальные блоки кораллов.
 oe.jei.shell_sand.desc=Песок с ракушками можно добыть или нажать ПКМ лопатой, чтоб получить предмет. Собрать сам блок можно при помощи Шёлкового касания.
+oe.jei.stagnant.desc=Волнорез, когда активен, атакует существ поблизости и накладывает Утомление.\n\nДля активации нужно посторить рамку из Призмариновых блоков вокруг Волнореза в области 5х5х5. После активации у Волнореза появится анимация. Для активации необходимы минимум 12 блоков.\n\nРадиус атаки Волнореза равен [кол-во блоков в рамке]/7 * 16.\n\nЕсли в рамке как минимум 64 блока, Волнорез станет 'Древним', увеличивая его урон на 2 и накладывая Утомление на всех игроков в радиусе, равном [кол-во блоков в рамке]/8.
