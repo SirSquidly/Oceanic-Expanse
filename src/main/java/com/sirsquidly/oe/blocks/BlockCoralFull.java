@@ -2,7 +2,6 @@ package com.sirsquidly.oe.blocks;
 
 import java.util.Random;
 
-import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
@@ -17,24 +16,28 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCoralFull extends Block
+public class BlockCoralFull extends Block implements IChecksWater
 {
 	public static final PropertyBool IS_DEAD = PropertyBool.create("is_dead");
-	
-	public BlockCoralFull(MapColor blockMapColor, SoundType soundIn) 
+
+    /** This is used for storing the dead version of this coral, if there is one. */
+    private Block deadVersion = null;
+
+	public BlockCoralFull(MapColor blockMapColor, SoundType soundIn, Block deadVersionIn)
 	{
 		super(Material.ROCK, blockMapColor);
 		this.setSoundType(soundIn);
+        this.deadVersion = deadVersionIn;
 		this.setDefaultState(this.blockState.getBaseState());		
 		this.setHardness(1.5F);
 		this.setResistance(6.5F);
 		
-		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralBlockDryTicks == 0 ? false : true);
+		this.setTickRandomly(ConfigHandler.block.coralBlocks.coralBlockDryTicks != 0);
 	}
 	
 	//** This just helps register dead coral faster */
 	public BlockCoralFull()
-	{ this(MapColor.GRAY, SoundType.STONE); }
+	{ this(MapColor.GRAY, SoundType.STONE, null); }
 	
     public int getMetaFromState(IBlockState state)
     {
@@ -47,20 +50,7 @@ public class BlockCoralFull extends Block
     }
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-    	if (this == OEBlocks.BLUE_CORAL_BLOCK)
-    	{ return Item.getItemFromBlock(OEBlocks.BLUE_CORAL_BLOCK_DEAD); }	
-    	if (this == OEBlocks.PINK_CORAL_BLOCK)
-    	{ return Item.getItemFromBlock(OEBlocks.PINK_CORAL_BLOCK_DEAD); }
-    	if (this == OEBlocks.PURPLE_CORAL_BLOCK)
-    	{ return Item.getItemFromBlock(OEBlocks.PURPLE_CORAL_BLOCK_DEAD); }
-    	if (this == OEBlocks.RED_CORAL_BLOCK)
-    	{ return Item.getItemFromBlock(OEBlocks.RED_CORAL_BLOCK_DEAD); }
-    	if (this == OEBlocks.YELLOW_CORAL_BLOCK)
-    	{ return Item.getItemFromBlock(OEBlocks.YELLOW_CORAL_BLOCK_DEAD); }
-    	
-    	return super.getItemDropped(state, rand, fortune);
-    }
+    { return this.deadVersion != null ? Item.getItemFromBlock(this.deadVersion) : super.getItemDropped(state, rand, fortune); }
     
     protected boolean canSilkHarvest() { return true; }
     /**
@@ -92,7 +82,7 @@ public class BlockCoralFull extends Block
         for (EnumFacing enumfacing : EnumFacing.values())
         {
         	BlockPos blockpos = pos.offset(enumfacing);
-            if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
+            if (isWaterHere(worldIn, blockpos))
             {
                 flag = true;
                 break;
@@ -113,18 +103,7 @@ public class BlockCoralFull extends Block
     {
         boolean flag = this.checkWater(worldIn, pos, state);
 
-        if (!flag)
-        {
-        	if (state.getBlock() == OEBlocks.BLUE_CORAL_BLOCK)
-        	{ worldIn.setBlockState(pos, OEBlocks.BLUE_CORAL_BLOCK_DEAD.getDefaultState(), 2); }
-        	if (state.getBlock() == OEBlocks.PINK_CORAL_BLOCK)
-        	{ worldIn.setBlockState(pos, OEBlocks.PINK_CORAL_BLOCK_DEAD.getDefaultState(), 2); }
-        	if (state.getBlock() == OEBlocks.PURPLE_CORAL_BLOCK)
-        	{ worldIn.setBlockState(pos, OEBlocks.PURPLE_CORAL_BLOCK_DEAD.getDefaultState(), 2); }
-        	if (state.getBlock() == OEBlocks.RED_CORAL_BLOCK)
-        	{ worldIn.setBlockState(pos, OEBlocks.RED_CORAL_BLOCK_DEAD.getDefaultState(), 2); }
-        	if (state.getBlock() == OEBlocks.YELLOW_CORAL_BLOCK)
-        	{ worldIn.setBlockState(pos, OEBlocks.YELLOW_CORAL_BLOCK_DEAD.getDefaultState(), 2); }
-        }
+        if (!flag && this.deadVersion != null)
+        { worldIn.setBlockState(pos, this.deadVersion.getDefaultState(), 2); }
     }
 }

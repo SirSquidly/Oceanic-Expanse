@@ -21,6 +21,7 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -29,6 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -49,6 +51,7 @@ public class AbstractFish extends EntityAnimal
 	{
 		super(worldIn);
 		this.moveHelper = new AbstractFish.FishMoveHelper(this);
+		this.setPathPriority(PathNodeType.WATER, 0.0F);
 	}
 	
 	protected void applyEntityAttributes()
@@ -186,24 +189,16 @@ public class AbstractFish extends EntityAnimal
 	* Detects if the fish isn't in water. Used for flopping motion and animation.
 	*/
 	public boolean isFlopping() 
-	{ 
-		return canFlop() && (!this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world)));
-	}
+	{ return canFlop() && (!this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world))); }
 	
-	/**
-	* If this fish can flop when on land.
-	*/
+	/** If this fish can flop when on land. */
 	public boolean canFlop() 
-	{ 
-		return true;
-	}
+	{ return true; }
 	
 	protected SoundEvent getAmbientSound()
     { return this.isInWater() ? OESounds.ENTITY_FISH_SWIM : null; }
 	
-	/**
-	* The sound a fish uses when Flopping
-	*/
+	/** The sound a fish uses when Flopping */
 	public SoundEvent getFlopSound()
     { return OESounds.ENTITY_FISH_FLOP; }
 	
@@ -223,7 +218,7 @@ public class AbstractFish extends EntityAnimal
         }
         if (!this.world.isRemote)
         {
-            if (canFlop() && onGround && !this.isInsideOfMaterial(Material.WATER)) 
+            if (canFlop() && onGround && !this.isInsideOfMaterial(Material.WATER))
             {
                 motionY += 0.4D;
                 motionX += (double) ((rand.nextFloat() * 2.0F - 1.0F) * 0.2F);
@@ -237,7 +232,8 @@ public class AbstractFish extends EntityAnimal
             else
             {
             	motionY -= 0.001D;
-            	if (f > 0.0F) setAir(150);
+				/* Currently a hard-coded check for Dolphins, split this into a different method later! In fact, do that with ALL flopping! */
+            	if (f > 0.0F && !(this instanceof EntityDolphin)) setAir(150);
             }
         }
     }
@@ -245,7 +241,7 @@ public class AbstractFish extends EntityAnimal
 	// Warning, Guardian stuff ahead    
 		
 	protected boolean canTriggerWalking()
-    { return false; }
+    { return true; }
 	
 	public int getTalkInterval()
     { return 120; }
@@ -279,34 +275,53 @@ public class AbstractFish extends EntityAnimal
             this.Fish = Fish;
         }
      
-    @Override
-	public void onUpdateMoveHelper()
-    {
-        if (this.action == EntityMoveHelper.Action.MOVE_TO && !this.Fish.getNavigator().noPath() && this.Fish.isInWater())
-        {    
-        	if (this.Fish.isInsideOfMaterial(Material.WATER)) 
-        	{ this.Fish.motionY += 0.005; }
+		@Override
+		public void onUpdateMoveHelper()
+		{
+			if (this.action == EntityMoveHelper.Action.MOVE_TO && !this.Fish.getNavigator().noPath() && this.Fish.isInWater())
+			{
+				if (this.Fish.isInsideOfMaterial(Material.WATER))
+				{ this.Fish.motionY += 0.005; }
 
-            double d0 = this.posX - this.Fish.posX;
-            double d1 = this.posY - this.Fish.posY;
-            double d2 = this.posZ - this.Fish.posZ;
-            double d3 = (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-            d1 = d1 / d3;
-            float f = (float)(MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-            this.Fish.rotationYaw = this.limitAngle(this.Fish.rotationYaw, f, 90.0F);
-            this.Fish.renderYawOffset = this.Fish.rotationYaw;
-            
-            float f1 = (float)(this.speed * this.Fish.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
-            this.Fish.setAIMoveSpeed(this.Fish.getAIMoveSpeed() + (f1 - this.Fish.getAIMoveSpeed()) * 0.125F);
-            
-            this.Fish.motionY += (double)this.Fish.getAIMoveSpeed() * d1 * 0.1D;
-        	} 
-        
-        	if (!(this.Fish.isInWater()) && this.Fish.isFlopping()) 
-        	{ this.Fish.setAIMoveSpeed(0.0F); }
-        	
-        	else if ((!(this.Fish.isInWater()) && !(this.Fish.isFlopping())))
-        	{ super.onUpdateMoveHelper();}
-    	}
+				double d0 = this.posX - this.Fish.posX;
+				double d1 = this.posY - this.Fish.posY;
+				double d2 = this.posZ - this.Fish.posZ;
+				double d3 = (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+				d1 = d1 / d3;
+				float f = (float)(MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
+				this.Fish.rotationYaw = this.limitAngle(this.Fish.rotationYaw, f, 90.0F);
+				this.Fish.renderYawOffset = this.Fish.rotationYaw;
+
+				float f1 = (float)(this.speed * this.Fish.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+				this.Fish.setAIMoveSpeed(this.Fish.getAIMoveSpeed() + (f1 - this.Fish.getAIMoveSpeed()) * 0.125F);
+
+				this.Fish.motionY += (double)this.Fish.getAIMoveSpeed() * d1 * 0.1D;
+
+
+
+				EntityLookHelper entitylookhelper = this.Fish.getLookHelper();
+				double d7 = this.Fish.posX + d0 / d3 * 3.0D;
+				double d8 = (double)this.Fish.getEyeHeight() + this.Fish.posY + d1 / d3 * 5.0;
+				double d9 = this.Fish.posZ + d2 / d3 * 3.0D;
+				double d10 = entitylookhelper.getLookPosX();
+				double d11 = entitylookhelper.getLookPosY();
+				double d12 = entitylookhelper.getLookPosZ();
+
+				if (!entitylookhelper.getIsLooking())
+				{
+					d10 = d7;
+					d11 = d8;
+					d12 = d9;
+				}
+
+				this.Fish.getLookHelper().setLookPosition(d10 + (d7 - d10) * 0.125, d11 + (d8 - d11) * 0.125, d12 + (d9 - d12) * 0.125, 5.0F, 30.0F);
+			}
+
+				if (!(this.Fish.isInWater()) && this.Fish.isFlopping())
+				{ this.Fish.setAIMoveSpeed(0.0F); }
+
+				else if ((!(this.Fish.isInWater()) && !(this.Fish.isFlopping())))
+				{ super.onUpdateMoveHelper();}
+		}
     }
 }

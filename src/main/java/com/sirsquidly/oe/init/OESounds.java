@@ -30,7 +30,12 @@ public class OESounds
 	public static SoundEvent BLOCK_CORAL_STEP = soundReadyForRegister("block.coral.step");
 	
 	public static SoundType CORAL = new SoundType(1.0f, 1.0f, BLOCK_CORAL_BREAK, BLOCK_CORAL_STEP, BLOCK_CORAL_PLACE, BLOCK_CORAL_HIT, BLOCK_CORAL_FALL);
-	
+
+	public static SoundEvent BLOCK_TURTLE_EGG_CRACK = soundReadyForRegister("block.turtle_egg.crack");
+	public static SoundEvent BLOCK_TURTLE_EGG_BREAK = soundReadyForRegister("block.turtle_egg.egg_break");
+	public static SoundEvent BLOCK_TURTLE_EGG_STOMP = soundReadyForRegister("block.turtle_egg.fall");
+	public static SoundEvent BLOCK_TURTLE_EGG_HATCH = soundReadyForRegister("block.turtle_egg.hatch");
+
 	public static SoundEvent BLOCK_WET_GRASS_BREAK = soundReadyForRegister("block.wet_grass.break");
 	public static SoundEvent BLOCK_WET_GRASS_FALL = soundReadyForRegister("block.wet_grass.fall");
 	public static SoundEvent BLOCK_WET_GRASS_HIT = soundReadyForRegister("block.wet_grass.hit");
@@ -55,7 +60,10 @@ public class OESounds
 	public static SoundEvent ENTITY_CRAB_ANGRY = soundReadyForRegister("entity.crab.angry");
 	public static SoundEvent ENTITY_CRAB_DEATH = soundReadyForRegister("entity.crab.death");
 	public static SoundEvent ENTITY_CRAB_HURT = soundReadyForRegister("entity.crab.hurt");
-	
+
+	public static SoundEvent ENTITY_DOLPHIN_AMBIENT_WATER = soundReadyForRegister("entity.dolphin.ambient.water");
+	public static SoundEvent ENTITY_DOLPHIN_HURT = soundReadyForRegister("entity.dolphin.hurt");
+
 	public static SoundEvent ENTITY_DROWNED_AMBIENT = soundReadyForRegister("entity.drowned.ambient");
 	public static SoundEvent ENTITY_DROWNED_HURT = soundReadyForRegister("entity.drowned.hurt");
 	public static SoundEvent ENTITY_DROWNED_DEATH = soundReadyForRegister("entity.drowned.death");
@@ -65,7 +73,9 @@ public class OESounds
 	// ** This sound is used when a fish doesn't specify a flop sound. */
 	public static SoundEvent ENTITY_FISH_FLOP = soundReadyForRegister("entity.fish.flop");
 	public static SoundEvent ENTITY_FISH_SWIM = soundReadyForRegister("entity.fish.swim");
-	
+
+	public static SoundEvent ENTITY_GENERIC_DROWN_CONVERT = soundReadyForRegister("entity.generic.drown_convert");
+
 	public static SoundEvent ENTITY_LOBSTER_ANGRY = soundReadyForRegister("entity.lobster.angry");
 	public static SoundEvent ENTITY_LOBSTER_DEATH = soundReadyForRegister("entity.lobster.death");
 	public static SoundEvent ENTITY_LOBSTER_HURT = soundReadyForRegister("entity.lobster.hurt");
@@ -109,11 +119,14 @@ public class OESounds
 	public static SoundEvent ENTITY_TURTLE_BABY_STEP = soundReadyForRegister("entity.turtle.baby_step");
 	public static SoundEvent ENTITY_TURTLE_STEP = soundReadyForRegister("entity.turtle.step");
 	public static SoundEvent ENTITY_TURTLE_SWIM = soundReadyForRegister("entity.turtle.swim");
+
 	public static SoundEvent ITEM_CONCH_BLOW1 = soundReadyForRegister("item.conch.conch_blow1");
 	public static SoundEvent ITEM_CONCH_BLOW2 = soundReadyForRegister("item.conch.conch_blow2");
 	public static SoundEvent ITEM_CONCH_BLOW3 = soundReadyForRegister("item.conch.conch_blow3");
 	public static SoundEvent ITEM_CONCH_BLOW4 = soundReadyForRegister("item.conch.conch_blow4");
 	public static SoundEvent ITEM_INK_SAC_SQUIRT = soundReadyForRegister("item.ink_sac.squirt");
+	public static SoundEvent ITEM_SPAWN_BUCKET_EMPTY_FISH = soundReadyForRegister("item.spawn_bucket.empty_fish");
+	public static SoundEvent ITEM_SPAWN_BUCKET_FILL_FISH = soundReadyForRegister("item.spawn_bucket.fill_fish");
 	
 	public static void registerSounds()
 	{	

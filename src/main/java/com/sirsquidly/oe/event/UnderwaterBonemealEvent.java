@@ -1,7 +1,10 @@
 package com.sirsquidly.oe.event;
 
+import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.Lists;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -23,6 +26,10 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 @Mod.EventBusSubscriber
 public class UnderwaterBonemealEvent 
 {
+	/** These lists are used when selecting which Coral to generate. */
+	static List<Block> allCoralFans = Lists.newArrayList( OEBlocks.BLUE_CORAL_FAN, OEBlocks.PINK_CORAL_FAN, OEBlocks.PURPLE_CORAL_FAN, OEBlocks.RED_CORAL_FAN, OEBlocks.YELLOW_CORAL_FAN );
+	static List<Block> allCorals = Lists.newArrayList( OEBlocks.BLUE_CORAL, OEBlocks.PINK_CORAL, OEBlocks.PURPLE_CORAL, OEBlocks.RED_CORAL, OEBlocks.YELLOW_CORAL );
+
 	/** This feels hacky. Am I a hack? Probably. **/
 	@SubscribeEvent
 	public static void onBonemeal(BonemealEvent event) {
@@ -86,39 +93,18 @@ public class UnderwaterBonemealEvent
 		if (!ConfigHandler.block.coralBlocks.enableCoralFan && !ConfigHandler.block.coralBlocks.enableCoral) return;
 		
 		int randCoral = ConfigHandler.block.coralBlocks.enableCoralFan ? ConfigHandler.block.coralBlocks.enableCoral ? rand.nextInt(10) : rand.nextInt(5) : rand.nextInt(5) + 5;
-		
-		switch (randCoral)
+
+		boolean doFanGen = ConfigHandler.block.coralBlocks.enableCoralFan && rand.nextBoolean();
+
+		if (doFanGen)
 		{
-			case 0: 
-				((BlockCoralFan) OEBlocks.BLUE_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.BLUE_CORAL_FAN, false);
-				break;
-			case 1:
-				((BlockCoralFan) OEBlocks.PINK_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.PINK_CORAL_FAN, false);
-				break;
-			case 2:
-				((BlockCoralFan) OEBlocks.PURPLE_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.PURPLE_CORAL_FAN, false);
-				break;
-			case 3:
-				((BlockCoralFan) OEBlocks.RED_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.RED_CORAL_FAN, false);
-				break;
-			case 4:
-				((BlockCoralFan) OEBlocks.YELLOW_CORAL_FAN).placeAt(worldIn, pos, rand, OEBlocks.YELLOW_CORAL_FAN, false);
-				break;
-			case 5: 
-				worldIn.setBlockState(pos, OEBlocks.BLUE_CORAL.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);
-				break;
-			case 6:
-				worldIn.setBlockState(pos, OEBlocks.PINK_CORAL.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);
-				break;
-			case 7:
-				worldIn.setBlockState(pos, OEBlocks.PURPLE_CORAL.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);
-				break;
-			case 8:
-				worldIn.setBlockState(pos, OEBlocks.RED_CORAL.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);
-				break;
-			case 9:
-				worldIn.setBlockState(pos, OEBlocks.YELLOW_CORAL.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);
-				break;
+			Block block = allCoralFans.get(rand.nextInt(allCoralFans.size()));
+			((BlockCoralFan) block).placeGeneration(worldIn, pos, rand, block.getDefaultState());
+		}
+		else
+		{
+			Block block = allCorals.get(rand.nextInt(allCorals.size()));
+			worldIn.setBlockState(pos, block.getDefaultState().withProperty(BlockCoral.IN_WATER, true), 16 | 2);
 		}
 	}
 	

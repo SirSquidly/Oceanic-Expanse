@@ -3,6 +3,7 @@ package com.sirsquidly.oe.event;
 import java.util.List;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -88,33 +89,26 @@ public class BucketMobEvent
 			if (ConfigArrayHandler.bucketableMobs.contains(EntityList.getKey(entity)) && !entity.isDead)
 			{
 				player.swingArm(EnumHand.MAIN_HAND);
-				
+				player.playSound(OESounds.ITEM_SPAWN_BUCKET_FILL_FISH, 1.0F, 1.0F);
 				event.setCanceled(true);
 				
 				if (!event.getWorld().isRemote)
 				{
 	                if (!player.capabilities.isCreativeMode)
-	                {
-	                	stack.setCount(stack.getCount() - 1);
-	                }
-	                
+	                { stack.setCount(stack.getCount() - 1); }
+
 	                ItemStack newStack = new ItemStack(OEItems.SPAWN_BUCKET);
 	                
 	                ItemSpawnBucket.recordEntityNBT(newStack, player, entity);
 	                
 	                if (entity.hasCustomName())
-		            {
-						newStack.setStackDisplayName(entity.getCustomNameTag());
-		            }
+		            { newStack.setStackDisplayName(entity.getCustomNameTag()); }
 	                
 	                if (stack.isEmpty()) 
-	                {
-	                    player.setHeldItem(EnumHand.MAIN_HAND, newStack);
-	                } 
+	                { player.setHeldItem(EnumHand.MAIN_HAND, newStack); }
 	                else if (!player.inventory.addItemStackToInventory(newStack)) 
-	                {
-	                    player.dropItem(newStack, false);
-	                }
+	                { player.dropItem(newStack, false); }
+
 	                // Lazy solution to the game trying to instantly use the spawn bucket when given to the survival player
 	                player.getCooldownTracker().setCooldown(newStack.getItem(), 1);
 	                

@@ -122,7 +122,9 @@ public class EntityPufferfish extends AbstractFish
 
     public EntityPufferfish createChild(EntityAgeable ageable)
     {
-        return new EntityPufferfish(this.world);
+        EntityPufferfish fish = new EntityPufferfish(this.world);
+        if (ageable.isNoDespawnRequired()) fish.enablePersistence();
+        return fish;
     }
     
     public boolean isBreedingItem(ItemStack stack)

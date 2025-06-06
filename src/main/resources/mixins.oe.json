@@ -5,7 +5,8 @@
     "refmap": "refmap.oe.json",
     "mixins": [],
     "client": [ 
-    	"MixinModelBiped"
+    	"MixinModelBiped",
+        "MixinRenderPlayer"
     ],
     "server": []
 }

@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.potion.PotionBase;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -41,33 +41,32 @@ public class ItemCharm extends Item
 	/** Called each Inventory Tick, same thing the Map does. This auto-sets the random sound if it doesn't have one.*/
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
-    	if (isSelected || entityIn instanceof EntityLivingBase && ((EntityLivingBase)entityIn).getHeldItemOffhand() == stack)
-        { 
-    		this.grantConduit(worldIn, entityIn, stack);
-    	}
+		if (!(entityIn instanceof EntityLivingBase)) return;
+		EntityLivingBase user = (EntityLivingBase) entityIn;
+
+    	if (isSelected)
+        { this.grantConduit(worldIn, user, stack); }
     }
 
-	public void grantConduit(World worldIn, Entity entityIn, ItemStack stack)
+	public void grantConduit(World worldIn, EntityLivingBase user, ItemStack stack)
     {
 		if (worldIn.isRemote) return;
-
-		EntityLivingBase user = (EntityLivingBase) entityIn;
 		
 		user.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 1, 0, true, true));
 		
 		if (!user.isPotionActive(OEPotions.CONDUIT_POWER) || user.getActivePotionEffect(OEPotions.CONDUIT_POWER).getDuration() <= 9)
 		{
-			if (PotionBase.isEntityHeadSubmerged(user))
+			if (user.isInsideOfMaterial(Material.WATER))
     		{
-				if (ConfigHandler.item.conduitCharm.enableConduitCharmPulseSound) worldIn.playSound(null, entityIn.getPosition(), OESounds.BLOCK_CONDUIT_BEAT, SoundCategory.BLOCKS, 1.0f, 1.0f);
+				if (ConfigHandler.item.conduitCharm.enableConduitCharmPulseSound) worldIn.playSound(null, user.getPosition(), OESounds.BLOCK_CONDUIT_BEAT, SoundCategory.BLOCKS, 1.0f, 1.0f);
 				user.addPotionEffect(new PotionEffect(OEPotions.CONDUIT_POWER, 119, 0, true, true));
-				giftNearbyEffect(worldIn, entityIn.getPosition());
+				giftNearbyEffect(worldIn, user.getPosition());
 				
 				boolean isSpectator = user instanceof EntityPlayer && ((EntityPlayer)user).isSpectator();
 				boolean isCreative = user instanceof EntityPlayer && ((EntityPlayer)user).capabilities.isCreativeMode;
 
 				if (!isCreative && !isSpectator) stack.damageItem(1, user);
-				if (!isSpectator)  spawnParticles(entityIn.world, user);
+				if (!isSpectator)  spawnParticles(user.world, user);
     		} 
 		}
     }

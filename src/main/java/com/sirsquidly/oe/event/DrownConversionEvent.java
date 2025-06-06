@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
@@ -21,7 +22,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -75,7 +75,7 @@ public class DrownConversionEvent
         
         Random rand = world.rand;
         
-        if (entity.world.getBlockState(new BlockPos(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ)).getMaterial() == Material.WATER)
+        if (entity.isInsideOfMaterial(Material.WATER))
         {
         	NBTTagCompound entityData = entity.getEntityData();
         	
@@ -127,7 +127,6 @@ public class DrownConversionEvent
         for (EntityEquipmentSlot slot : EntityEquipmentSlot.values())
         {
         	drowned.setItemStackToSlot(slot, entity.getItemStackFromSlot(slot));
-        	
             //entity.entityDropItem(entity.getItemStackFromSlot(slot), 0.0F);
         }
         
@@ -146,9 +145,10 @@ public class DrownConversionEvent
         	drowned.setCustomNameTag(entity.getCustomNameTag());
         	drowned.setAlwaysRenderNameTag(entity.getAlwaysRenderNameTag());
         }
-        
+
         worldIn.spawnEntity(drowned);
         entity.setDead();
+		drowned.playSound(OESounds.ENTITY_GENERIC_DROWN_CONVERT, 2.0F, (rand.nextFloat() * 0.4F) + 0.8F);
         
         for (int i = 0; i < 80 && ConfigHandler.vanillaTweak.drownConverting.enableDrownParticles; i++)
         {

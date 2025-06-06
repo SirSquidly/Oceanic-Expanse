@@ -1,4 +1,8 @@
 {
+  "conditions":
+  [
+    { "type": "config", "prop": "enablePearl" }
+  ],
   "type": "minecraft:crafting_shapeless",
   "ingredients":
   [

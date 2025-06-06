@@ -4,6 +4,8 @@ import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
 
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
@@ -18,68 +20,60 @@ public interface IChecksWater
 	
 	default void swapWaterProperty(World worldIn, BlockPos pos, IBlockState state)
 	{
-		if (!checkWater(worldIn, pos) && state.getValue(IN_WATER))
+		if (!checkSurroundingUnderwaterPosition(worldIn, pos) && state.getValue(IN_WATER))
 		{
 			worldIn.setBlockState(pos, state.withProperty(IN_WATER, false));
 		}
-		else if (checkWater(worldIn, pos) && !state.getValue(IN_WATER))
+		else if (checkSurroundingUnderwaterPosition(worldIn, pos) && !state.getValue(IN_WATER))
 		{
 			worldIn.setBlockState(pos, state.withProperty(IN_WATER, true));
 		}
 	}
 
-	/** Checks if the exact block is water. Uses 'checkWater', or just directly checks the block if 'disableBlockWaterLogic'. 
+	default boolean isPositionUnderwater(World worldIn, BlockPos pos)
+	{ return this.isPositionUnderwater(worldIn, pos, false); }
+
+	/**
+	 * If the given position is `underwater`. If Fluidlogged API is installed, it just checks itself. Otherwise it will check all neighboring blocks
 	 * 	boolean 'onlyTrueWater' makes this return Water blocks, else it will return for any Material.WATER block
 	 * */
-	default boolean checkPlaceWater(World worldIn, BlockPos pos, @Nullable boolean onlyTrueWater)
+	default boolean isPositionUnderwater(World worldIn, BlockPos pos, @Nullable boolean onlyTrueWater)
     { 
 		if (onlyTrueWater)
 		{
 			boolean waterBlocks = worldIn.getBlockState(pos).getBlock() == Blocks.WATER || worldIn.getBlockState(pos).getBlock() == Blocks.FLOWING_WATER;
-			return waterBlocks && (Main.proxy.fluidlogged_enable || checkWater(worldIn, pos) && !Main.proxy.fluidlogged_enable);
+			return waterBlocks && (Main.proxy.fluidlogged_enable || checkSurroundingUnderwaterPosition(worldIn, pos) && !Main.proxy.fluidlogged_enable);
 		}
-		return Main.proxy.fluidlogged_enable ? worldIn.getBlockState(pos).getMaterial() == Material.WATER: checkWater(worldIn, pos);
+		return Main.proxy.fluidlogged_enable ? isWaterHere(worldIn, pos): checkSurroundingUnderwaterPosition(worldIn, pos);
 	}
 	
-	/** Checks if surrounding blocks are either solid or are Material.WATER. **/
-	default boolean checkWater(World worldIn, BlockPos pos)
+	/** Checks if any of the surrounding blocks are NOT an acceptable neighbor. **/
+	default boolean checkSurroundingUnderwaterPosition(World worldIn, BlockPos pos)
     {
-		/** First we check above this for Water, a Solid, or skip if config. **/
-    	if ((Main.proxy.fluidlogged_enable || worldIn.getBlockState(pos.up()).getMaterial() == Material.WATER || worldIn.getBlockState(pos.up()).isSideSolid(worldIn, pos.up(), EnumFacing.DOWN)))
-    	{
-    		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-            {
-    			BlockPos blockpos = pos.offset(enumfacing);
-    			
-    			/** Checking each direction if a block should make this fail by either not being solid or water **/
-            	if (worldIn.getBlockState(blockpos).getMaterial() != Material.WATER && !worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, enumfacing.getOpposite()))
-            	{ 
-            		if (worldIn.getBlockState(blockpos.up()).getMaterial() != Material.WATER && !worldIn.getBlockState(blockpos.up()).isSideSolid(worldIn, blockpos.up(), EnumFacing.DOWN))
-            		{
-            			return false;
-            		}
-            	}
-            }
-    		return true;
-    	}
-    	return false;
+		for (EnumFacing enumfacing : EnumFacing.VALUES)
+		{
+			if (!isAcceptableNeighbor(worldIn, pos.offset(enumfacing), enumfacing)) return false;
+		}
+		return true;
     }
-		
-	/** Checks if water is touching the side of this block. Skips the check if the block is underwater. **/
-	default boolean checkSurfaceWater(World worldIn, BlockPos pos, IBlockState state)
-    {
-		if (Main.proxy.fluidlogged_enable) return false;
-		
-    	if (worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR)
-    	{
-    		for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) 
-            {
-    			BlockPos blockpos = pos.offset(enumfacing);
-            	
-            	if (worldIn.getBlockState(blockpos).getMaterial() == Material.WATER)
-            	{ return true; }
-            }
-    	}
-    	return false;
-    }
+
+	/** Checks if the given block is an acceptable neighbor for an `underwater-type` block. */
+	default boolean isAcceptableNeighbor(World worldIn, BlockPos pos, EnumFacing facing)
+	{ return isWaterHere(worldIn, pos) || worldIn.getBlockState(pos).isSideSolid(worldIn, pos, facing); }
+
+	/**
+	 * If the given block is Water, or Fluidlogged.
+	 *  Note: This should NOT be used to MODIFY the fluidlogged state of blocks!
+	 * */
+	default public boolean isWaterHere(World worldIn, BlockPos pos)
+	{
+		if (worldIn.getBlockState(pos).getMaterial() == Material.WATER) return true;
+		if (Main.proxy.fluidlogged_enable)
+		{
+			final FluidState fluidState = FluidloggedUtils.getFluidState(worldIn, pos);
+			return !fluidState.isEmpty() && fluidState.getMaterial() == Material.WATER;
+		}
+
+		return false;
+	}
 }

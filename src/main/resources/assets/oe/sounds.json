@@ -63,6 +63,30 @@
     	"subtitle": "subtitle.oe.coral.step",
     	"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
     },
+	"block.turtle_egg.crack":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.crack",
+		"sounds": [ "oe:block/turtle_egg/crack1", "oe:block/turtle_egg/crack2", "oe:block/turtle_egg/crack3", "oe:block/turtle_egg/crack4", "oe:block/turtle_egg/crack5" ]
+	},
+	"block.turtle_egg.egg_break":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.egg_break",
+		"sounds": [ "oe:block/turtle_egg/egg_break1", "oe:block/turtle_egg/egg_break2" ]
+	},
+	"block.turtle_egg.fall":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.fall",
+		"sounds": [ "oe:block/turtle_egg/fall1", "oe:block/turtle_egg/fall2", "oe:block/turtle_egg/fall3", "oe:block/turtle_egg/fall4" ]
+	},
+	"block.turtle_egg.hatch":
+	{
+		"category": "block",
+		"subtitle": "subtitle.oe.turtle_egg.hatch",
+		"sounds": [ "oe:block/turtle_egg/hatch1", "oe:block/turtle_egg/hatch2", "oe:block/turtle_egg/hatch3" ]
+	},
     "block.wet_grass.break": 
     {
     	"category": "block",
@@ -92,6 +116,18 @@
     	"subtitle": "subtitle.oe.wet_grass.step",
     	"sounds": [ "oe:block/wet_grass/step1", "oe:block/wet_grass/step2", "oe:block/wet_grass/step3", "oe:block/wet_grass/step4", "oe:block/wet_grass/step5", "oe:block/wet_grass/step6"]
     },
+	"entity.dolphin.ambient.water":
+	{
+		"category": "hostile",
+		"subtitle": "subtitle.oe.dolphin.ambient.water",
+		"sounds": [ "oe:entity/dolphin/idle1_water", "oe:entity/dolphin/idle2_water", "oe:entity/dolphin/idle3_water", "oe:entity/dolphin/idle4_water", "oe:entity/dolphin/idle5_water", "oe:entity/dolphin/idle6_water", "oe:entity/dolphin/idle7_water", "oe:entity/dolphin/idle8_water", "oe:entity/dolphin/idle9_water", "oe:entity/dolphin/idle10_water" ]
+	},
+	"entity.dolphin.hurt":
+	{
+		"category": "hostile",
+		"subtitle": "subtitle.oe.dolphin.hurt",
+		"sounds": [ "oe:entity/dolphin/hurt1", "oe:entity/dolphin/hurt2", "oe:entity/dolphin/hurt3" ]
+	},
 	"entity.drowned.ambient": 
 	{
     	"category": "hostile",
@@ -211,6 +247,12 @@
     	"category": "neutral",
     	"sounds": [ "oe:entity/fish/swim1", "oe:entity/fish/swim2", "oe:entity/fish/swim3", "oe:entity/fish/swim4", "oe:entity/fish/swim5", "oe:entity/fish/swim6", "oe:entity/fish/swim7"]
      },
+	"entity.generic.drown_convert":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.generic.drown_convert",
+		"sounds": [ "oe:entity/generic/drown_convert/convert1", "oe:entity/generic/drown_convert/convert2", "oe:entity/generic/drown_convert/convert3" ]
+	},
      "entity.lobster.angry": 
 	 {
     	"category": "neutral",
@@ -417,6 +459,18 @@
     	"subtitle": "subtitle.oe.ink_sac.squirt",
     	"sounds": [ "oe:item/ink_sac/squirt1", "oe:item/ink_sac/squirt2" ]
      },
+	 "item.spawn_bucket.empty_fish":
+	 {
+		"category": "player",
+		"subtitle": "subtitle.oe.item.spawn_bucket.empty_fish",
+		"sounds": [ "oe:item/spawn_bucket/empty_fish1", "oe:item/spawn_bucket/empty_fish2", "oe:item/spawn_bucket/empty_fish3" ]
+	 },
+	 "item.spawn_bucket.fill_fish":
+	 {
+		"category": "player",
+		"subtitle": "subtitle.oe.item.spawn_bucket.fill_fish",
+		 "sounds": [ "oe:item/spawn_bucket/fill_fish1", "oe:item/spawn_bucket/fill_fish2", "oe:item/spawn_bucket/fill_fish3" ]
+	 },
      "entity.drowned.throw": 
      {
     	"category": "hostile",

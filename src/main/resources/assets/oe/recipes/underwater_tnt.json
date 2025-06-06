@@ -1,0 +1,20 @@
+{
+  "conditions":
+  [
+    {
+      "type": "config",
+      "prop": "enableUnderwaterTNT"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients":
+  [
+    { "item": "oe:bleak" },
+    { "item": "minecraft:tnt" }
+  ],
+  "result":
+  {
+    "item": "oe:underwater_tnt",
+    "count": 1
+  }
+}

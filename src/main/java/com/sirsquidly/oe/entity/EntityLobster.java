@@ -18,7 +18,6 @@ import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
@@ -58,8 +57,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 
-public class EntityLobster extends EntityAnimal implements IEggCarrierMob
+public class EntityLobster extends EntityAnimal implements IEggCarrierMob, IMeleeAnimal
 {
 	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityLobster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> LOBSTER_SIZE = EntityDataManager.<Integer>createKey(EntityLobster.class, DataSerializers.VARINT);
@@ -69,10 +71,14 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 	/** Time between being able to molt. */
     public int moltCooldown;
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.FISH);
-	private static final Set<Item>EDIBLE_ITEMS = Sets.newHashSet(Items.FISH, Item.getItemFromBlock(OEBlocks.KELP), OEItems.DRIED_KELP, OEItems.CRAB_UNCOOKED, OEItems.CRAB_COOKED, OEItems.LOBSTER_COOKED, OEItems.LOBSTER_UNCOOKED, OEItems.CRUSTACEAN_SHELL);
+	private static final Set<Item>EDIBLE_ITEMS = Sets.newHashSet(Items.FISH, Item.getItemFromBlock(OEBlocks.KELP), OEItems.DRIED_KELP, OEItems.CRAB_UNCOOKED, OEItems.CRAB_COOKED, OEItems.LOBSTER_COOKED, OEItems.LOBSTER_UNCOOKED);
 	/** Handles all the colors */
 	private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityLobster.class, DataSerializers.VARINT);
 	private int randomAngrySoundDelay;
+
+    /** A separate loot table for molting that can be defined via NBT. Else the default is used. */
+    private ResourceLocation moltLootTable;
+    private long moltLootTableSeed;
 	
 	public EntityLobster(World worldIn)
 	{
@@ -82,7 +88,6 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 		this.setPathPriority(PathNodeType.WALKABLE, 1.0F);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
 		this.moltCooldown = ConfigHandler.entity.lobster.lobsterMoltCooldown;
-		this.rand.setSeed((long)(1 + this.getEntityId()));
 	}
 
 	protected void entityInit()
@@ -132,14 +137,26 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 		{
 			if (!this.getHeldItemMainhand().isEmpty()) doEatingStuff();
 			
-			if (!this.world.isRemote && !this.isChild() &&(this.getFood() * 0.75 ) / getSalmonSize() > 1 && --this.moltCooldown <= 0)
+			if (!this.world.isRemote && !this.isChild() &&(this.getFood() * 0.75 ) / getSize() > 1 && --this.moltCooldown <= 0)
 			{
 				this.moltCooldown = ConfigHandler.entity.lobster.lobsterMoltCooldown;
 				this.playSound(OESounds.ENTITY_LOBSTER_MOLT, 1.0F, 0.5F);
-				this.setSize(this.getSalmonSize() + 1, true);
+				this.setSize(this.getSize() + 1, true);
 				this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 300));
-				this.dropItem(OEItems.CRUSTACEAN_SHELL, 1);
 				this.setFood(0);
+
+                if (!this.world.isRemote)
+                {
+                    ResourceLocation lootTableLocation = this.moltLootTable;
+                    if (lootTableLocation == null) lootTableLocation = this.getMoltLootTable();
+
+                    LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer)this.world);
+                    LootTable loottable = this.world.getLootTableManager().getLootTableFromLocation(lootTableLocation);
+
+                    for (ItemStack itemSheared : loottable.generateLootForPools(this.moltLootTableSeed == 0L ? this.rand : new Random(this.moltLootTableSeed), lootcontext$builder.build()))
+                    { this.entityDropItem(itemSheared, 1.0F); }
+                }
+
 			}
 		}
 		
@@ -193,12 +210,14 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         	if (!player.capabilities.isCreativeMode) { itemstack.shrink(1); }
         }
 
-        if (this.getSalmonSize() > 12)
+        if (this.getSize() > 12)
         {
         	if (itemstack.getItem() == Items.SADDLE && !this.getSaddled() && !player.isSneaking())
             {
             	this.setSaddled(true);
                 this.world.playSound(player, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
+                this.setItemStackToSlot(EntityEquipmentSlot.CHEST, itemstack);
+                this.setDropChance(EntityEquipmentSlot.CHEST, 0);
                 itemstack.shrink(1);
                 return true;
             }
@@ -208,7 +227,9 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         		{
         			this.setSaddled(false);
             		this.world.playSound(player, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
-            		if (!this.world.isRemote) this.dropItem(Items.SADDLE, 1);
+                    this.setDropChance(EntityEquipmentSlot.CHEST, 0);
+            		if (!this.world.isRemote) this.entityDropItem(this.getItemStackFromSlot(EntityEquipmentSlot.CHEST), 1.0F);
+
             		return true;
         		}
         		else if (!this.isBeingRidden() && !player.isSneaking())
@@ -226,16 +247,19 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
     {
-        int loopAmount = Math.max(this.getSalmonSize() / 3, 1);
+        if (this.getSaddled())
+        {
+            ItemStack wornSaddle = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+            this.entityDropItem(wornSaddle == ItemStack.EMPTY ? new ItemStack(Items.SADDLE) : wornSaddle, 1.0F);
+        }
+
+        int loopAmount = Math.max(this.getSize() / 3, 1);
      
         for (int l = 0; l < lootingModifier; l++)
-        { if (this.rand.nextBoolean() == true) ++loopAmount; }
+        { if (this.rand.nextBoolean()) ++loopAmount; }
         
         for (int i = 0; i < loopAmount; i++)
         { super.dropLoot(wasRecentlyHit, lootingModifier, source); }
-        
-        if (this.getSaddled())
-        { this.dropItem(Items.SADDLE, 1); }
     }
 	
 	public boolean isNotColliding()
@@ -272,7 +296,11 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 	@Override
     protected ResourceLocation getLootTable()
     { return LootTableHandler.ENTITIES_LOBSTER; }
-	
+
+    @Nullable
+    protected ResourceLocation getMoltLootTable()
+    { return LootTableHandler.GAMEPLAY_LOBSTER_MOLT; }
+
 	protected float getWaterSlowDown()
     { return this.isBeingRidden() ? 0.4F : 0.8F; }
 	
@@ -385,55 +413,8 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     
 	public boolean attackEntityAsMob(Entity entityIn)
     {
-        float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-        int i = 0;
-
-        if (entityIn instanceof EntityLivingBase)
-        {
-            f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase)entityIn).getCreatureAttribute());
-            i += EnchantmentHelper.getKnockbackModifier(this);
-        }
-
-        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
-
-        if (flag)
-        {
-        	this.setAngry(false);
-        	
-            if (i > 0 && entityIn instanceof EntityLivingBase)
-            {
-                ((EntityLivingBase)entityIn).knockBack(this, (float)i * 0.5F, (double)MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)));
-                this.motionX *= 0.6D;
-                this.motionZ *= 0.6D;
-            }
-
-            int j = EnchantmentHelper.getFireAspectModifier(this);
-
-            if (j > 0)
-            { entityIn.setFire(j * 4); }
-
-            if (entityIn instanceof EntityPlayer)
-            {
-                EntityPlayer entityplayer = (EntityPlayer)entityIn;
-                ItemStack itemstack = this.getHeldItemMainhand();
-                ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
-
-                if (!itemstack.isEmpty() && !itemstack1.isEmpty() && itemstack.getItem().canDisableShield(itemstack, itemstack1, entityplayer, this) && itemstack1.getItem().isShield(itemstack1, entityplayer))
-                {
-                    float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
-
-                    if (this.rand.nextFloat() < f1)
-                    {
-                        entityplayer.getCooldownTracker().setCooldown(itemstack1.getItem(), 100);
-                        this.world.setEntityState(entityplayer, (byte)30);
-                    }
-                }
-            }
-
-            this.applyEnchantments(this, entityIn);
-        }
-
-        return flag;
+        if (normalAttack(this, entityIn)) this.setAngry(false);
+        return normalAttack(this, entityIn);
     }
 	
 	static class AIHurtByTarget extends EntityAIHurtByTarget
@@ -481,13 +462,13 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 		
 	public void travel(float strafe, float vertical, float forward)
 	{
-		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+		Entity rider = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
 		if (this.isBeingRidden() && this.canBeSteered())
 		{
-			this.rotationYaw = entity.rotationYaw;
+			this.rotationYaw = rider.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;
-            this.rotationPitch = entity.rotationPitch * 0.5F;
+            this.rotationPitch = rider.rotationPitch * 0.5F;
             this.setRotation(this.rotationYaw, this.rotationPitch);
             this.renderYawOffset = this.rotationYaw;
             this.rotationYawHead = this.rotationYaw;
@@ -531,7 +512,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
 	
 	protected void setSize(int size, boolean resetHealth)
     {
-        this.dataManager.set(LOBSTER_SIZE, Integer.valueOf(size));
+        this.dataManager.set(LOBSTER_SIZE, size);
         
         this.setSize(0.55F + (size * 0.1F - 0.1F), 0.25F + (size * 0.025F));
         this.setPosition(this.posX, this.posY, this.posZ);
@@ -550,7 +531,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     {
         if (LOBSTER_SIZE.equals(key))
         {
-            int i = this.getSalmonSize();
+            int i = this.getSize();
             this.setSize(0.55F + (i * 0.1F - 0.1F), 0.25F + (i * 0.025F));
             this.rotationYaw = this.rotationYawHead;
             this.renderYawOffset = this.rotationYawHead;
@@ -564,20 +545,20 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         super.notifyDataManagerChange(key);
     }
 	
-    public int getSalmonSize()
-    { return ((Integer)this.dataManager.get(LOBSTER_SIZE)).intValue(); }
+    public int getSize()
+    { return (Integer) this.dataManager.get(LOBSTER_SIZE); }
     
     public boolean getSaddled()
-    { return ((Boolean)this.dataManager.get(SADDLED)).booleanValue(); }
+    { return (Boolean) this.dataManager.get(SADDLED); }
 
     public void setSaddled(boolean angry)
-    { this.dataManager.set(SADDLED, Boolean.valueOf(angry)); }
+    { this.dataManager.set(SADDLED, angry); }
     
     public boolean isAngry()
-    { return ((Boolean)this.dataManager.get(ANGRY)).booleanValue(); }
+    { return (Boolean) this.dataManager.get(ANGRY); }
 
     public void setAngry(boolean angry)
-    { this.dataManager.set(ANGRY, Boolean.valueOf(angry)); }
+    { this.dataManager.set(ANGRY, angry); }
     
     public int getFood()
     { return this.dataManager.get(FOOD); }
@@ -590,10 +571,16 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
     {
         super.writeEntityToNBT(compound);
         compound.setBoolean("Angry", this.isAngry());
-        compound.setInteger("Size", this.getSalmonSize());
+        compound.setInteger("Size", this.getSize());
         compound.setInteger("Variant", this.getLobsterVariant());
         compound.setBoolean("Saddle", this.getSaddled());
         compound.setInteger("MoltCooldown", this.moltCooldown);
+
+        if (this.moltLootTable != null)
+        {
+            compound.setString("MoltLootTable", this.moltLootTable.toString());
+            if (this.moltLootTableSeed != 0L) compound.setLong("MoltLootTableSeed", this.moltLootTableSeed);
+        }
     }
 	
 	@Override
@@ -611,15 +598,21 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob
         
         if (compound.hasKey("MoltCooldown"))
         { this.moltCooldown = compound.getInteger("MoltCooldown"); }
+
+        if (compound.hasKey("MoltLootTable", 8))
+        {
+            this.moltLootTable = new ResourceLocation(compound.getString("MoltLootTable"));
+            this.moltLootTableSeed = compound.getLong("MoltLootTableSeed");
+        }
     }
 
 	@Override
 	public boolean isCarryingEgg()
-	{ return ((Boolean)this.dataManager.get(HAS_EGG)).booleanValue(); }
+	{ return (Boolean) this.dataManager.get(HAS_EGG); }
 
 	@Override
 	public void setCarryingEgg(boolean bool)
-	{ this.dataManager.set(HAS_EGG, Boolean.valueOf(bool)); }
+	{ this.dataManager.set(HAS_EGG, bool); }
 
 	@Override
 	public boolean canLayEgg(World world, BlockPos pos)

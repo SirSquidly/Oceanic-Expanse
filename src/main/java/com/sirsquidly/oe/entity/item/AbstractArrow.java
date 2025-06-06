@@ -116,7 +116,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
             --this.arrowShake;
         }
 
-        if (this.inGround && this.noClip != true)
+        if (this.inGround && !this.noClip)
         {
         	++this.timeInGround;
 
@@ -251,7 +251,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 
             this.setPosition(this.posX, this.posY, this.posZ);
             
-            if (this.noClip != true)
+            if (!this.noClip)
             {
             	this.doBlockCollisions();	
             }
@@ -263,7 +263,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
     {
         Entity entity = raytraceResultIn.entityHit;
 
-        if (this.noClip != true)
+        if (!this.noClip)
         {
         	if (entity != null)
             {

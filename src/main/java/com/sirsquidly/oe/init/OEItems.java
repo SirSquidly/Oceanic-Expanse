@@ -41,6 +41,7 @@ public class OEItems
 	public static Item HEART_OF_THE_SEA = new Item();
 	public static Item PEARL = new Item();
 	public static Item CONCH = new ItemConch();
+	public static Item CONCH_MAGIC = new ItemConchMagic();
 	public static Item GLOW_INK = new Item();
 	public static Item GLOW_ITEM_FRAME = new ItemGlowItemFrame();
 	public static Item BLEAK = new ItemBleak();
@@ -82,6 +83,7 @@ public class OEItems
 		itemReadyForRegister(HEART_OF_THE_SEA, "heart_of_the_sea");
 		if (ConfigHandler.item.pearl.enablePearl) itemReadyForRegister(PEARL, "pearl");
 		if (ConfigHandler.item.conch.enableConch) itemReadyForRegister(CONCH, "conch");
+		itemReadyForRegister(CONCH_MAGIC, "magic_conch");
 		if (ConfigHandler.item.conduitCharm.enableConduitCharm) itemReadyForRegister(CHARM, "charm");
 		itemReadyForRegister(GLOW_INK, "glow_ink_sac");
 		if (ConfigHandler.item.glowItemFrame.enableGlowItemFrame) itemReadyForRegister(GLOW_ITEM_FRAME, "glow_item_frame");

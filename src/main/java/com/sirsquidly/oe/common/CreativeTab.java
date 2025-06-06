@@ -1,5 +1,6 @@
 package com.sirsquidly.oe.common;
 
+import com.sirsquidly.oe.util.ResonanceUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.sirsquidly.oe.blocks.BlockPalmDoor;
@@ -110,6 +111,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 		            add(list, conch);
 				}
 	        }
+			if (ConfigHandler.item.magicConch.enableMagicConch)
+			{
+				add(list, OEItems.CONCH_MAGIC);
+				if (ConfigHandler.item.magicConch.addResonancesToCreative)
+				{
+					for (int i = 0; i < ResonanceUtil.REGISTRY.size(); i++)
+					{
+						ItemStack conch = new ItemStack(OEItems.CONCH_MAGIC);
+						ResonanceUtil.setResonance(conch, i);
+						add(list, conch);
+					}
+				}
+			}
 	        if (ConfigHandler.block.pickledHead.enablePickledHead) add(list, OEBlocks.PICKLED_HEAD);
 	        add(list, OEItems.BLUE_SLIME_BALL);
 	        add(list, OEBlocks.BLUE_SLIME);
@@ -120,6 +134,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 	        add(list, OEBlocks.NACRE_BLOCK);
 	        add(list, OEBlocks.NACRE_SMOOTH);
 	        add(list, OEItems.BLEAK);
+			if (ConfigHandler.block.waterTNT.enableWaterTNT) add(list, OEBlocks.UNDERWATER_TNT);
+			if (ConfigHandler.block.stagnant.enableStagnant) add(list, OEBlocks.STASIS);
 	        if (ConfigHandler.item.conduitCharm.enableConduitCharm) add(list, OEItems.CHARM);
 	        if (ConfigHandler.block.blueIce.enableBlueIce) add(list, OEBlocks.BLUE_ICE);
 	        if (ConfigHandler.block.dulse.enableDulse)

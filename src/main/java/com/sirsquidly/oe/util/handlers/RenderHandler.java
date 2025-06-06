@@ -21,13 +21,15 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityPufferfish.class, RenderPufferfish::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTropicalFish.class, RenderTropicalFish::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTurtle.class, RenderTurtle::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDolphin.class, RenderDolphin::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDrowned.class, RenderDrowned::new);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityGlowSquid.class, RenderGlowSquid::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBabySquid.class, RenderBabySquid::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBabyGlowSquid.class, RenderBabyGlowSquid::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCrab.class, RenderCrab::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityClam.class, RenderClam::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDrownedSummon.class, RenderDrownedSummon::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityLobster.class, RenderLobster::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityOEBoat.class, RenderOEBoat::new);	
 		RenderingRegistry.registerEntityRenderingHandler(EntityGlowItemFrame.class, RenderGlowItemFrame::new);	
@@ -36,9 +38,11 @@ public class RenderHandler
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrident.class, RenderTrident::new);	
 		RenderingRegistry.registerEntityRenderingHandler(EntityConduitEye.class, RenderConduitEye::new);
-		
+		RenderingRegistry.registerEntityRenderingHandler(EntityUnderwaterTNTPrimed.class, RenderUnderwaterTNT::new);
+
 		ClientRegistry.bindTileEntitySpecialRenderer(TileConduit.class, new RenderConduit());
-		
+
+		ClientRegistry.bindTileEntitySpecialRenderer(TileStasis.class, new RenderStasis());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePickledSkull.class, new RenderPickledSkull());
 	}
 }

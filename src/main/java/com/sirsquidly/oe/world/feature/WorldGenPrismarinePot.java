@@ -131,8 +131,8 @@ public class WorldGenPrismarinePot implements IWorldGenerator
 		{
 			BlockPrismarinePot.EnumAxis randPotRotation = rand.nextInt(2) == 0 ? BlockPrismarinePot.EnumAxis.X : BlockPrismarinePot.EnumAxis.Z;
     		
-    		worldIn.setBlockState(pos, OEBlocks.PRISMARINE_POT.getDefaultState().withProperty(BlockPrismarinePot.FACING, randPotRotation).withProperty(BlockPrismarinePot.SEALED, rand.nextInt(2) == 0), 3);
-    		
+    		worldIn.setBlockState(pos, OEBlocks.PRISMARINE_POT.getDefaultState().withProperty(BlockPrismarinePot.FACING, randPotRotation).withProperty(BlockPrismarinePot.SEALED, rand.nextInt(2) == 0), 2 | 64);
+
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
             if (tileentity instanceof TilePrismarinePot)

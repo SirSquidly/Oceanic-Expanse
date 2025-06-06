@@ -47,7 +47,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class OEBlocks 
 {
 		/** Contains every block ran through the 'blockReadyForRegister' function. So they all SHOULD be registered. */
-		private static List<Block> blockList = new ArrayList<Block>();
+		public static List<Block> blockList = new ArrayList<Block>();
 		/** Records any blocks that have a unique itemBlock assigned, as the rest are automatically slapped with the default itemBlock.*/
 		private static List<Block> itemBlockBlacklist = new ArrayList<Block>();
 		/** Used for items settup here, and need to have models registered as such. */
@@ -77,6 +77,7 @@ public class OEBlocks
 		public static Block PALM_LEAVES = new BlockPalmLeaves();
 		public static Block PALM_LEAVES_FLOWERING = new BlockPalmLeavesFlowering();
 		public static Block PALM_SAPLING = new BlockPalmSapling();
+		public static Block STASIS = new BlockStasis().setHardness(3.0F).setResistance(5.0F);
 		public static Block BLUE_ICE = new BlockBlueIce().setHardness(2.8F).setResistance(2.8F);
 		public static Block BLUE_SLIME = new BlockBlueSlime();
 		public static Block SEA_TURTLE_EGG = new BlockTurtleEgg().setHardness(0.5F).setResistance(0.5F);
@@ -87,11 +88,12 @@ public class OEBlocks
 		public static Block DULSE = new BlockDulse();
 		public static Block DRIED_DULSE_BLOCK = new BlockDriedKelp();
 		public static Block UNDERWATER_TORCH = new BlockUnderwaterTorch();
+		public static Block UNDERWATER_TNT = new BlockUnderwaterTNT();
 		
 		public static Block PICKLED_HEAD = new BlockPickledHead();
 		
 		public static Block PRISMARINE_POT = new BlockPrismarinePot();
-		
+
 		public static Block SHELL_SAND = new BlockShellSand().setHardness(0.5F).setResistance(0.5F);
 		public static Block COQUINA = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
 		public static Block COQUINA_BRICK = new Block(Material.ROCK, MapColor.YELLOW_STAINED_HARDENED_CLAY).setHardness(0.5F).setResistance(15.0F);
@@ -104,38 +106,40 @@ public class OEBlocks
 		public static Block NACRE_BLOCK = new Block(Material.ROCK, MapColor.QUARTZ).setHardness(0.8F).setResistance(0.8F);
 		public static Block NACRE_SMOOTH = new Block(Material.ROCK, MapColor.QUARTZ).setHardness(0.8F).setResistance(0.8F);
 		
-		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, OESounds.CORAL);
-		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, OESounds.CORAL);
-		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, OESounds.CORAL);
-		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED, OESounds.CORAL);
-		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW, OESounds.CORAL);
+
 		public static Block BLUE_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block PINK_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block PURPLE_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block RED_CORAL_BLOCK_DEAD = new BlockCoralFull();
 		public static Block YELLOW_CORAL_BLOCK_DEAD = new BlockCoralFull();
+		public static Block BLUE_CORAL_BLOCK = new BlockCoralFull(MapColor.BLUE, OESounds.CORAL, BLUE_CORAL_BLOCK_DEAD);
+		public static Block PINK_CORAL_BLOCK = new BlockCoralFull(MapColor.PINK, OESounds.CORAL, PINK_CORAL_BLOCK_DEAD);
+		public static Block PURPLE_CORAL_BLOCK = new BlockCoralFull(MapColor.PURPLE, OESounds.CORAL, PURPLE_CORAL_BLOCK_DEAD);
+		public static Block RED_CORAL_BLOCK = new BlockCoralFull(MapColor.RED, OESounds.CORAL, RED_CORAL_BLOCK_DEAD);
+		public static Block YELLOW_CORAL_BLOCK = new BlockCoralFull(MapColor.YELLOW, OESounds.CORAL, YELLOW_CORAL_BLOCK_DEAD);
 
-		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE, OESounds.CORAL);
-		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK, OESounds.CORAL);
-		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE, OESounds.CORAL);
-		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED, OESounds.CORAL);
-		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW, OESounds.CORAL);
 		public static Block BLUE_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block PINK_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block PURPLE_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block RED_CORAL_FAN_DEAD = new BlockCoralFan();
 		public static Block YELLOW_CORAL_FAN_DEAD = new BlockCoralFan();
-		
-		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE, OESounds.CORAL);
-		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK, OESounds.CORAL);
-		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE, OESounds.CORAL);
-		public static Block RED_CORAL = new BlockCoral(MapColor.RED, OESounds.CORAL);
-		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW, OESounds.CORAL);
+		public static Block BLUE_CORAL_FAN = new BlockCoralFan(MapColor.BLUE, OESounds.CORAL, BLUE_CORAL_FAN_DEAD);
+		public static Block PINK_CORAL_FAN = new BlockCoralFan(MapColor.PINK, OESounds.CORAL, PINK_CORAL_FAN_DEAD);
+		public static Block PURPLE_CORAL_FAN = new BlockCoralFan(MapColor.PURPLE, OESounds.CORAL, PURPLE_CORAL_FAN_DEAD);
+		public static Block RED_CORAL_FAN = new BlockCoralFan(MapColor.RED, OESounds.CORAL, RED_CORAL_FAN_DEAD);
+		public static Block YELLOW_CORAL_FAN = new BlockCoralFan(MapColor.YELLOW, OESounds.CORAL, YELLOW_CORAL_FAN_DEAD);
+
 		public static Block BLUE_CORAL_DEAD = new BlockCoral();
 		public static Block PINK_CORAL_DEAD = new BlockCoral();
 		public static Block PURPLE_CORAL_DEAD = new BlockCoral();
 		public static Block RED_CORAL_DEAD = new BlockCoral();
 		public static Block YELLOW_CORAL_DEAD = new BlockCoral();
+		public static Block BLUE_CORAL = new BlockCoral(MapColor.BLUE, OESounds.CORAL, BLUE_CORAL_DEAD);
+		public static Block PINK_CORAL = new BlockCoral(MapColor.PINK, OESounds.CORAL, PINK_CORAL_DEAD);
+		public static Block PURPLE_CORAL = new BlockCoral(MapColor.PURPLE, OESounds.CORAL, PURPLE_CORAL_DEAD);
+		public static Block RED_CORAL = new BlockCoral(MapColor.RED, OESounds.CORAL, RED_CORAL_DEAD);
+		public static Block YELLOW_CORAL = new BlockCoral(MapColor.YELLOW, OESounds.CORAL, YELLOW_CORAL_DEAD);
+
 		
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event)
@@ -145,7 +149,7 @@ public class OEBlocks
 			if (ConfigHandler.block.coconut.enableCoconut) blockReadyForRegister(COCONUT, "coconut");
 			if (ConfigHandler.block.conduit.enableConduit) blockReadyForRegister(CONDUIT, "conduit");
 			if (ConfigHandler.block.coquina.enableCoquina) blockReadyForRegister(COQUINA, "coquina");
-			
+
 			if (ConfigHandler.block.coquina.enableCoquinaBricks) 
 			{
 				blockReadyForRegister(COQUINA_BRICK, "coquina_brick");
@@ -154,6 +158,8 @@ public class OEBlocks
 				blockReadyForRegister(COQUINA_BRICK_STAIRS, "coquina_brick_stairs");
 				if (ConfigHandler.block.coquina.enableCoquinaBrickWalls) blockReadyForRegister(COQUINA_BRICK_WALL, "coquina_brick_wall");
 			}
+			if (ConfigHandler.block.stagnant.enableStagnant) blockReadyForRegister(STASIS, "stagnant");
+
 			if (ConfigHandler.block.dulse.enableDulse) 
 			{
 				blockReadyForRegister(DULSE, "dulse");
@@ -251,6 +257,7 @@ public class OEBlocks
 			if (ConfigHandler.block.enableShellySand) blockReadyForRegister(SHELL_SAND, "shell_sand");
 			if (ConfigHandler.block.tubeSponge.enableTubeSponge) blockReadyForRegister(TUBE_SPONGE, "tube_sponge");
 			if (ConfigHandler.block.turtleEgg.enableTurtleEgg) blockReadyForRegister(SEA_TURTLE_EGG, "turtle_egg");
+			if (ConfigHandler.block.waterTNT.enableWaterTNT) blockReadyForRegister(UNDERWATER_TNT, "underwater_tnt");
 			if (ConfigHandler.block.waterTorch.enableWaterTorch) blockReadyForRegister(UNDERWATER_TORCH, "underwater_torch");
 			
 			Main.logger.info("Oceanic Expanse Blocks are Registering!");

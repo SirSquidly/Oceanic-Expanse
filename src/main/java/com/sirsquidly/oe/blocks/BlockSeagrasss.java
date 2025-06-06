@@ -58,14 +58,14 @@ public class BlockSeagrasss extends BlockBush implements IGrowable, IChecksWater
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && checkPlaceWater(worldIn, pos, true);
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && isPositionUnderwater(worldIn, pos, true);
     }
 	
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
     {
         if (state.getBlock() != this) return super.canBlockStay(worldIn, pos, state); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-        if (checkSurfaceWater(worldIn, pos, state)) return false;
+        if (!isPositionUnderwater(worldIn, pos)) return false;
         
         switch (state.getValue(TYPE))
         {
@@ -74,7 +74,7 @@ public class BlockSeagrasss extends BlockBush implements IGrowable, IChecksWater
         	case 1:
                 return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && worldIn.getBlockState(pos.up()).getBlock() == this;
         	case 2:
-        		if (!checkWater(worldIn, pos) && !Main.proxy.fluidlogged_enable) return false;
+        		if (!isPositionUnderwater(worldIn, pos) && !Main.proxy.fluidlogged_enable) return false;
                 return worldIn.getBlockState(pos.down()).getBlock() == this;
         }
         
@@ -84,7 +84,7 @@ public class BlockSeagrasss extends BlockBush implements IGrowable, IChecksWater
 	public void placeAt(World worldIn, BlockPos lowerPos, int flags)
     {
         worldIn.setBlockState(lowerPos, this.getDefaultState().withProperty(TYPE, 1), flags);
-        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().withProperty(TYPE, 2));
+        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().withProperty(TYPE, 2), flags);
     }
 
 	// Just used the placeAt, less typing
@@ -130,10 +130,10 @@ public class BlockSeagrasss extends BlockBush implements IGrowable, IChecksWater
      * Bonemeal Growing
      */
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-    { return checkPlaceWater(worldIn, pos.up(), true) && worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && ConfigHandler.block.seagrass.enableTallSeagrass; }
+    { return isPositionUnderwater(worldIn, pos.up(), true) && worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP) && ConfigHandler.block.seagrass.enableTallSeagrass; }
 
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
-    { return checkPlaceWater(worldIn, pos.up(), true) && worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP); }
+    { return isPositionUnderwater(worldIn, pos.up(), true) && worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP); }
 
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     { this.placeAt(worldIn, pos, 2); }

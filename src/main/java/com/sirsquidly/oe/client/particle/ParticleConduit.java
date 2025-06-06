@@ -44,7 +44,7 @@ public class ParticleConduit extends ParticleBase
         this.posY = this.prevPosY;
         this.posZ = this.prevPosZ;
         float f = this.rand.nextFloat() * 0.6F + 0.4F;
-        this.particleScale = this.rand.nextFloat() * 0.1F + 0.05F;
+        this.particleScale = this.rand.nextFloat() * 0.1F + 0.5F;
         this.particleRed = 0.9F * f;
         this.particleGreen = 0.9F * f;
         this.particleBlue = f;

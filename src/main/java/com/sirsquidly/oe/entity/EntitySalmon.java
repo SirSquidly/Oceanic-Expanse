@@ -14,6 +14,7 @@ import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
@@ -41,10 +42,7 @@ public class EntitySalmon extends AbstractFish
 	private static final DataParameter<Integer> SALMON_SIZE = EntityDataManager.<Integer>createKey(EntitySalmon.class, DataSerializers.VARINT);
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 	
-	public EntitySalmon(World worldIn) {
-		super(worldIn);
-        this.rand.setSeed((long)(1 + this.getEntityId()));
-	}
+	public EntitySalmon(World worldIn) { super(worldIn); }
 	
 	protected void applyEntityAttributes()
     {
@@ -55,8 +53,9 @@ public class EntitySalmon extends AbstractFish
 	
 	protected void initEntityAI()
     {
-		this.tasks.addTask(1, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
-		this.tasks.addTask(2, new EntityAILookIdle(this));
+        this.tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 1.6D, 1.4D));
+		this.tasks.addTask(2, new EntityAIWanderUnderwater(this, 1.0D, 20, true));
+		this.tasks.addTask(3, new EntityAILookIdle(this));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.25D));
     }
@@ -124,7 +123,13 @@ public class EntitySalmon extends AbstractFish
     { return this.height * 0.6F; }
 	
 	public EntitySalmon createChild(EntityAgeable ageable)
-    { return new EntitySalmon(this.world); }
+    {
+        EntitySalmon fish = new EntitySalmon(this.world);
+
+        this.setSalmonSize(ConfigHandler.entity.salmon.salmonSizeVarience ? getRandomSalmonSize() : 2, false);
+        if (ageable.isNoDespawnRequired()) fish.enablePersistence();
+        return fish;
+    }
 	
 	public boolean isBreedingItem(ItemStack stack)
     { return BREEDING_ITEMS.contains(stack.getItem()); }
@@ -132,25 +137,27 @@ public class EntitySalmon extends AbstractFish
 	@Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
-		if (ConfigHandler.entity.salmon.salmonSizeVarience)
-		{
-			int i = this.rand.nextInt(3);
-			int j = this.rand.nextInt(99);
+        this.setSalmonSize(ConfigHandler.entity.salmon.salmonSizeVarience ? getRandomSalmonSize() : 2, false);
 
-	        if (j <= 50)
-	        { i = 2;}
-	        if (j > 50 && j <= 65)
-	        { i = 3;}
-	        if (j > 65 && j <= 99)
-	        { i = 1;}
-	        
-	        this.setSalmonSize(i, false);
-		}
-		else
-		{ this.setSalmonSize(2, false); }
-		
         return super.onInitialSpawn(difficulty, livingdata);
     }
+
+    /** Gets a random size for the Salmon */
+    public int getRandomSalmonSize()
+    {
+        int i = this.rand.nextInt(3);
+        int j = this.rand.nextInt(99);
+
+        if (j <= 50)
+        { i = 2;}
+        if (j > 50 && j <= 65)
+        { i = 3;}
+        if (j > 65 && j <= 99)
+        { i = 1;}
+
+        return i;
+    }
+
 	
 	protected void setSalmonSize(int size, boolean resetHealth)
     {

@@ -21,7 +21,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "1.1.6"
+version = "1.2.1"
 group = "com.sirsquidly.oe"
 archivesBaseName = "OceanicExpanse"
 
@@ -79,9 +79,11 @@ dependencies
 {
 	deobfCompile "com.github.jbredwards:fluidlogged-api:${fluidlogged_api_version}"	
 	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}"
-	
+
+    /* Replace the file ID with the desired version */
+    deobfCompile "curse.maven:aquaacrobatics-321792:${aqua_acrobatics_version}"
+
 	implementation "zone.rong:mixinbooter:8.4"
-	
 	//implementation "curse.maven:mixin-booter-419286:${project.mixinbooter_version}"
     annotationProcessor "org.spongepowered:mixin:${project.mixin_version}:processor"	
 }
