@@ -94,7 +94,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 				/** The scale of Frozen Oceans. Noise filter, so smaller number = larger results. 4 is default! */
 				double frozenOceanScale = 4;
 
-				if (isValidBiome && ConfigHandler.worldGen.frozenOcean.enableFrozenOcean && this.frozenOceanNoiseGen[x * 16 + z] / frozenOceanScale - rand.nextDouble() * 0.01 > 0.0 && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6))
+				if (isValidBiome && ConfigHandler.worldGen.frozenOcean.enableFrozenOcean && this.frozenOceanNoiseGen[x * 16 + z] / frozenOceanScale - rand.nextDouble() * 0.01 > 0.6 && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6))
 				{
 					/** Used by Features that are placed at Sea Level exactly */
 					BlockPos posSeaLevel = new BlockPos(posX, world.getSeaLevel(), posZ);
