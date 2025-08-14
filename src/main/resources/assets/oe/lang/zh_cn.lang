@@ -99,16 +99,16 @@ description.oe.turtle_helmet.name=装备时给予 10 秒水下呼吸效果
 
 
 effect.oe.conduit_power=潮涌能量
-effect.oe.dolphins_grace=Dolphin's Grace
+effect.oe.dolphins_grace=海豚的恩惠
 
 effect.oe.descent=下沉
-effect.oe.seeping=Seeping
+effect.oe.seeping=渗液
 
 
 enchantment.oe.mobstomp=生物重踏
 enchantment.oe.mobstomp.desc=下坠时将你的摔落伤害转移到下方生物上，并重置你的摔落高度。
-enchantment.oe.rebound=Nor's Rebound
-enchantment.oe.rebound.desc=Bounces you upon landing, to a height scaled based on fall distance, with extra bounces per level.
+enchantment.oe.rebound=反复弹跳
+enchantment.oe.rebound.desc=落地时将你弹起，弹跳高度根据下落距离按比例调整，每升一级增加额外弹跳次数。
 enchantment.oe.is_wet=水刃
 enchantment.oe.is_wet.desc=增加对湿润生物造成的伤害。
 
@@ -126,7 +126,7 @@ entity.oe.baby_glow_squid.name=幼年发光鱿鱼
 entity.oe.baby_squid.name=幼年鱿鱼
 entity.oe.crab.name=螃蟹
 entity.oe.clam.name=蛤蜊
-entity.oe.drowned_summon.name=Drowned Shipmate
+entity.oe.drowned_summon.name=溺尸船员
 entity.oe.glow_item_frame.name=荧光物品展示框
 entity.oe.lobster.name=龙虾
 entity.oe.palm_boat.name=棕榈木船
@@ -134,7 +134,7 @@ entity.oe.pickled.name=泡尸
 entity.oe.tropical_slime.name=热带史莱姆
 
 entity.oe.cod.name=鳕鱼
-entity.oe.dolphin.name=Dolphin
+entity.oe.dolphin.name=海豚
 entity.oe.drowned.name=溺尸
 entity.oe.glow_squid.name=发光鱿鱼
 entity.oe.pufferfish.name=河豚
@@ -149,7 +149,7 @@ item.oe.blue_slime_ball.name=热带黏液球
 item.oe.charm.name=潮涌魔饰
 item.oe.coconut_open.name=破开的椰子
 item.oe.conch.name=海螺
-item.oe.magic_conch.name=Magic Conch
+item.oe.magic_conch.name=魔法海螺
 item.oe.crab.name=生螃蟹肉
 item.oe.crab_bisque.name=螃蟹浓汤
 item.oe.cooked_crab.name=熟螃蟹肉
@@ -175,15 +175,15 @@ item.oe.trident.name=三叉戟
 item.oe.turtle_scute.name=鳞甲
 item.oe.turtle_helmet.name=海龟壳
 
-resonance.oe.wave_wail=Wave's Wail
-resonance.oe.brine_breath=Brine's Breath
-resonance.oe.captain_call=Captain's Call
-resonance.oe.sea_serenade=Sea's Serenade
+resonance.oe.wave_wail=浪涛的呼啸
+resonance.oe.brine_breath=咸水的气息
+resonance.oe.captain_call=船长的召唤
+resonance.oe.sea_serenade=海洋的夜曲
 
-description.resonance.oe.wave_wail=Knocks entities away from the user.
-description.resonance.oe.brine_breath=Inflicts Slowness and Descent upon nearby entities.
-description.resonance.oe.captain_call=Summons a Drowned Shipmate.
-description.resonance.oe.sea_serenade=Grants Regeneration and Dolphin's Grace upon nearby entities, and inflicts Instant Health to Undead.
+description.resonance.oe.wave_wail=击退使用者周围的实体。
+description.resonance.oe.brine_breath=对附近的实体施加缓慢和下沉效果。
+description.resonance.oe.captain_call=召唤一名溺尸船员。
+description.resonance.oe.sea_serenade=为附近实体赋予生命与海豚的恩惠效果，并对亡灵生物造成瞬间治疗伤害。
 
 subtitle.oe.coconut_hit=椰子：哐当
 subtitle.oe.clam.close=蛤蜊：闭合
@@ -201,14 +201,14 @@ subtitle.oe.crab.ambient=螃蟹：咔哒响
 subtitle.oe.crab.angry=螃蟹：愤怒地夹钳
 subtitle.oe.crab.death=螃蟹：死亡
 subtitle.oe.crab.hurt=螃蟹：受伤
-subtitle.oe.generic.drown_convert=Something converts
+subtitle.oe.generic.drown_convert=某物：转化为溺尸
 subtitle.oe.lobster.angry=龙虾：愤怒地夹钳
 subtitle.oe.lobster.death=龙虾：死亡
 subtitle.oe.lobster.hurt=龙虾：受伤
 subtitle.oe.lobster.molt=龙虾：蜕壳
 subtitle.oe.ink_sac.squirt=墨囊：喷墨
-subtitle.oe.item.spawn_bucket.empty_fish=Bucket empties
-subtitle.oe.item.spawn_bucket.fill_fish=Something captured
+subtitle.oe.item.spawn_bucket.empty_fish=铁桶：倒空
+subtitle.oe.item.spawn_bucket.fill_fish=某物：被捕获
 
 subtitle.oe.cod.death=鳕鱼：死亡
 subtitle.oe.cod.flop=鳕鱼：扑腾
@@ -221,8 +221,8 @@ subtitle.oe.coral.break=方块：被破坏
 subtitle.oe.coral.hit=方块：损坏中
 subtitle.oe.coral.place=方块：被放置
 subtitle.oe.coral.step=脚步声
-subtitle.oe.dolphin.ambient.water=Dolphin whistles
-subtitle.oe.dolphin.hurt=Dolphin hurts
+subtitle.oe.dolphin.ambient.water=海豚：吹口哨	
+subtitle.oe.dolphin.hurt=海豚：受伤	
 subtitle.oe.drowned.ambient=溺尸：呻吟
 subtitle.oe.drowned.hurt=溺尸：受伤
 subtitle.oe.drowned.death=溺尸：死亡
@@ -262,10 +262,10 @@ subtitle.oe.turtle.hurt=海龟：受伤
 subtitle.oe.turtle.death=海龟：死亡
 subtitle.oe.turtle.step=海龟：爬行
 subtitle.oe.turtle.swim=海龟：游泳
-subtitle.oe.turtle_egg.crack=Turtle Egg cracks
-subtitle.oe.turtle_egg.egg_break=Turtle Egg breaks
-subtitle.oe.turtle_egg.fall=Turtle Egg stomped
-subtitle.oe.turtle_egg.hatch=Turtle Egg hatches
+subtitle.oe.turtle_egg.crack=海龟蛋：裂开
+subtitle.oe.turtle_egg.egg_break=海龟蛋：破裂
+subtitle.oe.turtle_egg.fall=海龟蛋：被踩踏
+subtitle.oe.turtle_egg.hatch=海龟蛋：孵化
 subtitle.oe.wet_grass.break=方块：被破坏
 subtitle.oe.wet_grass.hit=方块：损坏中
 subtitle.oe.wet_grass.place=方块：被放置
@@ -305,10 +305,10 @@ tile.oe.prismarine_pot.name=海晶罐
 tile.oe.sea_oats.name=海燕麦
 tile.oe.seastar.name=海星
 tile.oe.shell_sand.name=贝壳砂
-tile.oe.stagnant.name=Stagnant
+tile.oe.stagnant.name=沉滞核心
 tile.oe.tube_sponge.name=管海绵
 tile.oe.underwater_torch.name=水下火把
-tile.oe.underwater_tnt.name=Underwater TNT
+tile.oe.underwater_tnt.name=水下TNT
 
 tile.oe.blue_coral_block.name=管珊瑚块
 tile.oe.blue_coral.name=管珊瑚
@@ -350,7 +350,7 @@ tile.oe.yellow_coral_fan_dead.name=失活的鹿角珊瑚扇
 
 
 potion.effect.oe.descent=下沉药水
-potion.effect.oe.seeping=Potion of Seeping
+potion.effect.oe.seeping=渗液药水
 
 potion.effect.oe.turtle_master=神龟药水
 potion.effect.oe.turtle_master_long=神龟药水+
@@ -358,7 +358,7 @@ potion.effect.oe.turtle_master_strong=神龟药水 II
 
 
 splash_potion.effect.oe.descent=喷溅型下沉药水
-splash_potion.effect.oe.seeping=Splash Potion of Seeping
+splash_potion.effect.oe.seeping=喷溅型渗液药水
 
 splash_potion.effect.oe.turtle_master=喷溅型神龟药水
 splash_potion.effect.oe.turtle_master_long=喷溅型神龟药水+
@@ -366,7 +366,7 @@ splash_potion.effect.oe.turtle_master_strong=喷溅型神龟药水 II
 
 
 lingering_potion.effect.oe.descent=滞留型下沉药水
-lingering_potion.effect.oe.seeping=Lingering Potion of Seeping
+lingering_potion.effect.oe.seeping=滞留型渗液药水
 
 lingering_potion.effect.oe.turtle_master=滞留型神龟药水
 lingering_potion.effect.oe.turtle_master_long=滞留型神龟药水+
@@ -374,7 +374,7 @@ lingering_potion.effect.oe.turtle_master_strong=滞留型神龟药水 II
 
 
 tipped_arrow.effect.oe.descent=下沉之箭
-tipped_arrow.effect.oe.seeping=Arrow of Seeping
+tipped_arrow.effect.oe.seeping=渗液之箭
 
 tipped_arrow.effect.oe.turtle_master=神龟之箭
 tipped_arrow.effect.oe.turtle_master_long=神龟之箭+
@@ -414,9 +414,9 @@ oe.config.block.conduit.enableConduit.tooltip=启用潮涌核心。等等，你�
 oe.config.block.conduit.enableConduitPulse=启用潮涌核心脉动
 oe.config.block.conduit.enableConduitPulse.tooltip=启用潮涌核心眼/心的脉冲动画
 oe.config.block.conduit.conduitLight=潮涌核心亮度
-oe.config.block.conduit.conduitLight.tooltip=潮涌核心发光的强度
-oe.config.block.conduit.conduitParticles=潮涌核心颗粒
-oe.config.block.conduit.conduitParticles.tooltip=潮涌核心在活动或攻击时产生的粒子（0 = 无，1 = 基岩版符文，2 = JAVA版眼/鹦鹉螺，3 = 两者都有，4 = 黄色闪电）
+oe.config.block.conduit.conduitLight.tooltip=潮涌核心发出的光照等级
+oe.config.block.conduit.conduitParticles=潮涌核心粒子
+oe.config.block.conduit.conduitParticles.tooltip=潮涌核心在活跃或攻击时产生的粒子（0 = 无，1 = 基岩版符文，2 = JAVA版眼/鹦鹉螺，3 = 两者都有，4 = 黄色闪电）
 oe.config.block.conduit.conduitFrameBlocks=潮涌核心框架方块
 oe.config.block.conduit.conduitFrameBlocks.tooltip=能被潮涌核心接受作为框架材料的方块
 oe.config.block.coralBlocks=珊瑚块设置
@@ -491,12 +491,17 @@ oe.config.block.seaOats.enableSeaOats=启用海燕麦
 oe.config.block.seaOats.enableSeaOats.tooltip=是否启用海燕麦
 oe.config.block.seaOats.seaOatShears=裁剪海燕麦
 oe.config.block.seaOats.seaOatShears.tooltip=高海燕麦是否可以被剪成矮海燕麦
-oe.config.block.stagnant=Stagnant Config
-oe.config.block.stagnant.enableStagnant=Enable Stagnant
-oe.config.block.stagnant.stagnantLight=Stagnant Light
-oe.config.block.stagnant.stagnantParticles=Stagnant Particles
-oe.config.block.stagnant.stagnantFrameBlocks=Stagnant Frame Blocks
-oe.config.block.stagnant.stagnantIgnoreTargets=Stagnant Ignored Mobs
+oe.config.block.stagnant=沉滞核心设置
+oe.config.block.stagnant.enableStagnant=启用沉滞核心
+oe.config.block.stagnant.enableStagnant.tooltip=启用沉滞核心
+oe.config.block.stagnant.stagnantLight=沉滞核心亮度
+oe.config.block.stagnant.stagnantLight.tooltip=沉滞核心发出的光照等级
+oe.config.block.stagnant.stagnantParticles=沉滞核心粒子
+oe.config.block.stagnant.stagnantParticles.tooltip=沉滞核心在活跃或攻击时产生的粒子（0 = 无，1 = 基岩版符文，2 = JAVA版眼/鹦鹉螺，3 = 两者都有，4 = 黄色闪电）
+oe.config.block.stagnant.stagnantFrameBlocks=沉滞核心框架方块
+oe.config.block.stagnant.stagnantFrameBlocks.tooltip=能被沉滞核心接受作为框架材料的方块
+oe.config.block.stagnant.stagnantIgnoreTargets=沉滞核心忽略生物
+oe.config.block.stagnant.stagnantIgnoreTargets.tooltip=被沉滞核心忽略的实体。所有继承 EntityLivingBase 的实体默认均会被攻击，除非在此列明。
 oe.config.block.enableSeaPickle=启用海泡菜
 oe.config.block.enableSeaPickle.tooltip=是否启用海泡菜
 oe.config.block.enableSeastar=启用海星
@@ -520,10 +525,13 @@ oe.config.block.turtleEgg.puffOnTrample=海龟蛋被踩碎时烟雾颗粒效果
 oe.config.block.turtleEgg.puffOnTrample.tooltip=是否在被践踏时产生烟雾粒子效果（0 = 从不，1 = 由AI，2 = 总是）
 oe.config.block.turtleEgg.zombiesTrample=僵尸踩踏海龟蛋
 oe.config.block.turtleEgg.zombiesTrample.tooltip=是否启用僵尸类（僵尸、尸壳、溺尸等）生物践踏海龟壳的AI行为
-oe.config.block.waterTNT=Underwater TNT Config
-oe.config.block.waterTNT.enableWaterTNT=Enable Underwater TNT
-oe.config.block.waterTNT.waterDestructionChance=Water removal chance
-oe.config.block.waterTNT.blockDropChance=Block Drop chance
+oe.config.block.waterTNT=水下TNT设置
+oe.config.block.waterTNT.enableWaterTNT=启用水下TNT
+oe.config.block.waterTNT.enableWaterTNT.tooltip=是否启用水下TNT
+oe.config.block.waterTNT.waterDestructionChance=水体移除几率
+oe.config.block.waterTNT.waterDestructionChance.tooltip=水下TNT爆炸时水体被移除的百分比几率。默认设为5%，注意：此操作会使方块更新，数值过高将导致游戏卡顿
+oe.config.block.waterTNT.blockDropChance=方块掉落几率
+oe.config.block.waterTNT.blockDropChance.tooltip=水下TNT爆炸时被摧毁方块掉落的百分比几率
 oe.config.block.waterTorch=水下火把设置
 oe.config.block.waterTorch.enableWaterTorch=启用水下火把
 oe.config.block.waterTorch.enableWaterTorch.tooltip=是否启用水下火把
@@ -597,6 +605,8 @@ oe.config.entity.babyGlowSquid.babyGlowSquidSpawnChance.tooltip=幼年发光鱿�
 oe.config.entity.clam=蛤蜊设置
 oe.config.entity.clam.enableClam=启用蛤蜊
 oe.config.entity.clam.enableClam.tooltip=是否启用蛤蜊
+oe.config.entity.clam.clamBiomineralizationList=蛤蜊转化列表
+oe.config.entity.clam.clamBiomineralizationList.tooltip=将蛤蜊内包含的物品进行转化。书写格式为 '方块ID/物品ID:元数据' = '转换时间' = '生成后的方块ID/物品ID:元数据'
 oe.config.entity.cod=鳕鱼设置
 oe.config.entity.cod.enableCod=启用鳕鱼
 oe.config.entity.cod.enableCod.tooltip=是否启用鳕鱼
@@ -609,6 +619,13 @@ oe.config.entity.crab.enableCrabDigging=启用螃蟹挖掘
 oe.config.entity.crab.enableCrabDigging.tooltip=允许螃蟹挖掘某些方块，并根据战利品表挖出战利品
 oe.config.entity.crab.crabDiggingList=螃蟹挖掘
 oe.config.entity.crab.crabDiggingList.tooltip=是否启用螃蟹挖掘行为。这不影响那些’CanDig’设置为false的个体螃蟹
+oe.config.entity.dolphin=海豚设置
+oe.config.entity.dolphin.enableDolphin=启用海豚
+oe.config.entity.dolphin.enableDolphin.tooltip=是否启用海豚
+oe.config.entity.dolphin.dolphinsRequireAir=海豚需要空气
+oe.config.entity.dolphin.dolphinsRequireAir.tooltip=海豚是否需要呼吸空气来防止窒息。这不会改变它们对湿润度（水）的需求
+oe.config.entity.dolphin.dolphinsGiveGrace=海豚赐予海豚的恩惠
+oe.config.entity.dolphin.dolphinsGiveGrace.tooltip=允许海豚为附近疾泳的玩家赐予海豚的恩惠效果
 oe.config.entity.drowned=溺尸设置
 oe.config.entity.enableDrowned=启用溺尸
 oe.config.entity.enableDrowned.tooltip=是否应当启用溺尸
@@ -636,9 +653,10 @@ oe.config.entity.enableDrownedCaptainTexture.tooltip=溺尸船长是否应使用
 oe.config.entity.drownedCaptainSummonCooldown=溺尸船长召唤冷却时长
 oe.config.entity.drownedCaptainSummonCooldown.tooltip=溺尸船长每次召唤溺尸的间隔时间（以秒为单位）。注意0不会禁用此功能，反而会使其几乎立即生效
 oe.config.entity.drownedCaptainHealthMultiplier=溺尸船长生命倍数
-oe.config.entity.drownedCaptainHealthMultiplier.tooltip=
-oe.config.entity.drownedCaptainMaxNearbyForSummon=溺尸船长生成时穿戴帽子
-oe.config.entity.drownedCaptainMaxNearbyForSummon.tooltip=
+oe.config.entity.drownedCaptainHealthMultiplier.tooltip=溺尸船长的生命值倍数。该值乘以溺尸基础生命值（默认20）进行计算
+oe.config.entity.drownedCaptainMaxNearbyForSummon=溺尸船长生成上限
+oe.config.entity.drownedCaptainMaxNearbyForSummon.tooltip=如果附近溺尸数量超过此数值，则阻止溺尸船长进行召唤
+oe.config.entity.drownedCaptainSpawnsEquipt=溺尸船长的生成已设置
 oe.config.entity.drownedCaptainEquippedSpawns=溺尸船长生成多样化溺尸
 oe.config.entity.drownedCaptainEquippedSpawns.tooltip=溺尸船长生成更多可能的溺尸。这将允许溺尸拥有三叉戟，成为幼年溺尸，甚至成为额外的溺尸船长！
 oe.config.entity.drownedCaptainConchSoundDistance=溺尸船长海螺奏声传播范围
@@ -719,6 +737,12 @@ oe.config.effect.descent.descentAqAcWaterPull=（水游技艺）水中下沉拉�
 oe.config.effect.descent.descentAqAcWaterPull.tooltip=安装水游技艺的情况下，下沉效果在水中时拉动玩家的程度，使用不同的公式，但如果设置为0，将使用默认公式
 oe.config.effect.descent.descentSlimeFix=启用黏液块影响
 oe.config.effect.descent.descentSlimeFix.tooltip=修复了一个奇怪的错误，其中黏液块会导致无限动量叠加，我把它做成了一个可配置选项，因为它很有趣
+oe.config.effect.seeping=渗液设置
+oe.config.effect.seeping.enableSeeping=启用渗液
+oe.config.effect.seeping.enableSeeping.tooltip=是否启用渗液效果
+oe.config.effect.seeping.enableSeepingBrewing=启用渗液药水配方
+oe.config.effect.seeping.enableSeepingBrewing.tooltip=启用渗液药水的配方，通过使用粗制的药水与热带粘液块来酿造
+
 oe.config.item=物品设置
 oe.config.item.bisque=浓汤设置
 oe.config.item.bisque.enableBisqueMilkEffect=浓汤提供牛奶效果
@@ -763,6 +787,13 @@ oe.config.item.heavyBoots.heavyBootsDesc=启用沉重靴注释
 oe.config.item.heavyBoots.heavyBootsDesc.tooltip=沉重靴有文字注释
 oe.config.item.enableNautilusShell=启用鹦鹉螺壳
 oe.config.item.enableNautilusShell.tooltip=是否启用鹦鹉螺壳。如果禁用的话，将会影响贝壳沙
+oe.config.item.magicConch=魔法海螺设置
+oe.config.item.magicConch.enableMagicConch=启用魔法海螺
+oe.config.item.magicConch.enableMagicConch.tooltip=启用魔法海螺
+oe.config.item.magicConch.addResonancesToCreative=创造模式物品栏含有全部共鸣
+oe.config.item.magicConch.addResonancesToCreative.tooltip=为创造模式物品栏添加每种共鸣类型的魔法海螺
+oe.config.item.magicConch.durability=魔法海螺耐久度
+oe.config.item.magicConch.durability.tooltip=魔法海螺的耐久度（注意：游戏中显示为此数值-1，因0值计作1点）
 oe.config.item.pearl=珍珠设置
 oe.config.item.pearl.enablePearl=启用珍珠
 oe.config.item.pearl.enablePearl.tooltip=是否启用珍珠
@@ -924,6 +955,8 @@ oe.config.vanillaTweak.drownConversionsList=溺尸转化列表
 oe.config.vanillaTweak.drownConversionsList.tooltip=决定转化时哪些生物会变成什么。如果同一生物有多个条目，则只使用列表中的第一个
 oe.config.vanillaTweak.enableDrownParticles=启用溺尸粒子
 oe.config.vanillaTweak.enableDrownParticles.tooltip=在生物转化时显示发光粒子效果
+oe.config.vanillaTweak.enablePackedIceRecipe=启用浮冰配方
+oe.config.vanillaTweak.enablePackedIceRecipe.tooltip=是否启用浮冰配方
 oe.config.vanillaTweak.waterLighting=减少水对光线阻挡
 oe.config.vanillaTweak.waterLighting.tooltip=更改了水和流动的水块的阻挡光线的程度，默认为3。 这个功能自动禁用，因为我有预感这会导致一些严重的兼容性问题，而且这将需要更新每个水块。每一个水块都要更新！
 oe.config.vanillaTweak.waterCancelReplace=取消水体材料替换
@@ -967,16 +1000,16 @@ oe.config.vanillaTweak.noSwimList.tooltip=设置不会游泳直挺挺沉底的�
 oe.config.vanillaTweak.noUnderwaterDismount=禁用水下骑乘脱离
 
 description.effect.oe.conduit=浸入水中时，获得水下呼吸、夜视和急迫效果。
-description.effect.oe.dolphins_grace=Increases swimming speed.
+description.effect.oe.dolphins_grace=提升游泳速度。
 description.effect.oe.descent=向下拉动受影响的实体。
-description.effect.oe.seeping=Spawns a Tropical Slime on an entity's death.
+description.effect.oe.seeping=当实体死亡时生成热带史莱姆。
 
 oe.jei.barnacle_shells.desc=藤壶壳可以用来制作壳灰岩，或者酿造下沉药水。\n\n也可用于在铁砧中修理沉重靴。
-oe.jei.coconut.desc=椰子是受重力影响的方块。\n\n如果椰子掉落到生物身上，它将造成相当于【掉落高度】-1的伤害，上限为19点。\n\n如果椰子从5个方块以上的高度掉落到地面，或使用任何工具破坏椰子，则会掉落2个破开的椰子。
-oe.jei.conduit.desc=潮涌核心在激活时会给予"潮涌能量"效果，并可以攻击附近的水下敌对生物。\n\要激活它，需要在潮涌核心外围的5x5x5区域内用"海晶方块"搭建一个框架，其内部的3x3x3区域必须是开放的水域，并将潮涌核心置于中心。当潮涌核心激活时，它会有独特的动画效果。至少需要12个框架方块才能激活潮涌核心。\n\n潮涌能量效果将作用于[框架方块数]÷7×16的区域内。\n\n如果框架中至少含有42个方块，潮涌核心将开始“狩猎”，对8格内的任何湿润的敌对生物造成伤害。
+oe.jei.coconut.desc=椰子是受重力影响的方块。\n\n如果椰子掉落到生物身上，它将造成相当于[掉落高度]-1的伤害，上限为19点。\n\n如果椰子从5个方块以上的高度掉落到地面，或使用任何工具破坏椰子，则会掉落2个破开的椰子。
+oe.jei.conduit.desc=激活时，潮涌核心会施加潮涌能量效果，并可以攻击附近的水下敌对生物。\n\n要激活它，需在潮涌核心外围用海晶石方块搭建一个5×5×5区域的框架，其内部的3x3x3区域必须是开放的水域，并将潮涌核心置于中心。潮涌核心激活时会有独特的动画效果。至少需要12个框架方块才能激活潮涌核心。\n\n潮涌能量效果的作用范围等于[框架方块数量]/7 * 16格。\n\n如果框架中包含至少42个方块，潮涌核心将开启“狩猎”形态，对8格范围内的任何湿润的敌对生物造成伤害。
 oe.jei.guardian_spike.desc=守卫者尖刺主要用于制作三叉戟。它们要么掉落于远古守卫者，要么极低概率掉落于普通守卫者。\n\n摔落到守卫者尖刺上会使摔落伤害翻倍。
 oe.jei.palm_leaves_flowering.desc=盛开的棕榈树叶底部长有椰子，并可用骨粉催生。\n\n它们在生存模式下无法获得。
 oe.jei.sea_oats.desc=海燕麦分为矮海燕麦和高海燕麦两种，其中高海燕麦具有生成沙子的能力。\n\n如果高海燕麦的一侧接触到其他方块，其侧面底部便有可能覆沙。使用锹右键点击覆沙的高海燕麦时，可以收获与其种植方块相同的沙子。\n\n使用剪刀右键高海燕麦，可将其修剪为矮海燕麦。而在矮海燕麦上使用骨粉，则可以使其生长为高海燕麦。
 oe.jei.sea_pickle.desc=海泡菜最多4个一组。在水下时，它们将会发光。\n\n在数量少于四的海泡菜群落上使用骨粉会增加其数量。如果海泡菜位于珊瑚块顶部，则其可以扩散到附近的珊瑚块上。
 oe.jei.shell_sand.desc=你可以用锹右键点击或者直接挖掘贝壳沙来获取战利品。使用带有精准采集的工具挖掘贝壳沙可获得贝壳沙方块。
-oe.jei.stagnant.desc=A Stagnant attacks nearby underwater entities when active, and can inflict Mining Fatigue.\n\nTo activate, build a frame of Prismarine Blocks around the outside of the stagnant, in a 5x5x5 area. The stagnant will animate when active. At least 12 frame blocks are required to activate.\n\nThe stagnant's attack range is equal to [frame blocks amount]/7 * 16.\n\nIf there are at lest 64 block in the frame, the stagnant will become an 'Elder', increasing its damage by 2 and making it give Mining Fatigue to any Players within a [frame blocks amount]/8 area.
+oe.jei.stagnant.desc=激活时，沉滞核心会攻击附近的水下实体，并可以施加挖掘疲劳效果。\n\n要激活它，需在沉滞核心外围用海晶石方块搭建一个5×5×5区域的框架。沉滞核心激活时会有独特的动画效果。至少需要12个框架方块才能激活沉滞核心。\n\n沉滞核心的攻击范围等于[框架方块数量]/7 * 16格。\n\n 如果框架中包含至少64个方块，沉滞核心将变为“远古”形态，伤害提升2点，并对[框架方块数量]/8格范围内的玩家施加挖掘疲劳效果。

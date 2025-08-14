@@ -449,6 +449,9 @@ public class EntityTrident extends AbstractArrow
         {
             compound.setTag("Item", this.getItem().writeToNBT(new NBTTagCompound()));
         }
-		compound.setString("TrueOwner", this.trueOwner.getUniqueID().toString());
+		if(this.trueOwner instanceof EntityPlayer)
+		{
+			compound.setString("TrueOwner", this.trueOwner.getUniqueID().toString());
+		}
 	}
 }
