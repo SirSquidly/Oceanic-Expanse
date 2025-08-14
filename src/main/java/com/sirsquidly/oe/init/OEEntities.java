@@ -60,7 +60,7 @@ public class OEEntities
 		if (ConfigHandler.entity.cod.enableCod) EntityRegistry.addSpawn(EntityCod.class, 15, 3, 7, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.salmon.enableSalmon) EntityRegistry.addSpawn(EntitySalmon.class, 15, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.RIVER).toArray(new Biome[0]));
 		if (ConfigHandler.entity.salmon.enableSalmon) EntityRegistry.addSpawn(EntitySalmon.class, 15, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		EntityRegistry.addSpawn(EntityDolphin.class, 10, 3, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
+		if (ConfigHandler.entity.dolphin.enableDolphin) EntityRegistry.addSpawn(EntityDolphin.class, 10, 3, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) EntityRegistry.addSpawn(EntityTropicalFish.class, 30, 8, 8, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.clam.enableClam) EntityRegistry.addSpawn(EntityClam.class, 5, 1, 1, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
 		if (ConfigHandler.entity.lobster.enableLobster) EntityRegistry.addSpawn(EntityLobster.class, 3, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));

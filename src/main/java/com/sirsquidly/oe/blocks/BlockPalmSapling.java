@@ -9,7 +9,6 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -18,8 +17,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenBigTree;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
@@ -36,69 +33,49 @@ public class BlockPalmSapling extends BlockBush implements IGrowable
 	}
 
 	@Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) 
-    { return SAPLING_AABB; }
-    
-    @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) 
-    { return NULL_AABB; }
-    
-    @Override
-    public boolean isOpaqueCube(IBlockState state) 
-    { return false; }
-    
-    @Override
-    public boolean isFullCube(IBlockState state) 
-    { return false; }
-    
-	@Override
-	public IBlockState getStateFromMeta(int meta) 
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) { return SAPLING_AABB; }
+
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	{
+		if (!worldIn.isRemote)
+		{
+			super.updateTick(worldIn, pos, state, rand);
+
+			if (!worldIn.isAreaLoaded(pos, 1)) return;
+			if (worldIn.getLightFromNeighbors(pos.up()) >= 9 && rand.nextInt(7) == 0)
+			{ this.grow(worldIn, rand, pos, state); }
+		}
+	}
+
+	protected boolean canSustainBush(IBlockState state) { return state.getMaterial() == Material.SAND; }
+
+	public IBlockState getStateFromMeta(int meta)
 	{ return this.getDefaultState().withProperty(STAGE, Integer.valueOf((meta & 8) >> 3)); }
-	
-	@Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
-    {
-        return worldIn.getBlockState(pos.down()).getMaterial() == Material.SAND;
-    }
-	
-	@Override
-	protected boolean canSustainBush(IBlockState state) 
-	{ return state.getMaterial() == Material.SAND; }
-	
-	@Override
+
 	public int getMetaFromState(IBlockState state)
 	{
 		int i = 0;
-		i = i | ((Integer)state.getValue(STAGE)).intValue() << 3;
+		i = i | state.getValue(STAGE).intValue() << 3;
 		return i;
 	}
-	
-	@Override
-	protected BlockStateContainer createBlockState() 
-	{ return new BlockStateContainer(this, new IProperty[] {STAGE}); }
 
-	@Override
-	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) 
+	protected BlockStateContainer createBlockState() { return new BlockStateContainer(this, STAGE); }
+
+	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
 	{
-		if(((Integer)state.getValue(STAGE)).intValue() == 0)
-		{
-			worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
-		}
+		if(state.getValue(STAGE).intValue() == 0)
+		{ worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4); }
 		else
-		{
-			this.generateTree(worldIn, rand, pos, state);
-		}
+		{ this.generateTree(worldIn, rand, pos, state); }
 	}
-	
+
 	public void generateTree(World world, Random rand, BlockPos pos, IBlockState state)
 	{
 		if(!TerrainGen.saplingGrowTree(world, rand, pos)) 
 		{ return; }
 		
-		WorldGenerator gen = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false));
+		WorldGenerator gen = new GeneratorCoconutTree();
 		int i = 0, j = 0;
-		
-		gen = new GeneratorCoconutTree();
 
 		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
 		
@@ -107,12 +84,9 @@ public class BlockPalmSapling extends BlockBush implements IGrowable
 			world.setBlockState(pos, state, 4);
 		}
 	}
-	
-	@Override
-	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
-	{ return true; }
-	
-	@Override
+
+	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) { return true; }
+
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) 
 	{ return (double)worldIn.rand.nextFloat() < 1.45D; }
 }
