@@ -1,4 +1,4 @@
-package com.sirsquidly.oe.tileentity;
+package com.sirsquidly.oe.blocks.tileentity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OESounds;

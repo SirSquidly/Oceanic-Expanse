@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.UUID;
 
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.proxy.CommonProxy;
+import com.sirsquidly.oe.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

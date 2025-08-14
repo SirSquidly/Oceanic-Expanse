@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.blocks.tileentity.TilePrismarinePot;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;

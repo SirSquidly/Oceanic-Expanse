@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.blocks;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.tileentity.TileStasis;
+import com.sirsquidly.oe.blocks.tileentity.TileStasis;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;

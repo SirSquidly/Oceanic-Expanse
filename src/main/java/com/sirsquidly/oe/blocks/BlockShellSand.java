@@ -30,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -52,18 +53,8 @@ public class BlockShellSand extends BlockFalling
 		
 		if (item instanceof ItemSpade)
         {
-			worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_SAND_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-			
-			Random rand = worldIn.rand;
-		    for (int i = 0; i < 200; ++i)
-		    {
-		    	double speedX = ((double)rand.nextFloat() - 0.5D) * 0.3D;
-		     	double speedY = ((double)rand.nextFloat() - 0.5D) * 0.3D;
-		     	double speedZ = ((double)rand.nextFloat() - 0.5D) * 0.3D;
-		        	
-		     	worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pos.getX() + rand.nextDouble(), pos.getY() + rand.nextDouble(), pos.getZ() + rand.nextDouble(), speedX, speedY, speedZ, Block.getStateId(worldIn.getBlockState(pos)));
-		    }
-		      
+			if (!playerIn.world.isRemote) playerIn.world.playEvent(Constants.WorldEvents.BREAK_BLOCK_EFFECTS, pos, Block.getStateId(worldIn.getBlockState(pos)));
+
 		    spawnPickedItems(worldIn, pos, facing);
 		    
 		    worldIn.setBlockState(pos, Blocks.SAND.getDefaultState());

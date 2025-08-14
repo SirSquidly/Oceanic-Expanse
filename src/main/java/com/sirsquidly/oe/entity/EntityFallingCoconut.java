@@ -24,7 +24,7 @@ import com.google.common.collect.Lists;
 import com.sirsquidly.oe.blocks.BlockCoconut;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.proxy.CommonProxy;
+import com.sirsquidly.oe.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 public class EntityFallingCoconut extends EntityFallingBlock

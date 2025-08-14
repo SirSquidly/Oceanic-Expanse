@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.blocks;
 
 import com.sirsquidly.oe.init.OEBlocks;
-import com.sirsquidly.oe.tileentity.TilePickledSkull;
+import com.sirsquidly.oe.blocks.tileentity.TilePickledSkull;
 
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.SoundType;

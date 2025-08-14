@@ -10,7 +10,7 @@ import net.minecraft.util.math.MathHelper;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.entity.EntityConduitEye;
-import com.sirsquidly.oe.tileentity.TileConduit;
+import com.sirsquidly.oe.blocks.tileentity.TileConduit;
 import com.sirsquidly.oe.client.model.tileentity.*;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

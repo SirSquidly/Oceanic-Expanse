@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 
 import com.sirsquidly.oe.blocks.BlockPrismarinePot;
 import com.sirsquidly.oe.init.OEBlocks;
-import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.blocks.tileentity.TilePrismarinePot;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 /**

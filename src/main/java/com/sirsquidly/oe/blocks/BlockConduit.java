@@ -3,7 +3,7 @@ package com.sirsquidly.oe.blocks;
 import javax.annotation.Nonnull;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.tileentity.TileConduit;
+import com.sirsquidly.oe.blocks.tileentity.TileConduit;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;

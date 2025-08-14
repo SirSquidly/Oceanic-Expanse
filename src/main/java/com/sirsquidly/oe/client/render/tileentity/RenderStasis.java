@@ -4,7 +4,7 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.tileentity.ModelConduitOff;
 import com.sirsquidly.oe.client.model.tileentity.ModelJustABlock;
 import com.sirsquidly.oe.client.model.tileentity.ModelStasis;
-import com.sirsquidly.oe.tileentity.TileStasis;
+import com.sirsquidly.oe.blocks.tileentity.TileStasis;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

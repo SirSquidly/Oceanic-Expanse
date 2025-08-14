@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.inventory;
 
-import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.blocks.tileentity.TilePrismarinePot;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

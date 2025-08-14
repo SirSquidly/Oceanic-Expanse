@@ -3,7 +3,7 @@ package com.sirsquidly.oe.enchantment;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.items.ItemHeavyBoots;
-import com.sirsquidly.oe.proxy.CommonProxy;
+import com.sirsquidly.oe.CommonProxy;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.enchantment.Enchantment;

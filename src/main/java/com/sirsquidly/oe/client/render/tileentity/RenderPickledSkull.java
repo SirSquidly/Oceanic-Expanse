@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.tileentity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.tileentity.ModelPickledHead;
-import com.sirsquidly.oe.tileentity.TilePickledSkull;
+import com.sirsquidly.oe.blocks.tileentity.TilePickledSkull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

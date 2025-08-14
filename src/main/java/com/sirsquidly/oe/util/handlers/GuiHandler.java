@@ -2,7 +2,7 @@ package com.sirsquidly.oe.util.handlers;
 
 import com.sirsquidly.oe.client.gui.GuiPrismarinePot;
 import com.sirsquidly.oe.inventory.ContainerPrismarinePot;
-import com.sirsquidly.oe.tileentity.TilePrismarinePot;
+import com.sirsquidly.oe.blocks.tileentity.TilePrismarinePot;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
