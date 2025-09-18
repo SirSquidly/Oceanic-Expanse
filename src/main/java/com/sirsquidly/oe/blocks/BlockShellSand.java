@@ -17,19 +17,18 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,11 +40,24 @@ public class BlockShellSand extends BlockFalling
         super(Material.SAND);
         this.setSoundType(SoundType.SAND);
     }
-	
+
+	@Override
+	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, net.minecraftforge.common.IPlantable plantable)
+	{
+		if (plantable.getPlantType(world, pos) == EnumPlantType.Desert) return true;
+		/* Beach-type plants like Sugar Cane have a hardcoded check, so we need to implement our own water check */
+		if (plantable.getPlantType(world, pos) == EnumPlantType.Beach)
+		{
+			for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL)
+			{ if (world.getBlockState(pos.offset(facing)).getMaterial() == Material.WATER) return true; }
+		}
+		return super.canSustainPlant(state, world, pos, direction, plantable);
+	}
+
 	@SideOnly(Side.CLIENT)
-    public int getDustColor(IBlockState state)
-    { return -2370656; }
-	
+	public int getDustColor(IBlockState state)
+	{ return -2370656; }
+
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
 		ItemStack itemstack = playerIn.getHeldItem(hand);
