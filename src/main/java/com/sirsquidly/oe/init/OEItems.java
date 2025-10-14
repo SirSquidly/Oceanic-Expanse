@@ -2,6 +2,7 @@ package com.sirsquidly.oe.init;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -71,6 +72,8 @@ public class OEItems
 	public static Item PALM_BOAT = new ItemOEBoat();
 	
 	public static Item SPAWN_BUCKET = new ItemSpawnBucket();
+
+	public static LinkedHashMap<ItemNautilusArmor.Material, ItemNautilusArmor> NAUTILUS_ARMORS = new LinkedHashMap<>();
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)
@@ -110,6 +113,12 @@ public class OEItems
 		
 		TURTLE_ARMOR.repairMaterial = new ItemStack(OEItems.SCUTE);
 		HEAVY_ARMOR.repairMaterial = new ItemStack(OEItems.SHELLS);
+
+		if (ConfigHandler.item.nautilusArmor.enableNautilusArmor) {
+			ItemNautilusArmor.Material.readFromConfig();
+			ItemNautilusArmor.Material.getAll().forEach(material -> NAUTILUS_ARMORS.put(material,
+					(ItemNautilusArmor) itemReadyForRegister(new ItemNautilusArmor(material), material.getName() + "_nautilus_armor")));
+		}
 		
 		for (Item items : itemList) event.getRegistry().register(items);
 	}

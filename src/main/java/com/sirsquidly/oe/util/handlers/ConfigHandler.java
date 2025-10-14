@@ -1118,6 +1118,23 @@ public class ConfigHandler
 		    @Config.Comment("Turtle Shell has a description.")
 		    public boolean enableTurtleShellDesc = true;
 	    }
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.item.nautilusArmor")
+		public configNautilusArmor nautilusArmor = new configNautilusArmor();
+
+		public static class configNautilusArmor
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.nautilusArmor.enableNautilusArmor")
+			@Config.Comment("If Nautilus Armors are enabled.")
+			public boolean enableNautilusArmor = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.item.nautilusArmor.nautilusArmourMaterials")
+			@Config.Comment("Materials of Nautilus Armor that are registered. Formatted as \"name-protection\"")
+			public String[] nautilusArmourMaterials = {"copper-3", "iron-5", "gold-7", "diamond-11", "netherite-19"};
+		}
 	}
 	
 	@Config.LangKey("oe.config.entity")
