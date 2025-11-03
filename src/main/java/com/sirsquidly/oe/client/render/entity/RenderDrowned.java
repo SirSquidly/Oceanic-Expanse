@@ -82,6 +82,8 @@ public class RenderDrowned<T extends EntityDrowned> extends RenderLiving<T>
 		}
 		else
 		{
+			if (entity.isRiding()) return;
+
 			float bobbing = MathHelper.cos(entity.ticksExisted * 0.09F) * 0.05F + 0.05F;
 			float swimAngle = entity.getClientSwimTime(f) * entity.rotationPitch;
 

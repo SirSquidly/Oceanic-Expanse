@@ -277,6 +277,65 @@
     	"subtitle": "subtitle.oe.lobster.molt",
     	"sounds": [ "oe:entity/crab/death1", "oe:entity/crab/death2"]
      },
+	"entity.nautilus.ambient":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.ambient",
+		"sounds": [ "oe:entity/nautilus/ambient1", "oe:entity/nautilus/ambient2", "oe:entity/nautilus/ambient3", "oe:entity/nautilus/ambient4", "oe:entity/nautilus/ambient5", "oe:entity/nautilus/ambient6", "oe:entity/nautilus/ambient7", "oe:entity/nautilus/ambient8" ]
+	},
+	"entity.nautilus.dash":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.dash",
+		"sounds": [ "oe:entity/nautilus/dash1", "oe:entity/nautilus/dash2", "oe:entity/nautilus/dash3", "oe:entity/nautilus/dash4" ]
+	},
+	"entity.nautilus.dash_ready":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.dash_ready",
+		"sounds": [ "oe:entity/nautilus/dash_ready1", "oe:entity/nautilus/dash_ready2", "oe:entity/nautilus/dash_ready3" ]
+	},
+	"entity.nautilus.death":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.death",
+		"sounds": [ "oe:entity/nautilus/death1" ]
+	},
+	"entity.nautilus.eat":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.eat",
+		"sounds": [ "oe:entity/nautilus/eat1", "oe:entity/nautilus/eat2" ]
+	},
+	"entity.nautilus.hurt":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.hurt",
+		"sounds": [ "oe:entity/nautilus/hurt1", "oe:entity/nautilus/hurt2", "oe:entity/nautilus/hurt3", "oe:entity/nautilus/hurt4" ]
+	},
+	"entity.nautilus.ride":
+	{
+		"category": "neutral",
+		"sounds": [ "oe:entity/nautilus/ride1" ]
+	},
+	"entity.nautilus.saddle_equip":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.saddle_equip",
+		"sounds": [ "oe:entity/nautilus/saddle_equip1" ]
+	},
+	"entity.nautilus.saddle_equip_underwtaer":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.saddle_equip",
+		"sounds": [ "oe:entity/nautilus/saddle_equip_underwater1" ]
+	},
+	"entity.nautilus.swim":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.nautilus.swim",
+		"sounds": [ "oe:entity/nautilus/swim1", "oe:entity/nautilus/swim2", "oe:entity/nautilus/swim3", "oe:entity/nautilus/swim4", "oe:entity/nautilus/swim5", "oe:entity/nautilus/swim6", "oe:entity/nautilus/swim7", "oe:entity/nautilus/swim8", "oe:entity/nautilus/swim9" ]
+	},
      "entity.pufferfish.death": 
 	 {
     	"category": "neutral",

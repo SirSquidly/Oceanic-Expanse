@@ -80,7 +80,18 @@ public class OESounds
 	public static SoundEvent ENTITY_LOBSTER_DEATH = soundReadyForRegister("entity.lobster.death");
 	public static SoundEvent ENTITY_LOBSTER_HURT = soundReadyForRegister("entity.lobster.hurt");
 	public static SoundEvent ENTITY_LOBSTER_MOLT = soundReadyForRegister("entity.lobster.molt");
-	
+
+	public static SoundEvent ENTITY_NAUTILUS_AMBIENT = soundReadyForRegister("entity.nautilus.ambient");
+	public static SoundEvent ENTITY_NAUTILUS_DASH = soundReadyForRegister("entity.nautilus.dash");
+	public static SoundEvent ENTITY_NAUTILUS_DASH_READY = soundReadyForRegister("entity.nautilus.dash_ready");
+	public static SoundEvent ENTITY_NAUTILUS_DEATH = soundReadyForRegister("entity.nautilus.death");
+	public static SoundEvent ENTITY_NAUTILUS_EAT = soundReadyForRegister("entity.nautilus.eat");
+	public static SoundEvent ENTITY_NAUTILUS_HURT = soundReadyForRegister("entity.nautilus.hurt");
+	public static SoundEvent ENTITY_NAUTILUS_RIDE = soundReadyForRegister("entity.nautilus.ride");
+	public static SoundEvent ENTITY_NAUTILUS_SADDLE_EQUIP = soundReadyForRegister("entity.nautilus.saddle_equip");
+	public static SoundEvent ENTITY_NAUTILUS_SADDLE_EQUIP_UNDERWATER = soundReadyForRegister("entity.nautilus.saddle_equip_underwater");
+	public static SoundEvent ENTITY_NAUTILUS_SADDLE_SWIM = soundReadyForRegister("entity.nautilus.swim");
+
 	public static SoundEvent ENTITY_PUFFERFISH_DEATH = soundReadyForRegister("entity.pufferfish.death");
 	public static SoundEvent ENTITY_PUFFERFISH_DEFLATE = soundReadyForRegister("entity.pufferfish.deflate");
 	public static SoundEvent ENTITY_PUFFERFISH_FLOP = soundReadyForRegister("entity.pufferfish.flop");
