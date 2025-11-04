@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.capabilities.CapabilityNautilusCharge;
 import com.sirsquidly.oe.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
@@ -13,10 +14,7 @@ import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.network.OEPacketHandler;
 import com.sirsquidly.oe.network.OEPacketSpawnParticles;
-import com.sirsquidly.oe.tileentity.TileConduit;
-import com.sirsquidly.oe.tileentity.TilePickledSkull;
-import com.sirsquidly.oe.tileentity.TilePrismarinePot;
-import com.sirsquidly.oe.tileentity.TileStasis;
+import com.sirsquidly.oe.tileentity.*;
 import com.sirsquidly.oe.util.ResonanceUtil;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
@@ -69,6 +67,7 @@ public class CommonProxy
 	{
 		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Main.MOD_ID, "conduit"));
 		GameRegistry.registerTileEntity(TilePickledSkull.class, new ResourceLocation(Main.MOD_ID, "pickled_skull"));
+		GameRegistry.registerTileEntity(TileNautilusShellBlock.class, new ResourceLocation(Main.MOD_ID, "nautilus_shell_block"));
 		GameRegistry.registerTileEntity(TilePrismarinePot.class, new ResourceLocation(Main.MOD_ID, "prismarine_pot"));
 		GameRegistry.registerTileEntity(TileStasis.class, new ResourceLocation(Main.MOD_ID, "stagnant"));
 		
@@ -96,6 +95,7 @@ public class CommonProxy
 		OESounds.registerSounds();
 		OEPacketHandler.registerMessages();
 		CapabilityManager.INSTANCE.register(CapabilityRiptide.ICapabilityRiptide.class, new CapabilityRiptide.Storage(), CapabilityRiptide.RiptideMethods::new);
+		CapabilityManager.INSTANCE.register(CapabilityNautilusCharge.ICapabilityNautilusCharge.class, new CapabilityNautilusCharge.Storage(), CapabilityNautilusCharge.NautilusChargeMethods::new);
 		
 		if (Loader.isModLoaded("fluidlogged_api"))
 		{

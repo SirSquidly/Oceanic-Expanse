@@ -80,11 +80,12 @@ public class ItemOESkull extends ItemBlock
 
 			ItemStack itemstack = playerIn.getHeldItem(hand);
 
-			if (playerIn.canPlayerEdit(pos, facing, itemstack) && OEBlocks.PICKLED_HEAD.canPlaceBlockAt(worldIn, pos)) {
+			if (playerIn.canPlayerEdit(pos, facing, itemstack) && this.block.canPlaceBlockAt(worldIn, pos))
+			{
 				if (worldIn.isRemote) {
 					return EnumActionResult.SUCCESS;
 				} else {
-					worldIn.setBlockState(pos, OEBlocks.PICKLED_HEAD.getDefaultState().withProperty(BlockSkull.FACING, facing), 11);
+					worldIn.setBlockState(pos, this.block.getDefaultState().withProperty(BlockSkull.FACING, facing), 11);
 					int i = 0;
 
 					if (facing == EnumFacing.UP) {

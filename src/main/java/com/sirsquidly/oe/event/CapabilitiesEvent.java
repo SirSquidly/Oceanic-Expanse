@@ -1,10 +1,15 @@
 package com.sirsquidly.oe.event;
 
+import com.sirsquidly.oe.capabilities.CapabilityNautilusCharge;
 import com.sirsquidly.oe.capabilities.CapabilityRiptide;
+import com.sirsquidly.oe.entity.EntityNautilus;
 import com.sirsquidly.oe.network.OEPacketHandler;
+import com.sirsquidly.oe.network.OEPacketHoldingSpace;
 import com.sirsquidly.oe.network.OEPacketRiptide;
+import com.sirsquidly.oe.util.CapabilityUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -20,6 +25,20 @@ public class CapabilitiesEvent
         if (event.getObject() instanceof EntityPlayer)
         {
             event.addCapability(CapabilityRiptide.ID, new CapabilityRiptide.Provider(new CapabilityRiptide.RiptideMethods(), CapabilityRiptide.RIPTIDE_CAP, null));
+            event.addCapability(CapabilityNautilusCharge.ID, new CapabilityNautilusCharge.Provider(new CapabilityNautilusCharge.NautilusChargeMethods(), CapabilityNautilusCharge.NAUTILUS_CHARGE_CAP, null));
+        }
+    }
+
+    /** This informs the server that the Player has pressed Space. */
+    @SubscribeEvent
+    public static void onUpdateJump(InputUpdateEvent event)
+    {
+        boolean isJumping = event.getMovementInput().jump;
+
+        if (isJumping != CapabilityUtil.getHoldingSpace(event.getEntityPlayer()))
+        {
+            OEPacketHandler.CHANNEL.sendToServer(new OEPacketHoldingSpace(event.getEntityPlayer().getEntityId(), isJumping));
+            CapabilityUtil.setHoldingSpace(event.getEntityPlayer(), isJumping);
         }
     }
 
@@ -43,6 +62,22 @@ public class CapabilitiesEvent
 
                     if (capWindCharge.getRiptideTimer() <= 0) OEPacketHandler.CHANNEL.sendToAllTracking(new OEPacketRiptide(player.getEntityId(), false), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.posX, player.posY, player.posZ, 0.0D));
                 }
+            }
+
+            if (CapabilityUtil.getChargeCooldown(player) > 0)
+            {
+                CapabilityUtil.setChargeCooldown(player, CapabilityUtil.getChargeCooldown(player) - 1);
+
+                /* This handles the Nautilus 'Ready' sound, since it only needs to play right when the cooldown ends while atop a Nautilus. */
+                if (CapabilityUtil.getChargeCooldown(player) == 0 && player.getRidingEntity() instanceof EntityNautilus)
+                {
+                    EntityNautilus nautilus = (EntityNautilus)player.getRidingEntity();
+                    player.world.playSound(null, player.getPosition(), nautilus.getDashReadySound(), nautilus.getSoundCategory(),1.0F, 1.0F);
+                }
+            }
+            else if (CapabilityUtil.getHoldingSpace(player) && player.getRidingEntity() instanceof EntityNautilus)
+            {
+                CapabilityUtil.alterChargeStrength(player, 0.1F);
             }
         }
     }

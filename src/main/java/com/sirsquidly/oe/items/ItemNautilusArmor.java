@@ -8,8 +8,8 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
-public class ItemNautilusArmor extends Item {
-
+public class ItemNautilusArmor extends Item
+{
     private final Material material;
 
     public ItemNautilusArmor(Material material) {

@@ -91,6 +91,7 @@ public class OEBlocks
 		public static Block UNDERWATER_TNT = new BlockUnderwaterTNT();
 		
 		public static Block PICKLED_HEAD = new BlockPickledHead();
+		public static Block NAUTILUS_SHELL_BLOCK = new BlockNautilusShellBlock();
 		
 		public static Block PRISMARINE_POT = new BlockPrismarinePot();
 
@@ -243,6 +244,7 @@ public class OEBlocks
 			} 
 			
 			if (ConfigHandler.block.pickledHead.enablePickledHead) blockReadyForRegister(PICKLED_HEAD, "pickled_head");
+			blockReadyForRegister(NAUTILUS_SHELL_BLOCK, "nautilus_shell_block");
 			blockReadyForRegister(PRISMARINE_POT, "prismarine_pot");
 			
 			blockReadyForRegister(NACRE_BLOCK, "nacre_block");
@@ -282,6 +284,7 @@ public class OEBlocks
 		if (ConfigHandler.block.palmBlocks.enablePalmWoods) registerDoorItem(r, new ItemDoor(PALM_DOOR), PALM_DOOR); itemBlockBlacklist.add(PALM_DOOR);
 		
 		if (ConfigHandler.block.pickledHead.enablePickledHead) registerItemBlock(r, new ItemOESkull(PICKLED_HEAD)); itemBlockBlacklist.add(PICKLED_HEAD);
+		registerItemBlock(r, new ItemOESkull(NAUTILUS_SHELL_BLOCK)); itemBlockBlacklist.add(NAUTILUS_SHELL_BLOCK);
 		
 		Main.logger.info("Oceanic Expanse Item Blocks are Registering!");
 		/** As stated on itemBlockBlacklist, this registers anything NOT from the blacklist with a generic itemBlock.*/
@@ -356,6 +359,7 @@ public class OEBlocks
 		ModelLoader.setCustomStateMapper(OEBlocks.PALM_DOOR, new StateMap.Builder().ignore(BlockDoor.POWERED).build());
 
 		ModelLoader.setCustomStateMapper(OEBlocks.PICKLED_HEAD, new StateMap.Builder().ignore(BlockSkull.NODROP).ignore(BlockSkull.FACING).build());
+		ModelLoader.setCustomStateMapper(OEBlocks.NAUTILUS_SHELL_BLOCK, new StateMap.Builder().ignore(BlockSkull.NODROP).ignore(BlockSkull.FACING).build());
 
 		/** Sea Pickles actually use the IN_WATER check to change model, or RE-include it**/
 		ModelLoader.setCustomStateMapper(OEBlocks.SEA_PICKLE, new StateMap.Builder().ignore(BlockLiquid.LEVEL).build());

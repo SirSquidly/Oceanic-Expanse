@@ -16,5 +16,6 @@ public class OEPacketHandler
 		
 		CHANNEL.registerMessage(OEPacketSpawnParticles.Handler.class, OEPacketSpawnParticles.class, messageId++, Side.CLIENT);
 		CHANNEL.registerMessage(OEPacketRiptide.Handler.class, OEPacketRiptide.class, messageId++, Side.CLIENT);
+		CHANNEL.registerMessage(OEPacketHoldingSpace.Handler.class, OEPacketHoldingSpace.class, messageId++, Side.SERVER);
 	}
 }

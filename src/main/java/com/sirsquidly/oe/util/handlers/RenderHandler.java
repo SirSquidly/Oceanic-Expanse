@@ -18,6 +18,8 @@ public class RenderHandler
 	{
 		RenderingRegistry.registerEntityRenderingHandler(EntityCod.class, RenderCod::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySalmon.class, RenderSalmon::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityNautilus.class, RenderNautilus::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityZombieNautilus.class, RenderZombieNautilus::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPufferfish.class, RenderPufferfish::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTropicalFish.class, RenderTropicalFish::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTurtle.class, RenderTurtle::new);
@@ -34,8 +36,8 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityOEBoat.class, RenderOEBoat::new);	
 		RenderingRegistry.registerEntityRenderingHandler(EntityGlowItemFrame.class, RenderGlowItemFrame::new);	
 		RenderingRegistry.registerEntityRenderingHandler(EntityPickled.class, RenderPickled::new);	
-		RenderingRegistry.registerEntityRenderingHandler(EntityTropicalSlime.class, RenderTropicalSlime::new);	
-		
+		RenderingRegistry.registerEntityRenderingHandler(EntityTropicalSlime.class, RenderTropicalSlime::new);
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrident.class, RenderTrident::new);	
 		RenderingRegistry.registerEntityRenderingHandler(EntityConduitEye.class, RenderConduitEye::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityUnderwaterTNTPrimed.class, RenderUnderwaterTNT::new);
@@ -44,5 +46,6 @@ public class RenderHandler
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileStasis.class, new RenderStasis());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePickledSkull.class, new RenderPickledSkull());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileNautilusShellBlock.class, new RenderNautilusShellBlock());
 	}
 }
