@@ -21,6 +21,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -101,7 +102,7 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
 
         if (this.isInWater())
         {
-            if (getDashing() > 0 || this.rand.nextInt(20) == 0)
+            if (getDashing() > 0 || this.rand.nextInt(10) == 0)
             {
                 double yawRad = Math.toRadians(this.rotationYawHead);
                 double backX = -Math.sin(yawRad);
@@ -222,6 +223,9 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
 
             if (this.canPassengerSteer())
             {
+                double pitchFactor = MathHelper.cos((float) Math.toRadians(rider.rotationPitch));
+                pitchFactor = Math.pow(Math.abs(pitchFactor), 0.1);
+
                 this.setAIMoveSpeed(speed);
                 super.travel(rider.moveStrafing * getCurrentSpeedType, 0, rider.moveForward * getCurrentSpeedType);
 
@@ -232,7 +236,16 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
                         if (rider.moveForward > 0) this.motionY = look.y * swimSpeed * 0.15F;
                         else this.motionY = -look.y * swimSpeed * 0.15F;
                     }
-                    else if (this.getDashing() <= 0) this.motionY = 0;
+                    else if (this.getDashing() <= 0)
+                    {
+                        double damping = this.motionY < 0 ? 0.1D : 0.96D;
+                        this.motionY *= damping;
+
+                        if (Math.abs(this.motionY) < 0.003D) this.motionY = 0.0D;
+                    }
+
+                    this.motionX *= pitchFactor;
+                    this.motionZ *= pitchFactor;
                 }
 
                 this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);

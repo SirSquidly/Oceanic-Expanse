@@ -12,13 +12,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ModelNautilus extends ModelBase
 {
-    private final ModelRenderer main;
-    private final ModelRenderer shell;
-    private final ModelRenderer lid;
-    private final ModelRenderer head;
-    private final ModelRenderer tentaclesMiddle;
-    private final ModelRenderer tentaclesUpper;
-    private final ModelRenderer tentaclesLower;
+    public final ModelRenderer main;
+    public final ModelRenderer shell;
+    public final ModelRenderer lid;
+    public final ModelRenderer head;
+    public final ModelRenderer tentaclesMiddle;
+    public final ModelRenderer tentaclesUpper;
+    public final ModelRenderer tentaclesLower;
 
 
     public ModelNautilus()
@@ -81,7 +81,8 @@ public class ModelNautilus extends ModelBase
 
         this.lid.rotateAngleX = 0.2182F + headPitch * (float) (Math.PI / 180.0);
         this.head.rotateAngleX = headPitch * (float) (Math.PI / 180.0);
-        this.main.rotateAngleY = netHeadYaw * (float) (Math.PI / 180.0);
+        float clampedYaw = MathHelper.clamp(netHeadYaw, -15.0F, 15.0F);
+        this.head.rotateAngleY = clampedYaw * (float) (Math.PI / 180.0);
 
         if ((fish.motionX * fish.motionX + fish.motionY * fish.motionY + fish.motionZ * fish.motionZ > 0.01F))
         {

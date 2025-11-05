@@ -5,6 +5,7 @@ import com.sirsquidly.oe.client.model.entity.ModelNautilus;
 import com.sirsquidly.oe.client.render.entity.layer.LayerNautilusArmor;
 import com.sirsquidly.oe.client.render.entity.layer.LayerNautilusSaddle;
 import com.sirsquidly.oe.entity.EntityNautilus;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,7 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderNautilus extends RenderLiving<EntityNautilus>
+public class RenderNautilus<T extends EntityNautilus> extends RenderLiving<T>
 {
 	public static final ResourceLocation TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/nautilus/nautilus.png");
 
@@ -25,7 +26,7 @@ public class RenderNautilus extends RenderLiving<EntityNautilus>
     }
 
 	@Override
-	protected void preRenderCallback(EntityNautilus entity, float f)
+	protected void preRenderCallback(T entity, float f)
 	{
 		float size = 0.9375F;
 		
@@ -40,9 +41,9 @@ public class RenderNautilus extends RenderLiving<EntityNautilus>
 		GlStateManager.scale(size, size, size);
 	}
 	
-	protected ResourceLocation getEntityTexture(EntityNautilus entity)
+	protected ResourceLocation getEntityTexture(T entity)
 	{ return TEXTURES; }
 
-    protected void applyRotations(EntityNautilus entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
+    protected void applyRotations(T entityLiving, float p_77043_2_, float rotationYaw, float partialTicks)
     { super.applyRotations(entityLiving, p_77043_2_, rotationYaw, partialTicks); }
 }
