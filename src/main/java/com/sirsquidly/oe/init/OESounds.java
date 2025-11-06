@@ -88,8 +88,6 @@ public class OESounds
 	public static SoundEvent ENTITY_NAUTILUS_EAT = soundReadyForRegister("entity.nautilus.eat");
 	public static SoundEvent ENTITY_NAUTILUS_HURT = soundReadyForRegister("entity.nautilus.hurt");
 	public static SoundEvent ENTITY_NAUTILUS_RIDE = soundReadyForRegister("entity.nautilus.ride");
-	public static SoundEvent ENTITY_NAUTILUS_SADDLE_EQUIP = soundReadyForRegister("entity.nautilus.saddle_equip");
-	public static SoundEvent ENTITY_NAUTILUS_SADDLE_EQUIP_UNDERWATER = soundReadyForRegister("entity.nautilus.saddle_equip_underwater");
 	public static SoundEvent ENTITY_NAUTILUS_SADDLE_SWIM = soundReadyForRegister("entity.nautilus.swim");
 
 	public static SoundEvent ENTITY_PUFFERFISH_DEATH = soundReadyForRegister("entity.pufferfish.death");
@@ -131,11 +129,24 @@ public class OESounds
 	public static SoundEvent ENTITY_TURTLE_STEP = soundReadyForRegister("entity.turtle.step");
 	public static SoundEvent ENTITY_TURTLE_SWIM = soundReadyForRegister("entity.turtle.swim");
 
+	public static SoundEvent ENTITY_ZOMBIE_NAUTILUS_AMBIENT = soundReadyForRegister("entity.zombie_nautilus.ambient");
+	public static SoundEvent ENTITY_ZOMBIE_NAUTILUS_DASH = soundReadyForRegister("entity.zombie_nautilus.dash");
+	public static SoundEvent ENTITY_ZOMBIE_NAUTILUS_DASH_READY = soundReadyForRegister("entity.zombie_nautilus.dash_ready");
+	public static SoundEvent ENTITY_ZOMBIE_NAUTILUS_DEATH = soundReadyForRegister("entity.zombie_nautilus.death");
+	public static SoundEvent ENTITY_ZOMBIE_NAUTILUS_EAT = soundReadyForRegister("entity.zombie_nautilus.eat");
+	public static SoundEvent ENTITY_ZOMBIE_NAUTILUS_HURT = soundReadyForRegister("entity.zombie_nautilus.hurt");
+	public static SoundEvent ENTITY_ZOMBIE_NAUTILUS_SWIM = soundReadyForRegister("entity.zombie_nautilus.swim");
+
+	public static SoundEvent ITEM_ARMOR_NAUTILUS_EQUIP = soundReadyForRegister("item.armor.nautilus_equip");
+	public static SoundEvent ITEM_ARMOR_NAUTILUS_UNEQUIP = soundReadyForRegister("item.armor.nautilus_unequip");
 	public static SoundEvent ITEM_CONCH_BLOW1 = soundReadyForRegister("item.conch.conch_blow1");
 	public static SoundEvent ITEM_CONCH_BLOW2 = soundReadyForRegister("item.conch.conch_blow2");
 	public static SoundEvent ITEM_CONCH_BLOW3 = soundReadyForRegister("item.conch.conch_blow3");
 	public static SoundEvent ITEM_CONCH_BLOW4 = soundReadyForRegister("item.conch.conch_blow4");
 	public static SoundEvent ITEM_INK_SAC_SQUIRT = soundReadyForRegister("item.ink_sac.squirt");
+	public static SoundEvent ITEM_SADDLE_NAUTILUS_EQUIP = soundReadyForRegister("item.saddle.nautilus_equip");
+	public static SoundEvent ITEM_SADDLE_NAUTILUS_EQUIP_UNDERWATER = soundReadyForRegister("item.saddle.nautilus_equip_underwater");
+	public static SoundEvent ITEM_SADDLE_NAUTILUS_UNEQUIP = soundReadyForRegister("item.saddle.nautilus_unequip");
 	public static SoundEvent ITEM_SPAWN_BUCKET_EMPTY_FISH = soundReadyForRegister("item.spawn_bucket.empty_fish");
 	public static SoundEvent ITEM_SPAWN_BUCKET_FILL_FISH = soundReadyForRegister("item.spawn_bucket.fill_fish");
 	

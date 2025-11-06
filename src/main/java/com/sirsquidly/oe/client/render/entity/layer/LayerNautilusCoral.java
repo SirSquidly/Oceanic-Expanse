@@ -4,6 +4,7 @@ import com.sirsquidly.oe.client.model.entity.ModelNautilusCoral;
 import com.sirsquidly.oe.client.render.entity.RenderNautilus;
 import com.sirsquidly.oe.client.render.entity.RenderZombieNautilus;
 import com.sirsquidly.oe.entity.EntityNautilus;
+import com.sirsquidly.oe.entity.EntityZombieNautilus;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraftforge.fml.relauncher.Side;
@@ -23,8 +24,10 @@ public class LayerNautilusCoral implements LayerRenderer<EntityNautilus>
 
 	public void doRenderLayer(EntityNautilus entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-		if (!entity.isInvisible())
+		if (!entity.isInvisible() && entity instanceof EntityZombieNautilus)
 		{
+			if (((EntityZombieNautilus) entity).getVariant() != 1) return;
+
 			this.nautilusRenderer.bindTexture(RenderZombieNautilus.WARM_TEXTURE);
 			this.nautilusCoralModel.setModelAttributes(this.nautilusRenderer.getMainModel());
 			GlStateManager.pushMatrix();

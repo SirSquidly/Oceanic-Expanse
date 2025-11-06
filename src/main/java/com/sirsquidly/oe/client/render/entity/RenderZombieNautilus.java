@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderZombieNautilus extends RenderNautilus<EntityZombieNautilus>
 {
-	public static final ResourceLocation TEXTURES = new ResourceLocation(Main.MOD_ID + ":textures/entities/nautilus/zombie_nautilus.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/nautilus/zombie_nautilus.png");
 	public static final ResourceLocation WARM_TEXTURE = new ResourceLocation(Main.MOD_ID + ":textures/entities/nautilus/zombie_nautilus_coral.png");
 	private final ModelNautilusCoral modelCoral = new ModelNautilusCoral();
 
@@ -23,5 +23,5 @@ public class RenderZombieNautilus extends RenderNautilus<EntityZombieNautilus>
     }
 
 	protected ResourceLocation getEntityTexture(EntityZombieNautilus entity)
-	{ return WARM_TEXTURE; }
+	{ return entity.getVariant() == 0 ? TEXTURE : WARM_TEXTURE; }
 }

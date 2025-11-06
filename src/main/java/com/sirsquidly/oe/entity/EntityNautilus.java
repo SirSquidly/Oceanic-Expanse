@@ -1,20 +1,18 @@
 package com.sirsquidly.oe.entity;
 
-import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
-import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.items.ItemNautilusArmor;
+import com.sirsquidly.oe.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.CapabilityUtil;
+import com.sirsquidly.oe.util.Utilities;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -25,14 +23,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 import javax.annotation.Nullable;
-import java.util.Set;
 
 public class EntityNautilus extends AbstractFish implements IMeleeAnimal
 {
-    private static final Set<Item>FEEDING_ITEMS = Sets.newHashSet(Items.FISH, Items.COOKED_FISH);
-	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(OEItems.LOBSTER_COOKED);
     /* Wow that's a lot of variables used for Dashing. */
     private static final DataParameter<Integer> DASHING = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DASH_ATTACKING = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
@@ -40,8 +36,8 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     private static final DataParameter<Integer> DASH_RECHARGE_TIME = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
     private static final DataParameter<Float> DASH_SPEED = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.FLOAT);
 
-
-    protected static final DataParameter<Byte> TAMED = EntityDataManager.<Byte>createKey(EntityNautilus.class, DataSerializers.BYTE);
+    private static final DataParameter<ItemStack> SADDLE_STACK = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.ITEM_STACK);
+    protected static final DataParameter<Byte> TAMED = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.BYTE);
 
 	public EntityNautilus(World worldIn)
     {
@@ -57,6 +53,7 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
         this.dataManager.register(DASH_COOLDOWN, 0);
         this.dataManager.register(DASH_RECHARGE_TIME, 40);
         this.dataManager.register(DASH_SPEED, 1.0F);
+        this.dataManager.register(SADDLE_STACK, ItemStack.EMPTY);
         this.dataManager.register(TAMED, (byte) 0);
     }
 	
@@ -77,22 +74,22 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
         this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(6, new EntityAIMate(this, 1.0D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPufferfish.class, true));
     }
 
-    protected SoundEvent getAmbientSound()
-    { return OESounds.ENTITY_NAUTILUS_AMBIENT; }
+    protected SoundEvent getAmbientSound() { return OESounds.ENTITY_NAUTILUS_AMBIENT; }
 
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
-    { return OESounds.ENTITY_NAUTILUS_HURT; }
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) { return OESounds.ENTITY_NAUTILUS_HURT; }
 
-    protected SoundEvent getDeathSound()
-    { return OESounds.ENTITY_NAUTILUS_DEATH; }
+    protected SoundEvent getDeathSound() { return OESounds.ENTITY_NAUTILUS_DEATH; }
 
-    public SoundEvent getDashSound()
-    { return OESounds.ENTITY_NAUTILUS_DASH; }
+    public SoundEvent getDashSound() { return OESounds.ENTITY_NAUTILUS_DASH; }
 
-    public SoundEvent getDashReadySound()
-    { return OESounds.ENTITY_NAUTILUS_DASH_READY; }
+    public SoundEvent getDashReadySound() { return OESounds.ENTITY_NAUTILUS_DASH_READY; }
+
+    public SoundEvent getEatSound() { return OESounds.ENTITY_NAUTILUS_EAT; }
+
+    public SoundEvent getSaddleSound() { return this.isInWater() ? OESounds.ITEM_SADDLE_NAUTILUS_EQUIP_UNDERWATER : OESounds.ITEM_SADDLE_NAUTILUS_EQUIP; }
 
     protected ResourceLocation getLootTable()
     { return LootTableHandler.ENTITIES_DOLPHIN; }
@@ -145,29 +142,126 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (!this.isTamed())
+        if (!itemstack.isEmpty() && !this.isTamed())
         {
-            this.setTamed(true);
-        }
-        else
-        {
-            if (itemstack.getItem() instanceof ItemNautilusArmor)
+            if (this.getGrowingAge() == 0)
             {
-                this.world.playSound(player, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
-                this.setItemStackToSlot(EntityEquipmentSlot.CHEST, itemstack.copy());
+                if (isTamingItem(itemstack))
+                {
+                    player.swingArm(hand);
+                    this.consumeItemFromStack(player, itemstack);
+                    this.setTamed(true);
+                    this.world.setEntityState(this, (byte)18);
+                    return true;
+                }
+
+                /* Breeding isn't allowed for untamed Nautiluses. */
+                if (isBreedingItem(itemstack)) return false;
+            }
+        }
+
+        if (this.isTamed())
+        {
+            /* Skip any additional logic if the player is trying to feed the Nautilus. */
+            if (isBreedingItem(itemstack) && !this.isInLove()) return true;
+
+            if (itemstack.getItem() instanceof ItemSaddle && this.getSaddle().isEmpty())
+            {
+                this.playSound(this.getSaddleSound(), 1.0F, 1.0F);
+                this.setSaddle(itemstack.copy());
+                itemstack.shrink(1);
+                return true;
+            }
+            else if (itemstack.getItem() instanceof ItemNautilusArmor)
+            {
+                this.world.playSound(player, this.posX, this.posY, this.posZ, OESounds.ITEM_ARMOR_NAUTILUS_EQUIP, SoundCategory.NEUTRAL, 0.5F, 1.0F);
+                ItemStack armor = itemstack.copy();
+                armor.setCount(1);
+                this.setItemStackToSlot(EntityEquipmentSlot.CHEST, armor);
                 this.setDropChance(EntityEquipmentSlot.CHEST, 0);
                 itemstack.shrink(1);
+                return true;
             }
-            else if (!this.isBeingRidden() && !player.isSneaking())
+            else if (itemstack.getItem() instanceof ItemShears)
+            {
+                if (!this.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty())
+                {
+                    this.playSound(OESounds.ITEM_ARMOR_NAUTILUS_UNEQUIP, 1.0F, 1.0F);
+                    if (!world.isRemote) this.entityDropItem(this.getItemStackFromSlot(EntityEquipmentSlot.CHEST), 0.5F);
+                    this.setItemStackToSlot(EntityEquipmentSlot.CHEST, ItemStack.EMPTY);
+                    return true;
+                }
+                else if (!this.getSaddle().isEmpty())
+                {
+                    this.playSound(OESounds.ITEM_SADDLE_NAUTILUS_UNEQUIP, 1.0F, 1.0F);
+                    if (!world.isRemote) this.entityDropItem(this.getSaddle(), 0.5F);
+                    this.setSaddle(ItemStack.EMPTY);
+                    return true;
+                }
+            }
+            else if (!this.getSaddle().isEmpty() && !this.isBeingRidden() && !player.isSneaking())
             {
                 if (!this.world.isRemote) player.startRiding(this);
                 return true;
             }
         }
 
-
         return super.processInteract(player, hand);
     }
+
+    // TODO: Fix bucket inventory placement
+    /** Handles all eating! */
+    protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
+    {
+        playSound(getEatSound(), 1.0F, 1.0F);
+
+        /* The *same* lazy solution used to prevent the item (spawn buckets) from preforming their right-click functions. */
+        player.getCooldownTracker().setCooldown(stack.getItem(), 1);
+
+        if (!this.world.isRemote)
+        {
+            boolean isBucket = stack.getItem() instanceof ItemSpawnBucket;
+
+            if (stack.getItem() instanceof ItemFood)
+            {
+                ItemFood itemfood = (ItemFood)stack.getItem();
+                this.heal((float)itemfood.getHealAmount(stack));
+            }
+            else this.heal(1);
+
+            if (!player.capabilities.isCreativeMode)
+            {
+                if (isBucket)
+                {
+                    ItemStack newStack = new ItemStack(Items.BUCKET);
+                    if (stack.isEmpty())
+                    { player.setHeldItem(EnumHand.MAIN_HAND, newStack); }
+                    else if (!player.inventory.addItemStackToInventory(newStack))
+                    { player.dropItem(newStack, false); }
+                }
+                stack.shrink(1);
+            }
+
+            /* Spawn bucket crack textures look bad, just use Bonemeal if it's a bucket. */
+            ItemStack particleStack = isBucket ? new ItemStack(Items.DYE, 1, 15) : stack;
+            double yawRad = Math.toRadians(this.rotationYaw);
+            double backX = -Math.sin(yawRad);
+            double backZ = Math.cos(yawRad);
+
+            double particleSpawnHeight = this.isChild() ? 0.1D : 0.2D;
+            double particleSpawnDistance = this.isChild() ? 0.5D : 0.9D;
+
+            ((WorldServer)this.world).spawnParticle(
+                    EnumParticleTypes.ITEM_CRACK,
+                    this.posX - backX * particleSpawnDistance, this.posY + particleSpawnHeight, this.posZ - backZ * particleSpawnDistance,
+                    10,
+                    0.2D, 0.2D, 0.2D,
+                    0.05D,  Item.getIdFromItem(particleStack.getItem()), particleStack.getMetadata()
+            );
+
+        }
+    }
+
 
     public boolean attackEntityAsMob(Entity entityIn)
     { return normalAttack(this, entityIn); }
@@ -187,9 +281,14 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
 	
 	public EntityNautilus createChild(EntityAgeable ageable)
     { return new EntityNautilus(this.world); }
-	
+
+    /** If the given item is any form of Pufferfish. */
+    public boolean isTamingItem(ItemStack stack)
+    { return stack.getItem() == Items.FISH && ItemFishFood.FishType.byItemStack(stack) == ItemFishFood.FishType.PUFFERFISH || Utilities.spawnBucketContainsAnyEntity(stack, EntityPufferfish.class); }
+
+    /** Breeding requires the Nautilus to be Tamed, AND to be . */
 	public boolean isBreedingItem(ItemStack stack)
-    { return BREEDING_ITEMS.contains(stack.getItem()); }
+    { return stack.getItem() == Items.FISH || stack.getItem() == Items.COOKED_FISH || Utilities.spawnBucketContainsAnyEntity(stack, EntityCod.class, EntitySalmon.class, EntityPufferfish.class, EntityTropicalFish.class); }
 
     public float getEyeHeight() { return this.height * 0.35F; }
 
@@ -345,6 +444,17 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     protected void setupTamedAI()
     {}
 
+    public ItemStack getSaddle() { return this.dataManager.get(SADDLE_STACK); }
+    public void setSaddle(ItemStack stack)
+    {
+        if (!stack.isEmpty())
+        {
+            stack = stack.copy();
+            stack.setCount(1);
+        }
+
+        this.dataManager.set(SADDLE_STACK, stack);
+    }
 
     public void writeEntityToNBT(NBTTagCompound compound)
     {
@@ -352,6 +462,10 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
         compound.setInteger("DashCooldown", this.getDashCooldown());
         compound.setFloat("DashRechargeTime", getDashRechargeTime());
         compound.setFloat("DashSpeed", this.getDashSpeed());
+
+        if (!this.getSaddle().isEmpty())
+        { compound.setTag("SaddleItem", this.getSaddle().writeToNBT(new NBTTagCompound())); }
+
         compound.setBoolean("Tamed", this.isTamed());
     }
 
@@ -361,6 +475,10 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
         this.setDashCooldown(compound.getInteger("DashCooldown"));
         this.setDashRechargeTime(compound.getInteger("DashRechargeTime"));
         this.setDashSpeed(compound.getFloat("DashSpeed"));
+
+        if (!compound.getCompoundTag("SaddleItem").isEmpty())
+        { this.setSaddle(new ItemStack(compound.getCompoundTag("SaddleItem"))); }
+
         this.setTamed(compound.getBoolean("Tamed"));
     }
 }

@@ -23,7 +23,7 @@ public class LayerNautilusSaddle implements LayerRenderer<EntityNautilus>
     @Override
     public void doRenderLayer(EntityNautilus entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        if (entitylivingbaseIn.isTamed())
+        if (!entitylivingbaseIn.getSaddle().isEmpty())
         {
             float saddleScale = 1.05F;
 

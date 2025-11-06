@@ -318,18 +318,6 @@
 		"category": "neutral",
 		"sounds": [ "oe:entity/nautilus/ride1" ]
 	},
-	"entity.nautilus.saddle_equip":
-	{
-		"category": "neutral",
-		"subtitle": "subtitle.oe.nautilus.saddle_equip",
-		"sounds": [ "oe:entity/nautilus/saddle_equip1" ]
-	},
-	"entity.nautilus.saddle_equip_underwtaer":
-	{
-		"category": "neutral",
-		"subtitle": "subtitle.oe.nautilus.saddle_equip",
-		"sounds": [ "oe:entity/nautilus/saddle_equip_underwater1" ]
-	},
 	"entity.nautilus.swim":
 	{
 		"category": "neutral",
@@ -439,7 +427,6 @@
     	"subtitle": "subtitle.oe.tropical_slime.squish",
     	"sounds": [ "oe:entity/tropical_slime/squish1", "oe:entity/tropical_slime/squish2", "oe:entity/tropical_slime/squish3", "oe:entity/tropical_slime/squish4" ]
      },
-     
      "entity.turtle.ambient": 
 	 {
     	"category": "neutral",
@@ -488,6 +475,65 @@
     	"subtitle": "subtitle.oe.turtle.swim",
     	"sounds": [ "oe:entity/turtle/swim1", "oe:entity/turtle/swim2", "oe:entity/turtle/swim3", "oe:entity/turtle/swim4", "oe:entity/turtle/swim5" ]
      },
+	"entity.zombie_nautilus.ambient":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.zombie_nautilus.ambient",
+		"sounds": [ "oe:entity/zombie_nautilus/ambient1", "oe:entity/zombie_nautilus/ambient2", "oe:entity/zombie_nautilus/ambient3", "oe:entity/zombie_nautilus/ambient4", "oe:entity/zombie_nautilus/ambient5" ]
+	},
+	"entity.zombie_nautilus.dash":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.zombie_nautilus.dash",
+		"sounds": [ "oe:entity/nautilus/dash1", "oe:entity/nautilus/dash2", "oe:entity/nautilus/dash3", "oe:entity/nautilus/dash4" ]
+	},
+	"entity.zombie_nautilus.dash_ready":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.zombie_nautilus.dash_ready",
+		"sounds": [ "oe:entity/zombie_nautilus/dash_ready1", "oe:entity/zombie_nautilus/dash_ready2", "oe:entity/zombie_nautilus/dash_ready3" ]
+	},
+	"entity.zombie_nautilus.death":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.zombie_nautilus.death",
+		"sounds": [ "oe:entity/zombie_nautilus/death1" ]
+	},
+	"entity.zombie_nautilus.eat":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.zombie_nautilus.eat",
+		"sounds": [ "oe:entity/nautilus/eat1", "oe:entity/nautilus/eat2" ]
+	},
+	"entity.zombie_nautilus.hurt":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.zombie_nautilus.hurt",
+		"sounds": [ "oe:entity/zombie_nautilus/hurt1", "oe:entity/zombie_nautilus/hurt2", "oe:entity/zombie_nautilus/hurt3", "oe:entity/zombie_nautilus/hurt4" ]
+	},
+	"entity.zombie_nautilus.ride":
+	{
+		"category": "neutral",
+		"sounds": [ "oe:entity/zombie_nautilus/ride1" ]
+	},
+	"entity.zombie_nautilus.swim":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.zombie_nautilus.swim",
+		"sounds": [ "oe:entity/nautilus/swim1", "oe:entity/nautilus/swim2", "oe:entity/nautilus/swim3", "oe:entity/nautilus/swim4", "oe:entity/nautilus/swim5", "oe:entity/nautilus/swim6", "oe:entity/nautilus/swim7", "oe:entity/nautilus/swim8", "oe:entity/nautilus/swim9" ]
+	},
+	"item.armor.nautilus_equip":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.item.armor.nautilus_equip",
+		"sounds": [ "oe:item/armor_equip1", "oe:item/armor_equip2" ]
+	},
+	"item.armor.nautilus_unequip":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.item.armor.nautilus_unequip",
+		"sounds": [ "oe:item/armor_unequip1", "oe:item/armor_unequip2" ]
+	},
      "item.conch.conch_blow1": 
      {
     	"category": "player",
@@ -518,6 +564,24 @@
     	"subtitle": "subtitle.oe.ink_sac.squirt",
     	"sounds": [ "oe:item/ink_sac/squirt1", "oe:item/ink_sac/squirt2" ]
      },
+	"item.saddle.nautilus_equip":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.item.saddle.equip",
+		"sounds": [ "oe:item/saddle_equip1" ]
+	},
+	"item.saddle.nautilus_equip_underwater":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.item.saddle.equip",
+		"sounds": [ "oe:item/saddle_equip_underwater1" ]
+	},
+	"item.saddle.nautilus_unequip":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.item.saddle.unequip_shears",
+		"sounds": [ "oe:item/saddle_unequip1" ]
+	},
 	 "item.spawn_bucket.empty_fish":
 	 {
 		"category": "player",
