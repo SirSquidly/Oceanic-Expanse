@@ -64,20 +64,9 @@ public class CapabilitiesEvent
                 }
             }
 
-            if (CapabilityUtil.getChargeCooldown(player) > 0)
+            if (player.getRidingEntity() instanceof EntityNautilus)
             {
-                CapabilityUtil.setChargeCooldown(player, CapabilityUtil.getChargeCooldown(player) - 1);
-
-                /* This handles the Nautilus 'Ready' sound, since it only needs to play right when the cooldown ends while atop a Nautilus. */
-                if (CapabilityUtil.getChargeCooldown(player) == 0 && player.getRidingEntity() instanceof EntityNautilus)
-                {
-                    EntityNautilus nautilus = (EntityNautilus)player.getRidingEntity();
-                    player.world.playSound(null, player.getPosition(), nautilus.getDashReadySound(), nautilus.getSoundCategory(),1.0F, 1.0F);
-                }
-            }
-            else if (CapabilityUtil.getHoldingSpace(player) && player.getRidingEntity() instanceof EntityNautilus)
-            {
-                CapabilityUtil.alterChargeStrength(player, 0.1F);
+                if (CapabilityUtil.getHoldingSpace(player) && ((EntityNautilus) player.getRidingEntity()).getDashCooldown() == 0) CapabilityUtil.alterChargeStrength(player, 0.1F);
             }
         }
     }

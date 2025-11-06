@@ -34,10 +34,12 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     private static final Set<Item>FEEDING_ITEMS = Sets.newHashSet(Items.FISH, Items.COOKED_FISH);
 	private static final Set<Item>BREEDING_ITEMS = Sets.newHashSet(OEItems.LOBSTER_COOKED);
     /* Wow that's a lot of variables used for Dashing. */
-    private static final DataParameter<Float> DASH_SPEED = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.FLOAT);
-    private static final DataParameter<Integer> DASH_COOLDOWN = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DASHING = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DASH_ATTACKING = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> DASH_COOLDOWN = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> DASH_RECHARGE_TIME = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.VARINT);
+    private static final DataParameter<Float> DASH_SPEED = EntityDataManager.createKey(EntityNautilus.class, DataSerializers.FLOAT);
+
 
     protected static final DataParameter<Byte> TAMED = EntityDataManager.<Byte>createKey(EntityNautilus.class, DataSerializers.BYTE);
 
@@ -52,7 +54,8 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
         super.entityInit();
         this.dataManager.register(DASHING, 0);
         this.dataManager.register(DASH_ATTACKING, 0);
-        this.dataManager.register(DASH_COOLDOWN, 40);
+        this.dataManager.register(DASH_COOLDOWN, 0);
+        this.dataManager.register(DASH_RECHARGE_TIME, 40);
         this.dataManager.register(DASH_SPEED, 1.0F);
         this.dataManager.register(TAMED, (byte) 0);
     }
@@ -129,6 +132,12 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
                     setDashAttacking(0);
                 }
             }
+        }
+
+        if (getDashCooldown() > 0)
+        {
+            setDashCooldown(getDashCooldown() - 1);
+            if (getDashCooldown() == 0) this.playSound(getDashReadySound(), 1.0F, 1.0F);
         }
     }
 
@@ -272,7 +281,7 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
                     preformDash(moveVec);
 
                     CapabilityUtil.alterChargeStrength(player, 0, true, false);
-                    CapabilityUtil.setChargeCooldown(player, this.getDashCooldown());
+                    this.setDashCooldown(this.getDashRechargeTime());
                 }
             }
         }
@@ -310,6 +319,9 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     public int getDashCooldown() { return this.dataManager.get(DASH_COOLDOWN); }
     public void setDashCooldown(int state) { this.dataManager.set(DASH_COOLDOWN, state); }
 
+    public int getDashRechargeTime() { return this.dataManager.get(DASH_RECHARGE_TIME); }
+    public void setDashRechargeTime(int state) { this.dataManager.set(DASH_RECHARGE_TIME, state); }
+
     public float getDashSpeed() { return this.dataManager.get(DASH_SPEED); }
     public void setDashSpeed(float state) { this.dataManager.set(DASH_SPEED, state); }
 
@@ -338,6 +350,7 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     {
         super.writeEntityToNBT(compound);
         compound.setInteger("DashCooldown", this.getDashCooldown());
+        compound.setFloat("DashRechargeTime", getDashRechargeTime());
         compound.setFloat("DashSpeed", this.getDashSpeed());
         compound.setBoolean("Tamed", this.isTamed());
     }
@@ -346,6 +359,7 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     {
         super.readEntityFromNBT(compound);
         this.setDashCooldown(compound.getInteger("DashCooldown"));
+        this.setDashRechargeTime(compound.getInteger("DashRechargeTime"));
         this.setDashSpeed(compound.getFloat("DashSpeed"));
         this.setTamed(compound.getBoolean("Tamed"));
     }

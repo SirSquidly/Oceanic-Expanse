@@ -42,11 +42,11 @@ public class ClientEvents
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL)
         {
             if (mc.player != null && mc.player.isRiding() && mc.player.getRidingEntity() instanceof EntityNautilus)
-            { renderChargeBar(mc, event.getPartialTicks()); }
+            { renderChargeBar(mc, (EntityNautilus)mc.player.getRidingEntity()); }
         }
     }
 
-    private static void renderChargeBar(Minecraft mc, float partialTicks)
+    private static void renderChargeBar(Minecraft mc, EntityNautilus ridden)
     {
         ScaledResolution res = new ScaledResolution(mc);
         int width = res.getScaledWidth();
@@ -69,7 +69,7 @@ public class ClientEvents
             mc.ingameGUI.drawTexturedModalRect(barX, barY, 0, 5, filled, 5);
         }
 
-        if (CapabilityUtil.getChargeCooldown(mc.player) > 0)
+        if (ridden.getDashCooldown() > 0)
         { mc.ingameGUI.drawTexturedModalRect(barX, barY, 0, 10, 182, 5); }
     }
 }
