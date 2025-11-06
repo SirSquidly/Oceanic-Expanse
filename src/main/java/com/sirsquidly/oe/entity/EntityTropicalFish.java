@@ -84,29 +84,7 @@ public class EntityTropicalFish extends AbstractFish
     {
         return LootTableHandler.ENTITIES_TROPICAL_FISH;
     }
-	
-	public void onEntityUpdate()
-    {
-        int i = this.getAir();
-        super.onEntityUpdate();
 
-        if (this.isEntityAlive() && !this.isInWater())
-        {
-            --i;
-            this.setAir(i);
-
-            if (this.getAir() == -20)
-            {
-                this.setAir(0);
-                this.attackEntityFrom(DamageSource.DROWN, 1.0F);
-            }
-        }
-        else
-        {
-            this.setAir(150);
-        }
-    }
-	
 	@Override
 	public boolean getCanSpawnHere()
     {

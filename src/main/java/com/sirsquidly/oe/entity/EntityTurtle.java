@@ -191,9 +191,10 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
     }
 	
 	/** As we inherit from the AbstractFish class, we want to re-disable this. Turtles are rare enough for players. */
-	protected boolean canDespawn()
-    { return false; }
-	
+	protected boolean canDespawn() { return false; }
+	public boolean canFlop() { return false; }
+	public boolean isGilled() { return false; }
+
 	@Override
 	public boolean isNotColliding()
     {
@@ -209,8 +210,6 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 	
 	public float getEyeHeight()
     { return this.height * 0.5F; }
-	
-	public boolean canFlop() { return false; }
 	
 	public void onLivingUpdate()
     {

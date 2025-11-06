@@ -12,9 +12,7 @@ import com.sirsquidly.oe.blocks.BlockCoralFull;
 import com.sirsquidly.oe.init.OESounds;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -31,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -61,14 +59,11 @@ public class AbstractFish extends EntityAnimal
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
     }
 	
-	public boolean canBreatheUnderwater()
-    { return true; }
+	public boolean canBreatheUnderwater() { return true; }
 	
-	public AbstractFish createChild(EntityAgeable ageable)
-    { return null; }
+	public AbstractFish createChild(EntityAgeable ageable) { return null; }
 	
-	public boolean canBeLeashedTo(EntityPlayer player)
-    { return false; }
+	public boolean canBeLeashedTo(EntityPlayer player) { return false; }
 		
 	@Override
 	public boolean getCanSpawnHere()
@@ -87,9 +82,7 @@ public class AbstractFish extends EntityAnimal
 	 *  class 'checkClass' is the class of entity to check for. If left null, checks for any AbstractFish
 	 *  */
 	public boolean checkHeight(int posY, World world)
-    { 
-		return posY <= world.getSeaLevel()+1 && posY >= world.getSeaLevel()-12; 
-    }
+    { return posY <= world.getSeaLevel()+1 && posY >= world.getSeaLevel() - 12; }
 	
 	/** Used to check nearby entities.
 	 * 
@@ -120,10 +113,7 @@ public class AbstractFish extends EntityAnimal
 		List<Entity> checkNeighboring = this.world.getEntitiesWithinAABB(checkClass, getEntityBoundingBox().grow(areaCheck, areaCheck, areaCheck));
 		for (Entity e : checkNeighboring) 
     	{
-			if (((AbstractFish) e).justSpawned)
-			{
-				return true;
-			}
+			if (((AbstractFish) e).justSpawned) return true;
     	}
 		return false; 
     }
@@ -188,56 +178,67 @@ public class AbstractFish extends EntityAnimal
 	/**
 	* Detects if the fish isn't in water. Used for flopping motion and animation.
 	*/
-	public boolean isFlopping() 
-	{ return canFlop() && (!this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world))); }
+	public boolean isFlopping() { return canFlop() && (!this.isInWater() || this.isRidingOrBeingRiddenBy(new EntityTropicalSlime(this.world))); }
 	
 	/** If this fish can flop when on land. */
-	public boolean canFlop() 
-	{ return true; }
+	public boolean canFlop() { return true; }
 	
-	protected SoundEvent getAmbientSound()
-    { return this.isInWater() ? OESounds.ENTITY_FISH_SWIM : null; }
+	protected SoundEvent getAmbientSound() { return this.isInWater() ? OESounds.ENTITY_FISH_SWIM : null; }
 	
 	/** The sound a fish uses when Flopping */
-	public SoundEvent getFlopSound()
-    { return OESounds.ENTITY_FISH_FLOP; }
+	public SoundEvent getFlopSound() { return OESounds.ENTITY_FISH_FLOP; }
 	
 	@Override
-    public void onLivingUpdate() {
+    public void onLivingUpdate()
+	{
         super.onLivingUpdate();
-
         justSpawned = false;
-        
-        float f = 0.0F;
-        BlockPos blockpos = new BlockPos(this);
-        IBlockState iblockstate = this.world.getBlockState(blockpos);
-        
-        if (iblockstate.getMaterial() == Material.WATER)
-        {
-            f = BlockLiquid.getBlockLiquidHeight(iblockstate, this.world, blockpos);
-        }
+
         if (!this.world.isRemote)
         {
             if (canFlop() && onGround && !this.isInsideOfMaterial(Material.WATER))
             {
                 motionY += 0.4D;
-                motionX += (double) ((rand.nextFloat() * 2.0F - 1.0F) * 0.2F);
-                motionZ += (double) ((rand.nextFloat() * 2.0F - 1.0F) * 0.2F);
+                motionX += (rand.nextFloat() * 2.0F - 1.0F) * 0.2F;
+                motionZ += (rand.nextFloat() * 2.0F - 1.0F) * 0.2F;
                 rotationYaw = rand.nextFloat() * 360.0F;
                 onGround = false;
                 isAirBorne = true;
-                if (world.getTotalWorldTime() % 1 == 0)
-                	world.playSound((EntityPlayer) null, posX, posY, posZ, getFlopSound(), SoundCategory.NEUTRAL, 0.3F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
+                playSound(getFlopSound(), 0.3F, 0.8F / (this.rand.nextFloat() * 0.4F + 0.8F));
             }
             else
             {
             	motionY -= 0.001D;
-				/* Currently a hard-coded check for Dolphins, split this into a different method later! In fact, do that with ALL flopping! */
-            	if (f > 0.0F && !(this instanceof EntityDolphin)) setAir(150);
             }
         }
     }
-	
+
+	public void onEntityUpdate()
+	{
+		/* This is necessary to avoid allowing `onEntityUpdate` update this mob's air. */
+		int air = this.getAir();
+		super.onEntityUpdate();
+
+		if (this.isEntityAlive() && isGilled())
+		{
+			if (!this.isInWater())
+			{
+				this.setAir(air - 1);
+
+				if (this.getAir() == -20)
+				{
+					this.setAir(0);
+					this.attackEntityFrom(DamageSource.DROWN, 1.0F);
+				}
+			}
+			else
+			{ this.setAir(150); }
+		}
+	}
+
+	/** Marks if this entity needs to breathe Water specifically. */
+	public boolean isGilled() { return true; }
+
 	// Warning, Guardian stuff ahead    
 		
 	protected boolean canTriggerWalking()

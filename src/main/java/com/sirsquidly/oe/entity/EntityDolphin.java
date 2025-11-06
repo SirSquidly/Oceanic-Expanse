@@ -90,8 +90,8 @@ public class EntityDolphin extends AbstractFish implements IMeleeAnimal
     { return LootTableHandler.ENTITIES_DOLPHIN; }
 
     /** Dolphins do require normal breathing, unlike any other fish */
-    public boolean canBreatheUnderwater()
-    { return false; }
+    public boolean canBreatheUnderwater() { return false; }
+    public boolean isGilled() { return false; }
 
 	public void onEntityUpdate()
     {
