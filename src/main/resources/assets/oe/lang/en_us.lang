@@ -684,6 +684,14 @@ oe.config.worldGen.enableCoquinaOutcrops=Enable Coquina Outcrop
 oe.config.worldGen.coquinaOutcropTriesPerChunk=Coquina Outcrop tries per chunk
 oe.config.worldGen.coquinaOutcropChancePerChunk=Coquina Outcrop chance per try
 
+oe.config.worldGen.oceanRuins=Ocean Ruins Config
+oe.config.worldGen.enableOceanRuins=Enable Ocean Ruins
+oe.config.worldGen.oceanRuinsSpacing=Ocean Ruins Spacing
+oe.config.worldGen.oceanRuinsBiomeTypes=Ocean Ruins Valid Biome Types
+oe.config.worldGen.oceanRuinsSearchDistance=Ocean Ruins Search Distance
+oe.config.worldGen.oceanRuinsMinY=Ocean Ruins Minimum Spawn Height
+oe.config.worldGen.oceanRuinsMaxY=Ocean Ruins Maximum Spawn Height
+
 oe.config.worldGen.kelpForest=Kelp Forest Config
 oe.config.worldGen.enableKelpForest=Enable Kelp Forest
 oe.config.worldGen.kelpConnective=Kelp Forest Connectiveness

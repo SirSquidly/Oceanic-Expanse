@@ -12,6 +12,7 @@ import com.sirsquidly.oe.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEEntities;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.init.OEStructures;
 import com.sirsquidly.oe.network.OEPacketHandler;
 import com.sirsquidly.oe.network.OEPacketSpawnParticles;
 import com.sirsquidly.oe.tileentity.*;
@@ -25,6 +26,7 @@ import com.sirsquidly.oe.world.feature.*;
 import com.sirsquidly.oe.world.structure.GeneratorCoquinaOutcrop;
 import com.sirsquidly.oe.world.structure.GeneratorShipwreck;
 
+import com.sirsquidly.oe.world.structure.ModGenStructures;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -77,6 +79,8 @@ public class CommonProxy
 		OEEntities.registerEntities();
 		GameRegistry.registerWorldGenerator(new GeneratorWarmOcean(allOceans.toArray(new Biome[0])), 0);
 		GameRegistry.registerWorldGenerator(new GeneratorFrozenOcean(allOceans.toArray(new Biome[0])), 0);
+		//Registers Structure Generation currently just for Ocean Ruins
+		GameRegistry.registerWorldGenerator(new ModGenStructures(), 1);
 		registerWorldGen();
 		
 		if (ConfigHandler.vanillaTweak.waterTweak != 3)
@@ -92,6 +96,8 @@ public class CommonProxy
 	public void initRegistries(FMLInitializationEvent event)
 	{
 		OEEntities.registerEntitySpawns();
+		//handles structures
+		OEStructures.handleStructureRegistries();
 		OESounds.registerSounds();
 		OEPacketHandler.registerMessages();
 		CapabilityManager.INSTANCE.register(CapabilityRiptide.ICapabilityRiptide.class, new CapabilityRiptide.Storage(), CapabilityRiptide.RiptideMethods::new);

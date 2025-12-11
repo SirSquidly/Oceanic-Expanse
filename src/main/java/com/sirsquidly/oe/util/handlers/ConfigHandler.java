@@ -68,6 +68,44 @@ public class ConfigHandler
 		    @Config.Comment("The chance for Kelp to be placed in the forest")
 		    public double kelpDensity = 0.2;
 		}
+
+		@RequiresMcRestart
+		@Config.LangKey("oe.config.worldGen.oceanRuins")
+		public configOceanRuins oceanRuins = new configOceanRuins();
+
+		public static class configOceanRuins
+		{
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.enableOceanRuins")
+			@Config.Comment("If Ocean Ruins should be enabled")
+			public boolean enableOceanRuins = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.oceanRuinsSpacing")
+			@Config.Comment("The spacing between each valid position for Ocean Ruins. This means how far apart in the applicable biomes can this structure spawn apart. in Chunks.")
+			public int ruins_spacing = 16;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.oceanRuinsSearchDistance")
+			@Config.Comment("The search distance for the locate command when searching for Ocean Ruins. in Chunks.")
+			public int ruins_search_distance = 50;
+
+			@Config.RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.oceanRuinsBiomeTypes")
+			@Config.Comment("Add Biome types that DISALLOW this structure from spawning in, examples of tags are HOT, COLD, SPOOKY")
+			public String[] biome_types_ocean_ruins = {"SPOOKY",
+			};
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.oceanRuinsMinY")
+			@Config.Comment("Minimum Y level this structure can spawn at.")
+			public int ruins_min_y = 20;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.worldGen.oceanRuinsMaxY")
+			@Config.Comment("Maximum Y level this structure can spawn at.")
+			public int ruins_max_y = 55;
+		}
 		
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.worldGen.frozenOcean")

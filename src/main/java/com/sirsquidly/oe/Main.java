@@ -2,6 +2,9 @@ package com.sirsquidly.oe;
 
 import java.io.File;
 
+import com.sirsquidly.oe.command.OECommandLocate;
+import com.sirsquidly.oe.util.OELogger;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,6 +74,11 @@ public class Main {
 	public void init(FMLInitializationEvent event)
 	{
 		proxy.initRegistries(event);
+	}
+
+	public Main() {
+		//clears current log, used for seeing if biome types or other structure settings we're put in wrong
+		OELogger.clearLog();
 	}
 	
 	@EventHandler
@@ -151,5 +159,12 @@ public class Main {
                 return entitytrient;
             }
         });
+	}
+
+	@Mod.EventHandler
+	public void serverLoad(FMLServerStartingEvent event)
+	{
+		// register server commands
+		event.registerServerCommand(new OECommandLocate());
 	}
 }
