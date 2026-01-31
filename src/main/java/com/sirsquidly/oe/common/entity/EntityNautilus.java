@@ -1,12 +1,12 @@
 package com.sirsquidly.oe.common.entity;
 
 import com.sirsquidly.oe.common.entity.ai.EntityAIWanderUnderwater;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.common.items.ItemNautilusArmor;
 import com.sirsquidly.oe.common.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.CapabilityUtil;
 import com.sirsquidly.oe.util.Utilities;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -95,7 +95,7 @@ public class EntityNautilus extends AbstractFish implements IMeleeAnimal
     public SoundEvent getSaddleSound() { return this.isInWater() ? OESounds.ITEM_SADDLE_NAUTILUS_EQUIP_UNDERWATER : OESounds.ITEM_SADDLE_NAUTILUS_EQUIP; }
 
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_DOLPHIN; }
+    { return OELootTables.ENTITIES_DOLPHIN; }
 
     public boolean canFlop() { return false; }
 

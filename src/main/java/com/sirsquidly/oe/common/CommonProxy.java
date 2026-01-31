@@ -6,21 +6,17 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.capabilities.CapabilityNautilusCharge;
-import com.sirsquidly.oe.capabilities.CapabilityRiptide;
+import com.sirsquidly.oe.common.capabilities.CapabilityNautilusCharge;
+import com.sirsquidly.oe.common.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.common.entity.item.EntityTrident;
-import com.sirsquidly.oe.init.OEBlocks;
-import com.sirsquidly.oe.init.OEEntities;
-import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.init.OEStructures;
-import com.sirsquidly.oe.network.OEPacketHandler;
-import com.sirsquidly.oe.network.OEPacketSpawnParticles;
+import com.sirsquidly.oe.init.*;
+import com.sirsquidly.oe.common.network.OEPacketHandler;
+import com.sirsquidly.oe.common.network.OEPacketSpawnParticles;
 import com.sirsquidly.oe.common.tileentity.*;
 import com.sirsquidly.oe.util.ResonanceUtil;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.GuiHandler;
-import com.sirsquidly.oe.util.handlers.RenderHandler;
 import com.sirsquidly.oe.common.world.*;
 import com.sirsquidly.oe.common.world.feature.*;
 import com.sirsquidly.oe.common.world.structure.GeneratorCoquinaOutcrop;
@@ -67,16 +63,11 @@ public class CommonProxy
 	
 	public void preInitRegisteries(FMLPreInitializationEvent event)
 	{
-		GameRegistry.registerTileEntity(TileConduit.class, new ResourceLocation(Main.MOD_ID, "conduit"));
-		GameRegistry.registerTileEntity(TilePickledSkull.class, new ResourceLocation(Main.MOD_ID, "pickled_skull"));
-		GameRegistry.registerTileEntity(TileNautilusShellBlock.class, new ResourceLocation(Main.MOD_ID, "nautilus_shell_block"));
-		GameRegistry.registerTileEntity(TilePrismarinePot.class, new ResourceLocation(Main.MOD_ID, "prismarine_pot"));
-		GameRegistry.registerTileEntity(TileStasis.class, new ResourceLocation(Main.MOD_ID, "stagnant"));
-		
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.OCEAN));
 		allOceans.addAll(BiomeDictionary.getBiomes(Type.BEACH));
-		
 		OEEntities.registerEntities();
+		OEEntities.registerTileEntities();
+		OELootTables.registerLootTables();
 		GameRegistry.registerWorldGenerator(new GeneratorWarmOcean(allOceans.toArray(new Biome[0])), 0);
 		GameRegistry.registerWorldGenerator(new GeneratorFrozenOcean(allOceans.toArray(new Biome[0])), 0);
 		//Registers Structure Generation currently just for Ocean Ruins
@@ -89,8 +80,7 @@ public class CommonProxy
 			Blocks.FLOWING_WATER.setLightOpacity(ConfigHandler.vanillaTweak.waterTweak);
 		}
 		
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
-		{ RenderHandler.registerEntityRenders(); }
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) { OEEntities.RegisterRenderers(); }
 	}
 	
 	public void initRegistries(FMLInitializationEvent event)

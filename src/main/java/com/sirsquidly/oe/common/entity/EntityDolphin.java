@@ -3,10 +3,10 @@ package com.sirsquidly.oe.common.entity;
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.common.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OEPotions;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
@@ -87,7 +87,7 @@ public class EntityDolphin extends AbstractFish implements IMeleeAnimal
     { return OESounds.ENTITY_DOLPHIN_HURT; }
 
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_DOLPHIN; }
+    { return OELootTables.ENTITIES_DOLPHIN; }
 
     /** Dolphins do require normal breathing, unlike any other fish */
     public boolean canBreatheUnderwater() { return false; }

@@ -4,12 +4,12 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.capabilities.CapabilityRiptide;
+import com.sirsquidly.oe.common.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.common.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.network.OEPacketHandler;
-import com.sirsquidly.oe.network.OEPacketRiptide;
+import com.sirsquidly.oe.common.network.OEPacketHandler;
+import com.sirsquidly.oe.common.network.OEPacketRiptide;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.state.IBlockState;

@@ -4,8 +4,9 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.common.entity.ai.EntityAIWanderUnderwater;
+import com.sirsquidly.oe.init.OEEntities;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -58,9 +59,7 @@ public class EntityCod extends AbstractFish
     
 	@Override
     protected ResourceLocation getLootTable()
-    {
-        return LootTableHandler.ENTITIES_COD;
-    }
+    { return OELootTables.ENTITIES_COD; }
 	
 	public float getEyeHeight()
     {

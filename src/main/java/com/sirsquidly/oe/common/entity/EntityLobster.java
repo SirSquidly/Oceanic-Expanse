@@ -12,9 +12,9 @@ import com.sirsquidly.oe.common.entity.ai.EntityAIMateDepositEgg;
 import com.sirsquidly.oe.common.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
@@ -295,11 +295,11 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob, IMele
     
 	@Override
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_LOBSTER; }
+    { return OELootTables.ENTITIES_LOBSTER; }
 
     @Nullable
     protected ResourceLocation getMoltLootTable()
-    { return LootTableHandler.GAMEPLAY_LOBSTER_MOLT; }
+    { return OELootTables.GAMEPLAY_LOBSTER_MOLT; }
 
 	protected float getWaterSlowDown()
     { return this.isBeingRidden() ? 0.4F : 0.8F; }

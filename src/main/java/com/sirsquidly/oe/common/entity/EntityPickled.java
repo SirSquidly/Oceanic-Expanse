@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.common.entity;
 
 import com.sirsquidly.oe.init.OEBlocks;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
+import com.sirsquidly.oe.init.OELootTables;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -28,7 +28,7 @@ public class EntityPickled extends EntityDrowned
 	
 	@Override
 	protected ResourceLocation getLootTable()
-	{ return LootTableHandler.ENTITIES_PICKLED; }
+	{ return OELootTables.ENTITIES_PICKLED; }
 
 	protected void entityInit()
 	{

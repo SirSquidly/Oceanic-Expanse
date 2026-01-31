@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.util;
 
-import com.sirsquidly.oe.capabilities.CapabilityNautilusCharge;
+import com.sirsquidly.oe.common.capabilities.CapabilityNautilusCharge;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 

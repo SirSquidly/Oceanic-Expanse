@@ -12,9 +12,9 @@ import com.sirsquidly.oe.common.entity.ai.EntityAIMateDepositEgg;
 import com.sirsquidly.oe.common.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -144,7 +144,7 @@ public class EntityTurtle extends AbstractFish implements IEggCarrierMob
 
 	@Override
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_TURTLE; }
+    { return OELootTables.ENTITIES_TURTLE; }
 	
 	public void onStruckByLightning(EntityLightningBolt lightningBolt)
     {

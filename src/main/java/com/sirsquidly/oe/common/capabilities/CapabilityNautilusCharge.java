@@ -1,4 +1,4 @@
-package com.sirsquidly.oe.capabilities;
+package com.sirsquidly.oe.common.capabilities;
 
 import com.sirsquidly.oe.Main;
 import net.minecraft.nbt.NBTBase;

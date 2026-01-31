@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.mixin;
 
-import com.sirsquidly.oe.capabilities.CapabilityRiptide;
+import com.sirsquidly.oe.common.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.client.render.entity.layer.LayerRiptideAnim;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBase;

@@ -12,11 +12,11 @@ import com.sirsquidly.oe.common.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.common.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEEnchants;
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.common.items.ItemConch;
 import com.sirsquidly.oe.common.items.ItemTrident;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -139,7 +139,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     
     @Override
     protected ResourceLocation getLootTable()
-    { return isCaptain() ? LootTableHandler.ENTITIES_DROWNED_CAPTAIN : LootTableHandler.ENTITIES_DROWNED; }
+    { return isCaptain() ? OELootTables.ENTITIES_DROWNED_CAPTAIN : OELootTables.ENTITIES_DROWNED; }
     
 	public boolean canBreatheUnderwater()
     { return true; }

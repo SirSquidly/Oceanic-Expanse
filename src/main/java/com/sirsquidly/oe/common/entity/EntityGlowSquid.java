@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.common.entity;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -53,7 +53,7 @@ public class EntityGlowSquid extends EntitySquid
 	
 	@Override
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_GLOW_SQUID; }
+    { return OELootTables.ENTITIES_GLOW_SQUID; }
 	
 	@SideOnly(Side.CLIENT)
     public int getBrightnessForRender()

@@ -2,6 +2,7 @@ package com.sirsquidly.oe.common.world.feature;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.init.OELootTables;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -18,7 +19,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import com.sirsquidly.oe.common.blocks.BlockPrismarinePot;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.common.tileentity.TilePrismarinePot;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 /**
  * Generates patches of Prismarine Pots.
@@ -137,7 +137,7 @@ public class WorldGenPrismarinePot implements IWorldGenerator
 
             if (tileentity instanceof TilePrismarinePot)
             {
-                ((TilePrismarinePot)tileentity).setLootTable(LootTableHandler.MONUMENT_MYSTIC, rand.nextLong());
+                ((TilePrismarinePot)tileentity).setLootTable(OELootTables.MONUMENT_MYSTIC, rand.nextLong());
             }
 		}
 	}

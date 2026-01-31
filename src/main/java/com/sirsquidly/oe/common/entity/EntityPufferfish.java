@@ -6,10 +6,10 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.sirsquidly.oe.common.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -89,7 +89,7 @@ public class EntityPufferfish extends AbstractFish
     
 	@Override
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_PUFFERFISH; }
+    { return OELootTables.ENTITIES_PUFFERFISH; }
 	
 	@Override
 	public boolean getCanSpawnHere()

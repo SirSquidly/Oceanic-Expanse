@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.common.entity.EntityDrowned;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -155,7 +155,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 
             if (tileentity instanceof TileEntityChest)
             {
-                ((TileEntityChest)tileentity).setLootTable(LootTableHandler.SHIPWRECK_MAP, rand.nextLong());
+                ((TileEntityChest)tileentity).setLootTable(OELootTables.SHIPWRECK_MAP, rand.nextLong());
             }
         }
         if ("supply_chest".equals(entry.getValue()))
@@ -165,7 +165,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 
             if (tileentity instanceof TileEntityChest)
             {
-                ((TileEntityChest)tileentity).setLootTable(LootTableHandler.SHIPWRECK_SUPPLY, rand.nextLong());
+                ((TileEntityChest)tileentity).setLootTable(OELootTables.SHIPWRECK_SUPPLY, rand.nextLong());
             }
         }
         if ("tresure_chest".equals(entry.getValue()))
@@ -175,7 +175,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 
             if (tileentity instanceof TileEntityChest)
             {
-                ((TileEntityChest)tileentity).setLootTable(LootTableHandler.SHIPWRECK_TREASURE, rand.nextLong());
+                ((TileEntityChest)tileentity).setLootTable(OELootTables.SHIPWRECK_TREASURE, rand.nextLong());
             }
         }
         

@@ -1,6 +1,6 @@
-package com.sirsquidly.oe.network;
+package com.sirsquidly.oe.common.network;
 
-import com.sirsquidly.oe.capabilities.CapabilityNautilusCharge;
+import com.sirsquidly.oe.common.capabilities.CapabilityNautilusCharge;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

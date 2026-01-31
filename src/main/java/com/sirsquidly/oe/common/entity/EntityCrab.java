@@ -11,9 +11,9 @@ import com.sirsquidly.oe.common.entity.ai.EntityAICrabDig;
 import com.sirsquidly.oe.common.entity.ai.EntityAIMateCarryEgg;
 import com.sirsquidly.oe.common.entity.ai.EntityAIMateDepositEgg;
 import com.sirsquidly.oe.common.entity.ai.EntityAIStompTurtleEgg;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -288,7 +288,7 @@ public class EntityCrab extends EntityAnimal implements IEggCarrierMob, IMeleeAn
     
 	@Override
     protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_CRAB; }
+    { return OELootTables.ENTITIES_CRAB; }
 	
 	protected float getWaterSlowDown()
     { return 0.98F; }

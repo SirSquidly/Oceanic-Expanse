@@ -1,6 +1,6 @@
-package com.sirsquidly.oe.network;
+package com.sirsquidly.oe.common.network;
 
-import com.sirsquidly.oe.capabilities.CapabilityRiptide;
+import com.sirsquidly.oe.common.capabilities.CapabilityRiptide;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

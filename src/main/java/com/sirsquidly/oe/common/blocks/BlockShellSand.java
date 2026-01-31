@@ -5,8 +5,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
-
+import com.sirsquidly.oe.init.OELootTables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
@@ -81,7 +80,7 @@ public class BlockShellSand extends BlockFalling
     	{
 			Random rand = worldIn.rand;
     		LootContext.Builder lootcontext$builder = new LootContext.Builder((WorldServer)worldIn);
-        	List<ItemStack> result = worldIn.getLootTableManager().getLootTableFromLocation(LootTableHandler.GAMEPLAY_SHELL_COMB).generateLootForPools(rand, lootcontext$builder.build());
+        	List<ItemStack> result = worldIn.getLootTableManager().getLootTableFromLocation(OELootTables.GAMEPLAY_SHELL_COMB).generateLootForPools(rand, lootcontext$builder.build());
         	
     		for (ItemStack lootItem : result)
             { 

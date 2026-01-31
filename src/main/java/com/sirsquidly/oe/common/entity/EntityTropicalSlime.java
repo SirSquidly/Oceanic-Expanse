@@ -3,10 +3,10 @@ package com.sirsquidly.oe.common.entity;
 import javax.annotation.Nullable;
 
 import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.common.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -88,7 +88,7 @@ public class EntityTropicalSlime extends EntitySlime
 	
 	@Nullable
     protected ResourceLocation getLootTable()
-    { return this.getSlimeSize() > 1 ? LootTableHandler.ENTITIES_TROPICAL_SLIME : LootTableList.EMPTY; }
+    { return this.getSlimeSize() > 1 ? OELootTables.ENTITIES_TROPICAL_SLIME : LootTableList.EMPTY; }
 	
 	@Override
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.sirsquidly.oe.init.OELootTables;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.ArrayUtils;
@@ -35,7 +36,6 @@ import com.sirsquidly.oe.common.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
 public class EntityTropicalFish extends AbstractFish
 {
@@ -82,7 +82,7 @@ public class EntityTropicalFish extends AbstractFish
 	@Override
     protected ResourceLocation getLootTable()
     {
-        return LootTableHandler.ENTITIES_TROPICAL_FISH;
+        return OELootTables.ENTITIES_TROPICAL_FISH;
     }
 
 	@Override

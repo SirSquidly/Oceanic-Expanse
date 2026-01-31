@@ -1,13 +1,12 @@
 package com.sirsquidly.oe.common.world.structure.ocean_ruins;
 
 import com.sirsquidly.oe.common.entity.EntityDrowned;
+import com.sirsquidly.oe.init.OELootTables;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
-import com.sirsquidly.oe.util.handlers.LootTableHandler;
 import com.sirsquidly.oe.common.world.structure.base.ModStructureTemplate;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -149,7 +148,7 @@ public class OceanRuinsTemplate extends ModStructureTemplate
         world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.Plane.HORIZONTAL.random(rand)), 3);
         TileEntity tileentity = world.getTileEntity(pos);
 
-        if (tileentity instanceof TileEntityChest) ((TileEntityChest)tileentity).setLootTable(LootTableHandler.UNDERWATER_RUINS_SMALL, rand.nextLong());
+        if (tileentity instanceof TileEntityChest) ((TileEntityChest)tileentity).setLootTable(OELootTables.UNDERWATER_RUINS_SMALL, rand.nextLong());
     }
 
 
