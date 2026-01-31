@@ -7,7 +7,7 @@ import com.sirsquidly.oe.client.model.entity.ModelDrowned;
 import com.sirsquidly.oe.client.model.entity.ModelPickledIntestines;
 import com.sirsquidly.oe.client.render.entity.layer.LayerPickled;
 import com.sirsquidly.oe.client.render.entity.layer.LayerPickledIntestines;
-import com.sirsquidly.oe.entity.EntityPickled;
+import com.sirsquidly.oe.common.entity.EntityPickled;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

@@ -11,7 +11,7 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelLobster;
 import com.sirsquidly.oe.client.render.entity.layer.LayerLobsterHalf2;
 import com.sirsquidly.oe.client.render.entity.layer.LayerLobsterSaddle;
-import com.sirsquidly.oe.entity.EntityLobster;
+import com.sirsquidly.oe.common.entity.EntityLobster;
 
 @SideOnly(Side.CLIENT)
 public class RenderLobster extends RenderLiving<EntityLobster>

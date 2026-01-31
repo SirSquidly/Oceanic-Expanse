@@ -4,7 +4,7 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelTropicalFishA;
 import com.sirsquidly.oe.client.model.entity.ModelTropicalFishB;
 import com.sirsquidly.oe.client.render.entity.RenderTropicalFish;
-import com.sirsquidly.oe.entity.EntityTropicalFish;
+import com.sirsquidly.oe.common.entity.EntityTropicalFish;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

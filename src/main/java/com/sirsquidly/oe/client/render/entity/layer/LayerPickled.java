@@ -3,7 +3,7 @@ package com.sirsquidly.oe.client.render.entity.layer;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelPickledIntestines;
 import com.sirsquidly.oe.client.render.entity.RenderPickled;
-import com.sirsquidly.oe.entity.EntityPickled;
+import com.sirsquidly.oe.common.entity.EntityPickled;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

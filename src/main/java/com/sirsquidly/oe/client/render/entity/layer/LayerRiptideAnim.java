@@ -3,7 +3,7 @@ package com.sirsquidly.oe.client.render.entity.layer;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.capabilities.CapabilityRiptide;
 import com.sirsquidly.oe.client.model.entity.ModelRiptideAnim;
-import com.sirsquidly.oe.entity.EntityDrowned;
+import com.sirsquidly.oe.common.entity.EntityDrowned;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

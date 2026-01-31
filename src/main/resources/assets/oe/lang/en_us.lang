@@ -3,6 +3,9 @@ itemGroup.oceanictab=Oceanic Expanse
 
 container.oe.prismarine_pot=Prismarine Pot
 
+commands.oe.locate.success=Located nearest %1$s at %2$s
+commands.oe.locate.success.blockPos=[%1$s, ~, %2$s]
+commands.oe.locate.success.hover=Click to teleport
 
 death.attack.oe.trident=%1$s was impaled by %2$s
 death.attack.oe.trident.item=%1$s was impaled by %2$s using %3$s
@@ -175,6 +178,7 @@ item.oe.nautilus_shell.name=Nautilus Shell
 item.oe.trident.name=Trident
 item.oe.turtle_scute.name=Scute
 item.oe.turtle_helmet.name=Turtle Shell
+item.oe.diamond_nautilus_armor.name=Diamond Nautilus Armor
 
 resonance.oe.wave_wail=Wave's Wail
 resonance.oe.brine_breath=Brine's Breath

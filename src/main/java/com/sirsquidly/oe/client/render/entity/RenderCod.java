@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelCod;
-import com.sirsquidly.oe.entity.EntityCod;
+import com.sirsquidly.oe.common.entity.EntityCod;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;

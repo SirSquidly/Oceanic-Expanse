@@ -22,9 +22,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.google.common.base.Predicate;
-import com.sirsquidly.oe.entity.EntityTurtle;
-import com.sirsquidly.oe.entity.ai.EntityAISquidFlop;
-import com.sirsquidly.oe.entity.ai.EntityAIStompTurtleEgg;
+import com.sirsquidly.oe.common.entity.EntityTurtle;
+import com.sirsquidly.oe.common.entity.ai.EntityAISquidFlop;
+import com.sirsquidly.oe.common.entity.ai.EntityAIStompTurtleEgg;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;

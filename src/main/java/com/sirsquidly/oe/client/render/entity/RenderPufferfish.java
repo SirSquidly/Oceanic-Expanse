@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelPufferfish;
-import com.sirsquidly.oe.entity.EntityPufferfish;
+import com.sirsquidly.oe.common.entity.EntityPufferfish;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;

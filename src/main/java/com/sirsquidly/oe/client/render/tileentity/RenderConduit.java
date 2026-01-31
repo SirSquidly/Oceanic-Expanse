@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityConduitEye;
-import com.sirsquidly.oe.tileentity.TileConduit;
+import com.sirsquidly.oe.common.entity.EntityConduitEye;
+import com.sirsquidly.oe.common.tileentity.TileConduit;
 import com.sirsquidly.oe.client.model.tileentity.*;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

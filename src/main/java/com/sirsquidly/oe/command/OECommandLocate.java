@@ -12,7 +12,12 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -53,9 +58,19 @@ public class OECommandLocate implements ICommand {
             if(s.equals("OceanRuins")) {
                 BlockPos blockpos = findNearestPos(sender);
 
-                if (blockpos != null) {
-                    sender.sendMessage(new TextComponentTranslation("commands.locate.success", new Object[]{s, blockpos.getX(), blockpos.getZ()}));
-                } else {
+                if (blockpos != null)
+                {
+                    ITextComponent cordText = new TextComponentTranslation("commands.oe.locate.success.blockPos",  blockpos.getX(), blockpos.getZ());
+
+                    cordText.getStyle().setColor(TextFormatting.GREEN);
+                    cordText.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,  new TextComponentTranslation("commands.oe.locate.success.hover")));
+                    cordText.getStyle().setClickEvent(new ClickEvent( ClickEvent.Action.SUGGEST_COMMAND, "/tp " + blockpos.getX() + " ~ " + blockpos.getZ() ));
+
+                    ITextComponent text = new TextComponentTranslation("commands.oe.locate.success",  s, cordText);
+                    sender.sendMessage(text);
+                }
+                else
+                {
                     throw new CommandException("commands.locate.failure", s);
                 }
             }

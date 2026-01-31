@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.util;
 
-import com.sirsquidly.oe.items.ItemSpawnBucket;
+import com.sirsquidly.oe.common.items.ItemSpawnBucket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;

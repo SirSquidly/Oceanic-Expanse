@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.sirsquidly.oe.entity.item.EntityTrident;
+import com.sirsquidly.oe.common.entity.item.EntityTrident;
 import com.sirsquidly.oe.init.OEItems;
 	
 @SideOnly(Side.CLIENT)

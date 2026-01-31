@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity.layer;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.render.entity.RenderTropicalSlime;
-import com.sirsquidly.oe.entity.EntityTropicalSlime;
+import com.sirsquidly.oe.common.entity.EntityTropicalSlime;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelSlime;

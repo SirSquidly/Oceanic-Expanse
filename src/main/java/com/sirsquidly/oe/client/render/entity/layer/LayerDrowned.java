@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.client.render.entity.layer;
 
 import com.sirsquidly.oe.client.render.entity.RenderDrowned;
-import com.sirsquidly.oe.entity.EntityDrowned;
+import com.sirsquidly.oe.common.entity.EntityDrowned;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

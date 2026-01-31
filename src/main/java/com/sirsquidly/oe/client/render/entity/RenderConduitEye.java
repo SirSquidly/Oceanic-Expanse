@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityConduitEye;
+import com.sirsquidly.oe.common.entity.EntityConduitEye;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

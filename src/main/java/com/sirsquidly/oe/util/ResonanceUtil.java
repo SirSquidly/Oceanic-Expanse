@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.util;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.enchantment.resonance.*;
+import com.sirsquidly.oe.common.enchantment.resonance.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

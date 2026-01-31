@@ -3,7 +3,7 @@ package com.sirsquidly.oe.client.render.entity;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.render.entity.layer.LayerTropicalSlimeFish;
 import com.sirsquidly.oe.client.render.entity.layer.LayerTropicalSlimeGel;
-import com.sirsquidly.oe.entity.EntityTropicalSlime;
+import com.sirsquidly.oe.common.entity.EntityTropicalSlime;
 
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.renderer.GlStateManager;

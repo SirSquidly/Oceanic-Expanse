@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity;
 
 import javax.annotation.Nonnull;
 
-import com.sirsquidly.oe.entity.item.EntityGlowItemFrame;
+import com.sirsquidly.oe.common.entity.item.EntityGlowItemFrame;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

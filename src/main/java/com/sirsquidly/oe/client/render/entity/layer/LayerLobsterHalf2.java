@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity.layer;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.render.entity.RenderLobster;
-import com.sirsquidly.oe.entity.EntityLobster;
+import com.sirsquidly.oe.common.entity.EntityLobster;
 
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;

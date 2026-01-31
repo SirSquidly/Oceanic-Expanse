@@ -4,7 +4,7 @@ import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelNautilus;
 import com.sirsquidly.oe.client.render.entity.layer.LayerNautilusArmor;
 import com.sirsquidly.oe.client.render.entity.layer.LayerNautilusSaddle;
-import com.sirsquidly.oe.entity.EntityNautilus;
+import com.sirsquidly.oe.common.entity.EntityNautilus;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;

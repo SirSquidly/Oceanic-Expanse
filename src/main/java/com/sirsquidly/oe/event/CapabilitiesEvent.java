@@ -2,7 +2,7 @@ package com.sirsquidly.oe.event;
 
 import com.sirsquidly.oe.capabilities.CapabilityNautilusCharge;
 import com.sirsquidly.oe.capabilities.CapabilityRiptide;
-import com.sirsquidly.oe.entity.EntityNautilus;
+import com.sirsquidly.oe.common.entity.EntityNautilus;
 import com.sirsquidly.oe.network.OEPacketHandler;
 import com.sirsquidly.oe.network.OEPacketHoldingSpace;
 import com.sirsquidly.oe.network.OEPacketRiptide;

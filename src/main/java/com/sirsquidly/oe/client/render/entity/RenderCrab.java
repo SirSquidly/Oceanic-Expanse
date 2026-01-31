@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelCrab;
-import com.sirsquidly.oe.entity.EntityCrab;
+import com.sirsquidly.oe.common.entity.EntityCrab;
 import com.sirsquidly.oe.client.render.entity.layer.LayerCrabHeldItem;
 
 import net.minecraft.client.renderer.GlStateManager;

@@ -3,7 +3,7 @@ package com.sirsquidly.oe.event;
 import java.util.List;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityGlowSquid;
+import com.sirsquidly.oe.common.entity.EntityGlowSquid;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

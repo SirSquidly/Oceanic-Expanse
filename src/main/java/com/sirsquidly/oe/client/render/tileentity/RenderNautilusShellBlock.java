@@ -2,8 +2,8 @@ package com.sirsquidly.oe.client.render.tileentity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.tileentity.ModelNautilusShellBlock;
-import com.sirsquidly.oe.items.ItemNautilusArmor;
-import com.sirsquidly.oe.tileentity.TileNautilusShellBlock;
+import com.sirsquidly.oe.common.items.ItemNautilusArmor;
+import com.sirsquidly.oe.common.tileentity.TileNautilusShellBlock;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;

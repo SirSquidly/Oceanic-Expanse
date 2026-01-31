@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.blocks.*;
-import com.sirsquidly.oe.items.ItemBlockSeaPickle;
-import com.sirsquidly.oe.items.ItemBlockSlab;
-import com.sirsquidly.oe.items.ItemOESkull;
+import com.sirsquidly.oe.common.blocks.*;
+import com.sirsquidly.oe.common.items.ItemBlockSeaPickle;
+import com.sirsquidly.oe.common.items.ItemBlockSlab;
+import com.sirsquidly.oe.common.items.ItemOESkull;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;

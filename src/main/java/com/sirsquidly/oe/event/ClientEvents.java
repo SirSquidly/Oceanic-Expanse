@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.event;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityNautilus;
+import com.sirsquidly.oe.common.entity.EntityNautilus;
 import com.sirsquidly.oe.util.CapabilityUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;

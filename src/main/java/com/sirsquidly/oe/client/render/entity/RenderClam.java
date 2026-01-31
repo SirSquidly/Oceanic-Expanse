@@ -3,7 +3,7 @@ package com.sirsquidly.oe.client.render.entity;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelClam;
 import com.sirsquidly.oe.client.render.entity.layer.LayerClamHeldItem;
-import com.sirsquidly.oe.entity.EntityClam;
+import com.sirsquidly.oe.common.entity.EntityClam;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;

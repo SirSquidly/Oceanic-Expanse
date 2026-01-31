@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.client.render.entity;
 
-import com.sirsquidly.oe.entity.item.EntityUnderwaterTNTPrimed;
+import com.sirsquidly.oe.common.entity.item.EntityUnderwaterTNTPrimed;
 import com.sirsquidly.oe.init.OEBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

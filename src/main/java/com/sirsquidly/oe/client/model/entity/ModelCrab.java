@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.client.model.entity;
 
-import com.sirsquidly.oe.entity.EntityCrab;
+import com.sirsquidly.oe.common.entity.EntityCrab;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

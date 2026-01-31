@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelDolphin;
-import com.sirsquidly.oe.entity.EntityDolphin;
+import com.sirsquidly.oe.common.entity.EntityDolphin;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;

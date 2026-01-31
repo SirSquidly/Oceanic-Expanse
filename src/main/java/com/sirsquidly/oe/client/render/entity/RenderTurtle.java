@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelTurtle;
-import com.sirsquidly.oe.entity.EntityTurtle;
+import com.sirsquidly.oe.common.entity.EntityTurtle;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;

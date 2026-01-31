@@ -1,0 +1,4 @@
+{
+    "parent": "item/generated",
+    "textures": { "layer0": "oe:items/diamond_nautilus_armor" }
+}

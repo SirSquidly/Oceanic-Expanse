@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelBabySquid;
-import com.sirsquidly.oe.entity.EntityBabySquid;
+import com.sirsquidly.oe.common.entity.EntityBabySquid;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.model.ModelSquid;

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.items.*;
+import com.sirsquidly.oe.common.items.*;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 @EventBusSubscriber(modid = Main.MOD_ID)

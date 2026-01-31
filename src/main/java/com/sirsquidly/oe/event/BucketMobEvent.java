@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
-import com.sirsquidly.oe.items.ItemSpawnBucket;
+import com.sirsquidly.oe.common.items.ItemSpawnBucket;
 import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

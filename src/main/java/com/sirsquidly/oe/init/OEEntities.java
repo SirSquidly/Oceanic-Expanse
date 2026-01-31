@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.init;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.*;
-import com.sirsquidly.oe.entity.item.*;
+import com.sirsquidly.oe.common.entity.*;
+import com.sirsquidly.oe.common.entity.item.*;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.Entity;

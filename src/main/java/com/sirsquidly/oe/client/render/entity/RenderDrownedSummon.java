@@ -1,7 +1,7 @@
 package com.sirsquidly.oe.client.render.entity;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.entity.EntityDrownedSummon;
+import com.sirsquidly.oe.common.entity.EntityDrownedSummon;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;

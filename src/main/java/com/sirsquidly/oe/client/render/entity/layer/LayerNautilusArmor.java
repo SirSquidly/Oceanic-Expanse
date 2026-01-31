@@ -2,8 +2,8 @@ package com.sirsquidly.oe.client.render.entity.layer;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.render.entity.RenderNautilus;
-import com.sirsquidly.oe.entity.EntityNautilus;
-import com.sirsquidly.oe.items.ItemNautilusArmor;
+import com.sirsquidly.oe.common.entity.EntityNautilus;
+import com.sirsquidly.oe.common.items.ItemNautilusArmor;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.inventory.EntityEquipmentSlot;

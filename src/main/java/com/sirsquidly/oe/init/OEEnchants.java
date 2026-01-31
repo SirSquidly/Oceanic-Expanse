@@ -8,7 +8,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import com.sirsquidly.oe.enchantment.*;
+import com.sirsquidly.oe.common.enchantment.*;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 @EventBusSubscriber

@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.init;
 
-import com.sirsquidly.oe.blocks.BlockPalmDoor;
+import com.sirsquidly.oe.common.blocks.BlockPalmDoor;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.FurnaceFuelHandler;
 

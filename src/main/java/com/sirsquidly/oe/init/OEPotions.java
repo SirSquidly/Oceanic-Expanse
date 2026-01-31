@@ -3,7 +3,7 @@ package com.sirsquidly.oe.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sirsquidly.oe.potion.PotionDolphinsGrace;
+import com.sirsquidly.oe.common.potion.PotionDolphinsGrace;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.sirsquidly.oe.Main;
-import com.sirsquidly.oe.potion.PotionBase;
+import com.sirsquidly.oe.common.potion.PotionBase;
 
 @EventBusSubscriber(modid = Main.MOD_ID)
 public class OEPotions 

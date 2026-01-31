@@ -2,7 +2,7 @@ package com.sirsquidly.oe.client.render.entity.layer;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.render.entity.RenderGlowSquid;
-import com.sirsquidly.oe.entity.EntityGlowSquid;
+import com.sirsquidly.oe.common.entity.EntityGlowSquid;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.client.Minecraft;

@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.sirsquidly.oe.client.model.entity.ModelPickledIntestines;
 import com.sirsquidly.oe.client.render.entity.RenderPickled;
-import com.sirsquidly.oe.entity.EntityPickled;
+import com.sirsquidly.oe.common.entity.EntityPickled;
 
 @SideOnly(Side.CLIENT)
 public class LayerPickledIntestines implements LayerRenderer<EntityPickled>

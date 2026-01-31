@@ -1,8 +1,8 @@
 package com.sirsquidly.oe.util.handlers;
 
-import com.sirsquidly.oe.entity.*;
-import com.sirsquidly.oe.entity.item.*;
-import com.sirsquidly.oe.tileentity.*;
+import com.sirsquidly.oe.common.entity.*;
+import com.sirsquidly.oe.common.entity.item.*;
+import com.sirsquidly.oe.common.tileentity.*;
 import com.sirsquidly.oe.client.render.entity.*;
 import com.sirsquidly.oe.client.render.tileentity.*;
 

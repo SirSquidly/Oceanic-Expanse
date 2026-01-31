@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelDrowned;
-import com.sirsquidly.oe.entity.EntityDrowned;
+import com.sirsquidly.oe.common.entity.EntityDrowned;
 import com.sirsquidly.oe.client.render.entity.layer.LayerDrowned;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

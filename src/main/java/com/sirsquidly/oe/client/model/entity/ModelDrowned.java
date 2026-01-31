@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.client.model.entity;
 
-import com.sirsquidly.oe.entity.EntityDrowned;
+import com.sirsquidly.oe.common.entity.EntityDrowned;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

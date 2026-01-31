@@ -1,6 +1,6 @@
 package com.sirsquidly.oe.client.model.entity;
 
-import com.sirsquidly.oe.entity.EntityLobster;
+import com.sirsquidly.oe.common.entity.EntityLobster;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;

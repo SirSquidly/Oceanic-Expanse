@@ -16,10 +16,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 
-import com.sirsquidly.oe.blocks.BlockCoral;
-import com.sirsquidly.oe.blocks.BlockCoralFan;
-import com.sirsquidly.oe.blocks.BlockCoralFull;
-import com.sirsquidly.oe.blocks.BlockSeagrasss;
+import com.sirsquidly.oe.common.blocks.BlockCoral;
+import com.sirsquidly.oe.common.blocks.BlockCoralFan;
+import com.sirsquidly.oe.common.blocks.BlockCoralFull;
+import com.sirsquidly.oe.common.blocks.BlockSeagrasss;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 

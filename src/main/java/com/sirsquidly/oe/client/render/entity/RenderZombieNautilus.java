@@ -3,7 +3,7 @@ package com.sirsquidly.oe.client.render.entity;
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.client.model.entity.ModelNautilusCoral;
 import com.sirsquidly.oe.client.render.entity.layer.LayerNautilusCoral;
-import com.sirsquidly.oe.entity.EntityZombieNautilus;
+import com.sirsquidly.oe.common.entity.EntityZombieNautilus;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
