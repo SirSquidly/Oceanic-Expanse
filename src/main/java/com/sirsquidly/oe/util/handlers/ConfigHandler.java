@@ -1623,6 +1623,13 @@ public class ConfigHandler
 	
 	public static class configEnchantment
 	{
+		@Config.LangKey("oe.config.enchant.additionalTridentItems")
+		@Config.Comment("Additional items that can receive trident enchantments, listed as modid:item_name. Item-specific effects (Riptide) require support from the item's mod.")
+		public String[] additionalTridentItems = {
+			"iceandfire:tide_trident",
+			"futuremc:trident"
+		};
+
 		@Config.LangKey("oe.config.enchant.channeling")
 		@Config.Comment("Config for Channeling")
 	    public configChanneling channeling = new configChanneling();

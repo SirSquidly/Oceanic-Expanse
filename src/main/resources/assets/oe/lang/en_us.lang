@@ -476,6 +476,7 @@ oe.config.block.waterTorch.waterTorchParticles=Underwater Torch Particles
 
 
 oe.config.enchant=Enchantment Config
+oe.config.enchant.additionalTridentItems=Additional Trident Enchantment Items
 
 oe.config.enchant.impaling=Impaling Config
 oe.config.enchant.impaling.enableImpalingEnchant=Enable Impaling
