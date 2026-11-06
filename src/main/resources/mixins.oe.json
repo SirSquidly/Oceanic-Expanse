@@ -6,7 +6,8 @@
     "mixins": [],
     "client": [ 
     	"MixinModelBiped",
-        "MixinRenderPlayer"
+        "MixinRenderPlayer",
+        "MixinLayerHeldItem"
     ],
     "server": []
 }

@@ -13,6 +13,7 @@ import com.sirsquidly.oe.network.OEPacketRiptide;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -57,15 +58,7 @@ public class ItemTrident extends Item
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
 			{
 				NBTTagCompound nbttagcompound = stack.getTagCompound();
-				
-				if (nbttagcompound != null && nbttagcompound.hasKey("Thrown"))
-				{
-					return 0.0F;
-				}
-				if (entityIn != null && entityIn.getActiveItemStack().getItem() instanceof ItemTrident && entityIn.getItemInUseCount() > 0)
-				{
-					return worldIn == null ? 1.0F : 2.0F;
-				}
+				if (nbttagcompound != null && nbttagcompound.hasKey("Thrown")) return 0.0F;
 				
 				return worldIn == null ? 1.0F : 0.0F;
 			}
@@ -80,7 +73,12 @@ public class ItemTrident extends Item
 
     public int getMaxItemUseDuration(ItemStack stack)
     { return 72000; }
-    
+
+    public float getAnimSpeed(EntityLivingBase entity)
+    {
+        return getMaxItemUseDuration(entity.getActiveItemStack()) - (entity.getItemInUseCount()) + Minecraft.getMinecraft().getRenderPartialTicks();
+    }
+
     public int getItemEnchantability()
     { return 22; }
     
@@ -127,9 +125,7 @@ public class ItemTrident extends Item
                     int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 
                     if (j > 0)
-                    {
-                    	entitytrient.setDamage(entitytrient.getDamage() + (double)j * 0.5D + 0.5D);
-                    }
+                    { entitytrient.setDamage(entitytrient.getDamage() + (double)j * 0.5D + 0.5D); }
                     
                     if (EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack) > 0)
                     { entitytrient.setKnockbackStrength(EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack)); }
@@ -137,9 +133,7 @@ public class ItemTrident extends Item
                     if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0) entitytrient.setFire(100);
                     
                     if (!infinity && !entityplayer.capabilities.isCreativeMode)
-                    {
-                    	stack.setCount(0);
-                    }
+                    { stack.setCount(0); }
                     else
                     {
                     	if (infinity) stack.damageItem(1, entityplayer);
@@ -171,14 +165,12 @@ public class ItemTrident extends Item
             	    	if (entitylivingbase != entityplayer && (entitylivingbase.getPassengers().isEmpty() || !(entitylivingbase.getPassengers().get(0) == entityplayer)))
                         {
             	    		if (entitylivingbase.attackEntityFrom(DamageSource.causePlayerDamage(entityplayer),(float) (new EntityTrident(worldIn, entityplayer).getDamage())))
-            	    		{
-            	    			stack.damageItem(1, entityplayer);
-            	    		}
+            	    		{ stack.damageItem(1, entityplayer); }
                         }
                     }
             	}
         		
-        		 worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, OESounds.ENTITY_TRIDENT_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+        		 worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, OESounds.ENTITY_TRIDENT_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
         	}
                 entityplayer.addStat(StatList.getObjectUseStats(this));
             }
@@ -210,11 +202,11 @@ public class ItemTrident extends Item
         switch(level)
         {
         	case 1:
-        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE1, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        		world.playSound(null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE1, SoundCategory.PLAYERS, 1.0F, 1.0F);
         	case 2:
-        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE2, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        		world.playSound(null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE2, SoundCategory.PLAYERS, 1.0F, 1.0F);
         	case 3:
-        		world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE3, SoundCategory.PLAYERS, 1.0F, 1.0F);
+        		world.playSound(null, player.posX, player.posY, player.posZ, OESounds.ENTITY_TRIDENT_RIPTIDE3, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
     }
 

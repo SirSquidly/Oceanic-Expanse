@@ -2,8 +2,9 @@ package com.sirsquidly.oe.event;
 
 import javax.annotation.Nonnull;
 
-import com.sirsquidly.oe.init.OEItems;
+import com.sirsquidly.oe.client.ClientMixinMethods;
 
+import com.sirsquidly.oe.items.ItemTrident;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -30,9 +31,8 @@ public class TridentHoldingEvent
 		 final EntityPlayer player = Minecraft.getMinecraft().player;
          final ItemRenderer renderer = Minecraft.getMinecraft().getItemRenderer();
 
-	     if(stack.getItem() == OEItems.TRIDENT_ORIG) 
+	     if(stack.getItem() instanceof ItemTrident)
 	     {
-	    	 //System.out.println("HAND is RUNNING");
 	    	 final EnumHandSide arm = event.getHand() == EnumHand.MAIN_HAND ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
 	    	 final boolean isRightArm = arm == EnumHandSide.RIGHT;
 	    	 int offset = isRightArm ? -1 : 1;
@@ -41,11 +41,7 @@ public class TridentHoldingEvent
 
 	         if(player.isHandActive() && player.getItemInUseCount() != 0 && player.getActiveHand() == event.getHand())
 	         {
-	        	 float smoothUseTime = (float)stack.getMaxItemUseDuration() - ((float)player.getItemInUseCount() - event.getPartialTicks() + 1.0F);
-	        	 
-	        	 GlStateManager.rotate(280, 1, 0, 0);
-	        	 GlStateManager.translate((float)offset * -0.5F, 0.7F + (Math.min(smoothUseTime / 20.0F, 1.0F) * -0.5F), -0.4 + Math.min(smoothUseTime / 10.0F, 0.4F));
-	        	 
+				 ClientMixinMethods.preformTridentItemRotations1stPerson(player, stack, offset);
 	        	 event.setCanceled(true);
 	         }
              

@@ -65,13 +65,7 @@ public class ParticleBase extends Particle
         int j = i >> 16 & 65535;
         int k = i & 65535;
         /* Cram it in a Ver3d, makes it easier to store and read, vanilla was onto something good here. */
-        Vec3d[] avec3d = new Vec3d[]
-                {
-                        new Vec3d((double)(-rotationX * particleSize - rotationXY * particleSize), (double)(-rotationZ * particleSize), (double)(-rotationYZ * particleSize - rotationXZ * particleSize)),
-                        new Vec3d((double)(-rotationX * particleSize + rotationXY * particleSize), (double)(rotationZ * particleSize), (double)(-rotationYZ * particleSize + rotationXZ * particleSize)),
-                        new Vec3d((double)(rotationX * particleSize + rotationXY * particleSize), (double)(rotationZ * particleSize), (double)(rotationYZ * particleSize + rotationXZ * particleSize)),
-                        new Vec3d((double)(rotationX * particleSize - rotationXY * particleSize), (double)(-rotationZ * particleSize), (double)(rotationYZ * particleSize - rotationXZ * particleSize))
-                };
+        Vec3d[] avec3d = particleVertexRendering(buffer, entity, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ, particleSize);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         buffer.begin(7, VERTEX_FORMAT);
@@ -81,6 +75,18 @@ public class ParticleBase extends Particle
         buffer.pos((double)f5 + avec3d[3].x, (double)f6 + avec3d[3].y, (double)f7 + avec3d[3].z).tex(f, f3).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).normal(0.0F, 1.0F, 0.0F).endVertex();
         Tessellator.getInstance().draw();
         GlStateManager.disableBlend();
+    }
+
+    /** Returns the 4 vertex points when rendering the particle. This ONLY supports 4 points! */
+    public Vec3d[] particleVertexRendering(BufferBuilder buffer, Entity entity, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ, float particleSize)
+    {
+        return new Vec3d[]
+                {
+                        new Vec3d(-rotationX * particleSize - rotationXY * particleSize, -rotationZ * particleSize, -rotationYZ * particleSize - rotationXZ * particleSize),
+                        new Vec3d(-rotationX * particleSize + rotationXY * particleSize, rotationZ * particleSize, -rotationYZ * particleSize + rotationXZ * particleSize),
+                        new Vec3d(rotationX * particleSize + rotationXY * particleSize, rotationZ * particleSize, rotationYZ * particleSize + rotationXZ * particleSize),
+                        new Vec3d(rotationX * particleSize - rotationXY * particleSize, -rotationZ * particleSize, rotationYZ * particleSize - rotationXZ * particleSize)
+                };
     }
 
     /** The logic for brightness transitioning from Combined Light to Full Bright. Made a separate method due to how often it is used. */

@@ -245,7 +245,10 @@ public class EntityDolphin extends AbstractFish implements IMeleeAnimal
                 }
             }
             else if (this.dolphin.isInWater())
-            { this.dolphin.motionY = 0.2D; }
+            {
+                this.dolphin.motionY = 0.2D;
+                this.dolphin.setAir(maxAir);
+            }
         }
 
         private boolean getNearestAir()
