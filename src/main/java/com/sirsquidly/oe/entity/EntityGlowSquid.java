@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.entity;
 
 import com.sirsquidly.oe.Main;
+import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -10,6 +11,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -50,10 +52,11 @@ public class EntityGlowSquid extends EntitySquid
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
     }
-	
-	@Override
-    protected ResourceLocation getLootTable()
-    { return LootTableHandler.ENTITIES_GLOW_SQUID; }
+
+	protected SoundEvent getAmbientSound() { return OESounds.ENTITY_GLOW_SQUID_AMBIENT; }
+	protected SoundEvent getDeathSound() { return OESounds.ENTITY_GLOW_SQUID_DEATH; }
+	protected SoundEvent getHurtSound(DamageSource damageSourceIn) { return OESounds.ENTITY_GLOW_SQUID_HURT; }
+    protected ResourceLocation getLootTable() { return LootTableHandler.ENTITIES_GLOW_SQUID; }
 	
 	@SideOnly(Side.CLIENT)
     public int getBrightnessForRender()
@@ -107,7 +110,7 @@ public class EntityGlowSquid extends EntitySquid
 	@Override
 	public boolean getCanSpawnHere()
     {
-        return this.posY < ConfigHandler.entity.glowSquid.glowSquidSpawnMaxHeight && super.getCanSpawnHere();
+        return this.posY < ConfigHandler.entity.glowSquid.glowSquidSpawnMaxHeight;
     }
         
 	static class AISpeedAway extends EntityAIBase

@@ -76,6 +76,10 @@ public class OESounds
 
 	public static SoundEvent ENTITY_GENERIC_DROWN_CONVERT = soundReadyForRegister("entity.generic.drown_convert");
 
+	public static SoundEvent ENTITY_GLOW_SQUID_AMBIENT = soundReadyForRegister("entity.glow_squid.ambient");
+	public static SoundEvent ENTITY_GLOW_SQUID_DEATH = soundReadyForRegister("entity.glow_squid.death");
+	public static SoundEvent ENTITY_GLOW_SQUID_HURT = soundReadyForRegister("entity.glow_squid.hurt");
+
 	public static SoundEvent ENTITY_LOBSTER_ANGRY = soundReadyForRegister("entity.lobster.angry");
 	public static SoundEvent ENTITY_LOBSTER_DEATH = soundReadyForRegister("entity.lobster.death");
 	public static SoundEvent ENTITY_LOBSTER_HURT = soundReadyForRegister("entity.lobster.hurt");

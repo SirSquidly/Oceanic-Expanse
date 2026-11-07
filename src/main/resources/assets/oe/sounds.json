@@ -253,6 +253,26 @@
 		"subtitle": "subtitle.oe.generic.drown_convert",
 		"sounds": [ "oe:entity/generic/drown_convert/convert1", "oe:entity/generic/drown_convert/convert2", "oe:entity/generic/drown_convert/convert3" ]
 	},
+	"entity.glow_squid.ambient":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.glow_squid.ambient",
+		"sounds": [ "oe:entity/glow_squid/ambient1", "oe:entity/glow_squid/ambient2", "oe:entity/glow_squid/ambient3",
+			"oe:entity/glow_squid/ambient4", "oe:entity/glow_squid/ambient5"]
+	},
+	"entity.glow_squid.death":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.glow_squid.death",
+		"sounds": [ "oe:entity/glow_squid/death1", "oe:entity/glow_squid/death2", "oe:entity/glow_squid/death3"]
+	},
+	"entity.glow_squid.hurt":
+	{
+		"category": "neutral",
+		"subtitle": "subtitle.oe.glow_squid.hurt",
+		"sounds": [ "oe:entity/glow_squid/hurt1", "oe:entity/glow_squid/hurt2", "oe:entity/glow_squid/hurt3",
+			"oe:entity/glow_squid/hurt4"]
+	},
      "entity.lobster.angry": 
 	 {
     	"category": "neutral",
