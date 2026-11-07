@@ -1084,8 +1084,7 @@ public class ConfigHandler
 		    @Config.LangKey("oe.config.item.trident.tridentDurability")
 		    @Config.Comment("The Trident's Durability (note, displays as this -1 in-game, as 0 counts as a point)")
 		    public int tridentDurability = 250;
-		    
-		    @RequiresMcRestart
+
 		    @Config.LangKey("oe.config.item.trident.trident3PsnAnimStyle")
 		    @Config.Comment("The style of 3ed person animations the Trident uses. (0 = None, 1 = Vanilla, 2 = Oceanic Expanse)")
 			@Config.RangeInt(min = 0, max = 2)

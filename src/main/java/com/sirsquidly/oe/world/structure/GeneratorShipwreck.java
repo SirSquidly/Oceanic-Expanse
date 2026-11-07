@@ -189,6 +189,7 @@ public class GeneratorShipwreck implements IWorldGenerator
                 if (worldIn.getBlockState(blockpos2).getMaterial() == Material.WATER && worldIn.getBlockState(blockpos2.up()).getMaterial() == Material.WATER)
                 {
                 	EntityDrowned entitydrowned = new EntityDrowned(worldIn);
+					entitydrowned.onInitialSpawn(worldIn.getDifficultyForLocation(pos), null);
                     entitydrowned.enablePersistence();
                     entitydrowned.moveToBlockPosAndAngles(blockpos2, 0.0F, 0.0F);
                     

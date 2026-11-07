@@ -1,6 +1,7 @@
 package com.sirsquidly.oe.client;
 
 import com.sirsquidly.oe.items.ItemTrident;
+import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,8 @@ public class ClientMixinMethods
         boolean mainIsRight = entity.getActiveHand() == EnumHand.MAIN_HAND ? entity.getPrimaryHand() == EnumHandSide.RIGHT : entity.getPrimaryHand() == EnumHandSide.LEFT;
 
         float anim = Math.min(((ItemTrident)entity.getActiveItemStack().getItem()).getAnimSpeed(entity) / 6.0F, 1.0F);
-        System.out.print(anim);
+        if (ConfigHandler.item.trident.trident3PsnAnimStyle != 2) anim =  1;
+
         GlStateManager.rotate(anim * 180.0F, 0, 0, mainIsRight ? 1 : -1);
         GlStateManager.translate(0, anim * 0.25F, 0);
     }

@@ -63,8 +63,8 @@ public class OEBlocks
 		public static Block PALM_SLAB = new BlockOESlab(Material.WOOD, SoundType.WOOD, 2.0F, 5.0F, 20, 5);
 		public static Block PALM_SLAB_D = new BlockOESlabDouble(PALM_SLAB, Material.WOOD, SoundType.WOOD, 2.0F, 5.0F);
 		public static Block PALM_STAIRS = new BlockOEStairs(OEBlocks.PALM_PLANKS.getDefaultState(), 20, 5);
-		public static Block PALM_FENCE = new BlockFence(Material.WOOD, MapColor.BROWN_STAINED_HARDENED_CLAY);
-		public static Block PALM_FENCE_GATE = new BlockFenceGate(BlockPlanks.EnumType.SPRUCE);
+		public static Block PALM_FENCE = new BlockOEFence(Material.WOOD, MapColor.BROWN_STAINED_HARDENED_CLAY, SoundType.WOOD);
+		public static Block PALM_FENCE_GATE = new BlockOEFenceGate(BlockPlanks.EnumType.SPRUCE, SoundType.WOOD);
 		public static Block PALM_DOOR = new BlockPalmDoor();
 		public static Block PALM_LEAVES = new BlockPalmLeaves();
 		public static Block PALM_LEAVES_FLOWERING = new BlockPalmLeavesFlowering();
