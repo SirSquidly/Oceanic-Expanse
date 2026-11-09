@@ -55,17 +55,14 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 
     private void spawnFrozenOcean(World world, Random rand, int chunkX, int chunkZ, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{
+		if (!ConfigHandler.worldGen.frozenOcean.enableFrozenOcean) return;
+
 		/* Stored so we don't need to redo math. */
 		int chunkPosX = chunkX * 16 + 8;
 		int chunkPosZ = chunkZ * 16 + 8;
 		int groundReplaceLowest = world.getSeaLevel() - 3;
 
-    	this.sandNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.sandNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
-    	this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
-    	this.iceSheetNoiseGen = iceSheetNoiseGenOctaves.generateNoiseOctaves(this.iceSheetNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.225D, 1.0, 0.225D);
-		this.icebergIceNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergIceNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 1.0D, 1.0, 1.0D);
-		this.icebergCircleNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergCircleNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 1.0D, 1.0, 1.0D);
-		this.icebergSnowNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergSnowNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.825, 1.0, 0.825);
+		boolean noiseGenerated = false;
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++)
@@ -73,9 +70,8 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 				int posX = chunkPosX + x;
 				int posZ = chunkPosZ + z;
 
-				/** Gets the lowest non-water block, usually for the Sea Floor */
-				BlockPos posWaterFloor = world.getTopSolidOrLiquidBlock(new BlockPos(posX, 0, posZ));
-                Biome biome = world.getBiomeForCoordsBody(posWaterFloor);
+				BlockPos columnPos = new BlockPos(posX, 0, posZ);
+                Biome biome = world.getBiomeForCoordsBody(columnPos);
                 
                 boolean isValidBiome = false;
                 boolean isBeachBiome = false;	
@@ -91,13 +87,29 @@ public class GeneratorFrozenOcean implements IWorldGenerator
         			}
         		}
 
+				if (!isValidBiome) continue;
+
+				/* Generate noise once, only if this area contains an eligible biome. */
+				if (!noiseGenerated)
+				{
+					this.sandNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.sandNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
+					this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
+					this.iceSheetNoiseGen = iceSheetNoiseGenOctaves.generateNoiseOctaves(this.iceSheetNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.225D, 1.0, 0.225D);
+					this.icebergIceNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergIceNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 1.0D, 1.0, 1.0D);
+					this.icebergCircleNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergCircleNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 1.0D, 1.0, 1.0D);
+					this.icebergSnowNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergSnowNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.825, 1.0, 0.825);
+					noiseGenerated = true;
+				}
+
 				/** The scale of Frozen Oceans. Noise filter, so smaller number = larger results. 4 is default! */
 				double frozenOceanScale = 4;
 				/** Default is 0.6F */
 				float frozenOceanNoiseMin = 0.6F;
 
-				if (isValidBiome && ConfigHandler.worldGen.frozenOcean.enableFrozenOcean && this.frozenOceanNoiseGen[x * 16 + z] / frozenOceanScale - rand.nextDouble() * 0.01 > frozenOceanNoiseMin && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6))
+				if (this.frozenOceanNoiseGen[x * 16 + z] / frozenOceanScale - rand.nextDouble() * 0.01 > frozenOceanNoiseMin && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6))
 				{
+					/** Gets the lowest non-water block, usually for the Sea Floor */
+					BlockPos posWaterFloor = world.getTopSolidOrLiquidBlock(columnPos);
 					/** Used by Features that are placed at Sea Level exactly */
 					BlockPos posSeaLevel = new BlockPos(posX, world.getSeaLevel(), posZ);
 

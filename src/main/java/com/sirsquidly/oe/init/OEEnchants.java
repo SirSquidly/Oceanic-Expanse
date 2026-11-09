@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.sirsquidly.oe.enchantment.*;
+import com.sirsquidly.oe.items.ItemTrident;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 @EventBusSubscriber
@@ -26,6 +32,15 @@ public class OEEnchants
 	public static final Enchantment MOBSTOMP = new EnchantmentMobStomp(Enchantment.Rarity.UNCOMMON);
 	public static final Enchantment REBOUND = new EnchantmentRebound(Enchantment.Rarity.UNCOMMON);
 	
+	public static boolean canApplyTridentEnchantment(ItemStack stack)
+	{
+		Item item = stack.getItem();
+		if (item instanceof ItemTrident) return true;
+
+		ResourceLocation itemId = item.getRegistryName();
+		return itemId != null && ArrayUtils.contains(ConfigHandler.enchant.additionalTridentItems, itemId.toString());
+	}
+
 	@SubscribeEvent
 	public static void onEnchantRegister(RegistryEvent.Register<Enchantment> event)
 	{

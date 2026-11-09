@@ -34,6 +34,8 @@ public class RenderTrident extends Render<EntityTrident>
         GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(90.0F, 0.0F, 0.0F, -1.0F);
+        // Keep most of the fork outside the impact surface.
+        GlStateManager.translate(0.0F, -0.25F, 0.0F);
         Minecraft.getMinecraft().getRenderItem().renderItem(entity.getItem(), TransformType.NONE);
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

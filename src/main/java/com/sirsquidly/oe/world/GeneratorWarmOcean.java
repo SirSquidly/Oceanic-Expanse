@@ -47,13 +47,12 @@ public class GeneratorWarmOcean implements IWorldGenerator
 
     private void spawnWarmOcean(World world, Random rand, int chunkX, int chunkZ, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {
-    	this.warmOceanNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.warmOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
 		/* Stored so we don't need to redo math. */
 		int chunkPosX = chunkX * 16;
 		int chunkPosZ = chunkZ * 16;
 
 		boolean isValidBiome = false;
-		double warmOceanNoiseGen = 0;
+		boolean noiseGenerated = false;
 
 		/* Default is 0.6F */
 		float warmOceanNoiseMin = 0.6F;
@@ -72,9 +71,9 @@ public class GeneratorWarmOcean implements IWorldGenerator
 				int posX = chunkPosX + x;
 				int posZ = chunkPosZ + z;
 				mutablePos.setPos(posX, 0, posZ);
-				BlockPos posWaterFloor = world.getTopSolidOrLiquidBlock(mutablePos);
-				Biome biome = world.getBiomeForCoordsBody(posWaterFloor);
+				Biome biome = world.getBiomeForCoordsBody(mutablePos);
 
+				isValidBiome = false;
 				for (int i = 0; i < biomes.length; i++)
 				{
 					if (biome == biomes[i])
@@ -82,13 +81,23 @@ public class GeneratorWarmOcean implements IWorldGenerator
 						isValidBiome = true;
 						break;
 					}
-					isValidBiome = false;
 				}
 
-				warmOceanNoiseGen = this.warmOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01;
+				/* Keep one draw per column, including invalid biomes, to preserve the random sequence. */
+				double noiseOffset = rand.nextDouble() * 0.01;
+				if (!isValidBiome) continue;
 
-				if (isValidBiome && warmOceanNoiseGen > warmOceanNoiseMin)
+				/* Generate noise once, only if this area contains an eligible biome. */
+				if (!noiseGenerated)
 				{
+					this.warmOceanNoiseGen = warmOceanNoiseGenOctaves.generateNoiseOctaves(this.warmOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
+					noiseGenerated = true;
+				}
+				double warmOceanNoiseGen = this.warmOceanNoiseGen[x * 16 + z] / 4 - noiseOffset;
+
+				if (warmOceanNoiseGen > warmOceanNoiseMin)
+				{
+					BlockPos posWaterFloor = world.getTopSolidOrLiquidBlock(mutablePos);
 					mutablePos.setPos(posWaterFloor.down());
 					if (world.getBlockState(mutablePos).getBlock() == Blocks.GRAVEL)
 					{ world.setBlockState(mutablePos, Blocks.SAND.getDefaultState(), 16 | 2); }

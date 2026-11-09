@@ -194,12 +194,19 @@ public class AbstractArrow extends EntityArrow implements IProjectile
             this.posX += this.motionX;
             this.posY += this.motionY;
             this.posZ += this.motionZ;
-            //float f4 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+            float f4 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
             // What a hack.
             if (!(this instanceof EntityTrident) || !((Boolean)this.dataManager.get(EntityTrident.RETURNING)).booleanValue())
             {
+                this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f4) * (180D / Math.PI));
+
+                while (this.rotationPitch - this.prevRotationPitch < -180.0F)
+                {
+                    this.prevRotationPitch -= 360.0F;
+                }
+
             	while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
                 {
                     this.prevRotationPitch += 360.0F;

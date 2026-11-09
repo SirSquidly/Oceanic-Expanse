@@ -2,7 +2,6 @@ package com.sirsquidly.oe.enchantment;
 
 import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.init.OEEnchants;
-import com.sirsquidly.oe.items.ItemTrident;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -44,6 +43,6 @@ public class EnchantmentRiptide extends Enchantment
     @Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack)
 	{
-		return stack.getItem() instanceof ItemTrident;
+		return OEEnchants.canApplyTridentEnchantment(stack);
 	}
 }
