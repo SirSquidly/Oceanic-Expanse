@@ -10,6 +10,7 @@ import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
@@ -46,7 +47,7 @@ public class BlockTurtleEgg extends Block
 	{
 		super(Material.GOURD);
 
-		this.setSoundType(OESounds.TURTLE_EGG);
+		this.setSoundType(SoundType.METAL);
 		this.setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, Integer.valueOf(1)).withProperty(CRACK, Integer.valueOf(0)));
 	}
