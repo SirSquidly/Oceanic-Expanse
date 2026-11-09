@@ -51,12 +51,10 @@ public class GeneratorFrozenOcean implements IWorldGenerator
     
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
-	{ spawnFrozenOcean(world, random, chunkX, chunkZ, chunkGenerator, chunkProvider); }
+	{ if (ConfigHandler.worldGen.frozenOcean.enableFrozenOcean) spawnFrozenOcean(world, random, chunkX, chunkZ, chunkGenerator, chunkProvider); }
 
     private void spawnFrozenOcean(World world, Random rand, int chunkX, int chunkZ, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{
-		if (!ConfigHandler.worldGen.frozenOcean.enableFrozenOcean) return;
-
 		/* Stored so we don't need to redo math. */
 		int chunkPosX = chunkX * 16 + 8;
 		int chunkPosZ = chunkZ * 16 + 8;

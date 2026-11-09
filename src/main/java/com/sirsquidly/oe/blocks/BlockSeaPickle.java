@@ -103,6 +103,7 @@ public class BlockSeaPickle extends BlockBush implements IGrowable, IChecksWater
 		{
 			this.dropBlockAsItem(worldIn, pos, state, 0);
 			if (state.getValue(IN_WATER)) worldIn.setBlockState(pos, Blocks.WATER.getDefaultState());
+            else worldIn.setBlockToAir(pos);
 		}
 	}
 	

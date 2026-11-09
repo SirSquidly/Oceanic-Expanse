@@ -32,9 +32,17 @@ public class OESounds
 	public static SoundType CORAL = new SoundType(1.0f, 1.0f, BLOCK_CORAL_BREAK, BLOCK_CORAL_STEP, BLOCK_CORAL_PLACE, BLOCK_CORAL_HIT, BLOCK_CORAL_FALL);
 
 	public static SoundEvent BLOCK_TURTLE_EGG_CRACK = soundReadyForRegister("block.turtle_egg.crack");
-	public static SoundEvent BLOCK_TURTLE_EGG_BREAK = soundReadyForRegister("block.turtle_egg.egg_break");
-	public static SoundEvent BLOCK_TURTLE_EGG_STOMP = soundReadyForRegister("block.turtle_egg.fall");
+	public static SoundEvent BLOCK_TURTLE_EGG_FULL_BREAK = soundReadyForRegister("block.turtle_egg.egg_break");
+	public static SoundEvent BLOCK_TURTLE_EGG_STOMP = soundReadyForRegister("block.turtle_egg.stomp");
 	public static SoundEvent BLOCK_TURTLE_EGG_HATCH = soundReadyForRegister("block.turtle_egg.hatch");
+
+	public static SoundEvent BLOCK_TURTLE_EGG_BREAK = soundReadyForRegister("block.turtle_egg.break");
+	public static SoundEvent BLOCK_TURTLE_EGG_FALL = soundReadyForRegister("block.turtle_egg.fall");
+	public static SoundEvent BLOCK_TURTLE_EGG_HIT = soundReadyForRegister("block.turtle_egg.hit");
+	public static SoundEvent BLOCK_TURTLE_EGG_PLACE = soundReadyForRegister("block.turtle_egg.place");
+	public static SoundEvent BLOCK_TURTLE_EGG_STEP = soundReadyForRegister("block.turtle_egg.step");
+
+	public static SoundType TURTLE_EGG = new SoundType(1.0f, 1.0f, BLOCK_TURTLE_EGG_BREAK, BLOCK_TURTLE_EGG_STEP, BLOCK_TURTLE_EGG_PLACE, BLOCK_TURTLE_EGG_HIT, BLOCK_TURTLE_EGG_FALL);
 
 	public static SoundEvent BLOCK_WET_GRASS_BREAK = soundReadyForRegister("block.wet_grass.break");
 	public static SoundEvent BLOCK_WET_GRASS_FALL = soundReadyForRegister("block.wet_grass.fall");

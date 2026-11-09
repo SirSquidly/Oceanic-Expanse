@@ -63,6 +63,35 @@
     	"subtitle": "subtitle.oe.coral.step",
     	"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
     },
+	"block.turtle_egg.break":
+	{
+		"category": "block",
+		"subtitle": "subtitles.block.generic.break",
+		"sounds": [ "oe:block/coral/break1", "oe:block/coral/break2", "oe:block/coral/break3", "oe:block/coral/break4"]
+	},
+	"block.turtle_egg.fall":
+	{
+		"category": "block",
+		"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
+	},
+	"block.turtle_egg.hit":
+	{
+		"category": "block",
+		"subtitle": "subtitles.block.generic.hit",
+		"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
+	},
+	"block.turtle_egg.place":
+	{
+		"category": "block",
+		"subtitle": "subtitles.block.generic.place",
+		"sounds": [ "oe:block/coral/break1", "oe:block/coral/break2", "oe:block/coral/break3", "oe:block/coral/break4"]
+	},
+	"block.turtle_egg.step":
+	{
+		"category": "block",
+		"subtitle": "subtitles.block.generic.footsteps",
+		"sounds": [ "oe:block/coral/step1", "oe:block/coral/step2", "oe:block/coral/step3", "oe:block/coral/step4", "oe:block/coral/step5", "oe:block/coral/step6"]
+	},
 	"block.turtle_egg.crack":
 	{
 		"category": "block",
@@ -75,10 +104,10 @@
 		"subtitle": "subtitle.oe.turtle_egg.egg_break",
 		"sounds": [ "oe:block/turtle_egg/egg_break1", "oe:block/turtle_egg/egg_break2" ]
 	},
-	"block.turtle_egg.fall":
+	"block.turtle_egg.stomp":
 	{
 		"category": "block",
-		"subtitle": "subtitle.oe.turtle_egg.fall",
+		"subtitle": "subtitle.oe.turtle_egg.stomp",
 		"sounds": [ "oe:block/turtle_egg/fall1", "oe:block/turtle_egg/fall2", "oe:block/turtle_egg/fall3", "oe:block/turtle_egg/fall4" ]
 	},
 	"block.turtle_egg.hatch":

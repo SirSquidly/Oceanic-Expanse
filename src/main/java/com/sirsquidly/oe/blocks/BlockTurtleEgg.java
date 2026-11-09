@@ -45,7 +45,8 @@ public class BlockTurtleEgg extends Block
 	public BlockTurtleEgg() 
 	{
 		super(Material.GOURD);
-		
+
+		this.setSoundType(OESounds.TURTLE_EGG);
 		this.setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AMOUNT, Integer.valueOf(1)).withProperty(CRACK, Integer.valueOf(0)));
 	}
@@ -93,7 +94,7 @@ public class BlockTurtleEgg extends Block
             ((WorldServer)world).spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 20, 0.02D, 0.02D, 0.02D, 0.05D);
         }
 
-		world.playSound((EntityPlayer)null, pos, OESounds.BLOCK_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + (world.rand.nextFloat() * 0.2F));
+		world.playSound((EntityPlayer)null, pos, OESounds.BLOCK_TURTLE_EGG_FULL_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + (world.rand.nextFloat() * 0.2F));
 
 		int amountBroken = wasAI ? ConfigHandler.block.turtleEgg.amountOnTrample : 1;
 
