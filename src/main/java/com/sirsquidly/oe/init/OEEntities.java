@@ -6,6 +6,7 @@ import com.sirsquidly.oe.entity.item.*;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
@@ -15,6 +16,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+
+import static com.sirsquidly.oe.util.handlers.ConfigArrayHandler.getSpawnBiomes;
 
 public class OEEntities
 {
@@ -53,29 +56,36 @@ public class OEEntities
 	public static void registerEntitySpawns()
 	{
 		/* Spawn Weight needs to be high due to the height limitation of the spawning */
-		EntityRegistry.addSpawn(EntityGlowSquid.class, 8, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
+		buildSpawnsFromConfig(EntityGlowSquid.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.glowSquid.spawning.spawnWeight, 2, 4, ConfigHandler.entity.glowSquid.spawning.biomes, ConfigHandler.entity.glowSquid.spawning.biomesAsBlacklist);
 
-		if (ConfigHandler.entity.pufferfish.enablePufferfish) EntityRegistry.addSpawn(EntityPufferfish.class, 5, 1, 5, EnumCreatureType.WATER_CREATURE, Biomes.DEEP_OCEAN);
-		
-		if (ConfigHandler.entity.cod.enableCod) EntityRegistry.addSpawn(EntityCod.class, 15, 3, 7, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		if (ConfigHandler.entity.salmon.enableSalmon) EntityRegistry.addSpawn(EntitySalmon.class, 15, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.RIVER).toArray(new Biome[0]));
-		if (ConfigHandler.entity.salmon.enableSalmon) EntityRegistry.addSpawn(EntitySalmon.class, 15, 1, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		if (ConfigHandler.entity.dolphin.enableDolphin) EntityRegistry.addSpawn(EntityDolphin.class, 10, 3, 5, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) EntityRegistry.addSpawn(EntityTropicalFish.class, 30, 8, 8, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		if (ConfigHandler.entity.clam.enableClam) EntityRegistry.addSpawn(EntityClam.class, 5, 1, 1, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		if (ConfigHandler.entity.lobster.enableLobster) EntityRegistry.addSpawn(EntityLobster.class, 3, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		
-		if (ConfigHandler.entity.turtle.enableTurtle) EntityRegistry.addSpawn(EntityTurtle.class, 100, 2, 6, EnumCreatureType.CREATURE, Biomes.BEACH);
-		if (ConfigHandler.entity.crab.enableCrab) EntityRegistry.addSpawn(EntityCrab.class, 10, 1, 4, EnumCreatureType.CREATURE, BiomeDictionary.getBiomes(Type.BEACH).toArray(new Biome[0]));
+		if (ConfigHandler.entity.cod.enableCod) buildSpawnsFromConfig(EntityCod.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.cod.spawning.spawnWeight, 3,7, ConfigHandler.entity.cod.spawning.biomes, ConfigHandler.entity.cod.spawning.biomesAsBlacklist);
+		if (ConfigHandler.entity.dolphin.enableDolphin) buildSpawnsFromConfig(EntityDolphin.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.dolphin.spawning.spawnWeight, 3, 5, ConfigHandler.entity.dolphin.spawning.biomes, ConfigHandler.entity.dolphin.spawning.biomesAsBlacklist);
+		if (ConfigHandler.entity.drowned.enableDrowned)
+		{
+			buildSpawnsFromConfig(EntityDrowned.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.drowned.spawning.spawningOcean.spawnWeight, 2, 4, ConfigHandler.entity.drowned.spawning.spawningOcean.biomes, ConfigHandler.entity.drowned.spawning.spawningOcean.biomesAsBlacklist);
+			buildSpawnsFromConfig(EntityDrowned.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.drowned.spawning.spawningRiver.spawnWeight, 2, 4, ConfigHandler.entity.drowned.spawning.spawningRiver.biomes, ConfigHandler.entity.drowned.spawning.spawningRiver.biomesAsBlacklist);
+		}
+		if (ConfigHandler.entity.pufferfish.enablePufferfish) buildSpawnsFromConfig(EntityPufferfish.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.pufferfish.spawning.spawnWeight, 1, 5, ConfigHandler.entity.pufferfish.spawning.biomes, ConfigHandler.entity.pufferfish.spawning.biomesAsBlacklist);
+		if (ConfigHandler.entity.salmon.enableSalmon) buildSpawnsFromConfig(EntitySalmon.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.salmon.spawning.spawningOcean.spawnWeight, 1, 5, ConfigHandler.entity.salmon.spawning.spawningOcean.biomes, ConfigHandler.entity.salmon.spawning.spawningOcean.biomesAsBlacklist);
+		if (ConfigHandler.entity.salmon.enableSalmon) buildSpawnsFromConfig(EntitySalmon.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.salmon.spawning.spawningRiver.spawnWeight, 1, 5, ConfigHandler.entity.salmon.spawning.spawningRiver.biomes, ConfigHandler.entity.salmon.spawning.spawningRiver.biomesAsBlacklist);
+		if (ConfigHandler.entity.tropicalFish.enableTropicalFish) buildSpawnsFromConfig(EntityTropicalFish.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.tropicalFish.spawning.spawnWeight, 8,8, ConfigHandler.entity.tropicalFish.spawning.biomes, ConfigHandler.entity.tropicalFish.spawning.biomesAsBlacklist);
+		if (ConfigHandler.entity.turtle.enableTurtle) buildSpawnsFromConfig(EntityTurtle.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.turtle.spawning.spawnWeight, 2, 6, ConfigHandler.entity.turtle.spawning.biomes, ConfigHandler.entity.turtle.spawning.biomesAsBlacklist);
 
-		if (ConfigHandler.entity.tropicalSlime.enableTropicalSlime) EntityRegistry.addSpawn(EntityTropicalSlime.class, 6, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		if (ConfigHandler.entity.tropicalSlime.enableTropicalSlime && ConfigHandler.entity.tropicalSlime.tropicalSlimeJungleSpawning) EntityRegistry.addSpawn(EntityTropicalSlime.class, 4, 1, 1, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.JUNGLE).toArray(new Biome[0]));
-		
-		if (ConfigHandler.entity.drowned.enableDrowned) EntityRegistry.addSpawn(EntityDrowned.class, 3, 2, 4, EnumCreatureType.WATER_CREATURE, BiomeDictionary.getBiomes(Type.OCEAN).toArray(new Biome[0]));
-		if (ConfigHandler.entity.drowned.enableDrowned) EntityRegistry.addSpawn(EntityDrowned.class, 4, 2, 4, EnumCreatureType.WATER_CREATURE, Biomes.RIVER);
-		
+
+		if (ConfigHandler.entity.clam.enableClam) buildSpawnsFromConfig(EntityClam.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.clam.spawning.spawnWeight, 1, 1, ConfigHandler.entity.clam.spawning.biomes, ConfigHandler.entity.clam.spawning.biomesAsBlacklist);
+		if (ConfigHandler.entity.crab.enableCrab) buildSpawnsFromConfig(EntityCrab.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.crab.spawning.spawnWeight, 1, 4, ConfigHandler.entity.crab.spawning.biomes, ConfigHandler.entity.crab.spawning.biomesAsBlacklist);
+		if (ConfigHandler.entity.lobster.enableLobster) buildSpawnsFromConfig(EntityLobster.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.lobster.spawning.spawnWeight, 1, 4, ConfigHandler.entity.lobster.spawning.biomes, ConfigHandler.entity.lobster.spawning.biomesAsBlacklist);
+		if (ConfigHandler.entity.tropicalSlime.enableTropicalSlime)
+		{
+			buildSpawnsFromConfig(EntityTropicalSlime.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.tropicalSlime.spawning.spawningOcean.spawnWeight, 2, 4, ConfigHandler.entity.tropicalSlime.spawning.spawningOcean.biomes, ConfigHandler.entity.tropicalSlime.spawning.spawningOcean.biomesAsBlacklist);
+			buildSpawnsFromConfig(EntityTropicalSlime.class, EnumCreatureType.WATER_CREATURE, ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.spawnWeight, 1, 1, ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.biomes, ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.biomesAsBlacklist);
+		}
+
 		setEntityPlacementTypes();
 	}
+
+	public static void buildSpawnsFromConfig(Class<? extends EntityLiving> entity, EnumCreatureType type, int weight, int min, int max, String[] biomes, boolean blacklist)
+	{ EntityRegistry.addSpawn(entity, weight, min, max, type, getSpawnBiomes(biomes, blacklist)); }
 	
 	public static void setEntityPlacementTypes()
 	{

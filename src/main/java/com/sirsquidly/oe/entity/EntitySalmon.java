@@ -8,6 +8,7 @@ import com.google.common.collect.Sets;
 import com.sirsquidly.oe.entity.ai.EntityAIWanderUnderwater;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.init.OESounds;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -35,7 +36,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeRiver;
+import net.minecraft.world.biome.Biome;
 
 public class EntitySalmon extends AbstractFish
 {
@@ -106,21 +107,20 @@ public class EntitySalmon extends AbstractFish
 	@Override
 	public boolean getCanSpawnHere()
     {
-		if (this.world.getBiome(new BlockPos(this)) instanceof BiomeRiver)
-		{
-			return !checkNearbyEntites(32, 5, EntitySalmon.class) && super.getCanSpawnHere();
-		}
-		else
-		{
-			int x = MathHelper.floor(this.posX);
-	        int y = MathHelper.floor(this.getEntityBoundingBox().minY);
-	        int z = MathHelper.floor(this.posZ);
-	        boolean upIsIce = super.checkBlockUp(x, y, z, 12, OEBlocks.BLUE_ICE) || super.checkBlockUp(x, y, z, 12, Blocks.PACKED_ICE) || super.checkBlockUp(x, y, z, 12, Blocks.ICE);
-	        
-			return (checkNeighborSpawn(8, EntitySalmon.class) || upIsIce) && super.getCanSpawnHere();
-		}
+        Biome biome = this.world.getBiome(new BlockPos(this));
 
-		//return super.getCanSpawnHere();
+        if (ConfigArrayHandler.salmonOceanBiomesList.contains(biome))
+        {
+            if (ConfigHandler.entity.salmon.spawning.spawningOcean.contextualSpawning && !neighborsPassedSpawnCheck(8, EntitySalmon.class))
+            {
+                int x = MathHelper.floor(this.posX);
+                int y = MathHelper.floor(this.getEntityBoundingBox().minY);
+                int z = MathHelper.floor(this.posZ);
+                if (!super.checkBlockUp(x, y, z, 12, OEBlocks.BLUE_ICE) && !super.checkBlockUp(x, y, z, 12, Blocks.PACKED_ICE) && !super.checkBlockUp(x, y, z, 12, Blocks.ICE)) return false;
+            }
+        }
+
+        return !checkNearbyEntites(32, 5, EntitySalmon.class) && super.getCanSpawnHere();
     }
 	
 	public float getEyeHeight()

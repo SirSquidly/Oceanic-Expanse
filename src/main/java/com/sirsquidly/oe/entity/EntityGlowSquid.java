@@ -110,7 +110,7 @@ public class EntityGlowSquid extends EntitySquid
 	@Override
 	public boolean getCanSpawnHere()
     {
-        return this.posY < ConfigHandler.entity.glowSquid.glowSquidSpawnMaxHeight;
+        return this.posY < ConfigHandler.entity.glowSquid.spawning.maxHeight;
     }
         
 	static class AISpeedAway extends EntityAIBase

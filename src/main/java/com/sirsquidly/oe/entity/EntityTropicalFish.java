@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraft.client.resources.I18n;
@@ -110,11 +111,15 @@ public class EntityTropicalFish extends AbstractFish
 	@Override
 	public boolean getCanSpawnHere()
     {
-        int x = MathHelper.floor(this.posX);
-        int y = MathHelper.floor(this.getEntityBoundingBox().minY);
-        int z = MathHelper.floor(this.posZ);
+        if (ConfigHandler.entity.tropicalFish.spawning.contextualSpawning && !neighborsPassedSpawnCheck(8, EntityTropicalFish.class))
+        {
+            int x = MathHelper.floor(this.posX);
+            int y = MathHelper.floor(this.getEntityBoundingBox().minY);
+            int z = MathHelper.floor(this.posZ);
+            if (!super.checkBlockDown(x, y, z, 12, OEBlocks.BLUE_CORAL_BLOCK)) return false;
+        }
 
-		return (checkNeighborSpawn(8, EntityTropicalFish.class) || super.checkBlockDown(x, y, z, 32, OEBlocks.BLUE_CORAL_BLOCK)) && !checkNearbyEntites(16, 20, null) && checkHeight((int)this.posY, this.world);
+        return (!checkNearbyEntites(16, 20, null) && checkHeight((int)this.posY, this.world));
     }
 	
 	@Nullable
@@ -139,7 +144,7 @@ public class EntityTropicalFish extends AbstractFish
         
         return this.rand.nextInt(2) | this.rand.nextInt(6) << 8 | this.rand.nextInt(possibleColors) << 16 | this.rand.nextInt(possibleColors) << 24;
     }
-    
+
     /** This generates the specific name of the tropical fish variant. */
     public static String getSpecificName(int variantInt)
     {

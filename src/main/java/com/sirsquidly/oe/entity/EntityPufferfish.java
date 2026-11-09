@@ -94,11 +94,15 @@ public class EntityPufferfish extends AbstractFish
 	@Override
 	public boolean getCanSpawnHere()
     {
-        int x = MathHelper.floor(this.posX);
-        int y = MathHelper.floor(this.getEntityBoundingBox().minY);
-        int z = MathHelper.floor(this.posZ);
+        if (ConfigHandler.entity.pufferfish.spawning.contextualSpawning && !neighborsPassedSpawnCheck(8, EntityPufferfish.class))
+        {
+            int x = MathHelper.floor(this.posX);
+            int y = MathHelper.floor(this.getEntityBoundingBox().minY);
+            int z = MathHelper.floor(this.posZ);
+            if (!super.checkBlockDown(x, y, z, 12, OEBlocks.BLUE_CORAL_BLOCK)) return false;
+        }
 
-		return (checkNeighborSpawn(8, EntityPufferfish.class) || super.checkBlockDown(x, y, z, 32, OEBlocks.BLUE_CORAL_BLOCK)) && !checkNearbyEntites(16, 20, null) && checkHeight((int)this.posY, this.world);
+		return !checkNearbyEntites(16, 20, null) && checkHeight((int)this.posY, this.world);
     }
 	
 	protected void collideWithEntity(Entity entityIn)

@@ -115,7 +115,7 @@ public class AbstractFish extends EntityAnimal
 	 *  class 'checkClass' is the class of entity to check for.
 	 *  */
 	@SuppressWarnings("unchecked")
-	public boolean checkNeighborSpawn(int areaCheck, @SuppressWarnings("rawtypes") Class checkClass)
+	public boolean neighborsPassedSpawnCheck(int areaCheck, @SuppressWarnings("rawtypes") Class checkClass)
     { 
 		List<Entity> checkNeighboring = this.world.getEntitiesWithinAABB(checkClass, getEntityBoundingBox().grow(areaCheck, areaCheck, areaCheck));
 		for (Entity e : checkNeighboring) 

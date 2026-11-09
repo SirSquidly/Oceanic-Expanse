@@ -1,6 +1,9 @@
 package com.sirsquidly.oe.util.handlers;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BooleanSupplier;
 
 import net.minecraft.block.Block;
@@ -11,8 +14,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.crafting.IConditionFactory;
 import net.minecraftforge.common.crafting.JsonContext;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.GameData;
 
@@ -57,8 +63,14 @@ public class ConfigArrayHandler
 	public static List<Integer> itemClamConvertTime = Lists.<Integer>newArrayList();
 	public static List<ItemStack> itemClamConvertTo = Lists.<ItemStack>newArrayList();
 
+	public static List<Biome> salmonOceanBiomesList = Lists.<Biome>newArrayList();
+	public static List<Biome> tropicalSlimeJungleBiomesList = Lists.<Biome>newArrayList();
+
 	public static void breakupConfigArrays()
 	{
+		//salmonOceanBiomesList.clear();
+		//tropicalSlimeJungleBiomesList.clear();
+
 		for(String S : ConfigHandler.vanillaTweak.drownConverting.drownConversionsList)
 		{
 			String[] split = S.split("=");
@@ -169,7 +181,45 @@ public class ConfigArrayHandler
 
 		for(String S : ConfigHandler.block.stagnant.stagnantIgnoreTargets)
 		{ stagnantIgnored.add(new ResourceLocation(S)); }
+
+		Collections.addAll(salmonOceanBiomesList, getSpawnBiomes(ConfigHandler.entity.salmon.spawning.spawningOcean.biomes, ConfigHandler.entity.salmon.spawning.spawningOcean.biomesAsBlacklist));
+		Collections.addAll(tropicalSlimeJungleBiomesList, getSpawnBiomes(ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.biomes, ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.biomesAsBlacklist));
 	}
+
+	/**
+	 * Converts an entire list mixed of biomes and types into a list of biomes.
+	 * `blacklist` flips the list, so biomes fed into it act as a blacklist against all existing vanilla biomes
+	 * */
+	public static Biome[] getSpawnBiomes(String[] biomes, boolean blacklist)
+	{
+		Set<Biome> result = new HashSet<>();
+
+		for (String s : biomes)
+		{
+			if (s.startsWith("Type."))
+			{ result.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.getType(s.substring(5)))); }
+			else
+			{
+				Biome biome = getBiomeFromString(s);
+				if (biome != null) result.add(biome);
+			}
+		}
+		if (blacklist)
+		{
+			Set<Biome> temp = new HashSet<>(result);
+			result.clear();
+			for (Biome biome : ForgeRegistries.BIOMES)
+			{ if (!temp.contains(biome)) result.add(biome); }
+		}
+		return result.toArray(new Biome[0]);
+	}
+
+	public static Biome getBiomeFromString(String string)
+	{
+		ResourceLocation id = new ResourceLocation(string);
+		return ForgeRegistries.BIOMES.getValue(id);
+	}
+
 
 	/**
 	 * Rips up a String to return an IBlockState.

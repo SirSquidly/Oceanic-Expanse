@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.init.OESounds;
 import com.sirsquidly.oe.items.ItemSpawnBucket;
+import com.sirsquidly.oe.util.handlers.ConfigArrayHandler;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 import com.sirsquidly.oe.util.handlers.LootTableHandler;
 
@@ -17,7 +18,6 @@ import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -235,30 +235,28 @@ public class EntityTropicalSlime extends EntitySlime
         BlockPos blockpos = new BlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ));
         Chunk chunk = this.world.getChunk(blockpos);
 
-        if (this.world.getWorldInfo().getTerrainType().handleSlimeSpawnReduction(rand, world))
+        if (!this.world.getWorldInfo().getTerrainType().handleSlimeSpawnReduction(rand, world))
         {
-            return false;
-        }
-        else
-        {
-            if (this.world.getDifficulty() != EnumDifficulty.PEACEFUL)
+            IBlockState iblockstate = this.world.getBlockState((new BlockPos(this)).down());
+            Biome biome = this.world.getBiome(new BlockPos(this));
+
+            if (ConfigArrayHandler.tropicalSlimeJungleBiomesList.contains(biome))
             {
-            	IBlockState iblockstate = this.world.getBlockState((new BlockPos(this)).down());
-                Biome biome = this.world.getBiome(blockpos);
+                if (this.posY > ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.maxHeight || this.posY < ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.minHeight)
+                    return false;
 
-                if (ConfigHandler.entity.tropicalSlime.tropicalSlimeJungleSpawning && biome == Biomes.JUNGLE && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.world.getCurrentMoonPhaseFactor() && this.world.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8))
-                {
-                    return iblockstate.canEntitySpawn(this);
-                }
+                boolean moonCheck = !ConfigHandler.entity.tropicalSlime.spawning.spawningJungle.moonSpawning ||
+                        (this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.world.getCurrentMoonPhaseFactor() && this.world.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8));
 
-                if (chunk.getRandomWithSeed(987234911L).nextInt(10) == 0 && this.posY < 50.0D)
-                {
-                    return iblockstate.canEntitySpawn(this);
-                }
+                return moonCheck && iblockstate.canEntitySpawn(this);
             }
-
-            return false;
+            else
+            {
+                return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0 && this.posY < ConfigHandler.entity.tropicalSlime.spawning.spawningOcean.maxHeight &&
+                        iblockstate.canEntitySpawn(this);
+            }
         }
+        return false;
     }
 	
 	@Nullable

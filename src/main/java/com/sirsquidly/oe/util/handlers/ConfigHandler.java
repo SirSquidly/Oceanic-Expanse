@@ -1128,49 +1128,49 @@ public class ConfigHandler
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.babySquid")
 	    public configBabySquid babySquid = new configBabySquid();
-		
+
 		public static class configBabySquid
 		{
 		    @Config.LangKey("oe.config.entity.babySquid.enableBabySquid")
 		    @Config.Comment("If Baby Squids should be enabled")
 		    public boolean enableBabySquid = true;
-		    
+
 		    @Config.LangKey("oe.config.entity.babySquid.babySquidCustomModel")
 		    @Config.Comment("If Baby Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
 		    public boolean babySquidCustomModel = true;
-		    
+
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.babySquid.babySquidSpawnChance")
 		    @Config.Comment("The percent chance for a Baby Squid to spawn along-side an adult squid.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double babySquidSpawnChance = 14.3;
 	    }
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.babyGlowSquid")
 	    public configBabyGlowSquid babyGlowSquid = new configBabyGlowSquid();
-		
+
 		public static class configBabyGlowSquid
 		{
 		    @Config.LangKey("oe.config.entity.babyGlowSquid.enableBabyGlowSquid")
 		    @Config.Comment("If Baby Glow Squids should be enabled")
 		    public boolean enableBabyGlowSquid = true;
-		    
+
 		    @Config.LangKey("oe.config.entity.babyGlowSquid.babyGlowSquidCustomModel")
 		    @Config.Comment("If Baby Glow Squids should use a custom model and texture. If disabled, they will instead just use a shrunk version of the vanilla Squid model.")
 		    public boolean babyGlowSquidCustomModel = true;
-		    
+
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.babyGlowSquid.babyGlowSquidSpawnChance")
 		    @Config.Comment("The percent chance for a Baby Glow Squid to spawn along-side an adult glow squid.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double babyGlowSquidSpawnChance = 14.3;
 	    }
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.clam")
 	    public configClam clam = new configClam();
-		
+
 		public static class configClam
 		{
 		    @Config.LangKey("oe.config.entity.clam.enableClam")
@@ -1187,37 +1187,79 @@ public class ConfigHandler
 							"minecraft:sand=40=oe:pearl",
 							"oe:shell_sand=5=oe:pearl"
 					};
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.clam.spawning")
+			public configClam.configSpawning spawning = new configClam.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.clam.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.OCEAN"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.clam.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.clam.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 5;
+			}
 	    }
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.cod")
 	    public configCod cod = new configCod();
-		
+
 		public static class configCod
 		{
 		    @Config.LangKey("oe.config.entity.cod.enableCod")
 		    @Config.Comment("If Cod should be enabled")
 		    public boolean enableCod = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.cod.spawning")
+			public configCod.configSpawning spawning = new configCod.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.cod.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.OCEAN"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.cod.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.cod.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 15;
+			}
 	    }
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.crab")
 	    public configCrab crab = new configCrab();
-		
+
 		public static class configCrab
 		{
 		    @Config.LangKey("oe.config.entity.crab.enableCrab")
 		    @Config.Comment("If Crabs should be enabled")
 		    public boolean enableCrab = true;
-		    
+
 		    @Config.LangKey("oe.config.entity.crab.crabTalkInterval")
 		    @Config.Comment("The number to ticks between the crab's chirps (ambient sound). 0 disables it, if you hate their chirps.")
 		    public int crabTalkInterval = 280;
-		    
+
 		    @Config.LangKey("oe.config.entity.crab.enableCrabDigging")
 		    @Config.Comment("If Crabs can dig. Does not affect the individual crabs that have 'CanDig' set to false.")
 		    public boolean enableCrabDigging = true;
-		    
+
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.crab.crabDiggingList")
 		    @Config.Comment("Allows a Crab to dig from certain blocks, and the Loot Table they will pull from.")
@@ -1229,6 +1271,27 @@ public class ConfigHandler
 		    	"oe:shell_sand=oe:gameplay/crab_dig/shelly_sand",
 		    	"minecraft:soul_sand=oe:gameplay/crab_dig/soul_sand"
 		    };
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.crab.spawning")
+			public configCrab.configSpawning spawning = new configCrab.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.crab.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.BEACH"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.crab.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.crab.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 10;
+			}
 	    }
 
 		@RequiresMcRestart
@@ -1251,79 +1314,142 @@ public class ConfigHandler
 			@Config.LangKey("oe.config.entity.dolphin.dolphinsGiveGrace")
 			@Config.Comment("Allows Dolphins to grant Dolphin's Grace to nearby sprint-swimming Players")
 			public boolean dolphinsGiveGrace = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.dolphin.spawning")
+			public configDolphin.configSpawning spawning = new configDolphin.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.dolphin.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.OCEAN"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.dolphin.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.dolphin.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 10;
+			}
 		}
 
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.glowSquid")
 	    public configGlowSquid glowSquid = new configGlowSquid();
-		
+
 		public static class configGlowSquid
 		{
 		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidBodyBright")
 		    @Config.Comment("Minimum brightness of Glow Squids. 15 is Full Bright")
 		    public int glowSquidBodyBright = 4;
-			
+
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidLayer")
 		    @Config.Comment("If Glow Squids should have a 2ed layer for brightness")
 		    public boolean glowSquidLayer = true;
-		    
+
 		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidLayerBright")
 		    @Config.Comment("Brightness of a Glow Squids' second layer. 15 is Full Bright")
 		    public int glowSquidLayerBright = 11;
-		    
-		    @Config.LangKey("oe.config.entity.glowSquid.glowSquidSpawnMaxHeight")
-		    @Config.Comment("The Maximum spawn height of the Glow Squid")
-		    public int glowSquidSpawnMaxHeight = 40;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.glowSquid.spawning")
+			public configGlowSquid.configSpawning spawning = new configGlowSquid.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.glowSquid.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.END",
+						"Type.NETHER"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.glowSquid.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = true;
+
+				@Config.LangKey("oe.config.entity.glowSquid.spawning.maxHeight")
+				@Config.Comment("The maximum spawn height of the Glow Squid")
+				public int maxHeight = 40;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.glowSquid.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 3;
+			}
 	    }
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.lobster")
 	    public configLobster lobster = new configLobster();
-		
+
 		public static class configLobster
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.lobster.enableLobster")
 		    @Config.Comment("If Lobster should be enabled")
 		    public boolean enableLobster = true;
-			
+
 			@Config.LangKey("oe.config.entity.lobster.lobsterMoltCooldown")
 		    @Config.Comment("The cooldown between when a Lobster can Molt again. Lowers per tick, so 20:1 second. Default is 3000(2.5 minutes).")
 		    public int lobsterMoltCooldown = 3000;
-		    
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.lobster.spawning")
+			public configLobster.configSpawning spawning = new configLobster.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.lobster.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.OCEAN"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.lobster.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.lobster.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 10;
+			}
 		}
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.pickled")
 	    public configPickled pickled = new configPickled();
-		
+
 		public static class configPickled
 		{
 		    @Config.LangKey("oe.config.entity.pickled.enablePickled")
 		    @Config.Comment("If Pickled should be enabled")
 		    public boolean enablePickled = true;
 	    }
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.pufferfish")
 	    public configPufferfish pufferfish = new configPufferfish();
-		
+
 		public static class configPufferfish
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.pufferfish.enablePufferfish")
 		    @Config.Comment("If Pufferfish should be enabled")
 		    public boolean enablePufferfish = true;
-		    
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.pufferfish.enablePufferfishInflateOnHit")
 		    @Config.Comment("Pufferfish instantly inflate to full when hurt")
 		    public boolean enablePufferfishInflateOnHit = true;
-			
+
 		    @Config.LangKey("oe.config.entity.pufferfish.pufferfishFriends")
 		    @Config.Comment("Mobs that don't scare the Pufferfish.")
-		    public String[] pufferfishFriends = 
+		    public String[] pufferfishFriends =
 			{
 				 	"minecraft:squid",
 				 	"oe:baby_squid",
@@ -1337,66 +1463,143 @@ public class ConfigHandler
 				 	"oe:glow_squid",
 				 	"oe:clam"
 		    };
-		    
+
 		    @Config.LangKey("oe.config.entity.pufferfish.pufferfishPoisonLength")
 		    @Config.Comment("How long the Pufferfish Poison lasts.")
 		    public int pufferfishPoisonLength = 6;
-		    
+
 		    @Config.LangKey("oe.config.entity.pufferfish.pufferfishPoisonAmplifier")
 		    @Config.Comment("The amplifier of the Pufferfish Poison.")
 		    public int pufferfishPoisonAmplifier = 1;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.pufferfish.spawning")
+			public configPufferfish.configSpawning spawning = new configPufferfish.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.pufferfish.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.OCEAN"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.pufferfish.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.pufferfish.spawning.contextualSpawning")
+				@net.minecraftforge.common.config.Config.Comment("Requires any Coral block nearby for this entity to spawn.")
+				public boolean contextualSpawning = true;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.pufferfish.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 10;
+			}
 		}
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.salmon")
 	    public configSalmon salmon = new configSalmon();
-		
+
 		public static class configSalmon
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.salmon.enableSalmon")
 		    @Config.Comment("If Slamon should be enabled")
 		    public boolean enableSalmon = true;
-			
+
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.salmon.salmonSizeVarience")
 		    @Config.Comment("If Salmon can spawn in a variety of sizes.")
 		    public boolean salmonSizeVarience = true;
-		    
+
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.salmon.salmonFeedingGrowth")
 		    @Config.Comment("When using breeding items on Salmon, they grow in size. This is a joke feature.")
 		    public boolean salmonFeedingGrowth = false;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.salmon.spawning")
+			public configSalmon.configSpawning spawning = new configSalmon.configSpawning();
+
+			public static class configSpawning
+			{
+				@RequiresMcRestart
+				@Config.LangKey("oe.config.entity.salmon.spawning.ocean")
+				public configSalmon.configSpawning.configSpawningOcean spawningOcean = new configSalmon.configSpawning.configSpawningOcean();
+
+				public static class configSpawningOcean
+				{
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.salmon.spawning.ocean.biomes")
+					@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+					public String[] biomes = {
+							"Type.OCEAN"
+					};
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.salmon.spawning.ocean.biomesAsBlacklist")
+					@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+					public boolean biomesAsBlacklist = false;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.salmon.spawning.ocean.contextualSpawning")
+					@net.minecraftforge.common.config.Config.Comment("Requires Ice nearby for this entity to spawn.")
+					public boolean contextualSpawning = true;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.salmon.spawning.ocean.spawnWeight")
+					@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+					public int spawnWeight = 15;
+				}
+
+				@RequiresMcRestart
+				@Config.LangKey("oe.config.entity.salmon.spawning.river")
+				public configSalmon.configSpawning.configSpawningRiver spawningRiver = new configSalmon.configSpawning.configSpawningRiver();
+
+				public static class configSpawningRiver
+				{
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.salmon.spawning.river.biomes")
+					@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+					public String[] biomes = {
+							"Type.RIVER"
+					};
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.salmon.spawning.river.biomesAsBlacklist")
+					@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+					public boolean biomesAsBlacklist = false;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.salmon.spawning.river.spawnWeight")
+					@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+					public int spawnWeight = 15;
+				}
+			}
 		}
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.tropicalFish")
 	    public configTropicalFish tropicalFish = new configTropicalFish();
-		
+
 		public static class configTropicalFish
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.tropicalFish.enableTropicalFish")
 		    @Config.Comment("If Tropical Fish should be enabled")
 		    public boolean enableTropicalFish = true;
-		    
+
 			@Config.LangKey("oe.config.entity.tropicalFish.tropicalFishDefaultChance")
 		    @Config.Comment("The percent chance a tropical fish is from the default variants list.")
 		    public int tropicalFishDefaultChance = 90;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.tropicalFish.tropicalFishBedrockColors")
 		    @Config.Comment("If Tropical fish colors should use bedrock names. [Light Blue -> Sky, Pink -> Rose, Light Gray -> Silver, Cyan -> Teal, Purple -> Plum]")
 		    public boolean tropicalFishBedrockColors = true;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.tropicalFish.enableBlackTropicalFish")
 		    @Config.Comment("If Black should be included in the list of possible tropical fish colors. This is not in vanilla Minecraft, as it makes the fish eyes hard to see.")
 		    public boolean enableBlackTropicalFish = false;
-			
+
 		    @Config.LangKey("oe.config.entity.tropicalFish.defaultTropicalFishVariants")
 		    @Config.Comment("The most likely list of tropical fish variants to spawn")
-		    public String[] defaultTropicalFishVariants = 
+		    public String[] defaultTropicalFishVariants =
 			{
 				 	"65536",
 				 	"459008",
@@ -1421,10 +1624,10 @@ public class ConfigHandler
 				 	"234882305",
 				 	"235340288"
 		    };
-		    
+
 		    @Config.LangKey("oe.config.entity.tropicalFish.tropicalFishNameOverrides")
 		    @Config.Comment("Assigns unique names for certain Tropical Fish. Accepts Translation Keys or Raw String.")
-		    public String[] tropicalFishNameOverrides = 
+		    public String[] tropicalFishNameOverrides =
 			{
 				 	"65536=description.oe.tropical_fish.65536.name",
 				 	"459008=description.oe.tropical_fish.459008.name",
@@ -1449,48 +1652,133 @@ public class ConfigHandler
 				 	"234882305=description.oe.tropical_fish.234882305.name",
 				 	"235340288=description.oe.tropical_fish.235340288.name"
 		    };
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.tropicalFish.spawning")
+			public configTropicalFish.configSpawning spawning = new configTropicalFish.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropicalFish.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.OCEAN"
+				};
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropicalFish.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropicalFish.spawning.contextualSpawning")
+				@net.minecraftforge.common.config.Config.Comment("Requires any Coral block nearby for this entity to spawn.")
+				public boolean contextualSpawning = true;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropicalFish.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 30;
+			}
 		}
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.tropical_slime")
 	    public configTropicalSlime tropicalSlime = new configTropicalSlime();
-		
+
 		public static class configTropicalSlime
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.tropical_slime.enableTropicalSlime")
 		    @Config.Comment("If Tropical Slimes should be enabled")
 		    public boolean enableTropicalSlime = true;
-		    
-			@RequiresMcRestart
-		    @Config.LangKey("oe.config.entity.tropical_slime.enableJungleTropicalSlime")
-		    @Config.Comment("If Tropical Slimes can spawn in Jungles. Follows the same rules Slimes do in Swamps.")
-		    public boolean tropicalSlimeJungleSpawning = true;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.tropical_slime.tropicalSlimeBucketKill")
 		    @Config.Comment("Allows the player to scoop the Fish out of a medium or small Tropical Slime usong a Bucket. This kills the Slime.")
 		    public boolean tropicalSlimeBucketKill = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.tropical_slime.spawning")
+			public configTropicalSlime.configSpawning spawning = new configTropicalSlime.configSpawning();
+
+			public static class configSpawning
+			{
+				@RequiresMcRestart
+				@Config.LangKey("oe.config.entity.tropical_slime.spawning.ocean")
+				public configTropicalSlime.configSpawning.configSpawningOcean spawningOcean = new configTropicalSlime.configSpawning.configSpawningOcean();
+
+				public static class configSpawningOcean
+				{
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropical_slime.spawning.ocean.biomes")
+					@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+					public String[] biomes = {
+							"Type.OCEAN"
+					};
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropical_slime.spawning.ocean.biomesAsBlacklist")
+					@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+					public boolean biomesAsBlacklist = false;
+
+					@Config.LangKey("oe.config.entity.tropical_slime.spawning.ocean.maxHeight")
+					@Config.Comment("The maximum spawn height of the Glow Squid")
+					public int maxHeight = 40;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropical_slime.spawning.ocean.spawnWeight")
+					@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+					public int spawnWeight = 6;
+				}
+
+				@RequiresMcRestart
+				@Config.LangKey("oe.config.entity.tropical_slime.spawning.jungle")
+				public configTropicalSlime.configSpawning.configSpawningJungle spawningJungle = new configTropicalSlime.configSpawning.configSpawningJungle();
+
+				public static class configSpawningJungle
+				{
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropical_slime.spawning.jungle.biomes")
+					@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+					public String[] biomes = {
+							"Type.JUNGLE"
+					};
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropical_slime.spawning.jungle.biomesAsBlacklist")
+					@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+					public boolean biomesAsBlacklist = false;
+
+					@Config.LangKey("oe.config.entity.tropical_slime.spawning.jungle.minHeight")
+					@Config.Comment("The minimum spawn height of the entity")
+					public int minHeight = 50;
+
+					@Config.LangKey("oe.config.entity.tropical_slime.spawning.jungle.maxHeight")
+					@Config.Comment("The maximum spawn height of the entity")
+					public int maxHeight = 70;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropical_slime.spawning.jungle.moonSpawning")
+					@net.minecraftforge.common.config.Config.Comment("Scales the spawn frequency based on the moon phase, in the same way slime spawning is done in Swamps.")
+					public boolean moonSpawning = false;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.tropical_slime.spawning.jungle.spawnWeight")
+					@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+					public int spawnWeight = 4;
+				}
+			}
 		}
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.turtle")
 	    public configTurtle turtle = new configTurtle();
-		
+
 		public static class configTurtle
 		{
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.turtle.enableTurtle")
 		    @Config.Comment("If Turtles should be enabled")
 		    public boolean enableTurtle = true;
-		    
+
 			@Config.LangKey("oe.config.entity.turtle.turtleBreedCooldown")
 		    @Config.Comment("How many seconds before a Turtle can breed again. For refrence, the Turtle Breeding cooldowns are 90 seconds in Bedrock, 300 (standard 5 minutes) in Java.")
 		    public int turtleBreedCooldown = 90;
-			
+
 		    @Config.LangKey("oe.config.entity.turtle.babyTurtlePredators")
 		    @Config.Comment("These mobs will attack baby turtles. If the mob is tamable (such as a wolf or ocelot), they will only attack if they are untamed.")
-		    public String[] babyTurtlePredators = 
+		    public String[] babyTurtlePredators =
 			{
 				 	"minecraft:zombie",
 				 	"minecraft:husk",
@@ -1502,53 +1790,74 @@ public class ConfigHandler
 				 	"oe:drowned",
 				 	"oe:pickled"
 		    };
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.turtle.spawning")
+			public configTurtle.configSpawning spawning = new configTurtle.configSpawning();
+
+			public static class configSpawning
+			{
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.turtle.spawning.spawnWeight")
+				@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+				public int spawnWeight = 100;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.turtle.spawning.biomesAsBlacklist")
+				@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+				public boolean biomesAsBlacklist = false;
+
+				@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.turtle.spawning.biomes")
+				@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+				public String[] biomes = {
+						"Type.BEACH"
+				};
+			}
 		}
-		
+
 		@RequiresMcRestart
 		@Config.LangKey("oe.config.entity.drowned")
 	    public configDrowned drowned = new configDrowned();
-		
+
 		public static class configDrowned
 		{
 			@RequiresMcRestart
 			@Config.LangKey("oe.config.entity.drownedCaptain")
 		    public configDrownedCaptain drownedCaptain = new configDrownedCaptain();
-			
+
 			public static class configDrownedCaptain
 			{
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.enableDrownedCaptain")
 			    @Config.Comment("If Drowned Captains should be enabled. Captains are just altered Drowned, so this just skips the checks.")
 			    public boolean enableDrownedCaptain = true;
-				
+
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.drownedCaptainSetChance")
 			    @Config.Comment("The chance for a drowned to be a drowned captain. Calculated as '(this x Clamped Regional Difficulty)%'")
 				@Config.RangeDouble(min = 0, max = 100)
 			    public double drownedCaptainSetChance = 0.01;
-				
+
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.enableDrownedCaptainTexture")
 			    @Config.Comment("If Drowned Captains should use a unique texture.")
 			    public boolean enableDrownedCaptainTexture = true;
-				
+
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.drownedCaptainSummonCooldown")
 			    @Config.Comment("The time (in seconds) between when the Drowned Captain is allowed to spawn more drowned. Note 0 will not disable this, but make it near instant.")
 			    @Config.RangeDouble(min = 0, max = 9999)
 			    public double drownedCaptainSummonCooldown = 10;
-				
+
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.drownedCaptainHealthMultiplier")
 			    @Config.Comment("The multiplier on the Drowned Captain's health. This is multiplied by the base drowned health, which is 20 by default.")
 			    @Config.RangeDouble(min = 0, max = 9999)
 			    public double drownedCaptainHealthMultiplier = 2;
-				
+
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.drownedCaptainMaxNearbyForSummon")
 			    @Config.Comment("Stops the Drowned Captain from summoning if above this number of drowned are nearby.")
 			    public int drownedCaptainMaxNearbyForSummon = 5;
-				
+
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.drownedCaptainEquippedSpawns")
 			    @Config.Comment("If drowned spawned by a captain have their normal setup. This allows them to have trident, be babies, or even be MORE CAPTAINS!")
@@ -1560,58 +1869,107 @@ public class ConfigHandler
 				@Config.RangeInt(min = 0, max = 9999)
 			    public int drownedCaptainConchSoundDistance = 256;
 			}
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.enableDrowned")
 		    @Config.Comment("If Drowned should be enabled")
 		    public boolean enableDrowned = true;
-			
+
 		    @Config.LangKey("oe.config.entity.enableDrownedSwimAnims")
 		    @Config.Comment("Enables unique animations for Drowned in water, inspired by MC Dungeons.")
 		    public boolean enableDrownedSwimAnims = true;
-			
+
 		    @Config.LangKey("oe.config.entity.enableDrownedLowerArms")
 		    @Config.Comment("Makes drowned lower their arms if they have an item in their off hand. This is to match Bedrock Edition.")
 		    public boolean enableDrownedLowerArms = false;
-		    
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.enableDrownedStepup")
 		    @Config.Comment("If Drowned keep a full block step-up outside of water.")
 		    public boolean enableDrownedStepup = false;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.drownedArmorSpawning")
 		    @Config.Comment("If Drowned can spawn wearing Armor the same way normal Zombies do.")
 		    public boolean drownedArmorSpawning = true;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.drownedTridentSpawnChance")
 		    @Config.Comment("The percent chance a Drowned spawns holding a Trident.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double drownedTridentSpawnChance = 6.25;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.drownedRodSpawnChance")
 		    @Config.Comment("The percent chance a Drowned spawns holding a Fishing Rod. Note this will always run after the Trident check, so this will never replace a Trident spawn.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double drownedRodSpawnChance = 3.75;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.drownedNautilusSpawnChance")
 		    @Config.Comment("The percent chance a Drowned spawns holding a Nautilus Shell in its offhand.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double drownedNautilusSpawnChance = 3;
-			
+
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.drownedTridentMeleeRange")
 		    @Config.Comment("The distance (in blocks) in which a Trident Drowned will use melee rather than ranged attacks.")
 		    @Config.RangeDouble(min = 0, max = 100)
 		    public double drownedTridentMeleeRange = 3;
-			
+
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.entity.drownedGlowLayer")
 		    @Config.Comment("If Drowned should have a 2ed layer for brightness")
 		    public boolean drownedGlowLayer = true;
+
+			@RequiresMcRestart
+			@Config.LangKey("oe.config.entity.drowned.spawning")
+			public configDrowned.configSpawning spawning = new configDrowned.configSpawning();
+
+			public static class configSpawning
+			{
+				@RequiresMcRestart
+				@Config.LangKey("oe.config.entity.drowned.spawning.ocean")
+				public configDrowned.configSpawning.configSpawningOcean spawningOcean = new configDrowned.configSpawning.configSpawningOcean();
+
+				public static class configSpawningOcean
+				{
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.drowned.spawning.river.spawnWeight")
+					@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+					public int spawnWeight = 3;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.drowned.spawning.river.biomesAsBlacklist")
+					@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+					public boolean biomesAsBlacklist = false;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.drowned.spawning.river.biomes")
+					@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+					public String[] biomes = {
+							"Type.OCEAN"
+					};
+				}
+
+				@RequiresMcRestart
+				@Config.LangKey("oe.config.entity.drowned.spawning.river")
+				public configDrowned.configSpawning.configSpawningRiver spawningRiver = new configDrowned.configSpawning.configSpawningRiver();
+
+				public static class configSpawningRiver
+				{
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.drowned.spawning.river.spawnWeight")
+					@net.minecraftforge.common.config.Config.Comment("How frequently this entity can spawn compared to other entities. Higher means more frequent spawns.")
+					public int spawnWeight = 5;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.drowned.spawning.river.biomesAsBlacklist")
+					@net.minecraftforge.common.config.Config.Comment("Flips the Biomes List to operate as a Blacklist.")
+					public boolean biomesAsBlacklist = false;
+
+					@net.minecraftforge.common.config.Config.LangKey("oe.config.entity.drowned.spawning.river.biomes")
+					@net.minecraftforge.common.config.Config.Comment("Biomes where this entity can spawn. Accepts biome IDs and Biome Types. When used as a Blacklist, every biome EXCEPT these ones allow the spawn.")
+					public String[] biomes = {
+							"Type.RIVER"
+					};
+				}
+			}
 	    }
 	}
 	
