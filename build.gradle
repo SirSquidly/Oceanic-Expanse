@@ -1,117 +1,101 @@
-buildscript {
-    repositories {
-        maven {
-            name = "Forge"
-            url = "https://maven.minecraftforge.net"
-        }
-        maven {
-            name = "Sponge"
-            url = "https://repo.spongepowered.org/maven"
-        }
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.anatawa12.forge:ForgeGradle:2.3-1.0.8'
-        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+plugins {
+    id 'net.minecraftforge.gradle' version '6.0.+'
+    id 'wtf.gofancy.fancygradle' version '1.1.+'
+    id 'org.spongepowered.mixin' version "${mixin_gradle_version}"
+    //id 'com.github.johnrengelman.shadow' version '8.1.+'
+}
+
+fancyGradle {
+    patches {
+        resources
+        coremods
+        asm
+        mergetool
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'org.spongepowered.mixin'
-
-version = "1.2.3"
-group = "com.sirsquidly.oe"
-archivesBaseName = "OceanicExpanse"
+version = "${project.mod_version}"
+group = project.maven_group
+archivesBaseName = project.mod_id
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    version = "1.12.2-14.23.5.2847"
-    runDir = "run"
-    mappings = "stable_39"
-    
-    def args = ["-Dmixin.debug.export=true",
+    mappings channel: 'stable', version: mappings_version
+    runs {
+        def args = [
+                '-Dmixin.debug.export=true',
                 '-Dmixin.hotSwap=true',
                 '-Dmixin.checks.interfaces=true'
-                ]
-
-    clientJvmArgs.addAll(args)
-    serverJvmArgs.addAll(args)
+        ]
+        client {
+            workingDirectory file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.coreMods.load', "${mod_plugin_class},${dependency_plugin_classes}"
+            jvmArgs args
+        }
+        server {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.coreMods.load', "${mod_plugin_class},${dependency_plugin_classes}"
+            jvmArgs args
+        }
+    }
 }
 
 repositories
 {
-	maven {
-        name = "Curse Maven"
-        url = "https://cursemaven.com"
-    }
-    maven {
-        name = "CleanroomMC"
-        url = "https://maven.cleanroommc.com"
-    }
-    maven {
-        // Fluidlogged API files
-        url 'https://jitpack.io'
-    }
-    maven {
-        //JEI files
-        name = "DVS1 Maven FS"
-        url = "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        // Fallback maven mirror for JEI files
-        name = "ModMaven"
-        url = "http://modmaven.k-4u.nl"
-    }
-    
-    maven {
-        name = 'Sponge'
-        url = uri('https://repo.spongepowered.org/maven')
-    }
+    maven { name = 'CurseForge'; url = uri('https://www.cursemaven.com'); content { includeGroup 'curse.maven' } }
+    // Fluidlogged API files
+    maven { name = 'GitHub'; url = uri('https://jitpack.io') }
+    //JEI files
+    maven { name = "DVS1 Maven FS"; url = "http://dvs1.progwml6.com/files/maven"; allowInsecureProtocol = true }
+    maven { name = "ModMaven"; url = "http://modmaven.k-4u.nl"; allowInsecureProtocol = true }
+    maven { name = 'SpongePowered'; url = uri('https://repo.spongepowered.org/maven') }
 }
-
-// This thing is used so the Assets are properly processed
-sourceSets { main { output.resourcesDir = output.classesDir } }
 
 dependencies
 {
-	deobfCompile "com.github.jbredwards:fluidlogged-api:${fluidlogged_api_version}"	
-	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}"
+    minecraft("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
 
-    /* Replace the file ID with the desired version */
-    deobfCompile "curse.maven:aquaacrobatics-321792:${aqua_acrobatics_version}"
+    implementation "org.spongepowered:mixin:${mixin_version}"
+    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
-	implementation "zone.rong:mixinbooter:8.4"
-	//implementation "curse.maven:mixin-booter-419286:${project.mixinbooter_version}"
-    annotationProcessor "org.spongepowered:mixin:${project.mixin_version}:processor"	
+    implementation(fg.deobf("com.github.jbredwards:fluidlogged-api:${fluidlogged_api_version}"))
+    implementation(fg.deobf("curse.maven:had-enough-items-557549:${project.hei_version}"))
+    runtimeOnly(fg.deobf("curse.maven:aquaacrobatics-321792:${aqua_acrobatics_version}"))
 }
+
+mixin {
+    add sourceSets.main, "mixins.${mod_id}.refmap.json"
+    config "mixins.${mod_id}.json"
+}
+
 processResources
 {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', minecraft_version
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        expand 'version': project.version, 'mcversion': project.minecraft.version
+        expand 'version': project.version, 'mcversion': minecraft_version
     }
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
-mixin {
-    add sourceSets.main, "refmap.oe.json"
-}
-
 jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveBaseName = mod_id
 	manifest {
         attributes(
-                'FMLCorePlugin': 'com.sirsquidly.oe.core.OECore',
-                'FMLCorePluginContainsFMLMod': 'true',
-                'ForceLoadAsMod': 'true' // Swap to 'true' when building .jar
+                'FMLCorePlugin': "${mod_plugin_class}",
+                // SET TO TRUE WHEN BUILDING .JAR!
+                'FMLCorePluginContainsFMLMod': true,
+                'ForceLoadAsMod': true,
+                'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                'MixinConfigs': "mixins.${mod_id}.json"
         )
     }
 }

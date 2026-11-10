@@ -1,0 +1,33 @@
+pluginManagement {
+    /**
+     * These are the repositories used by the plugins at the top of the build.gradle file. The gradlePluginPortal
+     * repository is commented out since it is used by the Shadow plugin, so you can remove it if that is not being
+     * used or uncomment it if you are using Shadow or another plugin that needs it.
+     */
+    repositories {
+        //gradlePluginPortal()
+        maven {
+            name 'MinecraftForge'
+            url = uri('https://maven.minecraftforge.net/')
+        }
+        maven {
+            name 'Garden of Fancy'
+            url = ('https://maven.gofancy.wtf/releases')
+        }
+        maven {
+            name 'SpongePowered'
+            url = ('https://repo.spongepowered.org/repository/maven-public/')
+        }
+    }
+    /**
+     * This is actually the same thing that forge does in later versions since otherwise gradle complains about
+     * mixingradle not having the proper plugin naming scheme.
+     */
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.toString() == 'org.spongepowered.mixin') {
+                useModule("org.spongepowered:mixingradle:${requested.version}")
+            }
+        }
+    }
+}
