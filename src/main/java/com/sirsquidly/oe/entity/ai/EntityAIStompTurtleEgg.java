@@ -36,27 +36,31 @@ public class EntityAIStompTurtleEgg extends EntityAIMoveToBlock
     /** The original block finder kinda sucks. */
     private boolean findNearestEgg()
     {
+        World world = creature.world;
         BlockPos origin = new BlockPos(creature);
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
         for (int dist = 0; dist <= 24; dist++)
             for (int x = -dist; x <= dist; x++)
-                for (int z = -dist; z <= dist; z++)
+            {
+                int zStep = Math.abs(x) == dist ? 1 : Math.max(2 * dist, 1);
+
+                for (int z = -dist; z <= dist; z += zStep)
                 {
-                    /* ONLY check each LAYER! */
-                    if (Math.max(Math.abs(x), Math.abs(z)) != dist) continue;
+                    if (!world.isBlockLoaded(pos.setPos(origin.getX() + x, origin.getY(), origin.getZ() + z))) continue;
 
                     for (int y = -3; y <= 3; y++)
                     {
                         pos.setPos(origin.getX() + x, origin.getY() + y, origin.getZ() + z);
 
-                        if (creature.isWithinHomeDistanceFromPosition(pos) && creature.world.isBlockLoaded(pos) && shouldMoveTo(creature.world, pos))
+                        if (world.getBlockState(pos).getBlock() == OEBlocks.SEA_TURTLE_EGG && creature.isWithinHomeDistanceFromPosition(pos) && shouldMoveTo(world, pos))
                         {
                             destinationBlock = pos.toImmutable();
                             return true;
                         }
                     }
                 }
+            }
         return false;
     }
 

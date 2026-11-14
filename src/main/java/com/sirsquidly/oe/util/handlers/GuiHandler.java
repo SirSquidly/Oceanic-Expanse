@@ -5,6 +5,7 @@ import com.sirsquidly.oe.inventory.ContainerPrismarinePot;
 import com.sirsquidly.oe.blocks.tileentity.TilePrismarinePot;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -16,7 +17,10 @@ public class GuiHandler implements IGuiHandler
 	{
 		if(ID == 3)
 		{
-			return new ContainerPrismarinePot(player, (TilePrismarinePot)world.getTileEntity(new BlockPos(x, y, z)));
+			TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+			
+			if (tile instanceof TilePrismarinePot)
+			{ return new ContainerPrismarinePot(player, (TilePrismarinePot)tile); }
 		}
 		return null;
 	}
@@ -26,7 +30,10 @@ public class GuiHandler implements IGuiHandler
 	{
 		if(ID == 3)
 		{
-			return new GuiPrismarinePot(player, (TilePrismarinePot)world.getTileEntity(new BlockPos(x, y, z)));
+			TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+			
+			if (tile instanceof TilePrismarinePot)
+			{ return new GuiPrismarinePot(player, (TilePrismarinePot)tile); }
 		}
 		return null;
 	}

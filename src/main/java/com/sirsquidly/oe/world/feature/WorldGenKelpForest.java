@@ -2,9 +2,14 @@ package com.sirsquidly.oe.world.feature;
 
 import java.util.Random;
 
+import com.sirsquidly.oe.Main;
 import com.sirsquidly.oe.blocks.BlockKelp;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
+
+import git.jbredwards.fluidlogged_api.api.fluid.IFluidloggableFluid;
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
@@ -101,12 +107,40 @@ public class WorldGenKelpForest implements IWorldGenerator
 			if (!OEBlocks.KELP.canPlaceBlockAt(worldIn, pos)) break;
 
 			IBlockState kelpState = OEBlocks.KELP.getDefaultState();
-			worldIn.setBlockState(pos, kelpState, 2 | 64);
+			placeKelp(worldIn, pos, kelpState);
 
 			pos = pos.up();
 		}
     }
     
+    private static void placeKelp(World world, BlockPos pos, IBlockState kelpState)
+    {
+    	if (Main.proxy.fluidlogged_enable && FluidloggedPlacer.tryPlace(world, pos, kelpState)) return;
+
+    	world.setBlockState(pos, kelpState, 2 | 64);
+    }
+
+    private static final class FluidloggedPlacer
+    {
+    	static boolean tryPlace(World world, BlockPos pos, IBlockState newState)
+    	{
+    		Chunk chunk = world.getChunk(pos);
+    		if (chunk.isPopulated()) return false;
+
+    		IBlockState oldState = chunk.getBlockState(pos);
+    		if (!(oldState.getBlock() instanceof IFluidloggableFluid)) return false;
+
+    		IFluidloggableFluid handler = (IFluidloggableFluid)oldState.getBlock();
+    		FluidState oldFluid = FluidState.of(oldState);
+    		if (!handler.isFluidloggableFluid(oldFluid) || !handler.isStateFluidloggable(newState, world, pos, oldFluid)) return false;
+
+    		chunk.setBlockState(pos, newState);
+    		FluidloggedUtils.setFluidState(world, pos, newState, oldFluid, false, 2 | 16);
+    		return true;
+    	}
+    }
+    
+
     public static BlockPos getSeaFloor(World world, int x, int z)
     {
     	int yPos = Math.max(world.getSeaLevel() - 2, 1);;
