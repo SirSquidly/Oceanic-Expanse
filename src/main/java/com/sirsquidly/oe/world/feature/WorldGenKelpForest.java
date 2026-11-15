@@ -14,9 +14,11 @@ import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -124,9 +126,12 @@ public class WorldGenKelpForest implements IWorldGenerator
     {
     	static boolean tryPlace(World world, BlockPos pos, IBlockState newState)
     	{
-    		Chunk chunk = world.getChunk(pos);
-    		if (chunk.isPopulated()) return false;
+    		if (!(world instanceof WorldServer)) return false;
 
+    		PlayerChunkMapEntry watchers = ((WorldServer)world).getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4);
+    		if (watchers != null && watchers.isSentToPlayers()) return false;
+
+    		Chunk chunk = world.getChunk(pos);
     		IBlockState oldState = chunk.getBlockState(pos);
     		if (!(oldState.getBlock() instanceof IFluidloggableFluid)) return false;
 
@@ -135,7 +140,7 @@ public class WorldGenKelpForest implements IWorldGenerator
     		if (!handler.isFluidloggableFluid(oldFluid) || !handler.isStateFluidloggable(newState, world, pos, oldFluid)) return false;
 
     		chunk.setBlockState(pos, newState);
-    		FluidloggedUtils.setFluidState(world, pos, newState, oldFluid, false, 2 | 16);
+    		FluidloggedUtils.setFluidState(world, pos, newState, oldFluid, false, 16);
     		return true;
     	}
     }

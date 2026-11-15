@@ -28,6 +28,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
 {
@@ -79,7 +80,7 @@ public class BlockKelp extends BlockBush implements IGrowable, IChecksWater
     
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    { return state.withProperty(TOP, isTop(worldIn, pos)); }
+    { return FMLCommonHandler.instance().getEffectiveSide().isServer() ? state : state.withProperty(TOP, isTop(worldIn, pos)); }
     
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
