@@ -1,7 +1,11 @@
 package com.sirsquidly.oe.world.structure;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import javax.annotation.Nullable;
 import java.util.Map.Entry;
 
 import com.sirsquidly.oe.Main;
@@ -22,6 +26,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -49,6 +54,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 	// Populating a chunk only guarantees that it and its +X/+Z neighbors exist; touching any other chunk triggers cascading generation.
 	private static final int GENERATION_AREA_SIZE = 32;
 	private static final int DROWNED_SPAWN_ATTEMPTS = 10;
+	private static final int CAPTAIN_MIN_DROWNED_GROUPS = 3;
 	
 	private Biome[] biomes;
 	private int attemptsPerChunk;
@@ -119,8 +125,25 @@ public class GeneratorShipwreck implements IWorldGenerator
 		template.addBlocksToWorld(world, pos, placementsettings);
 
 		Map<BlockPos, String> map = template.getDataBlocks(pos, placementsettings);
+		BlockPos captainMarker = pickCaptainMarker(map, rand);
 		for (Entry<BlockPos, String> entry : map.entrySet())
-		{ doDataBlockLoading(entry, pos, world, rand, areaMinX, areaMinZ); }
+		{ doDataBlockLoading(entry, pos, world, rand, areaMinX, areaMinZ, entry.getKey().equals(captainMarker)); }
+	}
+	
+	@Nullable
+	private static BlockPos pickCaptainMarker(Map<BlockPos, String> dataBlocks, Random rand)
+	{
+		if (!ConfigHandler.worldGen.shipwreck.shipwreckGuaranteedCaptain || !ConfigHandler.worldGen.shipwreck.enableShipwreckDrowned) return null;
+		if (!ConfigHandler.entity.drowned.enableDrowned || !ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptain) return null;
+
+		List<BlockPos> markers = new ArrayList<BlockPos>();
+		for (Entry<BlockPos, String> entry : dataBlocks.entrySet())
+		{ if ("drowned".equals(entry.getValue())) markers.add(entry.getKey()); }
+
+		if (markers.size() < CAPTAIN_MIN_DROWNED_GROUPS) return null;
+
+		Collections.sort(markers);
+		return markers.get(rand.nextInt(markers.size()));
 	}
 	
 	/** Picks which Shipwreck to generate. */
@@ -152,7 +175,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 		return SHIP_FULL;
 	}
 	
-	protected void doDataBlockLoading(Entry<BlockPos, String> entry, BlockPos pos, World worldIn, Random rand, int areaMinX, int areaMinZ)
+	protected void doDataBlockLoading(Entry<BlockPos, String> entry, BlockPos pos, World worldIn, Random rand, int areaMinX, int areaMinZ, boolean spawnCaptain)
     {
 		BlockPos blockpos2 = entry.getKey();
 		
@@ -190,6 +213,7 @@ public class GeneratorShipwreck implements IWorldGenerator
 		if ("drowned".equals(entry.getValue()) && ConfigHandler.worldGen.shipwreck.enableShipwreckDrowned && ConfigHandler.entity.drowned.enableDrowned)
 		{
 			int drownedCount = rand.nextInt(8) + 1;
+			boolean captainPending = spawnCaptain;
 			
 			for (int i = 0; i < drownedCount; i++)
 			{
@@ -202,7 +226,14 @@ public class GeneratorShipwreck implements IWorldGenerator
 					if (worldIn.getBlockState(spawnPos).getMaterial() == Material.WATER && worldIn.getBlockState(spawnPos.up()).getMaterial() == Material.WATER)
 					{
 						EntityDrowned entitydrowned = new EntityDrowned(worldIn);
-						entitydrowned.onInitialSpawn(worldIn.getDifficultyForLocation(pos), null);
+						DifficultyInstance difficulty = worldIn.getDifficultyForLocation(pos);
+						entitydrowned.onInitialSpawn(difficulty, null);
+						
+						if (captainPending)
+						{
+							entitydrowned.makeCaptain(difficulty);
+							captainPending = false;
+						}
 						entitydrowned.enablePersistence();
 						entitydrowned.moveToBlockPosAndAngles(spawnPos, 0.0F, 0.0F);
 						

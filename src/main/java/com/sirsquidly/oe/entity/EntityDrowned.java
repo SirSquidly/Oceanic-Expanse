@@ -158,6 +158,22 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
 
     public void setIsCaptain(boolean captain)
     { this.dataManager.set(IS_CAPTAIN, captain); }
+
+    private void applyCaptainTraits()
+    {
+        this.setIsCaptain(true);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("Captain drowned bonus", Math.max(ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainHealthMultiplier, 0.1D) - 1.0D, 2));
+        this.setHealth(this.getMaxHealth());
+        this.setCanPickUpLoot(true);
+    }
+
+    public void makeCaptain(DifficultyInstance difficulty)
+    {
+        if (this.isCaptain()) return;
+
+        this.applyCaptainTraits();
+        this.setNaturalEquipment(difficulty);
+    }
     
     protected int getExperiencePoints(EntityPlayer player)
     { return isCaptain() ? this.experienceValue = (int)((float)this.experienceValue * 2.5F) : super.getExperiencePoints(player);  }
@@ -167,7 +183,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
     {
 		super.onUpdate();
         this.setupSwimTimeing();
-		this.removeInjectedAI();
+		if (this.ticksExisted % 20 == 1) this.removeInjectedAI();
 		
 		if (!this.isEntityAlive()) return;
 		BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
@@ -279,12 +295,7 @@ public class EntityDrowned extends EntityZombie implements IRangedAttackMob
         this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
         
         if (this.rand.nextFloat() < ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainSetChance * 0.01D && ConfigHandler.entity.drowned.drownedCaptain.enableDrownedCaptain)
-        {
-        	this.setIsCaptain(true);	
-        	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("Captain drowned bonus", Math.max(ConfigHandler.entity.drowned.drownedCaptain.drownedCaptainHealthMultiplier, 0.1D) - 1.0D, 2));
-        	this.setHealth(this.getMaxHealth());
-        	this.setCanPickUpLoot(true);
-        }
+        { this.applyCaptainTraits(); }
         
         this.setNaturalEquipment(difficulty);
         return livingdata;

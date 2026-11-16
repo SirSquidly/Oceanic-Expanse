@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 
 public class EntityAIMagicConch extends EntityAIBase
 {
@@ -70,7 +71,13 @@ public class EntityAIMagicConch extends EntityAIBase
             this.entityHost.setActiveHand(EnumHand.OFF_HAND);
 
             NBTTagCompound nbttagcompound = this.heldItemOffhand.getTagCompound();
-            this.entityHost.world.playSound((EntityPlayer)null, this.entityHost.posX, this.entityHost.posY, this.entityHost.posZ, ((ItemConch)this.heldItemOffhand.getItem()).findSound(nbttagcompound.getString("Sound")), SoundCategory.NEUTRAL, ConfigHandler.item.conch.conchSoundDistance * 0.0625F, 1.0F);
+            if (nbttagcompound != null && nbttagcompound.hasKey("Sound"))
+            {
+                SoundEvent conchSound = ((ItemConch)this.heldItemOffhand.getItem()).findSound(nbttagcompound.getString("Sound"));
+
+                if (conchSound != null)
+                { this.entityHost.world.playSound((EntityPlayer)null, this.entityHost.posX, this.entityHost.posY, this.entityHost.posZ, conchSound, SoundCategory.NEUTRAL, ConfigHandler.item.conch.conchSoundDistance * 0.0625F, 1.0F); }
+            }
 
             if (this.isOffhandMagicConch())
             {

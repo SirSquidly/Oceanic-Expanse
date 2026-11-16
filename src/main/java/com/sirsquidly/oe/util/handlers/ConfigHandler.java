@@ -321,6 +321,10 @@ public class ConfigHandler
 		    @Config.Comment("Makes Drowned spawn in groups in Shipwrecks when generated. There's 1 group per chest, making more complete shipwrecks more challenging.")
 		    public boolean enableShipwreckDrowned = true;
 			
+		    @Config.LangKey("oe.config.worldGen.shipwreckGuaranteedCaptain")
+		    @Config.Comment("Guarantees one Drowned Captain in each complete Shipwreck (the ones with 3 Drowned groups). Requires Shipwreck Drowned Groups and Drowned Captains to be enabled.")
+		    public boolean shipwreckGuaranteedCaptain = false;
+			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.worldGen.shipwreckChancePerChunk")
 		    @Config.Comment("The Shipwreck's chance to generate, per try. 1 / this number")

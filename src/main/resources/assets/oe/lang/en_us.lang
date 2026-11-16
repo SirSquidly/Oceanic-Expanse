@@ -794,6 +794,7 @@ oe.config.worldGen.seaOatsPatchChancePerChunk=Short Sea Oats placement chance
 oe.config.worldGen.shipwreck=Shipwreck Config
 oe.config.worldGen.enableShipwrecks=Enable Shipwrecks
 oe.config.worldGen.enableShipwreckDrowned=Enable Shipwreck Drowned Groups
+oe.config.worldGen.shipwreckGuaranteedCaptain=Guarantee Shipwreck Drowned Captain
 oe.config.worldGen.shipwreckChancePerChunk=Shipwreck chance per Chunk
 
 oe.config.vanillaTweak=Vanilla Tweaks Config

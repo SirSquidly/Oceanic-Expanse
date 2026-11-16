@@ -129,7 +129,7 @@ public class WorldGenKelpForest implements IWorldGenerator
     		if (!(world instanceof WorldServer)) return false;
 
     		PlayerChunkMapEntry watchers = ((WorldServer)world).getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4);
-    		if (watchers != null && watchers.isSentToPlayers()) return false;
+    		int flags = watchers != null && watchers.isSentToPlayers() ? 2 | 16 : 16;
 
     		Chunk chunk = world.getChunk(pos);
     		IBlockState oldState = chunk.getBlockState(pos);
@@ -140,7 +140,7 @@ public class WorldGenKelpForest implements IWorldGenerator
     		if (!handler.isFluidloggableFluid(oldFluid) || !handler.isStateFluidloggable(newState, world, pos, oldFluid)) return false;
 
     		chunk.setBlockState(pos, newState);
-    		FluidloggedUtils.setFluidState(world, pos, newState, oldFluid, false, 16);
+    		FluidloggedUtils.setFluidState(world, pos, newState, oldFluid, false, flags);
     		return true;
     	}
     }
