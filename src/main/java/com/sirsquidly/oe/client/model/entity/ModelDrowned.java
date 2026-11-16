@@ -4,6 +4,7 @@ import com.sirsquidly.oe.entity.EntityDrowned;
 import com.sirsquidly.oe.init.OEItems;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
@@ -58,25 +59,30 @@ public class ModelDrowned extends ModelZombie
 		
 		Item mainItem = drowned.getHeldItem(EnumHand.MAIN_HAND).getItem();
 		
-		if (mainItem == OEItems.TRIDENT_ORIG && flag)
+		int tridentAnimStyle = ConfigHandler.item.trident.trident3PsnAnimStyle;
+		
+		if (mainItem == OEItems.TRIDENT_ORIG && flag && tridentAnimStyle != 0)
 		{
-			float maxItemUseDuration = ((EntityLivingBase) entityIn).getActiveItemStack().getMaxItemUseDuration();
-			float itemInUseCount = ((EntityLivingBase) entityIn).getItemInUseCount();
-			float ticksExisted = (float) entityIn.ticksExisted;
-
-			float smoothUseTime = maxItemUseDuration - (itemInUseCount - (ageInTicks - ticksExisted) + 1.0F);
-			float hand = Math.min(smoothUseTime / 18.0F, 2.0F);
+			boolean rightHanded = drowned.getPrimaryHand() == EnumHandSide.RIGHT;
+			ModelRenderer arm = rightHanded ? this.bipedRightArm : this.bipedLeftArm;
 			
-			if (drowned.getPrimaryHand() == EnumHandSide.RIGHT)
-            {
-	            this.bipedRightArm.rotateAngleX -= hand;
-        		usingRTrident = true;
-            }
-            if (drowned.getPrimaryHand() == EnumHandSide.LEFT)
-            {
-                this.bipedLeftArm.rotateAngleX -= hand;
-            	usingLTrident = true;
-            }
+			if (tridentAnimStyle == 2)
+			{
+				float maxItemUseDuration = ((EntityLivingBase) entityIn).getActiveItemStack().getMaxItemUseDuration();
+				float itemInUseCount = ((EntityLivingBase) entityIn).getItemInUseCount();
+				float ticksExisted = (float) entityIn.ticksExisted;
+
+				float smoothUseTime = maxItemUseDuration - (itemInUseCount - (ageInTicks - ticksExisted) + 1.0F);
+				arm.rotateAngleX -= Math.min(smoothUseTime / 18.0F, 2.0F);
+			}
+			else
+			{
+				arm.rotateAngleX = 3.1F;
+				arm.rotateAngleY = 0.0F;
+			}
+			
+			usingRTrident = rightHanded;
+			usingLTrident = !rightHanded;
 		}
 		
 		if (drowned.isInWater() && ConfigHandler.entity.drowned.enableDrownedSwimAnims)

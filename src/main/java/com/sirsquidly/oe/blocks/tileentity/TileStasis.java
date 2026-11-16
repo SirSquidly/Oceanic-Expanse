@@ -20,15 +20,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;
 
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
 
 public class TileStasis extends TileEntity implements ITickable
 {
 	public EntityLivingBase attackTarget;
-	@Nullable
-	private UUID attackTargetUUID;
 
 	public boolean isActive;
 	public boolean isElder;
@@ -104,7 +100,6 @@ public class TileStasis extends TileEntity implements ITickable
 
 		List<EntityLivingBase> nearbyMobs = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.add(-expandBy, -expandBy, -expandBy), pos.add(expandBy + 1, expandBy + 1, expandBy + 1)));
 
-		/* Filters out any entities in range that do not match the conditions. Intellij automatically condensed this, it's pretty damn cool. */
 		nearbyMobs.removeIf(thisEntity -> !this.canSeeEntity(thisEntity) || thisEntity.getDistanceSqToCenter(pos) > (expandBy + 1) * (expandBy + 1) || !isAcceptableTarget(thisEntity));
 
 		if (!nearbyMobs.isEmpty())
@@ -112,8 +107,6 @@ public class TileStasis extends TileEntity implements ITickable
 			this.attackTarget = nearbyMobs.get(world.rand.nextInt(nearbyMobs.size()));
 			this.attackTick = 0;
 			this.clientAttackTick = 0;
-
-			System.out.println("New attack target: " + this.attackTarget.getName());
 		}
 	}
 

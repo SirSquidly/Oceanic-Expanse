@@ -24,7 +24,7 @@ public class ResonanceCaptainCall extends Resonance
         if (user.world.isRemote) return;
         Main.proxy.spawnParticle(3, user.world, user.posX, user.posY + user.getEyeHeight(), user.posZ, 0, 0.01, 0, 2);
 
-        if (item.hasDisplayName()) itemName = item.getDisplayName();
+        itemName = item.hasDisplayName() ? item.getDisplayName() : null;
         /** Only damage the item if a Drowned successfully is summoned in! */
         if (doDrownedSummon(user))
         { item.damageItem(getDurabilityCost(), user); }

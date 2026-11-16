@@ -321,6 +321,10 @@ public class ConfigHandler
 		    @Config.Comment("Makes Drowned spawn in groups in Shipwrecks when generated. There's 1 group per chest, making more complete shipwrecks more challenging.")
 		    public boolean enableShipwreckDrowned = true;
 			
+		    @Config.LangKey("oe.config.worldGen.shipwreckGuaranteedCaptain")
+		    @Config.Comment("Guarantees one Drowned Captain in each complete Shipwreck (the ones with 3 Drowned groups). Requires Shipwreck Drowned Groups and Drowned Captains to be enabled.")
+		    public boolean shipwreckGuaranteedCaptain = false;
+			
 			@RequiresMcRestart
 		    @Config.LangKey("oe.config.worldGen.shipwreckChancePerChunk")
 		    @Config.Comment("The Shipwreck's chance to generate, per try. 1 / this number")
@@ -1083,6 +1087,7 @@ public class ConfigHandler
 		    @RequiresMcRestart
 		    @Config.LangKey("oe.config.item.trident.tridentDurability")
 		    @Config.Comment("The Trident's Durability (note, displays as this -1 in-game, as 0 counts as a point)")
+		    @Config.RangeInt(min = 2)
 		    public int tridentDurability = 250;
 
 		    @Config.LangKey("oe.config.item.trident.trident3PsnAnimStyle")
@@ -1832,9 +1837,9 @@ public class ConfigHandler
 
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.drownedCaptainSetChance")
-			    @Config.Comment("The chance for a drowned to be a drowned captain. Calculated as '(this x Clamped Regional Difficulty)%'")
+			    @Config.Comment("The chance (in %) for a drowned to be a drowned captain, including the drowned generated in Shipwrecks.")
 				@Config.RangeDouble(min = 0, max = 100)
-			    public double drownedCaptainSetChance = 0.01;
+			    public double drownedCaptainSetChance = 1.0;
 
 				@RequiresMcRestart
 			    @Config.LangKey("oe.config.entity.enableDrownedCaptainTexture")

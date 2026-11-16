@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import org.apache.commons.lang3.ArrayUtils;
 
 import net.minecraft.client.resources.I18n;

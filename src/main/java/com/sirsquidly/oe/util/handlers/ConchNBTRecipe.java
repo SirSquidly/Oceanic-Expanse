@@ -1,6 +1,5 @@
 package com.sirsquidly.oe.util.handlers;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.sirsquidly.oe.init.OEItems;
 import net.minecraft.inventory.InventoryCrafting;
@@ -13,14 +12,12 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
 
 /**
  * 	Custom recipe type used to transfer the Conch's NBT tags over to the Magic Conch properly.
  *
  * 	Based on the `RecipeArmorDyes` class, with countless liberties taken.
  */
-@SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
 public class ConchNBTRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe
 {
@@ -29,8 +26,6 @@ public class ConchNBTRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements
     {
         ItemStack conchItem = ItemStack.EMPTY;
         ItemStack pearlItem = ItemStack.EMPTY;
-
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i)
         {

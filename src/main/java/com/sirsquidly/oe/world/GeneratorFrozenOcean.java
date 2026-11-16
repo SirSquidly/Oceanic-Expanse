@@ -94,7 +94,7 @@ public class GeneratorFrozenOcean implements IWorldGenerator
 					this.frozenOceanNoiseGen = frozenOceanNoiseGenOctaves.generateNoiseOctaves(this.frozenOceanNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.00764D, 1.0, 0.00764D);
 					this.iceSheetNoiseGen = iceSheetNoiseGenOctaves.generateNoiseOctaves(this.iceSheetNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.225D, 1.0, 0.225D);
 					this.icebergIceNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergIceNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 1.0D, 1.0, 1.0D);
-					this.icebergCircleNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergCircleNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 1.0D, 1.0, 1.0D);
+					this.icebergCircleNoiseGen = this.icebergIceNoiseGen;
 					this.icebergSnowNoiseGen = icebergNoiseGen.generateNoiseOctaves(this.icebergSnowNoiseGen, chunkX * 16, 0, chunkZ * 16, 16, 1, 16, 0.825, 1.0, 0.825);
 					noiseGenerated = true;
 				}

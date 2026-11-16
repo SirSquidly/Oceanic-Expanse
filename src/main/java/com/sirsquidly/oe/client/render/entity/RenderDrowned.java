@@ -42,7 +42,7 @@ public class RenderDrowned<T extends EntityDrowned> extends RenderLiving<T>
 		this.addLayer(new LayerRiptideAnim(this));
         
         if (ConfigHandler.entity.drowned.drownedGlowLayer)
-        { this.addLayer(new LayerDrowned(this)); }
+        { this.addLayer(new LayerDrowned<T>(this)); }
         
         LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this)
         {

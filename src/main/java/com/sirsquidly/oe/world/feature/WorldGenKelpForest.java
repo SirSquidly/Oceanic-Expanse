@@ -7,13 +7,20 @@ import com.sirsquidly.oe.blocks.BlockKelp;
 import com.sirsquidly.oe.init.OEBlocks;
 import com.sirsquidly.oe.util.handlers.ConfigHandler;
 
+import git.jbredwards.fluidlogged_api.api.fluid.IFluidloggableFluid;
+import git.jbredwards.fluidlogged_api.api.util.FluidState;
+import git.jbredwards.fluidlogged_api.api.util.FluidloggedUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
@@ -79,10 +86,9 @@ public class WorldGenKelpForest implements IWorldGenerator
 				int posX = chunkPosX + x;
 				int posZ = chunkPosZ + z;
 
-				BlockPos pos = world.getTopSolidOrLiquidBlock(new BlockPos(posX, 0, posZ));
-                
                 if (this.kelpNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.07 > ConfigHandler.worldGen.kelpForest.kelpSpread && !(this.frozenOceanNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.6) && !(this.sandNoiseGen[x * 16 + z] / 4 - rand.nextDouble() * 0.01 > 0.95)) 
                 {
+                	BlockPos pos = world.getTopSolidOrLiquidBlock(new BlockPos(posX, 0, posZ));
                 	Block blockDown = world.getBlockState(pos.down()).getBlock();
 
                 	if (rand.nextDouble() < ConfigHandler.worldGen.kelpForest.kelpDensity && OEBlocks.KELP.canPlaceBlockAt(world, pos) && blockDown != OEBlocks.KELP)
@@ -97,19 +103,49 @@ public class WorldGenKelpForest implements IWorldGenerator
     public void growKelpStalk(World worldIn, Random rand, BlockPos pos)
     {
 		int growthLimit = rand.nextInt(BlockKelp.randomAge + 1);
-		boolean useFluidlogged = Main.proxy.fluidlogged_enable;
 
 		for (int i = 0; i < growthLimit; i++)
 		{
 			if (!OEBlocks.KELP.canPlaceBlockAt(worldIn, pos)) break;
 
 			IBlockState kelpState = OEBlocks.KELP.getDefaultState();
-			worldIn.setBlockState(pos, kelpState, 2 | 64);
+			placeKelp(worldIn, pos, kelpState);
 
 			pos = pos.up();
 		}
     }
     
+    private static void placeKelp(World world, BlockPos pos, IBlockState kelpState)
+    {
+    	if (Main.proxy.fluidlogged_enable && FluidloggedPlacer.tryPlace(world, pos, kelpState)) return;
+
+    	world.setBlockState(pos, kelpState, 2 | 64);
+    }
+
+    private static final class FluidloggedPlacer
+    {
+    	static boolean tryPlace(World world, BlockPos pos, IBlockState newState)
+    	{
+    		if (!(world instanceof WorldServer)) return false;
+
+    		PlayerChunkMapEntry watchers = ((WorldServer)world).getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4);
+    		int flags = watchers != null && watchers.isSentToPlayers() ? 2 | 16 : 16;
+
+    		Chunk chunk = world.getChunk(pos);
+    		IBlockState oldState = chunk.getBlockState(pos);
+    		if (!(oldState.getBlock() instanceof IFluidloggableFluid)) return false;
+
+    		IFluidloggableFluid handler = (IFluidloggableFluid)oldState.getBlock();
+    		FluidState oldFluid = FluidState.of(oldState);
+    		if (!handler.isFluidloggableFluid(oldFluid) || !handler.isStateFluidloggable(newState, world, pos, oldFluid)) return false;
+
+    		chunk.setBlockState(pos, newState);
+    		FluidloggedUtils.setFluidState(world, pos, newState, oldFluid, false, flags);
+    		return true;
+    	}
+    }
+    
+
     public static BlockPos getSeaFloor(World world, int x, int z)
     {
     	int yPos = Math.max(world.getSeaLevel() - 2, 1);;

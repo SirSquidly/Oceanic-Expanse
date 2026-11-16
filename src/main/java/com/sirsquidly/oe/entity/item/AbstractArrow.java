@@ -1,12 +1,16 @@
 package com.sirsquidly.oe.entity.item;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -16,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -24,7 +29,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class AbstractArrow extends EntityArrow implements IProjectile
+public class AbstractArrow extends EntityArrow
 {
 	private int xTile;
     private int yTile;
@@ -35,7 +40,6 @@ public class AbstractArrow extends EntityArrow implements IProjectile
     //protected int timeInGround;
     //public PickupStatus pickupStatus;
     protected int ticksInGround;
-    @SuppressWarnings("unused")
 	private int ticksInAir;
     protected float damage;
     // Custom stuff below
@@ -45,6 +49,8 @@ public class AbstractArrow extends EntityArrow implements IProjectile
 	protected double bounceYStrength;
 	protected float airSpeed;
 	protected float waterSpeed;
+	private static final int SHOOTER_GRACE_TICKS = 5;
+	private static final Predicate<Entity> ARROW_TARGETS = Predicates.and(EntitySelectors.NOT_SPECTATING, EntitySelectors.IS_ALIVE, Entity::canBeCollidedWith);
 	 
 	public AbstractArrow(World worldIn)
 	{
@@ -78,6 +84,34 @@ public class AbstractArrow extends EntityArrow implements IProjectile
         }
     }
 
+	@Nullable
+	@Override
+	protected Entity findEntityOnPath(Vec3d start, Vec3d end)
+	{
+		Entity hit = null;
+		double closest = 0.0D;
+
+		for (Entity candidate : this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D), ARROW_TARGETS))
+		{
+			if (candidate == this.shootingEntity && this.ticksInAir < SHOOTER_GRACE_TICKS) continue;
+
+			RayTraceResult intercept = candidate.getEntityBoundingBox().grow(0.3D).calculateIntercept(start, end);
+
+			if (intercept != null)
+			{
+				double distance = start.squareDistanceTo(intercept.hitVec);
+
+				if (distance < closest || closest == 0.0D)
+				{
+					hit = candidate;
+					closest = distance;
+				}
+			}
+		}
+
+		return hit;
+	}
+	
 	@Override
 	public void onUpdate()
     {
@@ -155,7 +189,7 @@ public class AbstractArrow extends EntityArrow implements IProjectile
                 vec3d = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
             }
 
-            if (this.canEntityCollide)
+            if (this.canEntityCollide && !this.world.isRemote)
             {
             	Entity entity = this.findEntityOnPath(vec3d1, vec3d);
 

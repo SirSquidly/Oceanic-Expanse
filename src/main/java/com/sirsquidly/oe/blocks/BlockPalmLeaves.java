@@ -86,14 +86,12 @@ public class BlockPalmLeaves extends BlockLeaves
         return Blocks.LEAVES.getRenderLayer();
     }
     
-    @SuppressWarnings("deprecation")
 	@Override
     public boolean isOpaqueCube(IBlockState state)
     {
         return Blocks.LEAVES.isOpaqueCube(state);
     }
 
-    @SuppressWarnings("deprecation")
 	@Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)

@@ -80,7 +80,6 @@ public class EntityUnderwaterTNTPrimed extends EntityTNTPrimed
 
     private void explodeUnderwater()
     {
-        float f = 4.0F;
         ExplosionUnderwater explosion = new ExplosionUnderwater(this.world, this, this.posX, this.posY + (double)(this.height / 16.0F), this.posZ, 4.0F, true, true);
         //if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this, explosion)) return explosion;
         explosion.setWaterDestructionChance(ConfigHandler.block.waterTNT.waterDestructionChance * 0.01F);

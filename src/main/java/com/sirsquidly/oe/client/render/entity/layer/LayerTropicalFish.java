@@ -39,7 +39,7 @@ public class LayerTropicalFish implements LayerRenderer<EntityTropicalFish>
 	        /** Bonus check to only really apply the pattern if it's within the acceptable range. Otherwise, fish outside of range (only possible via commands) would display the missing texture.  */
 	        if ((entitylivingbaseIn.getTropicalFishVariant() >> 8 & 255) <= 5)
 	        {
-	        	if (getModel == "a")
+	        	if ("a".equals(getModel))
 		        {
 		        	this.modelA.setModelAttributes(this.tropicalFishRenderer.getMainModel());
 			        this.modelA.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);

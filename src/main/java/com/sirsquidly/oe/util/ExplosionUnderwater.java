@@ -38,7 +38,6 @@ import java.util.Set;
  * */
 public class ExplosionUnderwater extends Explosion
 {
-    private final boolean causesFire;
     private final boolean damagesTerrain;
     private final Random random;
     private final World world;
@@ -49,7 +48,6 @@ public class ExplosionUnderwater extends Explosion
     private final float size;
     private final List<BlockPos> affectedBlockPositions;
     private final Map<EntityPlayer, Vec3d> playerKnockbackMap;
-    private final Vec3d position;
 
     /** A list of water blocks to be compared against. */
     public static List<Block> waterBlocks = Lists.newArrayList(Blocks.WATER, Blocks.FLOWING_WATER );
@@ -72,9 +70,7 @@ public class ExplosionUnderwater extends Explosion
         this.x = x;
         this.y = y;
         this.z = z;
-        this.causesFire = causesFire;
         this.damagesTerrain = damagesTerrain;
-        this.position = new Vec3d(this.x, this.y, this.z);
     }
 
     /** This preforms all the steps of an explosion, bundled for ease of use. */
@@ -90,7 +86,6 @@ public class ExplosionUnderwater extends Explosion
     public void doExplosionBlockRecording()
     {
         Set<BlockPos> set = Sets.<BlockPos>newHashSet();
-        int i = 16;
 
         for (int j = 0; j < 16; ++j)
         {
@@ -112,7 +107,7 @@ public class ExplosionUnderwater extends Explosion
                         double d6 = this.y;
                         double d8 = this.z;
 
-                        for (float f1 = 0.3F; f > 0.0F; f -= 0.22500001F)
+                        for (; f > 0.0F; f -= 0.22500001F)
                         {
                             BlockPos blockpos = new BlockPos(d4, d6, d8);
                             IBlockState iblockstate = this.world.getBlockState(blockpos);
@@ -279,7 +274,7 @@ public class ExplosionUnderwater extends Explosion
         if (!Main.proxy.fluidlogged_enable) return originalResistance;
 
         final FluidState fluidState = FluidloggedUtils.getFluidState(world, pos);
-        return fluidState.isEmpty() ? originalResistance : block.getExplosionResistance(this.exploder);
+        return fluidState.isEmpty() ? originalResistance : block.getExplosionResistance(world, pos, this.exploder, this);
     }
 
     /** If this given block is within `waterBlocks`. */

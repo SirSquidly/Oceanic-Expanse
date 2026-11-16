@@ -92,8 +92,6 @@ public class UnderwaterBonemealEvent
 	{
 		if (!ConfigHandler.block.coralBlocks.enableCoralFan && !ConfigHandler.block.coralBlocks.enableCoral) return;
 		
-		int randCoral = ConfigHandler.block.coralBlocks.enableCoralFan ? ConfigHandler.block.coralBlocks.enableCoral ? rand.nextInt(10) : rand.nextInt(5) : rand.nextInt(5) + 5;
-
 		boolean doFanGen = ConfigHandler.block.coralBlocks.enableCoralFan && rand.nextBoolean();
 
 		if (doFanGen)

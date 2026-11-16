@@ -180,7 +180,7 @@ public class EntityTrident extends AbstractArrow
             }
 		}
 
-		if (this.getItem() == ItemStack.EMPTY || this.getItem().getItemDamage() >= this.getItem().getMaxDamage())
+		if (this.getItem().isEmpty() || this.getItem().getItemDamage() >= this.getItem().getMaxDamage())
 		{ this.setDead(); }
 		
 		super.onUpdate();

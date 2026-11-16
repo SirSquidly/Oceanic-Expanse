@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -22,8 +21,6 @@ import java.util.List;
 
 public class ItemConchMagic extends ItemConch
 {
-	private int defaultCooldown = ConfigHandler.item.conch.conchCooldown;
-
 	public ItemConchMagic()
 	{
 		super();
@@ -37,7 +34,6 @@ public class ItemConchMagic extends ItemConch
     {
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 
-		NBTTagCompound nbttagcompound = stack.getTagCompound();
         if (!worldIn.isRemote)
         { if (ResonanceUtil.getResonance(stack) == null) ResonanceUtil.addRandomResonance(stack, worldIn.rand); }
     }

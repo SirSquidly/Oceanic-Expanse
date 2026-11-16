@@ -224,7 +224,6 @@ public class BlockPrismarinePot extends BlockContainer implements IChecksWater
         return new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D);
     }
 	
-    @SuppressWarnings("deprecation")
 	@Override
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState)
 	{

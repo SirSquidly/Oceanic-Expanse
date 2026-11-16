@@ -250,7 +250,7 @@ public class EntityLobster extends EntityAnimal implements IEggCarrierMob, IMele
         if (this.getSaddled())
         {
             ItemStack wornSaddle = this.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-            this.entityDropItem(wornSaddle == ItemStack.EMPTY ? new ItemStack(Items.SADDLE) : wornSaddle, 1.0F);
+            this.entityDropItem(wornSaddle.isEmpty() ? new ItemStack(Items.SADDLE) : wornSaddle, 1.0F);
         }
 
         int loopAmount = Math.max(this.getSize() / 3, 1);
