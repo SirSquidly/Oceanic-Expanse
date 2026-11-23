@@ -1,0 +1,214 @@
+@import "./block-style.css";
+
+/**
+ * Oceanic Expanse palette:
+ *   ocean blue  #1f7a99 (deep #0d2f4a)
+ *   prismarine  #4cc9a6
+ *   coral       #f2876b
+ */
+
+:root {
+  --oe-ocean: #1f7a99;
+  --oe-ocean-deep: #0d2f4a;
+  --oe-accent: #4cc9a6;
+  --oe-coral: #f2876b;
+
+  --ifm-color-primary: #1f7a99;
+  --ifm-color-primary-dark: #1c6e8a;
+  --ifm-color-primary-darker: #1a6882;
+  --ifm-color-primary-darkest: #15556b;
+  --ifm-color-primary-light: #2286a8;
+  --ifm-color-primary-lighter: #248cb0;
+  --ifm-color-primary-lightest: #2a9fc7;
+
+  --ifm-link-hover-color: #15556b;
+  --ifm-background-color: #f4f8fa;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-code-font-size: 95%;
+  --ifm-table-stripe-background: rgba(31, 122, 153, 0.05);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* The navbar and footer stay deep ocean blue in both colour modes. */
+  --ifm-navbar-background-color: var(--oe-ocean-deep);
+  --ifm-navbar-link-color: #ffffff;
+  --ifm-navbar-link-hover-color: #9be8d2;
+  --ifm-footer-background-color: #0a2439;
+  --ifm-footer-link-hover-color: #9be8d2;
+
+  --oe-pixel-font: 'Silkscreen', 'Courier New', monospace;
+}
+
+/* For readability concerns, use a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #56c4de;
+  --ifm-color-primary-dark: #3dbad8;
+  --ifm-color-primary-darker: #30b5d5;
+  --ifm-color-primary-darkest: #2497b3;
+  --ifm-color-primary-light: #6fcee4;
+  --ifm-color-primary-lighter: #7cd2e7;
+  --ifm-color-primary-lightest: #a1dfee;
+
+  --ifm-link-hover-color: #9be8d2;
+  --ifm-background-color: #0b1620;
+  --ifm-background-surface-color: #11212e;
+  --ifm-table-stripe-background: rgba(86, 196, 222, 0.06);
+  --ifm-navbar-background-color: #08213a;
+  --ifm-footer-background-color: #061a2c;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Keep the navbar title and toggle icons readable on the dark bar. */
+.navbar__title,
+.navbar__link,
+.navbar__toggle,
+.navbar .clean-btn {
+  color: #ffffff;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: #9be8d2;
+}
+
+.navbar-curseforge-link,
+.navbar-discord-link {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.navbar-curseforge-link:hover,
+.navbar-discord-link:hover {
+  color: #9be8d2;
+}
+
+/* Keep issue reporting visible from every wiki page. */
+.navbar .navbar-report-issue-button {
+  background: var(--oe-accent);
+  border-radius: 0.25rem;
+  color: #08261f;
+  font-weight: 600;
+  margin: 0.5rem 0.35rem;
+  order: 1;
+  padding: 0.2rem 0.55rem;
+}
+
+.navbar .navbar-report-issue-button:hover {
+  background: #7ddcc1;
+  color: #08261f;
+}
+
+/* Pixel-art logos: keep them crisp when scaled. */
+.navbar__logo {
+  width: 2rem;
+  height: 2rem;
+}
+
+.navbar__logo img,
+.footer__logo {
+  image-rendering: pixelated;
+}
+
+.navbar__logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.footer__logo {
+  max-width: min(368px, 100%);
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  border-left: 3px solid var(--oe-accent);
+}
+
+/* Coral note admonitions. */
+.alert--secondary,
+.theme-admonition-note {
+  --ifm-alert-background-color: rgba(242, 135, 107, 0.12);
+  --ifm-alert-border-color: var(--oe-coral);
+}
+
+/* Pixel font for the site title and page titles only; body text stays in the default font. */
+.navbar__title,
+.theme-doc-markdown h1 {
+  font-family: var(--oe-pixel-font);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.navbar__title {
+  font-size: 1.15rem;
+}
+
+.theme-doc-markdown h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
+}
+
+/* footer--dark sets its own background variable, so override it at that level. */
+.footer--dark {
+  --ifm-footer-background-color: #0a2439;
+}
+
+[data-theme='dark'] .footer--dark {
+  --ifm-footer-background-color: #061a2c;
+}
+
+.footer {
+  --ifm-footer-padding-vertical: 1rem;
+}
+
+/* The wiki's small item/block icons should not get the big screenshot frame. */
+article img[align='left'],
+article img[width='20'],
+article img[width='30'],
+article img[width='32'],
+article img[width='40'],
+article img[width='60'],
+article img[width='70'],
+article img[width='75'],
+article img[width='100'] {
+  border: none;
+  box-shadow: none;
+  image-rendering: pixelated;
+}
+
+/* Wiki pattern: a left-floated icon in its own paragraph, then a heading beside it, then a list.
+   Keep the icon next to the heading and start the list below the icon. */
+article img[align='left'] {
+  float: left;
+  margin: 0 0.6rem 0.25rem 0;
+}
+
+article p:has(> img[align='left']:only-child) {
+  margin: 0;
+}
+
+article p:has(> img[align='left']:only-child) + :is(h2, h3, h4, h5) {
+  margin-top: 0;
+  padding-top: 0.5rem;
+}
+
+article ul,
+article ol {
+  clear: left;
+}
+
+/* Right-floated screenshots keep a gap from the text beside them. */
+article img[align='right'] {
+  float: right;
+  margin: 0 0 0.75rem 1rem;
+  max-width: 50%;
+}
+
+/* On narrow screens there's no room beside a screenshot, so it sits on its own line. */
+@media (max-width: 996px) {
+  article img[align='right'] {
+    float: none;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 0 1rem;
+  }
+}
