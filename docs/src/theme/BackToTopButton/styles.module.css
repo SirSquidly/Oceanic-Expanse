@@ -1,0 +1,34 @@
+.backToTop {
+  position: fixed;
+  right: 1.3rem;
+  bottom: 1.3rem;
+  z-index: var(--ifm-z-index-fixed);
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 2px solid var(--oe-border, rgba(0, 0, 0, 0.25));
+  border-radius: 50%;
+  background-color: var(--oe-ocean, var(--ifm-color-primary));
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--ifm-global-shadow-lw);
+  opacity: 0;
+  transform: scale(0.6);
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.backToTop.shown {
+  opacity: 1;
+  transform: scale(1);
+  visibility: visible;
+}
+
+.backToTop:hover {
+  background-color: var(--oe-accent, var(--ifm-color-primary-dark));
+}

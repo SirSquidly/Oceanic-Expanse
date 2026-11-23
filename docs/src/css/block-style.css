@@ -1,0 +1,78 @@
+/*
+ * Optional "block" look: square corners, chunky borders, bevelled panels.
+ * To turn it off, remove the `@import './block-style.css';` line at the top of custom.css.
+ */
+
+:root {
+  --ifm-global-radius: 0;
+  --ifm-code-border-radius: 0;
+  --ifm-button-border-radius: 0;
+  --ifm-alert-border-radius: 0;
+  --ifm-pre-border-radius: 0;
+  --ifm-pagination-nav-border-radius: 0;
+  --ifm-table-border-width: 2px;
+  --oe-border: rgba(13, 47, 74, 0.55);
+  --oe-bevel-light: rgba(255, 255, 255, 0.35);
+  --oe-bevel-dark: rgba(0, 0, 0, 0.22);
+}
+
+[data-theme='dark'] {
+  --oe-border: rgba(86, 196, 222, 0.35);
+  --oe-bevel-light: rgba(255, 255, 255, 0.10);
+  --oe-bevel-dark: rgba(0, 0, 0, 0.45);
+}
+
+/* Bevelled panels: light edge top-left, dark edge bottom-right. */
+.alert,
+pre,
+.pagination-nav__link,
+.table-of-contents,
+.oe-panel {
+  border: 2px solid var(--oe-border);
+  box-shadow: inset 2px 2px 0 var(--oe-bevel-light), inset -2px -2px 0 var(--oe-bevel-dark);
+}
+
+/* Tables: heavier grid, bevelled header. */
+table {
+  border: 2px solid var(--oe-border);
+}
+
+table th {
+  box-shadow: inset 0 2px 0 var(--oe-bevel-light), inset 0 -2px 0 var(--oe-bevel-dark);
+}
+
+/* Buttons feel pressable. */
+.button {
+  border-width: 2px;
+  box-shadow: inset 2px 2px 0 var(--oe-bevel-light), inset -2px -2px 0 var(--oe-bevel-dark);
+}
+
+.button:active {
+  box-shadow: inset -2px -2px 0 var(--oe-bevel-light), inset 2px 2px 0 var(--oe-bevel-dark);
+}
+
+/* Inline code keeps a thin square outline. */
+code {
+  border-width: 2px;
+}
+
+/* Navbar and footer get a chunky edge in the accent green. */
+.navbar {
+  border-bottom: 4px solid var(--oe-accent);
+  box-shadow: none;
+}
+
+.footer {
+  border-top: 4px solid var(--oe-accent);
+}
+
+/* Screenshots get a thick frame with an outer shadow, like an in-game picture frame. */
+article img {
+  border: 4px solid var(--oe-border);
+  box-shadow: 4px 4px 0 var(--oe-bevel-dark);
+}
+
+/* Sidebar: square active marker. */
+.menu__link {
+  border-radius: 0;
+}
